@@ -1,0 +1,873 @@
+"The Project Gutenberg eBook of Physico-theology
+This eBook is for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever. You may copy it, give it away or re-use it under the terms of the Project Gutenberg License included with this eBook or online at www.gutenberg.org. If you are not located in the United States, you will have to check the laws of the country where you are located before using this eBook.
+Title: Physico-theology
+
+Or, a demonstration of the being and attributes of God, from His works of creation
+
+Author: W. Derham
+
+
+Release date: January 30, 2025 [eBook #75254]
+
+Language: English
+
+Original publication: London: W. and J. Innys, 1720
+
+Other information and formats: www.gutenberg.org/ebooks/75254
+
+Credits: Charlene Taylor, Bryan Ness and the Online Distributed Proofreading Team at https://www.pgdp.net (This file was produced from images generously made available by The Internet Archive)
+
+*** START OF THE PROJECT GUTENBERG EBOOK PHYSICO-THEOLOGY ***
+PHYSICO-THEOLOGY
+Transcriber’s Note: Due to the age of this book, spelling, grammar, hyphenation, capitalization etc do not conform to modern standards, and in many cases are not even consistent within the text itself. Text has been retained as printed. Exceptions were made for a few extremely obvious printer’s errors (such as RAEDER for READER in the heading TO THE READER, and confusion between similar-looking Hebrew letters).
+
+PHYSICO-THEOLOGY:
+OR, A
+DEMONSTRATION
+OF THE
+Being and Attributes of GOD,
+FROM HIS
+Works of Creation.
+
+Being the Substance of
+Sixteen SERMONS
+Preached in St. Mary-le-Bow-Church, London;
+At the Honourable Mr. BOYLE’s Lectures,
+in the Years 1711, and 1712.
+
+With large Notes, and many curious Observations.
+
+By W: DERHAM, Canon of Windsor, Rector of Upminster in Essex, and F. R. S.
+
+Mala & impia consuetudo est contra Deos disputare, sive animo id fit, sive simulatè. Cicer. de Nat. Deor. L. 2. fine.
+
+The Fifth Edition, more Correct than any of the former.
+
+
+LONDON: Printed for W. and J. Innys, at the
+Prince’s-Arms the West End of St. Paul’s. 1720.
+
+
+TO THE
+Most Reverend Father in GOD,
+THOMAS,
+Lord Archbishop of Canterbury.
+Primate of all ENGLAND, &c.
+
+The Surviving Trustee of the Honourable Mr. BOYLE’s Lectures.
+May it please Your Grace,
+
+
+ may justly put these Lectures under your Graces Patronage, their Publication being wholly owing to You: For having the Honour to be a Member of the Royal Society, as well as a Divine, I was minded to try what I could do towards the Improvement of Philosophical Matters to Theological Uses; and accordingly laid a Scheme of what I have here published a Part of, and when I had little else to do, I drew up what I had to say, making it rather the diverting Exercises of my Leisure Hours, than more serious Theological Studies. This Work, (although I made a considerable Progress in it at first, whilst a Novelty, yet) having no Thoughts of Publishing, I laid aside, until your Grace, being informed of my Design by some of my Learned Friends, both of the Clergy and Laity, was pleased to call me to the unexpected Honour of Preaching Mr. Boyle’s Lectures: An Honour I was little aware of in my Country-Privacy, and not much acquainted with Persons in high Stations, and not at all, particularly, with your Grace. So that therefore as it pleased your Grace, not only to confer an unsought profitable Honour upon me (a Stranger) but also to continue it for Two Years, out of Your good Opinion of my Performance, in some measure, answering Mr. Boyle’s End; so I can do no less than make this publick, grateful Acknowledgment of your Grace’s great and unexpected Favour.
+
+But it is not my self alone; but the whole Lecture also is beholden to your Grace’s kind and pious Endeavours. It was You that encouraged this noble Charity, and assisted in the Settlement of it, in the Honourable Founder’s Life-time; and since his Death, it was You that procured a more certain Salary for the Lecturers, paid more constantly and duly than it was before[a].
+
+These Benefits as I my self have been a Sharer of, so I should be very ungrateful should I not duly acknowledge, and repay with my repeated Thanks and good Wishes And that the infinite Rewarder of well-doing may give Your Grace a plentiful Reward of these, and Your many other, both Publick and Private Benefactions, is the hearty Wish of,
+
+Your Grace’s
+Most Humble and Thankful
+Son and Servant,
+
+W. Derham.
+
+FOOTNOTES:
+[a]It may not only gratify the Reader’s Curiosity, but also be of Use for preventing Encroachments in Time to come, to give the following Account of Mr. Boyle’s Lectures.
+
+Mr. Boyle, by a Codicil, dated July 28. 1691. and annexed to his Will, charged his Messuage or Dwelling-House in St. Michael’s Crooked-Lane, London, with the Payment of the clear Yearly Rents and Profits thereof, to some Learned Divine in London, or within the Bills of Mortality, to be Elected for a Term not exceeding Three Years, by his Grace the present Lord Archbishop of Canterbury (then Dr. Tenison), Sir Henry Ashurst, Sir John Rotheram, and John Evelyn, Esq; The Business he appointed those Lectures for, was, among others, to be ready to satisfie real Scruples, and to answer such new Objections and Difficulties, as might be started: to which good Answers had not been made. And also, To Preach Eight Sermons in the Year, the first Monday of January, February, March, April and May, and of September, October and November. The Subject of these Sermons was to be, The Proof of the Christian Religion against notorious Infidels, viz. Atheists, Theists, Pagans, Jews, and Mahometans, not descending lower to any Controversies that are among Christians themselves. But by Reason the Lecturers were seldom continued above a Year, and that the House sometimes stood empty, and Tenants brake, or failed in due Payment of their Rent, therefore the Salary sometimes remained long unpaid, or could not be gotten without some Difficulty: To remedy which Inconvenience, his present Grace of Canterbury procured a Yearly Stipend of 50l. to be paid Quarterly for ever, charged upon a Farm in the Parish of Brill, in the County of Bucks: Which Stipend is accordingly very duly paid when demanded, without Fee or Reward.
+
+
+TO THE
+READER.
+Vid. Bp. Burnet’s Funeral Serm. p. 24.
+
+s the noble Founder of the Lectures I have had the Honour of Preaching, was a great Improver of Natural Knowledge, so, in all Probability, he did it out of a pious End, as well as in Pursuit of his Genius. For it was his settled Opinion, that nothing tended more to cultivate true Religion and Piety in a Man’s Mind, than a thorough Skill in Philosophy. And such Effect it manifestly had in him, as is evident from divers of his published Pieces; from his constant Deportment in never mentioning the Name of God without a Pause, and visible Stop in his Discourse; and from the noble Foundation of his Lectures for the Honour of God, and the generous Stipend he allowed for the same.
+
+Vid. Mr. Boyle’s Will.
+And forasmuch as his Lectures were appointed by him for the Proof of the Christian Religion against Atheists and other notorious Infidels, I thought, when I had the Honour to be made his Lecturer, that I could not better come up to his Intent, than to attempt a Demonstration of the Being and Attributes of God, in what I may call Mr. Boyle’s own, that is a Physico-Theological, Way. And, besides that it was for this very Service that I was called to this Honour, I was the more induced to follow this Method, by reason none of my learned and ingenious Predecessors in these Lectures, have done it on purpose, but only casually, in a transient, piece-meal manner; they having made it their Business to prove the great Points of Christianity in another Way, which they have accordingly admirably done. But considering what our Honourable Founder’s Opinion was of Natural Knowledge, and that his Intent was, that those Matters by passing through divers Hands, and by being treated of in different Methods, should take in most of what could be said upon the Subject, I hope my Performance may be acceptable, although one of the meanest.
+
+As for others, who have before me done something of this kind; as Mersenne on Genesis; Dr. Cockburne in his Essays; Mr. Ray in his Wisdom of God, &c. and I may add the first of Mr. Boyle’s Lecturers, the most learned Dr. Bently in his Boyle’s Lectures, the eloquent Arch-Bishop of Cambray, (and I hear, the ingenious Mons. Perault hath something of this kind, but never saw it:) I say, as to these learned and ingenious Authors, as the Creation is an ample Subject, so I industriously endeavour’d to avoid doing over what they before had done; and for that Reason did not, for many Years, read their Books until I had finish’d my own. But when I came to compare what each of us had done, I found my self in many Things to have been anticipated by some or other of them, especially by my Friend, the late great Mr. Ray. And therefore in some Places I shorten’d my Discourse, and referr’d to them; and in a few others, where the Thread of my Discourse would have been interrupted, I have made use of their Authority, as the best Judges; as of Mr. Ray’s, for Instance, with Relation to the Mountains and their Plants, and other Products. If then the Reader should meet with any Thing mention’d before by others, and not accordingly acknowledged by me, I hope he will candidly think me no Plagiary, because I can assure him I have along, (where I was aware of it,) cited my Authors with their due Praise. And it is scarce possible, when Men write on the same, or a Subject near a-kin, and the Observations are obvious, but that they must often hit upon the same Thing: And frequently this may happen from Persons making Observations about one, and the same Thing, without knowing what each other hath done; which indeed, when the first Edition of my Book was nearly printed off, I found to be my own Case, having (for want of Dr. Hook’s Micrography being at hand, it being a very scarce Book, and many Years since I read it,) given Descriptions of two or three Things, which I thought had not been tolerably well observ’d before, but are describ’d well by that curious Gentleman.
+
+One is a Feather, the Mechanism of which we in the main agree in, except in his Representation in Fig. 1. Scheme 22. which is somewhat different from what I have represented in my Fig. 18, &c. But I can stand by the Truth, though not the Elegance of my Figures. But as to the other Differences, they are accidental, occasion’d by our taking the Parts in a different View, or in a different Part of a Vane; and to say the Truth, (not flattering my self, or detracting from the admirable Observations of that great Man,) I have hit upon a few Things that escap’d him, being enabled to do so, not only by the Help of such Microscopes as he made use of; but also by those made by Mr. Wilson, which exceed all I ever saw, whether of English, Dutch, or Italian make; several of which Sorts I have seen and examined.
+
+The other Thing we have both of us figur’d and describ’d, is, The Sting of a Bee or Wasp; in which we differ more than in the last. But by a careful Re-examination, I find, that although Dr. Hook’s Observations are more critical than any were before, yet they are not so true as mine. For as to the Scabbard, (as he calls it,) I could never discover any Beards thereon; and I dare be confident there are none, but what are on the two Spears. And as to the Point of the Scabbard, he hath represented it as tubular, or bluntish at the Top; but it really terminates in a sharp Point, and the two Spears and the Poyson come out at a Slit, or longish Hole, a little below the Top or Point. And as to the Spears, he makes them to be but one, and that the Point thereof lies always out of the Scabbard. But by a strict Examination, they will be found to be two, as I have said, and that they always lie within the Scabbard, except in stinging; as I have represented them, in Fig. 21. from the transparent Sting of a Wasp. And as to the Spear being made of Joynts, and parted into two, as his Fig. 2. Scheme 16. represents, I could never upon a Review, discover it to be so, but imagine, that by seeing the Beards lying upon, or behind the Spears, he might take them for Joynts, and by seeing the Point of one Spear lie before the other, he might think the Spear was parted in two. But lest the Reader should think himself imposed upon both by Dr. Hook and my Self, it is necessary to be observ’d, that the Beards (or Tenterhooks as Dr. Hook calls them) lie only on one Side of each Spear, not all round them; and are therefore not to be seen, unless they are laid in a due Posture in the Microscope, viz. sideways, not under, or atop the Spear.
+
+The last Thing (which scarce deserves mention) is the Mechanism of the Hair, which Dr. Hook found to be solid, like a long Piece of Horn, not hollow, as Malpighi found it in some Animals. And I have found both those great Men to be in some Measure in the Right, the Hair of some Animals, or in some Parts of the Body being very little, if at all tubular; and in others, particularly Mice, Rats and Cats, to be as I have represented in my Fig. 14. &c.
+
+And now if my Inadvertency in other Things hath no worse Effect than it hath had in these, namely, to confirm, correct, or clear others Observations, I hope the Reader will excuse it, if he meets with any more of the like kind. But not being conscious of any such Thing (although probably there may be many such) I am more sollicitous to beg the Reader’s Candour and Favour, with Relation both to the Text and Notes: In the former of which, I fear he will think I have much under-done, as in the latter over-done the Matter: But for my Excuse, I desire it may be consider’d, that the textual Part being Sermons, to be deliver’d in the Pulpit, it was necessary to insist but briefly upon many of the Works of God, and to leave out many Things that might have been admitted in a more free Discourse. So that I wish it may not be thought I have said too much rather than too little for such an Occasion and Place. And indeed, I had no small Trouble in expunging some Things, altering many, and softening the most, and, in a word, giving in some measure the Whole a different Dress than what I had at first drawn it up in, and what it now appears in.
+
+And as for the Notes, which may be thought too large, I confess I might have shorten’d them, and had Thoughts of doing it, by casting some of them into the Text, as an ingenious, learned Friend advis’d. But when I began to do this, I found it was in a Manner to new-make all, and that I should be necessitated to transcribe the greatest Part of the Book, which (having no Assistant) would have been too tedious for me, being pretty well fatigu’d with it before. I then thought it best to pare off from some, and to leave out others, and accordingly did so in many Places, and would have done it in more, particularly, in many of the Citations out of the Ancients, both Poets and others, as also in many of the anatomical Observations, and many of my own and others Observations: But then I consider’d as to the First, that those Citations do (many of them at least) shew the Sense of Mankind about God’s Works, and that the most of them may be acceptable to young Gentlemen at the Universities, for whose Service these Lectures are greatly intended. And as to the anatomical Notes, and some others of the like Nature, most of them serve either to the Confirmation, or the Illustration, or Explication of the Text, if not to the learned, yet to the unskilful, less learned Reader; for whose sake, if I had added more, I believe he would forgive me. And lastly, as to the Observations of my self and some others, where it happens that they are long, it is commonly where a Necessity lay upon me of fully expressing the Author’s Sense, or my own, or where the Thing was new, and never before Publish’d; in which Case, it was necessary to be more Express and Particular, than in Matters better known, or where the Author may be referr’d unto.
+
+In the former Editions I promised another Part I Had relating to the Heavens, if I was thereunto encouraged. And two large Impressions of this Book, having been sold off, so as to admit of a Third before the Year was gone about; and hearing that it is translated into two, if not three Languages; but especially being importuned by divers learned Persons, both known and unknown, I have thought my self sufficiently engaged to perform that Promise; and have accordingly published that Part.
+
+So that I have now carry’d my Survey through most Parts of the visible Creation, except the Waters, which are for the most Part omitted; and the Vegetables, which, for want of Time, I was forced to treat of in a perfunctory Manner. And to the Undertaking of the former of these, having receiv’d divers Sollicitations from Persons unknown as well as known, I think my self bound in Civility to own their Favour, and to return them my hearty Thanks for the kind Opinion they have shewn of my other Performances, that they have encourag’d me to undertake this other Task. And accordingly I have begun it, and (as far as my Affairs will permit) have made some Progress in it: But Age and Avocations growing upon me, I begin to fear I shall scarce be able to finish it as I would, and therefore must recommend that ample and noble Subject to others, who have more leisure, and would do it better than I.
+
+As to Additions, I have been much sollicited thereto by divers curious and learned Persons, who would have had me to insert some of their Observations, and many more of my own: But in a Work of this Nature, this would have been endless; and although the Book would thereby be render’d much better, and more compleat, yet I could by no Means excuse so great an Injustice to the Purchasers of the former Editions. And therefore (except in the second Edition, where it was not easy to be avoided) few Additions or Alterations have been made, besides what were Typographical, or of small Consideration. Only in the third Edition I amended the first Paragraph of Note (a). Chap. 5. Book 1. concerning Gravity; and in the Fourth, Page 16. and 18. I inserted two Passages out of Seneca, that were inadvertently left out, and corrected many Things, that upon a careful Review, seem’d to want amendment.
+
+And lastly, as to the following Analysis, it was added at the Request of some of my learned and ingenious Friends; and although it might have been contracted, they would not suffer it to be so.
+
+
+[1]
+
+
+AN
+ANALYSIS
+OF THE
+Following Book.
+The Works of the Creation relating to our Terraqueous Globe, are such as are visible in the
+
+Outworks or Appendages of the Globe, viz. these three:	
+1. The Atmosphere	
+Composed of Air and Vapours,	Page 4.
+Useful to	
+Respiration and Animal Life	5.
+Vegetation of Plants	9.
+Conveyance of	
+The winged Tribes.	
+Sound	11.
+The Functions of Nature.	
+Reflecting and Refracting Light	12.
+Containing the	
+Winds, which are of great Use and Necessity	
+To the Salubrity and Pleasure of the Air	14.
+In various Engines	18.
+In Navigation.	
+Clouds and Rain: Of great Use to the	
+Refreshment of the Earth and the things therein	20.
+Origine of Fountains, according to some	23.
+2. Light. Its	
+Fountain	26.
+Wonderful Necessity and Use.	
+Improvement by Glasses	28.
+Velocity.	
+Expansion	29.
+3. Gravity.	
+[2]Its great Benefit	33.
+Cause of Levity, which is of great Use in the World	35.
+Terraqueous Globe it self. Of which I take a View in General of.	
+Its Spherical Figure, which is the most commodious in regard of,	
+Light	40.
+Heat.	
+Lodgment of the Waters.	
+The Winds	41.
+Its Bulk	43.
+Its Motion	ibid.
+Annual.	
+Diurnal.	
+Its Place and Distance from the Sun, and other heavenly Bodies	46.
+Its Distribution, so as to cause all the Parts of the Globe to	
+Balance each other	48.
+Be helpful to one another.	
+The great Variety and Quantity of all things serving for Food, Physick, Building, and every Use and Occasion of all Ages, Places, and Creatures	53.
+An Objection answered	55.
+Particular of the Earth: of its Constituent Parts, viz. Its	
+Soils and Moulds, necessary to the	
+Growth of various Vegetables	61.
+Various Occasions of Man, and other Animals	62.
+Various Strata or Beds, affording Materials for	
+Tools.	
+Firing.	
+Building.	
+Dying, and thousands of other things	64.
+Conveyance of the sweet Fountain-Waters	65.
+Subterraneous Caverns and Vulcano’s; of great Use to the Countries where they are	67.
+Mountains and Valleys, which are not rude Ruins, but Works of Design, inasmuch as this Structure of the Earth is	
+The most beautiful and pleasant.	
+The most Salubrious: to some Constitutions, the Hills; to some, the Valleys	71.
+Best to skreen us, and other things	72.
+Beneficial to the	
+Production of various Vegetables.	
+Harbour and Maintenance of various Animals	73.
+Generation of Minerals and Metals	75.
+Absolutely necessary to the Conveyance of the Rivers; and in all probability to the Origine of Fountains	ibid.
+[3]Conclusion against blaming GOD	81.
+Its Inhabitants; which are either Sensitive or Insensitive.	
+Concerning the Sensitive, some things are	
+Common to all the Tribes, particularly these Ten:	
+I. The five Senses and their Organs; the	85.
+Eye, an admirable Piece of Mechanism in regard of its	
+Form, for the most part Spherical, which is best for	
+The Reception of Objects.	
+Motion of the Eye	90.
+Situation in the most commodious part of the Body of every Creature.	
+Motion, in some Animals,	
+Every way.	
+Fixed; and the excellent Provision in that case	91.
+Size: which is in	
+All Creatures, according to their Occasions.	
+Such as live abroad in the Light; larger.	
+Such as live under ground, less.	
+Number, in some Animals:	
+Two	94.
+More: Together with the wise Provision to prevent double Vision.	
+Parts; some of which are viewed	
+Transiently, the Arteries, Veins, and some of the Muscles and Tunicks.	
+More strictly some of the	
+Muscles, and the excellent Provision made for their peculiar Uses, Equilibration, &c.	96.
+Tunicks: Among which the various Apertures, Forms, and Positions of the Pupil are particularly noted	99.
+Humours, especially the prodigious Finery and Composition of the Crystalline, according to Mr. Lewenhoeck.	
+Nerves	105.
+Optick.	
+Motory.	
+Guard and Security, provided for by	
+The Reparation of the Aqueous Humour.	
+Covering of the Eye Lids.	
+Strong and curious Bones.	
+Hard and firm Tunicks.	
+Withdrawing them into their Heads	109.
+Of erect Vision	111.
+[4]Hearing. Its	
+Organ, the Ear,	113.
+Double, enabling us to hear every way, and a good Provision for the Loss or Hurt of one.	
+Situated in the very best place for Information, Security, and near the Eye and Brain.	
+The Fabrick of the Outward Ear, which is in	
+All Creatures formed, guarded, placed, and every way accoutered according to their various Places and Occasion	115.
+Man suitable to his erect Posture; and all its Parts, the Helix, Tragus, Concha, &c. admirably suited to the Reception and Melioration of Sounds, and the Security of the Part.	
+Inward Ear: In which I take a View of the	121.
+Auditory Passage, curiously tunnelled, tortuous and smooth and being always open, is lined with the nauseous Ear-wax for a Guard.	
+Tuba Eustachiana	122.
+Bone, particularly hard and context for Guard, and to assist the Sound.	
+Tympanum, and its Membrane, Muscles, and four little Bones to correspond to all kinds of Sound.	
+Labyrinth, Semicircular Canals, Cochlea; all made with the utmost Art	127.
+Auditory Nerves, one of which is ramified to the Eye, Tongue, Muscles of the Ear, and to the Heart; whence a great Sympathy between those Parts	128.
+Object, Sound. Under which I consider,	
+The Improvements thereof by the Wit of Man	129.
+Its great Necessity, and excellent Uses	132.
+Its Pleasure, and the Power of Musick	134.
+Smelling. In which sense these things are remarkable; the	
+Nostrils, always open, cartilaginous, and endowed with Muscles	137.
+Laminæ, serving for	
+A Guard against noxious Things	138.
+The spreading of the Olfactory Nerves.	
+Prodigious Use of it in all, especially some of the Irrationals	139.
+Taste. The Things most remarkable in which Sense are, the	
+Nerves spread about the Tongue and Mouth, with their Guard.	
+The Papillæ, neatly made	140.
+[5]Situation thereof to be a Centinel to the Stomach and Food.	
+Consent thereof with the other Senses, by some Branches of the fifth Pair	141.
+Feeling.	142.
+Whose Organ is the Nerves	143.
+Which is dispersed through every Part of the Body, and the admirable Benefit thereof.	
+II. Respiration the grand Act of Animal Life	145.
+Ministering to the Circulation of the Blood and Diastole of the Heart.	
+The Parts concerned therein are	
+The Larynx, with its great Variety of Muscles, &c. for Respiration, and forming the Voice	148.
+Trachea and Epiglottis, exquisitely contriv’d and made.	
+Bronchi and Lungs, with their curious Arteries, Veins and Nerves	150.
+Ribs, Diaphragm, and the several Muscles concerned.	
+Its Defects in the	
+Fœtus in the Womb	153.
+Amphibious Creatures	157.
+Some Animals in Winter.	
+III. The Motion of Animals: Concerning which I consider	
+Transiently the	
+Muscles, and their Structure, their Size, Fastening to the Joynts, Motions, &c.	158.
+Bones, and their curious Make.	
+Joynts, with their Form, Bandage and Lubricity	161.
+Nerves, and their Origine, Ramifications and Inosculations.	
+More particularly the Loco-Motive Act it self, which is	
+Swift or slow, with Wings, Legs many or few, or none at all, according to the various Occasions and Ways of Animals Lives. As particularly in	
+Reptiles, whose Food and Habitation is near at hand.	
+Man and Quadrupeds, whose Occasions require a larger Range, and therefore a swifter Motion	164.
+Birds, and Insects, whose Food, Habitation and Safety require yet a larger Range, and have accordingly a yet swifter Motion and direct Conveyance.	
+Geometrically and neatly performed by the nicest Rules.	
+Well provided for by the	
+Due Equipoise of the Body	165.
+Motive Parts being accurately placed with regard to the Center of the Body’s Gravity, and to undergo their due Proportion of Weight and Exercise.	
+[6]IV. The Place allotted to the several Tribes of Animals to live and act in. Concerning which I observe that	
+Their Organs are adapted to their Place	167.
+All Places habitable are duly stocked.	
+Various Animals have their various Places; and the Wisdom thereof	168.
+V. The Balance of Animals Numbers, so that the World is not	
+Overstocked by their Increase.	
+Depopulated by their Death.	
+Which is effected in	
+The several Tribes of Animals by a due Proportion in the	
+Length of their Life	169.
+Number of their Young, in	
+Useful Creatures being many.	
+Pernicious few.	
+Man very remarkably by the	
+Different Length of his Life.	
+Soon after the Creation	171.
+When the World was more, but not fully peopled	171.
+When it was sufficiently stocked, down to the present time.	
+Due Proportions of Marriages, Births and Burials	174.
+Balance of Males and Females	175.
+VI. The Food of Animals. In which the Divine Management and Providence appears in the	179.
+Maintaining such large Numbers of all kinds of Animals on the Land, in the Seas, and divers Places too unlikely to afford sufficient Food.	
+Adjustment of the Quantity of Food to the Number of Devourers, so that	
+There is not too much, so as to rot, and annoy the World	181.
+The most useful is most plentiful, and easiest propagated	ibid.
+Delight which the various Tribes of Animals have to the Varieties of Food, so that what is grateful to one, is nauseous to another: Which is a wise means to cause	
+All Creatures to be sufficiently supplied.	
+All sorts of Food to be consumed.	
+The World to be kept sweet and clean by those means	183.
+Peculiar Food, that particular Places afford to the Creatures residing therein	184.
+Curious Apparatus in all Animals for Gathering, and Digestion of their Food, viz. the	
+[7]Mouth, nicely shaped for Food, &c. In	
+Some, little and narrow	189.
+Some, with a large deep Incisure.	
+Insects very notable to catch, hold and devour Prey; to carry Burdens, to bore and build their Habitations	190.
+Birds as notable, Horned in all. In some	
+Hooked for Rapine, climbing, &c.	192.
+Sharp and strong to pierce Trees, &c.	
+Long and slender to grope.	
+Long and broad to quaffer.	
+Thick and sharp edged to husk Grain.	
+Compressed to raise Limpets, &c.	
+Teeth, which are peculiarly hard, firmly inserted in the Jaws, variously shaped in the same, and different Animals, deficient young Creatures, &c.	194.
+Salival Glands, commodiously placed for Mastication and Deglutition	196.
+Muscles and Tendons, serving to Mastication, strong and well lodged.	
+Gullet, sized according to the Food; with curious Fibres, &c.	196.
+Stomach;	197.
+Which hath a curious Mechanism of Fibres, Tunicks, Glands, Nerves, Arteries and Veins.	
+Whose Faculty of Digestion by such seeming weak Menstruums is admirable.	
+Whose Size and Strength is conformable to the Nature of the Food, or Occasions of Animals.	
+Which is in	
+Tame Animals but one.	
+Ruminants, Birds, &c. more.	
+Guts, whose Tunicks, Glands, Fibres, Valves, and Peristaltick Motion deserve Admiration	201.
+Lacteals, together with the Impregnations from the Pancreas, Gall, Glands, and Lymphæducts.	
+Sagacity of all Animals in finding out, and providing Food. In	
+Man less remarkable for the sake of his Understanding	202.
+Inferiour Creatures. In such as are	
+Come to mature Age, and are able to help themselves, by their	
+Accurate Smell	203.
+Natural Craft.	
+Hunting and groping out of Sight.	
+Seeing and Smelling at great Distances	205.
+Climbing; the strong Tendons and Muscles acting therein.	
+Seeing in the dark.	
+Helpless. As	207.
+[8]Young Creatures.	
+Man, born the most helpless of any, the Parents Reason, Hands and Affection sufficing.	
+Irrationals: For whose Young the Creator hath made a sufficient Provision partly by the	
+Parent-Animal’s own	
+Στοργὴ, and Diligence in Nursing and Defending them	207.
+Sagacity and Care in repositing their Eggs and Young, where Food and all Necessaries are to be found	209.
+Ability of the Young themselves to shift for, and help themselves, with the little Helps of their Dams	210.
+Creatures destitute of Food at some Seasons, or likely to want it, who	
+Are able to live long without Food	211.
+Lay up Food before-hand.	
+VII. The Cloathing of Animals, which is	214.
+Suited to the Place and Occasions of all. In	
+Man, it is left to his own Reason and Art, joined with sufficient Materials: Which is best for him,	
+Because he may sute his Cloathing to his Quality and Business	218.
+For Perspiration and Health sake.	
+To exercise his Art and Industry.	
+To excite his Diligence in keeping himself sweet and clean.	
+In being the Parent of divers Callings	219.
+Irrationals: Who are either	
+Ready furnished with proper Cloathing.	
+On the dry Land with Hair, Fleeces, Furrs, Shells, hard Skins, &c.	220.
+In the Air with Feathers, light, strong and warm.	
+In the Waters with Scales, hard for Guard; smooth for Passage; or with strong Shells to guard such as move more slowly	223.
+Provide for themselves by their Textrine, or Architechtonick Art. Of which under the next Branch.	
+Well garnished, being all Workman-like, compleat, in its kind beautiful, being	224.
+Adorned with gay, various and elegant Colours.	
+If sordid, yet with exact Symmetry, and full of curious Mechanism.	
+VIII. The Houses and Habitations of	
+[9]Man, who is abundantly furnished with	
+Contrivance and Art to build and garnish his Habitations	226.
+Materials of all sorts to effect his Works.	
+Irrationals, whose marvellous Instinct is manifested by the	
+Convenience of their Nests and Habitations for the	
+Hatching and Education of their Young	228.
+Guard and Defence of themselves and their Young.	
+Fabrick of their Nests, scarce imitable by Man, and shewn by their Contrivance and Make, being exactly suitable to their Occasions, and made by	
+Putting only a few ugly Sticks, Moss, Dirt, &c. together	231.
+Building Combs according to the best Rules of Mathematicks.	
+Weaving Webs, and making Cases. For which Service the Parts of their Bodies, and Materials afforded by them are very considerable.	
+IX. Animals Self-Preservation. For which there is always a Guard in proportion to the Dangers and Occasions of their State. Which is observable in	
+Man, whose Reason and Art supplies the Defect of Natural Armature.	
+Irrational Creatures; who	
+As they are on one Hand sufficiently guarded by their	
+Shells, Horns, Claws, Stings, &c.	239.
+Changing their Colours.	
+Wings, Feet, and Swiftness.	
+Diving in, and tinging the Waters.	
+Ejecting Juices out of their Body.	
+Accurate Smell, Sight and Hearing.	
+Natural Craft	243.
+Uncouth Noise, ugly Gesticulations, and horrid Aspect.	
+Horrible Stink and Excrements.	
+So on the other Hand can by their Strength, Sagacity, or natural Artifices entrap and captivate, what is necessary for their Food and other Occasions.	
+X. Animal’s Generation.	
+Equivocal, is denied	244.
+Univocal, Which of	
+Man, is οὐ πρέπειας ἕνεκα, passed wholly by	
+Irrational Creatures, which is remarkable for their	
+Sagacity in chusing the fittest Place for their Eggs and Young: Where it is observable what a	
+[10]Compleat Order they observe.	
+Neat Apparatus their Bodies are provided with for this purpose	248.
+Natural Venom they inject with their Eggs into Vegetables to pervert Nature, and produce Balls, and Cases	250.
+Making use of the fittest Seasons, either	
+All Seasons	251.
+When Provisions are most plentiful and easiest had.	
+Due Number of Young	252.
+Diligence and Concern for their Young, in point of	
+Incubation	253.
+Safety and Defence	254.
+Faculty of Nursing their Young, by	
+Suckling them. In which it is observable	
+How suitable this Food is.	
+How willingly parted with by all, even the most savage.	
+What a compleat Apparatus in all Creatures of Dugs, &c.	
+Putting Food in their Mouths, with their proper Parts	
+for catching and conveying Food	255.
+Neither way, but by laying in Provisions before-hand	256.
+Having in the Fourth Book thus dispatched the Decad of Things in common to the Sensitive Creatures, I take a view of their particular Tribes, viz. of	
+Man; whom I consider with relation to his	
+Soul. Concerning which having cursorily mentioned divers things, I insist upon two as shewing an especial divine Management, the	
+Various Genii, or Inclinations of Men, which is a wise Provision for the Dispatch for all the World’s Affairs, and that they may be performed with Pleasure	263.
+Inventive Faculty, In which it is remarkable that	
+Its Compass is so large, extending to all things of Use, and occasioning so many several Callings.	
+Things of greatest Necessity and Use were soon and easily found out; but things less useful later, and dangerous things not yet. Here of divers particular Inventions, with an Exhortation to exercise and improve our Gifts.	
+Body. In which the things particularly remarked upon are the	
+Erect Posture	282.
+The most convenient for a Rational Being.	
+Manifestly intended, as appears from the Structure	
+of some particular Parts mentioned	285.
+Nice Structure of the Parts ministring thereto.	
+Equilibration of all the Parts	286.
+[11]Figure and Shape of Man’s Body most agreeable to his Place and Business	287.
+Stature and Size, which is much the best for Man’s State	288.
+Structure of the Parts, which are	
+Without Botches and Blunders.	
+Of due Strength.	
+Of the best Form.	
+Most accurately accommodated to their proper	
+Offices.	
+Lodgment of the Parts, as the	
+Five Senses	297.
+Hand.	
+Legs and Feet,	
+Heart.	
+Viscera.	
+Several Bones and Muscles, &c.	298.
+Covering of all with the Skin.	
+Provision in Man’s Body to	
+Prevent Evils by the	
+Situation of the Eyes, Ears, Tongue and Hand	300.
+Guard afforded all, especially the principal Parts.	
+Duplication of some Parts.	
+Cure Evils by means of	
+Proper Emunctories	301.
+Diseases themselves making Discharges of things more dangerous	303.
+Pain giving Warning, and exciting our Endeavours.	
+Consent of the Parts, effected by the Nerves, a Sample whereof is given in the Fifth Pair, branched to the Eye, Ear, &c.	
+Political, sociable State. For the Preservation and Security of which the Creator hath taken by variety of Mens.	
+Faces	308.
+Voices.	
+Hand-writing.	
+Quadrupeds. Of which I take no notice, but wherein they differ from Man, viz.	
+Prone Posture, which is considerable for	
+The Parts ministering to it, especially the Legs and Feet, sized and made in some for	
+Strength and slow Motion	315.
+Agility and Swiftness.	
+Walking and Running.	
+Walking and Swimming.	
+Walking and Flying.	
+Walking and Digging.	
+[12]Traversing the Plains.	
+Traversing Ice, Mountains, &c.	
+Its Usefulness to	
+Gather Food	317.
+Catch Prey.	
+Climb, Leap and Swim.	
+Guard themselves.	
+Carry Burdens, Till the Ground, and other Uses of Man.	
+Parts differing from those of Man.	
+Head, wherein I consider	
+Its Shape, commonly agreeable to the Animal’s Motion	319.
+The Brain, which is,	
+Lesser than in Man	319.
+Placed lower than the Cerebellum.	
+The Nictitating Membrane	321.
+Carotid Arteries, and Rete Mirabile.	
+Nates.	
+Neck.	
+Answering the Length of the Legs	322.
+Strengthened by the Whitleather.	
+Stomach,	324.
+Corresponding to the several Species.	
+Suited to their Proper Food, whether Flesh, Grain, &c.	
+Heart: Its	
+Ventricles in some	
+One only	325.
+Two.	
+Three, as some think.	
+Situation nearer the midst of the Body, than in Man.	
+Want of the Fattening of the Pericardium to the Midriff	327.
+Nervous kinds. A Sample of which is given in the different Correspondence between the Head and Heart of Man and Beast by the means of the Nerves.	329.
+Birds. Concerning which I take a View of their	
+Body and Motion; where I consider	
+The Parts concerned in their Motion	333.
+The Shape of the Body, made exactly for swimming in, and passing through the Air.	
+Feathers, which are	
+Most exactly made for Lightness and Strength.	
+All well placed in every Part, for the Covering and Motion of the Body.	
+Preened and dressed	334.
+Wings, which are	
+Made of the very best Materials, viz. of Bones [13]light and strong; Joynts exactly opening, shutting, and moving, as the Occasions of Flight require; and the Pectoral Muscles, of the greatest Strength of any in the whole Body.	
+Placed in the nicest point of the Body of every Species, according to the Occasions of Flight, Swimming or Diving.	
+Tail, which is well made, and placed to keep the Body steady, and assist in its Ascents and Descents	337.
+Legs and Feet, which are made light for Flight, and incomparably accoutred for their proper Occasions of	
+Swimming	338.
+Walking.	
+Catching Prey.	
+Roosting.	
+Hanging.	
+Wading and Searching the Waters.	
+Lifting them upon their Wings.	
+Motion it self.	
+Performed by the nicest Laws of Mechanicks.	
+Answering every Purpose and Occasion.	
+Other Parts of the Body, viz. the	
+Head, remarkable for the commodious	
+Shape of it self	341.
+Forms of the Bill.	
+Site of the Eye and Ear.	
+Position of the Brain.	
+Structure of the	
+Larynx.	
+Tongue.	
+Inner Ear.	
+Provision by Nerves in the Bill for tasting and distinguishing Food	344.
+Stomachs, one to	
+Macerate and prepare	345.
+Grind and digest	
+Lungs incomparably made for	
+Respiration	346.
+Making the Body buoyant.	
+Neck, which is made	
+In due Proportion to the Legs.	
+To search in the Waters, and	
+To counterpoise the Body in Flight.	
+State. Of which I take notice of three Things, viz. their	
+[14]Migration remarkable for	
+The Knowledge Birds have of	
+Their Times of Passage	348.
+The Places proper for them.	
+Their Accommodation for long Flights by long or else strong Wings.	
+Incubation, which is considerable for	
+The Egg, and its parts	351.
+Act itself; that these Creatures should betake themselves to it, know this to be the Way to produce their Young, and with delight and Patience fit such a due Number of Days.	
+The Neglect of it in any, as the Ostrich, and the wonderful Provision for the Young in that Case	354.
+Nidification. Of which before.	
+Insects. Which, altho’ a despised Tribe, doth in some Respects more set forth the infinite Power and Wisdom of the Creator, than the larger Animals.	
+The things in this Tribe remarked upon are their	
+Body	359.
+Shaped, not so much for long Flights, as for their Food, and Condition of Life.	
+Built not with Bones, but with what serves both for Bones and Covering too.	
+Eyes, reticulated to see all ways at once	360.
+Antennæ, and their Use	361.
+Legs and Feet made for	
+Creeping	363.
+Swimming and Walking.	
+Hanging on smooth Surfaces.	
+Leaping.	
+Digging.	
+Spinning and Weaving Webs and Cases.	
+Wings, which are	
+Nicely distended with Bones	365.
+Some incomparably adorned with Feathers and elegant Colours.	
+Some joynted and folded up in their Elytra, and distended again at pleasure.	
+In Number either	
+Two, with Poises.	
+Four, without Poises.	
+Surprizing Minuteness of some of those Animals themselves, especially of their Parts, which are as numerous and various as in other Animal Bodies	367.
+State: which sets forth a particular Concurrence of the Divine Providence, in the wise and careful Provision that is made for their	
+[15]Security against Winter, by their	
+Subsisting in a different, viz. their Nympha or Aurelia state	369.
+Living in Torpitude, without any Waste of Body or Spirits	370.
+Laying up Provision before-hand.	
+Preservation of their Species by their	
+Chusing proper Places, to lay up their Eggs and Sperm, so that the	
+Eggs may have due Incubation	373.
+Young sufficient Food.	
+Care and Curiosity in repositing their Eggs in neat Order, and with the proper Part uppermost	382.
+Incomparable Art of Nidification, by being endow’d with	
+Parts proper for, and agreeable to the several Ways of Nidification, and the Materials they use in it.	
+Architectonick Sagacity to build and weave their Cells, or to make even Nature herself their Hand-maid	384.
+Reptiles. Which agreeing with other Animals in something or other before treated of, I consider only their	
+Motion, which is very remarkable, whether we consider the	
+Manner of it, as	
+Vermicular	394.
+Sinuous.	
+Snail-like.	
+Catterpillar-like.	
+Multipedous.	
+Parts ministring to it.	
+Poison, which serves to	
+Scourge Man’s Wickedness	398.
+Their easy Capture and Mastery of their Prey.	
+Their Digestion.	
+Watery Inhabitants considerable for their	
+Great Variety	401.
+Prodigious Multitudes.	
+Vast bulk of some, and surprizing minuteness of others	403.
+Incomparable Contrivance and Structure of their Bodies.	
+Supplies of Food.	
+Respiration.	
+Adjustment of their Organs of Vision to their Element.	
+Poise and Motion of the Body every Way	402.
+Insensitive Inhabitants. Among which having mentioned Fossils and others, I insist only upon Vegetables, and that in a cursory manner upon their	
+Great Variety for the several Uses of the World	404.
+Anatomy.	
+Leaves	407.
+Flowers and their admirable Gaiety.	
+Seed, remarkable for its	
+[16]Generation.	
+Make.	
+Containing in it a compleat Plant	408.
+Preservation and Safety in the Gems, Fruit, Earth, &c.	
+Sowing, which is provided for by Down, Wings, Springy Cases, carried about by Birds, sown by the Husbandman, &c.	412.
+Growing and Standing: Some by	
+Their own Strength	417.
+The Help of others, by clasping about, or hanging upon them.	
+Remarkable Use, especially of some which seem to be provided for the Good of	
+All Places	420.
+Some particular Places, to	
+Heal some Local Distempers.	
+Supply some Local Wants.	
+Practical Inferences upon the whole are these Six, viz. That GOD’s Works.	
+1. Are great and excellent	425.
+2. Ought to be enquired into, with a Commendation of such as do so	427.
+3. Are manifest to all, and therefore Atheism unreasonable	428.
+4. Ought to excite Fear and Obedience	431.
+5. Ought to excite Thankfulness	432.
+6. Should move us to pay God his due Homages and Worship, particularly that of the Lord’s Day: which is an Appointment	
+The most ancient	438.
+Wisely contrived for Dispatch of Business, and to prevent Carnality.	
+Whose proper Business is, to cease from Worldly, and to follow Spiritual Employments; the chief of which is the Publick Worship of GOD.	
+
+[1]
+
+
+A
+SURVEY
+OF THE
+Terraqueous Globe.
+
+INTRODUCTION.
+
+n Psal. cxi. 2. The Psalmist asserts, That the[a] Works of the Lord are great; sought out of all them that have Pleasure therein. This is true of all God’s Works, particularly of his Works of Creation: Which, when sought out, or, as the Hebrew Word [b] signifieth, when heedfully and deeply pried into, solicitously observ’d and enquir’d out, especially when clearly discovered[2] to us; in this Case, I say, we find those Works of God abundantly to deserve the Psalmist’s Character of being Great and Noble; inasmuch as they are made with the most exquisite Art, [c] contrived with the utmost Sagacity, and ordered with plain wise Design, and ministring to admirable Ends. For which reason St. Paul might well affirm of those Ποιήματα of God, [d] That the invisible Things of God, even his eternal Power and Godhead, are understood by them. And indeed they are the most easy, and intelligible Demonstrations of the Being and Attributes of God;[e] especially to such as are unacquainted with the[3] Subtilties of Reasoning and Argumentation; as the greatest part of Mankind are.
+
+It may not therefore be unsuitable to the Nature and Design of Lectures[f] founded by one of the greatest Vertuoso’s of the last Age, and instituted too on purpose for the Proof of the Christian Religion against Atheists and other Infidels, to improve this occasion in the Demonstration of the Being and Attributes of an infinitely wise and powerful Creator, from a Cursory Survey of the Works of Creation, or (as often called) of Nature.
+
+Which Works belong either to our Terraqueous Globe, or the Heavens.
+
+I shall begin with our own Globe, being nearest, and falling most under our Senses. Which being a Subject very various and copious, for the more methodical and orderly proceeding upon it, I shall distribute the Works therein:
+
+I. Into such as are not properly Parts, but Appendages or Out-works of the Globe.
+
+II. The Globe it self.
+
+FOOTNOTES:
+[a]It is not unlikely that the Psalmist might mean, at least have an Eye to, the Works of the Creation in this Text, the Word ‎‏מעשה‏‎ being the same that in Psal. 19. 1. is translated God’s Handy-work, which is manifestly applied to the Works of Creation, and properly signifieth Factum, Opus, Opisicium, from ‎‏עשה‏‎ Fecit, Paravit, Aptavit. And saith Kircher, significat talem affectionem, quâ aliquid existit vel realiter, vel ornatè, velut non sit in pristino statu quo fuit. Concord, p. 2. col. 931.
+
+[b]‎‏דרש‏‎ Quasivit, perquisivit, sciscitatus est, Buxtor. in verb. Et simul importat curam, & solicitudinem. Conrad. Kirch. ib. p. 1. col. 1174.
+
+[c]Quod si omnes mundi partes ita constitute sunt, ut neque ad usum meliores potuerint esse, neque ad speciem pulchriores; videamus utrùm ea fortuita sint, an eo statu, quo cohærere nullo modo potuerint, nisi sensu moderante divinâque providentia. Si ergo meliora sunt ea quæ Naturâ, quàm illa, quæ Arte perfecta sunt, nec Ars efficit quid sine ratione; ne Natura quidem rationis expers est habenda. Qui igitur convenit, signum, aut tabulam pictam cùm adspexeris, scire adhibitam esse artem; cumque procul cursum navigii videris, non dubitare, quin id ratione atque arte moveatur: aut cùm Solarium, &c. Mundum autem, qui & has ipsas artes, & earum artifices, & cuncta complectatur, consilii & rationis esse expertem putare? Quod si in Scythiam, aut in Britanniam, Sphæram aliquis tulerit hanc, quam nuper familiaris noster effecit Posidonius, cujus singulæ conversiones idem efficiunt in Sole, &c.——quod efficitur in cœlo singulis diebus & noctibus; quis in illâ barbarie dubitet, quin ea Sphæra sit perfecta Ratione? Hi autem dubitant de Mundo, ex quo & oriuntur, & fiunt omnia, casune ipse sit effectus,—an Ratione, an Mente divinâ? Et Archimedem arbitrantur plus valuisse in imitandis Sphæræ conversionibus, quàm Naturam in efficiendis, præsertim cùm multis partibus sint illa perfecta, quam hæc simulata, solertius, &c. Cic. de Nat. l. 2. c. 34, 35.
+
+[d]And a little before he saith of Nature it self, Omnem ergo regit Naturam ipse [Deus] &c.
+
+[e]Mundus codex est Dei, in quo jugiter legere debemus, Bernard. Serm.
+
+Arbitror nullam gentem, neque Hominum societatem, apud quos ulla Deorum est religio, quidquam habere sacris Eleusiniis aut Samothraciis simile: Ea tamen obscurè docent quæ profitentur: Natura verò opera in omnibus animantibus sunt perspicua. Galen. de Us. Part. l. 17. c. 1.
+
+[f]Philosophia est Catechismus ad Fidem. Cyril. 1. contr. Jul.
+
+[4]
+
+
+BOOK I.
+Of the Out-works of the Terraqueous Globe; the Atmosphere, Light, and Gravity.
+
+
+CHAP. I.
+Of the Atmosphere in general.
+
+
+he Atmosphere, or Mass of Air, Vapours and Clouds, which surrounds our Globe, will appear to be a matter of Design, and the infinitely wise Creator’s Work, if we consider its Nature and Make[a], and its Use to the World[b].
+
+1. Its Nature and Make, a Mass of Air, of subtile penetrating Matter, fit to pervade other Bodies, to penetrate into the inmost Recesses of Nature, to excite, animate, and spiritualize; and in short, to be the very Soul of this lower World. A thing consequently
+
+2. Of greatest Use to the World, useful to the Life, the Health, the Comfort, the Pleasure, and Business of the whole Globe. It is the Air the[5] whole Animal World breatheth, and liveth by; not only the Animals inhabiting the Earth[c] and[6]
+[7] Air[d], but those of the Waters[e] too. Without it[8] most Animals live scarce half a Minute[f]; and others, that are the most accustomed to the want of it, live not without it many Days.
+
+[9]
+
+And not only Animals themselves, but even Trees and Plants, and the whole vegetable Race, owe their Vegetation and Life to this useful Element; as will appear when I come to speak of them, and is manifest from their Glory and Verdure in a free Air, and their becoming Pale and Sickly, and Languishing and Dying, when by any means excluded from it[g].
+
+Thus useful, thus necessary, is the Air to the Life of the animated Creatures; and no less is it to the Motion and Conveyance of many of them. All the winged Tribes owe their Flight and Buoyancy[h] to it, as shall be shewn in proper place: And even the watery Inhabitants themselves cannot[10] ascend and descend into their Element, well without it[i].
+
+[11]
+
+But it would be tedious to descend too far into Particulars, to reckon up the many Benefits of this noble Appendage of our Globe in many useful Engines[k]; in many of the Functions and Operations of Nature[l] in the Conveyance of Sounds; and a Thousand Things besides. And I shall but[12] just mention the admirable use of our Atmosphere in ministring to the enlightening of the World, by its reflecting the Light of the heavenly Bodies to us[m]; and refracting the Sun-beams to our Eye, before it ever surmounteth our Horizon[n]; by which means the Day is protracted throughout the whole Globe; and the long and dismal Nights are shorten’d in the frigid Zones, and Day sooner approacheth[13] them; yea the Sun itself riseth in Appearance (when really it is absent from them) to the great Comfort of those forlorn Places[o].
+
+But passing by all these Things with only a bare mention, and wholly omitting others that might have been named, I shall only insist upon the excellent Use of this noble circumambient Companion of our Globe, in respect of two of its Meteors, the Winds, and the Clouds and Rain[p].
+
+FOOTNOTES:
+[a]Mundi pars est Aer, & quidem necessaria: Hic est enim qui cœlum terramque connectit, &c. Senec. Nat. Qu. l. 2. c. 4.
+
+[b]Ipse Aer nobiscum videt, nobiscum audit, nobiscum sonat; nihil enim eorum sine eo fieri potest, &c. Cic. de Nat. Deor. l. 2. c. 33.
+
+[c]As the Air is of absolute Necessity to Animal Life, so it is necessary that it should be of a due Temperament or Consistence; not foul, by reason that suffocateth: not too rare and thin, because that sufficeth not; with Examples of each of which, I shall a little entertain the Reader. In one of Mr. Hawksbee’s Compressing Engines, I closely shut up a Sparrow without forcing any Air in; and in less than an Hour the Bird began to pant, and be concerned; and in less than an Hour and half to be sick, vomit, and more out of Breath; and in two Hours time was nearly expiring.
+
+Another I put in and compressed the Air, but the Engine leaking, I frequently renewed the Compressure; by which means, (although the Bird panted a little after the first Hour,) yet after such frequent Compressures, and Immission of fresh Air, it was very little concerned, and taken out seemingly unhurt after three Hours.
+
+After this I made two other Experiments in compressed Air, with the Weight of two Atmospheres injected, the Engine holding tight and well; the one with the Great Titmouse, the other with a Sparrow. For near an Hour they seemed but little concerned; but after that grew fainter, and in two Hours time sick, and in three Hours time died. Another thing I took notice of, was, that when the Birds were sick and very restless, I fancied they were somewhat relieved for a short space, with the Motion of the Air, caused by their fluttering and shaking their Wings, (a thing worth trying in the Diving-Bell). I shall leave the ingenious Reader to judge what the cause was of both the Birds living longer in compressed, than uncompressed Air; whether a less quantity of Air was not sooner fouled and rendred unfit for Respiration, than a greater.
+
+From these Experiments two Things are manifested; one is, that Air, in some measure compressed, or rather heavy, is necessary to Animal Life: Of which by and by. The other, that fresh Air is also necessary: For pent up Air, when overcharged with the Vapours emitted our of the Animal’s Body, becomes unfit for Respiration. For which Reason, in the Diving-Bell, after some time of stay under Water, they are forced to come up and take in fresh Air, or by some such means recruit it. But the famous Cornelius Drebell contrived not only a Vessel to be rowed under Water, but also a Liquor to be carried in that Vessel, that would supply the want of fresh Air. The Vessel was made for King James I. It carried twelve Rowers, besides the Passengers. It was tried in the River of Thames; and one of the Persons that was in that submarine Navigation was then alive, and told it one, who related the Matter to our famous Founder, the Honourable, and most Ingenious Mr. Boyl. As to the Liquor, Mr. Boyl saith, he discovered by a Doctor of Physick, who married Drebell’s Daughter, that it was used from time to time when the Air in the submarine Boat was clogged by the Breath of the Company, and thereby made unfit for Respiration; at which time, by unstopping a Vessel full of this Liquor, he could speedily restore to the troubled Air such a proportion of vital Parts, as would make it again for a good while fit for Respiration. The Secret of this Liquor Drebell would never disclose to above one Person, who himself assured Mr. Boyl what it was. Vid. Boyl. Exp. Phys. Mech. of the Spring of the Air, Exp. 41. in the Digres. This Story I have related from Mr. Boyl, but at the same time much question whether the Virtues of the Liquor were so effectual as reported.
+
+And as too gross, so too rare an Air is unfit for Respiration. Not to mention the forced Rarefactions made by the Air-Pump, in the following Note; it is found, that even the extraordinary natural Rarefactions, upon the tops of very high Hills, much affect Respiration. An Ecclesiastical Person, who had visited the high Mountains of Armenia, (on which some fancy the Ark rested) told Mr. Boyl, that whilst he was on the upper part of them, he was forced to fetch his Breath oftner than he was wont. And taking notice of it when he came down, the People told him, that it was what happen’d to them when they were so high above the Plane, and that it was a common Observation among them. The like Observation the same Ecclesiastick made upon the top of a Mountain in the Cevennes. So a learned Traveller, and curious Person, on one of the highest Ridges of the Pyrenees, call’d Pic de Midi, found the Air not so fit for Respiration, as the common Air, but he and his Company were fain to breath shorter and oftner than in the lower Air. Vid. Phil. Transact. No. 63, or Lowthorp’s Abridg. Vol. 2. p. 226.
+
+Such another Relation the learned Joseph Acosta gives of himself and his Company, that, when they passed the high Mountains of Peru, which they call Periacaca, (to which he saith, the Alps themselves seemed to them but as ordinary Houses, in regard of high Towers,) He and his Companions were surprized with such extreme Pangs of Straining and Vomiting, (not without casting up of Blood too,) and with so violent a Distemper, that he concludes he should undoubtedly have died; but that this lasted not above three or four Hours, before they came into a more convenient and natural Temperature of the Air. All which he concludes proceeded from the too great Subtilty and Delicacy of the Air, which is not proportionable to humane Respiration, which requires a more gross and temperate Air, Vid. Boyl, ubi supra.
+
+Thus it appears, that an Air too Subtile, Rare and Light, is unfit for Respiration: But the Cause is not the Subtilty or too great Delicacy, as Mr. Boyl thinks, but the too great Lightness thereof, which renders it unable to be a Counterbalance, or an Antagonist to the Heart, and all the Muscles ministring to Respiration, and the Diastole of the Heart. Of which see Book 4. Chap. 7. Note 1.
+
+And as our Inability to live in too rare and light an Air may discourage those vain Attempts of Flying and Whimsies of passing to the Moon, &c. so our being able to bear an heavier State of the Air is an excellent Provision for Mens Occasions in Mines, and other great Depths of the Earth; and those other greater Pressures made upon the Air, in the Diving-Bell, when we descend into great Depths of the Waters.
+
+[d]That the Inhabitants of the Air, (Birds and Insects,) need the Air as well as Man and other Animals, is manifest from their speedy dying in too feculent, or too much rarefied Air; of which see the preceding and following Note (f). But yet Birds and Insects (some Birds at least) can live in a rarer Air than Man. Thus Eagles, Kites, Herons, and divers other Birds, that delight in high Flights, are not affected with the Rarity of the Medium, as those Persons were in the preceding Note. So Insects bear the Air-Pump long, as in the following Note (f).
+
+[e]Creatures inhabiting the Waters need the Air, as well as other Animals, yea, and fresh Air too. The Hydrocanthari of all Sorts, the Nymphæ of Gnats, and many other Water-Insects, have a singular Faculty, and an admirable Apparatus, to raise their back Parts to the top of the Waters, and take in fresh Air. It is pretty to see, for Instance, the Hydrocanthari come and thrust their Tails out of the Water, and take in a Bubble of Air, at the tip of their Vaginæ and Tails, and then nimbly carry it down with them into the Waters; and, when that is spent, or fouled, to ascend again and recruit it.
+
+So Fishes also are well known to use Respiration, by passing the Water through their Mouths and Gills. But Carps will live out of the Water, only in the Air; as is manifest by the Experiment of their way of Fatting them in Holland, and which hath been practised herein England, viz. they hang them up in a Cellar, or some cool Place, in wet Moss in a small Net, with their Heads out, and feed them with white Bread soaked in Milk for many Days. This was told me by a Person very curious, and of great Honour and Eminence, whose Word (if I had leave to name him) no Body would question: And it being an Instance of the Respiration of Fishes very singular, and somewhat out of the way, I have for the Reader’s Diversion taken notice of it.
+
+[f]By Experiments I made my self in the Air Pump, in September and October, 1704; I observed that Animals whose Hearts have two Ventricles, and no Foramen Ovale, as Birds, Dogs, Cats, Rats, Mice, &c. die in less than half a Minute counting from the very first Exsuction; especially in a small Receiver.
+
+A Mole (which I suspected might have born more than other Quadrupeds) died in one Minute (without Recovery) in a large Receiver; and doubtless would hardly have survived half a Minute in a small Receiver. A Bat (although wounded) sustained the Pump two Minutes, and revived upon the re-admission of the Air. After that, he remained four Minutes and a half and revived. Lastly, After he had been five Minutes, he continued gasping for a time, and after twenty Minutes I re-admitted the Air, but the Bat never revived.
+
+As for Insects: Wasps, Bats, Hornets, Grashoppers, and Lady-Cows seemed dead in appearance in two Minutes, but revived in the open Air in two or three Hours time, notwithstanding they had been in Vacuo twenty four Hours.
+
+The Ear-wig, the great Staphylinus, the great black lowsy Beetle, and some other Insects would seem unconcerned at the Vacuum a good while, and lie as dead; but revive in the Air, although some had lain sixteen Hours in the exhausted Receiver.
+
+Snails bear the Air Pump prodigiously, especially those in Shells; two of which lay above twenty four Hours, and seemed not much affected. The same Snails I left in twenty eight Hours more after a second Exhaustion, and found one of them quite dead, but the other revived.
+
+Frogs and Toads bear the Pump long, especially the former. A large Toad, found in the House, died irrecoverably in less than six Hours. Another Toad and Frog I put in together, and the Toad was seemingly dead in two Hours, but the Frog just alive. After they had remained there eleven Hours, and seemingly dead, the Frog recovered in the open Air, only weak, but the Toad was quite dead. The same Frog being put in again for twenty seven Hours, then quite died.
+
+The Animalcules in Pepper-Water remained in Vacuo twenty four Hours. And after they had been exposed a Day or two to the open Air, I found some of them dead, some alive.
+
+[g]That the Air is the principal Cause of the Vegetation of Plants, Borelli proves in his excellent Book De Mot. Animal. Vol. 2. Prop. 181. And in the next Proposition, he assureth, In Plantis quoque peragi Aeris respirationem quandam imperfectam, à quâ earum vita pendet, & conservatur. But of this more when I come to survey Vegetables.
+
+Some Lettice-Seed being sown upon some Earth in the open Air, and some of the same Seed at the same time upon other Earth in a Glass-Receiver of the Pneumatick Engine, afterwards exhausted of Air: The Seed exposed to the Air was grown up an Inch and half high within Eight Days; but that in the exhausted Receiver not at all. And Air being again admitted into the same emptied Receiver, to see whether any of the Seed would then come up, it was found, that in the Space of one Week it was grown up to the Height of two or three Inches. Vid. Phil. Trans. No. 23. Lowth. Abridg. Vol. 2. p. 206.
+
+[h]In volucribus pulmones perforati aerem inspiratum in totam ventris cavitatem admittunt. Hujus ratio, ut propter corporis truncum Aere repletum & quasi extensum, ipsa magis volatilia evadant, faciliusque ab aere externo, proper intimi penum, sustententur. Equidem pisces, quò leviùs in aquis natent, in Abdomine vesicas Aere inflatas gestant: pariter & volucres, propter corporis truncum Aere impletum & quasi inflatum, nudo Aeri incumbentes, minus gravantur, proindeque levius & expeditiùs volant. Willis de Anim. Brut. p. 1. c. 3.
+
+[i]Fishes by reason of the Bladder of Air within them, can sustain, or keep themselves in any Depth of Water: For the Air in that Bladder being more or less compressed, according to the Depth the Fish swims at, takes up more or less Space; and consequently, the Body of the Fish, part of whose Bulk this Bladder is, is greater or less according to the several Depths, and yet retains the same Weight. Now the Rule de Insidentibus humido is, that a Body, that is heavier than so much Water, as is equal in Quantity to the Bulk of it, will sink, a Body that is lighter will swim; a Body of equal Weight will rest in any part of the Water. By this Rule, if the Fish, in the middle Region of the Water, be of equal Weight to the Water, that is commensurate to the Bulk of it, the Fish will rest there, without any Tendency upwards or downwards: And if the Fish be deeper in the Water, the Bulk of the Fish becoming less by the Compression of the Bladder, and yet retaining the same Weight, it will sink, and rest at the Bottom. And on the other side, if the Fish be higher than the middle Region, the Air dilating it self, and the Bulk of the Fish consequently increasing, but not the Weight, the Fish will rise upwards and rest at the top of the Water. Perhaps the Fish by some Action can emit Air out of its Bladder——, and, when not enough, take in Air,——and then it will not be wondred, that there should be always a fit Proportion of Air in all Fishes to serve their Use, &c. Then follows a Method of Mr. Boyl to experiment the Truth of this. After which, in Mr. Lowthorp’s Abridgment, follow Mr. Ray’s Observations. I think that——hath hit upon the true Use of the Swimming-Bladders in Fishes. For, 1. It hath been observed, that if the Swimming-Bladder of any Fish be pricked or broken, such a Fish sinks presently to the Bottom, and can neither support or raise it self up in the Water. 2. Flat Fishes, as Soles, Plaise, &c. which lie always grovelling at the Bottom, have no Swimming-Bladders that ever I could find. 3. In most Fishes there is a manifest Chanel leading from the Gullet——to the said Bladder, which without doubt serves for the conveying Air thereunto.——In the Coat of this Bladder is a musculous Power to contract it when the Fish lifts. See more very curious Observations relating to this Matter, of the late great Mr. Ray, as also of the curious anonymous Gentleman in the ingenious Mr. Lowthorp’s Abridgment, before cited, p. 845. from Phil. Trans. N. 114, 115.
+
+[k]Among the Engines in which the Air is useful, Pumps may be accounted not contemptible ones, and divers other Hydraulical Engines, which need not to be particularly insisted on. In these the Water was imagined to rise by the power of Suction, to avoid a Vacuum, and such unintelligible Stuff; but the justly famous Mr. Boyl was the first that solved these Phænomena by the Weight of the Atmosphere. His ingenious and curious Observations and Experiments relating hereto, may be seen in his little Tract, Of the Cause of Attraction by Suction, and divers others of his Tracts.
+
+[l]It would be endless to specify the Uses of the Air in Nature’s Operations: I shall therefore, for a Sample only, name its great Use to the World in conserving animated Bodies, whether endowed with animal or vegetative Life, and its contrary Quality of dissolving other Bodies; by which means many Bodies that would prove Nuisances to the World, are put out of the Way, by being reduced into their first Principles, (as we say), and so embodied with the Earth again. Of its Faculty as a Menstruum, or its Power to dissolve Bodies; I may instance in Crystal Glasses, which, with long keeping, especially if not used, will in Time be reduced to a Powder, as I have seen. So divers Minerals, Earths, Stones, Fossil-Shells, Wood, &c. which from Noah’s Flood, at least for many Ages, have lain under Ground, so secure from Corruption, that, on the contrary, they have been thereby made much the stronger, have in the open Air soon mouldered away. Of which last, Mr. Boyl gives an Instance (from the Dissertation de admirandis Hungar. Aquis) of a great Oak, like a huge Beam, dug out of a Salt Mine in Transylvania, so hard, that it would not easily be wrought upon by Iron Tools, yet, being exposed to the Air out of the Mine, it became so rotten that in four Days it was easy to be broken, and crumbled between one’s Fingers. Boyl’s Suspic. about some hid. Qual. in the Air, p. 28. So the Trees turned out of the Earth by the Breaches at West-Thurrock and Dagenham, near me, although probably no other than Alder, and interred many Ages ago in a rotten oazy Mold, were so exceedingly tough, hard, and found at first, that I could make but little Impressions on them with the Strokes of an Ax; but being exposed to the Air and Water, soon became so rotten as to be crumbled between the Fingers. See my Observations in Philos. Transact. Nᵒ. 335.
+
+[m]By reflecting the Light of the heavenly Bodies to us, I mean that Whiteness or Lightness which is in the Air in the Day-time, caused by the Rays of Light striking upon the Particles of the Atmosphere, as well as upon the Clouds above, and the other Objects beneath upon the Earth. To the same Cause also we owe the Twilight, viz. to the Sun-beams touching the uppermost Particles of our Atmosphere, which they do when the Sun is about eighteen Degrees beneath the Horizon. And as the Beams reach more and more of the airy Particles, so Darkness goes off, and Day light comes on and encreaseth. For an Exemplification of this, the Experiment may serve of transmitting a few Rays of the Sun through a small Hole into a dark Room: By which means the Rays which meet with Dust, and other Particles flying in the Air, are render’d visible; or (which amounts to the same) those swimming small Bodies are rendered visible, by their reflecting the Light of the Sun-beams to the Eye, which, without such Reflection, would it self be invisible.
+
+The Azure Colour of the Sky Sir Isaac Newton attributes to Vapours beginning to condense, and that are not able to reflect the other Colours. V. Optic. l. 2. Par. 3. Prop. 7.
+
+[n]By the Refractive Power of the Air, the Sun, and the other heavenly Bodies seem higher than really they are, especially near the Horizon. What the Refractions amount unto, what Variations they have, and what Alterations in time they cause, may be briefly seen in a little Book called, The Artificial Clock-Maker, Chap. 11.
+
+Although this inflective Quality of the Air be a great Incumbrance and Confusion of Astronomical Observations;——yet it is not without some considerable Benefit to Navigation; and indeed in some Cases, the Benefit thereby obtained is much greater than would be the Benefit of having the Ray proceed in an exact straight Line. [Then he mentions the Benefit hereof to the Polar Parts of the World.] But this by the by (saith he.) The great Advantage I consider therein, is the first Discovery of Land upon the Sea; for by means hereof, the tops of Hills and Lands are raised up into the Air, so as to be discoverable several Leagues farther off on the Sea than they would be, were there no such Refraction, which is of great Benefit to Navigation for steering their Course in the Night, when they approach near Land; and likewise for directing them in the Day-time, much more certainly than the most exact Celestial Observations could do by the Help of an uninflected Ray, especially in such Places as they have no Soundings. [Then he proposes a Method to find by these means the Distance of Objects at Sea.] V. Dr. Hook’s Post. Works. Lect. of Navig. p. 466.
+
+[o]Cum Belgæ in novâ Zemblâ hybernarent, Sol illis apparuit 16 diebus citiùs, quàm revera in Horizonte existeret, hoc est, cùm adhuc infra Horizontem depressus esset quatuor circiter gradibus, & quidem aere sereno. Varen. Geog. c. 19. Prop. 22.
+
+[These Hollanders] found, that the Night in that place shortened no less than a whole Month; which must needs be a very great Comfort to all such Places as live very far towards the North and South Poles, where length of Night, and want of seeing the Sun, cannot chuse but be very tedious and irksome. Hook Ibid.
+
+[By means of the Refractions] we found the Sun to rise twenty Minutes before it should; and in the Evening to remain above the Horizon twenty Minutes (or thereabouts) longer than it should. Captain James’s Journ. in Boyl of Cold. Tit. 18. p. 190.
+
+[p]Aer—in Nubes cogitur: humoremque colligens terram auget imbribus: tum effluens huc & illuc, ventos efficit. Idem annuas frigorum & calorum facit varietates: idemque & volatus Alitum sustinet, & spiritu ductus alit & sustentas animantes. Cic. de Nat. Deor. l. 2. c. 39.
+
+[14]
+
+CHAP. II.
+Of the Winds[a].
+
+To pass by other Considerations, whereby I might demonstrate the Winds to be the infinite Creator’s Contrivance, I shall insist only upon their great usefulness to the World. And so great is their Use, and of such absolute Necessity are they to the Salubrity of the Atmosphere, that all the World would be poisoned without those Agitations thereof. We find how putrid, fetid, and unfit for[15] Respiration, as well as Health and Pleasure, a stagnating, confined, pent up Air is. And if the whole Mass of Air and Vapours was always at Rest, and without Motion, instead of refreshing and animating, it would suffocate and poison all the World:[16] But the perpetual Commotions it receives from the Gales and Storms, keep it pure and healthful[b].
+
+Neither are those Ventilations beneficial only to the Health, but to the Pleasure also of the Inhabitants of the Terraqueous Globe; witness the Gales which fan us in the heat of Summer; without which, even in this our temperate Zone, Men are scarce able to perform the Labours of their Calling,[17] or not without Danger of Health and Life[c]. But especially, witness the perpetual Gales which throughout the whole Year do fan the Torrid Zone, and make that Climate an healthful and pleasant[18] Habitation, which would otherwise be scarce habitable.
+
+To these I might add many other great Conveniencies of the Winds in various Engines, and various Businesses. I might particularly insist upon its great Use to transport Men to the farthest distant Regions of the World[d] and I might particularly speak of the general and coasting Trade-Winds, the Sea, and the Land-Breezes;[e] the one serving to carry the Mariner in long Voyages from East to West; the other serving to waft him to particular[19] Places; the one serving to carry him into his Harbour, the other to bring him out. But I should go too far to take notice of all Particulars[f]. Leaving therefore the Winds, I proceed in the next Place to the Clouds and Rain.
+
+FOOTNOTES:
+[a]Ventus est aer fluens, is Seneca’s Definition, Na. Qu. l. 5. And as Wind is a Current of the Air, so that which excites or alters its Currents may be justly said to be the Cause of the Winds. An Æquipoise of the Atmosphere produceth a Calm; but if that Æquipoise be more or less taken off, a Stream of Air, or Wind, is thereby accordingly produced either stronger or weaker, swifter or slower. And divers things there are that may make such Alterations in the Æquipoise or Balance of the Atmosphere, viz. Eruptions of Vapours from Sea or Land; Rarefactions and Condensations in one Place more than another; the falling of Rain, pressure of the Clouds, &c. Pliny, l. 2. c. 45. tells us of a certain Cavern in Dalmatia, called Senta, in quem, saith he, dejecto levi pondere, quamvis tranquillo die, turbini similis emicat procella. But as to Caves it is observed, that they often emit Winds more or less. Dr. Connor, taking notice of this matter, specifies these, In regno Neapolitano ex immani Cumanæ Sibyllæ antro tenuem ventum effluentem percepi. The like he observed at the Caves at Baiæ, and in some of the Mines of Germany, and in the large Salt-Mines of Cracow in Poland. Ubi, saith he, opifices, & ipse fodinæ dominus Andreas Morstin, Nob. Polonus, mihi asseruerunt, quòd tanta aliquando Ventorum tempestas ex ambagiosis hujus fodinæ recessibus surgere solebat, quod laborantes fossores humi prosternebat, nec non portas & domiciliæ (quæ sibi in hâc fodinâ artifices exstruunt) penitùs evertebat. Bern. Connor. Dissert. Med. Phys. p. 33. Artic. 3.
+
+And as great Caves, so great Lakes sometimes send forth Winds. So Gassendus saith the Lacus Legnius doth, E quo dum exoritur fumus, nubes haud dubiê creanda est, quæ sit brevi in tempestatem sævissimam exoneranda. Gassend. Vit. Peiresk. l. 5. P. 417.
+
+But the most universal and constant Alterations of the Balance of the Atmosphere are from Heat and Cold. This is manifest in the General Trade-Winds, blowing all the Year between the Tropicks from East to West: if the Cause thereof be (as some ingenious Men imagine) the Sun’s daily Progress round that part of the Globe, and by his Heat rarefying one part of the Air, whilst the cooler and heavier Air behind presseth after. So the Sea and Land Breezes in Note (d). And so in our Climate, the Northerly and Southerly Winds (commonly esteemed the Causes of cold and warm Weather), are really the Effects of the Cold or Warmth of the Atmosphere: Of which I have had so many Confirmations, that I have no doubt of it. As for Instance, it is not uncommon to see a warm Southerly Wind, suddenly changed to the North, by the fall of Snow or Hail; to see the Wind in a frosty, cold Morning North, and when the Sun hath well warmed the Earth and Air, you may observe it to wheel about towards the Southerly Quarters; and again to turn Northerly or Easterly in the cold Evening. It is from hence also, that in Thunder-Showers the Wind and Clouds are oftentimes contrary to one another, (especially if Hail falls) the sultry Weather below directing the Wind one way; and the Cold above the Clouds another way. I took Notice upon March the 10ᵗʰ 1710/1, (and divers such like Instances I have had before and since) that the Morning was warm, and what Wind stirred was West-South-West, but the Clouds were thick and black (as generally they are when Snow ensues): A little before Noon the Wind veered about to North by West, and sometimes to other Points, the Clouds at the same time flying some North by West, some South-West: About one of the Clock it rained apace, the Clouds flying sometimes North-East, then North, and at last both Wind and Clouds settled North by West; At which time Sleet fell plentifully, and it grew very cold. From all which I observe, 1. That although our Region below was warm, the Region of the Clouds was cold, as the black, snowy Clouds shewed. 2. That the struggle between the warmth of ours, and the cold of the cloudy Region, stopped the airy Currents of both Regions. 3. That the falling of the Snow through our warmer Air melted into Rain at first; but that it became Sleet after the superiour Cold had conquered the inferiour Warmth. 4. That, as that Cold prevailed by Degrees, so by Degrees it wheeled about both the Winds and Clouds from the Northwards towards the South.
+
+Hippocrates, l. 2. De Vict. Orat. Omnes Ventos vel à nive, glacie, vehementi gelu, fluminibus, &c. spirare necesse judicat, Bartholin. de usu Nivis, c. 1.
+
+[b]It is well observed in my Lord Howards Voyage to Constantinople, that at Vienna they have frequent Winds, which if they cease long in Summer, the Plague often ensues: So that it is now grown into a Proverb, that if Austria be not windy, it is subject to Contagion. Bohun of Wind, p. 213.
+
+From some such Commotions of the Air I imagine it is, that at Grand Cairo the Plague immediately ceases, as soon as the Nile begins to overflow; although Mr. Boyl attributes it to nitrous Corpuscles. Determ. Nat. of Effluv. Chap. 4.
+
+Nulla enim propemodum regio est, quæ non habeat aliquem flatum ex se nascentem, & circa se cadentem.
+
+Inter cætera itaq; Providentiæ opera, hoc quoq; aliquis, ut dignum admiratione suspexerit. Non enim ex unâ causâ Ventos aut invenit, aut per diversa disposuit: sed primum ut aera non sinerent pigrescere, sed assiduâ vexatione utilem redderens, vitaiemq; tracturis. Sen. Nat. Quæst. l. 5. c. 17, 18.
+
+All this is more evident, from the Cause assigned to malignant epidemical Diseases, particularly the Plague, by my ingenious, learned Friend, Dr. Mead; and that is, an hot and moist Temperament of the Air, which is observed by Hippocrates, Galen, and the general Histories of Epidemical Diseases, to attend those Distempers. Vid. Mead of Poisons, Essay 5. p. 161. But indeed, whether the Cause be this, or poisonous, malignant Exhalations or Animalcules, as others think, the Winds are however very salutiferous in such Cases, in cooling the Air, and dispersing and driving away the moist or pestiferous Vapours.
+
+[c]July 8. 1707, (called for some time after the Hot Tuesday,) was so excessively hot and suffocating, by reason there was no Wind stirring, that divers Persons died, or were in great Danger of Death, in their Harvest-Work. Particularly one who had formerly been my Servant, a healthy, lusty, young Man, was killed by the Heat: And several Horses on the Road dropped down and died the same Day.
+
+In the foregoing Notes, having Notice of some Things relating to Heat, although it be somewhat out of the way, I hope the Reader will excuse me, if I entertain him with some Observations I made about the Heat of the Air under the Line, compared with the Heat of our Bodies. J. Patrick, who, as he is very accurate in making Barometrical and Thermometrical Instruments, had the Curiosity for the nicer adjusting his Thermometers, to send two abroad under the Care of two very sensible, ingenious Men; one to the Northern Lat. of 81; the other to the Parts under the Æquinoctial: In these two different Climates, the Places were marked where the Spirits stood at the severest Cold and greatest Heat. And according to these Observations he graduates his Thermometers. With his Standard I compared my Standard Thermometer, from all the Degrees of Cold, I could make with Sal Armoniack, &c. to the greatest Degrees of Heat our Thermometers would reach to. And with the same Thermometer (of mine) I experimented the greatest Heat of my Body, in July 1709. First in an hot Day without Exercise, by patting the Ball of my Thermometer under my Armpits, and other hottest Parts of my Body. By which means the Spirits were raised 284 Tenths of an Inch above the Ball. After that, in a much hotter Day, and indeed nearly as hot as any Day with us, and after I had heated my self with strong Exercise too, as much as I could well bear, I again tried the same Experiment, but could not get the Spirits above 288 Tenths; which I thought an inconsiderable Difference, for so seemingly a very different Heat of my Body. But from some Experiments I have made (altho’ I have unfortunately forgotten them) in very cold Weather, I imagine the Heat of an healthy Body to be always much the same in the warmest Parts thereof, both in Summer and Winter. Now between those very Degrees of 284 and 288, the Point of the equatorial Heat falleth. From which Observation it appears, that there is pretty nearly an equal Contemperament of the Warmth of our Bodies, to that of the hottest Part of the Atmosphere inhabited by us.
+
+If the Proportion of the Degrees of Heat be desired from the Freezing-Point, to the Winter, Spring, and Summer Air, the Heat of Man’s Body, of heated Water, melted Metals, and so to actual Fire; an Account may be met with of it, by my most ingenious Friend, the great Sir Isaac Newton, in Phil. Transact. Nᵒ. 270.
+
+[d]In hoc Providentia ac Dispositor ille Mundi Deus, aera ventis exercendum dedit,——non ut nos classes partem freti occupaturas compleremus milite armato, &c. Dedit ille ventos ad custodiendam cœli terrarumq; temperiem, ad evocandas supprimendásq; aquas, ad alendos satorum atq; arborum fructus; quos ad maturitatem cum aliis causis adducit ipsa jactatio, attrahens cibum in summa, & ne torpeat, promovens. Dedit ventos ad ulteriora noscenda: fuisset enim imperitum animal, & fine magnâ experientiâ rerum Homo, si circumscriberetur natalis soli fine. Dedit ventos ut commoda cujusq; regionis fierent communia; non ut legiones equitemq; gestarent, nec ut perniciosa gentibus arma transveherent. Seneca, ibid.
+
+[e]Sea-Breezes commonly rise in the Morning about nine a Clock.——They first approach the Shore gently, as if they were afraid to come near it.——It comes in a fine, small, black Curle upon the Water, whereas all the Sea between it and the Shore (not yet reached by it) is as smooth and even as Glass in Comparison. In half an Hours time after it has reached the Shore, it fans pretty briskly, and so encreaseth gradually till twelve a Clock; then it is commonly strongest, and lasts so till two or three, a very brisk Gale.——After three it begins to die away again, and gradually withdraws its force till all is spent; and about five a Clock——it is lulled asleep, and comes no more till next morning.
+
+And as the Sea Breezes do blow in the Day, and rest in the Night; so on the contrary [The Land-Breezes] blow in the Night, and rest in the Day, alternately succeeding each other.——They spring up between six and twelve at Night, and last till six, eight, or ten in the Morning. Dampier’s Disc. of Winds, ch. 4.
+
+[f]One Thing more I believe some of my Friends will expect from me is, that I shew the Result of comparing my own Observations of the Winds, with others they know I have from Ireland, Switzerland, Italy, France, New-England, and some of our Parts of England. But the Observations being some of them but of one Year, and most of the rest of but a few Years, I have not been able to determine any great Matters. The chief of what I have observed is, that the Winds in all these Places seldom agree, but when they most certainly do so, it is commonly when the Winds are strong, and of long continuance in the same Quarter: And more I think in the Northerly and Easterly, than other Points. Also a strong Wind in one Place, is oftentimes a weak one in another Place, or moderate, according as Places have been nearer or farther distant. Vid. Phil. Trans. Nᵒ. 297, and 321. But to give a good and tolerable Account of this or any other of the Weather, it is necessary to have good Histories thereof from all Parts; which, as yet we have but few of, and they imperfect, for want of longer and sufficient Observations.
+
+[20]
+
+CHAP. III.
+Of the Clouds and Rain.
+
+The Clouds and Rain[a] we shall find to be no less useful Meteors than the last mentioned; as is manifest in the refreshing pleasant Shades which the Clouds afford, and the fertile Dews and Showers which they pour down on the Trees and[21] Plants, which would languish and die with perpetual Drought, but are hereby made Verdant and Flourishing, Gay and Ornamental; so that (as the[22] Psalmist saith, Psal. lxv. 12, 13.) The little Hills rejoice on every side, and the Valleys shout for Joy, they also sing.
+
+[23]
+
+And, if to these Uses, we should add the Origine of Fountains and Rivers, to Vapours and the[24] Rains, as some of the most eminent modern[25] Philosophers[b] have done, we should have another Instance of the great Use and Benefit of that Meteor.
+
+And now, if we reflect upon this necessary Appendage of the Terraqueous Globe, the Atmosphere; and consider the absolute Necessity thereof to many Uses of our Globe, and its great Convenience to the whole: And in a Word, that it answereth all the Ends and Purposes that we can suppose there can be for such an Appendage: Who can but own this to be the Contrivance, the Work of the great Creator? Who would ever say or imagine such a Body, so different from the Globe it serves, could be made by Chance, or be adapted so exactly to all those forementioned grand Ends, by any other Efficient than by the Power and Wisdom of the infinite God! Who would not rather, from so noble a Work,[26] readily acknowledge the Workman[c] and as easily conclude the Atmosphere to be made by God, as an Instrument wrought by its Power, any Pneumatick Engine, to be contrived and made by Man!
+
+FOOTNOTES:
+[a]Clouds and Rain are made of Vapours raised from Water, or Moisture only. So that I utterly exclude the Notion of Dry, Terrene Exhalations, or Fumes, talked much of by most Philosophers; Fumes being really no other than the humid Parts of Bodies respectively Dry.
+
+These Vapours are demonstratively no other than small Bubbles, or Vesiculæ detached from the Waters by the Power of the Solar, or Subterraneous Heat, or both. Of which see Book 2. Chap. 5. Note (b). And being lighter than the Atmosphere, are buoyed up thereby, until they become of an equal Weight therewith, in some of its Regions aloft in the Air, or nearer the Earth; in which those Vapours are formed into Clouds, Rain, Snow, Hail, Lightning, Dew, Mists, and other Meteors.
+
+In this Formation of Meteors the grand Agent is Cold, which commonly, if not always, occupies the superior Regions of the Air; as is manifest from those Mountains which exalt their lofty Tops into the upper and middle Regions, and are always covered with Snow and Ice.
+
+This Cold, if it approaches near the Earth, presently precipitates the Vapours, either in Dews; or if the Vapours more copiously ascend, and soon meet the Cold, they are then condensed into Misting, or else into Showers of small Rain, falling in numerous, thick, small Drops: But if those Vapours are not only copious, but also as heavy as our lower Air it self, (by means their Bladders are thick and fuller of Water,) in this Case they become visible, swim but a little Height above the Earth, and make what we call a Mist or Fog. But if they are a Degree lighter, so as to mount higher, but not any great Height, as also meet not with Cold enough to condense them, nor Wind to dissipate them, they then form an heavy, thick, dark Sky, lasting oftentimes for several Weeks without either Sun or Rain. And in this Case, I have scarce ever known it to Rain, till it hath been first Fair, and then Foul. And Mr. Clarke, (an ingenious Clergyman of Norfolk, who in his Life-time, long before me, took notice of it, and kept a Register of the Weather for thirty Years, which his learned Grandson, Dr. Samuel Clarke put into my Hands, he, I say) saith, he scarce ever observed the Rule to fail in all that Time; only he adds, If the Wind be in some of the easterly Points. But I have observed the same to happen, be the Wind where it will. And from what hath been said, the Case is easily accounted for, viz. whilst the Vapours remain in the same State, the Weather doth so too. And such Weather is generally attended with moderate Warmth, and with little or no Wind to disturb the Vapours, and an heavy Atmosphere to support them, the Barometer being commonly high then. But when the Cold approacheth, and by condensing drives the Vapours into Clouds or Drops, then is way made for the Sun-beams, till the same Vapours, being by further Condensation formed into Rain, fall down in Drops.
+
+The Cold’s approaching the Vapours, and consequently the Alteration of such dark Weather I have beforehand perceived, by some few small Drops of Rain, Hail, or Snow, now and then falling, before any Alteration hath been in the Weather; which I take to be from the Cold meeting some of the straggling Vapours, or the uppermost of them, and condensing them into Drops, before it arrives unto, and exerts it self upon the main Body of Vapours below.
+
+I have more largely than ordinary insisted upon this part of the Weather, partly, as being somewhat out of the way; but chiefly, because it gives Light to many other Phænomena of the Weather. Particularly we may hence discover the Original of Clouds, Rain, Hail and Snow; that they are Vapours carried aloft by the Gravity of the Air, which meeting together so as to make a Fog above, they thereby form a Cloud. If the Cold condenseth them into Drops, they then fall in Rain, if the Cold be not intense enough to freeze them: But if the Cold freezeth them in the Clouds, or in their Fall through the Air, they then become Hail or Snow.
+
+As to Lightning, and other enkindled Vapours, I need say little in this Place, and shall therefore only observe, that they owe also their Rise to Vapours; but such Vapours as are detached from mineral Juices, or at least that are mingled with them, and are fired by Fermentation.
+
+Another Phænomenon resolvable from what hath been said is, why a cold, is always a wet Summer, viz. because the Vapours rising plentifully then, are by the Cold soon collected into Rain. A remarkable Instance of this we had in the Summer of 1708, part of which, especially about the Solstice, was much colder than usually. On June 12, it was so cold, that my Thermometer was near the Point of hoar Frost, and in some Places I heard there was an hoar Frost; and during all the cool Weather of that Month, we had frequent and large Rains, so that the whole Month’s Rain amounted to above two Inches Depth, which is a large Quantity for Upminster, even in the wettest Months. And not only with us at Upminster, but in other Places, particularly at Zurich in Switzerland, they seem to have had as unseasonable Cold and Wet as we. Fuit hic mensis——præter modum humidus, & magno quidem vegetabilibus hominibusque damno. Multum computruit Fœnum, &c. complains the industrious and learned Dr. J. J. Scheuchzer: Of which, and other Particulars, I have given a larger Account in Phil. Trans. Nᵒ. 321.
+
+In which Transaction I have observed farther, that about the Equinoxes we (at Upminster at least) have oftentimes more Rain than at other Seasons. The Reason of which is manifest from what hath been said, viz. in Spring, when the Earth and Waters are loosed from the brumal Constipations, the Vapours arise in great Plenty: And the like they do in Autumn, when the Summer Heats, that both dissipated them, and warmed the superior Regions, are abated; and then the Cold of the superior Regions meeting them, condenseth them into Showers, more plentifully than at other Seasons, when either the Vapours are fewer, or the Cold that is to condense them is less.
+
+The manner how Vapours are precipitated by the Cold, or reduced into Drops, I conceive to be thus: Vapours being, as I said, no other than inflated Vesiculæ of Water; when they meet with a colder Air than what is contained in them, the contained Air is reduced into a less Space, and the watery Shell or Case rendered thicker by that means, so as to become heavier than the Air, by which they are buoyed up, and consequently must needs fall down. Also many of those thickned Vesiculæ run into one, and so form Drops, greater or smaller, according to the Quantity of Vapours collected together.
+
+As to the Rain of different Places, I have in some of our Transactions assigned the Quantities; particularly in the last cited Transaction, I have assigned these, viz. the Depth of the Rain one Year with another, in English Measure, if it was to stagnate on the Earth, would amount unto, at Townely in Lancashire, 42½ Inches; at Upminster in Essex 19¼ Inches; at Zurich in Switzerland 32¼ Inches; at Pisa in Italy 43¼ Inches; at Paris in France 19 Inches; and at Lisle in Flanders 24 Inches.
+
+It would be endless to reckon up the bloody and other prodigious Rains taken notice of by Historians, and other Authors, as præternatural and ominous Accidents; but, if strictly pried into, will be found owing to natural Causes: Of which, for the Reader’s Satisfaction, I will give an Instance or two. A bloody Rain was imagined to have fallen in France, which put the Country People into so great a Fright, that they left their Work in the Fields, and in great haste flew to the Neighbouring Houses. Peirise (then in the Neighbourhood) strictly enquiring into the Cause, found it to be only red Drops coming from a sort of Butterfly that flew about in great Numbers at that Time, as he concluded from seeing such red Drops come from them; and because these Drops were laid, Non supra ædificia, non in devexis lapidum superficiebus, uti debuerat contingere, si è cœlo sanguine pluisset; sed in subcavis potius & in foraminibus.——Accessit, quòd parietes iis tingebantur, non qui in mediis oppidis, sed qui agrorum vicini erant, neque secundum partes elatiores, sed ad mediocrem solùm altitudinem, quantam volitare Papiliones solent. Gassend in vit. Peiresk. L. 2. p. 156.
+
+So Dr. Merret saith also, Pluvia Sanguinis quàm certissimè constat esse tantùm Insectorum excrementa: Pluvia Tritici quàm nihil aliud esse quàm Hederæ bacciferæ grana à Sturnis devorata excretaque comparanti liquidissimè patet. Pinax rerum, &c. p. 220.
+
+The curious Worm tells of the raining of Brimstone, An. 1646. Maii 16. Hic Hafniæ cùm ingenti pluviâ tota urbs, omnesque ita inundarentur plateæ, ut gressus hominum impediret, Sulphureoque odore aërem inficeret, dilapsis aliquantulum aquis, quibusdam in locis colligere licuit Sulphureum pulverem, cujus portionem servo, colore, odore, & aliis verum Sulphur ferentem. Mus. Worm. L. 1. c. 11. Sect. 1.
+
+Together with the Rain we might take notice of other Meteors, particularly Snow; which although an irksome Guest, yet hath its great Uses, if all be true that the famous T. Bartholin saith of it, who wrote a Book de Nivis usu Medico. In which he shews of what great Use Snow is in fructifying the Earth, preserving from the Plague, curing Fevers, Colicks, Head-Aches, Tooth-Aches, Sore Eyes, Pleurisies, (for which Use he saith his Country-Women of Denmark keep Snow-Water gathered in March), also in prolonging Life, (of which he instanceth in the Alpine Inhabitants, that live to a great Age,) and preserving dead Bodies; Instances of which he gives in Persons buried under the Snow in passing the Alps, which are found uncorrupted in the Summer, when the Snow is melted; which sad Spectacle he himself was an Eye-Witness of. And at Spitzberg in Greenland, dead Bodies remain entire and uncorrupted for thirty Years. And lastly, concerning such as are so preserv’d when slain, he saith they remain in the same Posture and Figure: Of which he gives this odd Example, Visum id extra urbem nostram [Hafniam] quum, 11 Feb. 1659. oppugnantes hostes repellerentur, magnâque strage occumberent; alii enim rigidi iratum vultum ostendebant, alii oculos elatos, alii ore diducto ringentes, alii brachiis extensis Gladium minari, alii alio situ prostrati jacebant. Barthol. de usu Niv. c. 12.
+
+But although Snow be attended with the Effects here named, and others specified by the learned Bartholin; yet this is not to be attributed to any peculiar Virtue in the Snow, but some other Cause. Thus when it is said to fructify the Earth, it doth so by guarding the Corn or other Vegetables against the intenser cold of the Air, especially the cold piercing Winds; which the Husbandmen observe to be the most injurious to their Corn of all Weathers. So for Conserving dead Bodies, it doth it by constipating such Bodies, and preventing all such Fermentations or internal Conflicts of their Particles, as would produce Corruption.
+
+Such an Example as the preceding is said to have happened some Years ago at Paris, in digging in a Cellar for supposed hidden Treasure; in which, after digging some Hours, the Maid going to call her Master, found them all in their digging Postures, but dead. This being noised abroad, brought in not only the People, but Magistrates also, who found them accordingly; Ille qui ligone terram effoderat, & socius qui palâ effossam terram removerat, ambo pedibus stabant, quasi sua quisque operâ affixus incubuisset; uxor unius quasi ab opere defessa in scamno, solicito quodam vultu, sedebat, inclinato in palmam manûs genibus innitentis capite; puerulus laxatis braccis in margine excavatæ foveæ defixis in terram oculis alvum exonerabat; omnes in naturali situ, carneæ tanquam statuæ rigidi, apertis oculis & vultu vitam quasi respirante, exanimes stabant. Dr. Bern. Connor, Dissert. Med. Phys. p. 15.
+
+The Doctor attributes all this to Cold; but I scarce think there could be Cold enough to do all this at Paris, and in a Cellar too. Bur his following Stories are not improbable, of Men and Cattle killed with Cold, that remained in the very same Posture in which they died; of which he gives, from a Spanish Captain, this Instance, that happened two Years before, of a Soldier who unfortunately straggled from his Company that were foraging, and was killed with the Cold, but was thought to have fallen into the Enemies Hands. But soon after their return to their Quarters, they saw their Comr…"

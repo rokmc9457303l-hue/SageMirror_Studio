@@ -1,0 +1,791 @@
+"The Project Gutenberg eBook of Jeremiah : Being The Baird Lecture for 1922
+This eBook is for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever. You may copy it, give it away or re-use it under the terms of the Project Gutenberg License included with this eBook or online at www.gutenberg.org. If you are not located in the United States, you will have to check the laws of the country where you are located before using this eBook.
+Title: Jeremiah : Being The Baird Lecture for 1922
+
+Author: George Adam Smith
+
+
+Release date: November 28, 2008 [eBook #27351]
+
+Language: English
+
+Original publication: New York: George H. Doran Company, 1924
+
+Other information and formats: www.gutenberg.org/ebooks/27351
+
+*** START OF THE PROJECT GUTENBERG EBOOK JEREMIAH : BEING THE BAIRD LECTURE FOR 1922 ***
+Jeremiah
+
+Being The Baird Lecture for 1922
+
+By
+
+George Adam Smith
+
+New York
+
+George H. Doran Company
+
+1924
+
+Contents
+Dedication.
+Preface.
+Preliminary.
+Lecture I. The Man And The Book.
+Lecture II. The Poet.
+Lecture III. The Prophet—His Youth And His Call.
+Lecture IV. The Prophet In The Reign Of Josiah.
+1. His Earliest Oracles. (II. 2-IV. 4.)
+2. Oracles on the Scythians. (With some others: IV. 5-VI. 29.)
+3. Jeremiah and Deuteronomy. (Chs. VII, VIII. 8, XI.)
+Lecture V. Under Jehoiakim.
+1. From Megiddo to Carchemish, 608-605.
+2. Parables. (XIII, XVIII-XX, XXXV.)
+3. Oracles on the Edge of Doom. (VII. 16-XVIII passim, XXII, XLV.)
+Lecture VI. To The End And After.
+1. The Release of Hope. (XXIV, XXIX.)
+2. Prophets and Prophets. (XXIII. 9-32, XXVII-XXIX, etc.)
+3. The Siege. (XXI, XXXII-XXXIV, XXXVII, XXXVIII.)
+4. And After. (XXX, XXXI, XXXIX-XLIV.)
+Lecture VII. The Story Of His Soul.
+1. Protest and Agony. (I, IV. 10, 19, VI. 11, XI. 18-XII. 6, XV. 10-XVI. 9, XVII. 14-18, XVIII. 18-23, XX. 7-18.)
+2. Predestination. (I, XVIII, etc.)
+3. Sacrifice.
+Lecture VIII. God, Man And The New Covenant.
+1. God.
+2. Man and the New Covenant.
+Appendix I. Medes And Scythians.
+Appendix II. Necoh's Campaign.
+Index Of Texts.
+Index Of Names And Subjects.
+Footnotes
+[pg v]
+Dedication.
+TO
+THE UNION
+OF
+THE SCOTTISH CHURCHES
+
+[pg vii]
+Preface.
+The purpose and the scope of this volume are set forth in the beginning of Lecture I. Lecture II. explains the various metrical forms in which I understand Jeremiah to have delivered the most of his prophecies, and which I have endeavoured, however imperfectly, to reproduce in English. Here it is necessary only to emphasise the variety of these forms, the irregularities which are found in them, and the occasional passage of the Prophet from verse to prose and from prose to verse, after the manner of some other bards or rhapsodists of his race. The reader will keep in mind that what appear as metrical irregularities on the printed page would not be felt to be so when sung or chanted; just as is the case with the folk-songs of Palestine to-day. I am well aware that metres so primitive and by our canons so irregular have been more rhythmically rendered by the stately prose of our English Versions; yet it is our duty reverently to seek for the [pg viii]original forms and melodies of what we believe to be the Oracles of God. The only other point connected with the metrical translations offered, which need be mentioned here, is that I have rendered the name of the God of Israel as it is by the Greek and our own Versions—The Lord—which is more suitable to English verse than is either Yahweh or Jehovah.
+
+The text of the Lectures and the footnotes show how much I owe to those who have already written on Jeremiah, as also in what details I differ from one or another of them.
+
+I have retained the form of Lectures for this volume, but I have very much expanded and added to what were only six Lectures of an hour each when delivered under the auspices of the Baird Trust in Glasgow in 1922.
+
+George Adam Smith.
+
+Chanonry Lodge,
+Old Aberdeen,
+18th October, 1923.
+
+[pg 001]
+Preliminary.
+First of all, I thank the Baird Trustees for their graceful appointment to this Lecture of a member of what is still, though please God not for long, another Church than their own. I am very grateful for the privilege which they grant me of returning to Glasgow with the accomplishment of a work the materials for which were largely gathered during the years of my professorship in the city. The value of the opportunity is enhanced by all that has since befallen our nation and the world. The Great War invested the experience of the Prophet, who is the subject of this Lecture, with a fresh and poignant relevance to our own problems and duties. Like ourselves, Jeremiah lived through the clash not only of empires but of opposite ethical ideals, through the struggles and panics of small peoples, through long and terrible fighting, famine, and slaughter of the youth of the nations, with all the anxieties to faith and the problems of Providence, which such things naturally raise. Passionate for peace, he was called to proclaim the inevitableness of war, in opposition to the popular prophets of a [pg 002]false peace; but later he had to counsel his people to submit to their foes and to accept their captivity, thus facing the hardest conflict a man can who loves his own—between patriotism and common sense, between his people's gallant efforts for freedom and the stern facts of the world, between national traditions and pieties on the one side and on the other what he believed to be the Will of God. These are issues which the successive generations of our race are called almost ceaselessly to face; and the teaching and example of the great Prophet, who dealt with them through such strenuous debates both with his fellow-men and with his God, and who brought out of these debates spiritual results of such significance for the individual and for the nation, cannot be without value for ourselves.
+
+[pg 003]
+Lecture I.
+The Man And The Book.
+In this and the following lectures I attempt an account and estimate of the Prophet Jeremiah, of his life and teaching, and of the Book which contains them—but especially of the man himself, his personality and his tempers (there were more than one), his religious experience and its achievements, with the various high styles of their expression; as well as his influence on the subsequent religion of his people.
+
+It has often been asserted that in Jeremiah's ministry more than in any other of the Old Covenant the personality of the Prophet was under God the dominant factor, and one has even said that “his predecessors were the originators of great truths, which he transmuted into spiritual life.”1 To avoid exaggeration here, we must keep in mind how large a part personality played in their teaching also, and from how deep in their lives their messages sprang. Even Amos was no mere voice crying in the wilderness. The discipline of the desert, the clear eye for ordinary facts and [pg 004]the sharp ear for sudden alarms which it breeds, along with the desert shepherd's horror of the extravagance and cruelties of civilisation—all these reveal to us the Man behind the Book, who had lived his truth before he uttered it. Hosea again, tells the story of his outraged love as the beginning of the Word of the Lord by him. And it was the strength of Isaiah's character, which, unaided by other human factors, carried Judah, with the faith she enshrined, through the first great crisis of her history. Yet recognise, as we justly may, the personalities of these prophets in the nerve, the colour, the accent, and even the substance of their messages, we must feel the still greater significance of Jeremiah's temperament and other personal qualities both for his own teaching and for the teaching of those who came after him. Thanks to his loyal scribe, Baruch, we know more of the circumstances of his career, and thanks to his own frankness, we know more of his psychology than we do in the case of any of his predecessors. He has, too, poured out his soul to us by the most personal of all channels; the charm, passion and poignancy of his verse lifting him high among the poets of Israel.
+
+So far as our materials enable us to judge no other prophet was more introspective or concerned about himself; and though it might be said that he carried this concern to a fault, yet [pg 005]fault or none, the fact is that no prophet started so deeply from himself as Jeremiah did. His circumstances flung him in upon his feelings and convictions; he was constantly searching, doubting, confessing, and pleading for, himself. He asserted more strenuously than any except Job his individuality as against God, and he stood in more lonely opposition to his people.
+
+Jeremiah was called to prophesy about the time that the religion of Israel was re-codified in Deuteronomy—the finest system of national religion which the world has seen, but only and exclusively national—and he was still comparatively young when that system collapsed for the time and the religion itself seemed about to perish with it. He lived to see the Law fail, the Nation dispersed, and the National Altar shattered; but he gathered their fire into his bosom and carried it not only unquenched but with a purer flame towards its everlasting future. We may say without exaggeration that what was henceforth finest in the religion of Israel had, however ancient its sources, been recast in the furnace of his spirit. With him the human unit in religion which had hitherto been mainly the nation was on the way to become the individual. Personal piety in later Israel largely grew out of his spiritual struggles.2
+
+[pg 006]
+His forerunners, it is true, had insisted that religion was an affair not of national institutions nor of outward observance, but of the people's heart—by which heart they and their hearers must have understood the individual hearts composing it. But, in urging upon his generation repentance, faith and conversion to God, Jeremiah's language is more thorough and personal than that used by any previous prophet. The individual, as he leaves Jeremiah's hands, is more clearly the direct object of the Divine Interest and Grace, and the instrument of the Divine Will. The single soul is searched, defined and charged as never before in Israel.
+
+But this sculpture of the individual out of the mass of the nation, this articulation of his immediate relation to God apart from Law, Temple and Race, achieved as it was by Jeremiah only through intense mental and physical agonies, opened to him the problem of the sufferings of the righteous. In his experience the individual realised his Self only to find that Self—its rights, the truths given it and its best service for God—baffled by the stupidity and injustice of those for whom it laboured and agonised. The mists of pain and failure bewildered the Prophet and to the last his work seemed in vain. Whether or not he himself was conscious of the solution of the problem, others reached it through him. There are grounds for believing that the Figure [pg 007]of the Suffering Servant of the Lord, raised by the Great Prophet of the Exile, and the idea of the atoning and redemptive value of His sufferings were, in part at least, the results of meditation upon the spiritual loneliness on the one side, and upon the passionate identification of himself with the sorrows of his sinful people on the other, of this the likest to Christ of all the prophets.3
+
+* * * * *
+For our knowledge of this great life—there was none greater under the Old Covenant—we are dependent on that Book of our Scriptures, the Hebrew text of which bears the simple title “Jeremiah.”
+
+The influence of the life and therefore the full stature of the man who lived it, stretches, as I have hinted, to the latest bounds of Hebrew history, and many writings and deeds were worshipfully assigned to him. Thus the Greek Version of the Old Testament ascribes Lamentations to Jeremiah, but the poems themselves do not claim to be, and obviously are not, from himself. He is twice quoted in II. Chronicles and once in Ezra, but these quotations may be reasonably interpreted as referring to prophecies contained in our book, which were therefore [pg 008]extant before the date of the Chronicler.4 Ecclesiasticus XLIX. 6-7 reflects passages of our Book, and of Lamentations, as though equally Jeremiah's, and Daniel IX. 2 refers to Jeremiah XXV. 12. A paragraph in the Second Book of Maccabees, Ch. II. 1-8, contains, besides echoes of our Book of Jeremiah, references to other activities of the Prophet of which the sources and the value are unknown to us. But all these references, as well as the series of apocryphal and apocalyptic works to which the name either of Jeremiah himself or of Baruch, his scribe, has been attached,5 only reveal the length of the shadow which the Prophet's figure cast down the ages, and contribute [pg 009]no verifiable facts to our knowledge of his career or of his spiritual experience.
+
+For the actual life of Jeremiah, for the man as he was to himself and his contemporaries, for his origin, character, temper, struggles, growth and modes of expression, we have practically no materials beyond the Canonical Book to which his name is prefixed.6
+
+Roughly classified the contents of the Book (after the extended title in Ch. I. 1-3) are as follows:—
+
+1. A Prologue, Ch. I. 4-19, in which the Prophet tells the story of his call and describes the range of his mission as including both his own people and foreign nations. The year of his call was 627-6 B.C.
+
+2. A large number of Oracles, dialogues between the Prophet and the Deity and symbolic actions by the Prophet issuing in Oracles, mostly introduced as by Jeremiah himself, but sometimes reported of him by another. Most of the Oracles are in verse; the style of the rest is not distinguishable by us from prose. They deal almost [pg 010]exclusively with the Prophet's own people though there are some references to neighbouring tribes. The bulk of this class of the contents is found within Chs. II-XXV, which contain all the earlier oracles, i.e. those uttered by Jeremiah before the death of King Josiah in 608, but also several of his prophecies under Jehoiakim and even Ṣedekiah. More of the latter are found within Chs. XXVII-XXXV: all these, except XXVIII and part of XXXII, which are introduced by the Prophet himself, are reported by another.
+
+3. A separate group of Oracles on Foreign Nations, Chs. XLVI-LI, reported to us as Jeremiah's.
+
+4. A number of narratives of episodes in the Prophet's life from 608 onwards under Jehoiakim and Ṣedekiah to the end in Egypt, soon after 586; apparently by a contemporary and eyewitness who on good grounds is generally taken to be Baruch the Scribe: Chs. XXVI, XXXVI-XLV; but to the same source may be due much of Chs. XXVII-XXXV (see under 2).
+
+5. Obvious expansions and additions throughout all the foregoing; and a historical appendix in Ch. LII, mainly an excerpt from II. Kings XXIV-XXV.
+
+On the face of it, then, the Book is a compilation from several sources; and perhaps we ought to translate the opening clause of its title not as in our versions “The Words of Jeremiah,” but [pg 011]“The History of Jeremiah,” as has been legitimately done by some scholars since Kimchi.
+
+What were the nuclei of this compilation? How did they originate? What proofs do they give of their value as historical documents? How did they come together? And what changes, if any, did they suffer before the compilation closed and the Book received its present form?
+
+These questions must be answered, so far as possible, before we can give an account of the Prophet's life or an estimate of himself and his teaching. The rest of this lecture is an attempt to answer them—but in the opposite order to that in which I have just stated them. We shall work backward from the two ultimate forms in which the Book has come down to us. For these forms are two.
+
+Besides the Hebrew text, from which the Authorised and Revised English Versions have been made, we possess a form of the Book in Greek, which is part of the Greek Version of the Old Testament known as the Septuagint. This is virtually another edition of the same work. The Hebrew text belongs to the Second or Prophetical Canon of the Jewish Scriptures, which was not closed till about 200 B.C., or more than 350 years after Jeremiah's death. The Greek Version was completed about the same time, and possibly earlier.
+
+These two editions of the Book hold by far the [pg 012]greatest part of their contents in common, yet they differ considerably in the amount and in the arrangement of their contents, and somewhat less in the dates and personal references which they apply to various passages. We have thus before us two largely independent witnesses who agree in the bulk of their testimony, and otherwise correct and supplement each other.
+
+In size the Greek Book of Jeremiah is but seven-eighths of the Hebrew,7 but conversely it contains some hundred words that the Hebrew lacks. Part of this small Greek surplus is due to the translators' expansion or paraphrase of briefer Hebrew originals, or consists of glosses that they found in the Hebrew MSS. from which they translated, or added of themselves; the rest is made up of what are probably original phrases but omitted from the Hebrew by the carelessness of copyists; yet none of these differences is of importance save where the Greek corrects an irregularity in the Hebrew metre, or yields sense when the Hebrew fails to do so.8
+
+More instructive is the greater number of phrases and passages found in the Hebrew Book, and consequently in our English Versions, but absent from the Greek. Some, it is true, are merely [pg 013]formal—additions to a personal name of the title king or prophet or of the names of a father and grandfather, or the more frequent use of the divine title of Hosts with the personal Name of the Deity or of the phrase Rede of the Lord.9 Also the Greek omits words which in the Hebrew are obviously mistakes of a copyist.10 Again, a number of what are transparent glosses or marginal notes on the Hebrew text are lacking in the Greek, because the translator of the latter did not find them on the Hebrew manuscript from which he translated.11 Some titles to sections of the Book, or portions of titles, absent from the Greek but found in our Hebrew text, are also later editorial additions.12 Greater importance, however, attaches to those phrases that cannot be mere glosses and to the longer passages, wanting in the Greek but found in the Hebrew, many of which upon internal evidence must be regarded as late intrusions into the latter.13 And occasionally a word or phrase [pg 014]in the Hebrew, which spoils the rhythm or is irrelevant to the sense, is not found in the Greek.14
+
+Finally, there is one great difference of arrangement. The group of Oracles on Foreign Nations which appear in the Hebrew as Chs. XLVI-LI are in the Greek placed between verses 13 and 1515 of Ch. XXV, and are ranged in a different order—an obvious proof that at one time different editors felt free to deal with the arrangement of the compilation as well as to add to its contents.16
+
+[pg 015]
+Modern critics differ as to the comparative value of these two editions of the Book of Jeremiah, and there are strong advocates on either side.17 But the prevailing opinion, and, to my view, the right one, is that no general judgment is possible, and that each case of difference between the two witnesses must be decided by itself.18 With this, however, we have nothing at present to do. What concerns us now is the fact that the Greek is not the translation of the canonical Hebrew text, but that the two Books, [pg 016]while sharing a common basis of wide extent, represent two different lines of compilation and editorial development which continued till at least 200 B.C. Between them they are the proof that, while our Bible was still being compiled, some measure of historical criticism and of editorial activity was at work on the material—and this not only along one line. We need not stop to discuss how far the fact justifies the exercise of criticism by the modern Church. For our present purpose it is enough to keep in mind that our Book of Jeremiah is the result of a long development through some centuries and on more than one line, though the two divergent movements started with, and carried down, a large body of material in common.
+
+Moreover, this common material bears evidence of having already undergone similar treatment, before it passed out on those two lines of further development which resulted in the canonical Hebrew text and the Greek Version respectively. The signs of gradual compilation are everywhere upon the material which they share in common. Now and then a chronological order appears, and indeed there are traces of a purpose to pursue that order throughout. But this has been disturbed by cross-arrangements according to subject,19 and by the intrusion of [pg 017]later oracles and episodes among earlier ones20 or vice versa21 as if their materials had come into the hands of the compilers or editors of the Book only gradually. Another proof of the gradual growth of those contents, which are common to the Hebrew and the Greek, is the fashion in which they tend to run away from the titles prefixed to them. Take the title to the whole Book,22 Ch. I. 2, Which was the Word of the Lord to Jeremiah in the days of Josiah, son of Amon, King of Judah, in the thirteenth year of his reign. This covers only the narrative of the Prophet's call in Ch. I, or at most a few of the Oracles in the following chapters. The supplementary title in verse 3—It came also in the days of Jehoiakim, the son of Josiah, King of Judah, up to [the end of]23 the eleventh year of Ṣedekiah, the son of Josiah King of Judah, up to the exile of Jerusalem, in the fifth month—is probably a later addition, added when the later Oracles of Jeremiah were attached to some collection of those which he had delivered under Josiah; but even then the title fails to cover those words in the Book which [pg 018]Jeremiah spake after Jerusalem had gone into exile, and even after he had been hurried down into Egypt by a base remnant of his people.24 Moreover, the historical appendix to the Book carries the history it contains on to 561 B.C. at least.25 Again there are passages, the subjects of which are irrelevant to their context, and which break the clear connection of the parts of the context between which they have intruded.26 The shorter sentences, that also disturb the connection as they stand, appear to have been written originally as marginal notes which a later editor or copyist has incorporated in the text.27 To this class, too, may belong those brief passages which appear twice, once in their natural connection in some later chapter and once out of their natural connection in some earlier chapter.28 And again in VII. 1-28 and XXVI. 1-9 we have two accounts, apparently from different hands, of what may or may not be the same episode in Jeremiah's ministry.
+
+[pg 019]
+These data clearly prove that not only from the time when the Hebrew and Greek editions of the Book started upon their separate lines of development, but from the very beginnings of the Book's history, the work of accumulation, arrangement and re-arrangement, with other editorial processes, had been busy upon it.
+
+The next question is, have we any criteria by which to discriminate between the elements in the Book that belong either to Jeremiah himself or to his contemporaries and others that are due to editors or compilers between his death soon after 586 and the close of the Prophetic Canon in 200 B.C.? The answer is that we have such criteria. All Oracles or Narratives in the Book, which (apart from obvious intrusions) imply that the Exile is well advanced or that the Return from Exile has already happened, or which reflect the circumstances of the later Exile and subsequent periods or the spirit of Israel and the teaching of her prophets and scribes in those periods, we may rule out of the material on which we can rely for our knowledge of Jeremiah's life and his teaching. Of such Exilic and post-Exilic contents there is a considerable, but not a preponderant, amount. These various items break into their context, their style and substance are not conformable to the style and substance of the Oracles, which (as we shall see) are reasonably attributed to Jeremiah, but they [pg 020]so closely resemble those of other writings from the eve of the Return from Exile or from after the Return that they seem to be based on the latter. In any case they reflect the situation and feelings of Israel in Babylonia about 540 B.C. Some find place in our Book among the earlier Oracles of Jeremiah,29 others in his later,30 but the most in the group of Oracles on Foreign Nations.31 And, finally, there are the long extracts from the Second Book of Kings, bringing, as I have said, the history down to at least 561.32
+
+All these, then, we lay aside, so far as our search for Jeremiah himself and his doctrine is concerned, [pg 021]and we do so the more easily that they are largely devoid of the style and the spiritual value of his undoubted Oracles and Discourses. They are more or less diffuse and vagrant, while his are concise and to the point. They do not reveal, as his do, a man fresh from agonising debates with God upon the poverty of his qualifications for the mission to which God calls him, or upon the contents of that mission, or upon his own sufferings and rights; nor do they recount his adventures with his contemporaries. They are not the outpourings of a single soul but rather the expression of the feelings of a generation or of the doctrines of a school. We have in our Bible other and better utterances of the truths, questions, threats and hopes which they contain.
+
+But once more—in what remains of the Book, what belongs to Jeremiah himself or to his time, we have again proofs of compilation from more sources than one. Some of this is in verse—among the finest in the Old Testament—some in prose orations; some in simple narrative. Some Oracles are introduced by the Prophet himself, and he utters them in the first person, some are reported of him by others. And any chronological or topical order lasts only through groups of prophecies or narratives. Fortunately, however, included among these are more than one account of how the writing of them and the collection of them came about.
+
+[pg 022]
+In 604-603 B.C., twenty-one, or it may have been twenty-three, years after Jeremiah had begun to prophesy, the history of Western Asia rose to a crisis. Pharaoh Nĕcoh who had marched north to the Euphrates was defeated in a battle for empire by Nebuchadrezzar, son of the King of Babylon. From the turmoil of nations which filled the period Babylon emerged as that executioner of the Divine judgments on the world, whom Jeremiah since 627 or 625 had been describing generally as out of the North. His predictions were justified, and he was able to put a sharper edge on them. Henceforth in place of the enemy from the North Jeremiah could speak definitely of the King of Babylon and of his people the Chaldeans.
+
+In Ch. XXV we read accordingly that in that year, 604-3, he delivered to the people of Jerusalem a summary of his previous oracles. He told them that the cup of the Lord's wrath was given into his hand; Judah and other nations, especially Egypt, must drink it and so stagger to their doom.
+
+But a spoken and a summary discourse was not enough. Like Amos and Isaiah, Jeremiah was moved to commit his previous Oracles to writing. In Ch. XXXVI is a narrative presumably by an eyewitness of the transactions it recounts, and this most probably the scribe who was associated with the Prophet in these transactions. Jeremiah was commanded to take a roll of a book and write on [pg 023]it all the words which the Lord had spoken to him concerning Jerusalem33 and Judah and all the nations from the day the Lord first spake to him, in the days of Josiah, even unto this day. For this purpose he employed Baruch, the son of Neriah, afterwards designated the Scribe, and Baruch wrote on the Roll to his dictation. Being unable himself to enter the Temple he charged Baruch to go there and to read the Roll on a fast-day in the ears of all the people of Judah who have come in from their cities. Baruch found his opportunity in the following December, and read the Roll from the New Gate of the Temple to the multitude. This was reported to some of the princes in the Palace below, who sent for Baruch and had him read the Roll over to them. Divided between alarm at its contents and their duty to the king, they sent Jeremiah and Baruch into hiding while they made report to Jehoiakim. The king had the Roll read out once more to himself as he sat in his room in front of a lighted brasier, for it was winter. The reading incensed him, and as the reader finished each three or four columns he cut them up and threw them on the fire till the whole was consumed. But Jeremiah, in safe hiding with Baruch, took another Roll and dictated again the contents of the first; and there were added besides unto them many like words.
+
+[pg 024]
+The story has been questioned, but by very few, and on no grounds that are perceptible to common sense. One critic imagines that it ascribes miraculous power to the Prophet in “its natural impression that the Prophet reproduces from memory and dictates all the words which the Lord has spoken to him.”34 There is no trace of miracle in the story. It is a straight tale of credible transactions, very natural (as we have seen) at the crisis which the Prophet had reached. No improbability infects it, no reflection of a later time, no idealising as by a writer at a distance from the events he recounts. On the contrary it gives a number of details which only a contemporary could have supplied. Nor can we forget the power and accuracy of an Oriental's memory, especially at periods when writing was not a common practice.
+
+There is, of course, more room for difference of opinion as to the contents of each of the successive Rolls, and as to how much of these contents is included in our Book of Jeremiah. But to such questions the most probable answer is as follows.
+
+There cannot have been many of the Prophet's previous Oracles on the first Roll. This was read three times over in the same day and was probably limited to such Oracles as were sufficient for its [pg 025]practical purpose of moving the people of Judah to repentance at a Fast, when their hearts would be most inclined that way. But when the first Roll was destroyed, the immediate occasion for which it was written was past, and the second Roll would naturally have a wider aim. It repeated the first, but in view of the additions to it seems to have been dictated with the purpose of giving a permanent form to all the fruits of Jeremiah's previous ministry. The battle of Carchemish had confirmed his predictions and put edge upon them. The destruction of the Jewish people was imminent and the Prophet's own life in danger. His enforced retirement along with Baruch lent him freedom to make a larger selection, if not the full tale, of his previous prophecies. Hence the phrase there were added many words like those on the first Roll.35
+
+If such a Roll as the second existed in the care of Baruch then the use of it in the compilation of our Book of Jeremiah is extremely probable, and the probability is confirmed by some features of the Book. Among the Oracles which can be assigned [pg 026]to Jeremiah's activity before the fourth year of Jehoiakim there is on the whole more fidelity to chronological order than in those which were delivered later, and while the former are nearly all given without narrative attached to them, and are reported as from Jeremiah himself in the first person, the latter for the most part are embedded in narratives, in which he appears in the third person.36
+
+Further let us note that if some of the Oracles in the earlier part of the Book—after the account of the Prophet's call—are undated, while the dates of others are stated vaguely; and again, if some, including the story of the call, appear to be tinged with reflections from experiences of the Prophet later than the early years of his career, then these two features support the belief that the Oracles were first reduced to writing at a distance from their composition and first delivery—a belief in harmony with the theory of their inclusion and preservation in the Prophet's second Roll.
+
+Let us now turn to the biographical portions of the Book. We have proved the trustworthiness of Ch. XXXVI as the narrative of an eyewitness, in all probability Baruch the Scribe, who for the first time is introduced to us. But if Baruch wrote Ch. XXXVI it is certain that a great deal more of the biographical matter in the Book is from [pg 027]his hand. This is couched in the same style; it contains likewise details which a later writer could hardly have invented, and it is equally free from those efforts to idealise events and personalities, by which later writers betray their distance from the subjects of which they treat. It is true that, as an objector remarks, “the Book does not contain a single line that claims to be written by Baruch.”37 But this is evidence rather for, than against, Baruch's authorship. Most of the biographical portions of the Old Testament are anonymous. It was later ages that fixed names to Books as they have fixed Baruch's own to certain apocryphal works. Moreover, the suppression of his name by this scribe is in harmony with the modest manner in which he appears throughout, as though he had taken to heart Jeremiah's words to him: Seekest thou great things for thyself? Seek them not. Only thy life will I give thee for a prey in all places whither thou goest.38 But there is still more conclusive evidence. That Baruch had not been associated with Jeremiah before 603-4 is a fair inference from the fact that the Prophet had to dictate to him all his previous Oracles. Now it is striking that up to that year and the introduction of Baruch as Jeremiah's scribe, we have few narratives of the Prophet's experience and activity—being left in ignorance as to the greater part of his life under Josiah—and that these few narratives—of [pg 028]his call, of his share in the propagation of Deuteronomy, of the plot of the men of Anathoth against him, of his symbolic action with his waist-cloth, and of his visit to the house of the Potter—are (except in the formal titles to some of them) told in the first person by Jeremiah himself,39 while from 604-3 onwards the biographical narratives are much more numerous and, except in three of them,40 the Prophet appears only in the third person. This coincidence of the first appearance of Baruch as the Prophet's associate with the start of a numerous series of narratives of the Prophet's life in which he appears in the third person can hardly be accidental.
+
+* * * * *
+Such, then, are the data which the Book of Jeremiah offers for the task of determining the origins and authenticity of its very diverse contents. After our survey of them, those of you who are ignorant of the course of recent criticism will not be surprised to learn that virtual agreement now exists on certain main lines, while great differences of opinion continue as to details—differences perhaps irreconcilable. It is agreed that the book is the result of a long and a slow growth, stretching far beyond Jeremiah's time, [pg 029]out of various sources; and that these sources are in the main three:—
+
+A. Collections of genuine Oracles and Discourses of Jeremiah—partly made by himself.
+
+B. Narratives of his life and times by a contemporary writer or writers, the principal, if not the only, contributor to which is (in the opinion of most) the Scribe Baruch.
+
+C. Exilic and Post-Exilic additions in various forms: long prophecies and narratives; shorter pieces included among the Prophet's own Oracles; and scattered titles, dates, notes and glosses.
+
+Moreover, there is also general agreement as to which of these classes a very considerable number of the sections of the Book belong to. There is not, and cannot be, any doubt about the bulk of those which are apparently exilic or post-exilic. It is equally certain that a large number of the Oracles are Jeremiah's own, and that the most of the Narratives are from his time and trustworthy. But questions have been raised and are still receiving opposite answers as to whether or not some of the Oracles and Narratives have had their original matter coloured or expanded by later hands; or have even in whole been foisted upon the Prophet or his contemporary biographer from legendary sources.
+
+Of these questions some, however they be answered, so little affect our estimates of the Prophet and his teaching that we may leave them [pg 030]alone. But there are at least four of them on the answers to which does depend the accurate measure of the stature of Jeremiah as a man and a prophet, of the extent and variety of his gifts and interests, of the simplicity or complexity of his temperament, and of his growth, and of his teaching through his long ministry of over forty years.
+
+These four questions are
+
+(1) The authenticity of the account of his call in Ch. I.
+(2) The authenticity of the account of his support of the promulgation of Deuteronomy, the Old Covenant, in Ch. XI.
+(3) The authenticity of his Oracle on the New Covenant in Ch. XXXI.
+(4) And an even larger question—Whether indeed any of the prose Oracles attributed to him in the Book are his, or whether we must confine ourselves to the passages in verse as alone his genuine deliverances?
+The first three of these questions we may leave for discussion to their proper places in our survey of his ministry. The fourth is even more fundamental to our judgment both of the Book and of the Man; and I shall deal with it in the introduction to the next lecture on “The Poet Jeremiah.”
+
+[pg 031]
+Lecture II.
+The Poet.
+From last lecture I left over to this the discussion of a literary question, the answer to which is fundamental to our understanding both of the Book and of the Man, but especially of the Man.
+
+The Book of Jeremiah has come to us with all its contents laid down as prose, with no metrical nor musical punctuation; not divided into stichoi or poetical lines nor marked off into stanzas or strophes. Yet many passages read as metrically, and are as musical in sound, and in spirit as poetic as the Psalms, the Canticles, or the Lamentations. Their language bears the marks that usually distinguish verse from prose in Hebrew as in other literatures. It beats out with a more or less regular proportion of stresses or heavy accents. It diverts into an order of words different from the order normal in prose. Sometimes it is elliptic, sometimes it contains particles unnecessary to the meaning—both signs of an attempt at metre. Though almost constantly unrhymed, it carries alliteration and assonance to a degree beyond what is usual in prose, and prefers forms of words more [pg 032]sonorous than the ordinary. But these many and distinct passages of poetry issue from and run into contexts of prose unmistakable. For two reasons we are not always able to trace the exact border between the prose and the verse—first because of the frequent uncertainties of the text, and second because the prose, like most of that of the prophets, has often a rhythm approximating to metre. And thus it happens that, while on the one hand much agreement has been reached as to what Oracles in the Book are in verse, and what, however rhythmical, are in prose, some passages remain, on the original literary form of which a variety of opinion is possible. This is not all in dispute. Even the admitted poems are variously scanned—that is either read in different metres or, if in the same metre, either with or without irregularities. Such differences of literary judgment are due partly to our still imperfect knowledge of the laws of Hebrew metre and partly to the variety of possible readings of the text. Nor is even that all. The claim has been made not only to confine Jeremiah's genuine Oracles to the metrical portions of the Book, but, by drastic emendations of the text, to reduce them to one single, exact, unvarying metre.
+
+These questions and claims—all-important as they are for the definition of the range and character of the prophet's activity—we can decide only after a preliminary consideration of the few clear [pg 033]and admitted principles of Hebrew poetry, of their consequences, and of analogies to them in other literatures.
+
+In Hebrew poetry there are some principles about which no doubt exists. First, its dominant feature is Parallelism, Parallelism of meaning, which, though found in all human song, is carried through this poetry with a constancy unmatched in any other save the Babylonian. The lines of a couplet or a triplet of Hebrew verse may be Synonymous, that is identical in meaning, or Supplementary and Progressive, or Antithetic. But at least their meanings respond or correspond to each other in a way, for which no better name has been found than that given it by Bishop Lowth more than a century and a half ago, “Parallelismus Membrorum.”41 Second, this rhythm of meaning is wedded to a rhythm of sound which is achieved by the observance of a varying proportion between stressed or heavily accented syllables and unstressed. That is clear even though we are unable to discriminate the proportion in every case or even to tell whether there were fixed rules for it; the vowel-system of our Hebrew text being possibly different from what prevailed in ancient Hebrew. But on the whole it is probable that as in other primitive poetries42 there were no exact or rigorous [pg 034]rules as to the proportion of beats or stresses in the single lines. For the rhythm of sense is the main thing—the ruling factor—and though the effort to express this in equal or regularly proportioned lines is always perceptible, yet in the more primitive forms of the poetry just as in some English folk-songs and ballads the effort did not constantly succeed. The art of the poet was not always equal to the strength of his passion or the length of his vision, or the urgency of his meaning. The meaning was the main thing and had to be beat out, even though to effect this was to make the lines irregular. As I have said in my Schweich Lectures: “If the Hebrew poet be so constantly bent on a rhythm of sense this must inevitably modify his rhythms of sound. If his first aim be to produce lines each more or less complete in meaning, but so as to run parallel to its fellow, it follows that these lines cannot be always exactly regular in length or measure of time. If the governing principle of the poetry requires each line to be a clause or sentence in itself, the lines will frequently tend, of course [pg 035]within limits, to have more or fewer stresses than are normal throughout the poem.”
+
+But there are other explanations of the metrical irregularities in the traditional text of Hebrew poems, which make it probable that these irregularities are often original and not always (as they sometimes are) the blunders of copyists. In all forms of Eastern art we trace the influence of what we may call Symmetriphobia, an aversion to absolute symmetry which expresses itself in more or less arbitrary disturbances of the style or pattern of the work. The visitor to the East knows how this influence operates in weaving and architecture. But its opportunities are more frequent, and may be used more gracefully, in the art of poetry. For instance, in many an Old Testament poem in which a single form of metre prevails there is introduced at intervals, and especially at the end of a strophe, a longer and heavier line, similar to what the Germans call the “Schwellvers” in their primitive ballads. And this metrical irregularity is generally to the profit both of the music and of the meaning.
+
+Further, the fact that poems, such as we now deal with, were not composed in writing, but were sung or chanted is another proof of the possibility that the irregularities in their metre are original. In the songs of the peasants of Palestine at the present day the lines vary as much as from two to five accents, and within the [pg 036]same metrical form from three to four; lines with three accents as written will, when sung to music, be stressed with four, or with four as written will be stressed with five in order to suit the melody.43
+
+Nor are such irregularities confined to Eastern or primitive poetry. In the later blank verse of Shakespeare, broken lines and redundant syllables are numerous, but under his hand they become things of beauty, and “the irregularity is the foundation of the larger and nobler rule.” To quote the historian of English prosody—“These are quite deliberate indulgences in excess or defect, over or under a regular norm, which is so pervading and so thoroughly marked that it carries them off on its wings.”44 Heine in his unrhymed “Nordseebilder,” has many irregular lines—irregularities suitable to the variety of the subjects of his verse.
+
+Again, in relevance to the mixture of poetry with prose in the prophetic parts of the Book of Jeremiah, it is just to note that the early pre-Islamic rhapsodists of Arabia used prose narratives to illustrate the subjects of their chants; that many later works in Arabic literature are medleys of prose and verse; that in particular the prose of the “Arabian Nights” frequently breaks into metre; while the singing women of Mecca [pg 037]“often put metre aside and employ the easier form of rhymed prose”45 the “Saj” as it is called.
+
+If I may offer a somewhat rough illustration, the works of some Eastern poets are like canoe voyages in Canada, in which the canoe now glides down a stream and is again carried overland by what are called portages to other streams or other branches of the same stream. Similarly these works have their clear streams of poetry, but every now and again their portages of prose. I may say at once that we shall find this true also of the Book of Jeremiah.
+
+All these phenomena, both of Eastern and of Western poetry, justify us in regarding with scepticism recent attempts whether to eliminate—by purely arbitrary omissions and additions, not founded on the evidence of the Manuscripts and Versions—the irregularities in the metrical portions of the Book of Jeremiah, or to confine the Prophet's genuine Oracles to these metrical portions, and to deny that he ever passed from metre into rhythmical prose. And our scepticism becomes stronger when we observe to what different results these attempts have led, especially in the particular form or forms of metre employed.
+
+Professor Duhm, for instance, confines our prophet to one invariable form, that of the Qînah or Hebrew Elegy, each stanza of which consists [pg 038]of four lines of alternately three and two accents or beats; and by drastic and often quite arbitrary emendation of the text he removes from this every irregularity whether of defect or redundance in the separate lines.46 On the other hand Cornill concludes that “the metrical pieces in the book are written throughout in Oktastichs,” or eight lines a piece, but admits (and rightly) that “in the metrical structure of the individual lines there prevails a certain freedom, due to the fact that for the prophet verse-making (Dichten) was not an end in itself.” While he allows, as all must, that Jeremiah frequently used the Qînah metre, he emphasises the presence of the irregular line, almost as though it were the real basis of the prophetic metre.47 Other modern scholars by starting from other presuppositions or by employing various degrees of the textual evidence of the Versions, have reached results different from those of Duhm and Cornill.48 But at the same time it is remarkable how much agreement prevails as to [pg 039]the frequent presence of the Qînah measure or its near equivalent.
+
+To sum up: in view of the argument adduced from the obvious principles of Hebrew verse and of the primitive poetic practice of other nations—not to speak of Shakespeare and some modern poets—I am persuaded after close study of the text that, though Jeremiah takes most readily to the specific Qînah metre, it is a gross and pedantic error to suppose that he confined himself to this, or that when it appears in our Book it is always to be read in the same exact form without irregularities. The conclusion is reasonable that this rural prophet, brought up in a country village and addressing a people of peasants, used the same license with his metres that we have observed in other poetries of his own race. Nor is it credible that whatever the purpose of his message was—reminiscence, or dirge, or threat of doom or call to repent, or a didactic purpose—Jeremiah, throughout the very various conditions of his long ministry of forty years, employed but one metre and that only in its strictest form allowing of no irregularities. This, I say, is not credible.49
+
+[pg 040]
+The other question, whether in addition Jeremiah ever used prose in addressing his people, may be still more confidently answered. Duhm maintains that with the exception of the letter to the Jewish exiles in Babylonia,50 the Prophet never spoke or wrote to his people in prose, and that the Book contains no Oracles from him, beyond some sixty short poems in a uniform measure. These Duhm alleges—and this is all that he finds in them—reveal Jeremiah as a man of modest, tender, shrinking temper, “no ruler of spirits, a delicate observer, a sincere exhorter and counsellor, a hero only in suffering and not in attack.”51 Every passage of the Book, which presents him in any character beyond this—as an advocate for the Law or as a didactic prophet—is the dream of a later age, definitely separable from his own Oracles not more by its inconsistence with the temper displayed in these than by its prose form; for in prose, according to Duhm, Jeremiah never prophesied. On the evidence we have reviewed this also is not credible. That Jeremiah never passed from verse to prose when addressing his people is a theory at variance with the practice of other poets of his [pg 041]race; and the more unlikely in his case, who was not only a poet but a prophet, charged with truths heavier than could always be carried to the heart of his nation upon a single form of folk-song. Not one of the older prophets, upon whom at first he leant, but used both prose and verse; and besides there had burst upon his young ear a new style of prophetic prose, rhythmical and catching beyond any hitherto publicly heard in Israel. At least some portions of our Book of Deuteronomy were discovered in the Temple a few years after his call, and by order of King Josiah were being recited throughout Judah. Is it probable that he, whose teaching proves him to have been in sympathy with the temper and the practical purpose of that Book, should never have yielded to the use of its distinctive and haunting style?
+
+It is true that, while the lyrics which are undoubtedly the prophet's own are terse, concrete, poignant and graceful, the style of many—not of all—of the prose discourses attributed to him is copious, diffuse, and sometimes cold. But then it is verse which is most accurately gripped by the memory and firmly preserved in tradition; it is verse, too, which best guards the original fire. Prose discourses, whether in their first reporting or in their subsequent tradition more readily tend to dilate and to relax their style. Nor is any style of prose so open as the Deuteronomic to additions, [pg 042]parentheses, qualifications, needless recurrence of formulas and favourite phrases, and the like.
+
+Therefore in the selection of materials available for estimating the range and character of Jeremiah's activities as a prophet, we must not reject any prose Oracles offered by the Book as his, simply because they are in prose. This reasonable caution will be of use when we come to consider the question of the authenticity of such important passages as those which recount his call, or represent him as assisting in the promulgation of Deuteronomy, and uttering the Oracle on the New Covenant.52
+
+But, while it has been necessary to reject as groundless the theory that Jeremiah was exclusively a poet of a limited temper and a single form of verse and was not the author of any of the prose attributed to him, we must keep in mind that he did pour himself forth in verse; that it was natural for a rural priest such as he, aiming at the heart of what was mainly a nation of peasants, to use the form or forms of folk-song most familiar to them53—in fact [pg 043]the only literary forms with which they were familiar; and that in all probability more of the man himself comes out in the poetry than in the prose which he has left to us. By his native gifts and his earliest associations he was a poet to begin with; and therefore the form and character of his poetry, especially as revealing himself, demand our attention.
+
+* * * * *
+From what has been said it is clear that we must not seek too high for Jeremiah's rank as a poet. The temptation to this—which has overcome some recent writers—is due partly to a recoil from older, unjust depreciations of his prophetic style and partly to the sublimity of the truths which that mixed style frequently conveys. But those truths apart, his verse was just that of the folksongs of the peasants among whom he was reared—sometimes of an exquisite exactness of tone and delicacy of feeling, but sometimes full both of what are metrical irregularities according to modern standards, and of coarse images and similes. To reduce the metrical irregularities, by such arbitrary methods as Duhm's, may occasionally enhance the music and sharpen the edge of an Oracle yet oftener dulls the melody and weakens the emphasis.54 The figures again [pg 044]are always simple and homely, but sometimes even ugly, as is not infrequent in the rural poetries of all peoples. Even the dung on the pastures and the tempers of breeding animals are as readily used as are the cleaner details of domestic life and of farming—the house-candle, the house-mill, the wine skins, the ornaments of women, the yoke, the plough, and so forth. And there are abrupt changes of metaphor as in our early ballads, due to the rush of a quick imagination and the crowd of concrete figures it catches.
+
+Some of Jeremiah's verse indeed shows no irregularity. The following, for instance, which recalls as Hosea loved to do the innocence and loyalty of Israel's desert days, is in the normal Qînah rhythm of lines with alternately three and two accents each. The two first lines are rhymed, the rest not.
+
+II. 2f.:—
+
+The troth of thy youth I remember,
+Thy love as a bride,
+Thy follow of Me through the desert,
+The land unsown.
+[pg 045]
+Holy to the Lord was Israel,
+Of His income the firstling,
+All that would eat it stood guilty,
+Evil came on them.
+Or II. 32:—
+
+Can a maiden forget her adorning,
+Or her girdle the bride?
+Yet Me have My people forgotten,
+Days without number.
+How fine hast thou fashioned thy ways,
+To seek after love!
+Thus 't was thyself55 to [those] evils
+Didst train56 thy ways.
+Yea on thy skirts is found blood
+Of innocent57 souls.
+Not only on felons(?) I find it,58
+But over all these.
+Here again is a passage which, with slight emendations and these not arbitrary, yields a fair constancy of metre (IV. 29-31):—
+
+From the noise of the horse and the bowmen
+All the land is in flight,
+They are into the caves, huddle in thickets,
+And are up on the crags.59
+Every town of its folk is forsaken,
+With none to inhabit.
+[pg 046]
+All is up! Thou destined to ruin,(?)60
+What doest thou now
+That thou deck'st thee in deckings of gold
+And clothest in scarlet,61
+And with stibium widenest thine eyes?
+In vain dost thou prink!
+Though satyrs, they utterly loathe thee,
+Thy life are they after.
+For voice as of travail I hear,
+Anguish as hers that beareth,
+The voice of the Daughter of Ṣion agasp,
+She spreadeth her hands:
+“Woe unto me, but it faints,
+My life to the butchers!”
+On the other hand here is a metre,62 for the irregularities of which no remedy is offered by alternative readings in the Versions, but Duhm and others reduce these only by padding the text with particles and other terms. Yet these very irregularities have reason; they suit the meaning to be expressed. Thus while some of the couplets are in the Qînah metre, it is instructive that the first three lines are all short, because they are mere ejaculations—that is they belong to the [pg 047]same class of happy irregularities as we recalled in Shakespeare's blank verse.
+
+Israel a slave!
+Or house-born serf!
+Why he for a prey?
+Against him the young lions roar,
+Give forth their voice,
+And his land they lay waste
+Burning and tenantless.
+Is not this being done thee
+For thy leaving of Me?
+Or take the broken line added to the regular verse on Rachel's mourning, the sob upon which the wail dies out:—
+
+A voice in Ramah is heard, lamentation
+And bitterest weeping,
+Rachel beweeping her children
+And will not be comforted—
+For they are not!63
+Sometimes, too, a stanza of regular metre is preceded or followed by a passionate line of appeal, either from Jeremiah himself or from another—I love to think from himself, added when his Oracles were about to be repeated to the people in 604-3. Thus in Ch. II. 31 we find the cry,
+
+O generation look at the Word of the Lord!
+[pg 048]
+breaking in before the following regular verse,
+
+Have I been a desert to Israel,
+Or land of thick darkness?
+Why say my folk, “We are off,
+No more to meet Thee.”
+There is another poem in which the Qînah measure prevails but with occasional lines longer than is normal—Ch. V. 1-6a (alternatively to end of 564).
+
+Run through Jerusalem's streets,
+Look now and know,
+And search her broad places
+If a man ye can find,
+If there be that doth justice
+Aiming at honesty.
+[That I may forgive her.]
+Though they say, “As God liveth,”
+Falsely they swear.
+Lord, are thine eyes upon lies65
+And not on the truth?
+Thou hast smitten, they ail not,
+Consumed them, they take not correction;
+Their faces set harder than rock,
+They refuse to return.
+[pg 049]
+Or take Ch. II. 5-8. A stanza of four lines in irregular Qînah measure (verse 5) is followed by a couplet of four-two stresses and several lines of three each (verses 6 and 7), and then (verse 8) by a couplet of three-two, another of four-three, and another of three-three.66 In Chs. IX and X also we shall find irregular metres.
+
+Let us now take a passage, IX. 22, 23, which, except for its last couplet, is of another measure than the Qînah. The lines have three accents each, like those of the Book of Job:—
+
+Boast not the wise in his wisdom,
+Boast not the strong in his strength,
+Boast not the rich in his riches,
+But in this let him boast who would boast—
+Instinct and knowledge of Me,
+Me, the Lord, Who work troth
+And67 justice and right upon earth,
+For in these I delight.
+Or this couplet, X. 23, in lines of four stresses each:—
+
+Lord, I know—not to man is his way,
+Not a man's to walk or settle his steps!
+Not being in the Qînah measure, both these passages are denied to Jeremiah by Duhm. Is not this arbitrary?
+
+The sections of the Book which pass from verse to prose and from prose to verse are frequent.
+
+[pg 050]
+One of the most striking is the narrative of the Prophet's call, Ch. I. 4-19, which I leave to be rendered in the next lecture. In Chap. VII. 28 ff. we have, to begin with, two verses:—
+
+This is the folk that obeyed not
+The voice of the Lord,68
+That would not accept correction;
+Lost69 is truth from their mouth.
+Shear and scatter thy locks,
+Raise a dirge on the heights,
+The Lord hath refused and forsaken
+The sons of His wrath.
+Then these verses are followed by a prose tale of the people's sins. Is this necessarily from a later hand, as Duhm maintains, and not naturally from Jeremiah himself?
+
+Again Chs. VIII and IX are a medley of lyrics and prose passages. While some of the prose is certainly not Jeremiah's, being irrelevant to the lyrics and showing the colour of a later age, the rest may well be from himself.
+
+Ch. XIV is also a medley of verse and prose. After the Dirge on the Drought (which we take later), comes a passage in rhythmical prose (verses 11-16), broken only by the metrical utterance of the false prophets in verse 13:—
+
+[pg 051]
+Sword or famine ye shall not see,
+They shall not be yours;
+But peace and staith shall I give you
+Within this Place.70
+And verse comes in again in verses 17-18, an Oracle of Jeremiah's own:—
+
+Let mine eyes with tears run down,
+By night and by day,
+Let them not cease from weeping71
+For great is the breach—
+Broken the Virgin, Daughter of my people,
+Most sore the wound!
+Fare I forth to the field,
+Lo, the slain of the sword;
+If I enter the city,
+Lo, anguish of famine.
+Priest and prophet alike are gone begging
+In a land they know not.
+Hast Thou utterly cast away Judah,
+Loathes Ṣion Thy soul?
+Why then hast Thou smitten us,
+Past our healing?
+Hoped we for peace—no good,
+For time to heal—and lo panic!
+Lord we acknowledge our evil,
+The guilt of our fathers—
+To Thee have we sinned.
+[pg 052]
+And now the measure changes to one of longer irregular lines, hardly distinguishable from rhythmical prose, which Duhm therefore takes, precariously, as from a later hand:—
+
+For Thy Name's sake do not despise,
+Demean not the Throne of Thy Glory,
+Remember and break not Thy Covenant with us!
+Can any of the gentile Bubbles bring rain,
+Or the Heavens give the showers?
+Art not Thou He72 on whom we must wait?
+For all these Thou hast made.
+Again in Ch. XV. 1-2, prose is followed by a couplet, this by more prose (verses 3, 4) and this by verse again (verses 5-9). But these parts are relevant to each other, and some of Duhm's objections to the prose seem inadequate and even trifling. For while the heavy judgment is suitably detailed by the prose, the following dirge is as naturally in verse:—
+
+Jerusalem, who shall pity,
+Who shall bemoan thee?
+Who shall but turn him to ask
+After thy welfare?
+And once more, in the Oracle Ch. III. 1-6 the first verse, a quotation from the law on a divorced wife, is in prose, and no one doubts that Jeremiah himself is the quoter, while the rest, recounting [pg 053]Israel's unfaithfulness to her Husband is in verse. See below, pages 98, 99.
+
+* * * * *
+So much for the varied and often irregular streams of the Prophet's verse and their interruptions and connections by “portages” of prose. Let us turn now from the measures to the substance and tempers of the poetry.
+
+As in all folk-song the language is simple, but its general inevitableness—just the fit and ringing word—stamps the verse as a true poet's. Hence the difficulty of translating. So much depends on the music of the Hebrew word chosen, so much on the angle at which it is aimed at the ear, the exact note which it sings through the air. It is seldom possible to echo these in another language; and therefore all versions, metrical or in prose, must seem tame and dull beside the ring of the original. Before taking some of the Prophet's renderings of the more concrete aspects of life I give, as even more difficult to render, one of his moral reflections in verse—Ch. XVII. 5 f. Mark the scarceness of abstract terms, the concreteness of the figures:—
+
+Curséd the wight that trusteth in man
+Making flesh his stay!
+[And his heart from the Lord is turned]
+Like some desert-scrub shall he be,
+Nor see any coming of good,
+But dwell in the aridest desert,
+A salt, uninhabited land.
+[pg 054]
+Blesséd the wight that trusts in the Lord,
+And the Lord is his trust!
+He like a tree shall be planted by waters,
+That stretches its roots to the stream,
+Unafraid73 at the coming of heat,
+His leaf shall be green.
+Sans care in a year of drought,
+He fails not in yielding his fruit.
+As here, so generally, the simplicity of the poet's diction is matched by that of his metaphors, similes, and parables. A girl and her ornaments, a man and his waist-cloth—thus he figures what ought to be the clinging relations between Israel and their God. The stunted desert-shrub in contrast to the river-side oaks, the incomparable olive, the dropped sheaf and even the dung upon the fields; the vulture, stork, crane and swift; the lion, wolf and spotted leopard coming up from the desert or the jungles of Jordan; the hinnying stallions and the heifer in her heat; the black Ethiopian, already familiar in the streets of Jerusalem, the potter and his wheel, the shepherd, plowman and vinedresser, the driver with his ox's yoke upon his shoulders; the harlot by the wayside; the light in the home and sound of the hand-mill—all everyday objects of his people's sight and hearing as they herded, ploughed, sowed, reaped or went to market in the city—he brings them in simply and with natural [pg 055]ease as figures of the truths he is enforcing. They are never bald or uncouth, though in translation they may sometimes sound so.
+
+In the very bareness of his use of them there lurks an occasional irony as in the following—a passage of prose broken by a single line of verse.74 The Deity is addressing the prophet:—
+
+And thou shalt say unto this people,
+“Every jar shall be filled with wine,”
+and it shall be if they say unto thee, “Don't we know of course75 that
+
+“Every jar shall be filled with wine,”
+then thou shalt say unto them: Thus saith the Lord, Lo, I am about to fill the inhabitants of this land, the kings and princes, the priests and prophets, even Judah and all the inhabitants of Jerusalem, with drunkenness [the drunkenness, that is, of horror at impending judgments] and I will dash them one against another, fathers and sons together. I will not pity, saith the Lord, nor spare nor have compassion that I should not destroy them.
+
+How one catches the irritation of the crowd on being told what seems to them such a commonplace—till it is interpreted!
+
+[pg 056]
+Like his fellow-prophets, whose moral atmosphere was as burning as their physical summer, who living on the edge of the desert under a downright sun drew breath (as Isaiah puts it) in the fear of the Lord and saw the world in the blaze of His justice, Jeremiah brings home to the hearts of his people the truths and judgments, with which he was charged, in the hard, hot realism of their austere world. Through his verse we see the barer landscapes of Benjamin and Judah without shadow or other relief, every ugly detail exposed by the ruthless noon, and beyond them the desert hills shimmering through the heat. Drought, famine, pestilence and especially war sweep over the land and the ghastly prostrate things, human as well as animal, which their skirts leave behind are rendered with vividness, poignancy and horror of detail.
+
+Take, to begin with, the following, XIV. 1 ff.:—
+
+The Word of the Lord to Jeremiah Concerning the Drought.
+Jerusalem's cry is gone up,
+Judah is mourning,
+The gates thereof faint in
+Black grief to the ground.
+Her nobles sent their menials for water,
+They came to the pits;
+Water found none and returned,
+[pg 057]
+Empty their vessels.
+[Abashed and confounded
+They cover their heads.]76
+The tillers77 of the ground are dismayed,
+For no rain hath been78;
+And abashed are the ploughmen,
+They cover their heads.
+The hind on the moor calves and abandons,
+For the grass has not come.
+On the bare heights stand the wild asses,
+Gasping for air
+With glazen eyes—
+Herb there is none!
+Though our sins do witness against us,
+Lord act for the sake of Thy Name!
+[For many have been our backslidings,
+'Fore Thee have we sinned.]
+Hope of Israel, His Saviour
+In time of trouble,
+Why be like a traveller79 through the land,
+Or wayfaring guest of a night?
+Why art Thou as one that is stunned,—
+Strong yet unable to save?
+[pg 058]
+Yet Lord, Thou art in our midst,
+[O'er us Thy Name hath been called]
+Do not forsake us!
+Thus saith the Lord of this people:—
+So fond to wander are they,
+Their feet they restrain not,
+The Lord hath no pleasure in them,
+He remembers their guilt.80
+The following dirge is on either a war or a pestilence, or on both, for they often came together. The text of the first lines is uncertain, the Hebrew and Greek differing considerably:—
+
+Call ye the keening women to come,
+And send for the wise ones,
+That they hasten and sing us a dirge,
+Till with tears our eyes run down,
+Our eyelids with water.
+For death has come up by our windows,
+And into our palaces,
+Cutting off from the streets the children,
+The youths from the places.
+And fallen are the corpses of men
+Like dung on the field,
+Or sheaves left after the reaper,
+And nobody gathers.81
+[pg 059]
+The minatory discourses are sombre and lurid. Sometimes the terror foretold is nameless and mystic, yet even then the Prophet's simplicity does not fail but rather contributes to the vague, undefined horror. In the following it is premature night which creeps over the hills—night without shelter for the weary or refuge for the hunted.
+
+Hear and give ear, be not proud,
+For the Lord hath spoken!
+Give glory to the Lord your God
+Before it grows dark,
+And before your feet stumble—
+On the mountains of dusk.
+While ye look for light, He turns it to gloom
+And sets it thick darkness.82
+There this poem leaves the Doom, but in others Jeremiah leaps in a moment from the vague and far-looming to the near and exact. He follows a line which songs of vengeance or deliverance often take among unsophisticated peoples in touch with nature. They will paint you a coming judgment first in the figure of a lowering cloud or bursting storm and then in the twinkling of an eye they turn the clouds or the lightnings into the ranks and flashing arms of invaders arrived. I remember an instance of this within one verse of a negro song from the time of the American Civil War:—
+
+[pg 060]
+Don't you see de lightning flashing in de cane-brakes?
+Don't you think we'se gwine to have a storm?
+No you is mistaken—dem's de darkies' bayonets,
+And de buttons on de uniform!
+Examples of this sudden turn from the vague to the real are found throughout Jeremiah's Oracles of Doom. Here are some of them:—
+
+Wind off the glow of the bare desert heights,
+Right on the Daughter of My people,
+It is neither to winnow nor to cleanse,
+In full blast it meets me...:
+Lo, like the clouds he is mounting,
+Like the whirlwind his chariots!
+Swifter than vultures his horses;
+Woe! We are undone!
+For hark a signal from Dan,
+Mount Ephraim echoes disaster,
+Warn the folk! “They are come!”83
+Make heard o'er Jerusalem.
+Lo, the beleaguerers (?) come
+From a land far-off,
+They let forth their voice on the townships of Judah,
+[Close] as the guards on her suburbs
+[pg 061]
+They are on and around her,
+For Me she defied.84
+There is a similar leap from the vagueness of IV. 23-26, which here follows, to the vivid detail of verses 29-31 already rendered on page 45.
+
+I looked to the earth, and lo, chaos,
+To the heavens, their light was gone,
+I looked to the mountains, they quivered,
+The hills were all shuddering.
+I looked and behold not a man,
+All the birds of the heavens had fled.
+I looked for the gardens, lo desert,
+All the townships were burning.
+Or take a similar effect from the Oracle on the Philistines, Ch. XLVII. 2, 3.
+
+Lo, the waters are up in the North,
+The torrents are plunging,
+O'erwhelming the land and her fulness,
+The city and her dwellers.
+Mankind is crying and howling,
+Every man in the land,
+At the noise of the stamp of the hoofs of his steeds
+At the rush of his cars,
+The rumble of his wheels.
+[pg 062]
+Fathers look not back for their children,
+So helpless their hands!85
+Or take the Prophet's second vision on his call, Ch. I. 13 ff., the boiling cauldron with its face from the North, which is to boil out over the land; then the concrete explanation, I am calling to all the kingdoms of the North, and they shall come and every one set his throne in the gates of Jerusalem. There you have it—that vague trouble brewing in the far North and then in a moment the northern invaders settled in the gates of the City.
+
+But the poetry of Jeremiah had other strains. I conclude this lecture with selections which deal with the same impending judgment, yet are wistful and tender, the poet taking as his own the sin and sufferings of the people with whose doom he was charged.
+
+The first of these passages is as devoid of hope as any we have already seen, but like Christ's mourning over the City breathes the regret of a great love—a profound and tender Alas!
+
+Jerusalem, who shall pity,
+Who shall bemoan thee?
+Or who will but turn him to ask
+After thy welfare?
+Then follow lines of doom without reprieve and the close comes:—
+
+[pg 063]
+She that bore seven hath fainted,
+She breathes out her life.
+Set is her sun in the daytime,
+Baffled and shaméd;
+And their remnant I give to the sword
+In face of their foes.86
+In the following also the poet's heart is with his people even while he despairs of them. The lines, VIII. 14-IX. 1, of which 17 and 19b are possibly later insertions, are addressed to the country-folk of Judah and Benjamin:—
+
+For what sit we still?
+Sweep together,
+And into the fortified cities,
+That there we may perish!
+For our God87 hath doomed us to perish,
+And given us poison to drink,
+For to Him88 have we sinned.
+Hope for peace there was once—
+But no good—
+For a season of healing—
+Lo, panic.89
+From Dan the sound has been heard,90
+The hinnying of his horses;
+[pg 064]
+With the noise of the neighing of his stallions
+All the land is aquake.
+For that this grief hath no comfort,91
+Sickens my heart upon me.
+Hark to the cry of my people
+Wide o'er the land—
+“Is the Lord not in Ṣion,
+Is there no King there?”92
+Harvest is over, summer is ended
+And we are not saved!
+For the breach of the Daughter of my people
+I break, I darken,
+Horror hath seized upon me,
+Pangs as of her that beareth.93
+Is there no balm in Gilead,
+Is there no healer?
+Why will the wounds never stanch
+Of the daughter of my people?
+O that my head were waters,
+Mine eyes a fountain of tears,
+That day and night I might weep
+For the slain of my people!
+Such in the simple melodies of his music and in the variety of his moods—now sombre, stern and relentless, now tender and pleading, now in despair of his people yet identifying himself with [pg 065]them—was this rural poet, who was called to carry the burdens of prophecy through forty of the most critical and disastrous years of Israel's history. In next lecture we shall follow the earlier stages which his great heart pursued beneath those burdens.
+
+[pg 066]
+Lecture III.
+The Prophet—His Youth And His Call.
+Jeremiah was born soon after 650 B.C. of a priestly house at Anathoth, a village in the country of Benjamin near Jerusalem. Just before his birth Egypt and the small states of Palestine broke from allegiance to Assyria. War was imminent, and it may have been because of some hope in Israel of Divine intervention that several children born about the time received the name Yirmyahu—Yahweh hurls or shoots.94 The boy's name and his father's, Hilḳiah, Yahweh my portion,95 are tokens of the family's loyalty to the God of Israel, at a time when the outburst in Jewry of a very different class of personal names betrays on the part of many a lapse from the true faith, and when the loyal remnant of the people were being persecuted by King Manasseh. Probably the family were descended from Eli. For [pg 067]Abiathar, the last of that descent to hold office as Priest of the Ark, had an ancestral estate at Anathoth, to which he retired upon his dismissal by Solomon.96 The child of such a home would be brought up under godly influence and in high family traditions, with which much of the national history was interwoven. It may have been from his father that Jeremiah gained that knowledge of Israel's past, of her ideal days in the desert, of her subsequent declensions, and of the rallying prophecies of the eighth century, which is manifest in his earlier Oracles. Some have claimed a literary habit for the stock of Abiathar.97 Yet the first words of God to Jeremiah—before I formed thee in the body I knew thee, and before thou camest forth from the womb I hallowed thee98—as well as the singular originality he developed, rather turn us away from his family traditions and influence.
+
+What is more significant, for its effects appear over all his earlier prophecies, is the country-side on which the boy was born and reared.
+
+Anathoth, which still keeps its ancient name Anata, is a little village not four miles north-north-east of Jerusalem, upon the first of the rocky shelves by which the central range of Palestine declines through desert to the valley of the Jordan. The village is hidden from the main road between Jerusalem and the North, and lies [pg 068]on no cross-road to the East. One of its influences on the spirit of its greatest son was its exposure to the East and the Desert. The fields of Anathoth face the sunrise and quickly merge into the falling wilderness of Benjamin. It is the same open, arid landscape as that on which several prophets were bred: Amos a few miles farther south at Tekoa, John Baptist, and during His Temptation our Lord Himself. The tops of the broken desert hills to the east are lower than the village. The floor of the Jordan valley is not visible, but across its felt gulf the mountains of Gilead form a lofty horizon.
+
+The descending foreground with no shelter against the hot desert winds, the village herds straying into the wilderness, the waste and crumbling hills shimmering in the heat, the open heavens and far line of the Gilead highlands, the hungry wolves from the waste and lions from the jungles of Jordan are all reflected in Jeremiah's poems:—
+
+Light o' heel young camel,
+Zig-zagging her tracks,
+Heifer gone to school to the desert—
+In the heat of her passion,
+Snapping the breeze in her lust,
+Who is to turn her?
+Wind off the glow of the bare desert heights,
+Direct on my people,
+[pg 069]
+Neither to winnow nor to sift,
+In full blast it meets me.
+A lion from the jungle shall smite,
+A wolf from the wastes undo them,
+The leopard shall prowl round their towns,
+All faring forth shall be torn.
+Even the stork in the heavens
+Knoweth her seasons,
+And dove, swift and swallow
+Keep time of their coming.
+Is there no balm in Gilead,
+No healer there?99
+We need not search the botany of that province for the suggestion of this last verse. Gilead was the highland margin of the young prophet's view, his threshold of hope. The sun rose across it.
+
+The tribal territory in which Anathoth lay was Benjamin's. Even where not actually desert the bleak and stony soil accords with the character given to the tribe and its few historical personages. Benjamin shall ravin as a wolf.100 Of Benjamin were the mad King Saul, the cursing Shimei, Jeremiah's persecutors in Anathoth, and the other Saul who breathed threatenings and slaughter against the Church—while Jeremiah himself, in his moods of despair, seems to have caught the temper of the [pg 070]tribe among whom his family dwelt. Whether in the land or in its sons it was hard, thorny soil that needed deep ploughing.101 It was, too, as Isaiah had predicted, the main path of invasion from the North,102 by Ai, Migron, Michmash, the Pass, Geba, Ramah, Gibeah of Saul, Laish, and poor Anathoth herself. It had been the scene of many massacres, and above all of the death of the Mother of the people, who returns to bewail their new disasters:—
+
+A voice in Ramah is heard, lamentation
+And bitterest weeping,
+Rachel beweeping her children,
+And will not be comforted,
+For they are not.103
+The cold northern rains and the tears of a nation's history alike swept these bare uplands. The boy grew up with many ghosts about him—not Rachel's only but the Levite and his murdered wife, the slaughtered troops at Gibeah and Rimmon, Saul's sullen figure, Asahel stricken like a roe in the wilderness of Gibeon, and the other nameless fugitives, whom through more than one page of the earlier books we see cut down among the rocks of Benjamin.
+
+The empty, shimmering desert and the stony land thronged with such tragedies—Jeremiah [pg 071]was born and brought up on the edge between them.
+
+It was a nursery not unfit for one, who might have been (as many think), the greatest poet of his people, had not something deeper and wider been opened to him, with which Anathoth was also in touch. The village is not more than an hour's walk from Jerusalem. Social conditions change little in the East; then, as now, the traffic between village and city was daily and close—country produce taken to the capital; pottery, salted fish, spices, and the better cloths brought back in exchange. We see how the history of Jerusalem may have influenced the boy. Solomon's Temple was nearly four hundred years' old. There were the city walls, some of them still older, the Palace and the Tombs of the Kings—perhaps also access to the written rolls of chroniclers and prophets. Above all, Anathoth lay within the swirl of rumour of which the capital was the centre. Jerusalem has always been a tryst of the winds. It gathers echoes from the desert far into Arabia, and news blown up and down the great roads between Egypt and Damascus and beyond to the Euphrates; or when these roads are deserted and men fear to leave their villages, news vibrating as it vibrates only in the tremulous East, from hamlet to hamlet and camp to camp across incredible spaces. As one has finely said of a rumour of invasion:—
+
+[pg 072]
+I saw the tents of Cushán in affliction,
+The curtains of Midian's land were trembling.104
+To the north lay the more fruitful Ephraim—more fruitful and more famous in the past than her sister of Benjamin, but now in foreign hands, her own people long gone into exile. It was natural that her fate should lie heavy on the still free but threatened homes of Benjamin, whose northern windows looked towards her; and that a heart like Jeremiah's should exercise itself upon God's meaning by such a fate and the warning it carried for the two surviving tribes.105 Moreover, Shiloh lay there, Shiloh where Eli and other priestly ancestors had served the Ark in a sanctuary now ruined.106
+
+It was, too, across Ephraim with its mixed population in touch with the court and markets of Nineveh, that rumours of war usually reached Benjamin and Judah:—
+
+Hark! They signal from Dan,
+Mount Ephraim echoes disaster.107
+After a period of peace, and as Jeremiah was growing to manhood, such rumours began to blow south again from the Euphrates. Some thirteen years or so earlier, Asshurbanipal, the Sardanapalus of the Greeks, had accomplished the last Assyrian conquest in Palestine, 641 B.C., [pg 073]and for an interval the land was quiet. But towards 625 word came that the Medes were threatening Nineveh, and, though they were repelled, in that year Asshurbanipal died and Nabopolassar of Babylon threw off the Assyrian yoke. Palestine felt the grasp of Nineveh relax. There was a stir in the air and men began to dream. But quick upon hope fell fear. Hordes of a new race whom—after the Greeks—we call Scythians, the Ashguzai of the Assyrian monuments, had half a century before swarmed over or round the Caucasus, and since then had been in touch, and even in some kind of alliance, with the Assyrians. Soon after 624 they forced the Medes to relinquish the siege of Nineveh. They were horsemen and archers, living in the saddle, and carrying their supplies behind them in wagons. After (as it seems) their effective appearance at Nineveh, they swept over the lands to the south, as Herodotus tells us;108 and riding by the Syrian coast were only brought up by bribes on the border of Egypt.109 This must have been soon after the young prophet's call in 627-6. In short, the world, and especially the North, was (to use Jeremiah's word) boiling with events and possibilities of which God alone knew the end. Prophets had been produced in Israel from [pg 074]like conditions in the previous century, and now after a silence of nigh seventy years, prophets were again to appear: Zephaniah, Nahum, Habakkuk, and Jeremiah.
+
+For these northern omens conspired with others, ethical and therefore more articulate, within Judah herself. It was two generations since Isaiah and Hezekiah had died, and with them the human possibilities of reform. For nearly fifty years Manasseh had opposed the pure religion of the prophets of the eighth century, by persecution, by the introduction of foreign and sensual cults, and especially by reviving in the name of Israel's God110 the ancient sacrifice of children, in order to propitiate His anger. Thus it appears that the happier interests of religion—family feasts, pieties of seed-time and harvest, gratitude for light, fountains and rain, and for good fortune—were scattered among a host both of local and of foreign deities; while for the God of Israel, the God of Abraham, Moses and Isaiah, the most horrible of superstitious rites were reserved, as if all that His people could expect of Him was the abatement of a jealous and hungry wrath.
+
+A few voices crying through the night had indeed reminded Judah of what He was and what He required. He hath showed thee, O man, [pg 075]what is good; and what doth the Lord require but to do justly, and love mercy, and walk humbly with thy God.111 At last with the overthrow of Manasseh's successor, Amon, signs of a dawn appeared. The child of eight years who was heir to the throne was secured, perhaps through his mother's influence, by a party in Court and Temple that had kept loyal to the higher faith; and the people, probably weary of the fanatic extravagance of Manasseh, were content to have it so.
+
+The young King Josiah, who to the end was to prove himself worthy of his training, and the boy in the priest's home at Anathoth were of an age: a fact not to be omitted from any estimate of the influences which moulded Jeremiah in his youth. But no trace of this appears in what he has left us; as a boy he may never have seen the King, and to the close of Josiah's reign he seems to have remained too obscure to be noticed by his monarch; yet at the last he has only good to say of Josiah:—
+
+Did he not eat and drink,
+And do judgment and justice?
+The cause of the poor and the needy he judged—
+Then was it well.112
+Attempts at reform were made soon after Josiah's accession,113 but little was achieved, and that little only in the capital and its Temple. [pg 076]In the latter for four hundred years no deity of the land had been worshipped save Yahweh, and He in no material form. It would be easy to remove from the streets of Jerusalem any recently introduced Baals and possibly, as Assyria's sovereignty relaxed, the worship of the Host of Heaven. But beyond Jerusalem the task was more difficult. Every village had the shrine of a deity before the God of Israel came to the land. The names of these local Baalîm, or Lords, had mostly vanished,114 and Israel claimed the rural sanctuaries for Yahweh. But the old rites, with the old conceptions of deity attached to them, seem to have been transferred to Him by the ignorant worshippers, till instead of one Yahweh—one Lord—unique in character and in power, there were as many as there had been Baalîm, and they bore the same inferior and sometimes repulsive characters. We cannot exaggerate this division of the Godhead into countless local forms:—
+
+As many as thy cities in number
+So many O Judah thy gods!115
+Their high places lay all round the Prophet and each had its bad influence, not religious only but ethical, not only idolatrous but immoral, with impure rites and orgies.
+
+[pg 077]
+Lift to the bare heights thine eyes,
+Where not wast thou tumbled?
+The land thou hast fouled with thy whoredoms,116
+—spiritual and physical both; the one led to the other.
+
+This dissipation of the national mind upon many deities was reflected in the nation's politics. With no faith in One Supreme God the statesmen of Judah, just as in Isaiah's earlier days, fluttered between the great powers which were bidding for the empire of the world. Egypt under Psamtik's vigorous direction pressed north, flying high promises for the restless vassals of Assyria. But Assyria, though weakened, had not become negligible. Between the two the anchorless policy of Judah helplessly drifted. To use Jeremiah's figure, suitable alike to her politics and her religion, she was a faithless wife, off from her husband to one paramour after another.
+
+All this was chaos worse than the desert that crumbled before Anathoth, a tragedy more bitter than the past which moaned through the land behind. What had God to say? It was a singular mark of Israel, that the hope of a great prophet never died from her heart. Where earnest souls were left they prayed for his coming and looked for the Word of the Lord by him more than they who wait for the morning. The same [pg 078]conditions prevailed out of which a century before had come an Amos, a Hosea, a Micah and an Isaiah. Israel needed judgment and the North again stirred with its possibilities. Who would rise and spell into a clear Word of God the thunder which to all ears was rumbling there?
+
+The call came to Jeremiah and, as he tells the story, came sudden and abrupt yet charged with the full range and weight of its ultimate meaning, so far as he himself was concerned:—
+
+Before in the body I built thee, I knew thee,
+Before thou wast forth of the womb, I had hallowed thee,
+And a prophet to the nations had set thee.117
+A thought of God, ere time had anything to do with him, or the things of time, even father or mother, could make or could mar him; God's alone, and sent to the world; out of the eternities with the Divine will for these days of confusion and panic and for the peoples, small and great, that were struggling through them. It was a stupendous consciousness—this that then broke in the village of Anathoth and in the breast of the young son of one its priests; the spring of it deeper and the range of it wider than even that similar assurance which centuries later filled another priest's home in the same hill country:—
+
+[pg 079]
+And thou, child, shalt be called the prophet of the Highest,
+For thou shalt go before the face of the Lord,
+To prepare His ways.118
+The questions of foreknowledge and predestination, with which Jeremiah engaged himself not a little, I leave for a future lecture.119 Here we may consider the range of his mission.
+
+This was very wide—not for Judah only, but a prophet to the nations had I set thee. The objection has been taken, that it is too wide to be original, and the alternative inferences drawn: either that it is the impression of his earliest consciousness as a prophet but formed by Jeremiah only after years of experience revealed all that had been involved in his call; or that it is not Jeremiah's own but the notion formed of him by a later exaggerating generation. It is true that Jeremiah did not dictate the first words of the Lord to him till some twenty-three years after he heard them, when it was possible and natural for him to expand them in terms of his intervening experience. And we must remember the summary bent of the Hebrew mind—how natural it was to that mind to describe processes as if they were acts of a day, done by a fiat as in the story of the Creation; or to state a system of law and custom, which took centuries to develop, as though it were the edict of a single [pg 080]lawgiver and all spoken at once, when the development entered on a new and higher stage, as we see in the case of Deuteronomy and its attribution to Moses.
+
+Yet the forebodings at least of a task so vast as that of prophet to the nations were anything but impossible to the moment of Jeremiah's call; for the time surged, as we have seen, with the movements of the nations and their omens for his own people. Indeed it would have been strange if the soul of any prophet, conscious of a charge from the Almighty, had not the instinct, that as the meaning of this charge was gradually unfolded to him, it would reveal, and require from him the utterance of, Divine purposes throughout a world so full even to the uninspired eye of the possibilities both of the ruin of old states and of the rise of new ones—a world so close about his own people, and so fraught with fate for them, that in speaking of them he could not fail to speak of the whole of it also. If at that time a Jew had at all the conviction that he was called to be a prophet, it must have been with a sense of the same responsibilities, to which the older prophets had felt themselves bound: men who knew themselves to be ministers of the Lord of Hosts, Lord of the Powers of the Universe, who had dealt not with Israel only but with Moab and Ammon and Aram, with Tyre and the Philistines and Egypt, and who had spoken of Assyria herself as [pg 081]His staff and the rod of His judgment. Jeremiah's three contemporaries, Ṣephaniah, Nahum and Habakkuk, all deal with the foreign powers of their day—why should he in such an age not have been conscious from the first that his call from the Lord of Hosts involved a mission as wide as theirs? I am sure that if we had lived with this prophet through his pregnant times, as we have lived through these last ten years and have been compelled to think constantly not of our own nation alone—concentrated as we had to be on our duties to her—but of all the nations of the world as equally involved in the vast spiritual interests at stake, we should have no difficulty in understanding how possible and natural it was for Jeremiah to hear his mission to the nations clearly indicated in the very moment of his call.
+
+And in fact Jeremiah's acknowledged Oracles—some of them among his earliest—travel far beyond Judah and show not merely a knowledge of, and vivid interest in, the qualities and fortunes of other peoples, but a wise judgment of their policies and therefore of what should be Judah's prudent attitude and duty towards them. For long before his call she had been intriguing with Egypt and Assyria.120 Just then or immediately later the Scythians, after threatening the Medes, were sweeping over Western Asia as far as the frontier [pg 082]of Egypt, and in his Scythian songs Jeremiah121 shows an intimate knowledge of their habits. In his Parable of the Potter (for which unfortunately there is no date) he declares God's power to mould or re-mould any nation.122 And Baruch, writing of Jeremiah's earlier ministry, says that he spoke concerning all nations.123
+
+No wonder that Jeremiah shrank from such a task: Ah, Lord God, I know not to speak, I am too young.124 His excuse is interesting. Had he not developed his gift for verse? Or, conscious of its rustic simplicity, did he fear to take the prophet's thunder on lips, that had hitherto moved only to the music of his country-side? In the light of his later experience the second alternative is not impossible. When much practice must have made him confident of his art as a singer, he tells us how burning he felt the Word of the Lord to be. But whatever was the motive of his reluctance it was overcome. As he afterwards said:—
+
+Ah, Lord, Thou didst beguile me,
+And beguiled I let myself be;
+Thou wast too strong for me
+And hast prevailed.125
+[pg 083]
+The following shows how this came about:—
+
+And the Lord said unto me, Say not I am too young, for to all to which I send thee thou shalt go, and all I command thee thou shalt speak,
+
+Be not afraid before them
+For with thee am I to deliver,
+Rede of the Lord. And the Lord put forth His hand and caused it to touch my mouth, and the Lord said to me, Lo, I have set My Word in thy mouth,
+
+See I appoint thee this day
+Over the nations and kingdoms,
+To pull up and tear down and destroy,126
+To build and to plant.
+To this also objection has been taken as still more incredible in the spiritual experience of so youthful a rustic. It has been deemed the exaggeration of a later age, and described as the “gigantic figure” of a “plenipotentiary to the nations,” utterly inconsistent with the modest singer of the genuine oracles of Jeremiah, “a hero only in suffering, not in assault.”127 Such an objection rather strains the meaning of the passage. According to this Jeremiah is to be the carrier of the Word of the Lord. That Word, rather than the man [pg 084]himself, is the power to pull up and tear down and destroy, to build and to plant128—that Word which no Hebrew prophet received without an instinct of its world-wide range and its powers of both destruction and creation.
+
+Two visions follow. To appreciate the first we must remember the natural anxiety of the prophets when charged with pronouncements so weighty and definite. The Word, the ethical purpose of God for Israel was clear, but how was it to be fulfilled? No strength appeared in the nation itself. The party, or parties, loyal to the Lord had been in power a dozen years and effected little in Jerusalem and nothing beyond. The people were not stirred and seemed hopeless. Living in a village where little changed through the years, but men followed the habits of their fathers, Jeremiah felt everything dead. Winter was on and the world asleep.
+
+Then the Word of the Lord came to me saying, What art thou seeing, Jeremiah; and I said, I am seeing the branch of an almond tree. And the Lord said to me, Well hast thou seen, for I am awake over My Word to perform it.
+The Hebrew for almond tree is shākēdh, which also means awakeness or watchfulness,129 and the [pg 085]Lord was awake or was watchful—shōkēdh—the difference only of a vowel. In that first token of spring which a Palestine winter affords, the Prophet received the sacrament of his call and of the assurance that God was awake! That the sacrament took this form was natural. That of Isaiah of Jerusalem was the vision of a Throne and an Altar. That of Ezekiel, the exile, shone in the stormy skies of his captivity. This to the prophet of Anathoth burst with the first blossom on his wintry fields. The sense of unity in which he and his people conceived the natural and spiritual worlds came to his help; neither in the one world nor in the other did God slumber. God was watching.
+
+The Second Vision needs no comment after our survey of the political conditions of the time. The North held the forces for the fulfilling of the Word. The Vision is followed by a charge to the Prophet himself.
+
+And the word of the Lord came to me the second time, What art thou seeing? And I said, A caldron boiling and its face is from (?) the North.130 And the Lord said unto me:—
+
+[pg 086]
+Out of the North shall evil boil forth131
+On all that dwell in the land;
+For behold, I am calling
+All the realms132 of the North.
+They shall come and each set his throne
+In the openings of the gates of Jerusalem,
+On all of her walls round about,
+And every township of Judah.
+And My judgments by them133 shall I utter
+On the evil of those who have left Me,
+Who have burned to other gods
+And bowed to the works of their hands.
+But thou shalt gird up thy loins,
+Stand up and speak134 all I charge thee.
+Be not dismayed before them,
+Lest to their face I dismay thee.
+See I have thee set this day
+A fenced city and walls of bronze
+To the kings and princes of Judah,
+Her priests and the folk of the land;
+They shall fight but master thee never,
+For with thee am I to deliver—
+Rede of the Lord.135
+[pg 087]
+Jeremiah was silenced and went forth to his ministry—the Word upon his lips and the Lord by his side.
+
+Two further observations are natural.
+
+First, note the contrast between the two Visions—the blossoming twig and the boiling caldron brewing tempests from the North. Unrelated as these seem, they symbolise together Jeremiah's prophesying throughout. For in fact this was all blossom and storm, beauty and …"

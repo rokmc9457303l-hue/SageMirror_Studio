@@ -1,0 +1,1147 @@
+"The Project Gutenberg eBook of Hamlet
+This eBook is for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever. You may copy it, give it away or re-use it under the terms of the Project Gutenberg License included with this eBook or online at www.gutenberg.org. If you are not located in the United States, you will have to check the laws of the country where you are located before using this eBook.
+Title: Hamlet
+
+Author: William Shakespeare
+
+Translator: François Guizot
+
+
+Release date: February 13, 2005 [eBook #15032]
+Most recently updated: December 14, 2020
+
+Language: French
+
+Other information and formats: www.gutenberg.org/ebooks/15032
+
+Credits: Produced by Paul Murray, Renald Levesque and the Online Distributed
+Proofreading Team. This file was produced from images generously
+made available by the Bibliothèque nationale de France (BnF/Gallica)
+
+*** START OF THE PROJECT GUTENBERG EBOOK HAMLET ***
+Note du transcripteur:
+==========================================================================
+Ce document est tiré de:
+
+OEUVRES COMPLÈTES DE
+SHAKSPEARE
+
+TRADUCTION DE
+M. GUIZOT
+
+NOUVELLE ÉDITION ENTIÈREMENT REVUE
+AVEC UNE ÉTUDE SUR SHAKSPEARE
+DES NOTICES SUR CHAQUE PIÈCE ET DES NOTES
+
+Volume 1
+Vie de Shakspeare
+Hamlet.—La Tempête.—Coriolan.
+
+PARIS
+A LA LIBRAIRIE ACADÉMIQUE
+DIDIER ET Ce, LIBRAIRES-ÉDITEURS
+35, QUAI DES AUGUSTINS
+1864
+
+==========================================================================
+
+
+
+HAMLET
+TRAGÉDIE
+
+
+
+NOTICE SUR HAMLET
+Hamlet n'est pas le plus beau des drames de Shakspeare; Macbeth et, je crois aussi Othello, lui sont, à tout prendre, supérieurs; mais c'est peut-être celui qui contient les plus éclatants exemples de ses beautés les plus sublimes comme de ses plus choquants défauts. Jamais il n'a dévoilé avec plus d'originalité, de profondeur et d'effet dramatique, l'état intime d'une grande âme; jamais aussi il ne s'est plus abandonné aux fantaisies terribles ou burlesques de son imagination, et à cette abondante intempérance d'un esprit pressé de répandre ses idées sans les choisir, et qui se plaît à les rendre frappantes par une expression forte, ingénieuse et inattendue, sans aucun souci de leur forme naturelle et pure.
+
+Selon sa coutume, Shakspeare ne s'est point inquiété, dans Hamlet, d'inventer ni d'arranger son sujet: il a pris les faits tels qu'il les a trouvés dans les récits fabuleux de l'ancienne histoire de Danemark, par Saxon le Grammairien, transformés en histoires tragiques par Belleforest, vers le milieu du XVIe siècle, et aussitôt traduits et devenus populaires en Angleterre, non-seulement dans le public, mais sur le théâtre, car il paraît certain que six ou sept ans avant Shakspeare, en 1589, un poëte anglais, nommé Thomas Kyd, avait déjà fait de Hamlet une tragédie. Voici le texte du roman historique dans lequel, comme un sculpteur dans un bloc de marbre, Shakspeare a taillé la sienne.
+
+«Fengon, ayant gagné secrètement des hommes, se rua un jour en un banquet sur son frère Horwendille, lequel occit traîtreusement, puis cauteleusement se purgea devant ses sujets d'un si détestable massacre. Avant de mettre sa main sanguinolente et parricide sur son frère, il avoit incestueusement souillé la couche fraternelle, abusant de la femme de celui dont il pourchassa l'honneur devant qu'il effectuât sa ruine....
+
+«Enhardi par telle impunité, Fengon osa encore s'accoupler en mariage à celle qu'il entretenoit exécrablement durant la vie du bon Horwendille.... Et cette malheureuse, qui avoit reçu l'honneur d'être l'épouse d'un des plus vaillants et sages princes du septentrion, souffrit de s'abaisser jusqu'à telle vilenie que de lui fausser sa foi, et qui pis est, épouser celui qui étoit le meurtrier tyran de son époux légitime....
+
+«Géruthe s'étant ainsi oubliée, le prince Amleth, se voyant en danger de sa vie, abandonné de sa propre mère, pour tromper les ruses du tyran, contrefit le fol avec telle ruse et subtilité que, feignant d'avoir tout perdu le sens, il couvrit ses desseins et défendit son salut et sa vie. Tous les jours il étoit au palais de la reine, qui avoit plus de soin de plaire à son paillard que de soucy à venger son mari ou à remettre son fils en son héritage; il couroit comme un maniaque, ne disoit rien qui ne ressentît son transport des sens et pure frénésie, et toutes ses actions et gestes n'étoient que d'un homme qui est privé de toute raison et entendement; de sorte qu'il ne servoit plus que de passe-temps aux pages et courtisans éventés qui étoient à la suite de son oncle et beau-père.... Et faisoit pourtant des actes pleins de grande signifiance, et répondoit si à propos qu'un sage homme eût jugé bientôt de quel esprit est-ce que sortoit une invention si gentille....
+
+«Amleth entendit par là en quel péril il se mettoit si, en sorte aucune, il obéissoit aux mignardes caresses et mignotises de la demoiselle envoyée par son oncle. Le prince, ému de la beauté de la fille, fut par elle assuré encore de la trahison, car elle l'aimoit dès son enfance, et eût été bien marrie de son désastre....
+
+«Il faut, dit un des amis de Fengon, que le roi feigne de s'en aller en quelque voyage, et que cependant on enferme Amleth seul avec sa mère dans une chambre dans laquelle soit caché quelqu'un pour ouïr leurs propos et les complots de ce fol sage et rusé compagnon.... Celuy même s'offrit pour être l'espion, et témoin des propos du fils avec la mère.... Le roi prit très-grand plaisir à cette invention....
+
+«Cependant le conseiller entra secrètement en la chambre de la reine, et se cacha sous quelque loudier 1, un peu auparavant que le fils y fût enclos avec sa mère. Comme il étoit fin et cauteleux, sitôt qu'il fut dedans la chambre, se doutant de quelque trahison ou surprise, il continua en ses façons de faire folles et niaises, sauta sur ce loudier où, sentant qu'il y avoit dessous quelque cas caché, ne faillit aussitôt de donner dedans avec son glaive.... Ayant ainsi découvert l'embûche et puni l'inventeur d'icelle, il s'en revint trouver la reine, laquelle pleuroit et se lamentoit; puis ayant visité encore tous les coins de la chambre, se voyant seul avec elle, il lui parla fort sagement en cette manière:
+
+«—Quelle trahison est ceci, ô la plus infâme de toutes celles qui onc se sont prostituées au vouloir de quelque paillard abominable, que sous le fard d'un pleur dissimulé, vous couvriez l'acte le plus méchant et le crime le plus détestable? Quelle fiance puis-je avoir en vous qui, déréglée sur toute impudicité, allez courant les bras étendus après cetuy félon et traitre tyran qui est le meurtrier de mon père, et caressez incestueusement le voleur du lit légitime de votre loyal époux?... Ah! reine Géruthe, c'est la lubricité seule qui vous a effacé en l'âme la mémoire des vaillances et vertus du bon roi votre époux et mon père.... Ne vous offensez pas, je vous prie, Madame, si, transporté de douleur, je vous parle si rigoureusement et si je vous respecte moins que mon devoir; car, vous ayant mis à néant la mémoire du défunt roi mon père, ne faut s'ébahir si aussi je sors des limites de toute reconnoissance....
+
+Note 1: (retour) Couverture, courte-pointe.
+«Quoique la reine se sentît piquer de bien près, et que Amleth la touchât vivement où plus elle se sentoit intéressée, si est-ce qu'elle oublia tout dépit qu'elle eût pu concevoir d'être ainsi aigrement tancée et reprise pour la grande joie qui la saisit, connoissant la gentillesse d'esprit de son fils. D'un côté, elle n'osoit lever les yeux pour le regarder, se souvenant de sa faute, et de l'autre elle eût volontiers embrassé son fils pour les sages admonitions qu'il lui avoit faites, et lesquelles eurent tant d'efficace que sur l'heure elles éteignirent les flammes de sa convoitise....
+
+«Avec lui furent envoyés en Angleterre deux des fidèles ministres de Fengon, portant des lettres gravées dans du bois, qui portoient la mort de Amleth et la commandoient à l'Anglois. Mais le rusé prince danois, tandis que ses compagnons dormoient, ayant visité le paquet et connu la trahison de son oncle et la méchanceté des courtisans qui le conduisoient à la boucherie, rasa les lettres mentionnant sa mort, et au lieu y grava et cisela un commandement à l'Anglois de faire pendre et étrangler ses compagnons....
+
+«Vivant son père, Amleth avoit été endoctriné en cette science avec laquelle le malin esprit abuse les hommes, et avertissoit le prince des choses déjà passées. Il y auroit fort à discourir si ce prince, par la violence de sa mélancolie, recevoit telles impressions qu'il devinât ce que nul homme ne lui avoit jamais déclaré.»
+
+Évidemment, c'est Hamlet qui, dans ce récit, a frappé et séduit Shakspeare. Ce jeune prince, fou par calcul, peut-être un peu par nature, rusé et mélancolique, ardent à venger la mort de son père et habile à veiller pour sa propre vie, adoré de la jeune fille envoyée pour le perdre, objet de l'effroi et toujours pourtant de la tendresse de sa coupable mère, et, jusqu'au moment de l'explosion, caché et incompréhensible pour toutes les deux; ce personnage plein de passion, de péril et de mystère, versé dans les sciences occultes et à qui peut-être, «à travers la violence de sa mélancolie, le malin esprit fait deviner ce que nul homme ne lui a jamais déclaré;» quelle donnée admirable pour Shakspeare, scrutateur si curieux et si profond des agitations obscures de l'âme et de la destinée humaines! N'eût-il fait que peindre, en les dessinant avec la fermeté et en les colorant avec l'éclat de son pinceau, ce caractère et cette situation tels que les lui donnait la chronique, il eût, à coup sûr, produit un chef-d'oeuvre.
+
+Mais Shakspeare a fait bien davantage: sous sa main la folie de Hamlet devient tout autre chose que la préméditation obstinée ou l'exaltation mélancolique d'un jeune prince du moyen âge, placé dans une situation périlleuse et plongé dans un sombre dessein: c'est un grave état moral, une grande maladie de l'âme qui, à certaines époques et dans certaines conditions de l'état social et des moeurs, se répand parmi les hommes, atteint souvent les mieux doués et les plus nobles, et les frappe d'un trouble quelquefois bien voisin de la folie. Le monde est plein de mal, de toute sorte de mal. Que de souffrances et de crimes, et d'erreurs fatales, quoique innocentes! Que d'iniquités générales et privées, éclatantes et ignorées! Que de mérites étouffés ou méconnus, perdus pour le public, à charge pour leurs possesseurs! Que de mensonges et de froideur, et de légèreté, et d'ingratitude, et d'oubli dans les relations et les sentiments des hommes! La vie si courte et pourtant si agitée, tantôt si pesante et tantôt si vide! L'avenir si obscur! tant de ténèbres au terme de tant d'épreuves! A ceux qui ne voient que cette face du monde et de la destinée humaine, on comprend que l'esprit se trouble, que le coeur défaille, et qu'une mélancolie misanthropique devienne une disposition habituelle qui les jette tour à tour dans l'irritation ou dans le doute, dans le mépris ironique ou dans l'abattement.
+
+Ce n'était point là, à coup sûr, la maladie des temps où la chronique fait vivre Hamlet, ni de celui où vivait Shakspeare lui-même. Le moyen âge et le XVIe siècle étaient des époques trop actives et trop rudes pour que ces contemplations amères et ces développements malsains de la sensibilité humaine y trouvassent aisément accès. Ils appartiennent bien plutôt à des temps de vie molle et d'une excitation morale à la fois vive et oisive, quand les âmes sont jetées hors de leur repos et dépourvues de toute occupation forte et obligée. C'est alors que naissent ces mécontentements méditatifs, ces impressions partiales et irritées, cet entier oubli des biens, cette susceptibilité passionnée devant les maux de la condition humaine, et toute cette colère savante de l'homme contre l'ordre et les lois de cet univers.
+
+Ce malaise douloureux, ce trouble profond que porte dans l'âme une si sombre et si fausse appréciation des choses en général et de l'homme lui-même, et qu'il ne rencontrait guère dans son propre temps, ni dans les temps dont il lisait l'histoire, Shakspeare les a devinés et en a fait la figure et le caractère de Hamlet. Qu'on relise les quatre grands monologues où le prince de Danemark s'abandonne à l'expression réfléchie de ses sentiments intimes2; qu'on recueille dans toute la pièce les mots épars où il les manifeste en passant; qu'on recherche et qu'on résume ce qui éclate et ce qui se cache dans tout ce qu'il pense et ce qu'il dit; partout on reconnaîtra la maladie morale que je viens de décrire. Là réside vraiment, bien plus que dans ses chagrins ou dans ses périls personnels, la source de la mélancolie de Hamlet; c'est là son idée fixe et sa folie.
+
+Note 2: (retour) Acte Ier, scène II;—Acte II, scène II;—Acte III, scène Ire—Acte IV, scène IV.
+Et avec l'admirable bon sens du génie, pour rendre, non-seulement supportable, mais saisissant, le spectacle d'une maladie si sombre, Shakspeare a mis, dans le malade lui-même, les qualités les plus douces et les plus attrayantes. Il a fait Hamlet beau, populaire, généreux, affectueux, tendre même. Il a voulu que le caractère instinctif de son héros relevât en quelque sorte la nature humaine des méfiances et des anathèmes dont sa mélancolie philosophique l'accablait.
+
+Mais, en même temps, guidé par cet instinct d'harmonie qui n'abandonne jamais le vrai poëte, Shakspeare a répandu sur tout le drame la même couleur sombre qui ouvre la scène: le spectre du roi assassiné imprime dès les premiers pas et conduit jusqu'au terme le mouvement. Et quand le terme arrive, c'est aussi la mort qui règne; tous meurent, les innocents comme les coupables, la jeune fille comme le prince, et plus folle que lui: tous vont rejoindre le spectre qui n'est sorti de son tombeau que pour les y pousser tous avec lui. L'événement tout entier est aussi lugubre que la pensée de Hamlet. Il ne reste sur la scène que les étrangers norwégiens, qui y paraissent pour la première fois et qui n'ont pris aucune part à l'action.
+
+Après cette grande peinture morale, vient la seconde des beautés supérieures de Shakspeare, l'effet dramatique. Elle n'est nulle part plus complète et plus frappante que dans Hamlet, car les deux conditions du grand effet dramatique s'y trouvent, l'unité dans la variété; une seule impression constante, dominante; et cette même impression diversifiée selon le caractère, le tour d'esprit, la condition des divers personnages dans lesquels elle se reproduit. La mort plane sur tout le drame; le spectre du roi assassiné la représente et la personnifie; il est toujours là, tantôt présent lui-même, tantôt présent à la pensée et dans les discours des autres personnages. Grands ou petits, coupables ou innocents, intéressés ou indifférents à son histoire, ils sont tous constamment occupés de lui; les uns avec remords, les autres avec affection et douleur, d'autres encore simplement avec curiosité, quelques-uns même sans curiosité et uniquement par occasion: par exemple, ce grossier fossoyeur qui avait, dit-il, commencé son métier le jour où feu ce grand roi avait remporté une grande victoire sur son voisin le roi de Norwège, et qui, en le continuant pour creuser la fosse de la belle Ophélia, la maîtresse folle de Hamlet fou, retrouve le crâne du pauvre Yorick, ce bouffon du roi défunt, le crâne du bouffon de ce spectre qui sort à chaque instant de son tombeau pour troubler les vivants et obtenir justice de son assassin. Tous ces personnages, au milieu de toutes ces circonstances, sont amenés, retirés, ramenés tour à tour, chacun avec sa physionomie, son langage, son impression propre; et tous concourent incessamment à entretenir, à répandre, à fortifier cette impression unique et générale de la mort, de la mort juste ou injuste, naturelle ou violente, oubliée ou pleurée, mais toujours présente, et qui est la loi suprême et devrait être la pensée permanente des hommes.
+
+Au théâtre, devant des spectateurs réunis en grand nombre et mêlés, l'effet de ce drame, à la fois si lugubre et si animé, est irrésistible; l'âme est remuée dans ses dernières profondeurs, en même temps que l'imagination et les sens sont occupés et entraînés par un mouvement extérieur continu et rapide. C'est là le double génie de Shakspeare, philosophe et poëte également inépuisable, moraliste et machiniste tour à tour, aussi habile à remplir bruyamment la scène qu'à pénétrer et à mettre en lumière les plus intimes secrets du coeur humain. Soumis à l'action immédiate d'une telle puissance, les hommes en masse ne lui demandent rien au delà de ce qu'elle leur donne; elle les domine et emporte d'assaut leur sympathie et leur admiration. Les esprits difficiles et délicats, qui jugent presque au même moment où ils sentent, et qui portent le besoin de la perfection jusque dans leurs plus vifs plaisirs, goûtent et admirent aussi immensément Shakspeare; mais ils sont désagréablement troublés dans leur admiration et leur jouissance, tantôt par l'entassement et la confusion des personnages et des incidents inutiles; tantôt par les longs et subtils développements d'une réflexion ou d'une idée qu'il conviendrait au personnage d'indiquer en passant, mais dans laquelle le poëte se complaît et s'arrête pour son propre compte; plus souvent encore par ce bizarre mélange de grossièreté et de recherche dans le langage qui donne quelquefois, aux sentiments les plus vrais, des formes factices et pédantes, et, aux plus belles inspirations de la philosophie ou de la poésie, une physionomie barbare. Ces défauts abondent dans Hamlet. Je ne veux ni me donner la pénible satisfaction de le prouver, ni me dispenser de le dire. En fait de génie, Shakspeare n'a peut-être point de rivaux; dans les hautes et pures régions de l'art, il ne saurait être un modèle.
+
+
+
+
+HAMLET
+TRAGÉDIE
+
+
+PERSONNAGES
+
+CLAUDIUS, roi de Danemark.
+HAMLET, fils de Hamlet et neveu de Claudius.
+POLONIUS, seigneur chambellan.
+HORATIO, ami de Hamlet.
+LAERTES, fils de Polonius.
+VOLTIMAND,
+CORNÉLIUS, ROSENCRANTZ, GUILDENSTERN, seigneurs de la cour de Danemark.
+OSRICK, seigneur de la cour.
+UN AUTRE SEIGNEUR DE LA COUR.
+UN PRÊTRE.
+MARCELLUS, BERNARDO, officiers.
+FRANCISCO, soldat.
+REYNALDO, domestique de Polonius.
+UN CAPITAINE, ambassadeur.
+L'OMBRE du père d'Hamlet.
+FORTINBRAS, prince de Norwége.
+GERTRUDE, reine de Danemark et mère d'Hamlet.
+OPHÉLIA, fille de Polonius.
+SEIGNEURS, DAMES, OFFICIERS, SOLDATS, COMÉDIENS, FOSSOYEURS, MATELOTS, MESSAGERS et autres serviteurs.
+
+La scène est à Elseneur.
+
+
+
+
+ACTE PREMIER
+
+
+SCÈNE I
+
+Elseneur.—Une plate-forme devant le château.
+
+FRANCISCO montant la garde, BERNARDO vient à lui.
+
+BERNARDO.—Qui va là?
+
+FRANCISCO.—Non, répondez vous-même. Arrêtez-vous et faites-vous reconnaître.
+
+BERNARDO.—Vive le roi!
+
+FRANCISCO.—Bernardo?
+
+BERNARDO.—En personne.
+
+FRANCISCO.—Vous venez très-soigneusement à votre heure.
+
+BERNARDO.—Minuit vient de sonner: va regagner ton lit, Francisco.
+
+FRANCISCO.—Pour cette délivrance, mille grâces. Le froid est aigre, et j'ai le coeur saisi.
+
+BERNARDO.—Avez-vous eu une garde tranquille?
+
+FRANCISCO.—Pas une souris qui ait bougé!
+
+BERNARDO.—Allons, bonne nuit. Si vous rencontrez Horatio et Marcellus, mes compagnons de garde, priez-les de faire hâte.
+
+(Horatio et Marcellus entrent.)
+
+FRANCISCO.—Je pense que je les entends.—Holà! halte! qui va là?
+
+HORATIO.—Amis de ce pays.
+
+MARCELLUS.—Et hommes liges du roi de Danemark.
+
+FRANCISCO.—Je vous souhaite une bonne nuit.
+
+MARCELLUS.—Adieu donc, honnête soldat; qui vous a relevé?
+
+FRANCISCO.—Bernardo a pris mon poste; je vous souhaite une bonne nuit.
+
+(Francisco sort.)
+
+MARCELLUS.—Holà! Bernardo!
+
+BERNARDO.—Que dites-vous? Est-ce Horatio qui est là?
+
+HORATIO.—Un petit morceau de lui, oui.
+
+BERNARDO.—Soyez le bienvenu, Horatio. Soyez le bienvenu, bon Marcellus.
+
+MARCELLUS.—Eh bien! cette chose a-t-elle encore apparu cette nuit?
+
+BERNARDO.—Je n'ai rien vu.
+
+MARCELLUS.—Horatio dit que c'est pure imagination, et il ne veut pas souffrir que la croyance ait prise sur lui, quant à cette terrible vision que nous avons vue par deux fois. C'est pourquoi j'ai insisté auprès de lui, l'invitant à veiller avec nous chaque minute de cette nuit, afin que, si cette apparition vient encore, il puisse confirmer nos regards et lui parler.
+
+HORATIO.—Bah! bah! elle ne paraîtra pas.
+
+BERNARDO.—Asseyez-vous un moment, et laissez-nous encore une fois livrer assaut à vos oreilles, qui sont si bien fortifiées contre notre histoire, contre ce que nous avons vu pendant deux nuits.
+
+HORATIO.—Bien! asseyons-nous, et écoutons Bernardo parler de ceci.
+
+BERNARDO.—La dernière de toutes ces nuits, à l'heure où cette même étoile, qui est à l'occident du pôle, avait fait son voyage jusqu'à éclairer cette partie du ciel où elle flamboie à présent, Marcellus et moi, la cloche sonnant alors une heure....
+
+MARCELLUS.—Paix! supprime le reste! regarde, le voici qui revient.
+
+(L'ombre entre.)
+
+BERNARDO.—C'est la même apparence que celle du roi qui est mort.
+
+MARCELLUS.—Toi qui es un savant, parle-lui, Horatio.
+
+BERNARDO.—Ne ressemble-t-il pas au roi? Observe-le, Horatio.
+
+HORATIO.—Tout semblable. Il me bouleverse de peur et d'étonnement.
+
+BERNARDO.—Il voudrait qu'on lui parlât.
+
+MARCELLUS.—Parle-lui, Horatio.
+
+HORATIO.—Qui es-tu, toi qui usurpes ensemble cette heure de la nuit et cette forme noble et guerrière sous laquelle la majesté du Danemark, maintenant ensevelie, a pour un temps marché? Au nom du ciel, je te somme: parle.
+
+MARCELLUS.—Il est offensé.
+
+BERNARDO.—Vois, il s'éloigne avec hauteur.
+
+(L'ombre s'en va.)
+
+HORATIO.—Arrête; parle, parle; je te somme de parler.
+
+MARCELLUS.—Il est parti et ne répondra pas.
+
+BERNARDO.—Eh bien! Horatio, vous tremblez, et vous êtes tout pâle; ceci n'est-il pas quelque chose de plus que de l'imagination? Qu'en pensez-vous?
+
+HORATIO.—Devant mon Dieu, je ne pourrais pas le croire, sans le sensible et sûr témoignage de mes propres yeux.
+
+MARCELLUS.—Ne ressemble-t-il pas au roi?
+
+HORATIO.—Comme tu te ressembles à toi-même. C'est bien là la même armure qu'il portait lorsqu'il combattit le Norwégien ambitieux; ce fut ainsi qu'un jour il fronça le sourcil lorsque, dans une conférence furieuse, il arracha le Polonais de son traîneau et l'étendit sur la glace. Cela est étrange!
+
+MARCELLUS.—Deux fois déjà, justement à cette heure de mort, il a passé près de notre poste avec cette démarche guerrière.
+
+HORATIO.—Sur quel point précis doit, à ce propos, travailler notre pensée, je n'en sais rien; mais, à dire l'ensemble et la pente de mon opinion, ceci annonce quelque étrange explosion dans notre royaume.
+
+MARCELLUS.—C'est bon; asseyons-nous, et dites-moi, si vous le savez, pourquoi ces continuelles gardes, si strictes et si rigoureuses, fatiguent ainsi, chaque nuit, les sujets de ce royaume? Et pourquoi, chaque jour, ces canons de bronze que l'on coule, et tout ce trafic, à l'étranger, pour des munitions de guerre? Pourquoi la presse sur les charpentiers de vaisseau, dont le rude labeur ne distingue plus le dimanche de la semaine? Qu'y a-t-il en jeu pour que cette hâte abondante en sueurs fasse les journées et les nuits compagnes du même travail? Quel est celui qui peut m'instruire?
+
+HORATIO.—Je le puis, ou, du moins, ainsi vont les rumeurs: notre dernier roi, dont à l'heure même l'image vient de nous apparaître, fut, comme vous savez, provoqué au combat par Fortinbras de Norwége, qu'un jaloux orgueil avait excité à ce défi. Dans ce combat, notre vaillant Hamlet (car cette partie de notre monde connu le tenait pour tel) tua ce Fortinbras, qui, par un acte bien scellé et fait dans toutes les formes des lois et de la science héraldique, abandonnait au vainqueur, avec sa vie, tous les domaines dont il était possesseur. Contre ce gage notre roi avait assigné une portion équivalente qui serait entrée dans le patrimoine de Fortinbras, s'il fût resté vainqueur, comme son lot, d'après la convention et la teneur des articles ratifiés, est échu à Hamlet. Maintenant, mon cher, le jeune Fortinbras, tout plein et tout bouillant d'une fougue inexpérimentée, a ramassé çà et là sur les frontières de la Norwége une troupe d'aventuriers sans feu ni lieu, moyennant les vivres et l'entretien, pour quelque entreprise où il s'agisse d'avoir du coeur; ce ne peut être (comme en est bien convaincu notre gouvernement) que le projet de reprendre sur nous à main armée, et par voie de contrainte, les susdites terres, ainsi perdues par son père; et c'est là, je crois, la cause majeure de nos préparatifs, l'origine de ces gardes que nous montons, et le grand but de ce train de poste et de ce remue-ménage que vous voyez par tout le pays.
+
+BERNARDO.—Je pense que ce ne peut être autre chose, et cela s'accorde bien avec cette figure d'augure étrange qui passe, armée, au milieu de notre veille, si semblable au roi qui était et est encore l'occasion de ces guerres.
+
+HORATIO.—Ah! cela, c'est un grain de poussière qui tombe dans l'oeil de l'esprit, pour l'inquiéter. Au temps de la plus grande et plus florissante force de Rome, un peu avant que le très-puissant Jules-César ne tombât, les sépulcres se dépeuplèrent, et les morts en linceul s'en allaient, criant et gémissant par les rues de Rome; on voyait des étoiles avec des queues de flamme, et des rosées de sang, et des ravages dans le soleil; et l'humide planète, dont l'influence régit l'empire de Neptune, était atteinte d'une éclipse presque comme si c'eût été le jour du jugement. Eh bien! ce sont de semblables signes précurseurs d'événements terribles, comme des hérauts qui ouvrent la marche des destins, comme un prologue du sort qui s'avance, c'est là ce que le ciel et la terre tout ensemble viennent de montrer dans nos climats et à nos concitoyens. (L'ombre reparaît.) Mais, silence! voyez: le voilà. Il revient encore. Je veux me mettre devant lui, dût-il m'anéantir! Arrête, illusion! si tu as un son, une voix dont tu fasses usage, parle-moi.
+
+S'il y a quelque chose de bien à faire qui puisse compter pour ton soulagement et pour mon salut, parle-moi.
+
+Si tu es dans le secret des destins de ta patrie, et que, pour notre bonheur, la prescience puisse les faire éviter, oh! parle.
+
+Ou si, pendant ta vie, tu as enfoui dans le sein de la terre quelque trésor extorqué, ce pourquoi, dit-on, vous autres esprits, vous errez souvent, tout morts que vous êtes, dis-le-moi. Arrête-toi et parle. (Le coq chante.) Arrêtez-le, Marcellus.
+
+MARCELLUS.—Le frapperai-je de ma pertuisane?
+
+HORATIO.—Oui, s'il ne veut pas s'arrêter.
+
+BERNARDO.—Le voici!
+
+HORATIO.—Le voici!
+
+(L'ombre s'en va.)
+
+MARCELLUS.—Le voilà parti. Nous lui faisons tort, à lui qui est si majestueux, en essayant contre lui ces démonstrations de violence; il est invulnérable comme l'air, et nos coups frappant dans le vide n'auraient été qu'une méchante raillerie.
+
+BERNARDO.—Il était au moment de parler, quand le coq a chanté.
+
+HORATIO.—Et alors il a tressailli comme un être coupable à un terrible appel. J'ai ouï dire que le coq, qui est le clairon du matin, par sa voix haute et perçante, éveille le dieu du jour; et qu'à ce signal, les esprits échappés et errants, qu'ils soient dans la mer ou dans le feu, vont se cacher dans leur prison; et ce que nous venons de voir a prouvé qu'on dit vrai.
+
+MARCELLUS.—Il s'est évanoui au cri du coq. Quelques-uns disent que, toujours, quand la saison s'approche où la naissance de notre Sauveur est célébrée, cet oiseau de l'aurore chante durant toute la nuit; alors, dit-on, aucun esprit n'ose se risquer dehors; les nuits sont saines; alors nulle planète dont l'action nous frappe, nulle fée qui nous surprenne, nulle sorcière qui ait le pouvoir de charmer, tant ce moment de l'année est sanctifié et riche de grâces.
+
+HORATIO.—Je l'ai ouï dire ainsi, et je le crois en partie. Mais voyez: le matin, drapés dans son manteau rougissant, s'avance parmi la rosée sur cette haute colline à l'orient. Descendons notre garde, et si vous m'en croyez, faisons part au jeune Hamlet de ce que nous avons vu cette nuit; car, sur ma vie, cet esprit, muet pour nous, lui parlera. Vous accordez-vous à vouloir que nous l'instruisions de cela, comme nous l'ordonnent nos affections, conformes à notre devoir?
+
+MARCELLUS.—Faisons cela, je vous prie; je sais où nous pourrons le trouver ce matin fort à propos.
+
+
+
+SCÈNE II
+Une salle de réception dans le château.
+
+LE ROI, LA REINE, HAMLET, POLONIUS, LAERTES, VOLTIMAND, CORNÉLIUS, et des seigneurs de leur suite, entrent.
+
+LE ROI.—Bien que le souvenir de la mort de Hamlet, notre frère bien-aimé, soit encore vert et vivace, bien qu'il nous convînt, à nous, délaisser nos coeurs dans la tristesse, et à notre royaume tout entier de montrer comme un seul front contracté par la même douleur, la raison, cependant, combattant la nature, nous a amenés à penser à lui avec une sage douleur et non sans quelque souvenir de nous-mêmes. C'est pourquoi voici celle qui fut d'abord notre soeur, maintenant notre reine, compagne de notre empire sur ces belliqueux États, et que, avec une joie déroutée, avec un oeil brillant, tandis que l'autre versait des larmes, mêlant les réjouissances aux funérailles et les obsèques au mariage, pesant dans une balance égale le plaisir et l'affliction, nous avons prise pour femme. Nous n'avons point résisté en ceci à vos sagesses supérieures, qui ont eu leur libre allure dans tout le cours de cette affaire. Recevez tous nos remercîments.
+
+Maintenant il s'agit, comme vous le savez, du jeune Fortinbras, qui, faisant peu de cas de ce que nous pouvons valoir, ou pensant que la mort récente de notre frère bien-aimé aurait ébranlé ce royaume et dérangé ses ressorts, et sans autre allié que ce fantôme de ses avantages rêvés, n'a pas manqué de nous insulter par un message, pour redemander les domaines perdus par son père, et que notre très-vaillant frère a acquis par tous les liens et avec tous les sceaux de la loi. Mais c'est assez parler de lui. Quant à nous et à l'objet de cette assemblée, voici quelle est l'affaire: nous avons écrit par ces lettres au roi de Norwége, oncle du jeune Fortinbras, qui, impotent et alité, a à peine ouï parler du projet de son neveu, en l'invitant à en arrêter la suite; car les levées, les enrôlements et la pleine organisation des corps, tout se fait parmi ses sujets. Et nous vous dépêchons aujourd'hui, brave Cornélius, et vous, Voltimand, pour porter nos salutations à ce vieux roi, sans vous donner pouvoir personnel pour traiter avec ce prince en dehors du cercle où peut s'étendre le développement de ces instructions. Adieu, et que votre diligence témoigne de votre dévouement.
+
+VOLTIMAND.—En cela et en toutes choses, nous montrerons notre dévouement.
+
+LE ROI.—Nous n'en doutons point. Adieu de bon coeur. (Voltimand et Cornélius sortent.) Et maintenant, Laërtes, qu'avez-vous de nouveau à nous dire? Vous nous avez annoncé une demande; qu'est-ce, Laërtes? Vous ne pouvez point dire une chose raisonnable au roi de Danemark, et perdre vos paroles. Que peux-tu demander, Laërtes, qui ne soit d'avance mon offre plutôt que ta demande? La tête n'est pas soeur du coeur, ni la main servante des lèvres plus étroitement que le trône de Danemark n'est lié à ton père. Que souhaites-tu, Laërtes?
+
+LAËRTES.—Mon redouté seigneur, je demande votre congé et votre agrément pour retourner en France. Quoique j'en sois parti avec empressement pour vous rendre hommage lors de votre couronnement, maintenant, je l'avoue, ce devoir une fois rempli, mes pensées et mes désirs se tournent de nouveau vers la France, et s'inclinent devant vous pour obtenir votre gracieux congé et votre indulgence.
+
+LE ROI.—Avez-vous le congé de votre père? Que dit Polonius?
+
+POLONIUS.—Il m'a, monseigneur, arraché par l'effort de ses instances une lente permission, et à la fin j'ai scellé son désir de mon pénible consentement. Je vous supplie de lui donner congé de partir.
+
+LE ROI.—Prends l'heure qui te sourira, Laërtes; tes moments sont à toi, et à toi mes meilleures volontés3; fais-en usage selon tes souhaits. Et maintenant, Hamlet, mon cousin, mon fils...
+
+Note 3: (retour) Nous traduisons d'après une correction excellente de Johnson:
+Take thy fair hour, Laertes; time is thine,
+
+And my best graces.
+
+HAMLET, à part.—Un peu plus que cousin, et un peu moins que fils.
+
+LE ROI.—D'où vient que les nuages pèsent encore sur vous?
+
+HAMLET.—Mais non, mon seigneur; je ne suis que trop en plein soleil.
+
+LA REINE.—Cher Hamlet, renonce à ces couleurs ténébreuses, et que ton oeil regarde en ami le roi de Danemark. Ne va pas, sans fin, sous le voile baissé de tes paupières, cherchant ton noble père dans la poussière. Tu le sais, c'est le sort commun; tout ce qui vit doit mourir et ne fait que traverser ce monde pour aller à l'éternité.
+
+HAMLET.—Oui, madame, c'est le sort commun.
+
+LA REINE.—S'il en est ainsi, pourquoi cela te semble-t-il étrange?
+
+HAMLET.—Cela me semble, madame! non, cela est. Sembler et moi, nous ne nous connaissons pas. Ce n'est pas seulement mon manteau noir comme l'encre, bonne mère, ni la traditionnelle livrée d'un deuil d'apparat, ni le souffle orageux d'une respiration pénible, non, ni la source abondante qui ruisselle dans les yeux, ni l'apparence abattue du visage, ni toutes les formes, tous les modes, tous les signes de la douleur, qui peuvent témoigner de moi vraiment. A bien dire, c'est là ce qui «semble:» car ce sont des actions qu'un homme peut jouer; mais je porte au dedans de moi ce que n'égale aucun signe, ce que ne disent pas tous ces harnais et cette livrée de la douleur.
+
+LE ROI.—C'est une tendre et honorable marque de votre nature, Hamlet, que de rendre à votre père ces lugubres devoirs. Mais, vous devez le savoir, votre père perdit un père; ce père qu'il perdit avait perdu le sien; et le survivant est tenu, par obligation filiale, à faire au mort, pendant quelque temps, hommage de sa douleur. Mais persévérer dans une affliction obstinée, c'est un acte d'opiniâtreté impie, c'est un chagrin qui n'est point d'un homme. Cela fait voir une volonté très-indisciplinée envers le ciel, un coeur désarmé ou un esprit rebelle, une intelligence trop simple et sans étude: car ce qui doit être, à notre connaissance, de toute nécessité, ce qui est aussi habituel que la plus vulgaire des choses qui tombent sous les sens, pourquoi, dans notre révolte puérile, prendrions-nous cela tant à coeur? Fi! c'est un péché contre le ciel, un péché contre les morts, un péché contre la nature, une absurdité contre la raison, dont le texte habituel est la mort des pères, et qui n'a pas cessé de crier, depuis le premier cadavre jusqu'à celui qui est mort aujourd'hui: Cela doit être ainsi. Nous vous en prions, jetez bas cette infructueuse douleur, et considérez-nous comme un père; car il faut que le monde le sache, vous êtes le plus proche de notre trône, et cette même excellence d'amour que le père le plus tendre porte à son fils, nous-même nous vous l'offrons. Quant à votre dessein de retourner aux écoles de Wittenberg, il est des plus contraires à nos désirs. Nous vous en supplions, soumettez-vous à rester ici pour la consolation et la joie de nos yeux, vous, le premier de notre cour, notre cousin et notre fils.
+
+LA REINE.—Que les prières de ta mère ne soient pas perdues; Hamlet, je t'en prie, demeure avec nous, ne va pas à Wittenberg.
+
+HAMLET.—Je vous obéirai de mon mieux en tout, madame.
+
+LE ROI.—Bien, voilà une tendre et bonne réponse. Soyez en Danemark comme nous-mêmes.—Venez, madame; cette douce et volontaire concession de Hamlet entre en souriant dans mon coeur; en actions de grâces, je veux que le roi de Danemark ne boive pas aujourd'hui une joyeuse santé, sans que le grand canon le dise aux nuages, et le ciel répondra à chaque rasade du roi, en répétant le fracas du tonnerre terrestre. Allons.
+
+(Le roi, la reine, la cour, etc., Polonius et Laërtes sortent.)
+
+HAMLET.—Oh! si cette solide, trop solide chair pouvait se fondre, s'écouler et se résoudre en une rosée! Ou si, du moins, l'Éternel n'avait pas établi sa loi sacrée contre le meurtre de soi-même! O Dieu! ô Dieu! combien pesantes et usées, et plates et sans profit me semblent toutes les pratiques de ce monde! Fi de ce monde! oh! fi! c'est un jardin non sarclé où tout monte en graine; ce sont des herbes grossières et sauvages qui s'en emparent uniquement... Que les choses en soient venues là! Mort depuis deux mois seulement... non, moins encore, il n'y a pas deux mois... Un si excellent roi! qui était à celui-ci ce qu'Apollon est à un satyre... si tendre pour ma mère qu'il ne pouvait pas même souffrir que les vents du ciel s'approchassent de son visage trop rudement. Ciel et terre! faut-il que je me souvienne? Comment? On l'aurait vue se pendre à lui comme si l'appétit en elle n'eût fait que s'accroître de ce dont il se nourrissait... et pourtant, en un mois... Ne pensons pas à cela. Fragilité, ton nom est femme! Un petit mois, et avant que ces souliers fussent vieux, avec lesquels elle avait suivi le corps de mon pauvre père, tout en pleurs, comme une Niobé... Comment? Elle, elle-même? O ciel! une bête à qui manquent les discours de la raison se serait plus longtemps lamentée.—Mariée avec mon oncle, avec le frère de mon père, qui ne ressemble pas plus à mon père que moi à Hercule... en un mois, avant que le sel de ses larmes vicieuses eût cessé de rougir ses yeux endoloris, elle s'est mariée! O criminelle hâte de se jeter—et si légèrement—dans un lit incestueux! Cela n'est pas bien, cela ne peut tourner à bien. Mais brise-toi, mon coeur; car je dois retenir ma langue.
+
+(Horatio, Marcellus et Bernardo entrent.)
+
+HORATIO.—Salut à votre seigneurie.
+
+HAMLET.—Je suis charmé de vous voir en bonne santé. Horatio, n'est-ce pas?... ou je ne sais plus qui je suis moi-même.
+
+HORATIO.—Lui-même, monseigneur, et votre très-humble serviteur pour toujours.
+
+HAMLET.—Dites mon bon ami, monsieur; je veux échanger ce nom avec vous. Et quel motif vous ramène de Wittenberg, Horatio?—Marcellus?
+
+MARCELLUS.—Mon bon seigneur...
+
+HAMLET.—Je suis charmé de vous voir. Bonjour, monsieur. Mais, en vérité, qu'est-ce qui vous a fait quitter Wittenberg?
+
+HORATIO.—Un naturel de vagabond, mon bon seigneur.
+
+HAMLET.—Je ne m'accommoderais pas d'entendre votre ennemi parler de la sorte; vous ne voudrez pas faire à mon oreille cette violence de la rendre dépositaire de votre témoignage contre vous-même. Je sais bien que vous n'êtes pas un vagabond. Mais quelle affaire avez-vous à Elseneur? Nous vous apprendrons à boire à pleins bords avant que vous repartiez d'ici.
+
+HORATIO.—Mon seigneur, j'étais venu pour voir les funérailles de votre père.
+
+HAMLET.—Je te prie, camarade, ne te moque pas de moi; je pense que c'est pour voir les noces de ma mère.
+
+HORATIO.—Il est vrai, mon seigneur, qu'elles ont suivi de bien près.
+
+HAMLET.—Économie, Horatio, économie pure! Les viandes cuites pour les funérailles ont été resservies froides sur les tables du mariage. Plût à Dieu que j'eusse rencontré dans le ciel mon meilleur ennemi, plutôt que d'avoir vu ce jour, Horatio!—Mon père!—Il me semble que je vois mon père?
+
+HORATIO.—Où, mon seigneur?
+
+HAMLET.—Avec les yeux de l'âme, Horatio.
+
+HORATIO.—Je l'ai vu autrefois; c'était un roi parfait.
+
+HAMLET.—C'était un homme, pour tout dire en un mot, tel que je ne reverrai jamais son pareil.
+
+HORATIO.—Mon seigneur, je crois l'avoir vu durant la nuit d'hier.
+
+HAMLET.—Vu! Qui?
+
+HORATIO.—Mon seigneur, le roi votre père.
+
+HAMLET.—Le roi mon père!
+
+HORATIO.—Modérez pour un instant votre surprise, en prêtant une oreille attentive, afin que je puisse, avec le témoignage de ces messieurs, vous raconter ce prodige.
+
+HAMLET.—Pour l'amour de Dieu, fais-toi entendre.
+
+HORATIO.—Pendant deux nuits de suite, ces messieurs, Marcellus et Bernardo, étant en faction, à l'heure oisive et morte du milieu de la nuit, ont eu l'aventure que voici: une figure, semblable à votre père, armée de toutes pièces, exactement de pied en cap, apparaît devant eux, et, avec une démarche solennelle, passe lentement et gravement près d'eux. Trois fois il se promena devant leurs yeux accablés et fixes d'épouvante, à la distance de ce bâton, tandis que, dissous presque en je ne sais quelle gelée fondante, par l'effet de la peur, ils demeuraient muets et ne lui parlaient point. Ils m'ont fait part de cela comme d'un secret terrible; et moi, la troisième nuit, j'ai monté la garde avec eux. Alors, tout comme ils me l'avaient raconté, à la même heure, en la même forme, chacune de leurs paroles se trouvant vraie et certaine, l'apparition est venue. J'ai reconnu votre père; ces deux mains ne sont pas plus semblables.
+
+HAMLET.—Mais où cela s'est-il passé?
+
+MARCELLUS.—Mon seigneur, sur la plate-forme où nous montions la garde.
+
+HAMLET.—Ne lui avez-vous point parlé?
+
+HORATIO.—Mon seigneur, c'est ce que j'ai fait. Mais il n'a fait nulle réponse; une fois, pourtant, à ce qu'il m'a semblé, il a levé la tête et a commencé à se mouvoir comme s'il voulait parler; mais, à ce moment même, le coq du matin a chanté à haute voix, et lui, à ce bruit, il a reculé en toute hâte, et s'est évanoui à nos yeux.
+
+HAMLET.—Cela est fort étrange.
+
+HORATIO.—Aussi sûrement que j'existe, mon honorable seigneur, cela est vrai; et nous avons pensé que notre devoir nous prescrivait de vous en donner connaissance.
+
+HAMLET.—En vérité, en vérité, messieurs, cela me trouble. Montez-vous la garde ce soir?
+
+TOUS.—Oui, mon seigneur.
+
+HAMLET.—Armé, dites-vous?
+
+TOUS.—Armé, mon seigneur.
+
+HAMLET.—De la tête aux pieds?
+
+TOUS.—Mon seigneur, de pied en cap.
+
+HAMLET.—Alors, vous n'avez pas vu son visage.
+
+HORATIO.—Oh! si, mon seigneur; sa visière était levée.
+
+HAMLET.—Eh bien! avait-il un aspect irrité?
+
+HORATIO.—Un air de tristesse plutôt que de colère.
+
+HAMLET.—Pâle ou rouge?
+
+HORATIO.—Non, très-pâle.
+
+HAMLET.—Et il fixait les yeux sur vous?
+
+HORATIO.—Constamment.
+
+HAMLET.—Je voudrais avoir été là.
+
+HORATIO.—Cela vous aurait fortement frappé.
+
+HAMLET.—Sans doute, sans doute. A-t-il demeuré longtemps?
+
+HORATIO.—Le temps de compter jusqu'à cent, sans trop se presser?
+
+MARCELLUS et BERNARDO.—Plus longtemps! plus longtemps!
+
+HORATIO.—Non pas quand je l'ai vu.
+
+HAMLET.—Sa barbe était grisonnante, n'est-ce pas?
+
+HORATIO.—Comme lorsque je l'ai vu durant sa vie; comme un blason de sable semé d'argent4.
+
+Note 4: (retour) Dans le langage du blason, le sable est la couleur noire.
+HAMLET.—Je veillerai cette nuit, peut-être paraîtra-t-il encore.
+
+HORATIO.—Je le garantis, il paraîtra.
+
+HAMLET.—S'il revêt encore la forme de mon noble père, je lui parlerai, dût l'enfer béant m'ordonner de me tenir en paix. Je vous prie tous, si vous avez caché cette vision, persistez dans votre silence; et, quelque chose qui puisse encore advenir cette nuit, livrez-le à votre réflexion, mais point à votre langue. Je récompenserai votre affection! Ainsi, adieu. Sur la plate-forme, entre onze heures et minuit, j'irai vous trouver.
+
+TOUS.—Nos respects à votre seigneurie.
+
+HAMLET.—Non, votre affection, comme la mienne est à vous. Adieu! (Horatio, Marcellus et Bernardo sortent.)—L'âme de mon père tout armée! tout ne va pas bien. Je soupçonne quelque mauvais mystère. Oh! je voudrais que la nuit fût venue! Jusque-là, sois calme, mon âme! Les mauvaises actions, quand la terre entière pèserait sur elles, surgiront aux yeux des hommes.
+
+(Il sort.)
+
+
+
+SCÈNE III
+Un appartement dans la maison de Polonius.
+
+LAERTES ET OPHÉLIA entrent.
+
+LAERTES.—Mes bagages sont embarqués; adieu! Et maintenant, soeur, quand les vents en offriront l'occasion et qu'un convoi nous viendra en aide, ne vous endormez pas, mais donnez-moi de vos nouvelles.
+
+OPHÉLIA.—Pouvez-vous en douter?
+
+LAERTES.—Quant à Hamlet, et au badinage de ses gracieusetés, regardez cela comme une fantaisie de mode et un jeu auquel son sang s'amuse,—comme une violette née en la jeunesse de la nature qui s'éveille,—hâtive, mais passagère, suave, mais sans durée; le parfum et la distraction d'une minute, rien de plus.
+
+OPHÉLIA.—Quoi! rien de plus?
+
+LAERTES.—Non, croyez-moi, rien de plus; car la nature, dans son progrès, ne développe pas seulement les muscles et la masse du corps, mais à mesure que s'agrandit ce temple, s'étendent aussi largement, pour la pensée et pour l'âme, les charges de leur dignité intérieure. Peut-être vous aime-t-il maintenant; peut-être aucune souillure, aucune fraude n'altèrent maintenant la vertu de ses volontés; mais vous devez craindre, en pesant sa grandeur, que ses volontés ne lui appartiennent pas. Il est lui-même sujet de sa naissance; il ne lui est pas possible, comme aux gens qui ne comptent pas, de se tailler à lui-même sa destinée, car de son choix dépendent le salut et la santé de tout l'État; et c'est pourquoi son choix doit être restreint à ce que demande ou permet le corps dont il est la tête. Si donc Hamlet dit qu'il vous aime, il est de votre sagesse de le croire seulement jusqu'à ce point où peut aller, selon le rôle et le rang qui lui sont propres, son droit d'agir comme il a parlé, c'est-à-dire jusque-là seulement où peut aller avec lui la grande voix du Danemark. Pesez donc la perte que votre honneur aurait à subir, si, d'une oreille trop crédule, vous écoutiez ses chansons, ou perdiez votre coeur, ou ouvriez à ses importunités sans frein le trésor de votre chasteté. Craignez cela, Ophélia, craignez cela, chère soeur; tenez-vous toujours en deçà de votre affection, hors de l'atteinte et du danger des désirs. La vierge la plus ménagère d'elle-même est déjà assez prodigue si elle démasque sa beauté aux regards de la lune. La vertu même n'échappe point aux traits de la calomnie; le ver ronge les enfants du printemps, trop souvent même avant que leurs boutons soient épanouis; et c'est au matin de la jeunesse, sous ses limpides rosées, que les souffles contagieux ont plus de menaces. Soyez donc prudente; la meilleure sauvegarde, c'est la peur: assez souvent la jeunesse se révolte d'elle-même, quoiqu'elle n'ait près d'elle personne qui l'y pousse.
+
+OPHÉLIA.—Je conserverai l'impression de cette leçon salutaire, comme un gardien pour mon coeur. Mais, mon bon frère, ne faites pas comme quelques rudes pasteurs: il ne faut pas me montrer une route escarpée et épineuse vers le ciel, et, comme un libertin vantard et insouciant, suivre soi-même le sentier fleuri de la licence, et s'inquiéter peu de ses propres leçons.
+
+LAERTES.—Oh! ne craignez pas pour moi. Je m'arrête trop longtemps. Mais voici venir mon père. (Polonius entre.) Une double bénédiction est une double faveur. L'occasion me rit pour un second adieu.
+
+POLONIUS.—Encore ici, Laërtes! A bord, à bord! c'est une honte: le vent est là qui pousse au dos de votre voile, et vous vous faites attendre! Allons, que ma bénédiction soit avec vous (il met sa main sur la tête de Laërtes); et songe à graver en ta mémoire ces quelques préceptes: «Ne donne pas à toutes tes pensées une langue, ni à aucune pensée non calculée son exécution. Sois familier, mais jamais banal. Les amis que tu auras, et dont le choix sera éprouvé, attache-les à ton âme par des crampons d'acier; mais n'use pas la paume de ta main à fêter tout camarade éclos d'hier et encore sans plumes. Garde-toi d'entamer une querelle; mais une fois engagé, comporte-toi de manière que l'adversaire prenne garde à toi. Prête l'oreille à tous, mais ne livre tes paroles qu'à peu de gens. Recueille l'opinion de chacun, mais réserve ton jugement. Que tes habits soient aussi coûteux que ta bourse le permet, sans recherches singulières; riches, sans être voyants; car l'ajustement révèle souvent l'homme; et les gens les plus relevés en France par leur rang et par leur position sont, surtout en cela, des modèles de goût et de dignité. Ne sois ni emprunteur, ni prêteur, car le prêt fait souvent perdre et l'argent et l'ami, et l'emprunt émousse le tranchant de l'économie. Ceci pardessus tout: sois vrai envers toi-même; et, comme la nuit suit le jour, ceci doit s'en suivre que tu ne pourras être faux envers personne.» Adieu! que ma bénédiction fasse pénétrer tout cela en toi.
+
+LAERTES.—Je prends humblement congé de vous, mon seigneur.
+
+POLONIUS.—L'heure vous réclame. Allez, vos serviteurs vous attendent.
+
+LAERTES.—Adieu, Ophélia, et souvenez-vous bien de ce que je vous ai dit.
+
+OPHÉLIA.—Cela est enfermé en ma mémoire, et vous en garderez vous-même la clef.
+
+LAERTES.—Adieu!
+
+(Laërtes sort.)
+
+POLONIUS.—Qu'est-ce, Ophélia? que vous a-t-il dit?
+
+OPHÉLIA.—C'est, ne vous en déplaise, quelque chose touchant le seigneur Hamlet.
+
+POLONIUS.—Certes, c'est fort à propos. On m'a dit que depuis peu il vous avait très-souvent consacré ses moments de loisir intime, et que vous-même aviez été très-libérale et prodigue de vos audiences; s'il en est ainsi (comme on me l'a raconté, par voie de précaution), je dois vous dire que vous ne comprenez pas assez clairement par vous-même ce qui convient à ma fille et à votre honneur. Qu'y a-t-il entre vous? confiez-moi la vérité.
+
+OPHÉLIA.—Il m'a dernièrement, mon seigneur, fait beaucoup d'offres de son affection.
+
+POLONIUS.—Son affection? Bah! vous parlez comme une fillette encore toute verdelette qui n'a pas été passée au crible dans des circonstances de ce péril; croyez-vous à ses offres, comme vous les appelez?
+
+OPHÉLIA.—Je ne sais pas, mon seigneur, ce que je dois penser.
+
+POLONIUS.—Eh bien! je vais vous l'apprendre. Pensez que vous n'êtes qu'un petit enfant, et que vous avez pris pour argent comptant des offres qui ne sont que fausse monnaie. Offrez-vous à vous-même un tarif plus cher de votre valeur, ou (pour ne pas essouffler plus longtemps ce pauvre mot, dont j'abuse ainsi), vous n'aurez plus qu'à m'offrir le titre de sot.
+
+OPHÉLIA.—Mon seigneur, il m'a importunée de son amour, mais d'une manière honorable.
+
+POLONIUS.—Ah! oui. Vous pouvez appeler cela de belles manières!... Allez, allez!
+
+OPHÉLIA.—Et il donnait autorité à ses discours, mon seigneur, par presque tous les plus saints serments du ciel.
+
+POLONIUS.—Ah! oui, pièges à attraper des bécasses! Je sais, quand le sang brûle, combien l'âme est prodigue à prêter à la langue des serments. Ce sont des éclairs, ma fille, donnant plus de lumière que de chaleur, qui perdent aussitôt chaleur et lumière, et dont les promesses mêmes s'éteignent aussitôt faites. Vous ne devez pas les prendre pour du feu. A partir de cette heure, soyez un peu plus avare de votre virginale présence; mettez vos entretiens à plus haut prix, et que votre conversation ne soit pas à commandement. Quant au seigneur Hamlet, ce que vous en devez croire, c'est qu'il est jeune et qu'il lui est permis d'aller au bout d'une longe plus longue que ne saurait être la vôtre. Bref, Ophélia, ne croyez pas à ses serments; ce sont des enjôleurs, ils n'ont pas la couleur dont ils sont revêtus en dehors; ce ne sont rien qu'entremetteurs de projets fort profanes, qui ne semblent respirer que saintes et dévotes instances, afin de mieux tromper. Une fois pour toutes, et pour parler clairement, je ne veux pas que désormais vous fassiez mauvais usage de votre loisir en parlant au seigneur Hamlet, ou en l'écoutant; prenez-y garde, entendez-vous, et passez votre chemin.
+
+OPHÉLIA.—J'obéirai, mon seigneur.
+
+(Ils sortent.)
+
+
+
+SCÈNE IV
+La plate-forme.
+
+HAMLET, HORATIO ET MARCELLUS entrent.
+
+HAMLET.—L'air est subtil et mordant; il fait très-froid.
+
+HORATIO.—Oui, c'est un air aigre et qui pique.
+
+HAMLET.—Quelle heure est-il à présent?
+
+HORATIO.—Peu s'en faut, je crois, qu'il ne soit minuit.
+
+MARCELLUS.—Non, il est sonné.
+
+HORATIO.—Vraiment? je ne l'ai pas entendu. Alors, le moment approche, où l'esprit a l'habitude de se promener. (On entend dans le palais une fanfare de trompettes et des décharges d'artillerie.) Qu'est-ce que cela signifie, mon seigneur?
+
+HAMLET.—Le roi passe la nuit et boit à toute sa soif; il tient séance d'orgie et danse en chancelant la gigue impudente, et à chaque fois qu'il avale ses rasades de vin du Rhin, la timbale et la trompette se mettent à braire ainsi pour le triomphe des santés qu'il porte.
+
+HORATIO.—Est-ce la coutume?
+
+HAMLET.—Oui, ma foi! c'est la coutume. Mais selon mon sentiment, encore que je sois enfant de ce pays et né pour en prendre les manières, c'est une coutume qu'il est plus honorable d'enfreindre que d'observer. Ces divertissements qui appesantissent les têtes nous font, de l'orient à l'occident, citer et condamner par les autres nations; elles nous appellent ivrognes, et souillent notre nom du sobriquet de pourceaux. Et en vérité, quels que soient nos exploits et malgré la hauteur où ils atteignent, cela leur retire la sève même et la moelle de la gloire qu'ils nous mériteraient. De même, il arrive fréquemment aux individus que, s'ils ont en eux quelque tache d'un vice naturel; si, par exemple, ils sont, de naissance (et par conséquent sans en être coupables, puisque la créature n'a pas le choix de son origine), dominés par l'excès de telle ou telle humeur du tempérament qui renverse souvent les remparts et les forteresses de la raison, ou si quelque habitude met en eux un levain qui les fasse trop sortir du moule des manières approuvées; parce que ces hommes, dis-je, portent la marque d'un seul défaut, soit que ce défaut soit une livrée dont la nature les a revêtus, ou une cicatrice que leur a faite le hasard, leurs autres vertus (fussent-elles aussi pures que la grâce céleste et aussi infinies que l'homme les peut posséder) seront, dans l'opinion générale, gâtées par ce tort unique, et la goutte d'alliage impur abaisse souvent au taux de son propre mépris toute la noble substance où elle est mêlée.
+
+(Le fantôme entre.)
+
+HORATIO.—Regardez, mon seigneur, il vient.
+
+HAMLET.—Anges et ministres de grâce, défendez-nous! Que tu sois un esprit de bénédiction ou un lutin damné, que tu apportes avec toi le souffle du ciel ou la vapeur de l'enfer, que tes intentions soient perverses ou charitables, tu te présentes sous une forme si provoquante, que je dois te parler. Je t'appelle, Hamlet, roi, père, souverain du Danemark! Oh! réponds-moi: ne me laisse pas éclater d'angoisse sans rien savoir. Pourquoi tes ossements sanctifiés, et ensevelis dans la mort, ont-ils rompu leur linceul? Pourquoi le sépulcre, où nous t'avons vu tranquillement enclos, a-t-il ouvert ses pesantes mâchoires de marbre pour te rejeter ici? Que signifie ceci? Pour que toi, corps mort, de nouveau couvert de tout ton acier, tu reviennes ainsi revoir les lueurs de la lune, et rendre la nuit hideuse, et pour que nous, pauvres plastrons de la nature, nous soyons si horriblement ébranlés jusqu'au fond de notre être par des pensées qui excèdent la portée de nos âmes,—dis, qu'y a-t-il? pourquoi cela? que devons-nous faire?
+
+HORATIO.—Il vous fait signe d'aller vers lui, comme s'il avait quelque communication à vous faire, à vous seul.
+
+MARCELLUS.—Voyez avec quel geste courtois il vous invite à le suivre dans un endroit plus écarté. Mais n'allez pas avec lui.
+
+HORATIO.—Non, certes, en aucune façon.
+
+HAMLET.—Il ne veut point parler ici; je veux le suivre.
+
+HORATIO.—N'en faites rien, mon seigneur.
+
+HAMLET.—Pourquoi? qu'ai-je à craindre? je donnerais ma vie pour une épingle; et quant à mon âme, que pourrait-il lui faire, étant immortelle comme lui? Il me fait signe de nouveau; je vais le suivre.
+
+HORATIO.—Eh quoi! s'il vous attire vers les flots, mon seigneur, ou sur la terrible cime de ce rocher qui, surplombant sa base, s'avance au-dessus de la mer; s'il prend là quelque autre forme horrible qui vous prive de l'empire de la raison et vous entraîne dans la démence? Pensez-y, le lieu même pourrait, sans nulle autre cause, jeter des boutades de désespoir dans le cerveau de tout homme qui voit une hauteur de tant de brasses entre la mer et lui, et qui l'entend rugir au-dessous.
+
+HAMLET.—Il me fait signe encore.—Marche, je te suivrai.
+
+MARCELLUS.—Vous n'irez point, mon seigneur.
+
+HAMLET.—Lâchez-moi donc.
+
+HORATIO.—Soyez raisonnable, n'y allez pas.
+
+HAMLET.—Mon destin me hèle, et rend la plus petite artère du corps que voici aussi roide que les nerfs du lion de Némée. (Le fantôme fait un signe.) Il m'appelle encore; lâchez-moi, messieurs. (Il se dégage.) Par le ciel! je ferai un fantôme du premier qui m'arrêtera... Je l'ai dit...—Allons... marche... je te suivrai.
+
+(Le fantôme et Hamlet sortent.)
+
+HORATIO.—Il est mis tout hors de lui par son imagination.
+
+MARCELLUS.—Suivons-le; il ne convient pas que nous lui obéissions ainsi.
+
+HORATIO.—Oui, marchons. Quelle issue aura tout ceci?
+
+MARCELLUS.—Il y a quelque chose de vermoulu dans l'état du Danemark.
+
+HORATIO.—Le ciel en décidera.
+
+MARCELLUS.—Eh bien! suivons-le.
+
+(Ils sortent.)
+
+
+
+SCÈNE V
+Un endroit plus écarté de la plate-forme.
+
+LE FANTOME ET HAMLET entrent.
+
+HAMLET.—Où veux-tu me conduire? Parle, je n'irai pas plus loin.
+
+LE FANTOME.—Écoute-moi.
+
+HAMLET.—Je le veux.
+
+LE FANTOME.—L'heure est presque arrivée où je dois retourner dans les flammes sulfureuses et torturantes.
+
+HAMLET.—Hélas! pauvre âme!
+
+LE FANTOME.—Ne me plains pas; mais prête une attention sérieuse à ce que je vais te révéler.
+
+HAMLET.—Parle, je suis tenu d'écouter.
+
+LE FANTOME.—Et de venger aussi, quand tu auras entendu.
+
+HAMLET.—Quoi donc?
+
+LE FANTOME.—Je suis l'esprit de ton père, condamné pour un certain temps à errer durant la nuit, et, durant le jour, à jeûner, confiné dans les flammes, jusqu'à ce que la souillure des crimes commis pendant les jours de ma vie soit consumée et purifiée. S'il ne m'était pas défendu de dire les secrets de ma prison, je pourrais dérouler un récit dont la plus légère parole bouleverserait ton âme, glacerait ton jeune sang, pousserait hors de leurs orbites tes deux yeux comme des étoiles, disperserait les boucles noires et agencées de ta tête, et ferait que chacun de tes cheveux se dresserait à part sur sa racine, comme les piquants sur le porc-épic craintif. Mais ces révélations de l'éternité ne sont pas faites pour des oreilles de chair et de sang. Écoute,... écoute,... oh! écoute!... si tu as jamais aimé ton tendre père...
+
+HAMLET.—O ciel!
+
+LE FANTOME.—Venge-le d'un meurtre affreux et dénaturé.
+
+HAMLET.—D'un meurtre?
+
+LE FANTOME.—D'un meurtre affreux; et dans le meilleur cas tel est un meurtre; mais celui-ci fut le plus affreux, le plus inouï, le plus dénaturé.
+
+HAMLET.—Hâte-toi de m'instruire, afin que moi, sur des ailes aussi rapides que la réflexion ou que les pensées de l'amour, je puisse voler à ma vengeance.
+
+LE FANTOME.—Je te trouve prêt; et quand tu serais plus inerte que l'herbe grasse qui pourrit à loisir sur les bords du Léthé, ne serais-tu pas excité par ceci? Maintenant, Hamlet, écoute: on a donné à entendre qu'un serpent m'avait piqué pendant que je dormais dans mon verger; c'est ainsi que la publique oreille du Danemark a été grossièrement abusée par un rapport forgé sur ma mort. Mais sache, toi, noble jeune homme, que le serpent dont la piqûre frappa la vie de ton père porte maintenant sa couronne.
+
+HAMLET.—O mon âme prophétique! Mon oncle!
+
+LE FANTOME.—Oui, cette brute incestueuse, adultère, par la magie de son esprit, par des dons perfides (ô damnable esprit, damnables dons, qui ont le pouvoir de séduire ainsi!) gagna à sa honteuse convoitise la volonté de ma reine, si vertueuse en apparence. O Hamlet! quelle décadence il y eut là! De moi, de qui l'amour était d'une dignité telle qu'il marchait toujours, mains jointes, avec le serment que je lui avais fait au mariage, descendre jusqu'à un misérable dont les dons naturels étaient si pauvres auprès des miens! Mais, ainsi que la vertu ne sera jamais ébranlée, quand même la luxure la courtiserait sous une forme divine; ainsi l'impureté, quoique unie à un ange rayonnant, se rassasiera vite en un lit céleste, et se ruera aussitôt sur l'immonde curée. Mais doucement! Je crois sentir l'air du matin! abrégeons. Comme je dormais dans mon verger, ainsi que c'était toujours mon usage après midi, ton oncle envahit furtivement l'heure de ma sécurité, avec une note du suc maudit de la jusquiame, et il répandit dans les porches de mes oreilles cette essence qui distille la lèpre, et dont l'action est en telle hostilité avec le sang de l'homme que, prompte comme le vif-argent, elle court à travers toutes les barrières naturelles et toutes les allées du corps, et que, par une force subite, comme une goutte acide dans le lait, elle fait figer et cailler le sang le plus coulant et le plus sain. Ainsi du mien; et une dartre toute soudaine enveloppa comme d'une écorce qui me fit ressembler à Lazare, d'une croûte honteuse et dégoûtante, la surface lisse de tout mon corps. Voilà comme, en dormant, par la main d'un frère, je fus d'un seul coup frustré de ma vie, de ma couronne, de ma reine, fauché en pleine floraison de mes péchés, sans sacrements, sans préparation, sans les saintes huiles, sans avoir fait mon examen, et envoyé là où il faut rendre compte, avec toutes mes fautes pesant sur ma tête. O horrible! ô horrible! très-horrible! Si la nature vit encore en toi, ne supporte pas cela! Ne laisse pas le lit royal du Danemark servir de couche à la luxure et à l'inceste damné. Mais quelle que soit la voie par où tu poursuivras cette action, ne souille pas ta pensée, et ne laisse point ton âme projeter la moindre chose contre ta mère; abandonne-la au ciel et à ces épines qui habitent dans son sein pour la piquer et la percer. Adieu une fois pour toutes! Le ver luisant montre que le matin approche; sa flamme inefficace commence à pâlir. Adieu, adieu, adieu, souviens-toi de moi.
+
+(Il sort.)
+
+HAMLET.—O vous toutes, armées du ciel! ô terre! quoi de plus? dois-je vous associer aussi l'enfer? Arrête, arrête, mon coeur; et vous, mes nerfs, ne vieillissez pas tout à coup, mais soutenez-moi de toute votre roideur. Me souvenir de toi? Oui, pauvre âme, tant que la memoire conservera un siège dans ce crâne bouleversé. Me souvenir de toi? Oui, j'effacerai du registre de ma mémoire tous les vulgaires souvenirs qui m'étaient chers, toutes les sentences des livres, toutes les formes, toutes les impressions du passé que la jeunesse et l'observation y ont inscrites; sur les pages et dans tout le volume de mon cerveau, ton commandement seul vivra, dégagé de tout sujet moins noble... Oui, par le ciel!—O femme perverse entre toutes! O scélérat! scélérat! souriant et damné scélérat! Ici, mes tablettes! car il importe d'y noter qu'un homme peut sourire, et sourire, et être un scélérat. Je suis sûr, du moins, que cela peut être ainsi en Danemark (il écrit); vous y êtes, mon oncle. Et maintenant, à mon mot d'ordre! C'est: «Adieu, adieu, souviens-toi de moi.» Je l'ai juré.
+
+HORATIO, derrière la scène.—Mon seigneur, mon seigneur!
+
+MARCELLUS, derrière la scène.—Seigneur Hamlet!
+
+HORATIO, derrière la scène.—Dieu le garde!
+
+HAMLET.—Ainsi soit-il!
+
+MARCELLUS, derrière la scène.—Holà! ho! ho! mon seigneur!
+
+HAMLET.—Holà! oh, oh, petit! Viens, l'oiseau, viens!
+
+(Horatio et Marcellus entrent.)
+
+MARCELLUS.-Où en êtes-vous, mon noble seigneur?
+
+HORATIO.—Quelles nouvelles, mon seigneur?
+
+HAMLET.—Oh! prodigieuses!
+
+HORATIO.—Mon bon seigneur! dites-les.
+
+HAMLET.—Non; vous les révélerez.
+
+HORATIO.—Pas moi, mon seigneur; par le ciel!
+
+MARCELLUS.—Ni moi, mon seigneur.
+
+HAMLET.—Qu'en dites-vous donc? Un coeur d'homme eût-il pu le croire?... Mais vous serez secrets?
+
+HORATIO et MARCELLUS.—Oui, par le ciel, mon seigneur!
+
+HAMLET.—Il n'y a nulle part, dans tout le Danemark, un scélérat... qui ne soit un fieffé coquin.
+
+HORATIO.—Il n'est pas besoin, mon seigneur, d'un fantôme qui sorte du tombeau pour nous dire cela.
+
+HAMLET.—Oui, vraiment, vous dites vrai, et par conséquent, sans aucun détail de plus, je tiens pour convenable que nous nous serrions la main et que nous nous séparions, vous, pour aller où vous conduiront vos affaires et vos penchants, car chaque homme a ses affaires et ses penchants, quels qu'ils soient; et moi, pour mon propre et pauvre compte, voyez-vous, j'irai prier.
+
+HORATIO.—Ce ne sont que paroles d'égarement et de vertige, mon seigneur.
+
+HAMLET.—Je suis fâché qu'elles vous offensent; sincèrement; oui, ma foi, sincèrement.
+
+HORATIO.—Il n'y a point là d'offense, mon seigneur.
+
+HAMLET.—Si fait, par saint Patrice! il y en a une, Horatio, et même une grande offense. Quant à cette vision, c'est un honnête fantôme, permettez-moi de vous dire cela; et pour ce qui est de votre désir de connaître ce qu'il y a entre nous, réprimez-le comme vous pourrez. Et maintenant, mes bons amis, comme camarades, compagnons d'armes et amis, accordez-moi une pauvre faveur.
+
+HORATIO.—Qu'est-ce, mon seigneur? Nous le ferons.
+
+HAMLET.—Ne faites jamais connaître ce que vous avez vu cette nuit.
+
+HORATIO et MARCELLUS.—Mon seigneur, nous n'en dirons rien.
+
+HAMLET.—Bien, mais jurez-le.
+
+HORATIO.—Sur ma foi, monseigneur, ce ne sera pas moi.
+
+MARCELLUS.—Ni moi, mon seigneur, sur ma foi.
+
+HAMLET.—Sur mon épée.
+
+MARCELLUS.—Nous avons déjà juré, mon seigneur.
+
+HAMLET,—N'importe, sur mon épée; n'importe.
+
+LE FANTOME, sous la terre.—Jurez!
+
+HAMLET.—Ah! ah! mon garçon, c'est ton avis? Es-tu là, bonne pièce? Allons, vous entendez le camarade, là-bas, à la cave; consentez à jurer.
+
+HORATIO.—Dites la formule du serment, mon seigneur.
+
+HAMLET.—Ne parlez jamais de ce que vous avez vu ici. Jurez par mon épée.
+
+LE FANTOME, sous la terre.—Jurez!
+
+HAMLET.—Hic et ubique? Changeons donc de place. Venez ici, messieurs, et replacez vos mains sur mon épée. Jurez par mon épée de ne jamais parler de ce que vous avez entendu!
+
+LE FANTOME, sous la terre.—Jurez par son épée!
+
+HAMLET.—Bien dit, vieille taupe. Peux-tu travailler si vite sous terre? Un précieux mineur!... Allons encore plus loin, mes bons amis.
+
+HORATIO.—Oh! par le jour et la nuit, voilà un prodige étrange!
+
+HAMLET.—Faites-lui donc l'accueil qu'on fait à un étranger. Il y a plus de choses au ciel et sur la terre, Horatio, qu'il n'en est rêvé dans votre philosophie. Mais allons: ici comme auparavant, jurez que jamais (et en aide vous soit la miséricorde de Dieu!) si étrange et si bizarre que je puisse me montrer, comme je trouverai peut-être à propos par la suite de m'habiller d'un caractère fantasque, jamais, me voyant en de tels moments, vous ne croiserez les bras de la sorte, ni ne secouerez ainsi la tête, ni ne prononcerez quelqu'une de ces phrases équivoques, comme: «Bien, bien, nous savons;» ou: «Nous pourrions, si nous voulions...» ou: «Si nous avions envie de parler...» ou: «Si l'on pouvait, il y aurait...» ou telle autre parole ambiguë donnant à entendre que vous savez quelque chose de moi... Jurez vous cela?... Que la grâce et la miséricorde vous soient donc en aide au besoin!
+
+LE FANTOME, sous la terre.—Jurez!
+
+HAMLET.—Calme-toi, calme-toi, âme en peine!... Ainsi, messieurs, je me recommande à vous de toute mon affection, et tout ce qu'un aussi pauvre homme que Hamlet pourra faire pour vous exprimer son attachement et son amitié, Dieu aidant, ne vous manquera pas. Allons-nous en ensemble; et toujours le doigt sur les lèvres, je vous prie. Notre siècle est en désarroi. O fatalité maudite, que je sois jamais né pour le remettre en ordre! Allons, venez, partons ensemble.
+
+(Ils sortent.)
+
+FIN DU PREMIER ACTE.
+
+
+
+
+ACTE DEUXIÈME
+
+
+SCÈNE I
+Une chambre dans la maison de Polonius.
+
+POLONIUS ET REYNALDO entrent.
+
+POLONIUS.—Donnez-lui cet argent et ces lettres, Reynaldo.
+
+REYNALDO.—Ainsi ferai-je, mon seigneur.
+
+POLONIUS.—Vous serez sage à miracle, bon Reynaldo, si vous voulez bien, avant de lui faire visite, vous enquérir de sa conduite.
+
+REYNALDO.—Mon seigneur, j'étais dans cette intention.
+
+POLONIUS.—Bien dit, ma foi, très-bien dit. Suivez ceci, monsieur. Commencez-moi par demander quels Danois se trouvent à Paris, comment ils y sont, qui ils sont, leurs ressources, leur demeure, leurs compagnies, leurs dépenses; et quand, par cette enceinte continue de questions, en allant à la dérive, vous trouverez qu'on connaît mon fils, côtoyez de plus près, plutôt que d'aborder tout de suite par des questions particulières. Présentez-vous, par exemple, comme ayant de lui quelque lointaine connaissance. Ainsi, dites: «Je connais «son père et ses amis, et même lui un peu.» Vous comprenez cela, Reynaldo?
+
+REYNALDO.—Oui, très-bien, mon seigneur.
+
+POLONIUS.—«Et lui, un peu... mais,» pourrez-vous ajouter, «pas très-bien. Au reste, si c'est celui que je veux dire, il est fort dérangé, adonné à ceci, à cela.» Et alors mettez à sa charge tel conte bleu qu'il vous plaira. Ah ça! pourtant, rien d'assez bas pour le déshonorer. Prenez garde à cela, monsieur. Mais seulement cette légèreté, ce désordre, ces écarts ordinaires qui sont les compagnons notoires et bien connus de la jeunesse et de la liberté.
+
+REYNALDO.—Comme de jouer, mon seigneur.
+
+POLONIUS.—Oui; ou de boire, de bretailler, de jurer, de quereller, de courir les filles;... vous pouvez aller jusque-là.
+
+REYNALDO.—Mon seigneur, cela le déshonorerait.
+
+POLONIUS.—Ma foi, non, si vous savez, tout en l'accusant, tempérer la chose. Il ne faudra pas mettre à sa charge un surcroît de scandale, comme de le donner pour livré à la débauche-Ce n'est pas là ce que je veux dire. Mais murmurez si délicatement ses fautes qu'elles puissent passer pour les torts de la liberté, pour les éclairs et les éclats d'une âme en feu, pour une fougue naturelle au sang indompté dont tous, à cet âge, sentent les assauts.
+
+REYNALDO.—Mais, mon bon seigneur...
+
+POLONIUS.—Pourquoi je vous charge de faire cela?
+
+REYNALDO.—Oui, mon seigneur, je voudrais le savoir.
+
+POLONIUS.—Eh bien! monsieur, voici mon but; et ce stratagème, je crois, est d'un succès garanti. Quand vous aurez attribué à mon fils ces légers défauts, comme s'il s'agissait d'un objet qui, à Fuser, se serait un peu taché,—suivez-moi bien,—si le partenaire de votre entretien, celui que vous voudriez sonder, a jamais vu le jeune homme sur qui portent vos murmures coupable de quelqu'un des forfaits susdits, soyez assuré qu'il finira par vous dire en conclusion: «Mon bon monsieur,» ou «mon ami,» ou «monsieur,» selon la façon de parler ou le titre usité dans le pays, ou par la personne en question...
+
+REYNALDO.—Très-bien, mon seigneur.
+
+POLONIUS.—Et alors, monsieur, il dira que... il dira... qu'est-ce que j'étais en train de dire? Par la sainte messe! j'étais en train de dire quelque chose... où en suis-je resté?
+
+REYNALDO.—Et il finira par dire, en conclusion...
+
+POLONIUS.—Il finira par dire, en conclusion, oui, morbleu! il finira par vous dire: «Je connais ce gentilhomme, je l'ai vu hier ou l'autre jour, ou à tel moment, ou à tel autre, avec tel ou tel; et, comme vous dites, il était là à jouer; ou il avalait sa rasade, ou il avait une dispute à la paume;» ou peut-être: «je l'ai vu entrer dans une de ces maisons de commerce,» videlicet, un mauvais lieu,... ou telle autre chose. Voyez-vous maintenant? Le hameçon de votre mensonge prendra ainsi la carpe de la vérité; et, voilà comme, nous autres gens de bon sens et de pénétration, à force de machines et en essayant de biais, nous savons indirectement suivre notre direction. C'est ainsi, d'après mes instructions et mes avis ci-dessus, que vous en agirez avec mon fils. Y êtes-vous, ou n'y êtes-vous pas?
+
+REYNALDO.—J'y suis, mon seigneur.
+
+POLONIUS.—Dieu soit avec vous! Bon voyage.
+
+REYNALDO.—Mon bon seigneur...
+
+POLONIUS.—Observez ses penchants par vous-même.
+
+REYNALDO.—Ainsi ferai-je, mon seigneur.
+
+POLONIUS.—Et laissez-le chanter sa gamme.
+
+REYNALDO.—Bien, mon seigneur.
+
+(Il sort.)
+
+(Ophélia entre.)
+
+POLONIUS.—Adieu!—Qu'est-ce, Ophélia? De quoi s'agit-il?
+
+OPHÉLIA.—Oh! mon seigneur, mon seigneur, j'ai été si effrayée!
+
+POLONIUS.—De quoi, au nom du ciel?
+
+OPHÉLIA.—Mon seigneur, comme j'étais à coudre dans mon cabinet, le seigneur Hamlet, avec son pourpoint tout défait, sans chapeau sur la tête, ses bas froissés, sans jarretières, et tombant, enroulés, jusque sur sa cheville, pâle comme sa chemise, ses genoux se heurtant l'un contre l'autre, et avec un regard d'une expression aussi pitoyable que s'il avait été détaché du fond de l'enfer pour faire un récit d'horreurs... il est venu se poser devant moi.
+
+POLONIUS.—Fou pour l'amour de toi?
+
+OPHÉLIA.—Mon seigneur, je ne sais pas; mais vraiment, je le crains.
+
+POLONIUS.—Qu'a-t-il dit?
+
+OPHÉLIA.—Il m'a prise par le poignet et m'a serrée très-fort; puis il s'écarte de toute la longueur de son bras, et tenant son autre main, ainsi, au dessus de son front, il tombe en une contemplation de mon visage comme s'il eût voulu le dessiner. Il est longtemps resté ainsi. Enfin,—une petite secousse à mon bras, et trois fois sa tête ainsi balancée de bas en haut,—il a poussé un soupir si pitoyable et si profond qu'il semblait devoir faire éclater tout son corps et mettre fin à son existence. Cela fait, il me laisse aller; et, la tête tournée par-dessus son épaule, il paraissait trouver son chemin sans ses yeux, car il a passé la porte sans leur secours, et jusqu'au dernier moment, il a tenu leur lumière tournée vers moi.
+
+POLONIUS.—Allons, viens avec moi; je vais trouver le roi. C'est là, au vrai, le délire de l'amour qui se ravage lui-même par la violence qui lui appartient, et entraîne la volonté à des entreprises désespérées, aussi souvent que toute autre passion qui soit sous le ciel pour affliger notre nature. J'en suis fâché. Mais quoi? Lui avez-vous adressé dernièrement quelques paroles rudes?
+
+OPHÉLIA.—Non, mon bon seigneur; mais, comme vous l'aviez commande, j'ai repoussé ses lettres, et j'ai refusé ses visites.
+
+POLONIUS.—C'est cela qui l'a rendu fou. Je suis fâché de ne l'avoir pas observé avec plus d'attention et de discernement; je craignais que ce ne fût seulement une plaisanterie, et qu'il ne se proposât ton naufrage. Mais maudits soient mes soupçons jaloux! Il semble que ce soit le propre de notre âge de dépasser notre portée, en nos jugements, comme, parmi les gens plus jeunes, c'est le défaut commun de manquer de réflexion. Viens, allons vers le roi; ceci doit être connu, dont le secret gardé pourrait causer plus de peine que ne causera de haine cet amour révélé. Allons.
+
+(Ils sortent.)
+
+
+
+SCÈNE II
+Un appartement dans le château.
+
+LE ROI, LA REINE, ROSENCRANTZ, GUILDENSTERN, SUITE, entrent.
+
+LE ROI.—Soyez les bienvenus, cher Rosencrantz, et vous, Guildenstern! Outre le grand désir que, depuis longtemps, nous avions de vous voir, le besoin que nous avons de vos services a provoqué notre hâtif appel. Vous avez su quelque chose de la transformation de Hamlet; je dis transformation, car en lui ni l'homme extérieur ni l'intérieur ne ressemblent plus à ce qu'il était. Quelle pourrait être la cause, autre que la mort de son père, qui l'a jeté à ce point hors de toute conscience de lui-même, je ne saurais l'imaginer. Vous donc qui avez été dès un si jeune âge élevés avec lui, et qui, depuis lors, avez vécu si voisins de sa jeunesse et de ses goûts, je vous prie tous deux de vouloir bien consacrer à notre cour quelque peu de votre loisir, afin de l'attirer vers les plaisirs par votre compagnie, et de saisir, par tous les indices que le hasard vous permettra de glaner, s'il y a quelque motif à nous inconnu qui l'afflige ainsi, et qui, venant à être découvert, serait à portée de nos remèdes.
+
+LA REINE.—Mes bons messieurs, il a beaucoup parlé de vous; et je suis sûre qu'il n'y a pas en ce monde deux hommes à qui il soit plus attaché. S'il vous plaît de nous montrer assez de courtoisie et de bon vouloir pour passer quelque temps avec nous, au secours et au profit de nos espérances, votre visite sera comblée de tous les remerciements qui conviennent à la gratitude d'un roi.
+
+ROSENCRANTZ.—Vos Majestés pourraient, en vertu du souverain pouvoir qu'elles ont sur nous, donner à leur bon plaisir redouté la forme d'un ordre plutôt que d'une prière.
+
+GUILDENSTERN.—Nous obéissons d'ailleurs tous les deux, et nous faisons ici hommage de nous-mêmes et de nos efforts tendus jusqu'au bout, mettant à vos pieds nos services pour être commandés par vous.
+
+LE ROI.—Je vous remercie, Rosencrantz, et vous, aimable Guildenstern.
+
+LA REINE.—Je vous remercie, Guildenstern, et vous, aimable Rosencrantz; et je vous conjure d'aller à l'instant voir mon fils, hélas! trop changé.—Que quelques-uns de vous conduisent ces messieurs là où est Hamlet.
+
+GUILDENSTERN.—Que le ciel lui rende notre présence et nos soins agréables et salutaires!
+
+LA REINE.—Hélas! Ainsi soit-il!
+
+(Rosencrantz, Guildenstern et quelques hommes de la suite sortent.)
+
+(Polonius entre.)
+
+POLONIUS.—Les ambassadeurs sont revenus de Norwége, fort satisfaits, mon bon seigneur.
+
+LE ROI.—Tu es toujours le père aux bonnes nouvelles.
+
+POLONIUS.—Vraiment, mon seigneur? Soyez sûr, mon bon souverain, que je tiens mes services, comme je tiens mon âme, tout ensemble à la disposition de mon Dieu et de mon gracieux roi; et je pense (ou bien cette mienne cervelle ne sait plus suivre la piste d'une affaire aussi sûrement qu'elle en avait coutume) je pense que j'ai trouvé la vraie cause de la démence de Hamlet.
+
+LE ROI.—Ah! dis-moi cela! Voilà ce qu'il me tarde d'entendre!
+
+POLONIUS.—Donnez d'abord audience aux ambassadeurs; mes nouvelles seront le dessert après ce grand festin.
+
+LE ROI.—Fais-leur toi-même les honneurs, et introduis-les. (Polonius sort.) Il me dit, ma chère Gertrude, qu'il a trouvé le point capital et la source de tout le dérangement de notre fils.
+
+LA REINE.—Je doute qu'il y en ait une autre que cette grande cause: la mort de son père et l'extrême hâte de notre mariage.
+
+(Polonius rentre avec Voltimand et Cornélius.)
+
+LE ROI.—Bien! nous le sonderons.—Soyez les bienvenus, mes bons amis. Dites, Voltimand, que nous apportez-vous de la part de notre frère de Norwége?
+
+VOLTIMAND.—La plus riche réciprocité de compliments et de voeux. Dès notre première démarche, il a envoyé l'ordre de suspendre les recrutements de son neveu, qui lui paraissaient être des préparatifs contre le Polonais; mais, y ayant mieux regardé, il les trouva réellement dirigés contre Votre Altesse. Alors, blessé de voir comment on avait abusé de sa maladie, de son âge, de son impuissance, il fait signifier ses ordres à Fortinbras, qui obéit sur-le-champ, reçoit les réprimandes du roi, et, finalement, fait serment devant son oncle de ne plus faire jamais essai de ses armes contre Votre Majesté. Sur quoi le vieux roi, débordé de joie, lui assigne un revenu annuel de trois mille écus, et lui donne commission d'employer contre le Polonais les soldats qu'il a levés auparavant. Ci-jointe une supplique (il remet un papier), que son contenu expliquera plus amplement, vous demandant qu'il vous plaise donner un libre passage à travers vos États pour cette expédition, sous telles conditions de sûreté et de bonne entente qui sont proposées ici.
+
+LE ROI.—Cela nous convient fort, et à un moment de loisir plus réfléchi, nous lirons, nous répondrons, et nous aviserons à cette affaire. Cependant nous vous remercions de la peine que vous avez si bien su prendre: allez vous reposer; ce soir, nous festoierons ensemble; vous serez les très-bienvenus chez moi.
+
+(Voltimand et Cornélius sortent)
+
+POLONIUS.—Cette affaire est bien terminée. Mon souverain, et vous, madame, rechercher ce que doit être la majesté, ce qu'est l'obéissance, pourquoi le jour est le jour, la nuit, la nuit, et le temps, le temps, ce ne serait autre chose que perdre la nuit, le jour et le temps; donc... puisque la brièveté est l'âme de l'esprit, duquel l'anatomie et les fleurs de parade extérieure ne sont qu'ennui, je serai bref. Votre noble fils est fou. Fou je l'appelle, car vouloir définir au vrai la folie, qu'est-ce? si ce n'est n'être soi-même rien de moins que fou? Mais laissons cela.
+
+LA REINE.—Plus de choses et moins d'art.
+
+POLONIUS.—Madame, je vous jure que je n'emploie l'art aucunement. Que votre fils est fou, cela est vrai. Il est vrai que c'est une pitié. Et c'est une pitié que cela soit vrai. Sotte figure de rhétorique. Mais disons-lui adieu, car je ne veux pas employer l'art. Ainsi, accordons qu'il est fou; et maintenant il nous reste à trouver la cause de cet effet, ou, pour mieux dire, la cause de ce méfait, car cet effet est un méfait qui vient d'une cause. Voilà ce qui demeure démontré, et voici ce qui reste à démontrer. Pesez bien tout. J'ai une fille; je l'ai, puisqu'elle est encore à moi; une fille qui, dans son respect et son obéissance, suivez bien, m'a remis ceci. Maintenant, résumez et concluez...
+
+A la céleste idole de mon âme, à la bienheureuse beauté Ophélia...
+
+C'est une mauvaise phrase, une phrase vulgaire. «Bienheureuse beauté» est un mot vulgaire. Mais écoutez; poursuivons.
+
+Puissent, dans sa parfaite et blanche poitrine, ces paroles, etc.
+
+LA REINE.—Ceci lui a été adressé par Hamlet?
+
+POLONIUS.—Ma bonne dame, attendez un moment, je serai exact.
+
+(Il lit.)
+
+Doute que les étoiles soient de feu,
+
+Doute que le soleil tourne,
+
+Doute que la vérité ne puisse être un mensonge5,
+
+Mais ne doute jamais de mon amour.
+
+O chère Ophélia! je suis mal à l'aise dans ce mètre; je n'ai pas l'art de calculer la longueur de mes gémissements. Mais que je t'aime bien, oh! parfaitement bien, crois-le. Adieu.
+
+A toi pour toujours, dame chérie, tant que cette machine mortelle lui appartiendra.
+
+HAMLET.
+
+C'est là ce que ma fille, par obéissance, m'a montré; et de plus, les instances de votre fils, à quelles dates, de quelles manières et en quels lieux elles se produisirent, elle a tout confié à mon oreille.
+
+Note 5: (retour)
+Ceci est vague. Mais pourquoi le traducteur prendrait-il parti quand l'auteur a laissé la pensée en suspens? Le texte porte:
+
+Doubt thou, the stars are fire;
+
+Doubt that the sun doth move;
+
+Doubt truth to be a liar;
+
+But never doubt I love.
+
+Le verbe anglais to doubt signifie tantôt douter, tantôt soupçonner. Fallait-il traduire le troisième vers par: «Soupçonne la vérité d'être une menteuse»—ou par: «Doute que la vérité soit une menteuse?» Les deux sens sont dans le texte; il fallait les garder dans la traduction, confondus et même confus. N'enlevons jamais au langage de Hamlet, surtout à partir du second acte, après qu'il a vu le spectre, appris le crime et conçu la vengeance, après qu'il a annoncé à ses amis l'intention de feindre un caractère fantasque, après que le roi l'a dépeint comme tout transformé et malade, n'enlevons jamais à son langage ni un trait de brusquerie, ni une goutte d'amertume, ni une ombre d'obscurité. Hamlet dit-il que le vrai est vrai, ou que ce qu'on appelle ainsi n'est que mensonge? Est-ce un axiome de sens commun ou un axiome de scepticisme subtil et triste qu'il propose à Ophélia? Est-ce à la certitude de la vérité ou à la vérité de l'incertitude qu'il compare et préfère l'évidence de son amour? Qui sait? Mais quoi qu'il en soit, voulue ou fortuite, la confusion des deux sens est de Shakspeare. On dirait volontiers qu'Ophélia, en lisant ce vers, l'a compris dans le sens le plus simple, et que Hamlet l'avait écrit dans l'autre sens, le plus dérobé et le plus désolé.
+
+LE ROI.—Mais comment a-t-elle reçu son amour?
+
+POLONIUS.—Quelle idée avez-vous de moi?
+
+LE ROI.—L'idée d'un homme fidèle et honorable.
+
+POLONIUS.—Je ne demanderais, sur ce point, qu'à faire mes preuves. Mais que pourriez-vous penser si, lorsque j'ai vu ce chaleureux amour prendre son essor (car je m'en suis aperçu, je dois vous le dire, avant que ma fille m'eût parlé), que pourriez-vous penser de moi, vous et sa gracieuse Majesté la reine ici présente, si j'avais joué le rôle inerte d'un pupitre ou d'un portefeuille, ou si j'avais laissé mon coeur travailler sourdement et silencieusement, ou si j'avais regardé cet amour d'un oeil nonchalant? Que pourriez-vous penser? Non, je me suis rondement mis en besogne; et j'ai parlé ainsi à ma jeune damoiselle: «Le seigneur Hamlet est un prince au-dessus de ta sphère; ceci ne doit pas être.» Et alors je lui ai donné pour préceptes de se tenir enfermée hors de ses atteintes, de n'admettre aucun messager, de ne recevoir aucun cadeau. Cela fait, elle a recueilli le fruit de mes avis, et lui (pour vous faire une courte histoire), se voyant rebuté, est tombé dans la tristesse; de là dans le dégoût; de là dans l'insomnie; de là dans la faiblesse; de là dans les rêveries flottantes, et, par ce déclin, dans la folie, où maintenant il s'égare, et qui nous met tous en deuil.
+
+LE ROI.—Pensez-vous que ce soit cela?
+
+LA REINE.—Cela peut être, très-vraisemblablement.
+
+POLONIUS.—Est-il arrivé une seule fois (je voudrais bien le savoir) que j'aie dit positivement: cela est, et que cela se soit trouvé autrement?
+
+LE ROI.—Non, pas que je sache.
+
+POLONIUS, montrant sa tête et ses épaules.—Ôtez ceci de là, si cela est autrement. Pourvu que je sois guidé par les circonstances, je trouverai le point où la vérité est cachée, fût-elle cachée, en vérité, dans le centre de la terre.
+
+LE ROI.—Comment pourrons-nous pousser plus loin l'enquête?
+
+POLONIUS.—Vous savez que, parfois, il se promène quatre heures de suite ici, dans la galerie.
+
+LA REINE.—Il s'y promène, en effet.
+
+POLONIUS.—Dans un de ces moments-là je lui lâcherai ma fille; soyons alors, vous et moi, derrière une tapisserie; observez leur rencontre; s'il ne l'aime pas et si ce n'est pas ce qui l'a fait déchoir de la raison, ne me laissez plus être conseiller d'un royaume, envoyez-moi gouverner une ferme et des charretiers.
+
+LE ROI.—Nous essayerons cela.
+
+(Hamlet entre en lisant.)
+
+LA REINE.—Mais regardez de quel air de tristesse le pauvre malheureux vient en lisant.
+
+POLONIUS.—Éloignez-vous, je vous en conjure, éloignez-vous tous deux; je vais l'aborder sur-le-champ: oh! donnez-moi carte blanche. (Le roi, la reine et leur suite sortent.) Comment va mon bon seigneur Hamlet?
+
+HAMLET.—Bien, Dieu merci!
+
+POLONIUS.—Me connaissez-vous, mon seigneur?
+
+HAMLET.—Parfaitement bien: vous êtes un marchand de poisson.
+
+POLONIUS.—Non pas moi, mon seigneur.
+
+HAMLET.—En ce cas, je voudrais que vous fussiez un aussi honnête homme.
+
+POLONIUS.—Honnête, mon seigneur?
+
+HAMLET.—Oui, monsieur; être honnête, au train dont va ce monde, c'est être un homme trié sur dix mille.
+
+POLONIUS.—C'est très-vrai, mon seigneur.
+
+HAMLET.—Car si le soleil engendre des vers dans un chien mort,—lui qui est un dieu, baisant une charogne...—avez-vous une fille?
+
+POLONIUS.—J'en ai une, mon seigneur.
+
+HAMLET.—Ne la laissez pas se promener au soleil. La conception est une bonne chose: mais quant à la façon dont votre fille pourrait concevoir.... ami, prenez-y garde.
+
+POLONIUS.—Qu'entendez-vous par là? (A part.) Encore son refrain sur ma fille! Cependant il ne m'a pas reconnu d'abord; il a dit que j'étais un marchand de poisson. Il n'y est plus, il n'y est plus! A vrai dire, dans ma jeunesse, j'ai subi bien des extrémités par le fait de l'amour; à bien peu de chose près autant que ceci. Je veux lui parler encore. Que lisez-vous, mon seigneur?
+
+HAMLET.—Des mots, des mots, des mots!
+
+POLONIUS.—De quoi est-il question, mon seigneur?
+
+HAMLET.—Question? Entre qui?
+
+POLONIUS.—Je veux dire dans le livre que vous lisez, mon seigneur.
+
+HAMLET.—Des calomnies, monsieur; car ce maraud de satirique dit que les vieillards ont des barbes grises; que leurs figures sont ridées; que leurs yeux sécrètent une ambre épaisse et comme une gomme de prunier, et qu'ils ont une abondante absence d'esprit, avec des jarrets très-faibles. Tout cela, monsieur, bien que j'y croie de tout mon pouvoir et de toute ma puissance, je tiens pourtant qu'il n'y a pas d'honnêteté à l'avoir ainsi couché par écrit; car vous-même, monsieur, vous serez aussi vieux que je le suis, si jamais, comme un crabe, vous pouvez aller à reculons.
+
+POLONIUS, à part.—Quoique ce soient des folies, il y a pourtant de la suite là-dedans. Voulez-vous changer d'air, mon seigneur, et venir ailleurs?
+
+HAMLET.—Dans mon tombeau?
+
+POLONIUS.—Ce serait assurément changer d'air tout à fait. Comme ses répliques sont parfois grosses de sens! Heureux hasards, où souvent la folie frappe en plein, tandis que la raison et les saines pensées ne seraient pas aussi chanceuses à bien s'exprimer! Je vais le laisser et aviser sur-le-champ aux moyens d'amener une rencontre entre lui et ma fille. Mon honorable seigneur, je prendrai très-humblement congé de vous.
+
+HAMLET.—Vous ne pouvez, monsieur, rien prendre de moi dont je fasse plus volontiers l'abandon... si ce n'est ma vie, si ce n'est ma vie, si ce n'est ma vie!
+
+POLONIUS.—Adieu, mon seigneur.
+
+HAMLET.—Ces ennuyeux vieux fous!
+
+(Rosencrantz et Guildenstern entrent.)
+
+POLONIUS.—Vous cherchez le seigneur Hamlet; il est ici.
+
+ROSENCRANTZ, à Polonius.—Dieu vous garde, monsieur!
+
+(Polonius sort.)
+
+GUILDENSTERN.—Mon honoré seigneur!...
+
+ROSENCRANTZ.—Mon très-cher seigneur!...
+
+HAMLET.—Mes bons, mes excellents amis! comment vas-tu, Guildenstern? Ah! Rosencrantz! Bons compagnons, comment allez-vous tous les deux?
+
+ROSENCRANTZ.—Comme le vulgaire des enfants de la terre.
+
+GUILDENSTERN.—Heureux par cela même que nous ne sommes pas trop heureux. Nous ne sommes pas précisément le plus beau fleuron que la fortune porte à sa toque.
+
+HAMLET.—Ni les semelles que foulent ses souliers?
+
+ROSENCRANTZ.—Non, mon seigneur.
+
+HAMLET.—Alors vous vivez près de sa ceinture, dans le centre de ses faveurs?
+
+GUILDENSTERN.—Oui, ma foi! nous sommes de ses amis privés.
+
+HAMLET.—Logés dans le secret giron de la fortune? Oh! oui, cela est vrai. C'est une catin. Quelles nouvelles?
+
+ROSENCRANTZ.—Aucune, mon seigneur; si ce n'est que le monde est devenu honnête.
+
+HAMLET.—Alors le jugement dernier est proche; mais votre nouvelle n'est pas vraie. Laissez-moi vous faire une question plus particulière: qu'avez-vous donc fait à la fortune, mes bons amis, pour qu'elle vous envoie en prison ici?
+
+GUILDENSTERN.—En prison, mon seigneur?
+
+HAMLET.—Le Danemark est une prison.
+
+ROSENCRANTZ.—Alors le monde en est une aussi.
+
+HAMLET.—Une grande prison, dans laquelle il y a beaucoup de caveaux, de basses fosses et de cachots: le Danemark est un des pires.
+
+ROSENCRANTZ.—Nous ne pensons pas ainsi, mon seigneur.
+
+HAMLET.—Soit! c'est donc que, pour vous, le Danemark n'est pas un cachot; car il n'y a de bien et de mal que selon l'opinion qu'on a. Pour moi, c'est une prison.
+
+ROSENCRANTZ.—Soit! C'est donc votre ambition qui vous le fait paraître ainsi; il est trop étroit pour votre âme.
+
+HAMLET.—O Dieu! je pourrais être enfermé dans une coque de noix, et m'estimer roi d'un espace infini, n'était que j'ai de mauvais rêves.
+
+GUILDENSTERN.—Lesquels rêves sont assurément l'ambition; car la substance même des ambitieux n'est rien de plus que l'ombre d'un rêve.
+
+HAMLET.—Un rêve lui-même n'est qu'une ombre.
+
+ROSENCRANTZ.—Assurément, et je tiens que l'ambition est d'une essence si aérienne et si légère qu'elle n'est que l'ombre d'une ombre.
+
+HAMLET.—En ce cas nos gueux sont des corps réels, et nos monarques et nos grands héros qui n'en finissent pas sont des ombres de gueux.—Irons-nous à la cour? car, par ma foi, je ne suis pas en état de raisonner.
+
+ROSENCRANTZ ET GUILDENSTERN.—Nous y serons de votre suite.
+
+HAMLET.—Il ne s'agit pas de cela; je ne veux point vous ranger avec le reste de mes serviteurs, car à vous parler en honnête homme, je suis terriblement accompagné. Mais dites-moi,—pour aller droit par les sentiers battus de l'amitié,—que venez-vous faire à Elseneur?
+
+ROSENCRANTZ.—Vous voir, mon seigneur, pas d'autre motif.
+
+HAMLET.—Gueux comme je le suis, je suis pauvre même en remerciements, mais je vous remercie, et soyez sûrs, mes chers amis, que mes remerciements sont trop chers à un sou. Ne vous a-t-on pas envoyé chercher? Est-ce votre propre penchant? est-ce une visite de plein gré? Allons, allons! agissez en toute justice avec moi. Allons, allons! en vérité, parlez!
+
+GUILDENSTERN.—Que pourrions-nous dire, mon seigneur?
+
+HAMLET.—Quoi que ce soit, mais que cela aille au fait. On vous a envoyé chercher, et il y a une sorte de confession dans vos regards que votre pudeur n'a pas l'habileté de colorer. Je le sais, le bon roi et la reine vous ont envoyé chercher.
+
+ROSENCRANTZ.—A quelle fin, mon seigneur?
+
+HAMLET.—C'est ce que vous avez à m'apprendre. Mais permettez-moi de vous conjurer, par les droits de notre camaraderie, par l'harmonie de notre jeunesse, par les devoirs de notre tendresse toujours maintenue, et par tous les motifs encore plus touchants qu'un meilleur orateur pourrait invoquer auprès de vous, soyez simples et droits envers moi: vous a-t-on envoyé chercher, oui ou non?
+
+ROSENCRANTZ, à Guildenstern.—Que dites-vous?
+
+HAMLET, à part.—Bon! j'ai déjà un aperçu sur votre compte. (Haut). Si vous m'aimez, ne me tenez pas rigueur.
+
+GUILDENSTERN.—Mon seigneur, on nous a envoyé chercher.
+
+HAMLET.—Je vais vous dire pourquoi. Ainsi mes aveux anticipés vous dispenseront de vos confidences, et votre discrétion envers le roi et la reine n'aura pas à muer d'une seule plume. J'ai, depuis peu (mais pourquoi? je ne sais), perdu toute ma gaieté, laissé là tous mes exercices accoutumés; et en vérité, il y a tant d'accablement dans ma disposition, que ce vaste assemblage, la terre, me semble un promontoire stérile; que cet admirable pavillon, l'air, voyez-vous, ce firmament hardiment suspendu, cette majestueuse voûte incrustée de flammes d'or, eh bien! cela ne me parait rien autre chose qu'un immonde et pestilentiel amas de vapeurs. Quel chef-d'oeuvre que l'homme! combien noble par la raison! combien infini par les facultés! combien admirable et expressif par la forme et les mouvements! dans l'action combien semblable aux anges! dans les conceptions combien semblable à un dieu! Il est la merveille du monde, le type suprême des êtres animés! Eh bien! à mes yeux, qu'est-ce que cette quintessence de la poussière? L'homme ne me charme pas, ni la femme non plus, quoique par votre sourire vous paraissiez me démentir.
+
+ROSENCRANTZ.—Mon seigneur, il n'y avait rien de cela dans mes pensées.
+
+HAMLET.—Pourquoi donc avez-vous ri, lorsque j'ai dit: «L'homme ne me plaît pas?»
+
+ROSENCRANTZ.—Parce que je me disais, mon seigneur,—si l'homme ne vous plaît pas,—quel maigre accueil les comédiens recevront de vous! Nous les avons rencontrés en chemin; ils viennent ici vous offrir leurs services.
+
+HAMLET.—Celui qui joue le roi sera le bienvenu; Sa Majesté aura un tribut de moi; l'aventureux chevalier pourra faire usage de son fleuret et de son écu; l'amoureux ne soupirera pas gratis; le bouffon pourra achever tranquillement son rôle; le niais fera rire ceux-là même dont les poumons sont secoués par une toux sèche, et la princesse nous contera ses sentiments en toute liberté, dût le vers blanc boiter pour la suivre. Quels sont ces comédiens?
+
+ROSENCRANTZ.—Ceux-là même que vous aviez coutume de voir avec plaisir, les tragédiens de la Cité.
+
+HAMLET.—Et par quel hasard sont-ils devenus ambulants? Leur résidence fixe, autant pour la réputation que pour le profit, valait mieux à tous égards.
+
+ROSENCRANTZ.—Je pense que leur empêchement vient de la récente innovation.
+
+HAMLET.—Se maintiennent-ils dans la même estime que lorsque j'étais en ville? Sont-ils aussi suivis?
+
+ROSENCRANTZ.—Non, en vérité, ils ne le sont pas.
+
+HAMLET.—D'où vient cela? Est-ce qu'ils se rouillent?
+
+ROSENCRANTZ.—Non, leurs efforts n'ont rien perdu de leur allure accoutumée. Mais il y a, monsieur, une nichée d'enfants, de fauconneaux à la brochette, qui piaillent à force tout au haut du dialogue, et sont claqués à outrance pour cela; ils sont aujourd'hui à la mode, et ils ont tant décrié le théâtre ordinaire (c'est ainsi qu'ils l'appellent) que beaucoup de gens portant l'épée ont peur des plumes d'oie et n'osent presque plus y venir.
+
+HAMLET.—Comment, sont-ce des enfants? Qui les entretient? Comment est réglé leur écot? Poursuivront-ils cette profession aussi longtemps seulement qu'ils pourront chanter? Ne diront-ils point, par la suite, s'ils arrivent eux-mêmes à être comédiens ordinaires (ainsi que cela est vraisemblable, s'ils n'ont rien de mieux à faire), que les auteurs de leur troupe leur ont fait tort, en les faisant d'avance déclamer contre leur futur héritage?
+
+ROSENCRANTZ.—Ma foi! il y a eu beaucoup à faire de part et d'autre, et la nation estime que ce n'est pas un péché de les exciter à la dispute. Il n'y a eu pendant un temps point d'argent à gagner avec une pièce, à moins que le poëte et le comédien n'en vinssent à se gourmer avec leurs rivaux en plein dialogue.
+
+HAMLET.—Est-il possible?
+
+GUILDENSTERN.—Oh! il y a eu déjà beaucoup d'effusion de cervelles.
+
+HAMLET.—Sont-ce les enfants qui l'emportent?
+
+ROSENCRANTZ.—Oui, mon seigneur, ils emportent tout, Hercule et son fardeau avec lui6.
+
+Note 6: (retour) Tout ce passage n'est qu'un tissu d'allusions à l'histoire des divers théâtres qui s'étaient établis peu avant la représentation de Hamlet, et où les enfants de choeur de l'église de Saint-Paul et de la chapelle royale d'Élisabeth faisaient concurrence à la troupe de Shakspeare. Ce n'est pas seulement de leur concurrence que Shakspeare se plaint, mais aussi des abus et des désordres qui s'étaient introduits sur la scène avec les nouveaux acteurs. Les attaques personnelles y avaient pris toute licence. On voit dans l'Apologie des acteurs, par Heywood, publiée en 1612, «que l'État, la cour, la loi, la cité et leurs gouvernements» n'étaient aucunement épargnés et que certains auteurs «mettaient leurs amères invectives dans les bouches enfantines, comptant que la jeunesse des comédiens aurait le privilége de faire passer ces particularités violentes contre les humeurs diverses d'hommes privés et vivants, nobles ou autres.» Mais le succès fit bientôt scandale; une partie du public se dégoûta et s'éloigna; les représentations des enfants furent interdites de 1591 à 1600, et les autres troupes souffrirent tour à tour de la vogue et du décri de leurs jeunes rivaux, des règlements sévères auxquels ils donnèrent lieu et de leur retour sur la scène. Le théâtre de Shakspeare était le théâtre du Globe et avait pour enseigne Hercule portant le monde.
+HAMLET.—Ce n'est pas fort étrange, car mon oncle est roi de Danemark; et ceux qui, du vivant de mon père, lui auraient fait la moue, donnent maintenant vingt, quarante, cinquante, cent ducats par tête pour avoir son portrait en miniature. Par la sambleu! il y a là quelque chose qui est plus que naturel; si la philosophie pouvait le découvrir!
+
+(On entend une fanfare de trompette derrière le théâtre.)
+
+GUILDENSTERN.—Ce sont les comédiens.
+
+HAMLET.—Messieurs, vous êtes les bienvenus à Elseneur. Vos mains. Approchez: la marque ordinaire d'un bon accueil, ce sont les compliments et les cérémonies; permettez que je vous traite de cette façon, de peur que mes manières, en recevant les comédiens, à qui je dois, je vous en préviens, montrer beaucoup d'égards, ne paraissent plus polies qu'envers vous. Vous êtes les bienvenus; mais cet oncle qui est mon père, et cette tante qui est ma mère, sont abusés.
+
+GUILDENSTERN.—En quoi, mon cher seigneur?
+
+HAMLET.—Je ne suis fou que lorsque le vent est nord-nord-ouest; quand le vent est au sud, je distingue très bien un faucon d'un héron.
+
+(Polonius entre.)
+
+POLONIUS.—Grand bien vous fasse, messieurs.
+
+HAMLET.—Écoutez, Guildenstern... et vous aussi... pour chaque oreille un auditeur... ce grand marmot que vous voyez là n'est pas encore hors du maillot.
+
+ROSENCRANTZ.—Peut-être y est-il revenu, car on dit que le vieillard est une seconde fois enfant.
+
+HAMLET.—Je vous fais ma prophétie qu'il vient pour me parler des comédiens; garde à vous!... Vous avez raison, monsieur; lundi matin, c'est bien cela, en vérité.
+
+POLONIUS.—Mon seigneur, j'ai des nouvelles à vous apprendre.
+
+HAMLET.—«Mon seigneur, j'ai des nouvelles à vous apprendre.» Du temps que Roscius était acteur à Rome...
+
+POLONIUS.—Les acteurs sont ici, mon seigneur.
+
+HAMLET.—Bah! bah!
+
+POLONIUS.—Sur mon honneur.
+
+HAMLET.—Alors arrive chaque acteur sur son âne...
+
+POLONIUS.—Les meilleurs acteurs du monde, pour la tragédie, pour la comédie, le drame historique, la pastorale comique, l'histoire pastorale, la tragédie historique, la tragi-comédie, les pièces avec unité, ou les poëmes sans règles, Sénèque ne peut être trop lourd, ni Plaute trop léger pour eux; pour le genre régulier, comme pour le genre libre, ils n'ont pas leurs pareils.
+
+HAMLET.—O Jephté, juge d'Israël! Quel trésor tu avais!
+
+POLONIUS.—Quel trésor avait-il, mon seigneur?
+
+HAMLET.—Quel trésor!
+
+Une fille très-belle, et rien de plus,
+
+Il l'aima…"

@@ -1,0 +1,535 @@
+"The Project Gutenberg eBook of History as past ethics; an introduction to the history of morals
+This eBook is for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever. You may copy it, give it away or re-use it under the terms of the Project Gutenberg License included with this eBook or online at www.gutenberg.org. If you are not located in the United States, you will have to check the laws of the country where you are located before using this eBook.
+Title: History as past ethics; an introduction to the history of morals
+
+Author: P. V. N. Myers
+
+
+Release date: April 19, 2024 [eBook #73430]
+
+Language: English
+
+Original publication: Boston: Ginn & Co, 1913
+
+Other information and formats: www.gutenberg.org/ebooks/73430
+
+Credits: WebRover, Tim Lindell, Turgut Dincer and the Online Distributed Proofreading Team at https://www.pgdp.net (This file was produced from images generously made available by The Internet Archive/Canadian Libraries)
+
+*** START OF THE PROJECT GUTENBERG EBOOK HISTORY AS PAST ETHICS; AN INTRODUCTION TO THE HISTORY OF MORALS ***
+HISTORY AS PAST ETHICS
+AN INTRODUCTION TO THE
+HISTORY OF MORALS
+
+BY
+
+PHILIP VAN NESS MYERS
+
+Formerly Professor of History and Political Economy in the University of Cincinnati. Author of “Ancient History,” “Mediæval and Modern History,” and “A General History”
+
+GINN AND COMPANY
+
+BOSTON · NEW YORK · CHICAGO · LONDON ATLANTA · DALLAS · COLUMBUS · SAN FRANCISCO
+
+COPYRIGHT, 1913, BY
+PHILIP VAN NESS MYERS
+
+ALL RIGHTS RESERVED
+PRINTED IN THE UNITED STATES OF AMERICA
+526.2
+
+The Athenæum Press
+GINN AND COMPANY · PROPRIETORS
+· BOSTON · U.S.A.
+
+TO
+I. C. M.
+
+My conviction gains infinitely
+the moment another soul will
+believe in it.—Novalis
+
+v
+
+PREFACE
+This work completes the series of historical textbooks which I began more than thirty years ago. It is an expansion of a course of lectures given for several years to my advanced classes in history, and is designed as a brief introduction to the history of morals. In treating the science of morals as a branch of history my thought is, without trenching in the least upon the domain of the philosophy of morals, to make the work of the department of history more helpfully introductory than it has hitherto been to that of the department of moral philosophy. The book is the outgrowth of a conviction that the philosophy of ethics, if it shall become a stimulus and guide to social service and humanitarian effort,—especially if it shall bring reënforcement to that ethical idealism which so largely motives the present-day movement for world peace,—must be based on a knowledge of the facts of the moral life of the race in all the various stages of the historic evolution, and that to gather and systematize these facts is a part of the task of the historian, indeed the most important part of his task. It is my hope that teachers of both history and ethics may find the book helpful, whether made the basis of classroom discussion or of lecture comment.
+
+P. V. N. M.
+
+  College Hill
+Cincinnati, Ohio
+
+vii
+
+Ethics gives to History its rational goal; and all morality has the perfect shaping of universal history as its ultimate end. A real understanding of history is not possible without ethics; universal history is the realization of the moral ... within humanity.—Adolf Wuttke.
+
+The real advance made by Thucydides consists, perhaps, in this, that he perceived the motive forces of human history to be in the moral constitution of human nature.—Leopold von Ranke.
+
+Ethics, if it is to become truly a science, must shun the path of speculation and follow closely the historical method.... Range in fancy over the whole circle of the sciences, and you will find there no place for ethics save as a branch of human history.... Given the earliest morality of which we have any written record, to trace from it through progressive stages the morality of to-day; that is the problem, and the only problem which can fall to a truly scientific ethics.... Ethics as the comparative history of universal morality is the vestibule to the temple of moral philosophy.—Jacob Gould Schurman.
+
+ix
+
+CONTENTS
+CHAPTER		PAGE
+I.	INTRODUCTION	1
+II.	THE DAWN OF MORALITY: CONSCIENCE IN THE KINSHIP GROUP	12
+I.	Institutions, Ideas, and Conditions of Life determining the Rules of Conduct	12
+II.	Essential Facts of Kinship or Intratribal Morality	15
+III.	The Beginnings of Intertribal Morality	22
+III.	THE MORAL LIFE IN ANCIENT EGYPT: AN IDEAL OF SOCIAL JUSTICE	30
+I.	Circumstances and Ideas which molded and motived Morality	30
+II.	The Ideal	33
+IV.	THE BABYLONIAN-ASSYRIAN CONSCIENCE	45
+V.	CHINESE MORALS: AN IDEAL OF FILIAL PIETY	53
+I.	Ideas, Institutions, and Historical Circumstances determining the Cast of the Moral Ideal	53
+II.	The Ideal	60
+III.	Effects of the Ideal upon Chinese Life and History	69
+VI.	JAPANESE MORALS: AN IDEAL OF LOYALTY	77
+I.	Formative and Modifying Influences	77
+II.	The Ideal	80
+III.	Some Significant Facts in the Moral History of Japan	87x
+VII.	THE ETHICAL IDEALS OF INDIA	95
+PART I. THE ETHICS OF BRAHMANISM—A CLASS MORALITY	95
+I.	Historical and Speculative Basis of the System	95
+II.	The Various Moral Standards	101
+PART II. THE ETHICS OF BUDDHISM: AN IDEAL OF SELF-CONQUEST AND UNIVERSAL BENEVOLENCE	106
+I.	The Philosophical Basis of the System	106
+II.	The Ideal	110
+III.	Some Expressions of the Ethical Spirit of Buddhism	115
+VIII.	THE ETHICS OF ZOROASTRIANISM: AN IDEAL OF COMBAT	123
+I.	Philosophical and Religious Ideas which created the Ethical Type	123
+II.	The Ideal	126
+III.	The Practice	131
+IX.	THE MORAL EVOLUTION IN ISRAEL: AN IDEAL OF OBEDIENCE TO A REVEALED LAW	135
+I.	The Religious Basis of Hebrew Morality	135
+II.	The Evolution of the Moral Ideal	140
+1.	The Development up to the Exile	140
+2.	The Morality of the Prophets of the Exile	157
+3.	The Moral Life in the Postexilic Age	162
+X.	THE MORAL CONSCIOUSNESS OF HELLAS: AN IDEAL OF SELF-REALIZATION	169
+I.	Institutions and Ideas determining the Moral Type	169
+II.	The Ideal	174
+III.	Limitations and Defects of the Ideal	179
+IV.	The Moral Evolution	185xi
+XI.	ROMAN MORALS: AN IDEAL OF CIVIC DUTY	212
+I.	Institutions and Conditions of Life determining the Early Moral Type	212
+II.	The Primitive Moral Type	214
+III.	The Moral Evolution under the Republic	218
+IV.	The Moral Evolution under the Pagan Empire	231
+XII.	THE ETHICS OF DOCTRINAL CHRISTIANITY: AN IDEAL OF RIGHT BELIEF	255
+I.	Religious Ideas and Theological Dogmas molding the Ideal	256
+II.	The Moral Ideal	261
+XIII.	MORAL HISTORY OF THE AGE OF CHRISTIAN ASCETICISM	267
+I.	Conceptions of Life and Historical Circumstances that produced the Ascetic Ideal	267
+II.	The Ideal and its Chief Types	270
+III.	The Chief Moral Facts of the Period	272
+XIV.	THE ETHICS OF ISLAM: A MARTIAL IDEAL	288
+I.	Religious Basis of the Moral System	288
+II.	The Moral Code	289
+III.	The Moral Life	293
+XV.	THE MORAL LIFE OF EUROPE DURING THE AGE OF CHIVALRY	300
+I.	The Church consecrates the Martial Ideal of Knighthood	300
+II.	The Composite Ideal of Knighthood	306
+III.	The Chief Moral Phenomena of the Period	309
+XVI.	RENAISSANCE ETHICS: REVIVAL OF NATURALISM IN MORALS	320
+I.	Determining Influences	320
+II.	Some Essential Facts in the Moral History of the Age	322xii
+XVII.	ETHICS OF THE PROTESTANT REFORMATION	333
+I.	Principles of the Reformation of Ethical Import	333
+II.	Some Important Moral Outcomes of the Sixteenth-Century Religious Reform	334
+XVIII.	THE MORAL EVOLUTION SINCE THE INCOMING OF DEMOCRACY: THE NEW SOCIAL AND INTERNATIONAL CONSCIENCE	340
+I.	Forces determining the Trend of the Ethical Movement	340
+II.	Expressions of the New Moral Consciousness in Different Domains of Life and Thought	344
+1.	The Ethics of Democracy	344
+2.	The Ethics of Industrialism	347
+3.	The Ethics of Modern Science	353
+4.	The Ethics of Theology	360
+5.	Social Ethics: the New Social Conscience	364
+6.	International Ethics: the New International Conscience	371
+INDEX	383
+1
+
+HISTORY AS PAST ETHICS
+CHAPTER I
+INTRODUCTION
+The ethical interpretation of history
+Professor Freeman defined history as “past politics.” Mr. Buckle argued that the essence of the historical evolution consists in intellectual progress.1 Many present-day economists hold that the dominant forces in the historical development are economic.2 Churchmen consistently make the chief factor in history to be religion.
+
+Whether the upholders of these several interpretations of history would have us understand them as speaking of the ultimate goal of the historic evolution, or merely of the dominant motive under which men and society act, none of these interpretations can be accepted by the student of the facts of the moral life of the race as a true reading of history. To him not only does moral progress constitute the very essence of the historic movement, but the ethical motive presents itself as the most constant and regulative force in the evolution of humanity. His chief interest in all the other factors of the historical evolution is in noting in what way and in what measure they have contributed to the growth and enrichment of the moral life of mankind.
+
+2
+
+Thus the historian of morals is deeply interested in the growth of political institutions among men, but chiefly in observing in what way these institutions have affected for good or for evil the moral life of the nation. Particularly is the progress of the world toward political unity a matter of profound concern to him, not because he regards the establishment of the world state as an end in itself, but because the universal state alone can furnish those conditions under which the moral life of humanity can most freely expatiate and find its noblest and truest expression.
+
+It is the same with intellectual progress. The student of morals recognizes the fact that the progress of the race in morality is normally dependent upon its progress in knowledge—that conscience waits upon the intellect. But in opposition to Buckle and those of his school, he maintains that, so far from an advance in knowledge constituting the essence of a progressive civilization, this mental advance constitutes merely the condition precedent of real civilization, the distinctive characteristic of which must be a true morality. A civilization or culture which does not include this is doomed to quick retrogression and decay. As Benjamin Kidd truly observes, “When the intellectual development of any section of the race, for the time being, outruns the ethical development, natural selection has apparently weeded it out like any other unsuitable product.”3
+
+As with the political and intellectual elements of civilization so is it with the economic. The outward forms of the moral life are, it is true, largely determined by the industry of a people; but the informing spirit of morality is the expression of an implanted faculty. It is elicited but not created by environment. No industrial order from which it is lacking can long endure. Natural selection condemns it as unfit. And this we are beginning to recognize—that economics and ethics cannot be divorced, that every great industrial3 problem is at bottom a moral problem. To the student of the ethical phase of history all social reformers from the old Hebrew prophets down to Karl Marx and Henry George are primarily moralists pleading for social justice, equity, and righteousness.
+
+And preëminently the same is it with religion. Religion has been a great part of the life of man, and the historian of morals must be a diligent student of the religious systems of the world, but mainly because religion has been in general such a potent agency in the moral education of mankind. For it is the ethical factor in the great world religions which constitutes their universal and permanent element. “It is the function of religion to kindle moral enthusiasm in society at large.”4 “Christianity has no other function or value than as an aid to morality.”5 All the great religions of the world—Buddhism, Confucianism, Zoroastrianism, Judaism (reckoning historic Judaism as beginning with the great prophets of the ninth and eighth centuries b.c.), Christianity, and Islam—began as moral reforms.6
+
+In short, in the words of Wellhausen, “Morality is that for the sake of which all other things exist; it is the alone essential thing in the world.”7 The really constructive and regulative forces in history are in truth moral ideas and convictions. And there is vast significance in this—that the ethical motive, never absent and always active, is constantly becoming more and more dominant in the processes of the historical evolution. As the ages pass there enters into history—we shall see this to be so later—an ever larger ethical4 element. Conscience becomes ever more and more involved in the personal, national, and international affairs of the world.
+
+The history of morals in the main a record of the expansion of the circle covered by the moral feelings
+Moral progress consists not so much in changes in the quality or intensity of the moral emotions, although these gain in diversity, purity, and refinement as time passes, as in the successive enlargements of the circle of persons embraced by the moral feelings.8 “It is not the sense of duty to a neighbor, but the practical answer to the question, Who is my neighbor? that has varied.”9 As we shall see when we come to examine the morality of primitive man, the moral feelings embrace at first only kinsmen, that is, the members of one’s own family, clan, or social group. All others are outside the moral pale. But gradually this circle grows larger and embraces in successive expansions the tribe, the city, the nation, and lastly humanity.
+
+This expansion of the area covered by the moral feelings is the dominant fact in the moral history of mankind. It is the overlooking of this fact that has caused writers like Buckle to make their strange misreading of history and to maintain that though man during historic times has made immense progress on material and intellectual lines, he has made little or no progress in morality. The truth is, as we shall learn, that in no domain has progress been greater, the gains larger or more precious, than in the moral. From clan morality, based on physical kinship, mankind has advanced or is advancing to world morality, based on the ethical kinship of men. This is the one increasing purpose running through all history—the creation of a moral order embracing the whole human race.
+
+Sources for the history of morals
+The facts for a history of morals must be sought chiefly outside the literature of ethical theory and speculation. They5 must be looked for in the customs, laws, institutions, mythologies, literatures, maxims, and religions of the different races, peoples, and ages of history.10 In all these there is always an ethical element; often this forms their very essence. “In every sentence of the penal code,” as the moralist Wilhelm Wundt remarks, “there speaks the voice of an objective moral conscience.” In truth all law codes, whether civil or criminal, are essentially nothing more nor less than the embodiment of man’s conceptions of what is just and unjust. Mythologies, literatures, and philosophies are charged with moral sentiment. In religion there struggle for utterance the deepest moral feelings and convictions of the human soul.
+
+The moral ideal
+The moral life fulfills itself in many ways. Every age and every race has its own moral type or ideal.11 This, as we shall use the term, may be defined as a group of virtues held in esteem by a given people or a given age. It is the accepted standard of conduct, of excellence, of character. This ideal may be a very simple thing, embracing only a few rudimentary virtues, as in the case of peoples on the lower levels of culture; or it may be a very complex thing, embracing many and refined virtues, as in the case of civilized societies in which the mutual relationships of the members are many and various.
+
+6
+
+The history of morals is in the main an account of moral ideals or types.12 Indeed so large is the part that these have played in the growth and decay of races and civilizations that universal history may be defined quite accurately as “the paleontology of moral ideals.”13
+
+There is one thing about a moral ideal which sets it apart from all other ideals. It possesses a unique dynamic force. All ideals, it is true, have in them the impulsion to their embodiment in reality. But in a moral ideal there is the added imperative of conscience. There speaks from it the majestic voice of duty, demanding that the ideal be made actual in the life of the individual and of society. It is this that has made moral ideals such molding and constructive forces in history.
+
+Composite moral ideals or types
+There is a striking analogy between the different types of moral character and the different types of human beauty. Thus corresponding to the great types of masculine and feminine beauty there are masculine and feminine types of moral excellence. And then, just as the elements of the two chief types of feminine beauty, the blond and the brunette, combine to form a great variety of mixed or composite types, so do the elements of the chief types of goodness blend into many composite types of character.14
+
+There is no more instructive chapter in the history of morals than that which has to do with the formation of these composite ethical types, since these are often the most significant results of those great race collisions and comminglings7 which make up so much of the history of the past; for when races meet and mingle they blend not only their blood but also their consciences. There appears not only a new physical man but also a new moral man.
+
+Thus the fusion of races in Europe has resulted in a great fusion of moralities. The conscience of Europe is a very composite one, including Greek, Roman, Hebraic, Celtic, Gothic, and Slavonic elements. This heterogeneous conscience, so different, for instance, from the comparatively homogeneous conscience of ancient Egypt and of China, has been the most important factor in the life and civilization of the European people. It is largely because Europe has been constantly getting a new conscience that its history has been so disturbed and so progressive, just as it is largely because China has had the same Confucian conscience for two thousand years and more, that her history has been so uneventful and unchanging.
+
+Causes which determine and which modify the moral type
+Though every race and every age, since man is by nature a moral being, must have some type or standard of moral goodness, still the cast and content of this type is determined by a great variety of circumstances, such as the stage of intellectual development, the physical environment, social and political institutions, occupation, and speculative and religious ideas.15
+
+The stage of intellectual development of a given society determines in general whether the moral standard shall be high or low. Peoples still on the level of savagery must necessarily have a very simple moral code, embracing only a few rudimentary virtues. As a people or race progresses in intelligence and the mental horizon widens, the moral sense becomes clarified and the moral standard comes to embrace new and refined virtues, corresponding to the larger and truer8 mental life; for, speaking broadly, there is a general coincidence between intellectual and moral growth. To create a new intellectual life is to create a new moral life.16
+
+Physical environment is also a potent agency in determining the cast of the moral type. Thus the hot depressing climate and the prodigality of nature in the tropics foster the passive, quietistic virtues; while the harsher and more grudging nature of the temperate regions favors the development of the active, industrial virtues. The strongly contrasted moral types of the peoples of the tropic regions of the earth and those of the temperate lands may without reasonable doubt be ascribed, in part at least, to differences in the climatic and other physical influences to which these peoples have been subjected through long periods of time.
+
+More positively influential in the formation of moral ideas and feelings are social institutions. Thus the place which a whole group of moral qualities that we designate as domestic virtues are assigned in the ethical standard is determined by the place which circumstances may have given the family in the social organism. In ancient Sparta, for example, where certain influences subordinated the family in an unusual degree to the state, the family virtues held a very low place, indeed scarcely any place at all, in the moral ideal; while in China, where certain notions of the relation of the spirits of the dead members of the family to its living members created a remarkable solidarity of the family group, the domestic virtues, and among them preëminently the virtue of filial piety, came to determine the entire cast of the general ideal of goodness.
+
+Government is another potent agency in molding the moral type. Patriarchal monarchy and popular government tend each to nourish a distinct morality, so that we speak of the9 ethics of monarchy and the ethics of democracy. As time passes, governments, speaking broadly, become constantly more and more ethical in aim and purpose, and hence act more and more dynamically upon the moral evolution. The greatest force making for a truer and higher morality in the world to-day is political democracy.17
+
+More effective than any of the agencies thus far mentioned in determining the moral code of a people is occupation. “Man’s character,” as the economist Alfred Marshall truly affirms, “has been molded by his everyday work ... more than by any other influence unless it be that of his religious ideals.”18 Every occupation develops a characteristic group of virtues. This is especially true of agriculture. “The cultivation of the soil,” says Wedgwood, “cultivates much besides—it molds ideals, implants aspirations, creates permanent tendencies. It gives, where it is the predominant industry, to the character of a people its moral stamp.”19
+
+Finally we mention religion as the most potent of all agencies in the molding of the moral type.20 Religion has been the great schoolmaster in the moral education of the race. It is true that religion has to go to school itself in morals before it10 can become a schoolmaster. That is to say, religion in its beginnings is in the main unethical. In its lower manifestations it is hardly more than a system of incantations and sorcery. One of the most important facts of the moral history of the race is the gradual moralization of man’s at first unethical conception of the gods, and the rise out of the unethical religions of primitive times of the great ethical world religions.
+
+In what virtue or moral goodness consists
+Having defined ethical ideals and noted the agencies determining their cast and content, we may now seek an answer, in terms of the ethical ideal, to the question, In what does moral goodness consist? All the truly great seers and moral teachers of the race have here the same word for us, and it is this: Do the thing thou seest to be good; realize thy ideal. In the words of Sabatier, “The essential thing in the world is not to serve this ideal or that, but with all one’s soul to serve the ideal which one has chosen.” Such loyalty to one’s ideal is moral goodness.21 This imperative of conscience that one be true and loyal to the best one knows is the only thing absolute and categorical in the utterance of the moral faculty.
+
+Every age must be judged by its own moral standard
+“A man must learn a great deal,” says Marcus Aurelius, “to enable him to pass a correct judgment on another man’s acts.”22 And among the things which he must first learn is this—that the men of every age have their own standard of excellence and that they can be judged fairly only by their own code of morals.23 It is largely because of the general ignorance11 of the history of moral ideals that there is so much uncharitableness in the world, so much intolerance, so much race prejudice and hatred. As one’s intellectual outlook broadens, as he becomes acquainted with the various types of goodness of different peoples and different ages, he becomes more liberal and charitable in his moral judgments, since he comes to understand that moral character is determined not by the ideal of conduct but by the way in which this ideal is lived up to. “There may be as genuine self-devotion,” declares the moralist Professor Green, “in the act of the barbarian warrior who gives his life that his tribe may win a piece of land from its neighbors, as in that of the missionary who dies in carrying the gospel to the heathen.”24
+
+Studying the ideals of races and epochs in the spirit of these words, we shall make some fruitful discoveries. We shall learn for one thing that since the beginning of the truly ethical age there has ever been about the same degree of conscientiousness in the world; that the different ages, viewed in respect to their moral life, have differed chiefly in the degree of light they have enjoyed, and consequently in their conceptions of what is noblest in conduct, of what constitutes duty, not in their fealty or lack of fealty to their chosen standard of excellence. That is to say, speaking broadly, the majority of men in every age and in every land have ever followed loyally the right as they have been given to see the right.25 “If men and times were really understood,” the historian Von Holst truly observes, “the moral fault of their follies and crimes will almost always appear diminished by one half.”
+
+12
+
+CHAPTER II
+THE DAWN OF MORALITY: CONSCIENCE IN THE KINSHIP GROUP
+I. Institutions, Ideas, and Conditions of Life determining the Rules of Conduct
+The kinship group
+The most important social product of the human evolution on the lower levels of civilization was the patriarchal family or clan. This community of kinsfolk is the great history-making group. It was the seed plot and nursery not only of almost every social and political institution of the historic peoples, but of their morality as well. In the bosom of this group were born and nurtured the chief of those affections and sentiments into which enters an ethical element and which form the basis of the moral life.26
+
+The fundamental bond uniting this group was the bond of blood. The members of the group were, or believed themselves to be, the actual descendants of a common ancestor. It was this tie of blood, this physical relationship real or assumed, that rendered the clan such a closely knit body and created its feeling of corporate oneness. “The members of one kindred,” says W. Robertson Smith in describing this characteristic of the Semitic clan, “looked on themselves as one living whole, a single animated mass of blood, flesh, and bones, of which no member could be touched without all the members suffering.... If one of the clan has been murdered,13 they say ‘Our blood has been shed.’”27 Compared with this sense of solidarity as it is found among certain of the negro clans in Africa, the feeling of solidarity of the family among European peoples “is thin and feeble.”28
+
+It was this corporate consciousness of the primitive clan that created its moral solidarity. It naturally called into existence those altruistic sentiments that formed the ground out of which grew man’s earliest feelings of moral obligation.
+
+The religious bond​— ​ancestor worship
+There was a second bond uniting the members of the kinship group. They were united not only by the ties of physical kinship but also by the bonds of a common cult. This was the worship of ancestors. To realize the ethical educative value of this worship we must recall the remarkable constitution of the clan. This group of kinsmen has a visible and an invisible side. There are the earthly members of the group and the spirit members—the souls of the dead. These spirit members are the protectors of the little group, the punishers of wrongdoing, the conservators of morals. Among the most sacred duties of the earthly members are the duties they owe to these spirit members; for these spirits have need of many things, especially of meat and drink at the grave, and it is the duty of their earthly kinsmen to supply all these wants. The earth group is thus enveloped in a sort of sacred atmosphere, and in this atmosphere are nurtured those ethical sentiments which form the most precious product of history.
+
+As an agency in the moralizing of the life of the race it would be difficult to exaggerate the importance of ancestor worship. To no other form of religion, save ethical monotheism, does morality owe so large a debt. In this cult religion and morality are at one almost at the outset,29 whereas in14 nature cults, or the cults of nature gods, it is generally only at a late period that these elements are united. It was this cult of ancestors which formed the basis of an essential part of the morality of the Greeks and Romans, particularly the latter, at the first appearance of these peoples in history, and which to-day, as the chief religion of the Chinese, Japanese, and other peoples of the Far East, fosters the best virtues of a third of the human race.
+
+Conceptions of the god world
+Another influence determining the moral code of primitive man is his ideas of the god world. It is true that the conceptions formed of the gods by the untutored mind are for the most part crude and unethical. But man ever makes and remakes his gods in his own image; therefore as soon as an ethical element begins to enter into his own life he begins to moralize the character of his gods. At this stage the god world begins to react favorably upon the moral life of man. The gods are now conceived as taking notice of the conduct of men and as approving certain acts as right and disapproving certain other acts as wrong. Especially are they believed to punish atrocious crimes, such as the slaying of a kinsman and the breaking of the word sworn by the oath-god. In this way primitive man’s ideas of deity react favorably upon his morality.
+
+The gods further advance morality by being invoked as the witnesses and guardians of treaties between clans and tribes. By thus giving an added sanctity to solemn engagements mutually entered into by communities they widen the moral domain and become the promoters of intertribal morality.30
+
+The fact that competition is between communities and not between individuals
+In nothing perhaps does primitive society differ more widely from modern than in the fact that the competition15 or struggle for existence is between communities and not between individuals. Within the kinship group life is almost wholly communistic. There is practically no competition between the individuals of the community such as characterizes societies advanced in civilization. The only real competition is that between communities. And here the struggle for existence or for superiority is generally habitual and ruthless, often being carried to the point of the complete destruction of one of the competing communities.
+
+These conditions of existence have vast significance for morality. Just as the individual competition in cultured societies molds an essential part of their moral code, so does the group competition of races still in the clan or tribal stage of civilization determine what qualities of character shall be developed among them. As we shall see in a moment, it makes them strong in the clan virtues.
+
+II. Essential Facts of Kinship or Intratribal Morality
+The life of primitive peoples largely unmoral
+As students of morals our chief interest in primeval man as he emerges from the obscurity of prehistoric times is not concerning the degree of skill he has developed in making his weapons or in constructing for himself a shelter, nor concerning what advance he has made in the arts of weaving and pottery, nor yet concerning what kind of social arrangements he has worked out; our main interest in this primeval man as he appears on the threshold of the historic day is not concerning these or any like things, but rather respecting what kind of a conscience has grown up within him during those long prehistoric ages of struggle, privation, watch and ward.
+
+The first fact that compels our notice here is that the life of the savage is largely unmoral.31 His activities to secure16 food, shelter, and clothing arise from purely animal impulses, such as hunger and cold. Into all of these activities, however, there enters as time passes an ethical element.32 The economic life, in a word, comes more and more under the dominance of moral feelings and motives.33 Conscience becomes more and more involved in all these matters. This gradual moralization of these at first nonmoral activities of primitive man constitutes one of the most important phases of the moral evolution of the race.
+
+The “goodness” of uncivilized races largely a negative goodness
+A second fact in the moral life of savages that claims our attention is that much that is counted unto them for “goodness” is a purely negative goodness. Failure in discrimination here often results in a wrong estimate of their morality as compared with that of advanced communities. Thus in portraying the manners and customs of primitive peoples, some writers, like Tacitus in his account of the early German folk, laud their morals as superior to those of civilized men. This opinion is based rather on the absence among such peoples of the usual vices and crimes of civilized societies than on the practice by them of the higher positive virtues.34 But the absence of the vices which characterize civilization is to be explained, of course, by the simpler organization of society and the fewer temptations to wrongdoing.17 Thus the single circumstance that the institution of individual property has not yet come into existence, or at least has not as yet received any great extension, accounts for the comparative absence of crimes against property, which constitute probably the greater number of criminal acts in civilized society.
+
+The true starting point of the historic ethical development
+But notwithstanding that so much of the life of primitive man is lived on the nonmoral plane, and that much which is reckoned unto him for goodness is merely negative goodness, still in certain of his activities growing out of his clan relationships we discover the beginnings of all human morality. For as we have already said, the true starting point of the moral evolution of mankind is to be sought in the altruistic sentiments nourished in the atmosphere of the kinship group. There is scarcely an ethical sentiment which does not appear here at least in a rudimentary form. Out of the most sacred and intimate relationships of the group we find springing up the maternal virtues of patience, tenderness, and self-denial,35 and the filial virtues of love, obedience, and reverence; out of the fellowship of the men in hunting and in war36 we see developing the manly virtues of courage, fortitude, self-control, and, above all, self-devotion to the common good; out of the hearth worship of ancestors37 we observe springing up many of those religious-ethical feelings and sentiments which form one of the chief moral forces in civilization; out of the sacrificial meal shared with the gods and the spirits of the dead through offerings of portions of the food and drink, we see18 forming customs of incalculable moral value in the ethical training of the race.38 A great part of the history of morals consists in the record of how these earliest forms of social virtues, first nourished by the customs, habits, and practices of the kinship group, have been gradually refined and developed into wider and richer forms of ethical sentiment and feeling.
+
+Custom as the maker of group morality
+There is one special feature of this germinal morality to which our attention must now be directed. It is what is often called customary morality. That is to say, the standard of right and wrong in the kinship community is custom. Custom is the lawgiver, and morality consists in following custom. The individual, in a word, follows the tribal or group conscience rather than the dictates of his own conscience. Indeed there is practically no such thing here as a private conscience. Individualism has not yet arisen. No one ordinarily has private notions of right and wrong which he feels impelled to set up against the immemorial customs and usages of the community.39
+
+But there is really nothing in this fact which sets this nascent morality apart from our own. It differs from ours not in kind but only in degree. The morality of the masses is still largely customary morality. Most persons in their social relations, in business, and in religion, follow unthinkingly the tribal conscience, that is, the conventional morality of the society of which they are members, rather than their own individual sense of right and wrong. “Reflective morality” is still the morality of the few. The ever-renewed moral task of man is to change the customary tribal conscience into a reflective individual conscience.
+
+Collective responsibility
+There is still another phase of the incipient morality of the kinship group which claims our attention because of its19 significance for the history of the evolution of morals. It is a group morality, that is, a morality based on the idea of collective responsibility.
+
+This conception presents one of the most striking phenomena in the history of the moral evolution of mankind. Among peoples in the earlier stages of moral development the family or clan group rather than the individual is regarded as the ethical unit, and the act of any member of this group, when such act concerns a member or members of another social group, is looked upon as the act of the whole body to which he belongs.40 For the wrongdoing of one all are held responsible.41
+
+This group morality, with which the true history of the unfolding moral consciousness of the race begins, we shall meet with as a sort of survival in every stage of the moral progress of humanity from the lowest to the highest level of culture. “It is,” in the words of Hobhouse, “one of the dominant facts, if not the dominant fact, ethically considered, in the evolution of human society.”42 The account of that slow change in the moral consciousness of man which has gradually caused group morality, in most spheres of life and thought, to give place to individual morality, that is, to that conception of moral responsibility which holds every man responsible for his own act, and only for his own act, makes up one of the most instructive chapters in the moral history of the world.4320 We shall find significant survivals of this idea of collective responsibility, particularly in the religious domain. In truth, a large part of religious history is nothing more nor less than an account of the influence and outworkings of this notion. Men making their gods like unto themselves have imagined them as acting on this principle of communal responsibility, and as bringing upon a whole people pestilence, famine, war, or other calamity in revenge or punishment for some neglect in worship or act of sacrilege on the part of perhaps a single member of the tribe or nation.
+
+By the early Fathers of the Church this idea of collective responsibility, embodied in the doctrine of the imputation of the guilt of the transgression of the first man Adam to all his descendants to the end of the world, was given a prominent place in Christian theology and has been a great force in molding the morality of the Western world.
+
+Again, we find this idea of group morality embodied in the war ethics of the modern nations, which, regarded from one point of view, is largely group ethics, that is to say, the survival in the domain of international relations of ethical ideas that had their birth on the low intellectual and moral levels of barbarism.
+
+As we follow the upward trend of the lines of the moral evolution of the race we shall hear louder and louder protests against this notion of communal responsibility, especially when this form of human morality has been transferred to the heavens and made a fundamental principle of the divine government.
+
+The duty of revenge; the blood feud
+In primitive society if a man slay a kinsman, he is punished by outlawry, that is, by expulsion from the family or clan.44 The story of Cain, the first murderer of a kinsman in21 Hebrew legend, is typical.45 If, however, a member of a clan is slain by an outsider, it is the duty of the nearest kinsman of the person killed, or of the collective body of his kinsfolk, to kill in revenge the slayer or some relative of his.46 To ignore this obligation or to forgive the slayer of one’s kinsman is regarded as base and cowardly.
+
+As, through the advance of society, the ties of the clan become relaxed and this group becomes more and more perfectly merged with the larger group of the tribe or state of which it has become a part, and justice comes to be administered by the tribal head or by regular tribunals, then blood revenge on the part of the kinsmen of the slain gradually ceases to be a duty and private vengeance becomes a crime. But this is a slow evolution, and within societies far advanced in civilization we often find belated groups still following with good conscience the ancient custom of blood revenge. The vendetta in Italy and the feud in some sections of our Southern states47 are survivals or degenerate forms of this primitive virtue.
+
+The Lex talionis
+Closely related to the punishment of homicide in primitive society is punishment of lesser offenses, especially the infliction of bodily injury, within the social group. Here, too, private vengeance rules. The person wronged or injured inflicts such punishment upon the offender as passion or resentment may dictate. As time passes, however, and the sense of justice grows more discriminating, there are limits set to this private vengeance. There is established what is called the rule of equivalence. The avenger is not allowed to wreak upon the offender indiscriminate and unmeasured punishment, but22 is restricted to the infliction upon him of exactly such injury and pain as he has inflicted upon his victim. Hence arose the Lex talionis, limb for limb, eye for eye, and tooth for tooth.48 This regulation thus registers an advance in moral feeling, and may be regarded as probably the first rule of the criminal code of the nations.
+
+The virtue of courage; its altruistic element
+In early society those virtues are most highly esteemed which are of service to the clan or tribe. Thus courage comes to hold a first place among the virtues. What is especially important to be noted here is that under courage is hidden the virtue of self-sacrifice, which we give the highest place in our ideal of character. It is this altruistic element in courage which lends to it its real ethical quality. In primitive society this virtue finds expression chiefly in the ready self-devotion of the individual in battle for the common good.
+
+Throughout pagan antiquity this virtue held a central place in practically every ideal of excellence. In the words of Robertson Smith, “This devotion to the common weal was, as every one knows, the mainspring of ancient morality and the source of all the heroic virtues of which ancient history presents so many illustrious examples.”49
+
+III. The Beginnings of Intertribal Morality
+Primitive man’s double standard of morality
+The accounts given by travelers and observers of the morals of savages often present a perplexing contrariety of opinion. Some writers represent such people as absolutely without a moral sense, while others, as has already been remarked, hold them up as models for imitation by ourselves.
+
+This contrariety in view results in part from an overlooking of the fact, just pointed out, that the moral goodness of23 the savage is largely a negative goodness, but chiefly from a failure to observe that the shield has two sides, that is to say, that savages have a double standard of morality—one standard regulating conduct within the social group, and another regulating conduct toward outsiders. Thus the command, “Thou shalt not kill,” means to the savage merely that he shall not kill a kinsman. It has in his mind no application to strangers, just as in our minds it has no application to animals.
+
+It is the same in regard to lying. Savages in general have a high regard for truthfulness, as they understand this virtue. The plighted word among them is probably as sacredly kept as by the average of civilized men.50 The repute of many savage folk for untruthfulness comes about from the fact that they do not think that a stranger has any right to the truth. “Among themselves,” writes Professor Starr of certain Congo tribes, “lying is not commended and truth is appreciated; but to deceive a stranger or a white man is commendable.”51
+
+And so it is with stealing. Many uncivilized peoples are charged, and in a certain sense rightly, with making of theft a virtue. But it must be borne in mind that to the savage all persons not members of his own group are strangers and enemies. To steal from such is looked upon as a most praiseworthy exploit, while to steal from the members of one’s own group is regarded as a crime.52
+
+This dual morality a survival in civilization
+Now the important thing to note here is that this double morality is not something peculiar to the ethics of savages.24 This dualism runs through the whole moral history of the race, from the beginning to the present day, and constitutes one of the most important facts in the moral evolution of humanity. We too, like the savage, have our double standard of morality. The chief difference between us and the savage is this: he puts his double standard in practice all the time, we only occasionally. On occasion we fling aside our ordinary standard of morality, lift the savage’s war standard, and then like the savage lie and steal and kill—outside the tribe. To deceive the stranger now is commendable; to steal from him proper and right; to kill him a glorious exploit.
+
+The great task of this century is to put an end to this scandal of civilization, to teach men the oneness and universality of the moral law, to get them to understand that right and wrong are right and wrong everywhere—outside the tribe as well as within.
+
+The history of intertribal or international morality, then, is the record of its gradual assimilation to intratribal morality.53 It is a record of how the stranger, the outsider, has come, or is coming, to be regarded as a kinsman, as a neighbor.
+
+Hospitality, or the guest right; the first step beyond kinship morality54
+The duty of hospitality, to which a high place is assigned in the code of primitive peoples, shows morality taking a step, the first step, beyond the narrow circle of the original group of kinsmen. As we have seen, in the beginning the feeling of duty and obligation is restricted to the little group of fellow clansmen or tribesmen. Every one outside this social circle is an enemy, and is without rights. But necessity forces men to go beyond the limits of their own clan or tribe, and in time there grows up a rule that the defenseless stranger shall be kindly received, entertained for a certain period, and then allowed to depart unharmed. It is easy to see how among25 clans scattered thinly over a wide territory, and where the earlier isolation is beginning to be broken by trade relations, this duty of hospitality should come to be regarded as a very sacred one, and the person of the stranger guest as inviolable.55
+
+Thus in the development of the guest right we see morality broadening, the circle of moral obligation enlarged, and the stranger, ordinarily counted as an enemy and as rightless, brought for a moment within the sacred pale of ethical sentiment and duty.56 A new ground of moral obligation other than that of kinship has been established. Morality is now something more than clan morality. We witness the rise of intertribal morality. The first step in the moral unification of the human race has been taken.
+
+Beginnings of the ethics of war
+Even in the domain of war we discover traces of the awakening of an intertribal conscience in races that are still in what we may regard as the kinship stage of culture. Speaking broadly, primitive man, whose chief occupations are hunting and fighting,57 makes no distinction between war and the hunt. All persons not belonging to his own group are regarded by him just as he regards wild game. In his efforts to kill or capture them, all means are right. Once in his power, he may do with them as he likes; he may make26 slaves of them, he may torture them, or he may eat their flesh as he would that of animals taken in the chase. Conscience lays upon him not the least restraint. Only slowly do the moral feelings make conquests in this province.
+
+One of the earliest mitigations of the barbarities of primitive warfare is probably to be found in the discontinuance of the practice of eating the bodies of the slain.58 It is this practice of cannibalism as a concomitant of war by peoples in the earlier stages of their development that perhaps more than any other circumstance gives such a repellent aspect to human life on the lower levels of culture. But as Montaigne observes, the wrong consists in killing men, not in eating them after they are dead59—a very just observation, and one which should awaken reflection in us who, while piously abstaining from eating our enemies, still persist in killing them.
+
+The discontinuance of the practice of cannibalism—the practice seems invariably to be left behind by all peoples as soon as they have made any considerable advance in civilization60—may with little hesitation be attributed in part at least27 to the growth and refinement of the moral feelings. In one case at least we have historical evidence that among a wide reach of savage tribes the custom was abolished by the action of a more civilized people, who did just what the more advanced European nations, under the impulsion of moral feeling, are doing in regard to the slave trade and cannibalism in Africa to-day. The Incas of Peru, before granting to conquered tribes terms of peace, forced them to abandon the practice of cannibalism.61
+
+The disuse of poisoned arrows marks another significant mitigation of a common barbarity of early warfare. We know that in the Greek world by the opening of the historic period there were communities that had come to look on the use of poisoned weapons with abhorrence, and to regard the practice as a crime that aroused the anger of the gods. Thus Homer represents Ilus of Ephyra, when asked by Odysseus for the fatal poison wherewith to smear the tips of his arrows, as refusing his request because he feared the immortal gods.62
+
+In these mitigations and prohibitions of the barbarities of war on the lower levels of savagery we have probably the earliest articles of the war code of the nations. They mark the first steps taken in the humanization of war. They indicate the birth of those sympathetic and moral feelings which, though of painfully slow growth and of intermittent action, have during the course of the historic ages effected great ameliorations of the cruelties of primitive warfare, and foreshadow a time when war between civilized nations shall have become an inconceivable thing.
+
+The reaction of intertribal upon intratribal morality
+There is a heart of good in things evil. Even the habitual intertribal wars of primitive communities contain a germ of28 good. The pressure exerted by these life-and-death struggles upon the clan or tribe has a good effect upon the inner relationships of the group. Many of the social virtues, such as loyalty to comrades and self-devotion to the common weal, are called into constant and keen activity. For this reason we usually find these social virtues well developed among peoples in the clan or tribal stage of civilization. Such peoples may even be stronger in these special virtues than civilized peoples.
+
+But there is another side to this. Intertribal wars, though they may in the very earliest stages of human culture be positively promotive of some of the social virtues, in later and more advanced stages exert a decidedly unfavorable influence upon the moral development. The low backward standard of intertribal ethics, reacting upon the higher and more advanced intratribal standard, tends to make it like unto itself. As Spencer expresses it, the life of internal amity is assimilated to the life of external enmity. “Taken in the mass the evidence shows,” he says, “as we might expect, that in proportion as intertribal and international antagonisms are great and constant, the ideas and feelings belonging to the ethics of enmity predominate; and conflicting as they do with the ideas and feelings belonging to the ethics of amity proper to the internal life of a society, they in greater or less degree suppress these, or fill with aggressions the conduct of man to man.”63 Thus tribes engaged habitually in war are characterized by the frequency of homicide within the group. Tribes that regard the robbery of strangers as honorable come to regard stealing within the tribe as irreproachable.64 Revengefulness, inhumanity, and untruthfulness within each tribe characterize warlike communities.65 On the other hand, peaceful tribes are characterized by their superior intratribal morality. Tribes among whom war is29 infrequent or unknown are scrupulously honest.66 Among such people crimes of violence are rare.67
+
+Thus war, a heritage (as a phase of the “struggle for existence”) of the human from the lower animal world, becomes early in the human stage of the cosmic evolution a drag upon the moral progress of the race.68
+
+30
+
+CHAPTER III
+THE MORAL LIFE IN ANCIENT EGYPT: AN IDEAL OF SOCIAL JUSTICE
+I. Circumstances and Ideas which molded and motived Morality
+A homogeneous population and a comparatively static civilization
+Egypt was the China of the ancient Mediterranean world. Like the Chinese, the Egyptians were a comparatively unmixed people. During the historic period no new elements of importance were incorporated with the native population. Again, like the civilization of China, that of Egypt throughout a great part of the historic age was singularly static. After having made wonderful advance in early times the Egyptians ceased to make further noteworthy progress.
+
+Both these fundamental facts of Egyptian history had great significance for Egyptian morals; for since when races mingle their blood they mingle also their moralities, it is a matter of supreme importance to the moral life of a people whether on the one hand it has, as the centuries have passed, undergone a change in physical type through the incorporation of new racial elements, or on the other hand has preserved unchanged its racial type and physical characteristics.
+
+Equally important for the moral ideal is it whether the civilization of which it forms one element is progressive or unprogressive; for changes in the moral standard are largely dependent on changes in the other elements of civilization. Where the intellectual life and the religious ideas remain unmodified, and where all political, social, and industrial institutions remain essentially unchanged, we need not look for fundamental changes in ethical ideas and convictions. How31 the history of conscience in ancient Egypt illustrates these truths we shall see a little further on.
+
+The teaching that immortality is conditioned on righteousness
+We have seen how potent an influence the notion of a life beyond the tomb exercised upon the conduct of the members of the primitive kinship group, giving birth to some of the noblest virtues of their simple code of morals. Now this idea of continued existence after death dominated the life of no other civilized people of antiquity so completely as it dominated the life of the Egyptians; and probably in the case of no other people ancient or modern has the belief exerted so profound an influence upon conduct. This was so for the reason that the conception was here early moralized and represented the blessed life in the hereafter as dependent upon rightdoing in the present life. No soul that had done evil was admitted to the bark of the ferryman at the Egyptian Styx. In this discrimination we find “the earliest traces in the history of man of an ethical test at the close of life.”69
+
+The ethical qualities of the sun-god Ra
+It is the sun-god Ra who in the remotest times is most intimately associated with these moral requirements for participation in the felicities of the celestial hereafter. The latest reading and analysis of the texts of the Pyramid Age has thrown new light upon the relations of the rival divinities Ra and Osiris to the development of the moral consciousness in ancient Egypt. In his latest work Professor Breasted says: “The later rapid growth of ethical teaching in the Osiris faith and the assumption of the rôle of judge by Osiris is not yet discernible in the Pyramid Age, and the development which made these elements so prominent in the Middle Kingdom took place in the obscure period after the development of the Pyramid Age. Contrary to the conclusions generally accepted at present, it was the sun-god ... who was the earliest champion of moral worthiness and the great judge in the hereafter.”70
+
+32
+
+The conception of Ra as the righteous judge, as the father and protector of the reigning Pharaoh, and as the guardian divinity of the Egyptian state, influenced profoundly the moral development in prefeudal Egypt, and was seemingly the inspiration of the great social reform movement which marked the history of the Eleventh and Twelfth Dynasties. In the words of Professor Breasted, “The moral obligations emerging in the Solar theology thus wrought the earliest social regeneration and won the earliest battle for social justice of which we know anything in history.”71
+
+Religious dualism
+In our introductory chapter we spoke of the influence of physical environment upon the moral life of a people. The history of the formation of the ethical type of ancient Egypt affords an excellent illustration of this; for it was probably out of the striking physical dualism of the Egyptian lands—the antagonism between the life-giving Nile and the ever-encroaching desert—that grew Egyptian religious dualism, embodied in the myth of the struggle between Osiris and Set.72 At first the tale was a pure nature myth reflecting simply the conflict between two physical elements; but as the moral consciousness of the people who recited the story deepened, there was gradually read into it an ethical meaning. The conflict was now conceived as a mighty struggle between the powers of good and evil, between the beneficent Osiris (and his son and avenger, Horus) and the malignant Set.73
+
+This world philosophy reacted powerfully upon Egyptian morality, keeping as it did in the foreground of the moral consciousness the truth that the moral life is a battle against evil. “The triumph of right over wrong ... is the burden of nine tenths of the Egyptian texts which have come down to us.”74
+
+33
+
+The Osirian myth in its special development
+Acted upon by the moral feelings, the Osirian myth underwent a special development. It came to represent not simply the eternal opposition between good and evil, but the whole moral order of the present and the future world. It told of the beneficent life of Osiris as king of Egypt, his death and resurrection, and of his office as king and judge in the realms of the dead.
+
+After having been given this rich moral content, the myth reacted powerfully upon the moral consciousness and became a chief agency in the formation of the moral character of the Egyptian race. Osiris, as reflected in the Osirian myth, became the incarnation of the ethical ideal. It is a great advantage to morality when the ideal of goodness is thus embodied in a divine exemplar. Osiris held some such relation to the moral life of ancient Egypt as Christ holds to the moral life of the Christian world.
+
+II. The Ideal
+A homogeneous and unchanging conscience
+By the dawn of history there had been developed in ancient Egypt an enlightened and discriminating conscience.75 There are two aspects of this conscience which we need to note. First, it was a comparatively homogeneous conscience; that is, the morality of the ancient Egyptians was not a mixture of moralities like that of the modern European nations whose morality is a blend of the moralities of different races—Greek, Roman, Celtic, and Teutonic; of different religions—pagan and Christian; and of different civilizations—Greek, Latin, Celtic, and German.
+
+Second, it was a comparatively unchanging conscience. The moral consciousness which we find in pre-Christian Roman Egypt is fundamentally the same as that which emerged in the Pyramid Age more than three thousand years34 before. During this long period the Egyptian conscience, although it gained in depth and sensitiveness as the millenniums passed, underwent less change in its essential qualities than the moral consciousness underwent in less than ten centuries in all the other great nations, save China, of the ancient world.
+
+Evidences of moral progress during early times
+But though the moral development, like the development of all other phases of Egyptian civilization, was early checked and thereafter made but slow progress, the essential refinement and clarification of the moral sense during prehistoric times, or in the obscure period of the earliest dynasties, is shown by various testimonies, as, for instance, in the moralization of the Osirian myth, to which we have already referred, in the abandonment of the practice of human sacrifices at the tomb, and in the transition, concerning the conception of the life after death, from the continuance to the retribution theory.
+
+Substitution of ka-statues for human sacrifices
+The early Egyptians, after the manner of savages, killed and buried with the dead master a number of his slaves, that their souls might attend him in the spirit land. But after a time the growing humanitarian and ethical feelings of the Egyptians forbade human sacrifices, and then merely the portrait-statues of the slaves were placed in the tomb.76 These, it was thought,—in consonance with the belief which led to the substitution of pictures or of clay and wood models for the real articles at first buried with the dead,—would take the place of the actual bodies of the servants.
+
+But as time passed, the deepening moral feelings of the Egyptians would not permit them to do even this thing. It did not now seem right to them that because a man was a slave in the earthly Egypt he should be a slave forever in the Osirian fields.77 So they ceased to place in the tomb of the35 master these portrait-statues of his servants, and in their stead put in statuettes of nobody in particular. The doubles of these, it was conceived, would appear as newly created souls in the underworld, and, being indebted for life itself to the master of the tomb, would, it was naïvely assumed, gratefully labor for him through all eternity.78
+
+The history of the ka-statues, as these substitutes are called, thus bears testimony similar to that of the Osirian myth as to the upward trend of ethical thought and humanitarian feeling in prehistoric Egypt.79
+
+Transition from the continuance to the retribution theory
+Still further evidence of the advance on moral lines in early Egypt is afforded by the character of the belief held by the Egyptians at the beginning of the second millennium b.c. and perhaps earlier respecting the fate of souls in the world beyond the tomb. To understand this we need to cast our glance a little aside and observe how the world of shades, in its social and ethical classifications, has ever been a register of the changing moral feelings of men. As Oscar Peschel finely says, “The other world has ever answered to this as spectrum to the source of light.”
+
+Edward B. Tylor happily names the two chief theories which have been held in regard to the state of souls in the hereafter as the continuance and the retribution theory. The first theory is that of primitive man while his moral sense is yet undeveloped. According to this theory the same fate is allotted to all who go down to death. There is no such thing as rewards and punishments. This is the conception of the after-life which is held by all races on the lower levels of36 culture, and it is a view which often lingers on as a survival among peoples far advanced in civilization. But as the moral judgment becomes more discriminating, then this view of the other world is very certain to undergo a change. The quickened sense of justice demands that the allotments after death shall be in accordance with merit and demerit. This ethical feeling gradually transforms the topography of the underworld and organizes the as yet undivided community of shades. The hitherto common abode of the dead is usually divided into two distinct compartments or regions, heaven and hell, and souls are separated, according to their deeds on earth, into two classes, the good and the bad, those to be welcomed to the abode of the blessed and these consigned to the place of torment. Sometimes, however, the lot conceived for the wicked is simply annihilation.
+
+The incoming of this theory of rewards and punishments after death constitutes a great landmark in the moral evolution of mankind. In the words of Tylor, this transition from the continuance to the retribution theory “for deep import to human life has scarcely its rival in the history of religion.”80 The sanctions of morality are doubled.
+
+Now in ancient Egypt by the beginning of the second millennium b.c. the transition from the continuance to the retribution theory had already been effected, as will appear in the following account of the Egyptian Judgment of the Dead. Thus here, as in the change of practices at the tomb, we have indisputable evidence of the progress of moral ideas in early Egypt.
+
+The Judgment of the Dead
+The Judgment of the Dead was the trial which every soul had to undergo before Osiris and his forty-two assessors in the great tribunal hall of the underworld. The astonishing thing about this tribunal, as we have just intimated, is that at a time when the oldest monuments raised in Egypt were yet recent this whole conception of the moral order in all its details37 was already fully matured.81 Osiris had been raised to the judgment seat in the other world, and the moral standard in some departments of life, particularly in the relations of man to man in the everyday social and business spheres, was as high and true as is the standard in many of the civilized nations of to-day. This admirable code of social morals points unmistakably to long periods of organized society and moral training in prefeudal Egypt.
+
+The Negative Confession
+This early standard of goodness is embodied in the so-called Negative Confession, in which the soul before the Osirian tribunal pleaded his innocence of the forty-two sins condemned by the Egyptian code of morality. This confession, previous to the discovery of the Babylonian code of Hammurabi, constituted the oldest known code of morality of the ancient world. These are some of the declarations of the soul: “I did not steal”; “I did not get any man treacherously killed”; “I did not utter any lie”;82 “I did not make any one weep”; “I did not kill any sacred animals”; “I did not damage any cultivated land”; “I was angry only when there was reason [for being angry]”; “I did not turn a deaf ear to the words of truth”; “I did not commit any act of rebellion”; “I did not do any witchcraft”; “I did not blaspheme a god”; “I did not make the slave to be misused by his master”; “I was not imperious”; “I did not strip the mummies of their stuff.”83
+
+After this confession to the forty-two assessors in the hall of judgment, the soul made the following affirmative declaration, which makes a singularly close approach to Christian38 morality: “I gave bread to the hungry, water to the thirsty, garments to the naked, a bark to the one who was without one [that is, a boat to the detained traveler], offerings to the gods, and funeral conservations to the shades.”84
+
+After this confession and declaration the heart of the man was placed in one scale of a balance and the image of Truth in the other. If the heart was not found wanting, but weighed just equal to the image, Osiris pronounced the soul justified, and it was welcomed to the company of the blessed. The punishment meted out to the soul found lacking seems to have been of a negative nature—a denial of immortality.85
+
+Comparison of the morality of the Negative Confession with that of the Hebrew Decalogue and other codes
+It is instructive to compare this ancient code, both in its contents and in its omissions, with the moral codes of other peoples and other ages. The similarity of the morality of the Negative Confession to that of the Hebrew Decalogue forces itself at once upon the attention.86 The Egyptian code, however, lays less emphasis than the Hebrew upon religious duties. In the forty-two duties named only seven are duties toward the gods, while of the Ten Commandments five concern religious duties. As we have already observed, the duties of the Egyptian code are those due from man to man; that is, they are social as opposed to religious duties.
+
+In striking contrast to the Confucian code of the Chinese, the Egyptian code gives very little place to the duties of children to their parents. These duties are noticed, it is true, by the Egyptian moralists, but no emphasis is laid upon39 them. They are mentioned only once in the Negative Confession before Osiris. As the stress laid by Chinese moralists upon filial piety came about largely through the supposed need of the spirits of the dead for regular offerings at the grave, so it may be that the neglect of this virtue by the Egyptian teachers is to be explained, as Flinders Petrie suggests, by the circumstance that “the provision of offerings in semblance by the Egyptians in the tomb left little place for the urgency of filial duties in maintaining continual supplies for the deceased.”87
+
+Another defect of Egyptian morality is its lack of depth and seriousness. There is no hungering and thirsting after righteousness, no passionate yearning for holiness. There is no call to lofty self-sacrifice. It is a calm, prudent, worldly-wise, practical morality. Its spirit and temper are well set forth by Petrie when, in speaking of its virtues and vices, he says that “these belong far more to the tone of Chesterfield and Gibbon than to that of Kingsley and Carlyle.”88
+
+But in spite of the limitations and defects of the code, it was one of the purest and loftiest framed by the moral consciousness of the races of antiquity. The Negative Confession shows that Egypt had early learned the lesson that blessedness in the hereafter is conditioned on the practice of justice, truth, and righteousness in the present life on earth.89
+
+40
+
+The moral precepts of Ptah-hotep; an ethical conception of kinship
+After the Negative Confession the most valuable memorial of the character of the Egyptian conscience is found in the precepts of the moralist Ptah-hotep,90 who lived probably in the time of the Twelfth Dynasty. This moralist laid particular emphasis upon the duties of rulers and of the rich and great. His maxims are intended as a sort of “Manual of the Perfect Official.” “If, having been of no account, thou hast become great, and if, having been poor, thou hast become rich, and if thou hast become governor of the city, be not hard-hearted on account of thy advancement, because thou hast become merely the guardian of the things which God has provided.”91 In like words emphasis is laid upon the duties of gentleness and considerateness on the part of the administrator and the judge. In truth the doctrine of trusteeship of wealth and of office has never been more zealously taught than in these precepts of the early Egyptian moralist.92
+
+The teachings of Ptah-hotep respecting the duties of rulers would seem to have made effective appeal to the heart and conscience of even the holders of the royal office. In any event we find these lofty conceptions of the duties of kingship incarnated in the lives and deeds of several of the Pharaohs of the Old Kingdom. The view held by these monarchs respecting the nature of the royal office was almost exactly like that entertained by the so-called benevolent despots of the eighteenth century of our era. The inscriptions on the royal41 tomb boast not alone of exploits and triumphs in war, but the prince vaunts himself for having put no ward in mourning, for having made no distinction between the great and the humble, for having been the protector of the widow and the asylum of the orphan, and for having laid no unjust taxes.93
+
+Slavery approved by the Egyptian conscience
+The Egyptian conscience, like the conscience of the ancient world in general, did not condemn the institution of slavery. The relation of master and slave was looked upon by the Egyptians as perfectly natural and legitimate.
+
+The slave class, which included both whites and blacks, was recruited not only from the prisoners of war brought back by the Pharaohs from their numerous foreign conquests, but also from captives secured on regular man-hunting expeditions into the negro regions of the Upper Nile.
+
+The treatment of the slave was usually mild, and the development of the moral feelings had already in early times placed him under the protection of the gods. Thus in the judgment hall of Osiris the soul repudiates the sin of oppression by affirming, “I did not cause the slave to be misused by his master.”94
+
+Respecting the moral side, in general, of the slave system of antiquity, which we encounter now for the first time here among the Egyptians, the following observation may be made. If we except the Hebrews, we shall not find among the peoples of the ancient world whose ethical standards we shall pass in review any fundamental change throughout their history in the common conscience regarding the rightfulness of slavery. Indeed any radical and permanent change in the42 moral feelings of men on this subject was hardly possible till after the incoming of Christianity with its teachings of a common Father-God and the brotherhood of man.
+
+The ethics of war
+One of the most striking phenomena of the moral evolution of mankind is the unequal rate of movement on different lines. Thus while morality has made great progress in some departments of life, in the domain of war it has remained comparatively stationary from the dawn of history down almost to the present day. The war code of the modern nations, notwithstanding improvements and ameliorations to which our attention will be drawn later in our study, is still in large part an unchanged heritage from the ages of primitive savagery.
+
+Bearing this in mind, it will not be a matter of surprise to us that the laws of war of the Egyptians showed little advance the practices of the negro savages of Africa; indeed it seems probable that this part of the moral code of Egypt was actually of African origin.95 There is not a word in Egyptian literature in reprobation of war.96
+
+While in their relations to their own people the Pharaohs observed a comparatively enlightened code of ethics, being in general humane, considerate, and clement, still in their treatment of the vanquished they seem to have been wholly insensible to all humanitarian feelings. Like the Assyrian kings they “immortalized their cruelty in their art.” Numerous scenes upon the monuments celebrate the Pharaoh’s43 inhumanity; not one celebrates his compassion or mercy. He is constantly represented in the act of slaying in heaps with his own hands his bound and suppliant captives.97
+
+Influence of the moral ideal upon Egyptian life and history
+Taken altogether, the moral standard of ancient Egypt, as disclosed in the foregoing brief account of what the Egyptian conscience condemned and what it approved, was not a high one, but it was, in so far as it concerned the everyday life of the people, wholly practical, and probably was as well lived up to by the masses as our higher ideal of character is lived up to by ourselves. We have a right to infer this from the persistence of Egyptian institutions through two thirds of the historic millenniums; for no nation or society can long endure where the relations of man to man and of subject to ruler are not in substantial agreement with the real convictions of the age as to what constitutes essential justice and righteousness.
+
+The moral standard of the Egyptians has been compared to that of the Romans after it had felt the influence of Stoicism and Christianity. Like the Roman ideal of excellence at its best, the Egyptian ideal tended to develop a strong and manly type of character, particularly in the ruling class. We think it not an illusion which causes us to see the influence of the ideal in the face of Rameses the Great. This face bears the stamp of strength, resolution, indomitable energy. We may believe that it was the moral ideal which had something to do in creating such a type of character as we see here, just as it was the primitive Roman ideal which helped to create that admirable type of character which lives in the legends of early Rome.
+
+Further, the moral ideal tended to ameliorate the autocratic government of the Pharaohs by holding constantly before the44 ruler the example of the righteous and beneficent king-gods Ra and Osiris. The influence of the ideal in this relation may be likened to the influence of the moral ideal of Christianity upon the government of the later Cæsars.
+
+Again, the practical moral ideal of Egypt, laying its emphasis upon the fundamental social virtues, helped to establish and maintain relations of justice and equity between man and man, and thus contributed to the general well-being of Egyptian society and to the stability of Egyptian institutions.
+
+Nor was the influence of the moral ideal of Egypt confined to the Egyptian land. For, as Amélineau truly says, the wonderful edifice of morality is the collective work of all peoples and all ages.98 In the uprearing of this edifice Egypt played a great rôle. Her contributions to the morality of the first nations were as helpful, we may believe, as were those she made to the other domains—material, artistic, and intellectual—of the civilization of the early world.
+
+Later she made a rich bequest to European morality, a bequest only less important perhaps than that made by Judea. Her ideas of the future life, her meditations on death and the final judgment, reënforced the teachings of Christianity and thus contributed to create that deep conviction of a life hereafter and a coming retribution which for eighteen hundred years and more has furnished sanction and stimulus to the moral life of Christendom.99 It is not without significance that Christian monasticism, with all its otherworldliness, had its beginnings in Egypt. “The first Christian monk [Pachomius] had been a pagan monk of Serapis.”100
+
+45
+
+CHAPTER IV
+THE BABYLONIAN-ASSYRIAN CONSCIENCE
+The importance of Babylonian-Assyrian morality for the history of comparative morals
+The information which the cuneiform texts have yielded concerning the moral life of the Babylonian and Assyrian peoples, though scanty, is of the greatest value to the student of comparative morals, not only because it casts light upon a moral development in some important respects like the moral evolution of the kindred Semitic people of Israel, but also because that later evolution was probably deeply influenced by it. Therefore, though nothing like a connected account of the moral evolution in the Euphratean lands can be attempted till the thousands of cuneiform tablets recovered from the ancient libraries of the Babylonian-Assyrian cities have been deciphered, and the ethical character and value of their contents determined, we shall devote a few pages to the portrayal of such manifestations of conscience as are disclosed in the religious, literary, historical, and law tablets whose contents are already known to us.
+
+The general nonethical character of the Babylonian-Assyrian religion
+Religion filled a large place in the life of the ancient Babylonians and Assyrians, especially in that of the former; but religion with them had at first little or nothing to do with morality. Like the religion of savage and barbarian folk, it lacked wholly or almost wholly the ethical spirit. Throughout the early period it was in the main simply a system of incantations and magical rites. Scarcely any moral element entered into the system until the later centuries of Babylonian-Assyrian history.
+
+This religion was in truth simply a survival from primitive savage times when religion was merely a belief in the46 existence of evil spirits, and in their disposition and power to do harm to men.101 In this stage of the religious evolution sickness, death, misadventure of every kind are believed to be caused by some malignant demon or by some offended and revengeful god. The evil spirits are supposed to act from pure malignancy, while the great gods are conceived to be angered especially by the nonobservance of some religious rite, by the violation of some taboo forbidding the use of certain kinds of food, or by some other like act.
+
+To ward off the attacks of the evil demons, or to appease the offended gods, recourse was had to the recital of magical formulas and incantations. This was Shamanism in its lowest and crudest form, in which there was at work as a motive on the part of the suppliant only cringing fear or a desire to get rid of some present pain, without the least trace of moral emotions, such as remorse and repentance.
+
+Ethical tendencies in the religion
+But as time passed, this earlier nonethical religion, as is evidenced by the texts recovered from the long-buried temple libraries,102 became in a measure moralized. A moral character was given to the great gods, and they became the inspirers and guardians of a true morality. This ethicalizing process was the same in character as that which went on in the religion of the ancient Hebrews, gradually moralizing the primitive conceptions and cult of Yahweh until among that people religion and morality became wholly at one. The ethical development, however, never went as far as this in Babylonia and Assyria, but the movement was such as to lift these peoples far above the low moral plane of primitive47 society. “In the seventh century before Christ, if not earlier, the Babylonians and Assyrians possessed a system of morality which in many respects resembled that of the descendants of Abraham.”103
+
+Evidence afforded by the penitential psalms of the growth in moral feeling
+The ethical movement found its truest expression in the so-called penitential hymns,104 which are in spirit altogether like the penitential psalms of the Hebrew Scriptures.105 They exhibit the same intense yearning of the penitent soul for reconciliation and union with a god conceived as just and holy and piteous.
+
+In one hymn is found the new moral conception that disease is the work of a good spirit. This is a very lofty ethical idea, and approaches the Hebrew conception of afflictions as the visitation in disguise of love. But this idea seems never to have become a permanent part of the Babylonian moral consciousness.
+
+In these psalms and prayers we have evidence that at times the worshipers of Marduk and Ashur attained to almost as lofty a conception of deity as that reached by the teachers and prophets of Israel. The great gods were conceived as the creators, the sustainers of man; as loving, compassionate,48 merciful, and forgiving. The religious-moral ideal was here verging toward the highest that man has ever been able to form, and could this standard have been steadily upheld and the lower abandoned, then Babylonia and Assyria like Judea might have made precious contributions to the moral life of humanity. But this was not done. The tablets holding magical formulas and incantations, wholly devoid of all ethical character, outnumber a thousand to one those exhaling the spiritual perfume of genuine moral feeling and aspiration.
+
+Ethical significance of the conception of the after life
+Respecting the lot of the dead, the Babylonians held views like those of the early Hebrews. This was the continuance as opposed to the retribution theory.106 Arallu, “the land of no return,” was a vast underground region where were gathered all, without distinction, who went down to the grave. It was a sad, dolorous life that the drowsing shades lived in this dark underworld, where the bats flitted in the twilight and the dust gathered on the lintels of the doors. An undiscriminating fate allotted the same destiny to all. In so far as the moral consciousness of the Babylonians demanded that a distinction be made between the good and the bad, this demand was met by the assumption—which was also that of the Hebrews so long as they held the Babylonian view of the life after death—that the evil man is punished in this life, and the good man rewarded here on earth with numerous flocks, reputation, many children, and long life.
+
+For four thousand years the masses in Babylonia seem to have remained satisfied with this view of the moral government of the world. In the later periods of Babylonian history, however, we find in the literature traces of a protest against this nonethical conception of life in the afterworld—a protest which shows that, in the case of the more spiritually minded at least, the moral consciousness was deepening and the ethical judgment becoming clearer and truer.
+
+49
+
+The ethical spirit of the laws; the code of Hammurabi
+Since the law code of a people embraces all those duties the performance of which the state or public authority attempts to enforce, the ethical spirit of an age or people finds one of its truest embodiments in its laws. It is this fact which renders of such extraordinary interest to the student of the history of morals the recent discovery of the code of the Babylonian king Hammurabi,107 the oldest known code of public and private morality. This law system exhibits in some departments of life an enlightened and advanced morality, yet one with serious limitations and defects, a morality in many respects like that of the Mosaic code of the kindred Semitic nation of Israel.
+
+The code informs us that the Babylonian feeling as to what is right and wrong, just and unjust, in the ordinary business relations of life was much like the average conscience of to-day. In some matters the Babylonian law held ground morally in advance of that held by modern codes, as, for instance, in providing that in case of misfortune the debtor should have both his rent and the interest on his debt remitted.108
+
+But in its provisions touching the family relations the code reveals ethical conceptions very different from our own. As in other Oriental law systems, ancient and modern, polygamy was regarded as a moral institution. A man in debt could bind his wife and children out to service or sell them as slaves, but not for a longer period than three years.
+
+The punishments meted out to offenders were harsh and cruel, yet not much more atrociously cruel than those provided by the English laws of three hundred years ago. Impaling,50 burning, cutting out the tongue, gouging out the eyes, cutting off the fingers, breaking the bones of the hands were common penalties.
+
+Sometimes the punishment was measured by the primitive principle of the Lex talionis; it was eye for eye, bone for bone, tooth for tooth.109 This law of retaliation was carried out so rigorously as to result in the punishment of the innocent for the guilty. Thus if a man caused the death of another man’s daughter, the law required that his own daughter should be put to death.110 If a builder, through the faulty construction of a house, caused the death of the son of the owner through the falling of the house, the son of the builder was to be put to death.111 It is in these provisions of the code that we find the greatest divergence between the Babylonian feeling and our own as to what is right and just. Yet this Babylonian conscience which sanctioned the visiting of the iniquity of the father upon the children is a conscience which we shall meet with in societies much more advanced than that for which the Hammurabi code was formulated.
+
+The Babylonian conscience in regard to slavery as embodied in the code was about like our own conscience respecting negro slavery of a generation or two ago. The slave was viewed as a mere chattel, and the master possessed over him the power of life and death. Kind treatment, however, was enjoined by the law. There was a fugitive-slave law which reads curiously like our negro-slave laws of two generations ago, in which the aiding and harboring of a fugitive slave is made a crime punishable with death.112
+
+51
+
+The slave class was recruited, as in other lands of the ancient world, from prisoners of war, foundlings, debtors, criminals, and through the sale by fathers and husbands of their children and wives. The system seems to have undergone no essential changes or ameliorations, such as we shall see effected in the Hebrew system, by growth in ethical feeling during the four thousand years of Babylonian history. It is true that enfranchisement of slaves was not uncommon, the freed man becoming the dependent of his old master, but it does not appear that moral sentiment afforded the motive for manumission.113
+
+International morality; war ethics
+The international ethics of the Babylonians and Assyrians was in every essential respect the international ethics of their age in the Semitic world. It was the character of the religion of these peoples which determined in large measure international relations in the Mesopotamian lands throughout the period of Semitic ascendancy. “The conception of religion as an alliance between God and man against other peoples and their gods never ceased in Mesopotamia.”114 This conception was essentially the same as that held by the Hebrews down to the time of the great prophets. “Let us go up against them, for our god is greater than their god,” is the war cry of four thousand years of history of the Semitic world.
+
+The Assyrians far surpassed the Babylonians in their ferocious cruelty in the treatment of war captives. Notwithstanding their advanced morality in some departments of life, in this domain they stood, if we except the practice of cannibalism, on practically the same level as savages. Witness the following inscription of Assur-natsir-pal, in which he tells of his treatment of certain prisoners of war: “The nobles, as many as had revolted, I flayed; with their skins I covered52 the pyramid. Some [of these] I immured in the midst of the pyramid; others above the pyramid I impaled on stakes.... Three thousand of their captives I burned with fire. I left not one alive among them to become a hostage.... I cut off the hands [and] feet of some; I cut off the noses, the ears [and] the fingers of others; the eyes of the numerous soldiers I put out. In the middle [of them] I suspended their heads on vine stems in the neighborhood of their city. Their young men [and] their maidens I burned as a holocaust.”115
+
+The significant thing here is not so much the fact that these things were done, as the fact that the king exults in having done them and thinks to immortalize himself by portraying them upon imperishable stone. The careful way in which to-day all reference to atrocities of this character, when in the fury of battle they are inflicted upon a savage enemy, are suppressed by those responsible for them, and the indignant condemnation of them by the public opinion of the civilized world, measures the moral progress humanity has made even along those lines on which progress has been so painfully slow and halting.116
+
+53
+
+CHAPTER V
+CHINESE MORALS: AN IDEAL OF FILIAL PIETY
+I. Ideas, Institutions, and Historical Circumstances determining the Cast of the Moral Ideal
+Introductory
+With the exception of the teachers of the ancient Hebrews, the leaders of thought of no people have so insistently interpreted life and history in terms of ethics as have the sages of the Chinese race. And, excepting the Hebrew teachers, no moralists have so emphasized duties while leaving rights—upon which the Western world in modern times has laid such stress—to take care of themselves.117
+
+It cannot fail to enhance our interest in a study of the ideal upheld by these teachers of morality, if we recall that this ideal of character has for upwards of three thousand years exercised an incalculable influence upon the moral life of probably a fourth of the human race and is the cement of a social structure that has outlasted all others of the ancient world.
+
+The cast of this moral ideal affords a good illustration of the way in which the moral type of a people is molded by religious and philosophical ideas, social institutions, race experiences, and physical environment. Following our usual method of exposition we shall begin our examination of Chinese morality by first casting a glance at some of the agencies which have been especially influential in the creation of the ethical standard.
+
+Confucianism: the state worship of Heaven and the popular worship of ancestors
+There are two religious elements in Confucianism which have special significance for Chinese morality. These are, first, the state worship of Heaven and of the lesser gods of the sky and earth; and second, the popular cult of ancestral spirits.
+
+54
+
+The worship of Heaven, the supreme deity, is a state function; that is, it is a matter which is left entirely to the Emperor and the magistrates. Consequently those duties to God, that is, to a being looked upon as Creator and Father,—duties of reverence, love, and worship, which fill so large a place in the moral ideals of Judaism and Christianity,—find scarcely any place among the duties enjoined upon the multitude by Confucianism.118
+
+The worship of ancestors is the essential and popular element of Confucianism. Commenting on the ethical value of this cult, Dr. Martin affirms that “in respect to moral efficiency, it would appear to be only second to that of faith in the presence of an all-seeing Deity.”119 The constant and reverent dwelling upon the virtues of their ancestors has exalted the virtue of filial piety among the Chinese to the highest place in their ideal of character and has helped to make respect for what is old, for what has been handed down from ancestral ages, a highly prized virtue and a distinguishing trait of the race character.
+
+In an indirect way also ancestor worship has exerted a great influence upon the moral life of the Chinese people, for this worship is necessarily a family cult and must be cared for by the head of the family. This has prevented the growth of a priestly caste in Confucian China. The absence of a powerful national priesthood has been a great boon to Chinese morality. The place thus left vacant has been filled by the literati, or learned class,120 whose influence upon the55 ethical life of the people has, without question, been more beneficent than that of a priestly class would have been.121
+
+Demonism: evil spirits the ministers of retributive justice
+Besides peopling the invisible world with beneficent ancestral spirits, the Chinese have filled heaven and earth with innumerable demons or evil spirits. Even the souls of dead men, if they have been wronged on earth or if their wants since death have been undutifully neglected, may become malignant, revengeful spirits. These demons are believed to be the cause of all kinds of diseases, of blight and famine, and of every misfortune befalling men.122
+
+The thing about this Chinese demonism which is of interest to the student of morals is that, unlike the demonism of Babylonia (p. 46), or that of the Middle Ages in Europe, it contains a distinct ethical element. There was little or nothing ethical in the Babylonian or the medieval belief in the existence of evil spirits because the good man and the bad were indifferently the victims of their malignant activity. But the Chinese have moralized their demonism and conceive these spirits as under the control of Heaven and without power to do harm without Heaven’s commission or consent. They thus represent retributive justice and become the ministers of the Supreme Power to punish evildoers, like Nemesis and the Erinyes of the Greeks. It is this ethical side of the Chinese belief in evil spirits which causes De Groot, in emphasizing the import of this demonism for Chinese morality, to say that “it occupies the rank of moral educator56 of the people, and has fulfilled a great mission to many thousands of millions who have lived and died on Asiatic soil. Demonism, the lowest form of religion, in China a source of ethics and moral education—this certainly may be called a singular phenomenon, perhaps the only one of its kind to be found on this terrestrial globe.” 123
+
+Taoism: nature the exemplar
+Next to Confucianism and demonism, Taoism has been the most important moral force in the life of the Chinese people. Taoism was originally a lofty philosophical ethical system out of which was developed later a religion.124 The philosophy, however, has always remained something quite distinct from the religious system.
+
+The essence of Taoism is the pantheistic doctrine that the universe, or nature, is God. The ethical character of the universe is revealed in its way or method, which is Tao. Now the characteristics of nature as disclosed in its method of operation are constancy—“heaven never diverges from its course”; unselfishness—“the earth nourishes all things”; impartiality—“the earth brings forth its fruits for all alike”; placidity—“heaven is calm, serene, passionless”; humility—the sun which “after shining sets,” the moon which “after fullness, wanes,” the warmth of summer which “when it has finished its work retires,” water which “seeks the lowest place,” all these are symbols of “nature’s humility.”125
+
+What gives these interpretations of the ethical qualities of nature their importance for human morality is that man’s highest duty is to imitate the universe, to behave as nature behaves.126 “Taoism is the exhibition of a way or method of57 living which men should cultivate as the brightest and purest development of their nature.”127 “The true Taoist then is the man who unites in himself [the] virtues or qualities of the universe, including the constant virtues.”128 Man’s way must be nature’s way (Tao). The perfect man must cultivate constancy, unselfishness, impartiality, benevolence, impassibility, serenity, humility, and quietness, for these are the characteristics of the universe.129
+
+This Taoist code is designed especially for rulers.130 He who has assimilated all his virtues to the virtues of nature is qualified to administer government.131 It is in the qualities of character cultivated by the highest-minded ministers and mandarins, and in the state worship and official customs that we are to look for the main ethical influence of the doctrines of Taoism.132
+
+The conception of human nature as good
+“The tendency of man’s nature to good,” says Mencius, “is like the tendency of water to flow downwards.”133 Just as the theological dogma that man’s nature is hereditarily …"

@@ -1,0 +1,11 @@
+{
+    "current_ep_num": 2,
+    "episodes": {
+        "Ep_001_Ep_Title": {
+            "status": "started",
+            "created_at": "2026-05-03 07:59:24.907164",
+            "steps": {},
+            "path": "C:\\SageMirror_Production\\00_Production_Vault\\Ep_001_Ep_Title"
+        }
+    }
+}
