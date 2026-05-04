@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TubeMaster Studio v3.8 - Full Factory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #05070a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --accent-primary: #6366f1;
+            --accent-secondary: #a855f7;
+            --text-gold: #fbbf24;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg-dark); color: #f8fafc; font-family: 'Outfit', 'Noto Sans KR', sans-serif; min-height: 100vh; overflow-x: hidden; }
+        .app-container { display: grid; grid-template-columns: 380px 1fr; height: 100vh; }
+        .sidebar { background: rgba(10, 15, 25, 0.95); border-right: 1px solid var(--glass-border); padding: 25px; backdrop-filter: blur(20px); display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+        .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        .brand-logo { font-size: 24px; }
+        .brand-name { font-size: 18px; font-weight: 800; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .status-badge { font-size: 10px; padding: 4px 10px; border-radius: 20px; background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); width: fit-content; }
+        .input-group label { display: block; font-size: 10px; font-weight: 700; color: #64748b; margin-bottom: 5px; text-transform: uppercase; }
+        .input-field { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border); border-radius: 10px; padding: 10px; color: #fff; font-size: 13px; }
+        .btn { width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; border: none; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: #fff; }
+        .btn-secondary { background: #1e293b; color: #cbd5e1; border: 1px solid var(--glass-border); }
+        .suggestion-box { background: rgba(255,255,255,0.02); border: 1px dashed var(--glass-border); border-radius: 10px; padding: 12px; display: none; }
+        .main-content { padding: 30px; overflow-y: auto; background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent); }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 15px; padding: 20px; }
+        .card h3 { font-size: 14px; color: var(--text-gold); margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
+        .card-content { font-size: 12px; line-height: 1.6; color: #cbd5e1; white-space: pre-wrap; }
+        .full-width { grid-column: span 2; }
+        .copy-btn { float: right; font-size: 10px; padding: 2px 8px; background: rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; color: #94a3b8; }
+        .copy-btn:hover { background: var(--accent-primary); color: #fff; }
+        .loader { display: none; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand"><span class="brand-logo">💎</span><div class="brand-name">TubeMaster Factory</div></div>
+            <div id="modelStatus" class="status-badge">Checking...</div>
+            
+            <div class="input-group"><label>Benchmarking</label><textarea id="urls" class="input-field" style="height: 80px;" placeholder="URL 입력..."></textarea></div>
+            <button id="scoutBtn" onclick="scoutTopics()" class="btn btn-secondary"><span id="scoutText">🔍 주제 추천 10선</span><div id="scoutLoader" class="loader"></div></button>
+            <div id="suggestionBox" class="suggestion-box"><ul id="suggestionList" style="list-style:none; display:flex; flex-direction:column; gap:5px;"></ul></div>
+            
+            <div class="input-group"><label>Selected Topic</label><input type="text" id="topic" class="input-field" placeholder="주제 선택 또는 입력..."></div>
+            <button id="runBtn" onclick="startAnalysis()" class="btn btn-primary"><span id="btnText">전략 분석 및 대본 생성</span><div id="btnLoader" class="loader"></div></button>
+        </aside>
+
+        <main class="main-content">
+            <header style="margin-bottom: 20px;">
+                <h1 style="font-size: 24px; font-weight: 800;">Factory Control Panel</h1>
+                <p style="color: #64748b; font-size: 12px;">현자의 거울 v3.8 - Cinematic Automation</p>
+            </header>
+
+            <div class="grid">
+                <div class="card full-width">
+                    <h3>🎬 Final Script <span class="copy-btn" onclick="copyText('resScript')">Copy</span></h3>
+                    <div id="resScript" class="card-content">대본이 여기에 표시됩니다.</div>
+                </div>
+                <div class="card">
+                    <h3>🖼️ Nano Banana Prompts <span class="copy-btn" onclick="copyText('resPrompts')">Copy</span></h3>
+                    <div id="resPrompts" class="card-content">이미지 생성용 프롬프트 리스트.</div>
+                </div>
+                <div class="card">
+                    <h3>⚙️ CapCut JSON <span class="copy-btn" onclick="downloadJson()" style="background:var(--accent-secondary); color:#fff; margin-left:5px;">Download</span> <span class="copy-btn" onclick="copyText('resJson')">Copy</span></h3>
+                    <div id="resJson" class="card-content">캡컷 주입용 JSON 데이터.</div>
+                </div>
+                <div class="card full-width">
+                    <h3>🏆 Integrated Strategy</h3>
+                    <div id="resMaster" class="card-content">종합 전략 리포트.</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const BASE_URL = "http://127.0.0.1:1234/v1";
+        let activeModel = "";
+
+        window.onload = () => { checkServer(); setInterval(checkServer, 10000); };
+        async function checkServer() {
+            try {
+                const res = await fetch(`${BASE_URL}/models`);
+                const data = await res.json();
+                if (data.data) { activeModel = data.data[0].id; document.getElementById('modelStatus').innerText = `Active: ${activeModel}`; document.getElementById('modelStatus').className = "status-badge"; }
+            } catch (e) { document.getElementById('modelStatus').innerText = "Offline"; document.getElementById('modelStatus').className = "status-badge offline"; }
+        }
+
+        async function scoutTopics() {
+            const urls = document.getElementById('urls').value;
+            if (!urls) return alert("데이터를 입력하세요.");
+            toggleLoading('scoutBtn', 'scoutText', 'scoutLoader', true);
+            try {
+                const res = await fetch(`${BASE_URL}/chat/completions`, {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ model: activeModel, messages: [{role: "user", content: `[${urls}] 기반 4070 유튜브 주제 10개 JSON 리스트로만.`}] })
+                });
+                const data = await res.json();
+                const topics = JSON.parse(data.choices[0].message.content.match(/\[.*\]/s)[0]);
+                const list = document.getElementById('suggestionList'); list.innerHTML = "";
+                topics.forEach(t => {
+                    const li = document.createElement('li'); li.style = "font-size:11px; padding:8px; background:rgba(0,0,0,0.2); border-radius:6px; cursor:pointer;";
+                    li.innerText = t; li.onclick = () => document.getElementById('topic').value = t;
+                    list.appendChild(li);
+                });
+                document.getElementById('suggestionBox').style.display = "block";
+            } catch (e) { alert("추천 실패"); }
+            finally { toggleLoading('scoutBtn', 'scoutText', 'scoutLoader', false); }
+        }
+
+        async function startAnalysis() {
+            const topic = document.getElementById('topic').value;
+            if (!topic) return alert("주제를 입력하세요.");
+            toggleLoading('runBtn', 'btnText', 'btnLoader', true);
+            const prompt = `주제: ${topic}. 다음 형식의 JSON으로만 대답해: { "script": "4단계 서사시 대본", "prompts": "나노바나나용 10개 프롬프트 리스트", "json": "캡컷 draft_content.json 구조의 자막 데이터", "strategy": "종합 전략" }`;
+            try {
+                const res = await fetch(`${BASE_URL}/chat/completions`, {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ model: activeModel, messages: [{role: "user", content: prompt}], temperature: 0.7 })
+                });
+                const data = await res.json();
+                const result = JSON.parse(data.choices[0].message.content.match(/\{.*\}/s)[0]);
+                document.getElementById('resScript').innerText = result.script;
+                document.getElementById('resPrompts').innerText = result.prompts;
+                document.getElementById('resJson').innerText = typeof result.json === 'string' ? result.json : JSON.stringify(result.json, null, 2);
+                document.getElementById('resMaster').innerText = result.strategy;
+            } catch (e) { alert("생성 실패"); }
+            finally { toggleLoading('runBtn', 'btnText', 'btnLoader', false); }
+        }
+
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => alert("복사되었습니다!"));
+        }
+
+        function downloadJson() {
+            const text = document.getElementById('resJson').innerText;
+            const blob = new Blob([text], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'draft_content.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function toggleLoading(btnId, textId, loaderId, isLoading) {
+            document.getElementById(textId).style.display = isLoading ? "none" : "block";
+            document.getElementById(loaderId).style.display = isLoading ? "block" : "none";
+            document.getElementById(btnId).disabled = isLoading;
+        }
+    </script>
+</body>
+</html>
