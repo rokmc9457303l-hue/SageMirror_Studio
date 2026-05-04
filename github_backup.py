@@ -12,10 +12,10 @@ os.chdir(REPO_DIR)
 
 def run_cmd(cmd):
     try:
-        result = subprocess.run(cmd, shell=True, check=True, capture_output=True, text=True)
-        return True, result.stdout
+        result = subprocess.run(cmd, shell=True, check=True, capture_output=True)
+        return True, result.stdout.decode('utf-8', errors='replace')
     except subprocess.CalledProcessError as e:
-        return False, e.stderr
+        return False, e.stderr.decode('utf-8', errors='replace')
 
 # 1. 깃 초기화 확인
 if not os.path.exists(".git"):
