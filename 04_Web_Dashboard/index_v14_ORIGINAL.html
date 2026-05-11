@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | v14.0 MASTER BRIDGE (PORT 5000 ORIGINAL)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- [v14: 5000번 포트 브릿지 및 P-Reinforce 템플릿 연동 원형] -->
+    <div class="nebula-bg">
+        <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+    </div>
+
+    <div class="main-wrapper">
+        <header class="main-header">
+            <div class="status-indicator">
+                <div class="status-node"><span class="node-label">BRIDGE (5000)</span><div id="bridge-dot" class="node-dot"></div></div>
+                <div class="status-node"><span class="node-label">ORACLE AI</span><div id="ollama-dot" class="node-dot online"></div></div>
+            </div>
+            <h1 class="master-logo">현 자 의 거 울</h1>
+            <p class="master-subtitle">ORACLE KNOWLEDGE PRODUCTION CENTER (v14)</p>
+        </header>
+
+        <main class="dashboard-grid">
+            <div class="oracle-card" onclick="openModule('research')"><div class="card-content"><h3>제작기획</h3><p>지식 분석 및 아이템</p></div></div>
+            <div class="oracle-card" onclick="openModule('script')"><div class="card-content"><h3>대본집필</h3><p>서사 구조 설계</p></div></div>
+            <div class="oracle-card" onclick="openModule('image')"><div class="card-content"><h3>이미지생성</h3><p>에셋 시각화</p></div></div>
+            <div class="oracle-card" onclick="openModule('capcut')"><div class="card-content"><h3>최종조립</h3><p>자동 렌더링</p></div></div>
+        </main>
+    </div>
+
+    <div id="workspaceOverlay" class="workspace-overlay full-screen">
+        <div class="workspace-panel mega-panel">
+            <div class="workspace-header">
+                <h2 id="workspace-title">v14 MASTER WORKSPACE</h2>
+                <div class="header-actions">
+                    <button class="save-btn-top" onclick="saveToObsidian()">💾 OBSIDIAN SAVE</button>
+                    <button class="close-btn" onclick="closeWorkspace()">✕ CLOSE</button>
+                </div>
+            </div>
+            <div class="workspace-body scroll-gold">
+                <div class="ws-row url-section">
+                    <div class="ws-col"><label class="ws-label">벤치마킹 타겟 URL</label><input type="text" id="target-url" class="url-input"></div>
+                </div>
+                <div class="ws-row engine-row" style="height: 480px !important;">
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label">1. 분석 데이터</label></div><div id="out-1" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label">2. 지식 융합 초안</label></div><div id="out-2" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label">3. 최종 시나리오</label></div><div id="out-3" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var SERVER_URL = "http://localhost:5000"; // [v14 원형 포트]
+        function openModule(name) { document.getElementById('workspaceOverlay').classList.add('active'); }
+        function closeWorkspace() { document.getElementById('workspaceOverlay').classList.remove('active'); }
+
+        function saveToObsidian() {
+            var content = document.getElementById('out-3').innerText;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", SERVER_URL + "/api/save", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert("성공적으로 옵시디언 헌법에 맞춰 저장되었습니다!");
+                }
+            };
+            xhr.send(JSON.stringify({ content: content, filename: "v14_KNOWLEDGE", topic: "Research" }));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+/* --- SAGE MIRROR PREMIUM MASTER CSS (v19.7) --- */
+:root {
+    --neon-cyan: #00f2ff;
+    --gold-leaf: #ffcc33;
+    --deep-bg: #050608;
+    --panel-bg: rgba(15, 17, 23, 0.98);
+    --glass-border: rgba(0, 242, 255, 0.3);
+}
+
+* { box-sizing: border-box; }
+body {
+    background-color: var(--deep-bg);
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* 웅장한 네뷸라 배경 */
+.nebula-bg { position: fixed; width: 100%; height: 100%; z-index: -1; filter: blur(100px); opacity: 0.4; }
+.blob { position: absolute; border-radius: 50%; }
+.blob-1 { width: 500px; height: 500px; background: #3a7bd5; top: -10%; left: -10%; }
+.blob-2 { width: 400px; height: 400px; background: #00d2ff; bottom: -10%; right: -10%; }
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 30px;
+}
+
+.main-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.master-logo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 15px;
+    background: linear-gradient(to bottom, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.master-subtitle { color: #888; letter-spacing: 5px; font-size: 0.9rem; margin-top: 10px; }
+
+/* 대시보드 그리드 */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    flex: 1;
+}
+
+.oracle-card {
+    background: rgba(20, 22, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.oracle-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 20px 40px rgba(0, 242, 255, 0.2);
+}
+
+.card-content {
+    position: relative;
+    z-index: 2;
+    padding: 40px;
+    text-align: center;
+}
+
+.card-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+.card-title { font-size: 1.4rem; font-weight: 700; color: var(--gold-leaf); margin: 0; }
+.card-desc { color: #888; font-size: 0.9rem; margin-top: 10px; }
+
+/* 워크스페이스 오버레이 */
+.workspace-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9); z-index: 2000;
+    display: none;
+}
+.workspace-overlay.active { display: block; animation: fadeIn 0.4s ease; }
+
+.mega-panel {
+    width: 96%; height: 96%; margin: 1% auto;
+    background: var(--panel-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    display: flex; flex-direction: column;
+}
+
+.workspace-header {
+    padding: 20px 50px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+}
+
+.workspace-body { flex: 1; padding: 25px 50px; overflow-y: auto; }
+
+/* v15 최적화 레이아웃 */
+.ws-row { display: flex; gap: 25px; margin-bottom: 25px; }
+.ws-col { flex: 1; display: flex; flex-direction: column; }
+.ws-label { font-size: 0.85rem; font-weight: 700; color: var(--gold-leaf); margin-bottom: 10px; }
+.rule-box, .protocol-box {
+    height: 160px; background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255, 204, 51, 0.15);
+    border-radius: 12px; color: #bbb; padding: 15px; font-size: 0.95rem; line-height: 1.5;
+}
+
+.url-section { background: rgba(255, 204, 51, 0.03); padding: 15px; border-radius: 15px; }
+.url-input { 
+    width: 100%; background: #000; border: 1px solid rgba(255,255,255,0.1); 
+    color: #fff; padding: 10px; border-radius: 5px; 
+}
+
+/* 웅장한 엔진 하단 창 (480px) */
+.engine-row { height: 480px !important; }
+.engine-output {
+    height: 420px; background: #000;
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    border-radius: 15px; padding: 20px; font-size: 1.05rem; line-height: 1.7;
+    overflow-y: auto;
+}
+
+/* 버튼 스타일 */
+.save-btn-top {
+    background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+    color: #fff; border: none; padding: 12px 35px; border-radius: 10px;
+    font-weight: 800; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
+}
+
+.close-btn { background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; }
+
+/* 상태 표시기 */
+.status-indicator { display: flex; gap: 20px; justify-content: center; margin-bottom: 15px; }
+.status-node { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #666; }
+.node-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; }
+.node-dot.online { background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); }
+
+/* 로그 콘솔 */
+.bottom-info-group { display: flex; gap: 20px; height: 200px; margin-top: 20px; }
+.log-console, .knowledge-panel { flex: 1; background: rgba(0,0,0,0.4); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
+.log-header { font-size: 0.75rem; font-weight: 900; color: #555; margin-bottom: 10px; letter-spacing: 2px; }
+.log-content { height: 130px; overflow-y: auto; font-size: 0.85rem; color: #888; font-family: monospace; }
+
+.scroll-gold::-webkit-scrollbar { width: 6px; }
+.scroll-gold::-webkit-scrollbar-thumb { background: var(--gold-leaf); border-radius: 10px; }
+
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }

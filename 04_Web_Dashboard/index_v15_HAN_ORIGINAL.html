@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | v15.0 ORIGINAL MASTER (한글 파트 복구본)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- [v15: 덮어쓰기 전의 진짜 한글 10모듈 대시보드 원형] -->
+    <div class="nebula-bg">
+        <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+    </div>
+
+    <div class="main-wrapper">
+        <header class="main-header">
+            <div class="status-indicator">
+                <div class="status-node"><span class="node-label">BRIDGE</span><div id="bridge-dot" class="node-dot"></div></div>
+                <div class="status-node"><span class="node-label">ORACLE AI</span><div id="ollama-dot" class="node-dot online"></div></div>
+            </div>
+            <h1 class="master-logo">현 자 의 거 울</h1>
+            <p class="master-subtitle">ORACLE PRODUCTION COMMAND CENTER (v15)</p>
+        </header>
+
+        <main class="dashboard-grid" style="grid-template-columns: repeat(5, 1fr);">
+            <div class="oracle-card" onclick="openModule('research')"><div class="card-content"><span class="card-icon">📊</span><h3 class="card-title">총괄기획파트</h3><p class="card-desc">분석 및 아이템 발굴</p></div></div>
+            <div class="oracle-card" onclick="openModule('thumbnail')"><div class="card-content"><span class="card-icon">🎨</span><h3 class="card-title">섬네일파트</h3><p class="card-desc">비주얼 기획</p></div></div>
+            <div class="oracle-card" onclick="openModule('script')"><div class="card-content"><span class="card-icon">✍️</span><h3 class="card-title">대본파트</h3><p class="card-desc">대본 집필</p></div></div>
+            <div class="oracle-card" onclick="openModule('image')"><div class="card-content"><span class="card-icon">🖼️</span><h3 class="card-title">이미지파트</h3><p class="card-desc">에셋 생성</p></div></div>
+            <div class="oracle-card" onclick="openModule('video')"><div class="card-content"><span class="card-icon">🎞️</span><h3 class="card-title">영상파트</h3><p class="card-desc">영상 편집</p></div></div>
+            <div class="oracle-card" onclick="openModule('voice')"><div class="card-content"><span class="card-icon">🎙️</span><h3 class="card-title">나레이션파트</h3><p class="card-desc">나레이션</p></div></div>
+            <div class="oracle-card" onclick="openModule('bgm')"><div class="card-content"><span class="card-icon">🎵</span><h3 class="card-title">BGM파트</h3><p class="card-desc">사운드 믹싱</p></div></div>
+            <div class="oracle-card" onclick="openModule('capcut')"><div class="card-content"><span class="card-icon">⚙️</span><h3 class="card-title">캡컷파트</h3><p class="card-desc">최종 조립</p></div></div>
+            <div class="oracle-card" onclick="openModule('history')"><div class="card-content"><span class="card-icon">📜</span><h3 class="card-title">역사보관소</h3><p class="card-desc">작업 기록</p></div></div>
+            <div class="oracle-card" onclick="openModule('manual')"><div class="card-content"><span class="card-icon">📘</span><h3 class="card-title">시스템 매뉴얼</h3><p class="card-desc">운영 지침</p></div></div>
+        </main>
+
+        <div class="bottom-info-group">
+            <div class="log-console"><div class="log-header">SYSTEM LOGS</div><div id="log-content" class="log-content"></div></div>
+        </div>
+    </div>
+
+    <!-- v15 한글 워크스페이스 원형 -->
+    <div id="workspaceOverlay" class="workspace-overlay full-screen">
+        <div class="workspace-panel mega-panel">
+            <div class="workspace-header">
+                <h2 id="workspace-title">한글 마스터 워크스페이스</h2>
+                <div class="header-actions">
+                    <button class="save-btn-top" onclick="saveAllWorkspace()">💾 ALL SAVE</button>
+                    <button class="close-btn" onclick="closeWorkspace()">✕ CLOSE</button>
+                </div>
+            </div>
+            <div class="workspace-body scroll-gold">
+                <div class="ws-row url-section">
+                    <div class="ws-col"><label class="ws-label gold-label">벤치마킹 타겟 URL</label>
+                        <div class="url-input-group"><input type="text" class="url-input"><input type="text" class="url-input"><input type="text" class="url-input"></div>
+                    </div>
+                </div>
+                <div class="ws-row engine-row" style="height: 480px !important;">
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label cyan-label">1. 분석 엔진</label></div><div id="out-1" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label gold-label">2. 주제 엔진</label></div><div id="out-2" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label cyan-label">3. 최종 시나리오</label></div><div id="out-3" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var SERVER_URL = "http://127.0.0.1:5050";
+        function openModule(name) { 
+            document.getElementById('workspace-title').innerText = name.toUpperCase() + " 워크스페이스";
+            document.getElementById('workspaceOverlay').classList.add('active'); 
+        }
+        function closeWorkspace() { document.getElementById('workspaceOverlay').classList.remove('active'); }
+        function saveAllWorkspace() { alert("v15 원형 저장 가동"); }
+        window.onload = function() { console.log("v15 원형 로드 완료"); };
+    </script>
+</body>
+</html>

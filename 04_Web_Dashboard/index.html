@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | Universal Master v19.0 (ORIGINAL CLONE)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nebula-bg">
+        <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+    </div>
+
+    <!-- 대형 오라클 대화창 -->
+    <div id="megaChatOverlay" class="mega-chat-overlay">
+        <div class="mega-chat-window">
+            <div class="mega-chat-header">
+                <h2>✨ ORACLE MEGA CHAT</h2>
+                <button class="close-btn" onclick="closeMegaChat()">✕ CLOSE</button>
+            </div>
+            <div id="mega-chat-history" class="mega-chat-history scroll-gold"></div>
+            <div class="mega-chat-footer">
+                <div class="mega-input-group">
+                    <textarea id="mega-chat-input" placeholder="질문을 입력하세요..."></textarea>
+                    <button onclick="sendMegaChatMessage()">전송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-wrapper">
+        <header class="main-header">
+            <div class="status-indicator">
+                <div class="status-node"><span class="node-label">BRIDGE</span><div id="bridge-dot" class="node-dot"></div></div>
+                <div class="status-node"><span class="node-label">ORACLE AI</span><div id="ollama-dot" class="node-dot online"></div></div>
+                <div class="status-node"><span class="node-label">CPU</span><span id="cpu-usage" class="res-val">0%</span></div>
+                <div class="status-node"><span class="node-label">RAM</span><span id="ram-usage" class="res-val">0%</span></div>
+            </div>
+            <h1 class="master-logo">SAGE MIRROR</h1>
+            <p class="master-subtitle">ORACLE PRODUCTION COMMAND CENTER</p>
+        </header>
+
+        <main class="dashboard-grid">
+            <div class="oracle-card" onclick="openModule('research')"><div class="card-content"><span class="card-icon">📊</span><h3 class="card-title">RESEARCH</h3><p class="card-desc">분석 및 아이템 발굴</p></div></div>
+            <div class="oracle-card" onclick="openModule('thumbnail')"><div class="card-content"><span class="card-icon">🎨</span><h3 class="card-title">VISUAL</h3><p class="card-desc">비주얼 기획</p></div></div>
+            <div class="oracle-card" onclick="openModule('script')"><div class="card-content"><span class="card-icon">✍️</span><h3 class="card-title">SCRIPT</h3><p class="card-desc">대본 집필</p></div></div>
+            <div class="oracle-card" onclick="openModule('image')"><div class="card-content"><span class="card-icon">🖼️</span><h3 class="card-title">IMAGE</h3><p class="card-desc">에셋 생성</p></div></div>
+            <div class="oracle-card" onclick="openModule('video')"><div class="card-content"><span class="card-icon">🎞️</span><h3 class="card-title">VIDEO</h3><p class="card-desc">영상 편집</p></div></div>
+            <div class="oracle-card" onclick="openModule('narration')"><div class="card-content"><span class="card-icon">🎙️</span><h3 class="card-title">VOICE</h3><p class="card-desc">나레이션</p></div></div>
+            <div class="oracle-card" onclick="openModule('bgm')"><div class="card-content"><span class="card-icon">🎵</span><h3 class="card-title">SOUND</h3><p class="card-desc">BGM 큐레이션</p></div></div>
+            <div class="oracle-card" onclick="openModule('capcut')"><div class="card-content"><span class="card-icon">⚙️</span><h3 class="card-title">MASTER</h3><p class="card-desc">최종 조립</p></div></div>
+        </main>
+
+        <div class="bottom-info-group">
+            <div class="log-console"><div class="log-header">SYSTEM LOGS</div><div id="log-content" class="log-content"></div></div>
+            <div class="knowledge-panel"><div class="log-header">KNOWLEDGE NODES</div><div id="knowledge-map" class="knowledge-content"></div></div>
+        </div>
+    </div>
+
+    <!-- 유니버설 워크스페이스 -->
+    <div id="workspaceOverlay" class="workspace-overlay full-screen">
+        <div class="workspace-panel mega-panel">
+            <div class="workspace-header">
+                <h2 id="workspace-title">MASTER WORKSPACE</h2>
+                <div class="header-actions">
+                    <button class="save-btn-top" onclick="saveAllWorkspace()">💾 ALL SAVE</button>
+                    <button class="close-btn" onclick="closeWorkspace()">✕ CLOSE</button>
+                </div>
+            </div>
+            <div class="workspace-body scroll-gold">
+                <div class="ws-row">
+                    <div class="ws-col engine-box">
+                        <div class="engine-header"><label class="ws-label">옵시디언 규칙서</label></div>
+                        <textarea id="rule-obsidian" class="rule-box scroll-gold" readonly></textarea>
+                    </div>
+                    <div class="ws-col engine-box">
+                        <div class="engine-header"><label class="ws-label">프롬프트 규정</label></div>
+                        <textarea id="rule-prompt" class="rule-box scroll-gold" readonly></textarea>
+                    </div>
+                </div>
+                <div class="ws-row">
+                    <div class="ws-col engine-box">
+                        <div class="engine-header"><label class="ws-label">젬마 프로토콜</label></div>
+                        <textarea id="protocol-gemma" class="protocol-box scroll-gold" readonly></textarea>
+                    </div>
+                    <div class="ws-col engine-box" onclick="openMegaChat()" style="cursor: pointer;">
+                        <div class="engine-header"><label class="ws-label gold-label">ORACLE CHAT (확대)</label></div>
+                        <div class="chat-mini-view scroll-gold"><div class="chat-bubble ai">준비 완료...</div></div>
+                    </div>
+                </div>
+                <div class="ws-row url-section">
+                    <div class="ws-col"><label class="ws-label gold-label">벤치마킹 타겟 채널 URL (5개)</label>
+                        <div class="url-input-group"><input type="text" class="url-input"><input type="text" class="url-input"><input type="text" class="url-input"><input type="text" class="url-input"><input type="text" class="url-input"></div>
+                    </div>
+                </div>
+                <div class="ws-row engine-row">
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label cyan-label" id="label-1">1. 분석</label></div><div id="out-benchmarking" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label gold-label" id="label-2">2. 주제</label></div><div id="out-topics" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label cyan-label" id="label-3">3. 기획</label></div><div id="out-final" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- v19.0 MASTER ENGINE (ORIGINAL CLONE) ---
+        var SERVER_URL = "http://127.0.0.1:5050";
+        var CURRENT_MODULE = 'research';
+
+        var MODULE_DATA = {
+            research: { title: "RESEARCH MASTER WORKSPACE", engines: ["1. 벤치마킹 분석", "2. 주제 선정 (20선)", "3. 통합 제작 기획서"], filename: "01_RESEARCH" },
+            thumbnail: { title: "VISUAL MASTER WORKSPACE", engines: ["1. 썸네일 컨셉", "2. 레이아웃 설계", "3. 시각적 후킹"], filename: "02_VISUAL" },
+            script: { title: "SCRIPT MASTER WORKSPACE", engines: ["1. 대본 초안", "2. 인트로 후킹", "3. 최종 다듬기"], filename: "03_SCRIPT" },
+            image: { title: "IMAGE MASTER WORKSPACE", engines: ["1. 프롬프트 설계", "2. AI 생성 요청", "3. 에셋 최종 선정"], filename: "04_IMAGE" },
+            video: { title: "VIDEO MASTER WORKSPACE", engines: ["1. 컷 편집", "2. FX 배치", "3. 최종 검수"], filename: "05_VIDEO" },
+            narration: { title: "VOICE MASTER WORKSPACE", engines: ["1. 톤 설정", "2. 음성 합성", "3. 싱크 조절"], filename: "06_VOICE" },
+            bgm: { title: "SOUND MASTER WORKSPACE", engines: ["1. BGM 선곡", "2. 효과음 배치", "3. 사운드 믹싱"], filename: "07_SOUND" },
+            capcut: { title: "MASTER ASSEMBLY", engines: ["1. 프로젝트 조립", "2. 메타데이터", "3. 렌더링"], filename: "08_MASTER" }
+        };
+
+        var RULES = {
+            obsidian: "# [[Title]]\n\n## 📌 Summary\n## 📖 Content\n## 🔗 Connections",
+            prompt: "### 🏛️ [절대 규정] 젬마: 키워드 분석가 활용 지침\n1. 핵심 키워드 5개 [[키워드]] 추출\n2. 분야별(철학/심리/성경) 분류",
+            gemma: "[🏛️ 젬마 절대 지령]\n1. 핵심 키워드 [[ ]]형식 추출\n2. 상위 개념 제시 및 #태그 생성"
+        };
+
+        function addLog(msg) {
+            var log = document.getElementById('log-content');
+            if (log) {
+                var time = new Date().toLocaleTimeString();
+                log.innerHTML += '<div>[' + time + '] ' + msg + '</div>';
+                log.scrollTop = log.scrollHeight;
+            }
+        }
+
+        function openModule(name) {
+            var data = MODULE_DATA[name];
+            if (!data) return;
+            CURRENT_MODULE = name;
+            document.getElementById('workspace-title').innerText = data.title;
+            document.getElementById('label-1').innerText = data.engines[0];
+            document.getElementById('label-2').innerText = data.engines[1];
+            document.getElementById('label-3').innerText = data.engines[2];
+            document.getElementById('rule-obsidian').value = RULES.obsidian;
+            document.getElementById('rule-prompt').value = RULES.prompt;
+            document.getElementById('protocol-gemma').value = RULES.gemma;
+            document.getElementById('workspaceOverlay').classList.add('active');
+            addLog("✨ " + data.title + " 준비 완료.");
+        }
+
+        function closeWorkspace() { document.getElementById('workspaceOverlay').classList.remove('active'); }
+        function openMegaChat() { document.getElementById('megaChatOverlay').classList.add('active'); }
+        function closeMegaChat() { document.getElementById('megaChatOverlay').classList.remove('active'); }
+
+        function saveAllWorkspace() {
+            var content = document.getElementById('rule-obsidian').value + "\n\n" + document.getElementById('out-final').innerText;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", SERVER_URL + "/api/save", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    addLog("✅ " + CURRENT_MODULE.toUpperCase() + " 보관 성공 (Vault)");
+                    alert("C:\\SageMirror_Vault에 쌍둥이 문서로 보관되었습니다!");
+                }
+            };
+            xhr.send(JSON.stringify({ content: content, filename: MODULE_DATA[CURRENT_MODULE].filename, topic: CURRENT_MODULE }));
+        }
+
+        window.onload = function() {
+            addLog("🚀 SAGE MIRROR v19.0 (ORIGINAL) 가동.");
+            setInterval(function() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", SERVER_URL + "/api/stats", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var res = JSON.parse(xhr.responseText);
+                        document.getElementById('cpu-usage').innerText = res.cpu + "%";
+                        document.getElementById('ram-usage').innerText = res.ram + "%";
+                        document.getElementById('bridge-dot').className = "node-dot online";
+                    }
+                };
+                xhr.send();
+            }, 3000);
+        };
+    </script>
+</body>
+</html>

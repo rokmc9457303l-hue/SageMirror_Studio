@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SAGE MIRROR | v01 ORIGINAL (The Integrity State)</title>
+    <style>
+        :root { --bg: #0A0A0C; --accent: #FFD700; --sub-accent: #00F2FF; --text: #E0E0E0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Malgun Gothic', sans-serif; padding: 30px; }
+        .master-header { text-align: center; border-bottom: 2px solid var(--accent); padding-bottom: 20px; margin-bottom: 30px; }
+        .grid-10 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
+        .card { background: #1A1A1F; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; border: 1px solid #333; }
+        .card:hover { border-color: var(--accent); background: #25252B; }
+        .workspace { margin-top: 30px; background: #121217; padding: 30px; border-radius: 20px; border: 1px solid #444; }
+        .ws-row { display: flex; gap: 20px; margin-top: 20px; }
+        .ws-col { flex: 1; }
+        .ws-label { color: var(--accent); font-weight: bold; margin-bottom: 10px; display: block; }
+        .engine-box { width: 100%; height: 400px; background: #000; color: #fff; border: 1px solid #555; padding: 15px; border-radius: 8px; overflow-y: auto; font-size: 14px; line-height: 1.6; }
+        .save-btn { background: var(--accent); color: #000; border: none; padding: 15px 40px; border-radius: 10px; font-weight: bold; cursor: pointer; float: right; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="master-header">
+        <h1 style="color: var(--accent); letter-spacing: 10px; margin: 0;">현 자 의 거 울</h1>
+        <p style="color: var(--sub-accent);">INITIAL INTEGRITY STATE (PORT 5000)</p>
+    </div>
+
+    <div class="grid-10">
+        <div class="card" onclick="alert('v01 기획 가동')"><h3>총괄기획</h3></div>
+        <div class="card"><h3>섬네일</h3></div>
+        <div class="card"><h3>대본집필</h3></div>
+        <div class="card"><h3>이미지생성</h3></div>
+        <div class="card"><h3>영상편집</h3></div>
+        <div class="card"><h3>나레이션</h3></div>
+        <div class="card"><h3>BGM믹싱</h3></div>
+        <div class="card"><h3>최종조립</h3></div>
+        <div class="card"><h3>역사보관</h3></div>
+        <div class="card"><h3>매뉴얼</h3></div>
+    </div>
+
+    <div class="workspace">
+        <h2 style="color: var(--accent);">v01 KNOWLEDGE ENGINE</h2>
+        <div class="ws-row">
+            <div class="ws-col"><label class="ws-label">1. 분석 데이터</label><div id="out-1" contenteditable="true" class="engine-box">지식 분석 중...</div></div>
+            <div class="ws-col"><label class="ws-label">2. 지식 융합</label><div id="out-2" contenteditable="true" class="engine-box">성경 및 철학 융합 중...</div></div>
+            <div class="ws-col"><label class="ws-label">3. 최종 시나리오</label><div id="out-3" contenteditable="true" class="engine-box">옵시디언 헌법에 따른 결과...</div></div>
+        </div>
+        <button class="save-btn" onclick="saveToObsidian()">💾 헌법에 따라 저장</button>
+    </div>
+
+    <script>
+        var SERVER_URL = "http://localhost:5000";
+        function saveToObsidian() {
+            var content = document.getElementById('out-3').innerText;
+            fetch(SERVER_URL + "/api/save", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: content, filename: "v01_MASTER", topic: "Integrity" })
+            }).then(r => r.json()).then(d => {
+                if(d.status === "success") alert("v01 무결성 템플릿으로 저장 완료!");
+            });
+        }
+    </script>
+</body>
+</html>

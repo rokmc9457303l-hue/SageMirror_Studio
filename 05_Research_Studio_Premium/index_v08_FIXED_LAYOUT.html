@@ -1,0 +1,156 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v08 - 철갑 레이아웃 완성형] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | FIXED LAYOUT v08</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* [v08 레이아웃 고정 시스템] */
+        .main-container { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        
+        .bottom-layout-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr; /* 좌측 벤치마킹을 조금 더 넓게 */
+            gap: 20px;
+            align-items: start;
+        }
+
+        .scroll-panel {
+            max-height: 400px; /* 고정 높이 부여로 무너짐 방지 */
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .scroll-panel::-webkit-scrollbar { width: 5px; }
+        .scroll-panel::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 10px; }
+
+        .bench-item-v08 {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .url-field {
+            width: 100%; background: #000; border: 1px solid #333;
+            color: var(--cyan-accent); font-size: 0.7rem; padding: 5px; margin-top: 5px;
+        }
+
+        .save-box {
+            background: linear-gradient(145deg, rgba(212,175,55,0.05), rgba(0,0,0,0.5));
+            border: 1px solid var(--gold-dim);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="nebula-bg"><div class="blob"></div></div>
+
+    <header class="module-header">
+        <div class="header-left"><h1>SAGE MIRROR | FIXED LAYOUT v08</h1></div>
+        <div class="header-right"><button class="global-rule-btn">GLOBAL RULE ▲</button></div>
+    </header>
+
+    <div class="main-container">
+        <!-- 상단: 지식 구조화 및 소스 라이브러리 -->
+        <section class="top-grid">
+            <div class="card-panel">
+                <div class="panel-title"><span>NOTE TEMPLATE · OBSIDIAN STRUCTURE</span></div>
+                <div id="oracle-output" class="note-template-view" style="font-family:'Fira Code', monospace; height:300px; overflow-y:auto;">
+                    <div style="color:var(--gold-bright);"># [[<span id="out-title">리서치 통찰</span>]]</div><br>
+                    <div><span class="hl-tag">## 📌 Brief Summary</span></div><div id="out-summary" class="hl-comment">분석 대기 중...</div><br>
+                    <div><span class="hl-tag">## 📖 Core Content</span></div><div id="out-content" class="hl-comment" style="color:#eee; font-style:normal;">(젬마 분석 영역)</div><br>
+                    <div><span class="hl-tag">## 🔗 Knowledge Connections</span></div>
+                    <div style="font-size:0.8rem; color:#888;">- Related Topics: [[..]]<br>- Projects: [[..]]</div><br>
+                    <div style="font-size:0.7rem; color:#444;">*Last updated: <span id="out-date">...</span>*</div>
+                </div>
+            </div>
+
+            <div class="card-panel">
+                <div class="panel-title"><span>SOURCE LIBRARY</span></div>
+                <div class="library-grid">
+                    <div class="lib-card active" data-source="성경"><span class="lib-icon">✝</span><span class="lib-name">성경</span></div>
+                    <div class="lib-card active" data-source="쇼펜하우어"><span class="lib-icon">⚖</span><span class="lib-name">쇼펜하우어</span></div>
+                    <div class="lib-card" data-source="빅터 프랭클"><span class="lib-icon">🕯</span><span class="lib-name">빅터 프랭클</span></div>
+                    <div class="lib-card" data-source="칼 융"><span class="lib-icon">💠</span><span class="lib-name">칼 융</span></div>
+                </div>
+                <button onclick="runGemmaAnalysis()" class="global-rule-btn" style="margin-top:20px; width:100%; padding:15px; background:var(--gold-main); color:black; font-weight:bold;">✨ 오라클 분석 및 소환 가동</button>
+            </div>
+        </section>
+
+        <div class="center-banner"><span class="banner-text">SAGE MIRROR · STABLE PRODUCTION</span></div>
+
+        <!-- 하단: 3단 철갑 그리드 레이아웃 -->
+        <section class="bottom-layout-grid">
+            <!-- 좌: 벤치마킹 5채널 -->
+            <div class="card-panel">
+                <div class="panel-title"><span>I. BENCHMARKING (5 CH)</span></div>
+                <div class="scroll-panel">
+                    <div class="bench-item-v08"><span style="color:var(--gold-main);">01</span> 체인지그라운드 <input type="text" class="url-field" value="https://youtube.com/@changeground"></div>
+                    <div class="bench-item-v08"><span style="color:var(--gold-main);">02</span> 김미경TV <input type="text" class="url-field" placeholder="URL 입력"></div>
+                    <div class="bench-item-v08"><span style="color:var(--gold-main);">03</span> 책갈피 <input type="text" class="url-field" placeholder="URL 입력"></div>
+                    <div class="bench-item-v08"><span style="color:var(--gold-main);">04</span> 심리탐구A <input type="text" class="url-field" placeholder="URL 입력"></div>
+                    <div class="bench-item-v08"><span style="color:var(--gold-main);">05</span> 철학연구B <input type="text" class="url-field" placeholder="URL 입력"></div>
+                </div>
+            </div>
+
+            <!-- 중: 지식 아카이브 -->
+            <div class="save-box">
+                <div class="panel-title"><span>II. ARCHIVE</span></div>
+                <p style="font-size:0.7rem; color:#888; margin-bottom:20px;">분석 결과를 보관소로 전송</p>
+                <button onclick="saveToObsidian()" class="save-btn" style="padding:20px; font-size:1rem;">💾 VAULT PUSH</button>
+                <div id="save-status" style="margin-top:15px; font-size:0.8rem; color:var(--cyan-accent);"></div>
+            </div>
+
+            <!-- 우: 총괄 기획 -->
+            <div class="card-panel">
+                <div class="panel-title"><span>III. DIRECTOR</span></div>
+                <div class="plan-item"><div class="plan-label">🎙 나레이터</div><div class="plan-value">준(俊) · 60대</div></div>
+                <div class="plan-item"><div class="plan-label">🕯 아바타</div><div class="plan-value">몽환적 실루엣</div></div>
+                <div class="plan-item"><div class="plan-label">🏷 태그</div><div class="plan-value">#Cinematic #Gold</div></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        var SERVER_URL = "http://127.0.0.1:5000";
+        document.getElementById('out-date').innerText = new Date().toLocaleDateString();
+
+        async function runGemmaAnalysis() {
+            document.getElementById('out-content').innerText = "분석 및 지식 소환 중...";
+            try {
+                const response = await fetch(SERVER_URL + '/api/generate', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: "주제 분석", model: 'gemma4:e4b' })
+                });
+                const data = await response.json();
+                document.getElementById('out-content').innerText = data.response;
+            } catch (err) { document.getElementById('out-content').innerText = "오류 발생"; }
+        }
+
+        async function saveToObsidian() {
+            const content = document.getElementById('oracle-output').innerText;
+            const status = document.getElementById('save-status');
+            status.innerText = "전송 중...";
+            try {
+                const response = await fetch(SERVER_URL + '/api/save', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: content })
+                });
+                const data = await response.json();
+                if(data.status === "success") { status.innerText = "✔ 보관소 저장 완료!"; }
+            } catch (err) { status.innerText = "저장 실패"; }
+        }
+
+        document.querySelectorAll('.lib-card').forEach(card => {
+            card.onclick = function() { this.classList.toggle('active'); };
+        });
+    </script>
+</body>
+</html>

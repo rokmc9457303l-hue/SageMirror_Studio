@@ -1,0 +1,63 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v13 - v05 원형 순수 복사본] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | ULTIMATE STUDIO V13</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nebula-bg"><div class="blob"></div></div>
+
+    <header class="module-header">
+        <div class="header-left"><h1>SAGE MIRROR | ULTIMATE STUDIO V13</h1></div>
+        <div class="header-right"><button class="global-rule-btn">GLOBAL RULE ▲</button></div>
+    </header>
+
+    <div class="main-container">
+        <section class="top-grid">
+            <div class="card-panel">
+                <div class="panel-title"><span>OBSIDIAN SOURCE LIBRARY</span></div>
+                <div class="library-grid">
+                    <div class="lib-card active" data-source="성경"><span class="check-mark">✔</span><span class="lib-icon">✝</span><span class="lib-name">성경</span></div>
+                    <div class="lib-card active" data-source="쇼펜하우어"><span class="check-mark">✔</span><span class="lib-icon">⚖</span><span class="lib-name">쇼펜하우어</span></div>
+                    <div class="lib-card" data-source="빅터 프랭클"><span class="check-mark">✔</span><span class="lib-icon">🕯</span><span class="lib-name">빅터 프랭클</span></div>
+                    <div class="lib-card" data-source="칼 융"><span class="check-mark">✔</span><span class="lib-icon">💠</span><span class="lib-name">칼 융</span></div>
+                </div>
+                <button onclick="runGemmaAnalysis()" class="global-rule-btn" style="margin-top:20px; width:100%; padding:15px; background:var(--gold-main); color:black; font-weight:bold;">✨ 오라클 분석 가동</button>
+            </div>
+
+            <div class="card-panel">
+                <div class="panel-title"><span>SYSTEM STATUS</span></div>
+                <div class="plan-item"><div class="plan-label">📡 BRIDGE</div><div class="plan-value" style="color:var(--cyan-accent);">CONNECTED</div></div>
+                <div class="plan-item"><div class="plan-label">🤖 AI</div><div class="plan-value">gemma4:e4b</div></div>
+            </div>
+        </section>
+
+        <div class="center-banner"><span class="banner-text">SAGE MIRROR · RESEARCH STUDIO</span></div>
+
+        <section class="bottom-grid">
+            <div class="bench-list">
+                <div class="panel-title"><span>I. BENCHMARKING</span></div>
+                <div class="bench-item active">
+                    <div class="bench-avatar">🧠</div>
+                    <div class="bench-info"><span class="name">체인지그라운드</span><span class="handle">성장/심리 마스터</span></div>
+                </div>
+            </div>
+            <div class="director-panel">
+                <div class="panel-title"><span>II. DIRECTOR'S DECK</span></div>
+                <div class="result-area" id="oracle-output">오라클 분석 결과가 이곳에 출력됩니다...</div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function runGemmaAnalysis() { alert("v05 마스터 분석 엔진 가동"); }
+        document.querySelectorAll('.lib-card').forEach(card => {
+            card.onclick = function() { this.classList.toggle('active'); };
+        });
+    </script>
+</body>
+</html>

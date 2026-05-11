@@ -1,0 +1,103 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v09 - v06 원상복구 버전] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | BACK TO STABLE v09</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .chat-open-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            padding: 15px 30px; background: var(--gold-main); color: black;
+            border-radius: 50px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="nebula-bg"><div class="blob"></div></div>
+
+    <header class="module-header">
+        <div class="header-left"><h1>SAGE MIRROR | BACK TO STABLE v09</h1></div>
+        <div class="header-right"><button class="global-rule-btn">GLOBAL RULE ▲</button></div>
+    </header>
+
+    <section class="top-grid">
+        <div class="card-panel">
+            <div class="panel-title"><span>NOTE TEMPLATE · 젬마 실시간 오라클</span></div>
+            <div id="oracle-output" class="note-template-view">
+                <div><span class="hl-tag"># [[현자의 거울: 리서치 통찰]]</span></div>
+                <br>
+                <div><span class="hl-tag">## 📌 Brief Summary</span></div>
+                <div id="brief-summary" class="hl-comment">분석 대기 중...</div>
+                <br>
+                <div><span class="hl-tag">## 📖 Core Content</span></div>
+                <div id="core-content" class="hl-comment" style="color:#eee; font-style:normal;">(v06 원형 엔진 가동 대기)</div>
+            </div>
+        </div>
+
+        <div class="card-panel">
+            <div class="panel-title"><span>OBSIDIAN SOURCE LIBRARY</span></div>
+            <div class="library-grid">
+                <div class="lib-card active" data-source="성경"><span class="check-mark">✔</span><span class="lib-icon">✝</span><span class="lib-name">성경</span></div>
+                <div class="lib-card active" data-source="쇼펜하우어"><span class="check-mark">✔</span><span class="lib-icon">⚖</span><span class="lib-name">쇼펜하우어</span></div>
+                <div class="lib-card" data-source="빅터 프랭클"><span class="check-mark">✔</span><span class="lib-icon">🕯</span><span class="lib-name">빅터 프랭클</span></div>
+                <div class="lib-card" data-source="칼 융"><span class="check-mark">✔</span><span class="lib-icon">💠</span><span class="lib-name">칼 융</span></div>
+            </div>
+            <button onclick="runGemmaAnalysis()" class="global-rule-btn" style="margin-top:20px; width:100%; padding:15px; background:var(--gold-main); color:black; font-weight:bold;">✨ 오라클 분석 가동</button>
+        </div>
+    </section>
+
+    <div class="center-banner"><span class="banner-text">SAGE MIRROR · ORIGINAL STUDIO RESTORED</span></div>
+
+    <section class="bottom-grid">
+        <div class="bench-list">
+            <div class="panel-title"><span>I. BENCHMARKING</span></div>
+            <div class="bench-item active" style="border-left-color: var(--gold-main);">
+                <div class="bench-avatar">🧠</div>
+                <div class="bench-info"><span class="name">체인지그라운드</span><span class="handle">@changeground</span></div>
+            </div>
+            <div class="bench-item">
+                <div class="bench-avatar">💡</div>
+                <div class="bench-info"><span class="name">김미경TV</span><span class="handle">@mikyung_tv</span></div>
+            </div>
+        </div>
+
+        <div style="writing-mode: vertical-rl; text-align: center; color: var(--gold-dim); font-size: 0.6rem;">ORACLE CENTER</div>
+
+        <div class="director-panel">
+            <div class="panel-title"><span>III. 총괄 기획 (DIRECTOR)</span></div>
+            <div class="plan-item"><div class="plan-label">🎙 나레이터</div><div class="plan-value">준(俊) · 60대 철학자</div></div>
+            <div class="plan-item"><div class="plan-label">🕯 거울 아바타</div><div class="plan-value">몽환적·반투명 실루엣</div></div>
+        </div>
+
+        <div class="director-panel">
+            <div class="panel-title"><span>IV. 시스템 상태</span></div>
+            <div class="plan-item"><div class="plan-label">📡 BRIDGE</div><div class="plan-value" style="color:var(--cyan-accent);">ACTIVE</div></div>
+            <div class="plan-item"><div class="plan-label">🤖 AI</div><div class="plan-value">gemma4:e4b</div></div>
+        </div>
+    </section>
+
+    <div class="chat-open-btn" onclick="alert('메가 채팅 열기')">💬 GEMMA MEGA CHAT</div>
+
+    <script>
+        var SERVER_URL = "http://127.0.0.1:5000";
+        async function runGemmaAnalysis() {
+            document.getElementById('core-content').innerText = "분석 중...";
+            try {
+                const response = await fetch(SERVER_URL + '/api/generate', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: "주제 분석", model: 'gemma4:e4b' })
+                });
+                const data = await response.json();
+                document.getElementById('core-content').innerText = data.response;
+            } catch (err) { document.getElementById('core-content').innerText = "오류 발생"; }
+        }
+        document.querySelectorAll('.lib-card').forEach(card => {
+            card.onclick = function() { this.classList.toggle('active'); };
+        });
+    </script>
+</body>
+</html>

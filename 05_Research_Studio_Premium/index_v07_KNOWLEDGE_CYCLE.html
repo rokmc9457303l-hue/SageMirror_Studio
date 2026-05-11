@@ -1,0 +1,133 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v07 - 지식 순환 스튜디오] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | KNOWLEDGE CYCLE v07</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .bench-grid-5 { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .bench-url-input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid #444; color: var(--gold-bright); font-size: 0.7rem; padding: 5px; border-radius: 4px; margin-top: 5px; }
+        .save-btn { background: var(--gold-main); color: black; border: none; padding: 15px; width: 100%; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .save-btn:hover { background: var(--gold-bright); transform: translateY(-3px); }
+        .knowledge-ref { font-size: 0.6rem; color: var(--cyan-accent); margin-top: 5px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="nebula-bg"><div class="blob"></div></div>
+
+    <header class="module-header">
+        <div class="header-left"><h1>SAGE MIRROR | KNOWLEDGE CYCLE v07</h1></div>
+        <div class="header-right"><button class="global-rule-btn">GLOBAL RULE ▲</button></div>
+    </header>
+
+    <section class="top-grid">
+        <!-- [감독님의 옵시디언 지식 구조화 템플릿] -->
+        <div class="card-panel">
+            <div class="panel-title"><span>NOTE TEMPLATE · OBSIDIAN STRUCTURE</span></div>
+            <div id="oracle-output" class="note-template-view" style="font-family:'Fira Code', monospace; line-height:1.5;">
+                <div style="color:var(--gold-bright); font-weight:bold;"># [[<span id="out-title">리서치 인사이트</span>]]</div>
+                <br>
+                <div><span class="hl-tag">## 📌 Brief Summary</span></div>
+                <div id="out-summary" class="hl-comment">분석 대기 중...</div>
+                <br>
+                <div><span class="hl-tag">## 📖 Core Content</span></div>
+                <div id="out-content" class="hl-comment" style="color:#eee; font-style:normal;">(보관소 지식 탐색 및 젬마 분석 대기)</div>
+                <br>
+                <div><span class="hl-tag">## 🔗 Knowledge Connections</span></div>
+                <div id="knowledge-log" class="knowledge-ref">참조된 보관소 문서: 없음</div>
+                <div>- <span style="color:var(--gold-dim);">Related Topics:</span> [[..]]</div>
+                <div>- <span style="color:var(--gold-dim);">Projects/Contexts:</span> [[..]]</div>
+                <div>- <span style="color:var(--gold-dim);">Contradictions/Notes:</span> ...</div>
+                <br>
+                <div style="border-top:1px solid #333; padding-top:10px; font-size:0.8rem; color:#666;">
+                    *Last updated: <span id="out-date">오늘 날짜</span>*
+                </div>
+            </div>
+        </div>
+
+        <div class="card-panel">
+            <div class="panel-title"><span>OBSIDIAN SOURCE LIBRARY</span></div>
+            <div class="library-grid">
+                <div class="lib-card active" data-source="성경"><span class="check-mark">✔</span><span class="lib-icon">✝</span><span class="lib-name">성경</span></div>
+                <div class="lib-card active" data-source="쇼펜하우어"><span class="check-mark">✔</span><span class="lib-icon">⚖</span><span class="lib-name">쇼펜하우어</span></div>
+                <div class="lib-card" data-source="빅터 프랭클"><span class="check-mark">✔</span><span class="lib-icon">🕯</span><span class="lib-name">빅터 프랭클</span></div>
+                <div class="lib-card" data-source="칼 융"><span class="check-mark">✔</span><span class="lib-icon">💠</span><span class="lib-name">칼 융</span></div>
+            </div>
+            <button onclick="runGemmaAnalysis()" class="global-rule-btn" style="margin-top:20px; width:100%; padding:15px; background:var(--gold-main); color:black; font-weight:bold;">✨ 지식 소환 및 분석 가동</button>
+        </div>
+    </section>
+
+    <div class="center-banner"><span class="banner-text">SAGE MIRROR · KNOWLEDGE CYCLE ENABLED</span></div>
+
+    <section class="bottom-grid">
+        <!-- [I. 벤치마킹 5채널] -->
+        <div class="bench-list">
+            <div class="panel-title"><span>I. BENCHMARKING (5 CHANNELS)</span></div>
+            <div class="bench-grid-5">
+                <div class="bench-item active"><div class="bench-info"><span>체인지그라운드</span><input type="text" class="bench-url-input" value="https://youtube.com/@changeground"></div></div>
+                <div class="bench-item"><div class="bench-info"><span>김미경TV</span><input type="text" class="bench-url-input" placeholder="URL 입력"></div></div>
+                <div class="bench-item"><div class="bench-info"><span>책갈피</span><input type="text" class="bench-url-input" placeholder="URL 입력"></div></div>
+                <div class="bench-item"><div class="bench-info"><span>심리채널A</span><input type="text" class="bench-url-input" placeholder="URL 입력"></div></div>
+                <div class="bench-item"><div class="bench-info"><span>철학채널B</span><input type="text" class="bench-url-input" placeholder="URL 입력"></div></div>
+            </div>
+        </div>
+
+        <!-- [II. 저장 파트 - 중앙 배치] -->
+        <div class="card-panel" style="display:flex; flex-direction:column; justify-content:center;">
+            <div class="panel-title"><span>II. KNOWLEDGE ARCHIVE</span></div>
+            <button onclick="saveToObsidian()" class="save-btn">💾 OBSIDIAN 저장 (VAULT PUSH)</button>
+            <div id="save-status" style="margin-top:10px; font-size:0.7rem; text-align:center; color:var(--cyan-accent);"></div>
+        </div>
+
+        <!-- [III. 총괄 기획 - 우측 배치] -->
+        <div class="director-panel">
+            <div class="panel-title"><span>III. 총괄 기획 (DIRECTOR)</span></div>
+            <div class="plan-item"><div class="plan-label">🎙 나레이터</div><div class="plan-value">준(俊) · 60대 철학자</div></div>
+            <div class="plan-item"><div class="plan-label">🕯 거울 아바타</div><div class="plan-value">몽환적·반투명 실루엣</div></div>
+            <div class="plan-item"><div class="plan-label">🏷 연출 태그</div><div class="plan-value">#Cinematic #Antique</div></div>
+        </div>
+    </section>
+
+    <script>
+        var SERVER_URL = "http://127.0.0.1:5000";
+        document.getElementById('out-date').innerText = new Date().toLocaleDateString();
+
+        async function runGemmaAnalysis() {
+            const activeSources = Array.from(document.querySelectorAll('.lib-card.active')).map(c => c.getAttribute('data-source'));
+            document.getElementById('out-content').innerText = "보관소 지식을 소환하며 젬마와 연결 중...";
+            try {
+                const response = await fetch(SERVER_URL + '/api/generate', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: `주제: 분석, 소스: ${activeSources.join(', ')}`, model: 'gemma4:e4b' })
+                });
+                const data = await response.json();
+                document.getElementById('out-content').innerText = data.response;
+                if(data.referenced && data.referenced.length > 0) {
+                    const log = document.getElementById('knowledge-log');
+                    log.innerText = "참조된 보관소 문서: " + data.referenced.join(', ');
+                    log.style.display = "block";
+                }
+            } catch (err) { document.getElementById('out-content').innerText = "오류: " + err.message; }
+        }
+
+        async function saveToObsidian() {
+            const content = document.getElementById('oracle-output').innerText;
+            try {
+                const response = await fetch(SERVER_URL + '/api/save', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: content })
+                });
+                const data = await response.json();
+                if(data.status === "success") { document.getElementById('save-status').innerText = "✔ 보관소 저장 완료 (" + data.filename + ")"; }
+            } catch (err) { document.getElementById('save-status').innerText = "저장 실패"; }
+        }
+
+        document.querySelectorAll('.lib-card').forEach(card => {
+            card.onclick = function() { this.classList.toggle('active'); };
+        });
+    </script>
+</body>
+</html>

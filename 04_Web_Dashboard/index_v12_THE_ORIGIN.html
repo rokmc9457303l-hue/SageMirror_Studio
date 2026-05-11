@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SAGE MIRROR | v12.0 THE ORIGIN (Python GUI Spirit)</title>
+    <style>
+        :root { --bg: #0A0A0C; --panel: #121217; --card: #1E1E26; --accent: #FFD700; --sub-accent: #00F2FF; --text: #E0E0E0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; }
+        .header { text-align: center; padding: 40px 0; }
+        .logo { font-size: 50px; font-weight: bold; color: var(--accent); letter-spacing: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--card); padding: 30px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border: 1px solid var(--accent); }
+        .card h3 { color: var(--accent); margin: 10px 0; }
+        .workspace { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 100; }
+        .ws-content { padding: 40px; display: flex; flex-direction: column; height: 90%; }
+        .ws-row { display: flex; gap: 20px; margin-bottom: 20px; }
+        .ws-box { flex: 1; background: var(--panel); padding: 20px; border-radius: 10px; }
+        .ws-box label { color: var(--accent); font-weight: bold; display: block; margin-bottom: 10px; }
+        .ws-text { width: 100%; height: 150px; background: #000; color: #fff; border: none; padding: 15px; border-radius: 5px; font-family: 'Consolas', monospace; }
+        .engine-output { height: 400px; background: #000; border: 1px solid var(--sub-accent); border-radius: 10px; padding: 20px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">현 자 의 거 울</div>
+        <p style="color: var(--sub-accent);">ORACLE PRODUCTION COMMAND CENTER (v12 ORIGIN)</p>
+    </div>
+
+    <div class="grid">
+        <div class="card" onclick="openWS('총괄기획')"><h3>📊 총괄기획</h3><p>시나리오 마스터</p></div>
+        <div class="card" onclick="openWS('섬네일')"><h3>🎨 섬네일</h3><p>비주얼 기획</p></div>
+        <div class="card" onclick="openWS('대본')"><h3>✍️ 대본</h3><p>서사 완성</p></div>
+        <div class="card" onclick="openWS('이미지')"><h3>🖼️ 이미지</h3><p>에셋 생성</p></div>
+        <div class="card" onclick="openWS('영상')"><h3>🎞️ 영상</h3><p>오팔 프롬프트</p></div>
+        <div class="card" onclick="openWS('나레이션')"><h3>🎙️ 나레이션</h3><p>TTS 렌더링</p></div>
+        <div class="card" onclick="openWS('BGM')"><h3>🎵 BGM</h3><p>사운드 믹싱</p></div>
+        <div class="card" onclick="openWS('캡컷')"><h3>✂️ 캡컷</h3><p>자동 조립</p></div>
+    </div>
+
+    <div id="ws" class="workspace">
+        <div class="ws-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 id="ws-title" style="color: var(--accent);">MASTER WORKSPACE</h2>
+                <button onclick="closeWS()" style="padding: 10px 20px; background: var(--card); color: #fff; border: none; cursor: pointer;">닫기</button>
+            </div>
+            <div class="ws-row">
+                <div class="ws-box"><label>[좌] 옵시디언 헌법</label><textarea class="ws-text" readonly># [[Title]]\n## 📌 서사 단계\n## 📖 지식 소스\n## 🔗 연결 태그</textarea></div>
+                <div class="ws-box"><label>[우] 페르소나 제어</label><textarea class="ws-text" readonly>1. 성경적 기둥\n2. 인칭 통일\n3. 휴먼 터치\n4. 출처 명시</textarea></div>
+            </div>
+            <div class="ws-row" style="flex: 1;">
+                <div class="ws-box"><label>1. 분석 엔진</label><div class="engine-output" contenteditable="true">시장 조사 및 댓글 분석...</div></div>
+                <div class="ws-box"><label>2. 지식 융합</label><div class="engine-output" contenteditable="true">성경 및 철학 융합 초안...</div></div>
+                <div class="ws-box"><label>3. 최종 시나리오</label><div class="engine-output" contenteditable="true">전 부서 공유용 기획서...</div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openWS(name) { document.getElementById('ws-title').innerText = name + " 워크스페이스"; document.getElementById('ws').style.display = 'block'; }
+        function closeWS() { document.getElementById('ws').style.display = 'none'; }
+    </script>
+</body>
+</html>

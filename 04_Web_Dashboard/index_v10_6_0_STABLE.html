@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | The Ultimate Oracle Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050507;
+            --bg-card: rgba(18, 18, 24, 0.6);
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-dim: rgba(212, 175, 55, 0.3);
+            --cyan: #00F2FF;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main-header {
+            text-align: center;
+            padding: 30px 0 20px;
+        }
+
+        .master-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 1.2rem;
+            background: linear-gradient(to bottom, var(--gold-bright), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .master-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 0.5rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            width: 90%;
+        }
+
+        .oracle-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .oracle-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-dim);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 10px 0;
+            letter-spacing: 0.1rem;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .footer-group {
+            position: fixed;
+            bottom: 30px;
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .log-panel {
+            width: 48%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .log-header {
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 0.2rem;
+            margin-bottom: 10px;
+        }
+
+        .log-content {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            height: 60px;
+            overflow-y: auto;
+        }
+
+        .knowledge-panel {
+            width: 48%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .version-tag {
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <h1 class="master-logo">SAGE MIRROR</h1>
+        <p class="master-subtitle">ORACLE PRODUCTION COMMAND CENTER</p>
+    </header>
+
+    <main class="dashboard-grid">
+        <div class="oracle-card" onclick="openModule('research')">
+            <span class="card-icon">📊</span>
+            <h3 class="card-title">RESEARCH</h3>
+            <p class="card-desc">아이템 발굴 및 유튜브 분석</p>
+        </div>
+        <div class="oracle-card" onclick="openModule('visual')">
+            <span class="card-icon">🎨</span>
+            <h3 class="card-title">VISUAL</h3>
+            <p class="card-desc">섬네일 기획 및 아트 디렉팅</p>
+        </div>
+        <div class="oracle-card" onclick="openModule('script')">
+            <span class="card-icon">✍️</span>
+            <h3 class="card-title">SCRIPT</h3>
+            <p class="card-desc">심층 자료조사 및 대본 집필</p>
+        </div>
+        <div class="oracle-card" onclick="openModule('image')">
+            <span class="card-icon">🖼️</span>
+            <h3 class="card-title">IMAGE ASSET</h3>
+            <p class="card-desc">이미지 생성 및 에셋 관리</p>
+        </div>
+        <div class="oracle-card" onclick="openModule('video')">
+            <span class="card-icon">🎞️</span>
+            <h3 class="card-title">VIDEO</h3>
+            <p class="card-desc">영상 편집 및 자막 디자인</p>
+        </div>
+        <div class="oracle-card" onclick="openModule('voice')">
+            <span class="card-icon">🎙️</span>
+            <h3 class="card-title">VOICE</h3>
+            <p class="card-desc">TTS 나레이션 렌더링</p>
+        </div>
+        <div class="oracle-card" onclick="openModule('sound')">
+            <span class="card-icon">🎵</span>
+            <h3 class="card-title">SOUND</h3>
+            <p class="card-desc">BGM 및 효과음 큐레이션</p>
+        </div>
+        <div class="oracle-card" onclick="openModule('master')">
+            <span class="card-icon">⚙️</span>
+            <h3 class="card-title">MASTER</h3>
+            <p class="card-desc">최종 자동 조립 및 수출</p>
+        </div>
+    </main>
+
+    <div class="footer-group">
+        <div class="log-panel">
+            <div class="log-header">SYSTEM LOGS</div>
+            <div id="log-content" class="log-content">
+                <div>[오전 9:37:39] Workspace activated: SCRIPT</div>
+                <div>[오전 9:37:09] Workspace activated: RESEARCH</div>
+                <div>[오전 9:37:07] Sage Mirror Command Center Initialized.</div>
+            </div>
+        </div>
+        <div class="knowledge-panel">
+            <div class="log-header">TODAY'S KNOWLEDGE NODES</div>
+            <div class="log-content">오늘의 지식을 탐색 중입니다...</div>
+        </div>
+    </div>
+
+    <div class="version-tag">STABLE VERSION 10.6.0</div>
+
+    <script>
+        function openModule(name) {
+            console.log("Activating module:", name);
+        }
+    </script>
+</body>
+</html>

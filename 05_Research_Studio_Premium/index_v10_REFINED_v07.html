@@ -1,0 +1,94 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v10 - v07 복사 및 재정비 버전] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | REFINED v07 (v10)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* v07의 기능을 유지하되 레이아웃 충돌을 방지하는 최소한의 보정 */
+        .bottom-grid-v10 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .bench-url { width: 100%; background: #000; border: 1px solid #333; color: var(--gold-bright); font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+    <div class="nebula-bg"><div class="blob"></div></div>
+
+    <header class="module-header">
+        <div class="header-left"><h1>SAGE MIRROR | REFINED v07 (v10)</h1></div>
+        <div class="header-right"><button class="global-rule-btn">GLOBAL RULE ▲</button></div>
+    </header>
+
+    <section class="top-grid">
+        <!-- 감독님의 옵시디언 템플릿 영역 -->
+        <div class="card-panel">
+            <div class="panel-title"><span>NOTE TEMPLATE · OBSIDIAN STRUCTURE</span></div>
+            <div id="oracle-output" class="note-template-view">
+                <div style="color:var(--gold-bright);"># [[리서치 통찰]]</div><br>
+                <div><span class="hl-tag">## 📌 Brief Summary</span></div><div id="out-summary" class="hl-comment">분석 대기 중...</div><br>
+                <div><span class="hl-tag">## 📖 Core Content</span></div><div id="out-content" class="hl-comment">(v07 지능형 엔진 탑재)</div><br>
+                <div><span class="hl-tag">## 🔗 Knowledge Connections</span></div>
+                <div style="font-size:0.8rem; color:#888;">- Related Topics: [[..]]<br>- Projects: [[..]]</div>
+            </div>
+        </div>
+
+        <div class="card-panel">
+            <div class="panel-title"><span>SOURCE LIBRARY</span></div>
+            <div class="library-grid">
+                <div class="lib-card active" data-source="성경">✝ 성경</div>
+                <div class="lib-card active" data-source="쇼펜하우어">⚖ 쇼펜하우어</div>
+            </div>
+            <button onclick="runGemmaAnalysis()" class="global-rule-btn" style="margin-top:20px; width:100%; padding:15px; background:var(--gold-main); color:black;">✨ 지식 순환 분석 가동</button>
+        </div>
+    </section>
+
+    <div class="center-banner"><span class="banner-text">SAGE MIRROR · KNOWLEDGE CYCLE RE-ENABLE</span></div>
+
+    <!-- v07에서 가져온 하단 구성 요소 -->
+    <section class="bottom-grid-v10">
+        <div class="card-panel">
+            <div class="panel-title"><span>I. BENCHMARKING (5 CH)</span></div>
+            <div>체인지그라운드 <input type="text" class="bench-url" value="https://youtube.com/@changeground"></div>
+            <div>김미경TV <input type="text" class="bench-url" placeholder="URL 입력"></div>
+        </div>
+
+        <div class="card-panel" style="text-align:center;">
+            <div class="panel-title"><span>II. ARCHIVE</span></div>
+            <button onclick="saveToObsidian()" class="global-rule-btn" style="width:100%; background:var(--gold-main); color:black;">💾 VAULT PUSH</button>
+        </div>
+
+        <div class="card-panel">
+            <div class="panel-title"><span>III. DIRECTOR</span></div>
+            <div>🎙 나레이터: 준(俊)</div>
+            <div>🕯 아바타: 몽환적 실루엣</div>
+        </div>
+    </section>
+
+    <div class="chat-open-btn" onclick="alert('채팅 가동')">💬 MEGA CHAT</div>
+
+    <script>
+        var SERVER_URL = "http://127.0.0.1:5000";
+        async function runGemmaAnalysis() {
+            document.getElementById('out-content').innerText = "보관소 지식 탐색 및 분석 중...";
+            try {
+                const response = await fetch(SERVER_URL + '/api/generate', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: "지식 순환", model: 'gemma4:e4b' })
+                });
+                const data = await response.json();
+                document.getElementById('out-content').innerText = data.response;
+            } catch (err) { document.getElementById('out-content').innerText = "오류 발생"; }
+        }
+        async function saveToObsidian() {
+            alert("보관소로 전송합니다.");
+        }
+    </script>
+</body>
+</html>

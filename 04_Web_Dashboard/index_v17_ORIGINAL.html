@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | v17.0 GEMMA EDUCATION MASTER (ORIGINAL)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- [v17: 감독님이 극찬하신 지식 지도 전략 원형] -->
+    <div class="nebula-bg">
+        <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+    </div>
+
+    <div class="main-wrapper">
+        <header class="main-header">
+            <h1 class="master-logo">SAGE MIRROR</h1>
+            <p class="master-subtitle">ORACLE KNOWLEDGE MASTER CENTER (v17)</p>
+        </header>
+
+        <main class="dashboard-grid">
+            <div class="oracle-card" onclick="openModule('research')"><div class="card-content"><h3>RESEARCH</h3><p>지식 분석</p></div></div>
+            <div class="oracle-card" onclick="openModule('thumbnail')"><div class="card-content"><h3>VISUAL</h3><p>비주얼 기획</p></div></div>
+            <div class="oracle-card" onclick="openModule('script')"><div class="card-content"><h3>SCRIPT</h3><p>대본 집필</p></div></div>
+            <div class="oracle-card" onclick="openModule('image')"><div class="card-content"><h3>IMAGE</h3><p>에셋 생성</p></div></div>
+        </main>
+    </div>
+
+    <!-- v17 워크스페이스 원형 -->
+    <div id="workspaceOverlay" class="workspace-overlay full-screen">
+        <div class="workspace-panel mega-panel">
+            <div class="workspace-header">
+                <h2 id="workspace-title">v17 KNOWLEDGE WORKSPACE</h2>
+                <button class="close-btn" onclick="closeWorkspace()">✕ CLOSE</button>
+            </div>
+            <div class="workspace-body scroll-gold">
+                <div class="ws-row">
+                    <div class="ws-col engine-box">
+                        <div class="engine-header"><label class="ws-label">옵시디언 템플릿 (v17)</label></div>
+                        <textarea id="rule-obsidian" class="rule-box scroll-gold" readonly></textarea>
+                    </div>
+                    <div class="ws-col engine-box">
+                        <div class="engine-header"><label class="ws-label">젬마 분석가 활용 지침 (A/B 전략)</label></div>
+                        <textarea id="rule-prompt" class="rule-box scroll-gold" readonly></textarea>
+                    </div>
+                </div>
+                <div class="ws-row">
+                    <div class="ws-col engine-box">
+                        <div class="engine-header"><label class="ws-label">젬마 절대 교육 지령</label></div>
+                        <textarea id="protocol-gemma" class="protocol-box scroll-gold" readonly></textarea>
+                    </div>
+                </div>
+                <div class="ws-row engine-row">
+                    <div class="ws-col engine-box"><div id="out-benchmarking" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div id="out-topics" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div id="out-final" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var RULES = {
+            obsidian: "# [[Title]]\n\n## 📌 요약\n## 📖 핵심 내용\n## 🔗 지식 연결\n- 관련 키워드: [[ ]]\n- 상위 개념: [[ ]]",
+            prompt: "### 1. 젬마를 '키워드 분석가'로 활용하는 프롬프트\n젬마에게 자료를 줄 때 반드시 [[키워드]] 형식을 요구하고 '철학', '심리', '성경' 분류를 지시할 것.\n\n### 2. 지식 관리 2대 전략\n방법 A: '키워드 노트' 생성하여 핵심 문장 보관.\n방법 B: [[마스터 키워드]]를 통해 지식의 지도 확장.",
+            gemma: "[🏛️ 젬마 절대 지령]\n1. 핵심 키워드 5개 [[키워드]] 추출\n2. 분야별 분류 및 상위 개념 제시\n3. #태그 생성 필수"
+        };
+
+        function openModule(name) {
+            document.getElementById('rule-obsidian').value = RULES.obsidian;
+            document.getElementById('rule-prompt').value = RULES.prompt;
+            document.getElementById('protocol-gemma').value = RULES.gemma;
+            document.getElementById('workspaceOverlay').classList.add('active');
+        }
+
+        function closeWorkspace() { document.getElementById('workspaceOverlay').classList.remove('active'); }
+    </script>
+</body>
+</html>

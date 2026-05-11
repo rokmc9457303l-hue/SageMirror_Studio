@@ -1,0 +1,123 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v04 - 메가 채팅 & 인터넷 검색] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | MEGA CHAT v04</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_v02_MEGA.css">
+    <style>
+        /* 추가 인터랙션 스타일 */
+        .chat-open-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 30px;
+            background: var(--gold-main);
+            color: black;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+        .chat-open-btn:hover { transform: scale(1.1); background: var(--gold-bright); }
+    </style>
+</head>
+<body>
+    <!-- 배경 및 기본 레이아웃 (v03 로직 계승) -->
+    <div class="nebula-bg"><div class="blob"></div></div>
+    
+    <div style="padding: 20px;">
+        <h1 style="color: var(--gold-main); border-bottom: 1px solid var(--gold-dim); padding-bottom: 10px;">SAGE MIRROR RESEARCH v04</h1>
+        <p>젬마(gemma4:e4b)와 소통할 수 있는 메가 채팅 스테이션이 활성화되었습니다.</p>
+    </div>
+
+    <!-- 메가 채팅 오픈 버튼 -->
+    <div class="chat-open-btn" onclick="toggleChat()">💬 GEMMA MEGA CHAT</div>
+
+    <!-- 메가 채팅 팝업 모달 -->
+    <div id="chat-modal" class="chat-modal">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 1.5rem;">🏛️</span>
+                    <div>
+                        <div style="font-weight: bold; font-size: 1.2rem; color: var(--gold-main);">현자의 오라클: 메가 채팅</div>
+                        <div style="font-size: 0.7rem; color: #888;">MODEL: gemma4:e4b | PORT: 5000</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <label class="search-toggle">
+                        <input type="checkbox" id="search-mode"> 🌐 인터넷 검색 모드 활성화
+                    </label>
+                    <button onclick="toggleChat()" style="background: none; border: 1px solid #444; color: white; cursor: pointer; padding: 5px 10px; border-radius: 5px;">CLOSE [ESC]</button>
+                </div>
+            </div>
+
+            <div id="chat-history" class="chat-history">
+                <div class="message ai-msg">감독님, 어떤 지혜를 찾으러 오셨습니까? 지식 소스와 인터넷을 연결하여 최상의 통찰을 제공하겠습니다.</div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" class="chat-input" placeholder="젬마에게 질문을 입력하세요..." onkeypress="if(event.keyCode==13) sendMessage()">
+                <button onclick="sendMessage()" style="background: var(--gold-main); border: none; padding: 10px 25px; border-radius: 10px; font-weight: bold; cursor: pointer;">전송</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var SERVER_URL = "http://127.0.0.1:5000";
+
+        function toggleChat() {
+            const modal = document.getElementById('chat-modal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const history = document.getElementById('chat-history');
+            const isSearch = document.getElementById('search-mode').checked;
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            // 사용자 메시지 추가
+            history.innerHTML += `<div class="message user-msg">${text}</div>`;
+            input.value = "";
+            history.scrollTop = history.scrollHeight;
+
+            // 로딩 메시지
+            const loadingId = "loading-" + Date.now();
+            history.innerHTML += `<div id="${loadingId}" class="message ai-msg">젬마가 생각 중입니다...</div>`;
+            history.scrollTop = history.scrollHeight;
+
+            try {
+                const endpoint = isSearch ? '/api/search' : '/api/generate';
+                const response = await fetch(SERVER_URL + endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: text, query: text })
+                });
+                const data = await response.json();
+                
+                document.getElementById(loadingId).remove();
+                if (data.status === "success") {
+                    history.innerHTML += `<div class="message ai-msg">${data.response}</div>`;
+                } else {
+                    history.innerHTML += `<div class="message ai-msg" style="color:#ff4d4d;">연결 실패: ${data.message}</div>`;
+                }
+            } catch (err) {
+                document.getElementById(loadingId).remove();
+                history.innerHTML += `<div class="message ai-msg" style="color:#ff4d4d;">오류 발생: ${err.message}</div>`;
+            }
+            history.scrollTop = history.scrollHeight;
+        }
+
+        // ESC 키로 닫기
+        window.onkeydown = (e) => { if(e.keyCode == 27) toggleChat(); };
+    </script>
+</body>
+</html>

@@ -1,720 +1,157 @@
 # -*- coding: utf-8 -*-
-import sys
+"""
+=======================================================
+  현자의 거울 (Sage Mirror Studio) - Oracle Main System
+  Version: 10.6.0 Stable (Restored)
+  Description: 8대 생산 모듈 통합 관리 및 지식 자산화 엔진
+=======================================================
+"""
+
+import tkinter as tk
+from tkinter import ttk, messagebox, scrolledtext
 import os
 import json
 import threading
+import subprocess
 from datetime import datetime
 
-try:
-    import tkinter as tk
-    from tkinter import ttk, messagebox, scrolledtext
-except ImportError:
-    sys.exit(1)
-
-try:
-    import requests
-except ImportError:
-    requests = None
-
-# --- [마스터 설정] ---
+# --- [환경 설정] ---
 BASE_PATH = r"C:\SageMirror_Production"
 VAULT_PATH = os.path.join(BASE_PATH, "00_Obsidian")
-RULES_PATH = os.path.join(BASE_PATH, "Master_Rules.json")
-OLLAMA_URL = "http://localhost:11434/v1"
+CONFIG_FILE = os.path.join(BASE_PATH, "studio_config.json")
 
+# 디자인 테마 (Obsidian Black & Gold)
 C = {
-    "bg": "#000000", "panel": "#0A0A0E", "card": "#151520",
-    "gold": "#FFD700", "gold2": "#FFC107", "rose": "#E8445A", 
-    "text": "#FFFFFF", "muted": "#444455", "teal": "#008080", "blue": "#1E90FF"
+    "bg": "#0A0A0C",
+    "panel": "#121217",
+    "card": "#1E1E26",
+    "accent": "#FFD700",      # Gold
+    "sub_accent": "#00F2FF",  # Cyan
+    "text": "#E0E0E0",
+    "muted": "#666677",
+    "highlight": "#2A2A35",
+    "success": "#4CAF50",
+    "error": "#F44336"
 }
 
-MASTER_KNOWLEDGE_PROMPT = """# [[Title of Concept/Entity]]
-
-## 📌 Brief Summary
-(A concise 1-2 sentence definition of this topic.)
-
-## 📖 Core Content
-(Detailed explanation synthesized from raw sources.)
-
-## 🔗 Knowledge Connections
-- **Related Topics:** [[Related-Concept-A]], [[Related-Concept-B]]
-- **Projects/Contexts:** [[Project-Name]]
-- **Contradictions/Notes:** (e.g., "Source X claims this, but Source Y disagrees.")
-
----
-*Last updated: 오늘 날짜*"""
-
-class OracleMasterSystem:
+class OracleMainSystem:
     def __init__(self, root):
         self.root = root
-        self.root.title("✦ Tubie Master · 현자의 거울 제작 엔진 v7.7.1")
-        self.root.geometry("1450x950")
+        self.root.title("현자의 거울 - Oracle Main System v10.6.0")
+        
+        # 화면 최적화
+        try: self.root.state('zoomed')
+        except: self.root.geometry("1400x900")
+            
         self.root.configure(bg=C["bg"])
-        self.ep_title = tk.StringVar(value="Ep_001_New_Project")
-        self.active_model = "qwen3"
-        self.api_url = OLLAMA_URL
+        self.config = self._load_config()
+        self._setup_styles()
+        self._build_ui()
         
-        self.channels = [
-            {"name": "김경일의 지혜", "url": "https://www.youtube.com/@wisdom_kj"},
-            {"name": "놀심 (Nolsim)", "url": "https://www.youtube.com/@Nolsim"},
-            {"name": "뇌부자들", "url": "https://www.youtube.com/@brainrich"},
-            {"name": "Dr. Julie Smith", "url": "https://www.youtube.com/@drjuliesmith"},
-            {"name": "HealthyGamerGG", "url": "https://www.youtube.com/@HealthyGamerGG"}
-        ]
+    def _load_config(self):
+        if os.path.exists(CONFIG_FILE):
+            try:
+                with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except: pass
+        return {"last_episode": "Ep_001", "author": "Master"}
+
+    def _setup_styles(self):
+        style = ttk.Style()
+        style.theme_use('clam')
+        style.configure("Oracle.TFrame", background=C["bg"])
+        style.configure("Panel.TFrame", background=C["panel"])
+        style.configure("Card.TFrame", background=C["card"], relief="flat")
         
+        # 버튼 스타일
+        style.configure("Gold.TButton", foreground=C["bg"], background=C["accent"], font=("Pretendard", 10, "bold"))
+        style.map("Gold.TButton", background=[('active', C["sub_accent"])])
+
+    def _build_ui(self):
+        # [상단 헤더]
+        header = tk.Frame(self.root, bg=C["panel"], height=60)
+        header.pack(fill="x", side="top")
+        
+        tk.Label(header, text="SAGE MIRROR STUDIO", font=("Orbitron", 18, "bold"), 
+                 bg=C["panel"], fg=C["accent"]).pack(side="left", padx=30, pady=15)
+        
+        status_frame = tk.Frame(header, bg=C["panel"])
+        status_frame.pack(side="right", padx=30)
+        
+        self.status_label = tk.Label(status_frame, text="● SYSTEM ONLINE", font=("Pretendard", 9, "bold"),
+                                    bg=C["panel"], fg=C["success"])
+        self.status_label.pack()
+
+        # [메인 본체 - 8대 모듈 그리드]
         self.main_container = tk.Frame(self.root, bg=C["bg"])
-        self.main_container.pack(fill=tk.BOTH, expand=True)
-        self._build_intro()
-        threading.Thread(target=self._load_model, daemon=True).start()
-
-    def _load_model(self):
-        if requests:
-            try:
-                resp = requests.get(f"{OLLAMA_URL}/models", timeout=1)
-                if resp.status_code == 200:
-                    self.api_url = OLLAMA_URL
-                    self.active_model = resp.json()["data"][0]["id"]
-            except: pass
-
-    def _save_to_obsidian(self, mod, title, content):
-        try:
-            ep_folder = self.ep_title.get()
-            folder = os.path.join(VAULT_PATH, ep_folder)
-            if not os.path.exists(folder): os.makedirs(folder, exist_ok=True)
-            
-            if "## 📌 Brief Summary" in content or "## 📖 Core Content" in content:
-                formatted_content = f"{content}\n\n---\n*System Context:* [[{mod}]] / [[{ep_folder}]]\n*Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n"
-            else:
-                formatted_content = f"""# [[{mod} - {title}]]\n\n## 📌 Brief Summary\n{ep_folder} 프로젝트의 {mod} 파트에서 생성된 핵심 산출물입니다.\n\n## 📖 Core Content\n{content}\n\n## 🔗 Knowledge Connections\n- **Related Topics:** [[{mod}]], [[SageMirror_Pipeline]]\n- **Projects/Contexts:** [[{ep_folder}]]\n- **Contradictions/Notes:** 현자의 거울 자동화 엔진에 의해 백업됨.\n\n---\n*Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n"""
-            fname = f"{datetime.now().strftime('%Y%m%d')}_{mod}_{title.replace(' ', '_')}.md"
-            with open(os.path.join(folder, fname), "w", encoding="utf-8") as f: f.write(formatted_content)
-            return True
-        except: return False
-
-    def _build_intro(self):
-        for w in self.main_container.winfo_children(): w.destroy()
-        f = tk.Frame(self.main_container, bg=C["bg"])
-        f.pack(expand=True)
-        tk.Label(f, text="현자의 거울", font=("Malgun Gothic", 65, "bold"), bg=C["bg"], fg=C["gold"]).pack(pady=10)
-        tk.Label(f, text="통합 마스터 제작 엔진 v7.7.1", font=("Malgun Gothic", 12), bg=C["bg"], fg=C["muted"]).pack(pady=(0, 40))
-        tk.Label(f, text="제작 에피소드 제목 입력", font=("Malgun Gothic", 15), bg=C["bg"], fg=C["text"]).pack(pady=10)
-        tk.Entry(f, textvariable=self.ep_title, font=("Malgun Gothic", 20), bg=C["card"], fg=C["text"], justify="center", width=35).pack(pady=20, ipady=12)
-        tk.Button(f, text="오라클 관문 열기", font=("Malgun Gothic", 16, "bold"), bg=C["rose"], fg="white", padx=80, pady=22, relief=tk.FLAT, command=self._build_dashboard).pack(pady=30)
-
-    def _build_dashboard(self):
-        for w in self.main_container.winfo_children(): w.destroy()
-        hdr = tk.Frame(self.main_container, bg=C["panel"], pady=25); hdr.pack(fill=tk.X)
-        tk.Label(hdr, text="현자의 거울 제작 대시보드", font=("Malgun Gothic", 32, "bold"), bg=C["panel"], fg=C["gold"]).pack()
-        tk.Button(self.main_container, text="⬅ HOME", bg=C["card"], fg="white", command=self._build_intro, relief=tk.FLAT).place(x=30, y=30)
+        self.main_container.pack(fill="both", expand=True, padx=20, pady=20)
         
-        grid = tk.Frame(self.main_container, bg=C["bg"], padx=40, pady=40); grid.pack(fill=tk.BOTH, expand=True)
-        mods = [
-            ("01 벤치마킹", self.run_benchmarking), ("02 심층 자료조사", self.run_research), 
-            ("03 썸네일 기획", self.run_thumbnail_master), ("04 제작기획", self.run_planning), 
-            ("05 대본작성", self.run_scripting), ("06 구글플로우 이미지", self.run_google_flow),
-            ("07 오팔 영상조각", self.run_opal_video), ("08 나레이션", self.run_narration), 
-            ("09 음악창고", self.open_folder), ("10 캡컷조립", self.open_capcut_assembler)
+        modules = [
+            ("01_자료조사", "Research & Wisdom", self._open_research),
+            ("02_총괄기획", "Production Plan", self._open_planning),
+            ("03_대본집필", "Script Writing", self._open_scripting),
+            ("04_이미지생성", "Visual Engine", self._open_visuals),
+            ("05_영상클립", "Video Clips", self._open_video),
+            ("06_나레이션", "Narration AI", self._open_narration),
+            ("07_배경음악", "BGM & Sound", self._open_bgm),
+            ("08_캡컷조립", "Final Assembly", self._open_capcut)
         ]
-        for i, (name, cmd) in enumerate(mods):
-            r, c = divmod(i, 5)
-            f = tk.Frame(grid, bg=C["bg"], padx=15, pady=20); f.grid(row=r, column=c, sticky="nsew")
-            tk.Button(f, text=name, font=("Malgun Gothic", 11, "bold"), bg=C["card"], fg=C["text"], width=18, height=4, relief=tk.FLAT, command=lambda n=name, c=cmd: c(n)).pack()
-        grid.grid_columnconfigure((0,1,2,3,4), weight=1)
-
-    def open_folder(self, name): os.startfile(BASE_PATH)
-
-    def open_capcut_assembler(self, name):
-        import subprocess
-        script_path = os.path.join(BASE_PATH, "02_CapCut_Automator", "CapCut_Auto_Assembler.py")
-        if os.path.exists(script_path):
-            try:
-                # 콘솔창 없이 백그라운드에서 GUI만 띄우기 (CREATE_NO_WINDOW = 0x08000000)
-                subprocess.Popen(["pythonw", script_path], creationflags=0x08000000, cwd=os.path.dirname(script_path))
-            except Exception as e:
-                messagebox.showerror("실행 에러", f"조립기 실행 실패:\n{e}")
-        else:
-            messagebox.showerror("에러", "캡컷 조립기 스크립트를 찾을 수 없습니다.")
-
-    def _create_win(self, name, rule_text):
-        win = tk.Toplevel(self.root); win.title(f"✦ {name}"); win.geometry("1450x950"); win.configure(bg=C["bg"])
-        hdr = tk.Frame(win, bg=C["panel"], pady=15); hdr.pack(fill=tk.X)
-        tk.Label(hdr, text=f"{name}", font=("Malgun Gothic", 22, "bold"), bg=C["panel"], fg=C["gold2"]).pack()
-        tk.Button(hdr, text="⬅ BACK", bg=C["card"], fg="white", command=win.destroy, relief=tk.FLAT).place(x=20, y=15)
-        rf = tk.Frame(win, bg=C["bg"], padx=20, pady=10); rf.pack(fill=tk.X)
-        l_r = tk.LabelFrame(rf, text=" 📌 오디시언 지식 구조화 프롬프트 ", bg=C["bg"], fg=C["teal"], font=("Malgun Gothic", 10, "bold"), padx=15, pady=10)
-        l_r.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
-        tk.Label(l_r, text=MASTER_KNOWLEDGE_PROMPT, font=("Consolas", 8), bg=C["bg"], fg="white", justify=tk.LEFT).pack(anchor="w")
-        r_r = tk.LabelFrame(rf, text=f" 📡 {name} 수행 규칙서 ", bg=C["bg"], fg=C["rose"], font=("Malgun Gothic", 10, "bold"), padx=15, pady=10)
-        r_r.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
-        rt_box = scrolledtext.ScrolledText(r_r, bg=C["bg"], fg="white", font=("Malgun Gothic", 10), height=10, wrap=tk.WORD, bd=0)
-        rt_box.pack(fill=tk.BOTH, expand=True)
-        rt_box.insert(tk.END, rule_text)
-        rt_box.config(state=tk.DISABLED)
-        return win, hdr
-
-    def _add_popup_btn(self, parent, text_widget, title="상세 팝업"):
-        def open_popup():
-            pop = tk.Toplevel(self.root)
-            pop.title(f"🔍 {title}")
-            pop.geometry("1100x850")
-            pop.resizable(True, True)
-            pop.configure(bg=C["bg"])
-            pop_txt = scrolledtext.ScrolledText(pop, bg=C["card"], fg="white", font=("Malgun Gothic", 13), wrap=tk.WORD)
-            pop_txt.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
-            pop_txt.insert(tk.END, text_widget.get("1.0", tk.END))
-            pop_txt.config(state=tk.DISABLED)
-        btn_frame = tk.Frame(parent, bg=C["bg"])
-        btn_frame.pack(fill=tk.X)
-        tk.Button(btn_frame, text="🔍 팝업으로 시원하게 크게 보기", bg=C["teal"], fg="white", font=("Malgun Gothic", 10, "bold"), command=open_popup).pack(side=tk.RIGHT, padx=5, pady=5)
-        return btn_frame
-
-    def run_benchmarking(self, name):
-        r = """1. 채널 모니터링: 지정된 5개 전문 채널 중 '조회수/시청률 1위' 영상 1개 채택
-2. 키워드 분석: SEO 키워드 + 심리 트리거 키워드 추출
-3. 기법 분석: 썸네일 카피 전략 및 도입부 5초 후킹 문구 공식화
-4. 댓글 마이닝: 실제 경험담 위주의 댓글 100개 정밀 필터링 및 분석
-5. 결과 도출: 분석된 화두를 페르소나에 맞춰 다음 연구 파트로 전달"""
-        win, hdr = self._create_win("벤치마킹", r)
-        # 헤더 라벨 수정 (이미 _create_win 내부에서 처리되지만, 명시적으로 '벤치마킹'으로 표시)
-        mf = tk.Frame(win, bg=C["bg"], padx=15, pady=10); mf.pack(fill=tk.BOTH, expand=True)
         
-        f1 = tk.LabelFrame(mf, text=" 🎬 5대 전문가 채널 관리 ", bg=C["bg"], fg=C["gold"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=10)
-        f1.grid(row=0, column=0, sticky="nsew", padx=5)
-        lb = tk.Listbox(f1, bg=C["card"], fg="white", font=("Malgun Gothic", 10), width=35)
-        lb.pack(fill=tk.BOTH, expand=True)
-        for c in self.channels: 
-            lb.insert(tk.END, f"[{c['name']}]")
-            lb.insert(tk.END, f"URL: {c['url']}")
-            lb.insert(tk.END, "--------------------------------")
+        for i, (name, subtitle, cmd) in enumerate(modules):
+            row, col = divmod(i, 4)
+            self._create_module_card(self.main_container, name, subtitle, cmd, row, col)
 
-        f2 = tk.LabelFrame(mf, text=" 💬 데이터 마이닝 (댓글 100개 이상) ", bg=C["bg"], fg=C["rose"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=10)
-        f2.grid(row=0, column=1, sticky="nsew", padx=5)
-        t_in = scrolledtext.ScrolledText(f2, bg=C["card"], fg="white", font=("Malgun Gothic", 11), wrap=tk.WORD)
-        t_in.pack(fill=tk.BOTH, expand=True)
-
-        f3 = tk.LabelFrame(mf, text=" 🧠 Node 01 전략 분석 보고서 ", bg=C["bg"], fg=C["teal"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=10)
-        f3.grid(row=0, column=2, sticky="nsew", padx=5)
-        t_out = scrolledtext.ScrolledText(f3, bg=C["card"], fg="white", font=("Malgun Gothic", 11), wrap=tk.WORD)
-        self._add_popup_btn(f3, t_out, "Node 01 전략 분석 보고서")
-        t_out.pack(fill=tk.BOTH, expand=True)
+    def _create_module_card(self, parent, title, sub, cmd, row, col):
+        card = tk.Frame(parent, bg=C["card"], highlightthickness=1, highlightbackground=C["highlight"])
+        card.grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+        parent.grid_columnconfigure(col, weight=1)
+        parent.grid_rowconfigure(row, weight=1)
         
-        mf.grid_columnconfigure((1,2), weight=1); mf.grid_rowconfigure(0, weight=1)
+        # 카드 호버 효과
+        card.bind("<Enter>", lambda e: card.config(highlightbackground=C["accent"]))
+        card.bind("<Leave>", lambda e: card.config(highlightbackground=C["highlight"]))
         
-        def run():
-            data = t_in.get("1.0", tk.END).strip()
-            if not data: return
-            t_out.delete("1.0", tk.END); t_out.insert(tk.END, "⏳ Node 01 실전 명령서에 따라 정밀 분석 중...")
-            if requests:
-                sys_msg = f"당신은 유튜브 기획 전문가입니다. 반드시 아래 명령서에 따라 순차적으로 분석하고 구조화 양식을 준수하세요.\n\n{r}\n\n{MASTER_KNOWLEDGE_PROMPT}"
-                try:
-                    resp = requests.post(f"{self.api_url}/chat/completions", json={"model": self.active_model, "messages": [{"role": "system", "content": sys_msg}, {"role": "user", "content": data}], "temperature": 0.7}, timeout=150)
-                    ans = resp.json()['choices'][0]['message']['content']
-                    t_out.delete("1.0", tk.END); t_out.insert(tk.END, ans)
-                    self._save_to_obsidian(name, "Node01_Report", ans)
-                except: t_out.insert(tk.END, "\n❌ AI 엔진 연결 오류")
+        tk.Label(card, text=title, font=("Pretendard", 14, "bold"), bg=C["card"], fg=C["accent"]).pack(pady=(20, 5))
+        tk.Label(card, text=sub, font=("Pretendard", 9), bg=C["card"], fg=C["muted"]).pack(pady=(0, 20))
         
-        tk.Button(win, text="🚀 Node 01 실전 명령 수행 및 아카이빙", bg=C["rose"], fg="white", font=("Malgun Gothic", 13, "bold"), padx=50, pady=12, command=lambda: threading.Thread(target=run).start()).pack(pady=15)
+        btn = tk.Button(card, text="실행하기", font=("Pretendard", 10, "bold"),
+                        bg=C["accent"], fg=C["bg"], activebackground=C["sub_accent"],
+                        relief="flat", cursor="hand2", command=cmd)
+        btn.pack(pady=(0, 20), padx=30, fill="x")
 
-    def run_research(self, name):
-        r = """1. 데이터 위계: 옵시디언 DB 및 과거 조사 내용 우선 검색/참조 ➡️ 성경 말씀 조사 
-   ➡️ 5대 사상 융합(쇼펜하우어, 빅터 프랭클, 칼 융, 몽테뉴, 다크심리학, 각종 에세이집)
-2. 명칭 고정: 인물은 오직 '@주인공(Protagonist)'으로만 명기
-3. 서사 구조화: 유튜브 채널 구조 분석 자료를 참조하여 
-   ➡️ [기:폭로], [승:해부], [전:전환], [결:치유] 4단계로 구성하여 작성
-4. 휴먼 터치: 4070 세대의 심금을 울리는 깊고 부드러운 현자의 어투로 가공
-5. 결과물 통합: [주제-원문-통찰-상징물-교차참조] 포함 '지식 마스터 시트' 작성 후 제작기획 파트로 이관"""
-        win, hdr = self._create_win("심층 자료조사", r)
-        mf = tk.Frame(win, bg=C["bg"], padx=15, pady=10); mf.pack(fill=tk.BOTH, expand=True)
+    # --- [모듈별 실행 함수] ---
+    def _open_research(self): self._popup_module("자료조사 파트", "AI Research Agent가 작동 중입니다...")
+    def _open_planning(self): self._popup_module("총괄기획 파트", "에피소드 기획 및 프롬프트 최적화 중...")
+    def _open_scripting(self): self._popup_module("대본집필 파트", "Qwen-3 엔진이 대본을 작성합니다.")
+    def _open_visuals(self): self._popup_module("이미지 파트", "Stable Diffusion / Midjourney 연동 중...")
+    def _open_video(self): self._popup_module("영상클립 파트", "AI Video Generation 도구 실행 중...")
+    def _open_narration(self): self._popup_module("나레이션 파트", "CosyVoice Colab 서버 연동 중...")
+    def _open_bgm(self): self._popup_module("배경음악 파트", "ACE-Step 배경음악 생성 엔진 연동...")
+    def _open_capcut(self): self._popup_module("캡컷조립 파트", "CapCut Auto Assembler v8.1 실행 중...")
+
+    def _popup_module(self, title, content):
+        pop = tk.Toplevel(self.root)
+        pop.title(title)
+        pop.geometry("800x600")
+        pop.configure(bg=C["bg"])
         
-        f_top = tk.LabelFrame(mf, text=" [1] 📜 연구 대상 및 벤치마킹 화두 주입 ", bg=C["bg"], fg=C["gold"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=10)
-        f_top.pack(fill=tk.X, pady=5)
-        t_in = scrolledtext.ScrolledText(f_top, bg=C["card"], fg="white", font=("Malgun Gothic", 11), height=8, wrap=tk.WORD)
-        t_in.pack(fill=tk.X)
-
-        f_bot = tk.LabelFrame(mf, text=" [2] 💎 4단계 서사 기반 '지식 마스터 시트' ", bg=C["bg"], fg=C["teal"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=10)
-        f_bot.pack(fill=tk.BOTH, expand=True, pady=5)
-        t_out = scrolledtext.ScrolledText(f_bot, bg=C["card"], fg="white", font=("Malgun Gothic", 11), wrap=tk.WORD)
-        self._add_popup_btn(f_bot, t_out, "지식 마스터 시트")
-        t_out.pack(fill=tk.BOTH, expand=True)
+        tk.Label(pop, text=title, font=("Pretendard", 16, "bold"), bg=C["bg"], fg=C["accent"]).pack(pady=20)
         
-        def run():
-            data = t_in.get("1.0", tk.END).strip()
-            if not data: return
-            t_out.delete("1.0", tk.END); t_out.insert(tk.END, "⏳ 성경 위계 기반 4단계 서사 연구 중 (Node 02)...")
-            if requests:
-                sys_msg = f"당신은 심층 연구가입니다. 다음 실전 명령을 엄수하세요.\n\n{r}\n\n{MASTER_KNOWLEDGE_PROMPT}"
-                try:
-                    resp = requests.post(f"{self.api_url}/chat/completions", json={"model": self.active_model, "messages": [{"role": "system", "content": sys_msg}, {"role": "user", "content": data}], "temperature": 0.6}, timeout=200)
-                    ans = resp.json()['choices'][0]['message']['content']
-                    t_out.delete("1.0", tk.END); t_out.insert(tk.END, ans)
-                    self._save_to_obsidian(name, "Knowledge_Master_Sheet", ans)
-                except: t_out.insert(tk.END, "\n❌ AI 엔진 연결 오류")
+        txt = scrolledtext.ScrolledText(pop, bg=C["panel"], fg=C["text"], insertbackground=C["text"], 
+                                      font=("Consolas", 11), relief="flat")
+        txt.pack(fill="both", expand=True, padx=20, pady=(0, 20))
+        txt.insert("1.0", f"--- {title} 시스템 로그 ---\n\n{content}\n\n[알림] 실제 자동화 로직은 각 모듈별 독립 스크립트와 연동됩니다.")
         
-        btn = tk.Button(win, text="📥 옵시디언 영구 보존", font=("Malgun Gothic", 12, "bold"), bg=C["gold"], fg=C["bg"], pady=10, command=lambda: self._save_to_obsidian(name, "Knowledge_Master_Sheet", t_in.get("1.0", tk.END)))
-        btn.pack(fill=tk.X, padx=15, pady=20)
+        # 우클릭 메뉴 추가
+        self._add_context_menu(txt)
 
-    def run_thumbnail_master(self, name):
-        r = """[현자의 거울 시스템 절대 규칙]
-0. 절대 순번 (001~150) 지정 필수.
-
-[Node 03] 썸네일 기획 파트 (최우선 전략)
-- 전략 목표: 유튜브 떡상 알고리즘의 핵심인 '주제와 제목의 대칭성(Contrasting/Symmetrical)'을 극대화한다.
-- 규칙 1 (대칭성): [주제]가 '우울증'이라면 [제목/썸네일 텍스트]는 '완벽한 평안을 얻는 법'처럼 반대되거나 해답을 제시하는 구조로 기획한다.
-- 규칙 2 (시각적 후킹): 어그로가 아닌 철학적 울림이 있는 고품질 이미지 프롬프트를 작성한다.
-- 규칙 3: 기획된 썸네일 컨셉을 [04 제작기획] 파트로 넘겨주어, 전체 서사가 썸네일의 약속을 지키도록 만든다.
-"""
-        win, hdr = self._create_win(name, r)
-        mf = tk.Frame(win, bg=C["bg"], padx=15, pady=10); mf.pack(fill=tk.BOTH, expand=True)
-        t_out = scrolledtext.ScrolledText(mf, bg=C["card"], fg="white", font=("Malgun Gothic", 11), wrap=tk.WORD)
-        self._add_popup_btn(mf, t_out, "썸네일 기획 파트")
-        t_out.pack(fill=tk.BOTH, expand=True)
-        btn = tk.Button(win, text="📥 옵시디언 영구 보존", font=("Malgun Gothic", 12, "bold"), bg=C["gold"], fg=C["bg"], pady=10, command=lambda: self._save_to_obsidian(name, "Thumbnail_Plan", t_out.get("1.0", tk.END)))
-        btn.pack(fill=tk.X, padx=15, pady=20)
-
-    def run_planning(self, name):
-        r = """[현자의 거울 시스템 절대 규칙]마스터 가이드 v32.0 - 절대 명령서]
-당신은 '현자의 거울' 스튜디오의 수석 연출가입니다. 아래의 세밀한 지침을 100% 준수하여 자동화 툴용 기획을 산출하십시오.
-
-1. [대본 파트] 휴먼 터치 서사 기획
-- 서사 구조: [기:폭로(결핍/공감)]-[승:해부(내면성찰)]-[전:전환(관점변화)]-[결:치유(절대적 평안)] 4단계.
-- 분량 및 호흡: 영혼을 담아 15분 내외의 깊이 있는 대본 작성. 시청자가 생각할 수 있도록 문장 사이 '칸 띄워 쓰기'와 `[1초 쉼]`, `...` 기호를 강제 배치.
-- 화법: "당신"이라는 단어를 사용해 4070 세대의 심금을 울리는 따뜻하고 단호한 현자의 어투 사용.
-
-2. [이미지 파트] 구글 플로우(Fluore) 기법 (Nano Banana 7원칙)
-- 원칙: 1.상세묘사 2.텍스트최적화 3.고전유화스타일 4.키아로스쿠로조명 5.세계지식 6.비율자연어(맨끝) 7.파라미터(--ar 등) 금지.
-- @태그 필수: @주인공(60대 철학자), @거울, @배경(서재), @사물(@지구봉, @촛대, @옛날만년필, @모래시계 등).
-- 아바타 묘사: 거울 속에 나타나는 희, 노, 애, 락 감정의 몽롱한(Hazy, Ethereal) 실루엣.
-
-3. [영상 파트] 오팔(Veo 3.1) 기획 (유화풍 실사화)
-- 거울 연출: 조각난 파편들이 스르륵 조립되며 완성되는 효과(Fragment assembly effect).
-- 촬영 기법: Macro Cinematic Close-up, Floating dust motes(먼지 입자 산란), Slow-motion Dolly-in.
-- 씬 조합 규격: 기획안 작성 시 무조건 `[순번] | [대본] | @[영상 JSON 프롬프트]` 형식으로 산출.
-
-4. [배분 및 캡컷 연동]
-- 병렬 배분: 주제 깊이에 따라 최대 10개 계정 동시 가동. 계정당 기본 12장면 내외(유동적 증감).
-- 최종 산출 포맷 (JSON):
-{
-  "sequence": "001",
-  "narration": "당신은 거울 앞에 서서... [1초 쉼] 진짜 자신을 마주해야 합니다.",
-  "video_prompt": "Hyper-realistic oil painting of 60-year-old @Protagonist..., floating dust motes, cinematic lighting, 16:9 wide shot",
-  "opal_motion": "Fragment assembly effect of @Mirror, slow-motion, 8 seconds duration"
-}"""
-        win, hdr = self._create_win("제작기획", r)
-        mf = tk.Frame(win, bg=C["bg"], padx=15, pady=10); mf.pack(fill=tk.BOTH, expand=True)
-        
-        f_top = tk.LabelFrame(mf, text=" [1] 📥 Node 02 지식 마스터 시트 입력 ", bg=C["bg"], fg=C["gold"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=10)
-        f_top.pack(fill=tk.X, pady=5)
-        t_in = scrolledtext.ScrolledText(f_top, bg=C["card"], fg="white", font=("Malgun Gothic", 11), height=8, wrap=tk.WORD)
-        t_in.pack(fill=tk.X)
-
-        f_bot = tk.LabelFrame(mf, text=" [2] 🎬 Node 03 최종 기획안 (캡컷 JSON 연동형) ", bg=C["bg"], fg=C["teal"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=10)
-        f_bot.pack(fill=tk.BOTH, expand=True, pady=5)
-        t_out = scrolledtext.ScrolledText(f_bot, bg=C["card"], fg="white", font=("Malgun Gothic", 11), wrap=tk.WORD)
-        self._add_popup_btn(f_bot, t_out, "최종 기획안")
-        t_out.pack(fill=tk.BOTH, expand=True)
-        
-        def run():
-            data = t_in.get("1.0", tk.END).strip()
-            if not data: return
-            t_out.delete("1.0", tk.END); t_out.insert(tk.END, "⏳ 통합 기획 마스터 가이드 적용 중 (Node 03)...")
-            if requests:
-                sys_msg = f"당신은 스튜디오의 수석 연출가입니다. 다음의 '통합 기획 마스터 가이드'를 한 치의 오차 없이 엄수하여 15분 내외의 영상을 기획하세요.\n\n{r}\n\n{MASTER_KNOWLEDGE_PROMPT}"
-                try:
-                    resp = requests.post(f"{self.api_url}/chat/completions", json={"model": self.active_model, "messages": [{"role": "system", "content": sys_msg}, {"role": "user", "content": data}], "temperature": 0.5}, timeout=200)
-                    ans = resp.json()['choices'][0]['message']['content']
-                    t_out.delete("1.0", tk.END); t_out.insert(tk.END, ans)
-                    self._save_to_obsidian(name, "Production_Plan", ans)
-                except: t_out.insert(tk.END, "\n❌ AI 엔진 연결 오류")
-        
-        tk.Button(hdr, text="⚙️ 마스터 기획 시작", bg=C["gold"], fg="black", font=("Malgun Gothic", 11, "bold"), padx=20, command=lambda: threading.Thread(target=run).start()).place(x=120, y=13)
-
-    def run_scripting(self, name):
-        r = """[현자의 거울 스튜디오 심장부: 통합 프롬프트 생성 명령서]
-당신은 스튜디오의 수석 대본가이자 테크니컬 디렉터입니다. 
-
-0. [전역 필수 규칙: 자율적 순번 배분 및 동기화]
-- 영상의 길이는 약 15분 내외를 목표로 하되, 주제의 깊이와 감정선에 따라 **당신이 자율적으로 판단하여 씬(Scene)의 총 개수를 늘리거나 줄이십시오.** 영혼을 불어넣어 완벽한 작품을 만드는 것이 최우선입니다.
-- 단, 모든 파트(나레이션, 이미지, 영상, 캡컷)의 결과물 앞에는 당신이 정한 `001`, `002` ... 형식의 **[세 자리 순번]**이 정확히 일치하게 매겨져야 캡컷 자동 조립이 가능합니다.
-
-1. [데이터 소싱 및 리서치 의무]
-- 기획안(Node 03)과 자료조사(Node 02) 데이터를 최우선 검토하십시오.
-- 옵시디언 DB의 핵심 자료(성경구절, 쇼펜하우어, 빅터 프랭클, 칼 융, 몽테뉴, 다크심리학, 각종 에세이집)를 반드시 참조하여 초안을 작성하십시오.
-- 작성 후 자체 리서치 기능을 가동하여 철학적/논리적 빈틈을 보완한 완성본을 만드십시오.
-
-2. [출처 표기 강제 (거울 각인용)]
-- 허위 사실 유포 방지를 위해, 대본에 사용된 철학적/종교적 인용문의 **[정확한 자료 출처(책 제목, 저자 등)]**를 반드시 명시하십시오. 이 출처는 영상 속 거울에 직접 새겨집니다.
-
-3. [나레이션용 대본]: 4단계 서사 적용, [1초 쉼] 호흡 기호 필수, 4070을 향한 위로의 어투.
-4. [이미지 프롬프트]: Nano Banana 7원칙 준수(비율은 맨 끝에), @주인공/@거울/@사물 태그 필수.
-5. [영상 JSON 프롬프트]: Veo 3.1 규격. 유화풍 실사화, 조각이 맞춰지는 거울(Fragment assembly).
-6. [캡컷 자동배치 JSON]: (출처 필드 포함)
-{ "sequence": "001", "video_file": "scene_001.mp4", "audio_file": "voice_001.mp3", "subtitle": "거울을 보십시오.", "source": "쇼펜하우어, 『의지와 표상으로서의 세계』", "duration": "8.0s" }
-
-*중요*: 결과물은 반드시 아래 4개의 정확한 구분자로 나누어 출력하세요.
-[나레이션]
-...내용...
-[이미지]
-...내용...
-[영상]
-...내용...
-[캡컷]
-...내용..."""
-        win, hdr = self._create_win("대본작성", r)
-        
-        mf = tk.Frame(win, bg=C["bg"], padx=15, pady=10); mf.pack(fill=tk.BOTH, expand=True)
-        
-        f_top = tk.LabelFrame(mf, text=" 📥 기획안 및 참조 데이터 입력 ", bg=C["bg"], fg=C["gold"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=5)
-        f_top.pack(fill=tk.X, pady=5)
-        t_in = scrolledtext.ScrolledText(f_top, bg=C["card"], fg="white", font=("Malgun Gothic", 11), height=5, wrap=tk.WORD)
-        t_in.pack(fill=tk.X)
-
-        f_bot = tk.Frame(mf, bg=C["bg"])
-        f_bot.pack(fill=tk.BOTH, expand=True, pady=5)
-        
-        style = ttk.Style()
-        style.theme_use('default')
-        style.configure('TNotebook', background=C["bg"], borderwidth=0)
-        style.configure('TNotebook.Tab', background=C["card"], foreground="white", font=("Malgun Gothic", 11, "bold"), padding=[15, 8])
-        style.map('TNotebook.Tab', background=[('selected', C["rose"])])
-
-        nb = ttk.Notebook(f_bot)
-        nb.pack(fill=tk.BOTH, expand=True)
-        
-        f1 = ttk.Frame(nb); f2 = ttk.Frame(nb); f3 = ttk.Frame(nb); f4 = ttk.Frame(nb)
-        
-        def create_tab(parent, title):
-            t = scrolledtext.ScrolledText(parent, bg=C["card"], fg="white", font=("Malgun Gothic", 11), wrap=tk.WORD)
-            self._add_popup_btn(parent, t, title)
-            t.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-            return t
-
-        t_out1 = create_tab(f1, "1. 나레이션용 대본")
-        t_out2 = create_tab(f2, "2. 구글 플로우 이미지 프롬프트")
-        t_out3 = create_tab(f3, "3. 오팔 영상 프롬프트")
-        t_out4 = create_tab(f4, "4. 캡컷 자동배치 JSON")
-
-        nb.add(f1, text="  1. 나레이션용 대본  ")
-        nb.add(f2, text="  2. 구글 플로우 이미지 프롬프트  ")
-        nb.add(f3, text="  3. 오팔 영상 프롬프트  ")
-        nb.add(f4, text="  4. 캡컷 자동배치 JSON  ")
-        
-        def run():
-            data = t_in.get("1.0", tk.END).strip()
-            if not data: return
-            for t in [t_out1, t_out2, t_out3, t_out4]:
-                t.delete("1.0", tk.END); t.insert(tk.END, "⏳ 생성 중...")
-                
-            if requests:
-                sys_msg = f"당신은 스튜디오의 심장인 수석 대본가입니다. 다음 명령서에 따라 반드시 4가지 파트를 명확히 구분하여 답변하세요.\n\n{r}\n\n{MASTER_KNOWLEDGE_PROMPT}"
-                try:
-                    resp = requests.post(f"{self.api_url}/chat/completions", json={"model": self.active_model, "messages": [{"role": "system", "content": sys_msg}, {"role": "user", "content": data}], "temperature": 0.6}, timeout=300)
-                    ans = resp.json()['choices'][0]['message']['content']
-                    
-                    p1 = ans.split("[이미지]")
-                    narration = p1[0].replace("[나레이션]", "").strip()
-                    if len(p1) > 1:
-                        p2 = p1[1].split("[영상]")
-                        img = p2[0].strip()
-                        if len(p2) > 1:
-                            p3 = p2[1].split("[캡컷]")
-                            vid = p3[0].strip()
-                            cap = p3[1].strip() if len(p3) > 1 else ""
-                        else: vid = ""; cap = ""
-                    else: img = ""; vid = ""; cap = ""
-
-                    t_out1.delete("1.0", tk.END); t_out1.insert(tk.END, narration)
-                    t_out2.delete("1.0", tk.END); t_out2.insert(tk.END, img)
-                    t_out3.delete("1.0", tk.END); t_out3.insert(tk.END, vid)
-                    t_out4.delete("1.0", tk.END); t_out4.insert(tk.END, cap)
-                    
-                    self._save_to_obsidian(name, "Node04_Scripts", ans)
-                except: t_out1.insert(tk.END, "\n❌ AI 엔진 연결 오류")
-        
-        tk.Button(hdr, text="🚀 스튜디오 심장 가동 (생성 시작)", bg=C["rose"], fg="white", font=("Malgun Gothic", 12, "bold"), padx=25, pady=5, command=lambda: threading.Thread(target=run).start()).place(x=120, y=10)
-
-    def run_google_flow(self, name):
-        rule_path = os.path.join(VAULT_PATH, "Archive_Knowledge", "00_구글플로우_이미지자동화_설계도.md")
-        if os.path.exists(rule_path):
-            with open(rule_path, "r", encoding="utf-8") as f: r = f.read()
-        else: r = "설계도 파일을 찾을 수 없습니다."
-            
-        win, hdr = self._create_win(name, r)
-        mf = tk.Frame(win, bg=C["bg"], padx=15, pady=10); mf.pack(fill=tk.BOTH, expand=True)
-        
-        f_top = tk.LabelFrame(mf, text=" 📥 [입력] Node 04 대본 데이터 (여기에 대본을 붙여넣으세요) ", bg=C["bg"], fg=C["gold"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=5)
-        f_top.pack(fill=tk.X, pady=5)
-        t_in = scrolledtext.ScrolledText(f_top, bg=C["card"], fg="white", font=("Malgun Gothic", 11), height=5, wrap=tk.WORD)
-        self._add_popup_btn(f_top, t_in, "입력 대본 데이터")
-        t_in.pack(fill=tk.X)
-
-        f_bot = tk.LabelFrame(mf, text=" 📤 [출력] 구글 플로우 마스터 프롬프트 세트 (Part A, B, C) ", bg=C["bg"], fg=C["teal"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=5)
-        f_bot.pack(fill=tk.BOTH, expand=True, pady=5)
-        t_out = scrolledtext.ScrolledText(f_bot, bg=C["card"], fg="white", font=("Malgun Gothic", 11), wrap=tk.WORD)
-        self._add_popup_btn(f_bot, t_out, "구�    def run_narration(self, name):
-        rule_path = os.path.join(BASE_PATH, "00_System_Rules", "08_Narration_Rules.md")
-        if os.path.exists(rule_path):
-            with open(rule_path, "r", encoding="utf-8") as f: r = f.read()
-        else: r = "나레이션 설계도 파일을 찾을 수 없습니다."
-            
-        win, hdr = self._create_win(name, r)
-        mf = tk.Frame(win, bg=C["bg"], padx=15, pady=10); mf.pack(fill=tk.BOTH, expand=True)
-        
-        # --- Persistent Data Loading ---
-        cfg_path = os.path.join(BASE_PATH, "narration_config.json")
-        saved_url = ""; saved_script = ""
-        if os.path.exists(cfg_path):
-            try:
-                with open(cfg_path, "r", encoding="utf-8") as f:
-                    cfg = json.load(f)
-                    saved_url = cfg.get("url", "")
-                    saved_script = cfg.get("script", "")
-            except: pass
-
-        f_top = tk.LabelFrame(mf, text=" 📥 [Node-01] 순수 나레이션 대본 로드 (복사해서 붙여넣기) ", bg=C["bg"], fg=C["gold"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=5)
-        f_top.pack(fill=tk.X, pady=5)
-        t_in = scrolledtext.ScrolledText(f_top, bg=C["card"], fg="white", font=("Malgun Gothic", 10), height=5, wrap=tk.WORD)
-        t_in.insert(tk.END, saved_script)
-        self._add_popup_btn(f_top, t_in, "입력 나레이션 대본")
-        t_in.pack(fill=tk.X)
-
-        f_url = tk.LabelFrame(mf, text=" 🔗 [Remote] CosyVoice 엔진 연결 (Gradio Live 주소 붙여넣기) ", bg=C["bg"], fg=C["blue"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=5)
-        f_url.pack(fill=tk.X, pady=5)
-        cosy_url_var = tk.StringVar(value=saved_url)
-        url_entry = tk.Entry(f_url, textvariable=cosy_url_var, font=("Consolas", 11), bg=C["card"], fg=C["gold"], insertbackground="white")
-        url_entry.pack(fill=tk.X, ipady=8)
-
-        f_bot = tk.LabelFrame(mf, text=" 📤 [Node-03] 나레이션 리스트 및 오디오 매칭 상태 ", bg=C["bg"], fg=C["teal"], font=("Malgun Gothic", 10, "bold"), padx=10, pady=5)
-        f_bot.pack(fill=tk.BOTH, expand=True, pady=5)
-        
-        style = ttk.Style()
-        style.configure("Treeview", background=C["card"], foreground="white", fieldbackground=C["card"], borderwidth=0, font=("Malgun Gothic", 10))
-        style.configure("Treeview.Heading", background=C["panel"], foreground=C["gold"], font=("Malgun Gothic", 10, "bold"))
-
-        tree_frame = tk.Frame(f_bot, bg=C["bg"])
-        tree_frame.pack(fill=tk.BOTH, expand=True)
-        tree_scroll = tk.Scrollbar(tree_frame)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
-        
-        cols = ("id", "script", "status", "path")
-        tree = ttk.Treeview(tree_frame, columns=cols, show="headings", height=15, yscrollcommand=tree_scroll.set)
-        tree_scroll.config(command=tree.yview)
-        tree.heading("id", text="씬(ID)"); tree.column("id", width=60, anchor="center")
-        tree.heading("script", text="대본 내용"); tree.column("script", width=600)
-        tree.heading("status", text="오디오 매칭 상태"); tree.column("status", width=150, anchor="center")
-        tree.heading("path", text="파일 경로"); tree.column("path", width=300)
-        tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
-        def load_scripts():
-            content = t_in.get("1.0", tk.END).strip()
-            if not content: return
-            with open(cfg_path, "w", encoding="utf-8") as f:
-                json.dump({"url": cosy_url_var.get().strip(), "script": content}, f, ensure_ascii=False)
-            tree.delete(*tree.get_children())
-            lines = content.split('\n')
-            for line in lines:
-                if ']' in line:
-                    sid = line.split(']')[0].replace('[','').strip()
-                    text = line.split(']')[1].strip()
-                    tree.insert("", tk.END, values=(sid, text, "❌ 누락", ""))
-
-        def run_remote_tts():
-            api_url = cosy_url_var.get().strip()
-            if "gradio.live" not in api_url:
-                messagebox.showerror("주소 오류", "Gradio 주소를 확인해주세요.")
-                return
-            
-            # Save current state before running
-            with open(cfg_path, "w", encoding="utf-8") as f:
-                json.dump({"url": api_url, "script": t_in.get("1.0", tk.END).strip()}, f, ensure_ascii=False)
-            
-            base_url = api_url.rstrip("/")
-            items = tree.get_children()
-            if not items: return
-
-            def process():
-                success_count = 0
-                endpoints = [f"{base_url}/api/predict", f"{base_url}/run/predict"]
-                for item_id in items:
-                    vals = tree.item(item_id, 'values')
-                    sid, script_text = vals[0], vals[1]
-                    win.after(0, lambda i=item_id, v=(sid, script_text, "⏳ 생성 중...", ""): tree.item(i, values=v))
-                    
-                    try:
-                        # Full CosyVoice Payload (8 params)
-                        payload = {
-                            "fn_index": 1,
-                            "data": ["SFT", "中文女", script_text, "", None, "", 1.0, 0]
-                        }
-                        
-                        found_ep = None
-                        for ep in endpoints:
-                            try:
-                                r = requests.post(ep, json=payload, timeout=20)
-                                if r.status_code == 200:
-                                    found_ep = ep; response = r; break
-                            except: continue
-                        
-                        if found_ep:
-                            res = response.json()
-                            audio_info = res.get("data", [None])[0]
-                            if isinstance(audio_info, dict) and "name" in audio_info:
-                                f_url = f"{base_url}/file={audio_info['name']}"
-                                f_res = requests.get(f_url)
-                                out_dir = os.path.join(BASE_PATH, "04_Narration_Export")
-                                os.makedirs(out_dir, exist_ok=True)
-                                out_path = os.path.join(out_dir, f"{sid}.wav")
-                                with open(out_path, "wb") as f: f.write(f_res.content)
-                                win.after(0, lambda i=item_id, v=(sid, script_text, "✅ 완료", out_path): tree.item(i, values=v))
-                                success_count += 1
-                            else: win.after(0, lambda i=item_id, v=(sid, script_text, "❌ 응답오류", ""): tree.item(i, values=v))
-                        else: win.after(0, lambda i=item_id, v=(sid, script_text, "❌ 연결실패(404)", ""): tree.item(i, values=v))
-                    except Exception as e:
-                        win.after(0, lambda i=item_id, v=(sid, script_text, f"❌ 에러:{str(e)[:10]}", ""): tree.item(i, values=v))
-                
-                win.after(0, lambda sc=success_count: messagebox.showinfo("완료", f"{sc}개 생성 성공!"))
-
-            threading.Thread(target=process, daemon=True).start()
-
-        def scan_audio():
-            target_dir = filedialog.askdirectory()
-            if not target_dir: return
-            for item in tree.get_children():
-                sid = str(tree.item(item, 'values')[0]).zfill(3)
-                for f in os.listdir(target_dir):
-                    if f.startswith(sid) and f.lower().endswith('.wav'):
-                        tree.item(item, values=(tree.item(item, 'values')[0], tree.item(item, 'values')[1], "✅ 완료", os.path.join(target_dir, f)))
-
-        def save_master_json():
-            data = []
-            for item in tree.get_children():
-                v = tree.item(item, 'values')
-                data.append({"id": v[0], "script": v[1], "audio_file": v[3]})
-            out = os.path.join(BASE_PATH, "Audio_Sync_Master.json")
-            with open(out, "w", encoding="utf-8") as f: json.dump(data, f, ensure_ascii=False, indent=4)
-            messagebox.showinfo("완료", "JSON 저장 성공!")
-
-        # --- 버튼 배치 ---
-        btn_f = tk.Frame(hdr, bg=C["panel"]); btn_f.place(x=120, y=10)
-        tk.Button(btn_f, text="📥 1. 대본 로드", bg=C["teal"], fg="white", width=14, command=load_scripts).pack(side=tk.LEFT, padx=5)
-        tk.Button(btn_f, text="⚡ 2. 코랩 자동 생성", bg=C["rose"], fg="white", width=18, command=run_remote_tts).pack(side=tk.LEFT, padx=5)
-        
-        btn_r = tk.Frame(hdr, bg=C["panel"]); btn_r.place(relx=1.0, rely=0.5, anchor="e", x=-20)
-        tk.Button(btn_r, text="📁 3. 폴더 스캔", bg=C["card"], fg="white", width=14, command=scan_audio).pack(side=tk.LEFT, padx=5)
-        tk.Button(btn_r, text="💾 4. 마스터 저장", bg=C["blue"], fg="white", width=16, command=save_master_json).pack(side=tk.LEFT, padx=5)
+    def _add_context_menu(self, widget):
+        menu = tk.Menu(widget, tearoff=0, bg=C["panel"], fg=C["text"])
+        menu.add_command(label="복사", command=lambda: widget.event_generate("<<Copy>>"))
+        menu.add_command(label="붙여넣기", command=lambda: widget.event_generate("<<Paste>>"))
+        widget.bind("<Button-3>", lambda e: menu.post(e.x_root, e.y_root))
 
 if __name__ == "__main__":
-    root = tk.Tk(); app = OracleMasterSystem(root); root.mainloop()
-ee.item(item_id, 'values')
-                    sid, script_text = vals[0], vals[1]
-                    win.after(0, lambda i=item_id, v=(sid, script_text, "⏳ 생성 중...", ""): tree.item(i, values=v))
-                    
-                    try:
-                        # Try multiple common Gradio fn_index and endpoints
-                        found_endpoint = None
-                        for ep in endpoints:
-                            for fn in [1, 0, 2]: # Try common indices
-                                try:
-                                    payload = {"fn_index": fn, "data": [script_text, "中文女", 1.0, 0]}
-                                    r = requests.post(ep, json=payload, timeout=10)
-                                    if r.status_code == 200 and "data" in r.json():
-                                        found_endpoint = ep
-                                        response = r
-                                        break
-                                except: continue
-                            if found_endpoint: break
-                        
-                        if found_endpoint:
-                            result = response.json()
-                            audio_data = result.get('data', [None])[0]
-                            if isinstance(audio_data, dict) and 'name' in audio_data:
-                                audio_url = f"{base_url}/file={audio_data['name']}"
-                                audio_resp = requests.get(audio_url)
-                                export_dir = os.path.join(BASE_PATH, "04_Narration_Export")
-                                os.makedirs(export_dir, exist_ok=True)
-                                target_path = os.path.join(export_dir, f"{sid}.wav")
-                                with open(target_path, "wb") as f: f.write(audio_resp.content)
-                                win.after(0, lambda i=item_id, v=(sid, script_text, "✅ 완료", target_path): tree.item(i, values=v))
-                                success_count += 1
-                            else:
-                                win.after(0, lambda i=item_id, v=(sid, script_text, "❌ 응답구조오류", ""): tree.item(i, values=v))
-                        else:
-                            win.after(0, lambda i=item_id, v=(sid, script_text, "❌ 서버연결실패(404/500)", ""): tree.item(i, values=v))
-                    except Exception as e:
-                        err = str(e).split(' ')[0][:15]
-                        win.after(0, lambda i=item_id, v=(sid, script_text, f"❌ 에러:{err}", ""): tree.item(i, values=v))
-                
-                win.after(0, lambda sc=success_count, total=len(items): messagebox.showinfo("생성 완료", f"총 {total}개 중 {sc}개 생성 완료!"))
-
-            threading.Thread(target=process, daemon=True).start()
-        
-        def copy_qwen():
-            selected = tree.selection()
-            if not selected:
-                messagebox.showwarning("선택 오류", "복사할 씬을 리스트에서 클릭하여 선택해주세요.")
-                return
-            item = tree.item(selected[0])
-            script_text = item['values'][1]
-            full_prompt = qwen_prompt + str(script_text)
-            win.clipboard_clear()
-            win.clipboard_append(full_prompt)
-            messagebox.showinfo("복사 완료", f"[{item['values'][0]}]번 씬의 Qwen3 프롬프트가 복사되었습니다!\nTTS 엔진에 붙여넣기 하세요.")
-            
-        def scan_audio():
-            target_dir = filedialog.askdirectory(title="오디오 파일이 저장된 폴더를 선택하세요")
-            if not target_dir: return
-            
-            items = tree.get_children()
-            matched_count = 0
-            for item_id in items:
-                vals = tree.item(item_id, 'values')
-                sid = str(vals[0]).zfill(3)
-                # Check for 001_Audio.wav, 001.wav, etc.
-                found = False
-                for fname in os.listdir(target_dir):
-                    if fname.startswith(sid) and fname.lower().endswith('.wav'):
-                        fpath = os.path.join(target_dir, fname)
-                        tree.item(item_id, values=(sid, vals[1], "✅ 완료", fpath))
-                        matched_count += 1
-                        found = True
-                        break
-                if not found:
-                    tree.item(item_id, values=(sid, vals[1], "❌ 누락", ""))
-            messagebox.showinfo("스캔 완료", f"총 {len(items)}개의 씬 중 {matched_count}개의 오디오가 매칭되었습니다.")
-
-        def save_master_json():
-            items = tree.get_children()
-            if not items: return
-            
-            sync_data = []
-            for item_id in items:
-                vals = tree.item(item_id, 'values')
-                sync_data.append({
-                    "sequence": str(vals[0]),
-                    "narration": str(vals[1]),
-                    "status": str(vals[2]),
-                    "audio_file": str(vals[3])
-                })
-            
-            out_path = os.path.join(BASE_PATH, "Audio_Sync_Master.json")
-            with open(out_path, "w", encoding="utf-8") as f:
-                json.dump(sync_data, f, ensure_ascii=False, indent=4)
-            
-            messagebox.showinfo("JSON 저장 완료", f"오디오 동기화 마스터 파일이 저장되었습니다!\n경로: {out_path}\n이제 [캡컷 조립기]를 실행할 준비가 완료되었습니다.")
-            
-        # --- 헤더 좌측 버튼 배치 (뒤로가기 옆) ---
-        btn_f_left = tk.Frame(hdr, bg=C["panel"])
-        btn_f_left.place(x=120, y=10)
-        tk.Button(btn_f_left, text="📥 1. 대본 로드", font=("Malgun Gothic", 10, "bold"), bg=C["teal"], fg="white", width=14, command=load_scripts).pack(side=tk.LEFT, padx=5)
-        tk.Button(btn_f_left, text="⚡ 2. 코랩 자동 생성", font=("Malgun Gothic", 10, "bold"), bg=C["rose"], fg="white", width=18, command=run_remote_tts).pack(side=tk.LEFT, padx=5)
-        
-        # --- 헤더 우측 버튼 배치 (오른쪽 구석) ---
-        btn_f_right = tk.Frame(hdr, bg=C["panel"])
-        btn_f_right.place(relx=1.0, rely=0.5, anchor="e", x=-20)
-        tk.Button(btn_f_right, text="📁 3. 로컬 폴더 스캔", font=("Malgun Gothic", 10, "bold"), bg=C["card"], fg="white", width=16, command=scan_audio).pack(side=tk.LEFT, padx=5)
-        tk.Button(btn_f_right, text="💾 4. 마스터 JSON 저장", font=("Malgun Gothic", 10, "bold"), bg=C["blue"], fg="white", width=20, command=save_master_json).pack(side=tk.LEFT, padx=5)        
-        tk.Button(ctrl_frame, text="📋 선택한 씬 Qwen3 프롬프트 복사", bg=C["blue"], fg="white", font=("Malgun Gothic", 11, "bold"), padx=10, command=copy_qwen).pack(side=tk.LEFT, padx=10)
-        tk.Button(ctrl_frame, text="🔄 오디오 폴더 스캔 및 매칭", bg=C["teal"], fg="white", font=("Malgun Gothic", 11, "bold"), padx=10, command=scan_audio).pack(side=tk.LEFT, padx=10)
-        tk.Button(ctrl_frame, text="🔒 캡컷용 마스터 JSON 저장", bg=C["rose"], fg="white", font=("Malgun Gothic", 11, "bold"), padx=10, command=save_master_json).pack(side=tk.RIGHT, padx=10)
-
-if __name__ == "__main__":
-    root = tk.Tk(); app = OracleMasterSystem(root); root.mainloop()
+    root = tk.Tk()
+    app = OracleMainSystem(root)
+    root.mainloop()

@@ -1,0 +1,85 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v13 - 스크린샷 원형 복구 마스터] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | ULTIMATE STUDIO V13</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .main-container { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .top-grid .card-panel { height: 200px; padding: 20px; }
+        
+        .center-banner { margin: 10px 0; padding: 15px; border-top: 1px solid rgba(212, 175, 55, 0.2); border-bottom: 1px solid rgba(212, 175, 55, 0.2); text-align: center; }
+        .banner-text { font-family: 'Outfit'; font-weight: 100; font-size: 1.5rem; letter-spacing: 15px; color: var(--gold-main); }
+
+        /* 규칙 섹션 (2컬럼) */
+        .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .guide-grid .card-panel { height: 220px; padding: 20px; background: rgba(0,0,0,0.2); }
+        .guide-content { font-family: 'Fira Code'; font-size: 0.85rem; line-height: 1.8; margin-top: 15px; }
+
+        .chat-open-btn { position: fixed; bottom: 30px; right: 30px; padding: 15px 30px; background: var(--gold-main); color: black; border-radius: 50px; font-weight: bold; cursor: pointer; z-index: 100; }
+    </style>
+</head>
+<body>
+    <div class="nebula-bg"><div class="blob"></div></div>
+
+    <header class="module-header">
+        <div class="header-left"><h1>SAGE MIRROR | ULTIMATE STUDIO V13</h1></div>
+        <div class="header-right"><button class="global-rule-btn">GLOBAL RULE ▲</button></div>
+    </header>
+
+    <div class="main-container">
+        <!-- 상단: 지식 소스 및 상태 -->
+        <section class="top-grid">
+            <div class="card-panel">
+                <div class="panel-title"><span>OBSIDIAN SOURCE LIBRARY</span></div>
+                <div class="library-grid">
+                    <div class="lib-card active">✝ 성경</div>
+                    <div class="lib-card active">⚖ 쇼펜하우어</div>
+                    <div class="lib-card active">🕯 빅터 프랭클</div>
+                    <div class="lib-card active">💠 칼 융</div>
+                </div>
+            </div>
+            <div class="card-panel">
+                <div class="panel-title"><span>SYSTEM STATUS</span></div>
+                <div class="plan-item"><div class="plan-label">📡 BRIDGE</div><div class="plan-value" style="color:var(--cyan-accent);">CONNECTED</div></div>
+                <div class="plan-item"><div class="plan-label">🤖 AI</div><div class="plan-value">gemma4:e4b</div></div>
+            </div>
+        </section>
+
+        <!-- 중앙 배너 -->
+        <div class="center-banner"><span class="banner-text">SAGE MIRROR · PRODUCTION PIPELINE</span></div>
+
+        <!-- 규칙 섹션 (스크린샷 복구) -->
+        <section class="guide-grid">
+            <div class="card-panel">
+                <div class="panel-title"><span style="color:var(--gold-main);">OBSIDIAN STRUCTURE RULE</span></div>
+                <div class="guide-content">
+                    <div style="color:var(--gold-main); margin-bottom:10px;"># [[Concept Name]]</div>
+                    <div style="color:#aaa;">## 📌 Brief Summary / ## 📖 Core Content</div>
+                    <div style="color:#aaa;">## 🔗 Knowledge Connections</div>
+                </div>
+            </div>
+            <div class="card-panel">
+                <div class="panel-title"><span style="color:var(--gold-main);">PROMPT REGULATION</span></div>
+                <div class="guide-content">
+                    <div style="color:var(--cyan-accent);">- 젬마는 항상 논리적이며 철학적이어야 한다.</div>
+                    <div style="color:var(--cyan-accent);">- 모든 답변은 한국어로 명확히 전달한다.</div>
+                    <div style="color:var(--cyan-accent);">- 출처(Source)를 반드시 명시한다.</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="chat-open-btn" onclick="alert('채팅 가동')">💬 GEMMA MEGA CHAT</div>
+
+    <script>
+        document.querySelectorAll('.lib-card').forEach(card => {
+            card.onclick = function() { this.classList.toggle('active'); };
+        });
+    </script>
+</body>
+</html>

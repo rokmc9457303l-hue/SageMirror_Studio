@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | Research Module Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nebula-bg">
+        <div class="blob"></div>
+    </div>
+
+    <header class="module-header">
+        <div class="header-left">
+            <h1>Obsidian Knowledge Rule — 전체 파트 자동 적용</h1>
+        </div>
+        <div class="header-right">
+            <button class="global-rule-btn">GLOBAL RULE ▲</button>
+        </div>
+    </header>
+
+    <section class="top-grid">
+        <!-- 노트 템플릿 섹션 -->
+        <div class="card-panel">
+            <div class="panel-title">
+                <span>NOTE TEMPLATE · 모든 생성 자료에 자동 적용</span>
+            </div>
+            <div class="note-template-view">
+                <div><span class="hl-tag"># [[Title of Concept/Entity]]</span></div>
+                <br>
+                <div><span class="hl-tag">## 📌 Brief Summary</span></div>
+                <div class="hl-comment">(1-2문장 핵심 정의)</div>
+                <br>
+                <div><span class="hl-tag">## 📖 Core Content</span></div>
+                <div class="hl-comment">(원천 소스 기반 합성 분석)</div>
+                <br>
+                <div><span class="hl-tag">## 🔗 Knowledge Connections</span></div>
+                <div>- <span class="hl-tag">Related Topics:</span> [[연관개념-A]]</div>
+                <div>- <span class="hl-tag">Projects/Contexts:</span> [[현자의_거울_EP]]</div>
+                <div>- <span class="hl-tag">Contradictions/Notes:</span> 소스 간 충돌</div>
+                <br>
+                <div>---</div>
+                <div><span class="hl-tag">Last updated: 오늘 날짜</span></div>
+            </div>
+        </div>
+
+        <!-- 지식 라이브러리 섹션 -->
+        <div class="card-panel">
+            <div class="panel-title">
+                <span>OBSIDIAN SOURCE LIBRARY · 활성 소스 선택</span>
+            </div>
+            <div class="library-grid">
+                <div class="lib-card active" onclick="this.classList.toggle('active')">
+                    <span class="check-mark">✔</span>
+                    <span class="lib-icon">✝</span>
+                    <span class="lib-name">성경</span>
+                </div>
+                <div class="lib-card active" onclick="this.classList.toggle('active')">
+                    <span class="check-mark">✔</span>
+                    <span class="lib-icon">⚖</span>
+                    <span class="lib-name">쇼펜하우어</span>
+                </div>
+                <div class="lib-card active" onclick="this.classList.toggle('active')">
+                    <span class="check-mark">✔</span>
+                    <span class="lib-icon">🕯</span>
+                    <span class="lib-name">빅터 프랭클</span>
+                </div>
+                <div class="lib-card active" onclick="this.classList.toggle('active')">
+                    <span class="check-mark">✔</span>
+                    <span class="lib-icon">💠</span>
+                    <span class="lib-name">칼 융</span>
+                </div>
+                <div class="lib-card" onclick="this.classList.toggle('active')">
+                    <span class="check-mark">✔</span>
+                    <span class="lib-icon">🖋</span>
+                    <span class="lib-name">몽테뉴</span>
+                </div>
+                <div class="lib-card" onclick="this.classList.toggle('active')">
+                    <span class="check-mark">✔</span>
+                    <span class="lib-icon">🌑</span>
+                    <span class="lib-name">다크심리학</span>
+                </div>
+                <div class="lib-card" onclick="this.classList.toggle('active')">
+                    <span class="check-mark">✔</span>
+                    <span class="lib-icon">📚</span>
+                    <span class="lib-name">에세이집</span>
+                </div>
+            </div>
+            <div style="margin-top:20px; font-size:0.7rem; color:var(--gold-main); opacity:0.6;">
+                활성 4개 — 성경 · 쇼펜하우어 · 빅터 프랭클 · 칼 융<br>
+                생성 자료 → Obsidian 템플릿 자동 변환
+            </div>
+        </div>
+    </section>
+
+    <div class="center-banner">
+        <span class="banner-text">SAGE MIRROR · RESEARCH MODULE</span>
+        <span style="position:absolute; right:0; bottom:-10px; font-size:0.6rem; color:var(--text-dim);">● STANDBY Ep_002</span>
+    </div>
+
+    <section class="bottom-grid">
+        <!-- I. 벤치마킹 -->
+        <div class="bench-list">
+            <div class="panel-title"><span>I. BENCHMARKING</span><button style="background:transparent; border:1px solid #444; color:#666; font-size:0.5rem; padding:2px 5px;">AUTO</button></div>
+            <div class="bench-item">
+                <div class="bench-avatar" style="background:#ff4d4d22;">🧠</div>
+                <div class="bench-info">
+                    <span class="name">체인지그라운드</span>
+                    <span class="handle">@changeground · 112만 · 성장/심리</span>
+                </div>
+            </div>
+            <div class="bench-item">
+                <div class="bench-avatar" style="background:#ffd70022;">💡</div>
+                <div class="bench-info">
+                    <span class="name">김미경TV</span>
+                    <span class="handle">@MK_TV · 98만 · 자기계발</span>
+                </div>
+            </div>
+            <div class="bench-item">
+                <div class="bench-avatar" style="background:#00f2ff22;">🧬</div>
+                <div class="bench-info">
+                    <span class="name">뇌부자들</span>
+                    <span class="handle">@brainrich · 67만 · 신경과학</span>
+                </div>
+            </div>
+            <div class="bench-item">
+                <div class="bench-avatar" style="background:#ffffff11;">📖</div>
+                <div class="bench-info">
+                    <span class="name">사피엔스 스튜디오</span>
+                    <span class="handle">@sapiensstudio · 84만 · 철학/심리</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- II. 구분선 -->
+        <div style="writing-mode: vertical-rl; text-align: center; color: var(--gold-dim); font-size: 0.6rem; letter-spacing: 0.5rem;">
+            RESEARCH TEAM 사팀
+        </div>
+
+        <!-- III. 총괄 기획 -->
+        <div class="director-panel">
+            <div class="panel-title"><span>III. 총괄 기획</span><span style="color:var(--gold-main); font-weight:bold;">DIRECTOR</span></div>
+            
+            <div class="plan-item">
+                <div class="plan-label">💠 현자의 거울 · 채널 컨셉</div>
+            </div>
+
+            <div class="plan-item">
+                <div class="plan-label">🎙 나레이터</div>
+                <div class="plan-value">준(俊) <span style="font-size:0.7rem; color:var(--text-dim);">· 60대 철학자</span></div>
+                <div class="plan-sub">렘브란트 키아로스쿠로 유화 실사</div>
+            </div>
+
+            <div class="plan-item">
+                <div class="plan-label">🕯 거울 아바타</div>
+                <div class="plan-value">몽환적·반투명 실루엣</div>
+                <div class="plan-sub">감정(외로움·슬픔·공허) 신체 표현</div>
+            </div>
+
+            <div class="plan-item">
+                <div class="plan-label">✨ 연출 태그</div>
+                <div class="plan-value">[거울:소환] · [거울:사라짐]</div>
+                <div class="plan-sub">대본 삽입 → 영상 큐 자동 제어</div>
+            </div>
+
+            <div class="plan-item">
+                <div class="plan-label">⏱ 영상 길이</div>
+                <div class="plan-value">15분 이내 <span style="font-size:0.7rem; color:var(--text-dim);">· 약 2,200자</span></div>
+            </div>
+
+            <div class="plan-item">
+                <div class="plan-label">🗂 철학 레이어</div>
+                <div class="plan-sub">성경 · 쇼펜하우어 · 프랭클 · 융 · 몽테뉴</div>
+            </div>
+        </div>
+
+        <!-- IV. 파이프라인 -->
+        <div class="pipeline-track">
+            <div class="panel-title"><span>프로덕션 파이프라인</span></div>
+            <div class="pipe-step">
+                <span class="step-name">RESEARCH</span>
+                <span class="step-desc">댓글→주제→소스조사→초안</span>
+            </div>
+            <div class="pipe-step">
+                <span class="step-name">SCRIPT</span>
+                <span class="step-desc">대본 완성 · 준(俊) 나레이션</span>
+            </div>
+            <div class="pipe-step">
+                <span class="step-name">VISUAL</span>
+                <span class="step-desc">썸네일 아트 디렉팅</span>
+            </div>
+            <div class="pipe-step">
+                <span class="step-name">IMAGE</span>
+                <span class="step-desc">Google Flow 이미지 생성</span>
+            </div>
+            <div class="pipe-step">
+                <span class="step-name">VIDEO</span>
+                <span class="step-desc">Google Opal 영상 조립</span>
+            </div>
+            <div class="pipe-step">
+                <span class="step-name">MASTER</span>
+                <span class="step-desc">CapCut 자동 배치 수출</span>
+            </div>
+
+            <button style="margin-top:20px; width:100%; background:transparent; border:1px solid var(--gold-dim); color:var(--gold-main); padding:10px; font-size:0.7rem; cursor:pointer;">→ SCRIPT MODULE로 전송</button>
+        </div>
+    </section>
+
+    <script>
+        console.log("Sage Mirror Research Module Premium Active.");
+    </script>
+</body>
+</html>

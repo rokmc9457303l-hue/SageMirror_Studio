@@ -1,0 +1,143 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v13 - 프리뷰 2.2 팝업 정밀 보강 버전] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | PRODUCTION PIPELINE v13 PREVIEW 2.2 (STRICT POPUP)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .main-container { padding: 15px; display: flex; flex-direction: column; gap: 15px; }
+        .top-grid .card-panel { height: 160px; }
+        .unified-guide { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 15px; padding: 12px 20px; display: flex; height: 100px; }
+        .pipeline-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 15px; }
+        .pipeline-panel { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 12px; padding: 12px; height: 420px; display: flex; flex-direction: column; }
+
+        /* [v13 팝업 고도화 스타일] */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(30px); z-index: 5000;
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            width: 90%; height: 90%; background: #050505;
+            border: 1px solid var(--gold-dim); border-radius: 20px;
+            display: flex; flex-direction: column; overflow: hidden; /* 헤더 고정을 위해 */
+            box-shadow: 0 0 100px rgba(212, 175, 55, 0.15);
+        }
+        /* [핵심] 고정형 헤더 (뒤로가기 버튼) */
+        .modal-sticky-header {
+            padding: 20px 30px; background: #0a0a0a; border-bottom: 1px solid #222;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 10;
+        }
+        .back-btn-v4 {
+            background: var(--gold-main); color: black; border: none;
+            padding: 10px 30px; border-radius: 5px; font-weight: 900;
+            cursor: pointer; font-size: 1rem; transition: 0.3s;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        .back-btn-v4:hover { transform: scale(1.05); background: var(--gold-bright); }
+
+        /* [핵심] 선명한 골드 스크롤바 */
+        .modal-scroll-body {
+            flex: 1; overflow-y: scroll; padding: 40px;
+            scrollbar-width: thin; scrollbar-color: var(--gold-main) #111;
+        }
+        .modal-scroll-body::-webkit-scrollbar { width: 10px; }
+        .modal-scroll-body::-webkit-scrollbar-track { background: #000; }
+        .modal-scroll-body::-webkit-scrollbar-thumb { background: var(--gold-main); border-radius: 10px; border: 2px solid #000; }
+
+        .expand-btn { float: right; cursor: pointer; font-size: 0.65rem; color: var(--gold-dim); border: 1px solid #333; padding: 2px 8px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="nebula-bg"><div class="blob"></div></div>
+
+    <header class="module-header" style="padding: 10px 20px;">
+        <div class="header-left"><h1>SAGE MIRROR v13 | PREVIEW 2.2 (STRICT POPUP)</h1></div>
+        <div class="header-right"><button class="global-rule-btn">GLOBAL RULE ▲</button></div>
+    </header>
+
+    <div class="main-container">
+        <!-- 메인 대시보드 (2.2 원형 유지) -->
+        <section class="top-grid">
+            <div class="card-panel">
+                <div class="panel-title"><span>OBSIDIAN SOURCE LIBRARY</span></div>
+                <div class="library-grid"><div class="lib-card active">✝ 성경</div><div class="lib-card active">⚖ 쇼펜하우어</div></div>
+            </div>
+            <div class="card-panel">
+                <div class="panel-title"><span>SYSTEM STATUS</span></div>
+                <div class="plan-item"><div class="plan-label">📡 BRIDGE</div><div class="plan-value" style="color:var(--cyan-accent);">CONNECTED</div></div>
+            </div>
+        </section>
+
+        <div class="center-banner"><span class="banner-text">SAGE MIRROR · PRODUCTION PIPELINE</span></div>
+
+        <section class="unified-guide">
+            <div class="guide-section">
+                <div class="guide-label">OBSIDIAN RULE <span class="expand-btn" onclick="openModal('modal-guide')">확대 ↗</span></div>
+                <div class="guide-body"># [[Concept]] / ## 📌 Brief / ## 📖 Core</div>
+            </div>
+        </section>
+
+        <section class="pipeline-grid">
+            <div class="pipeline-panel">
+                <div class="panel-title"><span>I. BENCHMARKING <span class="expand-btn" onclick="openModal('modal-bench')">확대 ↗</span></span></div>
+                <div style="font-size:0.7rem; margin-top:10px;">(2.2 레이아웃 보존 중...)</div>
+            </div>
+            <div class="pipeline-panel" onclick="openModal('modal-research')">
+                <div class="panel-title"><span>II. TOPIC & RESEARCH <span class="expand-btn">확대 ↗</span></span></div>
+            </div>
+            <div class="pipeline-panel" onclick="openModal('modal-director')">
+                <div class="panel-title"><span>III. DIRECTOR'S PLAN <span class="expand-btn">확대 ↗</span></span></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- [팝업 모달 시스템 - 강력한 뒤로가기 & 골드 스크롤] -->
+    <div id="modal-guide" class="modal">
+        <div class="modal-content">
+            <div class="modal-sticky-header">
+                <span style="color:var(--gold-main); font-weight:bold; font-size:1.2rem;">🏛️ 가이드 및 규정</span>
+                <button class="back-btn-v4" onclick="closeModal('modal-guide')">← 뒤로가기 (작업완료)</button>
+            </div>
+            <div class="modal-scroll-body">
+                <h2 style="color:var(--gold-bright);"># 옵시디언 구조화 규칙</h2>
+                <p>상세 내용이 여기에 표시되며, 아래로 길어지면 골드 스크롤바가 나타납니다...</p>
+                <div style="height:1500px; border-left: 2px dashed #222; margin-top:20px; padding-left:20px; color:#555;">(스크롤 테스트 공간 - 아래로 내려보세요)</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-bench" class="modal">
+        <div class="modal-content">
+            <div class="modal-sticky-header">
+                <span style="color:var(--gold-main); font-weight:bold; font-size:1.2rem;">I. 벤치마킹 스테이션</span>
+                <button class="back-btn-v4" onclick="closeModal('modal-bench')">← 뒤로가기 (작업완료)</button>
+            </div>
+            <div class="modal-scroll-body">
+                <div style="background:#000; padding:20px; border:1px solid #333; margin-bottom:20px;">
+                    <h3 style="color:var(--gold-main); margin-bottom:15px;">🔍 분석 대상 URL 입력 (5채널)</h3>
+                    <input type="text" style="width:100%; background:#111; border:1px solid #444; color:var(--cyan-accent); padding:10px; margin-bottom:10px;" value="https://youtube.com/@changeground">
+                    <input type="text" style="width:100%; background:#111; border:1px solid #444; color:var(--cyan-accent); padding:10px; margin-bottom:10px;" placeholder="URL 2">
+                    <input type="text" style="width:100%; background:#111; border:1px solid #444; color:var(--cyan-accent); padding:10px; margin-bottom:10px;" placeholder="URL 3">
+                    <button class="global-rule-btn" style="width:100%; padding:15px; background:var(--gold-main); color:black; font-weight:bold;">✨ 분석 엔진 가동</button>
+                </div>
+                <div style="height:1000px; color:#444;">(상세 분석 결과 스크롤 구역...)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 나머지 모달들도 동일 구조로 생성... -->
+
+    <div class="chat-open-btn" onclick="alert('채팅 활성화')">💬 MEGA CHAT</div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    </script>
+</body>
+</html>

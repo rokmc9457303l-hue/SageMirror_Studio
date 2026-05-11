@@ -1,0 +1,106 @@
+<!-- [현자의 거울: 리서치 모듈 프리미엄 v03 - 최종 젬마 연결 완료] -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | Research Module Premium v03 (FINAL)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nebula-bg"><div class="blob"></div></div>
+
+    <header class="module-header">
+        <div class="header-left"><h1>Obsidian Knowledge Rule — 젬마 v03 최종본</h1></div>
+        <div class="header-right"><button class="global-rule-btn">GLOBAL RULE ▲</button></div>
+    </header>
+
+    <section class="top-grid">
+        <div class="card-panel">
+            <div class="panel-title"><span>NOTE TEMPLATE · 젬마(gemma4:e4b) 실시간 오라클</span></div>
+            <div id="oracle-output" class="note-template-view">
+                <div><span class="hl-tag"># [[현자의 거울: 최종 리서치 통찰]]</span></div>
+                <br>
+                <div><span class="hl-tag">## 📌 Brief Summary</span></div>
+                <div id="brief-summary" class="hl-comment">분석 대기 중...</div>
+                <br>
+                <div><span class="hl-tag">## 📖 Core Content</span></div>
+                <div id="core-content" class="hl-comment" style="color:#eee; font-style:normal;">(젬마의 심연의 통찰이 이곳에 출력됩니다)</div>
+                <br>
+                <div>---</div>
+                <div><span class="hl-tag">Status: 젬마 gemma4:e4b 연결 성공</span></div>
+            </div>
+        </div>
+
+        <div class="card-panel">
+            <div class="panel-title"><span>OBSIDIAN SOURCE LIBRARY · 지식 소스 활성화</span></div>
+            <div class="library-grid">
+                <div class="lib-card active" data-source="성경"><span class="check-mark">✔</span><span class="lib-icon">✝</span><span class="lib-name">성경</span></div>
+                <div class="lib-card active" data-source="쇼펜하우어"><span class="check-mark">✔</span><span class="lib-icon">⚖</span><span class="lib-name">쇼펜하우어</span></div>
+                <div class="lib-card" data-source="빅터 프랭클"><span class="check-mark">✔</span><span class="lib-icon">🕯</span><span class="lib-name">빅터 프랭클</span></div>
+                <div class="lib-card" data-source="칼 융"><span class="check-mark">✔</span><span class="lib-icon">💠</span><span class="lib-name">칼 융</span></div>
+            </div>
+            <button onclick="runGemmaAnalysis()" class="global-rule-btn" style="margin-top:20px; width:100%; font-size:0.9rem; padding:15px; background:var(--gold-main); color:black; font-weight:bold;">✨ 젬마 최종 분석 가동 (ORACLE RUN)</button>
+        </div>
+    </section>
+
+    <div class="center-banner"><span class="banner-text">SAGE MIRROR · ORACLE FINALIZED</span></div>
+
+    <section class="bottom-grid">
+        <div class="bench-list">
+            <div class="panel-title"><span>I. BENCHMARKING</span></div>
+            <div class="bench-item active" style="border-left-color: var(--gold-main);">
+                <div class="bench-avatar">🧠</div>
+                <div class="bench-info"><span class="name">체인지그라운드</span><span class="handle">성장/심리 마스터</span></div>
+            </div>
+        </div>
+
+        <div style="writing-mode: vertical-rl; text-align: center; color: var(--gold-dim); font-size: 0.6rem;">ORACLE CONNECTED</div>
+
+        <div class="director-panel">
+            <div class="panel-title"><span>III. 시스템 상태</span></div>
+            <div class="plan-item"><div class="plan-label">📡 BRIDGE</div><div class="plan-value" style="color:var(--cyan-accent);">v06 API ACTIVE</div></div>
+            <div class="plan-item"><div class="plan-label">🤖 MODEL</div><div class="plan-value">gemma4:e4b</div></div>
+        </div>
+    </section>
+
+    <script>
+        var SERVER_URL = "http://127.0.0.1:5000";
+
+        async function runGemmaAnalysis() {
+            const activeSources = Array.from(document.querySelectorAll('.lib-card.active')).map(c => c.getAttribute('data-source'));
+            const coreContent = document.getElementById('core-content');
+            
+            coreContent.innerText = "현자의 거울이 gemma4:e4b의 지혜를 길어올리는 중입니다...";
+
+            const prompt = `[🏛️ 젬마 절대 지령]
+1. 주제: 성장/심리 분석
+2. 활용 소스: ${activeSources.join(', ')}
+3. 핵심 키워드 [[ ]] 형식 추출 및 15분 영상용 통찰 제시`;
+
+            try {
+                const response = await fetch(SERVER_URL + '/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt, model: 'gemma4:e4b' })
+                });
+                const data = await response.json();
+                
+                if (data.status === "success") {
+                    coreContent.innerText = data.response;
+                    document.getElementById('brief-summary').innerText = "젬마가 성공적으로 통찰을 전했습니다.";
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (err) {
+                coreContent.innerText = "연결 오류: " + err.message;
+            }
+        }
+
+        document.querySelectorAll('.lib-card').forEach(card => {
+            card.onclick = function() { this.classList.toggle('active'); };
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE MIRROR | v16.0 BRIDGE OPTIMIZED (ORIGINAL)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- [v16: 브릿지 안정화 및 광폭 워크스페이스 원형] -->
+    <div class="nebula-bg">
+        <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+    </div>
+
+    <div class="main-wrapper">
+        <header class="main-header">
+            <h1 class="master-logo">SAGE MIRROR</h1>
+            <p class="master-subtitle">ORACLE BRIDGE COMMAND CENTER (v16)</p>
+        </header>
+
+        <main class="dashboard-grid">
+            <div class="oracle-card" onclick="openModule('research')"><div class="card-content"><h3>RESEARCH</h3><p>분석</p></div></div>
+            <div class="oracle-card" onclick="openModule('thumbnail')"><div class="card-content"><h3>VISUAL</h3><p>기획</p></div></div>
+            <div class="oracle-card" onclick="openModule('script')"><div class="card-content"><h3>SCRIPT</h3><p>대본</p></div></div>
+            <div class="oracle-card" onclick="openModule('image')"><div class="card-content"><h3>IMAGE</h3><p>에셋</p></div></div>
+        </main>
+    </div>
+
+    <!-- v16 광폭 워크스페이스 -->
+    <div id="workspaceOverlay" class="workspace-overlay full-screen">
+        <div class="workspace-panel mega-panel">
+            <div class="workspace-header">
+                <h2>v16 PREMIUM WORKSPACE</h2>
+                <div class="header-actions">
+                    <button class="save-btn-top" onclick="saveAllWorkspace()">💾 SAVE</button>
+                    <button class="close-btn" onclick="closeWorkspace()">✕ CLOSE</button>
+                </div>
+            </div>
+            <div class="workspace-body scroll-gold">
+                <div class="ws-row url-section">
+                    <div class="ws-col"><label class="ws-label">벤치마킹 타겟 URL</label>
+                        <div class="url-input-group"><input type="text" class="url-input"><input type="text" class="url-input"><input type="text" class="url-input"></div>
+                    </div>
+                </div>
+                <div class="ws-row engine-row">
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label">1. 분석 엔진</label></div><div id="out-1" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label">2. 주제 엔진</label></div><div id="out-2" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                    <div class="ws-col engine-box"><div class="engine-header"><label class="ws-label">3. 최종 기획</label></div><div id="out-3" contenteditable="true" class="engine-output scroll-gold"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var SERVER_URL = "http://127.0.0.1:5050";
+        function openModule(name) { document.getElementById('workspaceOverlay').classList.add('active'); }
+        function closeWorkspace() { document.getElementById('workspaceOverlay').classList.remove('active'); }
+        function saveAllWorkspace() { alert("v16 저장 로직 가동"); }
+    </script>
+</body>
+</html>
