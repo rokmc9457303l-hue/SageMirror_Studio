@@ -9,7 +9,7 @@ from sage_config import (
     DEFAULT_OBSIDIAN_RULES, DEFAULT_BASE_PROMPT,
     SAGE_PERSONA, OLLAMA_MODEL,
 )
-from sage_engine import call_gemma, tavily_search
+from sage_engine import call_gemma, call_gemma_stream, tavily_search, check_ollama_status
 
 
 # =====================================================================
@@ -119,33 +119,39 @@ def popup_edit_prompt():
 # =====================================================================
 # Sage Pop-up (Gemma + Tavily) 대화 팝업
 # =====================================================================
-@st.dialog("🤖 Sage Pop-up — Gemma4:e4b + Tavily", width="large")
+
+def _on_popup_send():
+    q = st.session_state.get("popup_chat_input_ta", "")
+    if q.strip():
+        st.session_state.popup_history.append({"role": "user", "content": q})
+        st.session_state.pending_stream = q
+        st.session_state.popup_chat_input_ta = ""
+
+@st.dialog(f"🤖 세이지 팝업 — {OLLAMA_MODEL} + Tavily", width="large")
 def popup_assistant():
+    status = check_ollama_status()
+    c_stat1, c_stat2 = st.columns(2)
+    with c_stat1:
+        if status["server"] and status["model"]:
+            st.success(f"🟢 연결 정상: {OLLAMA_MODEL}")
+        else:
+            st.error(f"🔴 연결 에러: {OLLAMA_MODEL} 미확인")
+    with c_stat2:
+        if st.session_state.tavily_api_key:
+            st.success("🟢 Tavily API (인터넷) 연결 정상")
+        else:
+            st.warning("🔴 Tavily API Key 미입력")
+            
     st.markdown(f"<span class='model-badge'>🧠 {OLLAMA_MODEL}</span>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["💬 로컬 Gemma 대화", "🌐 Tavily 웹 리서치"])
 
     # ─── Gemma 대화 ───
     with tab1:
         st.markdown("##### 💬 대화 기록 (스크롤 / 드래그 복사)")
-        with st.container(height=380, border=True):
-            if not st.session_state.popup_history:
-                st.caption("아직 대화가 없습니다. 아래에 질문을 입력하세요.")
-            for msg in st.session_state.popup_history:
-                if msg["role"] == "user":
-                    st.markdown(
-                        f"<div class='chat-bubble-user'><b>🧑 You</b><br>{msg['content']}</div>",
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    st.markdown(
-                        f"<div class='chat-bubble-sage'><b>🤖 Sage ({OLLAMA_MODEL})</b><br>{msg['content']}</div>",
-                        unsafe_allow_html=True,
-                    )
-                    with st.expander("📋 복사용 텍스트", expanded=False):
-                        st.code(msg["content"], language="markdown")
+        chat_container = st.container(height=380, border=True)
 
         st.markdown("##### ✏️ 질문 입력")
-        q = st.text_area(
+        st.text_area(
             "질문 입력", key="popup_chat_input_ta",
             placeholder="현자에게 물어보세요... (전송 버튼 클릭)",
             height=140, label_visibility="collapsed",
@@ -153,7 +159,7 @@ def popup_assistant():
 
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            send = st.button("📤 전송", use_container_width=True, key="popup_send", type="primary")
+            st.button("📤 전송", use_container_width=True, key="popup_send", type="primary", on_click=_on_popup_send)
         with c2:
             back = st.button(
                 f"⬅️ 뒤로 ({len(st.session_state.popup_history)//2})",
@@ -180,13 +186,51 @@ def popup_assistant():
         if clear:
             st.session_state.popup_history = []
             st.rerun()
-        if send and q.strip():
-            st.session_state.popup_history.append({"role": "user", "content": q})
-            sys_ctx = SAGE_PERSONA + "\n\n[옵시디언 규칙서]\n" + st.session_state.obsidian_rules
-            with st.spinner(f"Sage가 사색 중... ({OLLAMA_MODEL})"):
-                ans = call_gemma(q, system=sys_ctx)
-            st.session_state.popup_history.append({"role": "assistant", "content": ans})
-            st.rerun()
+
+        # 대화 내용 렌더링 및 스트리밍 처리 (가장 마지막에 실행되어야 정상 위치에 출력됨)
+        with chat_container:
+            if not st.session_state.popup_history and not st.session_state.get("pending_stream"):
+                st.caption("아직 대화가 없습니다. 아래에 질문을 입력하세요.")
+                
+            for msg in st.session_state.popup_history:
+                if msg["role"] == "user":
+                    st.markdown(
+                        f"<div class='chat-bubble-user'><b>🧑 You</b><br>{msg['content']}</div>",
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.markdown(
+                        f"<div class='chat-bubble-sage'><b>🤖 Sage ({OLLAMA_MODEL})</b><br>{msg['content']}</div>",
+                        unsafe_allow_html=True,
+                    )
+                    with st.expander("📋 복사용 텍스트", expanded=False):
+                        st.code(msg["content"], language="markdown")
+
+            # 대기 중인 스트리밍이 있다면 실행
+            if st.session_state.get("pending_stream"):
+                q_stream = st.session_state.pending_stream
+                sys_ctx = SAGE_PERSONA + "\n\n[옵시디언 규칙서]\n" + st.session_state.obsidian_rules
+                
+                with st.status("🔮 젬마가 깊은 사유에 빠졌습니다...", expanded=True) as status:
+                    st.write("지식의 심연을 들여다보고 있습니다...")
+                    
+                    st.markdown(f"<div class='chat-bubble-sage'><b>🤖 Sage ({OLLAMA_MODEL})</b><br>", unsafe_allow_html=True)
+                    ans_placeholder = st.empty()
+                    full_response = ""
+                    
+                    for token in call_gemma_stream(q_stream, system=sys_ctx):
+                        full_response += token
+                        ans_placeholder.markdown(full_response + "▌")
+                    ans_placeholder.markdown(full_response)
+                    st.markdown("</div>", unsafe_allow_html=True)
+                    
+                    status.update(label="✅ 사유 완료", state="complete", expanded=False)
+                
+                with st.expander("📋 복사용 텍스트", expanded=False):
+                    st.code(full_response, language="markdown")
+                
+                st.session_state.popup_history.append({"role": "assistant", "content": full_response})
+                st.session_state.pending_stream = None
 
     # ─── Tavily ───
     with tab2:

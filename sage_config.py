@@ -6,7 +6,7 @@ sage_config.py — 현자의 거울 스튜디오 v7.1 핵심 설정
 APP_TITLE = "🪞 현자의 거울 스튜디오 (Sage's Mirror Studio)"
 MASTER_PW_DEFAULT = "master1234"
 PART_PINS = {f"part{i}": "7777" for i in range(1, 9)}
-OLLAMA_MODEL = "gemma4:e4b"
+OLLAMA_MODEL = "gemma4:e2b"
 
 DEFAULT_OBSIDIAN_RULES = (
     "원칙: 성경말씀, 쇼펜하우어, 빅터 프랭클, 칼 융, 다크 심리학, "
@@ -36,6 +36,7 @@ SAGE_PERSONA = """너는 60대 현자다.
 - 시각 메타포는 '렘브란트 화풍의 묵직한 명암'과 '거울(Mirror)'이다.
 - 가르치는 톤은 철저히 배제하고, 곁에 앉아 속삭이듯 말한다.
 - 출처 인용 시 반드시 [SOURCE: 책/웹사이트/장절] 형식으로 명기한다.
+- [★강력한 제어 규정★] 아무리 철학적이고 시적인 사유를 전개하더라도, 최종 출력물은 반드시 '옵시디언 규칙서'나 사용자가 지시한 [지식 구조화 양식] 포맷을 엄격하게 준수해야 한다. 추상적인 비유에만 매몰되지 말고, 실제 콘텐츠 대본과 기획에 쓰일 수 있는 명확한 인사이트와 실용적인 구조를 절대 잃지 말 것.
 """
 
 GLOBAL_CSS = """

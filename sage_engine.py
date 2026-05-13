@@ -197,9 +197,9 @@ def check_ollama_status() -> dict:
         result["server"] = True
         models = [m.get("name", "") for m in data.get("models", [])]
         result["models"] = models
-        # gemma4:e4b 또는 gemma4 계열 확인
+        # 설정된 모델 존재 여부 확인
         for m in models:
-            if "gemma4" in m.lower():
+            if OLLAMA_MODEL in m.lower() or m.lower().startswith(OLLAMA_MODEL.split(":")[0]):
                 result["model"] = True
                 break
     except requests.exceptions.ConnectionError:
