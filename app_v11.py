@@ -1,10 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-🪞 현자의 거울 스튜디오 (Sage's 거울 스튜디오) — Master App v11.0
-================================================================
-[v11.0 업데이트 사항: 2026-05-13]
-- Part 2 ↔ Part 3-4 역할 분리 및 데이터 연동 강화
+🪞 현자의 거울 스튜디오 — Master App v12.0.1
+[v12.0 업데이트 사항: 2026-05-15]
+- Part 4 (Image Consistency) 완전 구현 — render_part5_image()
+- A/B/C/V 4탭 구조: 인물참조 / 배경소품참조 / C-1 씬조립 / V-1~V-7 검증
+- popup_edit_image_master() / popup_edit_a/b/c_result() 팝업 4종 신규 추가
+- 세션 스테이트 p5 계열 키 14개 추가 (gemma_protocol, a/b/c_result 등)
+- Part 4 라우팅 블록 render_part5_image() 연결 완료
+[v12.0.1 패치: 2026-05-15]
+- FlowRun 크롬 확장 태그 호환성 패치
+- C-1 프롬프트 [A-MASTER] → [인물1] 교체 (2곳)
+- 검증 로직 [A-MASTER] → [인물1] 체크 교체 (1곳)
+- [@배경] → [배경] 태그 수정 (FlowRun 식별 형식)
 """
+
 
 import streamlit as st
 import os
@@ -1372,6 +1381,29 @@ def init_session_state():
         "p34_capcut_data": "",
         "p5_image_master_prompt": IMAGE_PART_MASTER_PROMPT_V3,
         "unlock_part5": False,
+        # ── Part 4 (Image Consistency) 전용 키 ──
+        "p5_gemma_protocol": "",
+        "p5_a_result": "",
+        "p5_b_result": "",
+        "p5_c_results": "",
+        "p5_valid_rows": [],
+        "p5_error_rows": [],
+        "p5_parsed_scenes": [],
+        "p5_parse_errors": [],
+        "p5_v_results": {},
+        "p5_v_scene_count": 0,
+        "p5_a_history": [],
+        "p5_b_history": [],
+        "p5_c_history": [],
+        "p5_protocol_loaded": "",
+        "p5_save_done": False,
+        # ── Part 5 이후 파트 추가 키 ──
+        "pending_stream": None,
+        "p6_opal_df": None,
+        "p6_save_done": False,
+        "p7_capcut_df": None,
+        "p8_check_result": "",
+        "p8_save_done": False,
     }
     
     for k, v in loaded_data.items():
@@ -2047,9 +2079,105 @@ def render_part5():
     st.divider()
     st.info("👉 이미지 생성 자동화 UI 및 씬(Scene) 관리 인터페이스가 곧 이곳에 구현될 예정입니다.")
 
+
+# =====================================================================
+# Part 4 — Image Consistency 전용 팝업 함수
+# =====================================================================
+@st.dialog("🖼️ 이미지 마스터 규정서 편집", width="large")
+def popup_edit_image_master():
+    new_val = st.text_area("규정서", value=st.session_state.get("p5_image_master_prompt", ""), height=500, key="p5_master_edit_ta")
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("💾 저장", type="primary", key="p5_master_save"):
+            st.session_state.p5_image_master_prompt = new_val
+            st.toast("✅ 이미지 마스터 규정서 저장!", icon="🖼️")
+            st.rerun()
+    with c2:
+        if st.button("취소", key="p5_master_cancel"):
+            st.rerun()
+
+@st.dialog("👤 A-MASTER 인물 참조 프롬프트 편집", width="large")
+def popup_edit_a_result():
+    st.caption("A-MASTER 프롬프트를 스크롤하며 검토하고 복사/수정하세요.")
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,sans-serif;'>{st.session_state.get('p5_a_result','')}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("편집", value=st.session_state.get("p5_a_result",""), height=250, key="popup_a_edit_ta", label_visibility="collapsed")
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        if st.button("💾 저장", use_container_width=True, type="primary", key="popup_a_save"):
+            st.session_state.p5_a_history.append(st.session_state.get("p5_a_result",""))
+            st.session_state.p5_a_result = new_val
+            st.toast("✅ A-MASTER 저장", icon="✅")
+            st.rerun()
+    with c2:
+        hist_a = st.session_state.get("p5_a_history", [])
+        if st.button(f"⬅️ 뒤로 ({len(hist_a)})", use_container_width=True, key="popup_a_back", disabled=len(hist_a)==0):
+            st.session_state.p5_a_result = st.session_state.p5_a_history.pop()
+            st.rerun()
+    with c3:
+        if st.button("🔄 초기화", use_container_width=True, key="popup_a_reset"):
+            st.session_state.p5_a_history.append(st.session_state.get("p5_a_result",""))
+            st.session_state.p5_a_result = ""
+            st.rerun()
+    with c4:
+        st.download_button("📥 .txt", data=st.session_state.get("p5_a_result",""), file_name=f"A_Master_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True, key="popup_a_dl")
+
+@st.dialog("🌄 B-MASTER 배경/소품 참조 프롬프트 편집", width="large")
+def popup_edit_b_result():
+    st.caption("B-MASTER 프롬프트를 스크롤하며 검토하고 복사/수정하세요.")
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,sans-serif;'>{st.session_state.get('p5_b_result','')}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("편집", value=st.session_state.get("p5_b_result",""), height=250, key="popup_b_edit_ta", label_visibility="collapsed")
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        if st.button("💾 저장", use_container_width=True, type="primary", key="popup_b_save"):
+            st.session_state.p5_b_history.append(st.session_state.get("p5_b_result",""))
+            st.session_state.p5_b_result = new_val
+            st.toast("✅ B-MASTER 저장", icon="✅")
+            st.rerun()
+    with c2:
+        hist_b = st.session_state.get("p5_b_history", [])
+        if st.button(f"⬅️ 뒤로 ({len(hist_b)})", use_container_width=True, key="popup_b_back", disabled=len(hist_b)==0):
+            st.session_state.p5_b_result = st.session_state.p5_b_history.pop()
+            st.rerun()
+    with c3:
+        if st.button("🔄 초기화", use_container_width=True, key="popup_b_reset"):
+            st.session_state.p5_b_history.append(st.session_state.get("p5_b_result",""))
+            st.session_state.p5_b_result = ""
+            st.rerun()
+    with c4:
+        st.download_button("📥 .txt", data=st.session_state.get("p5_b_result",""), file_name=f"B_Master_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True, key="popup_b_dl")
+
+@st.dialog("🎬 C-1 씬별 프롬프트 결과 편집", width="large")
+def popup_edit_c_result():
+    st.caption("C-1 전체 결과를 스크롤하며 검토하고 복사/수정하세요.")
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,sans-serif;'>{st.session_state.get('p5_c_results','')}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("편집", value=st.session_state.get("p5_c_results",""), height=250, key="popup_c_edit_ta", label_visibility="collapsed")
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        if st.button("💾 저장", use_container_width=True, type="primary", key="popup_c_save"):
+            st.session_state.p5_c_history.append(st.session_state.get("p5_c_results",""))
+            st.session_state.p5_c_results = new_val
+            st.toast("✅ C-1 결과 저장", icon="✅")
+            st.rerun()
+    with c2:
+        hist_c = st.session_state.get("p5_c_history", [])
+        if st.button(f"⬅️ 뒤로 ({len(hist_c)})", use_container_width=True, key="popup_c_back", disabled=len(hist_c)==0):
+            st.session_state.p5_c_results = st.session_state.p5_c_history.pop()
+            st.rerun()
+    with c3:
+        if st.button("🔄 초기화", use_container_width=True, key="popup_c_reset"):
+            st.session_state.p5_c_history.append(st.session_state.get("p5_c_results",""))
+            st.session_state.p5_c_results = ""
+            st.rerun()
+    with c4:
+        st.download_button("📥 .md", data=st.session_state.get("p5_c_results",""), file_name=f"C1_Results_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md", use_container_width=True, key="popup_c_dl")
+
 @st.dialog("🎯 마스터 프롬프트 편집 (Part 3-4)", width="large")
 def popup_edit_prompt_p34():
     st.markdown("대본 작성 규정서를 수정합니다.")
+
     new_val = st.text_area("규칙서 내용", value=st.session_state.p34_master_prompt, height=400, label_visibility="collapsed")
     c1, c2 = st.columns(2)
     with c1:
@@ -2060,7 +2188,428 @@ def popup_edit_prompt_p34():
         if st.button("취소", use_container_width=True):
             st.rerun()
 
+
+# ── Part 4 Tab A 헬퍼 ──
+def _p5_tab_a(is_locked):
+    st.caption("@Protagonist 캐릭터 고정용 — 구글 플로우 Reference Slot 1에 업로드 후 PIN 고정")
+    st.info("📌 A-MASTER 프롬프트로 이미지 생성 → A_Protagonist_Master.png → 크롬 확장 Slot 1 PIN")
+    if st.button("✨ A-MASTER 인물 참조 프롬프트 생성", use_container_width=True, key="p5_a_gen_btn", disabled=is_locked):
+        prompt = (
+            f"[이미지 파트 마스터 규정서]\n{st.session_state.get('p5_image_master_prompt','')}\n\n"
+            "[지시] 섹션 A의 A-REFERENCE SHEET 생성 양식 전문을 출력하라.\n"
+            "@Protagonist 외형 고정값 영문 전문 + 레퍼런스 시트 생성 양식을 완전한 형태로 출력. 요약 금지.\n\n"
+            "[출력 형식]\n=== A-MASTER 고정값 ===\n(영문 고정값 전문)\n"
+            "=== A-REFERENCE SHEET 생성 프롬프트 (구글 플로우 입력용) ===\n(레퍼런스 시트 생성 양식 전문)"
+        )
+        with st.spinner("🧙 젬마가 A-MASTER 프롬프트를 생성 중..."):
+            try:
+                result = call_gemma(prompt, system=SAGE_PERSONA)
+                st.session_state.p5_a_result = result
+                st.success("✅ A-MASTER 생성 완료!")
+            except Exception as e:
+                st.error(f"생성 실패: {e}\n→ Ollama 서버 실행 확인 (ollama serve)")
+    if st.session_state.get("p5_a_result"):
+        st.markdown("##### 📋 A-MASTER 프롬프트 (복사 후 구글 플로우에 입력)")
+        st.text_area("A-MASTER 결과", value=st.session_state.p5_a_result, height=300, key="p5_a_ta")
+        if st.button("🔍 팝업에서 크게 보기 / 복붙", use_container_width=True, key="p5_a_popup_view"):
+            popup_edit_a_result()
+        col_a1, col_a2, col_a3 = st.columns(3)
+        with col_a1:
+            st.download_button("📥 A-MASTER.txt 다운로드",
+                data=st.session_state.p5_a_result.encode("utf-8"),
+                file_name="A_Protagonist_Master_Prompt.txt", key="p5_a_dl")
+        with col_a2:
+            if st.button("💾 옵시디언 저장", key="p5_a_save", disabled=is_locked):
+                try:
+                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    ob = st.session_state.get("path_obsidian", "")
+                    safe_makedirs(ob)
+                    path = os.path.join(ob, f"part4_A_master_{ts}.md")
+                    content = f"# A-MASTER @Protagonist 고정 프롬프트\n\n```\n{st.session_state.p5_a_result}\n```\n\n*생성: {ts}*"
+                    if save_markdown(path, content):
+                        lock_file_readonly(path)
+                        st.toast("✅ A-MASTER 옵시디언 저장 완료!", icon="📓")
+                        success, msg = auto_git_push(f"Part4 A-MASTER: {ts}")
+                        if success: st.toast("🚀 GitHub Push 완료!", icon="🚀")
+                        else: st.warning(f"GitHub Push: {msg}")
+                except Exception as e:
+                    st.error(f"저장 실패: {e}")
+        with col_a3:
+            st.code("크롬 확장 Slot 1 → PIN 고정 🔒", language="text")
+    st.divider()
+    st.markdown("##### 🔒 크롬 확장 작업 체크리스트 (A파트)")
+    col_ck1, col_ck2 = st.columns(2)
+    with col_ck1:
+        st.checkbox("A_Protagonist_Master.png 생성 완료", key="p5_ck_a1")
+        st.checkbox("Slot 1에 업로드 완료", key="p5_ck_a2")
+    with col_ck2:
+        st.checkbox("Slot 1 PIN 고정(🔒) 확인", key="p5_ck_a3")
+        st.checkbox("외형 검수 완료 (수염/복장/나이)", key="p5_ck_a4")
+
+# ── Part 4 Tab B 헬퍼 ──
+def _p5_tab_b(is_locked):
+    st.caption("배경/@거울/@촛대/@소품 고정용 — 구글 플로우 Reference Slot 2에 업로드 후 PIN 고정")
+    st.info("📌 B-MASTER 프롬프트로 이미지 생성 → B_Environment_Master.png → 크롬 확장 Slot 2 PIN")
+    b_sub = st.selectbox("생성할 B파트 선택", [
+        "🌄 전체 배경 + 소품 통합 레퍼런스 시트", "🪞 @거울 단독", "🕯️ @촛대 단독",
+        "⏳ @모래시계 단독", "📖 @고서 단독", "🌍 @지구본 단독",
+        "📜 @양피지 단독", "🪶 @깃털펜 단독", "🔑 @열쇠 단독"
+    ], key="p5_b_select")
+    if st.button("✨ B-MASTER 환경/소품 참조 프롬프트 생성", use_container_width=True, key="p5_b_gen_btn", disabled=is_locked):
+        prompt = (
+            f"[이미지 파트 마스터 규정서]\n{st.session_state.get('p5_image_master_prompt','')}\n\n"
+            f"[지시] 섹션 B에서 [{b_sub}]에 해당하는 프롬프트 전문을 출력하라. 요약 금지.\n\n"
+            "[출력 형식]\n=== B-MASTER 고정값 ===\n(영문 고정값 전문)\n"
+            "=== B-REFERENCE SHEET 생성 프롬프트 (구글 플로우 입력용) ===\n(레퍼런스 시트 생성 양식 전문)"
+        )
+        with st.spinner(f"🧙 [{b_sub}] B-MASTER 프롬프트 생성 중..."):
+            try:
+                result = call_gemma(prompt, system=SAGE_PERSONA)
+                st.session_state.p5_b_result = result
+                st.success("✅ B-MASTER 생성 완료!")
+            except Exception as e:
+                st.error(f"생성 실패: {e}")
+    if st.session_state.get("p5_b_result"):
+        st.text_area("B-MASTER 결과", value=st.session_state.p5_b_result, height=300, key="p5_b_ta")
+        if st.button("🔍 팝업에서 크게 보기 / 복붙", use_container_width=True, key="p5_b_popup_view"):
+            popup_edit_b_result()
+        col_b1, col_b2 = st.columns(2)
+        with col_b1:
+            st.download_button("📥 B-MASTER.txt 다운로드",
+                data=st.session_state.p5_b_result.encode("utf-8"),
+                file_name="B_Environment_Master_Prompt.txt", key="p5_b_dl")
+        with col_b2:
+            if st.button("💾 옵시디언 저장", key="p5_b_save", disabled=is_locked):
+                try:
+                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    ob = st.session_state.get("path_obsidian", "")
+                    safe_makedirs(ob)
+                    path = os.path.join(ob, f"part4_B_master_{ts}.md")
+                    content = f"# B-MASTER 환경/소품 고정 프롬프트\n\n```\n{st.session_state.p5_b_result}\n```\n\n*생성: {ts}*"
+                    if save_markdown(path, content):
+                        lock_file_readonly(path)
+                        st.toast("✅ B-MASTER 옵시디언 저장 완료!", icon="📓")
+                        success, msg = auto_git_push(f"Part4 B-MASTER: {ts}")
+                        if success: st.toast("🚀 GitHub Push 완료!", icon="🚀")
+                        else: st.warning(f"GitHub Push: {msg}")
+                except Exception as e:
+                    st.error(f"저장 실패: {e}")
+    st.divider()
+    st.markdown("##### 🔒 크롬 확장 작업 체크리스트 (B파트)")
+    col_ck3, col_ck4 = st.columns(2)
+    with col_ck3:
+        st.checkbox("B_Environment_Master.png 생성 완료", key="p5_ck_b1")
+        st.checkbox("Slot 2에 업로드 완료", key="p5_ck_b2")
+    with col_ck4:
+        st.checkbox("Slot 2 PIN 고정(🔒) 확인", key="p5_ck_b3")
+        st.checkbox("배경/소품 스타일 검수 완료", key="p5_ck_b4")
+
+
+# ── Part 4 Tab C 헬퍼 ──
+def _p5_tab_c(is_locked):
+    st.caption("Part 3/4 확정 대본 → C-1 씬별 조립 프롬프트 생성 → CSV 다운로드 → 크롬 확장 투입")
+    all_pinned = st.session_state.get("p5_ck_a3", False) and st.session_state.get("p5_ck_b3", False)
+    if not all_pinned:
+        st.warning("⚠️ A파트 Slot 1 PIN + B파트 Slot 2 PIN을 먼저 완료하세요!")
+    c_left, c_center, c_right = st.columns(3, gap="large")
+    # ── 좌측: 대본 데이터 수신 ──
+    with c_left:
+        with st.container(border=True):
+            st.markdown("### 📥 대본 데이터 수신")
+            src_choice = st.radio("데이터 소스", ["Part 3/4 자동 연동", "직접 붙여넣기"], key="p5_src_choice")
+            if src_choice == "Part 3/4 자동 연동":
+                src_data = st.session_state.get("p34_image_script", "") or st.session_state.get("p34_narration_script", "")
+                if src_data: st.success(f"✅ Part 3/4 연동됨 ({len(src_data.split(chr(10)))}줄)")
+                else: st.error("❌ Part 3/4 데이터 없음 — Part 3/4 먼저 완료하세요")
+            else:
+                src_data = st.text_area("대본 데이터 붙여넣기", height=200, key="p5_src_manual", placeholder="씬번호|대본|@한글묘사@|@영어프롬프트@")
+            if st.button("🔍 데이터 파싱 및 씬 목록 구성", use_container_width=True, key="p5_parse_btn", disabled=is_locked):
+                if not src_data or not src_data.strip():
+                    st.error("⚠️ 데이터가 없습니다.")
+                else:
+                    lines = [l.strip() for l in src_data.strip().split("\n") if l.strip()]
+                    parsed, errors = [], []
+                    for i, line in enumerate(lines, 1):
+                        pts = line.split("|")
+                        if len(pts) >= 2:
+                            sn = pts[0].strip()
+                            try: n = int(sn); sfmt = f"{n:03d}"
+                            except: sfmt = sn; errors.append(f"씬번호 오류 Line {i}: {sn}")
+                            pos = "기" if sfmt.isdigit() and int(sfmt)<=28 else ("승" if sfmt.isdigit() and int(sfmt)<=56 else ("전" if sfmt.isdigit() and int(sfmt)<=84 else "결"))
+                            parsed.append({"씬번호": sfmt, "대본": pts[1].strip() if len(pts)>1 else "", "한글묘사": pts[2].strip("@") if len(pts)>2 else "", "영문프롬프트": pts[3].strip("@") if len(pts)>3 else "", "서사위치": pos})
+                        else:
+                            errors.append(f"Line {i}: 필드 부족")
+                    st.session_state.p5_parsed_scenes = parsed
+                    st.session_state.p5_parse_errors = errors
+                    if errors: st.warning(f"⚠️ {len(errors)}개 오류")
+                    st.success(f"✅ {len(parsed)}씬 파싱 완료!")
+                    for e in errors[:3]: st.error(e[:60])
+            if st.session_state.get("p5_parsed_scenes"):
+                df_p = pd.DataFrame(st.session_state.p5_parsed_scenes)
+                st.dataframe(df_p[["씬번호","서사위치","대본"]].head(10), use_container_width=True, height=200)
+    # ── 중앙: C-1 생성 ──
+    with c_center:
+        with st.container(border=True):
+            st.markdown("### 🧙 C-1 프롬프트 생성")
+            gen_mode = st.radio("생성 모드", ["전체 112씬 일괄 생성", "특정 씬 단독 생성"], key="p5_gen_mode")
+            if gen_mode == "특정 씬 단독 생성":
+                single_num = st.number_input("씬 번호", min_value=1, max_value=112, value=1, key="p5_single_num")
+            parsed = st.session_state.get("p5_parsed_scenes", [])
+            if st.button("🎬 C-1 프롬프트 생성 (AI)", use_container_width=True, key="p5_c_gen_btn", disabled=is_locked or not parsed):
+                if not parsed:
+                    st.error("⚠️ 좌측에서 먼저 데이터 파싱을 완료하세요.")
+                elif gen_mode == "특정 씬 단독 생성":
+                    target = [p for p in parsed if p["씬번호"] == f"{single_num:03d}"]
+                    if not target: st.error(f"씬 {single_num:03d} 데이터 없음")
+                    else:
+                        sc = target[0]
+                        prompt = (f"[젬마 프로토콜]\n{st.session_state.get('p5_gemma_protocol','')}\n"
+                                  f"[이미지 마스터 규정서]\n{st.session_state.get('p5_image_master_prompt','')}\n"
+                                  f"[지시] 아래 씬을 C-1 형식 한 줄로 변환하라.\n씬번호:{sc['씬번호']} | 대본:{sc['대본']} | 서사:{sc['서사위치']}\n기존한글묘사:{sc['한글묘사']}\n"
+                                  "[C-1 형식] 씬번호(3자리) | 대본(원문) | @한글묘사(5요소+EXPR)@ | @영어([인물1]→[@소품]→[EXPR]→[배경]→[STYLE]→[NEGATIVE])@")
+                        with st.spinner(f"씬 {single_num:03d} 생성 중..."):
+                            try:
+                                result = call_gemma(prompt, system=SAGE_PERSONA)
+                                existing = st.session_state.get("p5_c_results", "")
+                                st.session_state.p5_c_results = (existing + "\n" + result).strip()
+                                st.success(f"✅ 씬 {single_num:03d} 완료!")
+                            except Exception as e:
+                                st.error(f"생성 실패: {e}")
+                else:
+                    all_res, prog = [], st.progress(0, text="전체 씬 C-1 생성 시작...")
+                    for idx, sc in enumerate(parsed):
+                        prompt = (f"[젬마 프로토콜]\n{st.session_state.get('p5_gemma_protocol','')}\n"
+                                  f"씬번호:{sc['씬번호']} | 대본:{sc['대본']} | 서사:{sc['서사위치']}\n"
+                                  f"C-1 한 줄 출력: {sc['씬번호']} | {sc['대본']} | @[5요소+EXPR]@ | @[인물1]+[@소품]+[EXPR영문]+[배경]+[STYLE]+[NEGATIVE]@")
+                        try:
+                            all_res.append(call_gemma(prompt, system=SAGE_PERSONA).strip())
+                        except Exception as e:
+                            all_res.append(f"{sc['씬번호']} | {sc['대본']} | @생성오류@ | @ERROR:{e}@")
+                        prog.progress((idx+1)/len(parsed), text=f"씬 {sc['씬번호']} ({idx+1}/{len(parsed)})")
+                    st.session_state.p5_c_results = "\n".join(all_res)
+                    prog.empty()
+                    st.success(f"✅ 전체 {len(parsed)}씬 완료!")
+            if st.session_state.get("p5_c_results"):
+                st.text_area("C-1 생성 결과", value=st.session_state.p5_c_results, height=300, key="p5_c_ta")
+                if st.button("🔍 팝업에서 크게 보기 / 복붙", use_container_width=True, key="p5_c_popup_view"):
+                    popup_edit_c_result()
+                if st.button("💾 결과 저장", key="p5_c_save", disabled=is_locked):
+                    st.session_state.p5_c_results = st.session_state.p5_c_ta
+                    save_workspace_state()
+                    st.toast("✅ C-1 결과 저장!", icon="💾")
+    # ── 우측: 검증 + CSV ──
+    with c_right:
+        with st.container(border=True):
+            st.markdown("### ✅ 검증 & CSV 출력")
+            if st.button("🔍 C-1 형식 정규식 검증", use_container_width=True, key="p5_validate_btn", disabled=not st.session_state.get("p5_c_results")):
+                raw = st.session_state.get("p5_c_results", "")
+                lines = [l.strip() for l in raw.strip().split("\n") if l.strip()]
+                pattern = re.compile(r"^(\d{3})\s*\|\s*(.+?)\s*\|\s*@(.+?)@\s*\|\s*@(.+?)@\s*$")
+                valid_rows, error_rows = [], []
+                for line in lines:
+                    m = pattern.match(line)
+                    if m:
+                        eng = m.group(4)
+                        warns = []
+                        if "[인물1]" not in eng: warns.append("FlowRun [인물1] 태그 누락")
+                        if "Rembrandt" not in eng and "MASTER STYLE TAG" not in eng: warns.append("STYLE 누락")
+                        if "--no" not in eng and "NEGATIVE" not in eng: warns.append("NEGATIVE 누락")
+                        valid_rows.append({"씬번호": m.group(1), "대본": m.group(2), "한글묘사": m.group(3), "영어프롬프트": m.group(4), "경고": " | ".join(warns) if warns else "✅", "이미지파일": f"scene_{m.group(1)}.png", "나레이션파일": f"narration_{m.group(1)}.mp3"})
+                    else:
+                        error_rows.append(line[:80])
+                st.session_state.p5_valid_rows = valid_rows
+                st.session_state.p5_error_rows = error_rows
+                if error_rows: st.error(f"❌ {len(error_rows)}개 형식 오류"); [st.error(e[:60]) for e in error_rows[:3]]
+                st.success(f"✅ {len(valid_rows)}씬 통과 | ⚠️ {sum(1 for r in valid_rows if r['경고']!='✅')}씬 경고")
+            if st.session_state.get("p5_valid_rows"):
+                df_v = pd.DataFrame(st.session_state.p5_valid_rows)
+                st.dataframe(df_v[["씬번호","경고"]], use_container_width=True, height=200)
+                st.markdown("##### 📥 CSV 다운로드")
+                col_csv1, col_csv2 = st.columns(2)
+                with col_csv1:
+                    csv_eng = df_v[["씬번호","영어프롬프트","이미지파일"]].to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig")
+                    st.download_button("🤖 크롬 확장 투입용 CSV", data=csv_eng, file_name=f"Chrome_Input_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mime="text/csv", key="p5_dl_eng")
+                with col_csv2:
+                    csv_full = df_v.to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig")
+                    st.download_button("📦 전체 C-1 CSV", data=csv_full, file_name=f"C1_Full_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mime="text/csv", key="p5_dl_full")
+                txt_lines = "\n".join(df_v["영어프롬프트"].tolist())
+                st.download_button("📄 영어프롬프트 TXT", data=txt_lines.encode("utf-8"), file_name=f"Prompts_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", key="p5_dl_txt")
+                if st.button("💾 서버 저장 (Assets) + 옵시디언 + GitHub Push", type="primary", use_container_width=True, key="p5_final_save", disabled=is_locked):
+                    try:
+                        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        ob = st.session_state.get("path_obsidian", "")
+                        ast = st.session_state.get("path_assets", "")
+                        safe_makedirs(ob); safe_makedirs(ast)
+                        # .md → path_obsidian
+                        md_path = os.path.join(ob, f"part4_image_full_{ts}.md")
+                        md_content = (f"# Part 4 이미지 C-1 프롬프트 — {ts}\n총 {len(st.session_state.p5_valid_rows)}씬\n\n"
+                                      f"## A-MASTER\n```\n{st.session_state.get('p5_a_result','')}\n```\n\n"
+                                      f"## B-MASTER\n```\n{st.session_state.get('p5_b_result','')}\n```\n\n"
+                                      f"## C-1 결과\n```\n{st.session_state.get('p5_c_results','')}\n```\n")
+                        if save_markdown(md_path, md_content):
+                            lock_file_readonly(md_path)
+                            st.toast("✅ 1/3 옵시디언 저장!", icon="📓")
+                        # CSV → path_assets
+                        csv_path = os.path.join(ast, f"C1_full_{ts}.csv")
+                        save_csv(csv_path, [list(r.values()) for r in st.session_state.p5_valid_rows], list(st.session_state.p5_valid_rows[0].keys()))
+                        st.toast("✅ 2/3 CSV 에셋 저장!", icon="📊")
+                        # Git push
+                        success, msg = auto_git_push(f"Part4 Image C-1 Complete: {ts}")
+                        if success: st.toast("✅ 3/3 GitHub Push 완료!", icon="🚀")
+                        else: st.warning(f"GitHub Push: {msg}")
+                        st.session_state.p5_save_done = True
+                    except Exception as e:
+                        st.error(f"저장 실패: {e}")
+
+# ── Part 4 Tab V 헬퍼 (V-1~V-7 검증) ──
+def _p5_tab_v():
+    st.caption("젬마 이미지 파트 자체 검증 엔진 V-1~V-7 (자체 검증 후 크롬 확장 투입 결정)")
+    if not st.session_state.get("p5_c_results"):
+        st.info("C파트 탭에서 먼저 C-1 프롬프트를 생성하세요.")
+        return
+    if st.button("🧙 V-1~V-7 전체 자체 검증 실행", type="primary", use_container_width=True, key="p5_v_all_btn"):
+        raw = st.session_state.get("p5_c_results", "")
+        lines = [l.strip() for l in raw.strip().split("\n") if l.strip()]
+        pattern_c1 = re.compile(r"^(\d{3})\s*\|\s*(.+?)\s*\|\s*@(.+?)@\s*\|\s*@(.+?)@\s*$")
+        vr = {f"V-{i}": {"pass": 0, "fail": 0, "issues": []} for i in range(1, 8)}
+        scene_nums = []
+        for line in lines:
+            m = pattern_c1.match(line)
+            if not m: vr["V-1"]["fail"] += 1; vr["V-1"]["issues"].append(f"형식오류: {line[:50]}"); continue
+            vr["V-1"]["pass"] += 1
+            num, script, kr, eng = m.group(1), m.group(2), m.group(3), m.group(4)
+            scene_nums.append(int(num))
+            bad_names = ["그 남자", "노인", "현자", "할아버지"]
+            if any(b in kr or b in eng for b in bad_names): vr["V-2"]["fail"] += 1; vr["V-2"]["issues"].append(f"씬{num}: @Protagonist 외 명칭")
+            elif "silver-grey" not in eng and "60-year-old" not in eng: vr["V-2"]["fail"] += 1; vr["V-2"]["issues"].append(f"씬{num}: A-MASTER 외형값 누락")
+            else: vr["V-2"]["pass"] += 1
+            if "@" in kr: vr["V-3"]["pass"] += 1
+            else: vr["V-3"]["fail"] += 1; vr["V-3"]["issues"].append(f"씬{num}: 한글묘사 @소품태그 누락")
+            if re.search(r"\[EXPR-0[1-7]\]", kr) and re.search(r"\[EXPR-0[1-7]\]", eng): vr["V-4"]["pass"] += 1
+            else: vr["V-4"]["fail"] += 1; vr["V-4"]["issues"].append(f"씬{num}: EXPR 코드 누락")
+            has_style = "Rembrandt" in eng or "MASTER STYLE TAG" in eng
+            has_neg = "--no" in eng or "NEGATIVE" in eng
+            if has_style and has_neg: vr["V-5"]["pass"] += 1
+            else: vr["V-5"]["fail"] += 1; vr["V-5"]["issues"].append(f"씬{num}: {'STYLE' if not has_style else 'NEGATIVE'} 누락")
+            if "[A-MASTER]" in eng or "60-year-old" in eng: vr["V-6"]["pass"] += 1
+            else: vr["V-6"]["fail"] += 1; vr["V-6"]["issues"].append(f"씬{num}: [A-MASTER] 누락")
+        if scene_nums:
+            scene_nums.sort()
+            missing = [i for i in range(scene_nums[0], scene_nums[-1]+1) if i not in scene_nums]
+            dupes = [n for n in scene_nums if scene_nums.count(n) > 1]
+            if not missing and not dupes: vr["V-7"]["pass"] = len(scene_nums)
+            else:
+                vr["V-7"]["fail"] = len(missing)+len(dupes)
+                if missing: vr["V-7"]["issues"].append(f"누락 씬: {missing[:5]}")
+                if dupes: vr["V-7"]["issues"].append(f"중복 씬: {list(set(dupes))[:5]}")
+        st.session_state.p5_v_results = vr
+        st.session_state.p5_v_scene_count = len(scene_nums)
+    if st.session_state.get("p5_v_results"):
+        vr = st.session_state.p5_v_results
+        sc = st.session_state.get("p5_v_scene_count", 0)
+        st.markdown(f"### 🧙 자체 검증 최종 보고서 — 총 {sc}씬"); st.markdown("---")
+        v_labels = {"V-1": "출력 형식", "V-2": "@Protagonist 규칙", "V-3": "@소품 태그", "V-4": "표정코드(EXPR)", "V-5": "스타일 고정값", "V-6": "[A-MASTER] 결합", "V-7": "씬 연속성/파일명"}
+        all_pass = True
+        for v_key in [f"V-{i}" for i in range(1, 8)]:
+            data = vr[v_key]
+            icon = "✅" if data["fail"]==0 else "❌"
+            if data["fail"] > 0: all_pass = False
+            st.markdown(f"**{v_key} — {v_labels[v_key]}:** {icon} (통과:{data['pass']} / 실패:{data['fail']})")
+            for issue in data["issues"][:2]: st.caption(f"  └ {issue}")
+        st.markdown("---")
+        if all_pass: st.success("🎉 전체 합격! 크롬 확장 프로그램에 CSV 투입하여 이미지 생성을 시작하세요."); st.balloons()
+        else: st.error(f"❌ {sum(vr[k]['fail'] for k in vr)}개 실패 — C파트 탭에서 재생성 후 재검증하세요.")
+
+
+# =====================================================================
+# Part 4 — render_part5_image() 메인 함수
+# =====================================================================
+def render_part5_image():
+    c_title, c_pin, c_popup = st.columns([5, 3, 2])
+    with c_title:
+        st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">🖼️ Part 4 — Image Consistency (A/B/C 구글 플로우 × 크롬 확장)</h3></div>', unsafe_allow_html=True)
+    with c_pin:
+        st.markdown('<div class="pin-input-container">', unsafe_allow_html=True)
+        pin = st.text_input("🔒 PIN", type="password", key="p5_pin_input", label_visibility="collapsed", placeholder="🔒 마스터 PIN 입력 (7777)")
+        st.markdown('</div>', unsafe_allow_html=True)
+        if pin == PART_PINS.get("part5", "7777"): st.session_state.unlock_part5 = True
+        elif pin: st.session_state.unlock_part5 = False
+    with c_popup:
+        st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p5img_popup_btn"): popup_assistant()
+    is_locked = not st.session_state.get("unlock_part5", False)
+    if is_locked: st.warning("⚠️ 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
+    st.divider()
+    with st.expander("📋 상단 공통: 옵시디언 규칙서 및 이미지 마스터 규정서 v3.0", expanded=True):
+        L, R = st.columns(2, gap="medium")
+        with L:
+            st.markdown('<div class="top-panel-card"><div class="top-panel-title">📚 옵시디언 규칙서</div>', unsafe_allow_html=True)
+            st.text_area("옵시디언", value=st.session_state.get("obsidian_rules",""), height=250, key="p5_ob_view", label_visibility="collapsed")
+            if st.button("🔍 편집", key="p5_ob_btn", disabled=is_locked): popup_edit_obsidian()
+            st.markdown('</div>', unsafe_allow_html=True)
+        with R:
+            st.markdown('<div class="top-panel-card"><div class="top-panel-title">🖼️ 이미지 파트 마스터 규정서 v3.0</div>', unsafe_allow_html=True)
+            st.text_area("이미지마스터", value=st.session_state.get("p5_image_master_prompt",""), height=250, key="p5_master_view", label_visibility="collapsed")
+            if st.button("🔍 편집", key="p5_master_btn", disabled=is_locked): popup_edit_image_master()
+            st.markdown('</div>', unsafe_allow_html=True)
+    st.divider()
+    P5_PROTO_DEFAULT = ("[GEMMA PROTOCOL v2.0 — 이미지 파트]\n"
+                        "이 프로토콜이 로딩되면 반드시 선언하라: \"🧙 GEMMA PROTOCOL v2.0 — 이미지 파트 로딩 완료\"\n"
+                        "이후 모든 C-1 출력: 씬번호(3자리) | 대본 | @한글묘사@ | @영어프롬프트@\n"
+                        "[A-MASTER] 반드시 첫 번째 / [NEGATIVE PROMPT] 절대 마지막\n"
+                        "씬 번호 001~112 3자리 고정. 대본 원문 수정 절대 금지.\n"
+                        "@Protagonist 외형 변경 절대 금지. (수염:silver-grey / 복장:burgundy-black / 나이:60대)")
+    if not st.session_state.get("p5_gemma_protocol"): st.session_state.p5_gemma_protocol = P5_PROTO_DEFAULT
+    with st.expander("🧙 젬마 프로토콜 v2.0 — 이미지 파트 전용 (클릭하여 확인/편집)", expanded=False):
+        new_proto = st.text_area("이미지 젬마 프로토콜 v2.0", value=st.session_state.p5_gemma_protocol, height=180, key="p5_protocol_ta", disabled=is_locked)
+        cp1, cp2 = st.columns(2)
+        with cp1:
+            if st.button("💾 프로토콜 저장", key="p5_protocol_save", disabled=is_locked):
+                st.session_state.p5_gemma_protocol = new_proto
+                st.toast("✅ 젬마 프로토콜 저장!", icon="🧙")
+        with cp2:
+            if st.button("🤖 젬마에게 프로토콜 로딩 선언 요청", key="p5_protocol_load", disabled=is_locked):
+                with st.spinner("젬마 프로토콜 로딩 중..."):
+                    try:
+                        result = call_gemma(f"아래 프로토콜을 로딩 완료하고 선언문을 출력하라:\n{st.session_state.p5_gemma_protocol}", system=SAGE_PERSONA)
+                        st.session_state.p5_protocol_loaded = result
+                        st.success("✅ 젬마 프로토콜 로딩 완료!")
+                    except Exception as e:
+                        st.error(f"프로토콜 로딩 실패: {e}")
+        if st.session_state.get("p5_protocol_loaded"):
+            st.text_area("젬마 로딩 선언", value=st.session_state.get("p5_protocol_loaded",""), height=100, key="p5_loaded_ta")
+    st.divider()
+    tab_a, tab_b, tab_c, tab_v = st.tabs(["👤 A파트: 인물 참조 생성", "🌄 B파트: 배경/소품 참조 생성", "🎬 C파트: 씬별 조립 프롬프트", "✅ V검증: 자체검증 V-1~V-7"])
+    with tab_a: _p5_tab_a(is_locked)
+    with tab_b: _p5_tab_b(is_locked)
+    with tab_c: _p5_tab_c(is_locked)
+    with tab_v: _p5_tab_v()
+    st.divider()
+    with st.expander("📖 크롬 확장 프로그램 전체 작업 순서 (섹션 F)", expanded=False):
+        st.markdown("""
+**PREP-01**: 구글 플로우 접속 → 새 플로우 생성 "현자의거울_EP001_이미지생성"
+**PREP-02**: A-MASTER.txt → A_Protagonist_Master.png 생성 → 저장
+**PREP-03**: B-MASTER.txt → B_Environment_Master.png 생성 → 저장
+**PREP-04**: 크롬 확장 Slot 1 = A_Protagonist_Master.png **PIN 고정 🔒**
+**PREP-05**: 크롬 확장 Slot 2 = B_Environment_Master.png **PIN 고정 🔒**
+**PREP-06**: 젬마 프로토콜 로딩 선언 확인
+
+---
+
+**씬별 루틴 (001~112 반복)**:
+STEP-01: CSV에서 해당 씬 영어프롬프트 복사
+STEP-02: 크롬 확장 Prompt 슬롯에 붙여넣기 (Slot 1,2 PIN 상태 확인)
+STEP-03: Output filename = scene_XXX.png
+STEP-04: Generate → 대기
+STEP-05: 검수 (수염/복장/조명/소품/16:9) → 합격/재생성
+STEP-06: 5씬마다 PIN 상태 재확인
+STEP-07: 다음 씬 (+1) 반복
+        """)
+
 def render_part34():
+
+
+
     c_title, c_pin, c_popup = st.columns([5, 3, 2])
     
     with c_title:
@@ -2305,32 +2854,92 @@ def render_part34():
                 st.toast("✅ Part 3-4 전체 대본 백업 및 락(Lock) 완료!", icon="🔒")
                 auto_git_push(f"Auto Save (Part 3-4 Full Script): {ts}")
 
-if part.startswith("Part 1"): render_part1()
-elif part.startswith("Part 2"): render_part2()
-elif part.startswith("Part 3"): render_part34()
-elif part.startswith("Part 4"): render_part5()
-else:
-    # Part 5~8: 미구현 파트 공통 레이아웃
+# =====================================================================
+# 파트 라우팅 블록
+# =====================================================================
+if part.startswith("Part 1"):
+    render_part1()
+elif part.startswith("Part 2"):
+    render_part2()
+elif part.startswith("Part 3"):
+    render_part34()
+elif part.startswith("Part 4"):
+    render_part5_image()
+
+elif part.startswith("Part 5"):
+    # Part 5: Video Production → render_part6_opal (구현 예정)
     _l, _r = st.columns([7, 2])
     with _r:
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="other_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p5_popup_btn"): popup_assistant()
     render_top_panel()
     st.divider()
-    
-    st.markdown(f'<div class="sage-header-compact"><h3 style="margin:0;">{part}</h3></div>', unsafe_allow_html=True)
-    st.info("👉 다음 지시서에서 구현됩니다.")
-    
-    # 모든 파트 공통: 옵시디언 자동 백업
+    st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">🎬 Part 5 — Video Production (Opal 배분)</h3></div>', unsafe_allow_html=True)
+    st.info("👉 render_part6_opal() 함수가 이곳에 연결됩니다. 다음 지시서에서 구현됩니다.")
     st.divider()
-    if st.button("🔒 옵시디언 자동 백업", type="primary", use_container_width=True, key="other_backup_btn"):
+    if st.button("💾 Part 5 옵시디언 자동 백업", type="primary", use_container_width=True, key="p5_backup_btn"):
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        today_str = datetime.now().strftime("%Y-%m-%d")
-        part_name = part.replace(":", "_").replace(" ", "_")
-        if st.session_state.path_obsidian:
+        if st.session_state.get("path_obsidian"):
             safe_makedirs(st.session_state.path_obsidian)
-            md_path = os.path.join(st.session_state.path_obsidian, f"{part_name}_backup_{ts}.md")
-            md = f"# [[{part} 작업 백업]]\n## 📌 Brief Summary\nSage Mirror Studio v11.0 — {part} 백업\n\n---\n*Last updated: {today_str} {ts}*\n"
+            md_path = os.path.join(st.session_state.path_obsidian, f"part5_opal_backup_{ts}.md")
+            md = f"# [[Part 5 Opal 작업 백업]]\n## 📌 Brief Summary\nSage Mirror Studio v11.0 — Part 5 백업\n\n---\n*Last updated: {datetime.now().strftime('%Y-%m-%d')} {ts}*\n"
             if save_markdown(md_path, md):
                 lock_file_readonly(md_path)
-                st.toast(f"✅ {part} 백업 완료!", icon="🔒")
+                st.toast("✅ Part 5 백업 완료!", icon="🔒")
+elif part.startswith("Part 6"):
+    # Part 6: Narration & BGM → render_part7_capcut (구현 예정)
+    _l, _r = st.columns([7, 2])
+    with _r:
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p6_popup_btn"): popup_assistant()
+    render_top_panel()
+    st.divider()
+    st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">🎵 Part 6 — Narration & BGM (CapCut Bridge)</h3></div>', unsafe_allow_html=True)
+    st.info("👉 render_part7_capcut() 함수가 이곳에 연결됩니다. 다음 지시서에서 구현됩니다.")
+    st.divider()
+    if st.button("💾 Part 6 옵시디언 자동 백업", type="primary", use_container_width=True, key="p6_backup_btn"):
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        if st.session_state.get("path_obsidian"):
+            safe_makedirs(st.session_state.path_obsidian)
+            md_path = os.path.join(st.session_state.path_obsidian, f"part6_capcut_backup_{ts}.md")
+            md = f"# [[Part 6 CapCut Bridge 작업 백업]]\n## 📌 Brief Summary\nSage Mirror Studio v11.0 — Part 6 백업\n\n---\n*Last updated: {datetime.now().strftime('%Y-%m-%d')} {ts}*\n"
+            if save_markdown(md_path, md):
+                lock_file_readonly(md_path)
+                st.toast("✅ Part 6 백업 완료!", icon="🔒")
+elif part.startswith("Part 7"):
+    # Part 7: CapCut Bridge → render_part8_dashboard (구현 예정)
+    _l, _r = st.columns([7, 2])
+    with _r:
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p7_popup_btn"): popup_assistant()
+    render_top_panel()
+    st.divider()
+    st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">🎬 Part 7 — CapCut Bridge (Final Assembly)</h3></div>', unsafe_allow_html=True)
+    st.info("👉 render_part8_dashboard() 함수가 이곳에 연결됩니다. 다음 지시서에서 구현됩니다.")
+    st.divider()
+    if st.button("💾 Part 7 옵시디언 자동 백업", type="primary", use_container_width=True, key="p7_backup_btn"):
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        if st.session_state.get("path_obsidian"):
+            safe_makedirs(st.session_state.path_obsidian)
+            md_path = os.path.join(st.session_state.path_obsidian, f"part7_dashboard_backup_{ts}.md")
+            md = f"# [[Part 7 Final Assembly 작업 백업]]\n## 📌 Brief Summary\nSage Mirror Studio v11.0 — Part 7 백업\n\n---\n*Last updated: {datetime.now().strftime('%Y-%m-%d')} {ts}*\n"
+            if save_markdown(md_path, md):
+                lock_file_readonly(md_path)
+                st.toast("✅ Part 7 백업 완료!", icon="🔒")
+elif part.startswith("Part 8"):
+    # Part 8: Final Assembly → 대시보드 (구현 예정)
+    _l, _r = st.columns([7, 2])
+    with _r:
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p8_popup_btn"): popup_assistant()
+    render_top_panel()
+    st.divider()
+    st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">📊 Part 8 — Final Assembly Dashboard</h3></div>', unsafe_allow_html=True)
+    st.info("👉 render_part8_dashboard() 함수가 이곳에 구현됩니다. 다음 지시서에서 구현됩니다.")
+    st.divider()
+    if st.button("💾 Part 8 옵시디언 자동 백업", type="primary", use_container_width=True, key="p8_backup_btn"):
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        if st.session_state.get("path_obsidian"):
+            safe_makedirs(st.session_state.path_obsidian)
+            md_path = os.path.join(st.session_state.path_obsidian, f"part8_final_backup_{ts}.md")
+            md = f"# [[Part 8 Final Assembly 작업 백업]]\n## 📌 Brief Summary\nSage Mirror Studio v11.0 — Part 8 백업\n\n---\n*Last updated: {datetime.now().strftime('%Y-%m-%d')} {ts}*\n"
+            if save_markdown(md_path, md):
+                lock_file_readonly(md_path)
+                st.toast("✅ Part 8 백업 완료!", icon="🔒")
 

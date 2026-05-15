@@ -1,0 +1,2563 @@
+"The Project Gutenberg eBook of Faust: a Tragedy [part 1], Translated from the German of Goethe
+This eBook is for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever. You may copy it, give it away or re-use it under the terms of the Project Gutenberg License included with this eBook or online at www.gutenberg.org. If you are not located in the United States, you will have to check the laws of the country where you are located before using this eBook.
+Title: Faust: a Tragedy [part 1], Translated from the German of Goethe
+
+Author: Johann Wolfgang von Goethe
+
+Translator: Charles Timothy Brooks
+
+
+Release date: December 25, 2004 [eBook #14460]
+Most recently updated: October 28, 2024
+
+Language: English
+
+Other information and formats: www.gutenberg.org/ebooks/14460
+
+Credits: Produced by Juliet Sutherland, Charles Bidwell and the PG Online Distributed Proofreading Team
+
+*** START OF THE PROJECT GUTENBERG EBOOK FAUST: A TRAGEDY [PART 1], TRANSLATED FROM THE GERMAN OF GOETHE ***
+FAUST
+A TRAGEDY
+TRANSLATED FROM THE GERMAN
+OF
+GOETHE
+WITH NOTES
+BY
+CHARLES T BROOKS
+SEVENTH EDITION.
+BOSTON TICKNOR AND FIELDS
+MDCCCLXVIII.
+Entered according to Act of Congress, in the year 1856, by CHARLES T. BROOKS, In the Clerk's Office of the District Court of the District of Rhode Island.
+
+UNIVERSITY PRESS: WELCH, BIGELOW, AND COMPANY, CAMBRIDGE.
+TRANSLATOR'S PREFACE.
+Perhaps some apology ought to be given to English scholars, that is, those who do not know German, (to those, at least, who do not know what sort of a thing Faust is in the original,) for offering another translation to the public, of a poem which has been already translated, not only in a literal prose form, but also, twenty or thirty times, in metre, and sometimes with great spirit, beauty, and power.
+
+The author of the present version, then, has no knowledge that a rendering of this wonderful poem into the exact and ever-changing metre of the original has, until now, been so much as attempted. To name only one defect, the very best versions which he has seen neglect to follow the exquisite artist in the evidently planned and orderly intermixing of male and female rhymes, i.e. rhymes which fall on the last syllable and those which fall on the last but one. Now, every careful student of the versification of Faust must feel and see that Goethe did not intersperse the one kind of rhyme with the other, at random, as those translators do; who, also, give the female rhyme (on which the vivacity of dialogue and description often so much depends,) in so small a proportion.
+
+A similar criticism might be made of their liberty in neglecting Goethe's method of alternating different measures with each other.
+
+It seems as if, in respect to metre, at least, they had asked themselves, how would Goethe have written or shaped this in English, had that been his native language, instead of seeking con amore (and con fidelità) as they should have done, to reproduce, both in spirit and in form, the movement, so free and yet orderly, of the singularly endowed and accomplished poet whom they undertook to represent.
+
+As to the objections which Hayward and some of his reviewers have instituted in advance against the possibility of a good and faithful metrical translation of a poem like Faust, they seem to the present translator full of paradox and sophistry. For instance, take this assertion of one of the reviewers: "The sacred and mysterious union of thought with verse, twin-born and immortally wedded from the moment of their common birth, can never be understood by those who desire verse translations of good poetry." If the last part of this statement had read "by those who can be contented with prose translations of good poetry," the position would have been nearer the truth. This much we might well admit, that, if the alternative were either to have a poem like Faust in a metre different and glaringly different from the original, or to have it in simple and strong prose, then the latter alternative would be the one every tasteful and feeling scholar would prefer; but surely to every one who can read the original or wants to know how this great song sung itself (as Carlyle says) out of Goethe's soul, a mere prose rendering must be, comparatively, a corpus mortuum.
+
+The translator most heartily dissents from Hayward's assertion that a translator of Faust "must sacrifice either metre or meaning." At least he flatters himself that he has made, in the main, (not a compromise between meaning and melody, though in certain instances he may have fallen into that, but) a combination of the meaning with the melody, which latter is so important, so vital a part of the lyric poem's meaning, in any worthy sense. "No poetic translation," says Hayward's reviewer, already quoted, "can give the rhythm and rhyme of the original; it can only substitute the rhythm and rhyme of the translator." One might just as well say "no prose translation can give the sense and spirit of the original; it can only substitute the sense and spirit of the words and phrases of the translator's language;" and then, these two assertions balancing each other, there will remain in the metrical translator's favor, that he may come as near to giving both the letter and the spirit, as the effects of the Babel dispersion will allow.
+
+As to the original creation, which he has attempted here to reproduce, the translator might say something, but prefers leaving his readers to the poet himself, as revealed in the poem, and to the various commentaries of which we have some accounts, at least, in English. A French translator of the poem speaks in his introduction as follows: "This Faust, conceived by him in his youth, completed in ripe age, the idea of which he carried with him through all the commotions of his life, as Camoens bore his poem with him through the waves, this Faust contains him entire. The thirst for knowledge and the martyrdom of doubt, had they not tormented his early years? Whence came to him the thought of taking refuge in a supernatural realm, of appealing to invisible powers, which plunged him, for a considerable time, into the dreams of Illuminati and made him even invent a religion? This irony of Mephistopheles, who carries on so audacious a game with the weakness and the desires of man, is it not the mocking, scornful side of the poet's spirit, a leaning to sullenness, which can be traced even into the earliest years of his life, a bitter leaven thrown into a strong soul forever by early satiety? The character of Faust especially, the man whose burning, untiring heart can neither enjoy fortune nor do without it, who gives himself unconditionally and watches himself with mistrust, who unites the enthusiasm of passion and the dejectedness of despair, is not this an eloquent opening up of the most secret and tumultuous part of the poet's soul? And now, to complete the image of his inner life, he has added the transcendingly sweet person of Margaret, an exalted reminiscence of a young girl, by whom, at the age of fourteen, he thought himself beloved, whose image ever floated round him, and has contributed some traits to each of his heroines. This heavenly surrender of a simple, good, and tender heart contrasts wonderfully with the sensual and gloomy passion of the lover, who, in the midst of his love-dreams, is persecuted by the phantoms of his imagination and by the nightmares of thought, with those sorrows of a soul, which is crushed, but not extinguished, which is tormented by the invincible want of happiness and the bitter feeling, how hard a thing it is to receive or to bestow."
+
+DEDICATION.[1]
+Once more ye waver dreamily before me,
+Forms that so early cheered my troubled eyes!
+To hold you fast doth still my heart implore me?
+Still bid me clutch the charm that lures and flies?
+Ye crowd around! come, then, hold empire o'er me,
+As from the mist and haze of thought ye rise;
+The magic atmosphere, your train enwreathing,
+Through my thrilled bosom youthful bliss is breathing.
+
+Ye bring with you the forms of hours Elysian,
+And shades of dear ones rise to meet my gaze;
+First Love and Friendship steal upon my vision
+Like an old tale of legendary days;
+Sorrow renewed, in mournful repetition,
+Runs through life's devious, labyrinthine ways;
+And, sighing, names the good (by Fortune cheated
+Of blissful hours!) who have before me fleeted.
+
+These later songs of mine, alas! will never
+Sound in their ears to whom the first were sung!
+Scattered like dust, the friendly throng forever!
+Mute the first echo that so grateful rung!
+To the strange crowd I sing, whose very favor
+Like chilling sadness on my heart is flung;
+And all that kindled at those earlier numbers
+Roams the wide earth or in its bosom slumbers.
+
+And now I feel a long-unwonted yearning
+For that calm, pensive spirit-realm, to-day;
+Like an Aeolian lyre, (the breeze returning,)
+Floats in uncertain tones my lisping lay;
+Strange awe comes o'er me, tear on tear falls burning,
+The rigid heart to milder mood gives way!
+What I possess I see afar off lying,
+And what I lost is real and undying.
+
+PRELUDE
+IN THE THEATRE.
+Manager. Dramatic Poet. Merry Person.
+
+Manager. You who in trouble and distress
+Have both held fast your old allegiance,
+What think ye? here in German regions
+Our enterprise may hope success?
+To please the crowd my purpose has been steady,
+Because they live and let one live at least.
+The posts are set, the boards are laid already,
+And every one is looking for a feast.
+They sit, with lifted brows, composed looks wearing,
+Expecting something that shall set them staring.
+I know the public palate, that's confest;
+Yet never pined so for a sound suggestion;
+True, they are not accustomed to the best,
+But they have read a dreadful deal, past question.
+How shall we work to make all fresh and new,
+Acceptable and profitable, too?
+For sure I love to see the torrent boiling,
+When towards our booth they crowd to find a place,
+Now rolling on a space and then recoiling,
+Then squeezing through the narrow door of grace:
+Long before dark each one his hard-fought station
+In sight of the box-office window takes,
+And as, round bakers' doors men crowd to escape starvation,
+For tickets here they almost break their necks.
+This wonder, on so mixed a mass, the Poet
+Alone can work; to-day, my friend, O, show it!
+
+Poet. Oh speak not to me of that motley ocean,
+Whose roar and greed the shuddering spirit chill!
+Hide from my sight that billowy commotion
+That draws us down the whirlpool 'gainst our will.
+No, lead me to that nook of calm devotion,
+Where blooms pure joy upon the Muses' hill;
+Where love and friendship aye create and cherish,
+With hand divine, heart-joys that never perish.
+Ah! what, from feeling's deepest fountain springing,
+Scarce from the stammering lips had faintly passed,
+Now, hopeful, venturing forth, now shyly clinging,
+To the wild moment's cry a prey is cast.
+Oft when for years the brain had heard it ringing
+It comes in full and rounded shape at last.
+What shines, is born but for the moment's pleasure;
+The genuine leaves posterity a treasure.
+
+Merry Person. Posterity! I'm sick of hearing of it;
+Supposing I the future age would profit,
+Who then would furnish ours with fun?
+For it must have it, ripe and mellow;
+The presence of a fine young fellow,
+Is cheering, too, methinks, to any one.
+Whoso can pleasantly communicate,
+Will not make war with popular caprices,
+For, as the circle waxes great,
+The power his word shall wield increases.
+Come, then, and let us now a model see,
+Let Phantasy with all her various choir,
+Sense, reason, passion, sensibility,
+But, mark me, folly too! the scene inspire.
+
+Manager. But the great point is action! Every one
+Comes as spectator, and the show's the fun.
+Let but the plot be spun off fast and thickly,
+So that the crowd shall gape in broad surprise,
+Then have you made a wide impression quickly,
+You are the man they'll idolize.
+The mass can only be impressed by masses;
+Then each at last picks out his proper part.
+Give much, and then to each one something passes,
+And each one leaves the house with happy heart.
+Have you a piece, give it at once in pieces!
+Such a ragout your fame increases;
+It costs as little pains to play as to invent.
+But what is gained, if you a whole present?
+Your public picks it presently to pieces.
+
+Poet. You do not feel how mean a trade like that must be!
+In the true Artist's eyes how false and hollow!
+Our genteel botchers, well I see,
+Have given the maxims that you follow.
+
+Manager. Such charges pass me like the idle wind;
+A man who has right work in mind
+Must choose the instruments most fitting.
+Consider what soft wood you have for splitting,
+And keep in view for whom you write!
+If this one from ennui seeks flight,
+That other comes full from the groaning table,
+Or, the worst case of all to cite,
+From reading journals is for thought unable.
+Vacant and giddy, all agog for wonder,
+As to a masquerade they wing their way;
+The ladies give themselves and all their precious plunder
+And without wages help us play.
+On your poetic heights what dream comes o'er you?
+What glads a crowded house? Behold
+Your patrons in array before you!
+One half are raw, the other cold.
+One, after this play, hopes to play at cards,
+One a wild night to spend beside his doxy chooses,
+Poor fools, why court ye the regards,
+For such a set, of the chaste muses?
+I tell you, give them more and ever more and more,
+And then your mark you'll hardly stray from ever;
+To mystify be your endeavor,
+To satisfy is labor sore….
+What ails you? Are you pleased or pained? What notion——
+
+Poet. Go to, and find thyself another slave!
+What! and the lofty birthright Nature gave,
+The noblest talent Heaven to man has lent,
+Thou bid'st the Poet fling to folly's ocean!
+How does he stir each deep emotion?
+How does he conquer every element?
+But by the tide of song that from his bosom springs,
+And draws into his heart all living things?
+When Nature's hand, in endless iteration,
+The thread across the whizzing spindle flings,
+When the complex, monotonous creation
+Jangles with all its million strings:
+Who, then, the long, dull series animating,
+Breaks into rhythmic march the soulless round?
+And, to the law of All each member consecrating,
+Bids one majestic harmony resound?
+Who bids the tempest rage with passion's power?
+The earnest soul with evening-redness glow?
+Who scatters vernal bud and summer flower
+Along the path where loved ones go?
+Who weaves each green leaf in the wind that trembles
+To form the wreath that merit's brow shall crown?
+Who makes Olympus fast? the gods assembles?
+The power of manhood in the Poet shown.
+
+Merry Person. Come, then, put forth these noble powers,
+And, Poet, let thy path of flowers
+Follow a love-adventure's winding ways.
+One comes and sees by chance, one burns, one stays,
+And feels the gradual, sweet entangling!
+The pleasure grows, then comes a sudden jangling,
+Then rapture, then distress an arrow plants,
+And ere one dreams of it, lo! there is a romance.
+Give us a drama in this fashion!
+Plunge into human life's full sea of passion!
+Each lives it, few its meaning ever guessed,
+Touch where you will, 'tis full of interest.
+Bright shadows fleeting o'er a mirror,
+A spark of truth and clouds of error,
+By means like these a drink is brewed
+To cheer and edify the multitude.
+The fairest flower of the youth sit listening
+Before your play, and wait the revelation;
+Each melancholy heart, with soft eyes glistening,
+Draws sad, sweet nourishment from your creation;
+This passion now, now that is stirred, by turns,
+And each one sees what in his bosom burns.
+Open alike, as yet, to weeping and to laughter,
+They still admire the flights, they still enjoy the show;
+Him who is formed, can nothing suit thereafter;
+The yet unformed with thanks will ever glow.
+
+Poet. Ay, give me back the joyous hours,
+When I myself was ripening, too,
+When song, the fount, flung up its showers
+Of beauty ever fresh and new.
+When a soft haze the world was veiling,
+Each bud a miracle bespoke,
+And from their stems a thousand flowers I broke,
+Their fragrance through the vales exhaling.
+I nothing and yet all possessed,
+Yearning for truth and in illusion blest.
+Give me the freedom of that hour,
+The tear of joy, the pleasing pain,
+Of hate and love the thrilling power,
+Oh, give me back my youth again!
+
+Merry Person. Youth, my good friend, thou needest certainly
+When ambushed foes are on thee springing,
+When loveliest maidens witchingly
+Their white arms round thy neck are flinging,
+When the far garland meets thy glance,
+High on the race-ground's goal suspended,
+When after many a mazy dance
+In drink and song the night is ended.
+But with a free and graceful soul
+To strike the old familiar lyre,
+And to a self-appointed goal
+Sweep lightly o'er the trembling wire,
+There lies, old gentlemen, to-day
+Your task; fear not, no vulgar error blinds us.
+Age does not make us childish, as they say,
+But we are still true children when it finds us.
+
+Manager. Come, words enough you two have bandied,
+Now let us see some deeds at last;
+While you toss compliments full-handed,
+The time for useful work flies fast.
+Why talk of being in the humor?
+Who hesitates will never be.
+If you are poets (so says rumor)
+Now then command your poetry.
+You know full well our need and pleasure,
+We want strong drink in brimming measure;
+Brew at it now without delay!
+To-morrow will not do what is not done to-day.
+Let not a day be lost in dallying,
+But seize the possibility
+Right by the forelock, courage rallying,
+And forth with fearless spirit sallying,—
+Once in the yoke and you are free.
+  Upon our German boards, you know it,
+What any one would try, he may;
+Then stint me not, I beg, to-day,
+In scenery or machinery, Poet.
+With great and lesser heavenly lights make free,
+Spend starlight just as you desire;
+No want of water, rocks or fire
+Or birds or beasts to you shall be.
+So, in this narrow wooden house's bound,
+Stride through the whole creation's round,
+And with considerate swiftness wander
+From heaven, through this world, to the world down yonder.
+
+PROLOGUE
+IN HEAVEN.
+[THE LORD. THE HEAVENLY HOSTS afterward MEPHISTOPHELES. The three archangels, RAPHAEL, GABRIEL, and MICHAEL, come forward.]
+
+Raphael. The sun, in ancient wise, is sounding,
+  With brother-spheres, in rival song;
+And, his appointed journey rounding,
+  With thunderous movement rolls along.
+His look, new strength to angels lending,
+  No creature fathom can for aye;
+The lofty works, past comprehending,
+  Stand lordly, as on time's first day.
+
+Gabriel. And swift, with wondrous swiftness fleeting,
+  The pomp of earth turns round and round,
+The glow of Eden alternating
+  With shuddering midnight's gloom profound;
+Up o'er the rocks the foaming ocean
+  Heaves from its old, primeval bed,
+And rocks and seas, with endless motion,
+  On in the spheral sweep are sped.
+
+Michael. And tempests roar, glad warfare waging,
+  From sea to land, from land to sea,
+And bind round all, amidst their raging,
+  A chain of giant energy.
+There, lurid desolation, blazing,
+  Foreruns the volleyed thunder's way:
+Yet, Lord, thy messengers[2] are praising
+  The mild procession of thy day.
+
+All Three. The sight new strength to angels lendeth,
+  For none thy being fathom may,
+The works, no angel comprehendeth,
+  Stand lordly as on time's first day.
+
+Mephistopheles. Since, Lord, thou drawest near us once again,
+And how we do, dost graciously inquire,
+And to be pleased to see me once didst deign,
+I too among thy household venture nigher.
+Pardon, high words I cannot labor after,
+Though the whole court should look on me with scorn;
+My pathos certainly would stir thy laughter,
+Hadst thou not laughter long since quite forsworn.
+Of sun and worlds I've nought to tell worth mention,
+How men torment themselves takes my attention.
+The little God o' the world jogs on the same old way
+And is as singular as on the world's first day.
+A pity 'tis thou shouldst have given
+The fool, to make him worse, a gleam of light from heaven;
+He calls it reason, using it
+To be more beast than ever beast was yet.
+He seems to me, (your grace the word will pardon,)
+Like a long-legg'd grasshopper in the garden,
+Forever on the wing, and hops and sings
+The same old song, as in the grass he springs;
+Would he but stay there! no; he needs must muddle
+His prying nose in every puddle.
+
+The Lord. Hast nothing for our edification? Still thy old work of accusation? Will things on earth be never right for thee?
+
+Mephistopheles. No, Lord! I find them still as bad as bad can be. Poor souls! their miseries seem so much to please 'em, I scarce can find it in my heart to tease 'em.
+
+The Lord. Knowest thou Faust?
+
+Mephistopheles. The Doctor?
+
+The Lord. Ay, my servant!
+
+Mephistopheles. He!
+Forsooth! he serves you in a famous fashion;
+No earthly meat or drink can feed his passion;
+Its grasping greed no space can measure;
+Half-conscious and half-crazed, he finds no rest;
+The fairest stars of heaven must swell his treasure.
+Each highest joy of earth must yield its zest,
+Not all the world—the boundless azure—
+Can fill the void within his craving breast.
+
+The Lord. He serves me somewhat darkly, now, I grant,
+Yet will he soon attain the light of reason.
+Sees not the gardener, in the green young plant,
+That bloom and fruit shall deck its coming season?
+
+Mephistopheles. What will you bet? You'll surely lose your wager! If you will give me leave henceforth, To lead him softly on, like an old stager.
+
+The Lord. So long as he shall live on earth, Do with him all that you desire. Man errs and staggers from his birth.
+
+Mephistopheles. Thank you; I never did aspire
+To have with dead folk much transaction.
+In full fresh cheeks I take the greatest satisfaction.
+A corpse will never find me in the house;
+I love to play as puss does with the mouse.
+
+The Lord. All right, I give thee full permission!
+Draw down this spirit from its source,
+And, canst thou catch him, to perdition
+Carry him with thee in thy course,
+But stand abashed, if thou must needs confess,
+That a good man, though passion blur his vision,
+Has of the right way still a consciousness.
+
+Mephistopheles. Good! but I'll make it a short story.
+About my wager I'm by no means sorry.
+And if I gain my end with glory
+Allow me to exult from a full breast.
+Dust shall he eat and that with zest,
+Like my old aunt, the snake, whose fame is hoary.
+
+The Lord. Well, go and come, and make thy trial;
+The like of thee I never yet did hate.
+Of all the spirits of denial
+The scamp is he I best can tolerate.
+Man is too prone, at best, to seek the way that's easy,
+He soon grows fond of unconditioned rest;
+And therefore such a comrade suits him best,
+Who spurs and works, true devil, always busy.
+But you, true sons of God, in growing measure,
+Enjoy rich beauty's living stores of pleasure!
+The Word[3] divine that lives and works for aye,
+Fold you in boundless love's embrace alluring,
+And what in floating vision glides away,
+That seize ye and make fast with thoughts enduring.
+
+[Heaven closes, the archangels disperse.]
+
+Mephistopheles. [Alone.] I like at times to exchange with him a word,
+And take care not to break with him. 'Tis civil
+In the old fellow[4] and so great a Lord
+To talk so kindly with the very devil.
+
+FAUST.
+    Night. In a narrow high-arched Gothic room,
+    FAUST sitting uneasy at his desk.
+
+Faust. Have now, alas! quite studied through
+Philosophy and Medicine,
+And Law, and ah! Theology, too,
+With hot desire the truth to win!
+And here, at last, I stand, poor fool!
+As wise as when I entered school;
+Am called Magister, Doctor, indeed,—
+Ten livelong years cease not to lead
+Backward and forward, to and fro,
+My scholars by the nose—and lo!
+Just nothing, I see, is the sum of our learning,
+To the very core of my heart 'tis burning.
+'Tis true I'm more clever than all the foplings,
+Doctors, Magisters, Authors, and Popelings;
+Am plagued by no scruple, nor doubt, nor cavil,
+Nor lingering fear of hell or devil—
+What then? all pleasure is fled forever;
+To know one thing I vainly endeavor,
+There's nothing wherein one fellow-creature
+Could be mended or bettered with me for a teacher.
+And then, too, nor goods nor gold have I,
+Nor fame nor worldly dignity,—
+A condition no dog could longer live in!
+And so to magic my soul I've given,
+If, haply, by spirits' mouth and might,
+Some mysteries may not be brought to light;
+That to teach, no longer may be my lot,
+With bitter sweat, what I need to be taught;
+That I may know what the world contains
+In its innermost heart and finer veins,
+See all its energies and seeds
+And deal no more in words but in deeds.
+  O full, round Moon, didst thou but thine
+For the last time on this woe of mine!
+Thou whom so many a midnight I
+Have watched, at this desk, come up the sky:
+O'er books and papers, a dreary pile,
+Then, mournful friend! uprose thy smile!
+Oh that I might on the mountain-height,
+Walk in the noon of thy blessed light,
+Round mountain-caverns with spirits hover,
+Float in thy gleamings the meadows over,
+And freed from the fumes of a lore-crammed brain,
+Bathe in thy dew and be well again!
+  Woe! and these walls still prison me?
+Dull, dismal hole! my curse on thee!
+Where heaven's own light, with its blessed beams,
+Through painted panes all sickly gleams!
+Hemmed in by these old book-piles tall,
+Which, gnawed by worms and deep in must,
+Rise to the roof against a wall
+Of smoke-stained paper, thick with dust;
+'Mid glasses, boxes, where eye can see,
+Filled with old, obsolete instruments,
+Stuffed with old heirlooms of implements—
+That is thy world! There's a world for thee!
+  And still dost ask what stifles so
+The fluttering heart within thy breast?
+By what inexplicable woe
+The springs of life are all oppressed?
+Instead of living nature, where
+God made and planted men, his sons,
+Through smoke and mould, around thee stare
+Grim skeletons and dead men's bones.
+  Up! Fly! Far out into the land!
+And this mysterious volume, see!
+By Nostradamus's[5] own hand,
+Is it not guide enough for thee?
+Then shalt thou thread the starry skies,
+And, taught by nature in her walks,
+The spirit's might shall o'er thee rise,
+As ghost to ghost familiar talks.
+Vain hope that mere dry sense should here
+Explain the holy signs to thee.
+I feel you, spirits, hovering near;
+Oh, if you hear me, answer me!
+        [_He opens the book and beholds the sign of the Macrocosm.[_6]]
+Ha! as I gaze, what ecstasy is this,
+In one full tide through all my senses flowing!
+I feel a new-born life, a holy bliss
+Through nerves and veins mysteriously glowing.
+Was it a God who wrote each sign?
+Which, all my inner tumult stilling,
+And this poor heart with rapture filling,
+Reveals to me, by force divine,
+Great Nature's energies around and through me thrilling?
+Am I a God? It grows so bright to me!
+Each character on which my eye reposes
+Nature in act before my soul discloses.
+The sage's word was truth, at last I see:
+"The spirit-world, unbarred, is waiting;
+Thy sense is locked, thy heart is dead!
+Up, scholar, bathe, unhesitating,
+The earthly breast in morning-red!"
+                           [He contemplates the sign.]
+How all one whole harmonious weaves,
+Each in the other works and lives!
+See heavenly powers ascending and descending,
+The golden buckets, one long line, extending!
+See them with bliss-exhaling pinions winging
+Their way from heaven through earth—their singing
+Harmonious through the universe is ringing!
+  Majestic show! but ah! a show alone!
+Nature! where find I thee, immense, unknown?
+Where you, ye breasts? Ye founts all life sustaining,
+On which hang heaven and earth, and where
+Men's withered hearts their waste repair—
+Ye gush, ye nurse, and I must sit complaining?
+  [He opens reluctantly the book and sees the sign of the earth-spirit.]
+How differently works on me this sign!
+Thou, spirit of the earth, art to me nearer;
+I feel my powers already higher, clearer,
+I glow already as with new-pressed wine,
+I feel the mood to brave life's ceaseless clashing,
+To bear its frowning woes, its raptures flashing,
+To mingle in the tempest's dashing,
+And not to tremble in the shipwreck's crashing;
+Clouds gather o'er my head—
+Them moon conceals her light—
+The lamp goes out!
+It smokes!—Red rays are darting, quivering
+Around my head—comes down
+A horror from the vaulted roof
+And seizes me!
+Spirit that I invoked, thou near me art,
+Unveil thyself!
+Ha! what a tearing in my heart!
+Upheaved like an ocean
+My senses toss with strange emotion!
+I feel my heart to thee entirely given!
+Thou must! and though the price were life—were heaven!
+  [He seizes the book and pronounces mysteriously the sign of the spirit.
+   A ruddy flame darts out, the spirit appears in the flame.]
+
+Spirit. Who calls upon me?
+
+Faust. [Turning away.] Horrid sight!
+
+Spirit. Long have I felt the mighty action, Upon my sphere, of thy attraction, And now—
+
+Faust. Away, intolerable sprite!
+
+Spirit. Thou breath'st a panting supplication
+To hear my voice, my face to see;
+Thy mighty prayer prevails on me,
+I come!—what miserable agitation
+Seizes this demigod! Where is the cry of thought?
+Where is the breast? that in itself a world begot,
+And bore and cherished, that with joy did tremble
+And fondly dream us spirits to resemble.
+Where art thou, Faust? whose voice rang through my ear,
+Whose mighty yearning drew me from my sphere?
+Is this thing thou? that, blasted by my breath,
+Through all life's windings shuddereth,
+A shrinking, cringing, writhing worm!
+
+Faust. Thee, flame-born creature, shall I fear? 'Tis I, 'tis Faust, behold thy peer!
+
+Spirit. In life's tide currents, in action's storm,
+Up and down, like a wave,
+Like the wind I sweep!
+Cradle and grave—
+A limitless deep—-
+An endless weaving
+To and fro,
+A restless heaving
+Of life and glow,—
+So shape I, on Destiny's thundering loom,
+The Godhead's live garment, eternal in bloom.
+
+Faust. Spirit that sweep'st the world from end to end, How near, this hour, I feel myself to thee!
+
+Spirit. Thou'rt like the spirit thou canst comprehend, Not me! [Vanishes.]
+
+Faust. [Collapsing.] Not thee?
+  Whom then?
+  I, image of the Godhead,
+  And no peer for thee!
+         [A knocking.]
+O Death! I know it!—'tis my Famulus—
+Good-bye, ye dreams of bliss Elysian!
+Shame! that so many a glowing vision
+This dried-up sneak must scatter thus!
+
+      [WAGNER, in sleeping-gown and night-cap, a lamp in his hand.
+       FAUST turns round with an annoyed look.]
+
+Wagner. Excuse me! you're engaged in declamation;
+'Twas a Greek tragedy no doubt you read?
+I in this art should like initiation,
+For nowadays it stands one well instead.
+I've often heard them boast, a preacher
+Might profit with a player for his teacher.
+
+Faust. Yes, when the preacher is a player, granted: As often happens in our modern ways.
+
+Wagner. Ah! when one with such love of study's haunted,
+And scarcely sees the world on holidays,
+And takes a spy-glass, as it were, to read it,
+How can one by persuasion hope to lead it?
+
+Faust. What you don't feel, you'll never catch by hunting,
+It must gush out spontaneous from the soul,
+And with a fresh delight enchanting
+The hearts of all that hear control.
+Sit there forever! Thaw your glue-pot,—
+Blow up your ash-heap to a flame, and brew,
+With a dull fire, in your stew-pot,
+Of other men's leavings a ragout!
+Children and apes will gaze delighted,
+If their critiques can pleasure impart;
+But never a heart will be ignited,
+Comes not the spark from the speaker's heart.
+
+Wagner. Delivery makes the orator's success; There I'm still far behindhand, I confess.
+
+Faust. Seek honest gains, without pretence!
+Be not a cymbal-tinkling fool!
+Sound understanding and good sense
+Speak out with little art or rule;
+And when you've something earnest to utter,
+Why hunt for words in such a flutter?
+Yes, your discourses, that are so refined'
+In which humanity's poor shreds you frizzle,
+Are unrefreshing as the mist and wind
+That through the withered leaves of autumn whistle!
+
+Wagner. Ah God! well, art is long!
+And life is short and fleeting.
+What headaches have I felt and what heart-beating,
+When critical desire was strong.
+How hard it is the ways and means to master
+By which one gains each fountain-head!
+And ere one yet has half the journey sped,
+The poor fool dies—O sad disaster!
+
+Faust. Is parchment, then, the holy well-spring, thinkest,
+A draught from which thy thirst forever slakes?
+No quickening element thou drinkest,
+Till up from thine own soul the fountain breaks.
+
+Wagner. Excuse me! in these olden pages
+We catch the spirit of the by-gone ages,
+We see what wisest men before our day have thought,
+And to what glorious heights we their bequests have brought.
+
+Faust. O yes, we've reached the stars at last!
+My friend, it is to us,—the buried past,—
+A book with seven seals protected;
+Your spirit of the times is, then,
+At bottom, your own spirit, gentlemen,
+In which the times are seen reflected.
+And often such a mess that none can bear it;
+At the first sight of it they run away.
+A dust-bin and a lumber-garret,
+At most a mock-heroic play[8]
+With fine, pragmatic maxims teeming,
+The mouths of puppets well-beseeming!
+
+Wagner. But then the world! the heart and mind of man! To know of these who would not pay attention?
+
+Faust. To know them, yes, as weaklings can!
+Who dares the child's true name outright to mention?
+The few who any thing thereof have learned,
+Who out of their heart's fulness needs must gabble,
+And show their thoughts and feelings to the rabble,
+Have evermore been crucified and burned.
+I pray you, friend, 'tis wearing into night,
+Let us adjourn here, for the present.
+
+Wagner. I had been glad to stay till morning light, This learned talk with you has been so pleasant, But the first day of Easter comes to-morrow. And then an hour or two I'll borrow. With zeal have I applied myself to learning, True, I know much, yet to know all am burning. [Exit.]
+
+Faust. [Alone.] See how in his head only, hope still lingers,
+Who evermore to empty rubbish clings,
+With greedy hand grubs after precious things,
+And leaps for joy when some poor worm he fingers!
+  That such a human voice should dare intrude,
+Where all was full of ghostly tones and features!
+Yet ah! this once, my gratitude
+Is due to thee, most wretched of earth's creatures.
+Thou snatchedst me from the despairing state
+In which my senses, well nigh crazed, were sunken.
+The apparition was so giant-great,
+That to a very dwarf my soul had shrunken.
+  I, godlike, who in fancy saw but now
+Eternal truth's fair glass in wondrous nearness,
+Rejoiced in heavenly radiance and clearness,
+Leaving the earthly man below;
+I, more than cherub, whose free force
+Dreamed, through the veins of nature penetrating,
+To taste the life of Gods, like them creating,
+Behold me this presumption expiating!
+A word of thunder sweeps me from my course.
+  Myself with thee no longer dare I measure;
+Had I the power to draw thee down at pleasure;
+To hold thee here I still had not the force.
+Oh, in that blest, ecstatic hour,
+I felt myself so small, so great;
+Thou drovest me with cruel power
+Back upon man's uncertain fate
+What shall I do? what slum, thus lonely?
+That impulse must I, then, obey?
+Alas! our very deeds, and not our sufferings only,
+How do they hem and choke life's way!
+  To all the mind conceives of great and glorious
+A strange and baser mixture still adheres;
+Striving for earthly good are we victorious?
+A dream and cheat the better part appears.
+The feelings that could once such noble life inspire
+Are quenched and trampled out in passion's mire.
+  Where Fantasy, erewhile, with daring flight
+Out to the infinite her wings expanded,
+A little space can now suffice her quite,
+When hope on hope time's gulf has wrecked and stranded.
+Care builds her nest far down the heart's recesses,
+There broods o'er dark, untold distresses,
+Restless she sits, and scares thy joy and peace away;
+She puts on some new mask with each new day,
+Herself as house and home, as wife and child presenting,
+As fire and water, bane and blade;
+What never hits makes thee afraid,
+And what is never lost she keeps thee still lamenting.
+  Not like the Gods am I! Too deep that truth is thrust!
+But like the worm, that wriggles through the dust;
+Who, as along the dust for food he feels,
+Is crushed and buried by the traveller's heels.
+  Is it not dust that makes this lofty wall
+Groan with its hundred shelves and cases;
+The rubbish and the thousand trifles all
+That crowd these dark, moth-peopled places?
+Here shall my craving heart find rest?
+Must I perchance a thousand books turn over,
+To find that men are everywhere distrest,
+And here and there one happy one discover?
+Why grin'st thou down upon me, hollow skull?
+But that thy brain, like mine, once trembling, hoping,
+Sought the light day, yet ever sorrowful,
+Burned for the truth in vain, in twilight groping?
+Ye, instruments, of course, are mocking me;
+Its wheels, cogs, bands, and barrels each one praises.
+I waited at the door; you were the key;
+Your ward is nicely turned, and yet no bolt it raises.
+Unlifted in the broadest day,
+Doth Nature's veil from prying eyes defend her,
+And what (he chooses not before thee to display,
+Not all thy screws and levers can force her to surrender.
+Old trumpery! not that I e'er used thee, but
+Because my father used thee, hang'st thou o'er me,
+Old scroll! thou hast been stained with smoke and smut
+Since, on this desk, the lamp first dimly gleamed before me.
+Better have squandered, far, I now can clearly see,
+My little all, than melt beneath it, in this Tophet!
+That which thy fathers have bequeathed to thee,
+Earn and become possessor of it!
+What profits not a weary load will be;
+What it brings forth alone can yield the moment profit.
+  Why do I gaze as if a spell had bound me
+Up yonder? Is that flask a magnet to the eyes?
+What lovely light, so sudden, blooms around me?
+As when in nightly woods we hail the full-moon-rise.
+  I greet thee, rarest phial, precious potion!
+As now I take thee down with deep devotion,
+In thee I venerate man's wit and art.
+Quintessence of all soporific flowers,
+Extract of all the finest deadly powers,
+Thy favor to thy master now impart!
+I look on thee, the sight my pain appeases,
+I handle thee, the strife of longing ceases,
+The flood-tide of the spirit ebbs away.
+Far out to sea I'm drawn, sweet voices listening,
+The glassy waters at my feet are glistening,
+To new shores beckons me a new-born day.
+  A fiery chariot floats, on airy pinions,
+To where I sit! Willing, it beareth me,
+On a new path, through ether's blue dominions,
+To untried spheres of pure activity.
+This lofty life, this bliss elysian,
+Worm that thou waft erewhile, deservest thou?
+Ay, on this earthly sun, this charming vision,
+Turn thy back resolutely now!
+Boldly draw near and rend the gates asunder,
+By which each cowering mortal gladly steals.
+Now is the time to show by deeds of wonder
+That manly greatness not to godlike glory yields;
+Before that gloomy pit to stand, unfearing,
+Where Fantasy self-damned in its own torment lies,
+Still onward to that pass-way steering,
+Around whose narrow mouth hell-flames forever rise;
+Calmly to dare the step, serene, unshrinking,
+Though into nothingness the hour should see thee sinking.
+  Now, then, come down from thy old case, I bid thee,
+Where thou, forgotten, many a year hast hid thee,
+Into thy master's hand, pure, crystal glass!
+The joy-feasts of the fathers thou hast brightened,
+The hearts of gravest guests were lightened,
+When, pledged, from hand to hand they saw thee pass.
+Thy sides, with many a curious type bedight,
+Which each, as with one draught he quaffed the liquor
+Must read in rhyme from off the wondrous beaker,
+Remind me, ah! of many a youthful night.
+I shall not hand thee now to any neighbor,
+Not now to show my wit upon thy carvings labor;
+Here is a juice of quick-intoxicating might.
+The rich brown flood adown thy sides is streaming,
+With my own choice ingredients teeming;
+Be this last draught, as morning now is gleaming,
+Drained as a lofty pledge to greet the festal light!
+                [He puts the goblet to his lips.
+
+Ringing of bells and choral song.
+
+Chorus of Angels. Christ hath arisen!
+  Joy to humanity!
+  No more shall vanity,
+  Death and inanity
+  Hold thee in prison!
+
+Faust. What hum of music, what a radiant tone,
+Thrills through me, from my lips the goblet stealing!
+Ye murmuring bells, already make ye known
+The Easter morn's first hour, with solemn pealing?
+Sing you, ye choirs, e'en now, the glad, consoling song,
+That once, from angel-lips, through gloom sepulchral rung,
+A new immortal covenant sealing?
+
+Chorus of Women. Spices we carried,
+  Laid them upon his breast;
+  Tenderly buried
+  Him whom we loved the best;
+
+  Cleanly to bind him
+  Took we the fondest care,
+  Ah! and we find him
+  Now no more there.
+
+Chorus of Angels. Christ hath ascended!
+  Reign in benignity!
+  Pain and indignity,
+  Scorn and malignity,
+  Their work have ended.
+
+Faust. Why seek ye me in dust, forlorn,
+Ye heavenly tones, with soft enchanting?
+Go, greet pure-hearted men this holy morn!
+Your message well I hear, but faith to me is wanting;
+Wonder, its dearest child, of Faith is born.
+To yonder spheres I dare no more aspire,
+Whence the sweet tidings downward float;
+And yet, from childhood heard, the old, familiar note
+Calls back e'en now to life my warm desire.
+Ah! once how sweetly fell on me the kiss
+Of heavenly love in the still Sabbath stealing!
+Prophetically rang the bells with solemn pealing;
+A prayer was then the ecstasy of bliss;
+A blessed and mysterious yearning
+Drew me to roam through meadows, woods, and skies;
+And, midst a thousand tear-drops burning,
+I felt a world within me rise
+That strain, oh, how it speaks youth's gleesome plays and feelings,
+Joys of spring-festivals long past;
+Remembrance holds me now, with childhood's fond appealings,
+Back from the fatal step, the last.
+Sound on, ye heavenly strains, that bliss restore me!
+Tears gush, once more the spell of earth is o'er me
+
+Chorus of Disciples. Has the grave's lowly one
+  Risen victorious?
+  Sits he, God's Holy One,
+  High-throned and glorious?
+  He, in this blest new birth,
+  Rapture creative knows;[9]
+  Ah! on the breast of earth
+  Taste we still nature's woes.
+  Left here to languish
+  Lone in a world like this,
+  Fills us with anguish
+  Master, thy bliss!
+
+Chorus of Angels. Christ has arisen
+  Out of corruption's gloom.
+  Break from your prison,
+  Burst every tomb!
+  Livingly owning him,
+  Lovingly throning him,
+  Feasting fraternally,
+  Praying diurnally,
+  Bearing his messages,
+  Sharing his promises,
+  Find ye your master near,
+  Find ye him here![10]
+
+BEFORE THE GATE.
+Pedestrians of all descriptions stroll forth.
+
+Mechanics' Apprentices. Where are you going to carouse?
+
+Others. We're all going out to the Hunter's House.
+
+The First. We're going, ourselves, out to the Mill-House, brothers.
+
+An Apprentice. The Fountain-House I rather recommend.
+
+Second. 'Tis not a pleasant road, my friend.
+
+The second group. What will you do, then?
+
+A Third. I go with the others.
+
+Fourth. Come up to Burgdorf, there you're sure to find good cheer, The handsomest of girls and best of beer, And rows, too, of the very first water.
+
+Fifth. You monstrous madcap, does your skin Itch for the third time to try that inn? I've had enough for my taste in that quarter.
+
+Servant-girl. No! I'm going back again to town for one.
+
+Others. Under those poplars we are sure to meet him.
+
+First Girl. But that for me is no great fun;
+For you are always sure to get him,
+He never dances with any but you.
+Great good to me your luck will do!
+
+Others. He's not alone, I heard him say, The curly-head would be with him to-day.
+
+Scholar. Stars! how the buxom wenches stride there!
+Quick, brother! we must fasten alongside there.
+Strong beer, good smart tobacco, and the waist
+Of a right handsome gall, well rigg'd, now that's my taste.
+
+Citizen's Daughter. Do see those fine, young fellows yonder!
+'Tis, I declare, a great disgrace;
+When they might have the very best, I wonder,
+After these galls they needs must race!
+
+Second scholar [to the first].
+Stop! not so fast! there come two more behind,
+My eyes! but ain't they dressed up neatly?
+One is my neighbor, or I'm blind;
+I love the girl, she looks so sweetly.
+Alone all quietly they go,
+You'll find they'll take us, by and bye, in tow.
+
+First. No, brother! I don't like these starched up ways.
+Make haste! before the game slips through our fingers.
+The hand that swings the broom o' Saturdays
+On Sundays round thy neck most sweetly lingers.
+
+Citizen. No, I don't like at all this new-made burgomaster!
+His insolence grows daily ever faster.
+No good from him the town will get!
+Will things grow better with him? Never!
+We're under more constraint than ever,
+And pay more tax than ever yet.
+
+Beggar. [Sings.] Good gentlemen, and you, fair ladies,
+    With such red cheeks and handsome dress,
+    Think what my melancholy trade is,
+    And see and pity my distress!
+    Help the poor harper, sisters, brothers!
+    Who loves to give, alone is gay.
+    This day, a holiday to others,
+    Make it for me a harvest day.
+
+Another citizen.
+Sundays and holidays, I like, of all things, a good prattle
+Of war and fighting, and the whole array,
+When back in Turkey, far away,
+The peoples give each other battle.
+One stands before the window, drinks his glass,
+And sees the ships with flags glide slowly down the river;
+Comes home at night, when out of sight they pass,
+And sings with joy, "Oh, peace forever!"
+
+Third citizen. So I say, neighbor! let them have their way,
+Crack skulls and in their crazy riot
+Turn all things upside down they may,
+But leave us here in peace and quiet.
+
+Old Woman [to the citizen's daughter].
+Heyday, brave prinking this! the fine young blood!
+Who is not smitten that has met you?—
+But not so proud! All very good!
+And what you want I'll promise soon to get you.
+
+Citizen's Daughter. Come, Agatha! I dread in public sight
+To prattle with such hags; don't stay, O, Luddy!
+'Tis true she showed me, on St. Andrew's night,
+My future sweetheart in the body.
+
+The other. She showed me mine, too, in a glass,
+Right soldierlike, with daring comrades round him.
+I look all round, I study all that pass,
+But to this hour I have not found him.
+
+Soldiers. Castles with lowering
+           Bulwarks and towers,
+           Maidens with towering
+           Passions and powers,
+           Both shall be ours!
+           Daring the venture,
+           Glorious the pay!
+
+           When the brass trumpet
+           Summons us loudly,
+           Joy-ward or death-ward,
+           On we march proudly.
+           That is a storming!
+
+           Life in its splendor!
+           Castles and maidens
+           Both must surrender.
+           Daring the venture,
+           Glorious the pay.
+           There go the soldiers
+           Marching away!
+
+FAUST and WAGNER.
+
+Faust. Spring's warm look has unfettered the fountains,
+Brooks go tinkling with silvery feet;
+Hope's bright blossoms the valley greet;
+Weakly and sickly up the rough mountains
+Pale old Winter has made his retreat.
+Thence he launches, in sheer despite,
+Sleet and hail in impotent showers,
+O'er the green lawn as he takes his flight;
+But the sun will suffer no white,
+Everywhere waking the formative powers,
+Living colors he yearns to spread;
+Yet, as he finds it too early for flowers,
+Gayly dressed people he takes instead.
+Look from this height whereon we find us
+Back to the town we have left behind us,
+Where from the dark and narrow door
+Forth a motley multitude pour.
+They sun themselves gladly and all are gay,
+They celebrate Christ's resurrection to-day.
+For have not they themselves arisen?
+From smoky huts and hovels and stables,
+From labor's bonds and traffic's prison,
+From the confinement of roofs and gables,
+From many a cramping street and alley,
+From churches full of the old world's night,
+All have come out to the day's broad light.
+See, only see! how the masses sally
+Streaming and swarming through gardens and fields
+How the broad stream that bathes the valley
+Is everywhere cut with pleasure boats' keels,
+And that last skiff, so heavily laden,
+Almost to sinking, puts off in the stream;
+Ribbons and jewels of youngster and maiden
+From the far paths of the mountain gleam.
+How it hums o'er the fields and clangs from the steeple!
+This is the real heaven of the people,
+Both great and little are merry and gay,
+I am a man, too, I can be, to-day.
+
+Wagner. With you, Sir Doctor, to go out walking
+Is at all times honor and gain enough;
+But to trust myself here alone would be shocking,
+For I am a foe to all that is rough.
+Fiddling and bowling and screams and laughter
+To me are the hatefullest noises on earth;
+They yell as if Satan himself were after,
+And call it music and call it mirth.
+
+[Peasants (under the linden). Dance and song.]
+
+The shepherd prinked him for the dance,
+With jacket gay and spangle's glance,
+And all his finest quiddle.
+And round the linden lass and lad
+They wheeled and whirled and danced like mad.
+Huzza! huzza!
+Huzza! Ha, ha, ha!
+And tweedle-dee went the fiddle.
+
+And in he bounded through the whirl,
+And with his elbow punched a girl,
+Heigh diddle, diddle!
+The buxom wench she turned round quick,
+"Now that I call a scurvy trick!"
+Huzza! huzza!
+Huzza! ha, ha, ha!
+Tweedle-dee, tweedle-dee went the fiddle.
+
+And petticoats and coat-tails flew
+As up and down they went, and through,
+Across and down the middle.
+They all grew red, they all grew warm,
+And rested, panting, arm in arm,
+Huzza! huzza!
+Ta-ra-la!
+Tweedle-dee went the fiddle!
+
+"And don't be so familiar there!
+How many a one, with speeches fair,
+His trusting maid will diddle!"
+But still he flattered her aside—
+And from the linden sounded wide:
+Huzza! huzza!
+Huzza! huzza! ha! ha! ha!
+And tweedle-dee the fiddle.
+
+Old Peasant. Sir Doctor, this is kind of you,
+That with us here you deign to talk,
+And through the crowd of folk to-day
+A man so highly larned, walk.
+So take the fairest pitcher here,
+Which we with freshest drink have filled,
+I pledge it to you, praying aloud
+That, while your thirst thereby is stilled,
+So many days as the drops it contains
+May fill out the life that to you remains.
+
+Faust. I take the quickening draught and call For heaven's best blessing on one and all.
+
+[The people form a circle round him.]
+
+Old Peasant. Your presence with us, this glad day,
+We take it very kind, indeed!
+In truth we've found you long ere this
+In evil days a friend in need!
+Full many a one stands living here,
+Whom, at death's door already laid,
+Your father snatched from fever's rage,
+When, by his skill, the plague he stayed.
+You, a young man, we daily saw
+Go with him to the pest-house then,
+And many a corpse was carried forth,
+But you came out alive again.
+With a charmed life you passed before us,
+Helped by the Helper watching o'er us.
+
+All. The well-tried man, and may he live, Long years a helping hand to give!
+
+Faust. Bow down to Him on high who sends His heavenly help and helping friends! [He goes on with WAGNER.]
+
+Wagner. What feelings, O great man, thy heart must swell
+Thus to receive a people's veneration!
+O worthy all congratulation,
+Whose gifts to such advantage tell.
+The father to his son shows thee with exultation,
+All run and crowd and ask, the circle closer draws,
+The fiddle stops, the dancers pause,
+Thou goest—the lines fall back for thee.
+They fling their gay-decked caps on high;
+A little more and they would bow the knee
+As if the blessed Host came by.
+
+Faust. A few steps further on, until we reach that stone;
+There will we rest us from our wandering.
+How oft in prayer and penance there alone,
+Fasting, I sate, on holy mysteries pondering.
+There, rich in hope, in faith still firm,
+I've wept, sighed, wrung my hands and striven
+This plague's removal to extort (poor worm!)
+From the almighty Lord of Heaven.
+The crowd's applause has now a scornful tone;
+O couldst thou hear my conscience tell its story,
+How little either sire or son
+Has done to merit such a glory!
+My father was a worthy man, confused
+And darkened with his narrow lucubrations,
+Who with a whimsical, though well-meant patience,
+On Nature's holy circles mused.
+Shut up in his black laboratory,
+Experimenting without end,
+'Midst his adepts, till he grew hoary,
+He sought the opposing powers to blend.
+Thus, a red lion,[11] a bold suitor, married
+The silver lily, in the lukewarm bath,
+And, from one bride-bed to another harried,
+The two were seen to fly before the flaming wrath.
+If then, with colors gay and splendid,
+The glass the youthful queen revealed,
+Here was the physic, death the patients' sufferings ended,
+And no one asked, who then was healed?
+Thus, with electuaries so satanic,
+Worse than the plague with all its panic,
+We rioted through hill and vale;
+Myself, with my own hands, the drug to thousands giving,
+They passed away, and I am living
+To hear men's thanks the murderers hail!
+
+Wagner. Forbear! far other name that service merits!
+Can a brave man do more or less
+Than with nice conscientiousness
+To exercise the calling he inherits?
+If thou, as youth, thy father honorest,
+To learn from him thou wilt desire;
+If thou, as man, men with new light hast blest,
+Then may thy son to loftier heights aspire.
+
+Faust. O blest! who hopes to find repose,
+Up from this mighty sea of error diving!
+Man cannot use what he already knows,
+To use the unknown ever striving.
+But let not such dark thoughts a shadow throw
+O'er the bright joy this hour inspires!
+See how the setting sun, with ruddy glow,
+The green-embosomed hamlet fires!
+He sinks and fades, the day is lived and gone,
+He hastens forth new scenes of life to waken.
+O for a wing to lift and bear me on,
+And on, to where his last rays beckon!
+Then should I see the world's calm breast
+In everlasting sunset glowing,
+The summits all on fire, each valley steeped in rest,
+The silver brook to golden rivers flowing.
+No savage mountain climbing to the skies
+Should stay the godlike course with wild abysses;
+And now the sea, with sheltering, warm recesses
+Spreads out before the astonished eyes.
+At last it seems as if the God were sinking;
+But a new impulse fires the mind,
+Onward I speed, his endless glory drinking,
+The day before me and the night behind,
+The heavens above my head and under me the ocean.
+A lovely dream,—meanwhile he's gone from sight.
+Ah! sure, no earthly wing, in swiftest flight,
+May with the spirit's wings hold equal motion.
+Yet has each soul an inborn feeling
+Impelling it to mount and soar away,
+When, lost in heaven's blue depths, the lark is pealing
+High overhead her airy lay;
+When o'er the mountain pine's black shadow,
+With outspread wing the eagle sweeps,
+And, steering on o'er lake and meadow,
+The crane his homeward journey keeps.
+
+Wagner. I've had myself full many a wayward hour,
+But never yet felt such a passion's power.
+One soon grows tired of field and wood and brook,
+I envy not the fowl of heaven his pinions.
+Far nobler joy to soar through thought's dominions
+From page to page, from book to book!
+Ah! winter nights, so dear to mind and soul!
+Warm, blissful life through all the limbs is thrilling,
+And when thy hands unfold a genuine ancient scroll,
+It seems as if all heaven the room were filling.
+
+Faust. One passion only has thy heart possessed;
+The other, friend, O, learn it never!
+Two souls, alas! are lodged in my wild breast,
+Which evermore opposing ways endeavor,
+The one lives only on the joys of time,
+Still to the world with clamp-like organs clinging;
+The other leaves this earthly dust and slime,
+To fields of sainted sires up-springing.
+O, are there spirits in the air,
+That empire hold 'twixt earth's and heaven's dominions,
+Down from your realm of golden haze repair,
+Waft me to new, rich life, upon your rosy pinions!
+Ay! were a magic mantle only mine,
+To soar o'er earth's wide wildernesses,
+I would not sell it for the costliest dresses,
+Not for a royal robe the gift resign.
+
+Wagner. O, call them not, the well known powers of air,
+That swarm through all the middle kingdom, weaving
+Their fairy webs, with many a fatal snare
+The feeble race of men deceiving.
+First, the sharp spirit-tooth, from out the North,
+And arrowy tongues and fangs come thickly flying;
+Then from the East they greedily dart forth,
+Sucking thy lungs, thy life-juice drying;
+If from the South they come with fever thirst,
+Upon thy head noon's fiery splendors heaping;
+The Westwind brings a swarm, refreshing first,
+Then all thy world with thee in stupor steeping.
+They listen gladly, aye on mischief bent,
+Gladly draw near, each weak point to espy,
+They make believe that they from heaven are sent,
+Whispering like angels, while they lie.
+But let us go! The earth looks gray, my friend,
+The air grows cool, the mists ascend!
+At night we learn our homes to prize.—
+Why dost thou stop and stare with all thy eyes?
+What can so chain thy sight there, in the gloaming?
+
+Faust. Seest thou that black dog through stalks and stubble roaming?
+
+Wagner. I saw him some time since, he seemed not strange to me.
+
+Faust. Look sharply! What dost take the beast to be?
+
+Wagner. For some poor poodle who has lost his master, And, dog-like, scents him o'er the ground.
+
+Faust. Markst thou how, ever nearer, ever faster,
+Towards us his spiral track wheels round and round?
+And if my senses suffer no confusion,
+Behind him trails a fiery glare.
+
+Wagner. 'Tis probably an optical illusion; I still see only a black poodle there.
+
+Faust. He seems to me as he were tracing slyly His magic rings our feet at last to snare.
+
+Wagner. To me he seems to dart around our steps so shyly, As if he said: is one of them my master there?
+
+Faust. The circle narrows, he is near!
+
+Wagner. Thou seest! a dog we have, no spectre, here! He growls and stops, crawls on his belly, too, And wags his tail,—as all dogs do.
+
+Faust. Come here, sir! come, our comrade be!
+
+Wagner. He has a poodle's drollery.
+Stand still, and he, too, waits to see;
+Speak to him, and he jumps on thee;
+Lose something, drop thy cane or sling it
+Into the stream, he'll run and bring it.
+
+Faust. I think you're right; I trace no spirit here, 'Tis all the fruit of training, that is clear.
+
+Wagner. A well-trained dog is a great treasure,
+Wise men in such will oft take pleasure.
+And he deserves your favor and a collar,
+He, of the students the accomplished scholar.
+
+[They go in through the town gate.]
+
+STUDY-CHAMBER.
+Enter FAUST with the POODLE.
+
+I leave behind me field and meadow
+Veiled in the dusk of holy night,
+Whose ominous and awful shadow
+Awakes the better soul to light.
+To sleep are lulled the wild desires,
+The hand of passion lies at rest;
+The love of man the bosom fires,
+The love of God stirs up the breast.
+
+Be quiet, poodle! what worrisome fiend hath possest thee,
+Nosing and snuffling so round the door?
+Go behind the stove there and rest thee,
+There's my best pillow—what wouldst thou more?
+As, out on the mountain-paths, frisking and leaping,
+Thou, to amuse us, hast done thy best,
+So now in return lie still in my keeping,
+A quiet, contented, and welcome guest.
+
+When, in our narrow chamber, nightly,
+The friendly lamp begins to burn,
+Then in the bosom thought beams brightly,
+Homeward the heart will then return.
+Reason once more bids passion ponder,
+Hope blooms again and smiles on man;
+Back to life's rills he yearns to wander,
+Ah! to the source where life began.
+
+Stop growling, poodle! In the music Elysian
+That laps my soul at this holy hour,
+These bestial noises have jarring power.
+We know that men will treat with derision
+Whatever they cannot understand,
+At goodness and truth and beauty's vision
+Will shut their eyes and murmur and howl at it;
+And must the dog, too, snarl and growl at it?
+
+But ah, with the best will, I feel already,
+No peace will well up in me, clear and steady.
+But why must hope so soon deceive us,
+And the dried-up stream in fever leave us?
+For in this I have had a full probation.
+And yet for this want a supply is provided,
+To a higher than earth the soul is guided,
+We are ready and yearn for revelation:
+And where are its light and warmth so blent
+As here in the New Testament?
+I feel, this moment, a mighty yearning
+To expound for once the ground text of all,
+The venerable original
+Into my own loved German honestly turning.
+        [He opens the volume, and applies himself to the task.]
+"In the beginning was the Word." I read.
+But here I stick! Who helps me to proceed?
+The Word—so high I cannot—dare not, rate it,
+I must, then, otherwise translate it,
+If by the spirit I am rightly taught.
+It reads: "In the beginning was the thought."
+But study well this first line's lesson,
+Nor let thy pen to error overhasten!
+Is it the thought does all from time's first hour?
+"In the beginning," read then, "was the power."
+Yet even while I write it down, my finger
+Is checked, a voice forbids me there to linger.
+The spirit helps! At once I dare to read
+And write: "In the beginning was the deed."
+
+If I with thee must share my chamber,
+Poodle, now, remember,
+No more howling,
+No more growling!
+I had as lief a bull should bellow,
+As have for a chum such a noisy fellow.
+Stop that yell, now,
+One of us must quit this cell now!
+'Tis hard to retract hospitality,
+But the door is open, thy way is free.
+But what ails the creature?
+Is this in the course of nature?
+Is it real? or one of Fancy's shows?
+
+How long and broad my poodle grows!
+He rises from the ground;
+That is no longer the form of a hound!
+Heaven avert the curse from us!
+He looks like a hippopotamus,
+With his fiery eyes and the terrible white
+Of his grinning teeth! oh what a fright
+Have I brought with me into the house! Ah now,
+No mystery art thou!
+Methinks for such half hellish brood
+The key of Solomon were good.
+
+Spirits [in the passage]. Softly! a fellow is caught there!
+  Keep back, all of you, follow him not there!
+  Like the fox in the trap,
+  Mourns the old hell-lynx his mishap.
+  But give ye good heed!
+  This way hover, that way hover,
+  Over and over,
+  And he shall right soon be freed.
+  Help can you give him,
+  O do not leave him!
+  Many good turns he's done us,
+  Many a fortune won us.
+
+Faust. First, to encounter the creature
+By the spell of the Four, says the teacher:
+    Salamander shall glisten,[12]
+    Undina lapse lightly,
+    Sylph vanish brightly,
+    Kobold quick listen.
+
+He to whom Nature
+Shows not, as teacher,
+Every force
+And secret source,
+Over the spirits
+No power inherits.
+
+    Vanish in glowing
+    Flame, Salamander!
+    Inward, spirally flowing,
+    Gurgle, Undine!
+    Gleam in meteoric splendor,
+    Airy Queen!
+    Thy homely help render,
+    Incubus! Incubus!
+    Forth and end the charm for us!
+
+No kingdom of Nature
+Resides in the creature.
+He lies there grinning—'tis clear, my charm
+Has done the monster no mite of harm.
+I'll try, for thy curing,
+Stronger adjuring.
+
+    Art thou a jail-bird,
+    A runaway hell-bird?
+    This sign,[13] then—adore it!
+    They tremble before it
+    All through the dark dwelling.
+
+His hair is bristling—his body swelling.
+
+    Reprobate creature!
+    Canst read his nature?
+    The Uncreated,
+    Ineffably Holy,
+    With Deity mated,
+    Sin's victim lowly?
+
+Driven behind the stove by my spells,
+Like an elephant he swells;
+He fills the whole room, so huge he's grown,
+He waxes shadowy faster and faster.
+Rise not up to the ceiling—down!
+Lay thyself at the feet of thy master!
+Thou seest, there's reason to dread my ire.
+I'll scorch thee with the holy fire!
+Wait not for the sight
+Of the thrice-glowing light!
+Wait not to feel the might
+Of the potentest spell in all my treasure!
+
+        MEPHISTOPHELES.
+    [As the mist sinks, steps forth from behind the stove,
+    dressed as a travelling scholasticus.]
+Why all this noise? What is your worship's pleasure?
+
+Faust. This was the poodle's essence then! A travelling clark? Ha! ha! The casus is too funny.
+
+Mephistopheles. I bow to the most learned among men! 'Faith you did sweat me without ceremony.
+
+Faust. What is thy name?
+
+Mephistopheles. The question seems too small
+For one who holds the word so very cheaply,
+Who, far removed from shadows all,
+For substances alone seeks deeply.
+
+Faust. With gentlemen like him in my presence,
+The name is apt to express the essence,
+Especially if, when you inquire,
+You find it God of flies,[14] Destroyer, Slanderer, Liar.
+Well now, who art thou then?
+
+Mephistopheles. A portion of that power, Which wills the bad and works the good at every hour.
+
+Faust. Beneath thy riddle-word what meaning lies?
+
+Mephistopheles. I am the spirit that denies!
+And justly so; for all that time creates,
+He does well who annihilates!
+Better, it ne'er had had beginning;
+And so, then, all that you call sinning,
+Destruction,—all you pronounce ill-meant,—
+Is my original element.
+
+Faust. Thou call'st thyself a part, yet lookst complete to me.
+
+Mephistopheles. I speak the modest truth to thee.
+A world of folly in one little soul,
+Man loves to think himself a whole;
+Part of the part am I, which once was all, the Gloom
+That brought forth Light itself from out her mighty womb,
+The upstart proud, that now with mother Night
+Disputes her ancient rank and space and right,
+Yet never shall prevail, since, do whate'er he will,
+He cleaves, a slave, to bodies still;
+From bodies flows, makes bodies fair to sight;
+A body in his course can check him,
+His doom, I therefore hope, will soon o'ertake him,
+With bodies merged in nothingness and night.
+
+Faust. Ah, now I see thy high vocation! In gross thou canst not harm creation, And so in small hast now begun.
+
+Mephistopheles. And, truth to tell, e'en here, not much have done.
+That which at nothing the gauntlet has hurled,
+This, what's its name? this clumsy world,
+So far as I have undertaken,
+I have to own, remains unshaken
+By wave, storm, earthquake, fiery brand.
+Calm, after all, remain both sea and land.
+And the damn'd living fluff, of man and beast the brood,
+It laughs to scorn my utmost power.
+I've buried myriads by the hour,
+And still there circulates each hour a new, fresh blood.
+It were enough to drive one to distraction!
+Earth, water, air, in constant action,
+Through moist and dry, through warm and cold,
+Going forth in endless germination!
+Had I not claimed of fire a reservation,
+Not one thing I alone should hold.
+
+Faust. Thus, with the ever-working power
+Of good dost thou in strife persist,
+And in vain malice, to this hour,
+Clenchest thy cold and devilish fist!
+Go try some other occupation,
+Singular son of Chaos, thou!
+
+Mephistopheles. We'll give the thing consideration, When next we meet again! But now Might I for once, with leave retire?
+
+Faust. Why thou shouldst ask I do not see.
+Now that I know thee, when desire
+Shall prompt thee, freely visit me.
+Window and door give free admission.
+At least there's left the chimney flue.
+
+Mephistopheles. Let me confess there's one small prohibition
+
+Lies on thy threshold, 'gainst my walking through,
+The wizard-foot—[15]
+
+Faust. Does that delay thee? The Pentagram disturbs thee? Now, Come tell me, son of hell, I pray thee, If that spell-binds thee, then how enteredst thou? Thou shouldst proceed more circumspectly!
+
+Mephistopheles. Mark well! the figure is not drawn correctly; One of the angles, 'tis the outer one, Is somewhat open, dost perceive it?
+
+Faust. That was a lucky hit, believe it! And I have caught thee then? Well done! 'Twas wholly chance—I'm quite astounded!
+
+Mephistopheles. The poodle took no heed, as through the door he bounded; The case looks differently now; The devil can leave the house no-how.
+
+Faust. The window offers free emission.
+
+Mephistopheles. Devils and ghosts are bound by this condition:
+
+The way they entered in, they must come out. Allow
+In the first clause we're free, yet not so in the second.
+
+Faust. In hell itself, then, laws are reckoned? Now that I like; so then, one may, in fact, Conclude a binding compact with you gentry?
+
+Mephistopheles. Whatever promise on our books finds entry,
+We strictly carry into act.
+But hereby hangs a grave condition,
+Of this we'll talk when next we meet;
+But for the present I entreat
+Most urgently your kind dismission.
+
+Faust. Do stay but just one moment longer, then, Tell me good news and I'll release thee.
+
+Mephistopheles. Let me go now! I'll soon come back again, Then may'st thou ask whate'er shall please thee.
+
+Faust. I laid no snare for thee, old chap!
+Thou shouldst have watched and saved thy bacon.
+Who has the devil in his trap
+Must hold him fast, next time he'll not so soon be taken.
+
+Mephistopheles. Well, if it please thee, I'm content to stay
+For company, on one condition,
+That I, for thy amusement, may
+To exercise my arts have free permission.
+
+Faust. I gladly grant it, if they be Not disagreeable to me.
+
+Mephistopheles. Thy senses, friend, in this one hour
+Shall grasp the world with clearer power
+Than in a year's monotony.
+The songs the tender spirits sing thee,
+The lovely images they bring thee
+Are not an idle magic play.
+Thou shalt enjoy the daintiest savor,
+Then feast thy taste on richest flavor,
+Then thy charmed heart shall melt away.
+Come, all are here, and all have been
+Well trained and practised, now begin!
+
+Spirits. Vanish, ye gloomy
+    Vaulted abysses!
+    Tenderer, clearer,
+    Friendlier, nearer,
+    Ether, look through!
+    O that the darkling
+    Cloud-piles were riven!
+    Starlight is sparkling,
+    Purer is heaven,
+    Holier sunshine
+    Softens the blue.
+    Graces, adorning
+    Sons of the morning—
+    Shadowy wavings—
+    Float along over;
+    Yearnings and cravings
+    After them hover.
+    Garments ethereal,
+    Tresses aerial,
+    Float o'er the flowers,
+    Float o'er the bowers,
+    Where, with deep feeling,
+    Thoughtful and tender,
+    Lovers, embracing,
+    Life-vows are sealing.
+    Bowers on bowers!
+    Graceful and slender
+    Vines interlacing!
+    Purple and blushing,
+    Under the crushing
+    Wine-presses gushing,
+    Grape-blood, o'erflowing,
+    Down over gleaming
+    Precious stones streaming,
+    Leaves the bright glowing
+    Tops of the mountains,
+    Leaves the red fountains,
+    Widening and rushing,
+    Till it encloses
+    Green hills all flushing,
+    Laden with roses.
+    Happy ones, swarming,
+    Ply their swift pinions,
+    Glide through the charming
+    Airy dominions,
+    Sunward still fleering,
+    Onward, where peering
+    Far o'er the ocean,
+    Islets are dancing
+    With an entrancing,
+    Magical motion;
+    Hear them, in chorus,
+    Singing high o'er us;
+    Over the meadows
+    Flit the bright shadows;
+    Glad eyes are glancing,
+    Tiny feet dancing.
+    Up the high ridges
+    Some of them clamber,
+    Others are skimming
+    Sky-lakes of amber,
+    Others are swimming
+    Over the ocean;—
+    All are in motion,
+    Life-ward all yearning,
+    Longingly turning
+    To the far-burning
+    Star-light of bliss.
+
+Mephistopheles. He sleeps! Ye airy, tender youths, your numbers
+Have sung him into sweetest slumbers!
+You put me greatly in your debt by this.
+Thou art not yet the man that shall hold fast the devil!
+Still cheat his senses with your magic revel,
+Drown him in dreams of endless youth;
+But this charm-mountain on the sill to level,
+I need, O rat, thy pointed tooth!
+Nor need I conjure long, they're near me,
+E'en now comes scampering one, who presently will hear me.
+
+The sovereign lord of rats and mice,
+Of flies and frogs and bugs and lice,
+Commands thee to come forth this hour,
+And gnaw this threshold with great power,
+As he with oil the same shall smear—
+Ha! with a skip e'en now thou'rt here!
+But brisk to work! The point by which I'm cowered,
+Is on the ledge, the farthest forward.
+Yet one more bite, the deed is done.—
+Now, Faust, until we meet again, dream on!
+
+Faust. [Waking.] Again has witchcraft triumphed o'er me? Was it a ghostly show, so soon withdrawn? I dream, the devil stands himself before me—wake, to find a poodle gone!
+
+STUDY-CHAMBER.
+FAUST. MEPHISTOPHELES.
+Faust. A knock? Walk in! Who comes again to tease me?
+
+Mephistopheles. 'Tis I.
+
+Faust. Come in!
+
+Mephistopheles. Must say it thrice, to please me.
+
+Faust. Come in then!
+
+Mephistopheles. That I like to hear.
+We shall, I hope, bear with each other;
+For to dispel thy crotchets, brother,
+As a young lord, I now appear,
+In scarlet dress, trimmed with gold lacing,
+A stiff silk cloak with stylish facing,
+A tall cock's feather in my hat,
+A long, sharp rapier to defend me,
+And I advise thee, short and flat,
+In the same costume to attend me;
+If thou wouldst, unembarrassed, see
+What sort of thing this life may be.
+
+Faust. In every dress I well may feel the sore
+Of this low earth-life's melancholy.
+I am too old to live for folly,
+Too young, to wish for nothing more.
+Am I content with all creation?
+Renounce! renounce! Renunciation—
+Such is the everlasting song
+That in the ears of all men rings,
+Which every hour, our whole life long,
+With brazen accents hoarsely sings.
+With terror I behold each morning's light,
+With bitter tears my eyes are filling,
+To see the day that shall not in its flight
+Fulfil for me one wish, not one, but killing
+Every presentiment of zest
+With wayward skepticism, chases
+The fair creations from my breast
+With all life's thousand cold grimaces.
+And when at night I stretch me on my bed
+And darkness spreads its shadow o'er me;
+No rest comes then anigh my weary head,
+Wild dreams and spectres dance before me.
+The God who dwells within my soul
+Can heave its depths at any hour;
+Who holds o'er all my faculties control
+Has o'er the outer world no power;
+Existence lies a load upon my breast,
+Life is a curse and death a long'd-for rest.
+
+Mephistopheles. And yet death never proves a wholly welcome guest.
+
+Faust. O blest! for whom, when victory's joy fire blazes,
+Death round his brow the bloody laurel windeth,
+Whom, weary with the dance's mazes,
+He on a maiden's bosom findeth.
+O that, beneath the exalted spirit's power,
+I had expired, in rapture sinking!
+
+Mephistopheles. And yet I knew one, in a midnight hour, Who a brown liquid shrank from drinking.
+
+Faust. Eaves-dropping seems a favorite game with thee.
+
+Mephistopheles. Omniscient am I not; yet much is known to me.
+
+Faust. Since that sweet tone, with fond appealing,
+Drew me from witchcraft's horrid maze,
+And woke the lingering childlike feeling
+With harmonies of happier days;
+My curse on all the mock-creations
+That weave their spell around the soul,
+And bind it with their incantations
+And orgies to this wretched hole!
+Accursed be the high opinion
+Hugged by the self-exalting mind!
+Accursed all the dream-dominion
+That makes the dazzled senses blind!
+Curs'd be each vision that befools us,
+Of fame, outlasting earthly life!
+Curs'd all that, as possession, rules us,
+As house and barn, as child and wife!
+Accurs'd be mammon, when with treasure
+He fires our hearts for deeds of might,
+When, for a dream of idle pleasure,
+He makes our pillow smooth and light!
+Curs'd be the grape-vine's balsam-juices!
+On love's high grace my curses fall!
+On faith! On hope that man seduces,
+On patience last, not least, of all!
+
+Choir of spirits. [Invisible.] Woe! Woe!
+    Thou hast ground it to dust,
+    The beautiful world,
+    With mighty fist;
+    To ruins 'tis hurled;
+    A demi-god's blow hath done it!
+    A moment we look upon it,
+    Then carry (sad duty!)
+    The fragments over into nothingness,
+    With tears unavailing
+    Bewailing
+    All the departed beauty.
+    Lordlier
+    Than all sons of men,
+    Proudlier
+    Build it again,
+    Build it up in thy breast anew!
+    A fresh career pursue,
+    Before thee
+    A clearer view,
+    And, from the Empyréan,
+    A new-born Paean
+    Shall greet thee, too!
+
+Mephistopheles. Be pleased to admire
+    My juvenile choir!
+    Hear how they counsel in manly measure
+    Action and pleasure!
+    Out into life,
+    Its joy and strife,
+    Away from this lonely hole,
+    Where senses and soul
+    Rot in stagnation,
+    Calls thee their high invitation.
+
+Give over toying with thy sorrow
+Which like a vulture feeds upon thy heart;
+Thou shalt, in the worst company, to-morrow
+Feel that with men a man thou art.
+Yet I do not exactly intend
+Among the canaille to plant thee.
+I'm none of your magnates, I grant thee;
+Yet if thou art willing, my friend,
+Through life to jog on beside me,
+Thy pleasure in all things shall guide me,
+To thee will I bind me,
+A friend thou shalt find me,
+And, e'en to the grave,
+Shalt make me thy servant, make me thy slave!
+
+Faust. And in return what service shall I render?
+
+Mephistopheles. There's ample grace—no hurry, not the least.
+
+Faust. No, no, the devil is an egotist,
+And does not easily "for God's sake" tender
+That which a neighbor may assist.
+Speak plainly the conditions, come!
+'Tis dangerous taking such a servant home.
+
+Mephistopheles. I to thy service here agree to bind me,
+To run and never rest at call of thee;
+When over yonder thou shalt find me,
+Then thou shalt do as much for me.
+
+Faust. I care not much what's over yonder:
+When thou hast knocked this world asunder,
+Come if it will the other may!
+Up from this earth my pleasures all are streaming,
+Down on my woes this earthly sun is beaming;
+Let me but end this fit of dreaming,
+Then come what will, I've nought to say.
+I'll hear no more of barren wonder
+If in that world they hate and love,
+And whether in that future yonder
+There's a Below and an Above.
+
+Mephistopheles. In such a mood thou well mayst venture.
+Bind thyself to me, and by this indenture
+Thou shalt enjoy with relish keen
+Fruits of my arts that man had never seen.
+
+Faust. And what hast thou to give, poor devil?
+Was e'er a human mind, upon its lofty level,
+Conceived of by the like of thee?
+Yet hast thou food that brings satiety,
+Not satisfaction; gold that reftlessly,
+Like quicksilver, melts down within
+The hands; a game in which men never win;
+A maid that, hanging on my breast,
+Ogles a neighbor with her wanton glances;
+Of fame the glorious godlike zest,
+That like a short-lived meteor dances—
+Show me the fruit that, ere it's plucked, will rot,
+And trees from which new green is daily peeping!
+
+Mephistopheles. Such a requirement scares me not;
+Such treasures have I in my keeping.
+Yet shall there also come a time, good friend,
+When we may feast on good things at our leisure.
+
+Faust. If e'er I lie content upon a lounge of pleasure—
+Then let there be of me an end!
+When thou with flattery canst cajole me,
+Till I self-satisfied shall be,
+When thou with pleasure canst befool me,
+Be that the last of days for me!
+I lay the wager!
+
+Mephistopheles. Done!
+
+Faust. And heartily!
+Whenever to the passing hour
+I cry: O stay! thou art so fair!
+To chain me down I give thee power
+To the black bottom of despair!
+Then let my knell no longer linger,
+Then from my service thou art free,
+Fall from the clock the index-finger,
+Be time all over, then, for me!
+
+Mephistopheles. Think well, for we shall hold you to the letter.
+
+Faust. Full right to that just now I gave;
+I spoke not as an idle braggart better.
+Henceforward I remain a slave,
+What care I who puts on the setter?
+
+Mephistopheles. I shall this very day, at Doctor's-feast,[16]
+My bounden service duly pay thee.
+But one thing!—For insurance' sake, I pray thee,
+Grant me a line or two, at least.
+
+Faust. Pedant! will writing gain thy faith, alone?
+In all thy life, no man, nor man's word hast thou known?
+Is't not enough that I the fatal word
+That passes on my future days have spoken?
+The world-stream raves and rushes (hast not heard?)
+And shall a promise hold, unbroken?
+Yet this delusion haunts the human breast,
+Who from his soul its roots would sever?
+Thrice happy in whose heart pure truth finds rest.
+No sacrifice shall he repent of ever!
+But from a formal, written, sealed attest,
+As from a spectre, all men shrink forever.
+The word and spirit die together,
+Killed by the sight of wax and leather.
+What wilt thou, evil sprite, from me?
+Brass, marble, parchment, paper, shall it be?
+Shall I subscribe with pencil, pen or graver?
+Among them all thy choice is free.
+
+Mephistopheles. This rhetoric of thine to me
+Hath a somewhat bombastic savor.
+Any small scrap of paper's good.
+Thy signature will need a single drop of blood.[17]
+
+Faust. If this will satisfy thy mood, I will consent thy whim to favor.
+
+Mephistopheles. Quite a peculiar juice is blood.
+
+Faust. Fear not that I shall break this bond; O, never!
+My promise, rightly understood,
+Fulfils my nature's whole endeavor.
+I've puffed myself too high, I see;
+To thy rank only I belong.
+The Lord of Spirits scorneth me,
+Nature, shut up, resents the wrong.
+The thread of thought is snapt asunder,
+All science to me is a stupid blunder.
+Let us in sensuality's deep
+Quench the passions within us blazing!
+And, the veil of sorcery raising,
+Wake each miracle from its long sleep!
+Plunge we into the billowy dance,
+The rush and roll of time and chance!
+Then may pleasure and distress,
+Disappointment and success,
+Follow each other as fast as they will;
+Man's restless activity flourishes still.
+
+Mephistopheles. No bound or goal is set to you;
+Where'er you like to wander sipping,
+And catch a tit-bit in your skipping,
+Eschew all coyness, just fall to,
+And may you find a good digestion!
+
+Faust. Now, once for all, pleasure is not the question.
+I'm sworn to passion's whirl, the agony of bliss,
+The lover's hate, the sweets of bitterness.
+My heart, no more by pride of science driven,
+Shall open wide to let each sorrow enter,
+And all the good that to man's race is given,
+I will enjoy it to my being's centre,
+Through life's whole range, upward and downward sweeping,
+Their weal and woe upon my bosom heaping,
+Thus in my single self their selves all comprehending
+And with them in a common shipwreck ending.
+
+Mephistopheles. O trust me, who since first I fell from heaven, Have chewed this tough meat many a thousand year, No man digests the ancient leaven, No mortal, from the cradle to the bier. Trust one of us—the whole creation To God alone belongs by right; He has in endless day his habitation, Us He hath made for utter night, You for alternate dark and light.
+
+Faust. But then I will!
+
+Mephistopheles. Now that's worth hearing!
+But one thing haunts me, the old song,
+That time is short and art is long.
+You need some slight advice, I'm fearing.
+Take to you one of the poet-feather,
+Let the gentleman's thought, far-sweeping,
+Bring all the noblest traits together,
+On your one crown their honors heaping,
+The lion's mood
+The stag's rapidity,
+The fiery blood of Italy,
+The Northman's hardihood.
+Bid him teach thee the art of combining
+Greatness of soul with fly designing,
+And how, with warm and youthful passion,
+To fall in love by plan and fashion.
+Should like, myself, to come across 'm,
+Would name him Mr. Microcosm.
+
+Faust. What am I then? if that for which my heart Yearns with invincible endeavor, The crown of man, must hang unreached forever?
+
+Mephistopheles. Thou art at last—just what thou art.
+Pile perukes on thy head whose curls cannot be counted,
+On yard-high buskins let thy feet be mounted,
+Still thou art only what thou art.
+
+Faust. Yes, I have vainly, let me not deny it,
+Of human learning ransacked all the stores,
+And when, at last, I set me down in quiet,
+There gushes up within no new-born force;
+I am not by a hair's-breadth higher,
+Am to the Infinite no nigher.
+
+Mephistopheles. My worthy sir, you see the matter
+As people generally see;
+But we must learn to take things better,
+Before life pleasures wholly flee.
+The deuce! thy head and all that's in it,
+Hands, feet and ——— are thine;
+What I enjoy with zest each minute,
+Is surely not the less mine?
+If I've six horses in my span,
+Is it not mine, their every power?
+I fly along as an undoubted man,
+On four and twenty legs the road I scour.
+Cheer up, then! let all thinking be,
+And out into the world with me!
+I tell thee, friend, a speculating churl
+Is like a beast, some evil spirit chases
+Along a barren heath in one perpetual whirl,
+While round about lie fair, green pasturing places.
+
+Faust. But how shall we begin?
+
+Mephistopheles. We sally forth e'en now.
+What martyrdom endurest thou!
+What kind of life is this to be living,
+Ennui to thyself and youngsters giving?
+Let Neighbor Belly that way go!
+To stay here threshing straw why car'st thou?
+The best that thou canst think and know
+To tell the boys not for the whole world dar'st thou.
+E'en now I hear one in the entry.
+
+Faust. I have no heart the youth to see.
+
+Mephistopheles. The poor boy waits there like a sentry,
+He shall not want a word from me.
+Come, give me, now, thy robe and bonnet;
+This mask will suit me charmingly.
+           [He puts them on.]
+Now for my wit—rely upon it!
+'Twill take but fifteen minutes, I am sure.
+Meanwhile prepare thyself to make the pleasant tour!
+
+[Exit FAUST.]
+
+Mephistopheles [in FAUST'S long gown].
+Only despise all human wit and lore,
+The highest flights that thought can soar—
+Let but the lying spirit blind thee,
+And with his spells of witchcraft bind thee,
+Into my snare the victim creeps.—
+To him has destiny a spirit given,
+That unrestrainedly still onward sweeps,
+To scale the skies long since hath striven,
+And all earth's pleasures overleaps.
+He shall through life's wild scenes be driven,
+And through its flat unmeaningness,
+I'll make him writhe and stare and stiffen,
+And midst all sensual excess,
+His fevered lips, with thirst all parched and riven,
+Insatiably shall haunt refreshment's brink;
+And had he not, himself, his soul to Satan given,
+Still must he to perdition sink!
+
+[Enter A SCHOLAR.]
+
+Scholar. I have but lately left my home,
+And with profound submission come,
+To hold with one some conversation
+Whom all men name with veneration.
+
+Mephistopheles. Your courtesy greatly flatters me A man like many another you see. Have you made any applications elsewhere?
+
+Scholar. Let me, I pray, your teachings share!
+With all good dispositions I come,
+A fresh young blood and money some;
+My mother would hardly hear of my going;
+But I long to learn here something worth knowing.
+
+Mephistopheles. You've come to the very place for it, then.
+
+Scholar. Sincerely, could wish I were off again:
+My soul already has grown quite weary
+Of walls and halls, so dark and dreary,
+The narrowness oppresses me.
+One sees no green thing, not a tree.
+On the lecture-seats, I know not what ails me,
+Sight, hearing, thinking, every thing fails me.
+
+Mephistopheles. 'Tis all in use, we daily see.
+The child takes not the mother's breast
+In the first instance willingly,
+But soon it feeds itself with zest.
+So you at wisdom's breast your pleasure
+Will daily find in growing measure.
+
+Scholar. I'll hang upon her neck, a raptured wooer, But only tell me, who shall lead me to her?
+
+Mephistopheles. Ere you go further, give your views As to which faculty you choose?
+
+Scholar. To be right learn'd I've long desired,
+And of the natural world aspired
+To have a perfect comprehension
+In this and in the heavenly sphere.
+
+Mephistopheles. I see you're on the right track here; But you'll have to give undivided attention.
+
+Scholar. My heart and soul in the work'll be found;
+Only, of course, it would give me pleasure,
+When summer holidays come round,
+To have for amusement a little leisure.
+
+Mephistopheles. Use well the precious time, it flips away so,
+Yet method gains you time, if I may say so.
+I counsel you therefore, my worthy friend,
+The logical leisures first to attend.
+Then is your mind well trained and cased
+In Spanish boots,[18] all snugly laced,
+So that henceforth it can creep ahead
+On the road of thought with a cautious tread.
+And not at random shoot and strike,
+Zig-zagging Jack-o'-lanthorn-like.
+Then will you many a day be taught
+That what you once to do had thought
+Like eating and drinking, extempore,
+Requires the rule of one, two, three.
+It is, to be sure, with the fabric of thought,
+As with the chef d'uvre by weavers wrought,
+Where a thousand threads one treadle plies,
+Backward and forward the shuttles keep going,
+Invisibly the threads keep flowing,
+One stroke a thousand fastenings ties:
+Comes the philosopher and cries:
+I'll show you, it could not be otherwise:
+The first being so, the second so,
+The third and fourth must of course be so;
+And were not the first and second, you see,
+The third and fourth could never be.
+The scholars everywhere call this clever,
+But none have yet become weavers ever.
+Whoever will know a live thing and expound it,
+First kills out the spirit it had when he found it,
+And then the parts are all in his hand,
+Minus only the spiritual band!
+Encheiresin naturæ's[19] the chemical name,
+By which dunces themselves unwittingly shame.
+
+Scholar. Cannot entirely comprehend you.
+
+Mephistopheles. Better success will shortly attend you, When you learn to analyze all creation And give it a proper classification.
+
+Scholar. I feel as confused by all you've said, As if 'twere a mill-wheel going round in my head!
+
+Mephistopheles. The next thing most important to mention,
+Metaphysics will claim your attention!
+There see that you can clearly explain
+What fits not into the human brain:
+For that which will not go into the head,
+A pompous word will stand you in stead.
+But, this half-year, at least, observe
+From regularity never to swerve.
+You'll have five lectures every day;
+Be in at the stroke of the bell I pray!
+And well prepared in every part;
+Study each paragraph by heart,
+So that you scarce may need to look
+To see that he says no more than's in the book;
+And when he dictates, be at your post,
+As if you wrote for the Holy Ghost!
+
+Scholar. That caution is unnecessary!
+I know it profits one to write,
+For what one has in black and white,
+He to his home can safely carry.
+
+Mephistopheles. But choose some faculty, I pray!
+
+Scholar. I feel a strong dislike to try the legal college.
+
+Mephistopheles. I cannot blame you much, I must acknowledge.
+I know how this profession stands to-day.
+Statutes and laws through all the ages
+Like a transmitted malady you trace;
+In every generation still it rages
+And softly creeps from place to place.
+Reason is nonsense, right an impudent suggestion;
+Alas for thee, that thou a grandson art!
+Of inborn law in which each man has part,
+Of that, unfortunately, there's no question.
+
+Scholar. My loathing grows beneath your speech. O happy he whom you shall teach! To try theology I'm almost minded.
+
+Mephistopheles. I must not let you by zeal be blinded.
+This is a science through whose field
+Nine out of ten in the wrong road will blunder,
+And in it so much poison lies concealed,
+That mould you this mistake for physic, no great wonder.
+Here also it were best, if only one you heard
+And swore to that one master's word.
+Upon the whole—words only heed you!
+These through the temple door will lead you
+Safe to the shrine of certainty.
+
+Scholar. Yet in the word a thought must surely be.
+
+Mephistopheles. All right! But one must not perplex himself about it;
+For just where one must go without it,
+The word comes in, a friend in need, to thee.
+With words can one dispute most featly,
+With words build up a system neatly,
+In words thy faith may stand unshaken,
+From words there can be no iota taken.
+
+Scholar. Forgive my keeping you with many questions,
+Yet must I trouble you once more,
+Will you not give me, on the score
+Of medicine, some brief suggestions?
+Three years are a short time, O God!
+And then the field is quite too broad.
+If one had only before his nose
+Something else as a hint to follow!—
+
+Mephistopheles [aside]. I'm heartily tired of this dry prose,
+Must play the devil again out hollow.
+     [Aloud.]
+The healing art is quickly comprehended;
+Through great and little world you look abroad,
+And let it wag, when all is ended,
+As pleases God.
+Vain is it that your science sweeps the skies,
+Each, after all, learns only what he can;
+Who grasps the moment as it flies
+He is the real man.
+Your person somewhat takes the eye,
+Boldness you'll find an easy science,
+And if you on yourself rely,
+Others on you will place reliance.
+In the women's good graces seek first to be seated;
+Their oh's and ah's, well known of old,
+So thousand-fold,
+Are all from a single point to be treated;
+Be decently modest and then with ease
+You may get the blind side of them when you please.
+A title, first, their confidence must waken,
+That your art many another art transcends,
+Then may you, lucky man, on all those trifles reckon
+For which another years of groping spends:
+Know how to press the little pulse that dances,
+And fearlessly, with sly and fiery glances,
+Clasp the dear creatures round the waist
+To see how tightly they are laced.
+
+Scholar. This promises! One loves the How and Where to see!
+
+Mephistopheles. Gray, worthy friend, is all your theory And green the golden tree of life.
+
+Scholar. I seem,
+I swear to you, like one who walks in dream.
+Might I another time, without encroaching,
+Hear you the deepest things of wisdom broaching?
+
+Mephistopheles. So far as I have power, you may.
+
+Scholar. I cannot tear myself away, Till I to you my album have presented. Grant me one line and I'm contented!
+
+Mephistopheles. With pleasure.
+     [Writes and returns it.]
+
+Scholar [reads]. Eritis sicut Deus, scientes bonum et malum.
+     [Shuts it reverently, and bows himself out.]
+
+Mephistopheles.
+Let but the brave old saw and my aunt, the serpent, guide thee,
+And, with thy likeness to God, shall woe one day betide thee!
+
+Faust [enters]. Which way now shall we go?
+
+Mephistopheles. Which way it pleases thee.
+The little world and then the great we see.
+O with what gain, as well as pleasure,
+Wilt thou the rollicking cursus measure!
+
+Faust. I fear the easy life and free
+With my long beard will scarce agree.
+'Tis vain for me to think of succeeding,
+I never could learn what is called good-breeding.
+In the presence of others I feel so small;
+I never can be at my ease at all.
+
+Mephistopheles. Dear friend, vain trouble to yourself you're giving; Whence once you trust yourself, you know the art of living.
+
+Faust. But how are we to start, I pray? Where are thy servants, coach and horses?
+
+Mephistopheles. We spread the mantle, and away
+It bears us on our airy courses.
+But, on this bold excursion, thou
+Must take no great portmanteau now.
+A little oxygen, which I will soon make ready,
+From earth uplifts us, quick and steady.
+And if we're light, we'll soon surmount the sphere;
+I give thee hearty joy in this thy new career.
+
+AUERBACH'S CELLAR IN LEIPSIC.[20]
+Carousal of Jolly Companions.
+
+Frosch.[21] Will nobody drink? Stop those grimaces!
+I'll teach you how to be cutting your faces!
+Laugh out! You're like wet straw to-day,
+And blaze, at other times, like dry hay.
+
+Brander. 'Tis all your fault; no food for fun you bring, Not a nonsensical nor nasty thing.
+
+Frosch [dashes a glass of wine over his bead]. There you have both!
+
+Brander. You hog twice o'er!
+
+Frosch. You wanted it, what would you more?
+
+Siebel Out of the door with them that brawl! Strike up a round; swill, shout there, one and all! Wake up! Hurra!
+
+Altmayer. Woe's me, I'm lost! Bring cotton! The rascal splits my ear-drum.
+
+Siebel. Only shout on! When all the arches ring and yell, Then does the base make felt its true ground-swell.
+
+Frosch. That's right, just throw him out, who undertakes to fret! A! tara! lara da!
+
+Altmayer. A! tara! lara da!
+
+Frosch. Our whistles all are wet.
+           [Sings.]
+    The dear old holy Romish realm,
+    What holds it still together?
+
+Brander. A sorry song! Fie! a political song!
+A tiresome song! Thank God each morning therefor,
+That you have not the Romish realm to care for!
+At least I count it a great gain that He
+Kaiser nor chancellor has made of me.
+E'en we can't do without a head, however;
+To choose a pope let us endeavour.
+You know what qualification throws
+The casting vote and the true man shows.
+
+Frosch [sings].
+    Lady Nightingale, upward soar,
+    Greet me my darling ten thousand times o'er.
+
+Siebel. No greetings to that girl! Who does so, I resent it!
+
+Frosch. A greeting and a kiss! And you will not prevent it!
+         [Sings.]
+    Draw the bolts! the night is clear.
+    Draw the bolts! Love watches near.
+    Close the bolts! the dawn is here.
+
+Siebel. Ay, sing away and praise and glorify your dear!
+Soon I shall have my time for laughter.
+The jade has jilted me, and will you too hereafter;
+May Kobold, for a lover, be her luck!
+At night may he upon the cross-way meet her;
+Or, coming from the Blocksberg, some old buck
+May, as he gallops by, a good-night bleat her!
+A fellow fine of real flesh and blood
+Is for the wench a deal too good.
+She'll get from me but one love-token,
+That is to have her window broken!
+
+Brander [striking on the table]. Attend! attend! To me give ear!
+I know what's life, ye gents, confess it:
+We've lovesick people sitting near,
+And it is proper they should hear
+A good-night strain as well as I can dress it.
+Give heed! And hear a bran-new song!
+Join in the chorus loud and strong!
+            [He sings.]
+    A rat in the cellar had built his nest,
+    He daily grew sleeker and smoother,
+    He lined his paunch from larder and chest,
+    And was portly as Doctor Luther.
+    The cook had set him poison one day;
+    From that time forward he pined away
+    As if he had love in his body.
+
+Chorus [flouting]. As if he had love in his body.
+
+Brander. He raced about with a terrible touse,
+    From all the puddles went swilling,
+    He gnawed and he scratched all over the house,
+    His pain there was no stilling;
+    He made full many a jump of distress,
+    And soon the poor beast got enough, I guess,
+    As if he had love in his body.
+
+Chorus. As if he had love in his body.
+
+Brander. With pain he ran, in open day,
+    Right up into the kitchen;
+    He fell on the hearth and there he lay
+    Gasping and moaning and twitchin'.
+    Then laughed the poisoner: "He! he! he!
+    He's piping on the last hole," said she,
+    "As if he had love in his body."
+
+Chorus. As if he had love in his body.
+
+Siebel. Just hear now how the ninnies giggle! That's what I call a genuine art, To make poor rats with poison wriggle!
+
+Brander. You take their case so much to heart?
+
+Altmayer. The bald pate and the butter-belly!
+The sad tale makes him mild and tame;
+He sees in the swollen rat, poor fellow!
+His own true likeness set in a frame.
+
+FAUST and MEPHISTOPHELES.
+
+Mephistopheles. Now, first of all, 'tis necessary
+To show you people making merry,
+That you may see how lightly life can run.
+Each day to this small folk's a feast of fun;
+Not over-witty, self-contented,
+Still round and round in circle-dance they whirl,
+As with their tails young kittens twirl.
+If with no headache they're tormented,
+Nor dunned by landlord for his pay,
+They're careless, unconcerned, and gay.
+
+Brander. They're fresh from travel, one might know it, Their air and manner plainly show it; They came here not an hour ago.
+
+Frosch. Thou verily art right! My Leipsic well I know! Paris in small it is, and cultivates its people.
+
+Siebel. What do the strangers seem to thee?
+
+Frosch. Just let me go! When wine our friendship mellows,
+Easy as drawing a child's tooth 'twill be
+To worm their secrets out of these two fellows.
+They're of a noble house, I dare to swear,
+They have a proud and discontented air.
+
+Brander. They're mountebanks, I'll bet a dollar!
+
+Altmayer. Perhaps.
+
+Frosch. I'll smoke them, mark you that!
+
+Mephistopheles [to Faust]. These people never smell the old rat, E'en when he has them by the collar.
+
+Faust. Fair greeting to you, sirs!
+
+Siebel. The same, and thanks to boot. [In a low tone, faking a side look at MEPHISTOPHELES.] Why has the churl one halting foot?
+
+Mephistopheles. With your permission, shall we make one party? Instead of a good drink, which get here no one can, Good company must make us hearty.
+
+Altmayer. You seem a very fastidious man.
+
+Frosch. I think you spent some time at Rippach[22] lately? You supped with Mister Hans not long since, I dare say?
+
+Mephistopheles. We passed him on the road today! Fine man! it grieved us parting with him, greatly. He'd much to say to us about his cousins, And sent to each, through us, his compliments by dozens. [He bows to FROSCH.]
+
+Altmayer [softly]. You've got it there! he takes!
+
+Siebel. The chap don't want for wit!
+
+Frosch. I'll have him next time, wait a bit!
+
+Mephistopheles. If I mistook not, didn't we hear
+Some well-trained voices cho…"

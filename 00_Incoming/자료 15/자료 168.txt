@@ -1,0 +1,765 @@
+"The Project Gutenberg eBook of Analysis of the Phenomena of the Human Mind
+This eBook is for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever. You may copy it, give it away or re-use it under the terms of the Project Gutenberg License included with this eBook or online at www.gutenberg.org. If you are not located in the United States, you will have to check the laws of the country where you are located before using this eBook.
+Title: Analysis of the Phenomena of the Human Mind
+
+Author: James Mill
+
+Commentator: Alexander Bain
+
+Andrew Findlater
+
+George Grote
+
+Editor: John Stuart Mill
+
+
+Release date: January 27, 2018 [eBook #56441]
+
+Language: English
+
+Other information and formats: www.gutenberg.org/ebooks/56441
+
+Credits: Produced by Ed Brandon
+
+*** START OF THE PROJECT GUTENBERG EBOOK ANALYSIS OF THE PHENOMENA OF THE HUMAN MIND ***
+ANALYSIS OF THE PHENOMENA OF THE HUMAN MIND
+
+
+James Mill
+Go to text.
+
+Go to John Stuart Mill’s Preface.
+
+Go to original Table of Contents.
+
+Transcriber’s Note and List of Contents
+
+All editions of this text were published in two volumes. This file has combined them. The only consequential change to the original material is that the Contents pages for Volume 2 are repeated immediately after the Contents of Volume 1. Texts have been kindly provided by the Internet Archive. For Volume 1 the source mainly used was analysisofthephe00milluoft and for Volume 2, analysisofpheno02mill.
+
+Footnotes
+James Mill’s text had a few footnotes, indicated by single asterisks. His later commentators’ work was printed as footnotes, numbered consecutively through each volume (though there is no note 36 in volume 1), and attributed by an initial (or “Editor’s note”) at the end. James Mill’s notes are here recorded as 1*, 2*, etc. John Stuart Mill made one note in this style, 7* in volume 1. This has not been renumbered, but it has been rendered in J.S. Mill’s colour. Text due to contributors other than James Mill is marked by different text colours: blue for Bain, fuchsia for Findlater, green for Grote, and maroon for J.S. Mill. There are footnotes in Grote’s main footnote, and in a couple of other footnotes, marked as in the original. All footnotes are now placed after the paragraph in which they occur.
+
+Corrections
+Corrections are flagged by dotted red underline, on mouse-over revealing the original.
+
+Other matters
+Greek text is marked by orange underlining, on mouse-over revealing a transliteration (breathings marked ( for hard, ) for soft, accents / for acute, \ for grave, = for circumflex, all after their vowel; iota subscript is marked |).
+
+Page numbers have been rendered in-text in red.
+
+Other original printing conventions have been followed, except for left quotation marks at the start of every line of quoted text. Sub-headings to sections have been treated uniformly—in the orignal some are centred, some have hanging first lines.
+
+Some links have been inserted to provide for cross-references within the two volumes. Infelicities and mistakes here are the transcriber’s fault.
+
+The Commentators' content
+Since a large part of the interest of this book relates to the commentaries provided by J.S. Mill and his colleagues, and since no guide is given to them in the actual Table of Contents, a simple list of the more important comments is subjoined (items in bold are more substantial contributions) with the main sections of the original book indicated:
+
+Author	Topic	Page/Note
+Volume 1
+Author	INTRODUCTION	1
+Author	CHAPTER I. Sensation	2
+Bain	muscular feelings and digestive sensibility	note 1
+Author	SECTION 1. Smell	7
+Bain	arranging the senses	note 2
+Mill	the meaning of ‘smell’	note 3
+Author	SECTION 2. Hearing	16
+Mill	the meaning of ‘hearing’	note 4
+Author	SECTION 3. Sight	21
+Mill	the meaning of ‘sight’	note 5
+Mill	the meaning of ‘vision’	note 6
+Author	SECTION 4. Taste	25
+Mill	some physiologists’ view of taste	note 7
+Mill	the meaning of ‘taste’	note 8
+Author	SECTION 5. Touch	28
+Bain	touch	note 9
+Bain	the subjectivity of the sensations of hot and cold	note 10
+Mill	the meaning of ’touch’	note 11
+Bain	the sense of touch	note 12
+Author	SECTION 6. Sensations of Disorganization, etc.	37
+Mill	the meaning of ‘itching’	note 13
+Bain	organic sensibilities	note 14
+Author	SECTION 7. Muscular Sensations, etc.	40
+Author	SECTION 8. Sensations in the Alimentary Canal	45
+Bain	pleasure of opium or alcohol not a matter of association	note 16
+Bain	digestion and not noticing sensations	note 17
+Author	CHAPTER II. Ideas	51
+Bain	discrimination and retentiveness	note 18
+Mill	the idea of resistance	note 19
+Bain	feelings of muscular action, not primarily a matter of Will	note 20
+Bain	hunger and thirst	note 21
+Mill	meaning of ‘indigestion,’ ‘hunger,’ ‘thirst’	note 22
+Bain	sensation and idea compared	note 23
+Mill	can we have ideas of ideas? ideas of historical or fictional people	note 24
+Author	CHAPTER III. The Association of Ideas	70
+Bain	possibility of synchronous sensations	note 25
+Bain	a limitation to association, need for unique link	note 26
+Bain	difference between transient and permanent recollections	note 27
+Mill	vividness	note 28
+Bain	sight	note 29
+Mill	exposition of ‘ideas which it is not in our power to combine’	note 30
+Bain	emotional reactions more than association	note 31
+Mill	‘laws of obliviscence’	note 32
+Bain	visual sensations usually overlooked	note 33
+Mill	accounts of unnoticed feelings	note 34
+Mill	attempted reduction of association by resemblance to association by contiguity	note 35
+Bain	association of ideas	note 38
+Mill	rejecting contrast as a principle of association	note 39
+Author	CHAPTER IV. Naming	127
+Author	SECTION 1. Nouns Substantive	134
+Findlater	origin of names of objects	note 41
+Mill	utility of names of classes	note 42
+Mill	‘heat’ etc. as names only of sensations not of ideas	note 43
+Mill	Locke’s ‘mixed modes’	note 44
+Author	SECTION 2. Nouns Adjective	134
+Mill	class names and utility of adjectives	note 45
+Author	SECTION 3. Verbs	151
+Mill	omission of predication among functions of general names	note 46
+Mill	verbs	note 47
+Author	SECTION 4. Predication	159
+Mill	predication	note 48
+Mill	further remark on predication	note 49
+Mill	differentia, proprium and accidens	note 50
+Mill	predication	note 51
+Findlater	predication in non-Indo-European languages	note 53
+Mill	predication and existence-claims	note 54
+Mill	absence of belief in author’s account of predication	note 55
+Mill	criticism of author’s account of syllogisms	note 57
+Mill	names of names, genus and species	note 58
+Author	SECTION 5. Pronouns	194
+Findlater	relative and demonstrative pronouns	note 59
+Author	SECTION 6. Adverbs	199
+Mill	adverbial modification	note 60
+Author	SECTION 7. Prepositions	201
+Findlater	etymology of prepositions	note 61
+Author	SECTION 8. Conjunctions	212
+Findlater	conjunctions	note 62
+Findlater	‘but’	note 63
+Findlater	etymology of ‘if’	note 64
+Findlater	etymology of ‘because’	note 65
+Author	CHAPTER V. Consciousness	223
+Bain	consciousness	note 74
+Mill	consciousness	note 75
+Author	CHAPTER VI. Conception	233
+Mill	conceptions/general ideas	note 76
+Author	CHAPTER VII. Imagination	238
+Bain	the imagination	note 77
+Author	CHAPTER VIII. Classification	247
+Mill	utility of class names	note 78
+Grote	Greek views of classification and abstraction	note 79
+Mill	classification	note 80
+Author	CHAPTER IX. Abstraction	294
+Mill	general names	note 81
+Mill	rejecting the author’s use of ‘connote’	note 82
+Mill	abstract names	note 83
+Findlater	etymology of abstract names	note 86
+Author	CHAPTER X. Memory	318
+Bain	mention of compound association	note 88
+Mill	need for belief as a component of memory	note 91
+Bain	the cessation of sensations	note 93
+Mill	difference between memory and imagination	note 94
+Author	CHAPTER XI. Belief	341
+Mill	belief as constituent of memory and judgment	note 95
+Mill	different uses of ‘belief’	note 97
+Mill	why people do not seek a cause for a first cause	note 100
+Mill	inseparable associations	note 102
+Bain	belief in the uniformity of nature	note 103
+Bain	qualification of the author’s remark about sight	note 104
+Bain	terror and belief	note 105
+Bain	testimony	note 106
+Bain	belief	note 107
+Mill	belief	note 108
+Author	CHAPTER XII. Ratiocination	424
+Mill	reasoning	note 109
+Author	CHAPTER XIII. Evidence	428
+Mill	evidence	note 110
+Mill	belief in an external world	Appendix
+Volume 2
+Author	CHAPTER XIV. Some Names which require a particular Explanation	1
+Author	SECTION 1. Names of Names	3
+Mill	names of names	note 2
+Author	SECTION 2. Relative Terms	6
+Mill	relations	note 3
+Bain	consciousness requiring change, relative names	note 4
+Bain	similarity and difference	note 5
+Mill	similarity	note 6
+Mill	succession, antecedent and consequent	note 7
+Mill	lines, geometrical and physical,	note 8
+Bain	sight and space	note 9
+Bain	the feeling of resistance	note 10
+Mill	casual sequences	note 12
+Mill	the meaning of relative names	note 13
+Mill	quantity	note 14
+Mill	quality	note 15
+Mill	objects	note 16
+Mill	more and less	note 17
+Mill	why the succession of ideas is not the same in all people, simultaneous ideas and memory	note 18
+Author	Abstract Relative Terms	72
+Mill	abstract relative terms	note 19
+Mill	causation not connoting present time	note 20
+Mill	‘relative’ and ‘related’	note 21
+Author	SECTION 3. Numbers	89
+Mill	connotation and denotation of number words	note 22
+Grote	Greek view of number	note 23
+Author	SECTION 4. Privative Terms	99
+Mill	author’s use of ‘privative’	note 24
+Mill	‘silence’ ‘nothing’	note 25
+Mill	space	note 26
+Mill	infinity	note 27
+Author	SECTION 5. Time	116
+Mill	time	note 29
+Grote	Aristotle on time	note 30
+Author	SECTION 6. Motion	142
+Bain	resistance, motion, etc.	note 31
+Mill	extensive quotation from Herbert Spencer on feelings of motion and extension	note 32
+Author	SECTION 7. Identity	164
+Mill	personal identity	note 33
+Author	CHAPTER XV. Reflection	176
+Mill	attention as a separate feature	note 34
+Author	CHAPTER XVI. The Distinction between the Intellectual and Active Powers etc.	181
+Bain	need for separate consideration of emotion	note 35
+Author	CHAPTER XVII. Pleasurable and Painful Sensations	184
+Mill	nature of pleasurable sensations	note 36
+Author	CHAPTER XVIII. Causes of the Pleasurable and Painful Sensations	187
+Author	CHAPTER XIX. Ideas of the Pleasurable and Painful Sensations, and of the Causes of them	189
+Mill	desire and aversion	note 37
+Author	CHAPTER XX. The Pleasurable and Painful Sensations, contemplated as passed, or future	196
+Mill	expectation	note 38
+Mill	‘hope’ and ‘fear’	note 39
+Author	CHAPTER XXI. The Causes of Pleasurable and Painful Sensations, contemplated as passed, or future	201
+Author	SECTION 1. The immediate Causes of Pleasurable and Painful Sensations, etc.	201
+Mill	a problem for author’s account of memory and expectation	note 40
+Bain	distinction between aversion and fear	note 41
+Author	SECTION 2. The Remote Causes of Pleasurable and Painful Sensations etc.	206
+Mill	notion that there are no ideas without momentary belief in the existence of their objects	note 42
+Mill	pains or pleasures of others	note 43
+Bain	emotions and the tender feeling	note 44
+Mill	author’s dealings with the emotions	note 45
+Mill	pleasure in music	note 46
+Mill	pleasure in colours	note 47
+Mill	beauty and sublimity (with reference to Ruskin)	note 48
+Author	CHAPTER XXII. Motives	256
+Author	SECTION 1. Pleasurable or Painful States, etc.	256
+Mill	motives, quotation from another work of the author on motives	note 49
+Author	SECTION 2. Causes of our Pleasurable and Painful States, etc.	265
+Mill	what intensifies patriotic feelings	note 50
+Author	CHAPTER XXIII. The Acts of our Fellow-creatures, etc.	280
+Bain	prudence and courage	note 52
+Bain	checks to beneficence	note 53
+Mill	posthumous fame	note 54
+Mill	a motive for suicide	note 55
+Mill	‘praiseworthy’ as deserving praise, not merely likely to obtain praise	note 56
+Bain	incompleteness of author’s account of the moral sentiment	note 57
+Mill	moral sentiments, with quotation from another work by the author; duty and punishment	note 58
+Author	CHAPTER XXIV. The Will	327
+Mill	internal bodily actions	note 59
+Bain	winking under threat of a blow to the eyes	note 60
+Bain	‘fixed ideas’	note 61
+Bain	shedding tears or laughing	note 62
+Mill	the will	note 63
+Bain	trying to remember	note 64
+Bain	dreams	note 65
+Mill	attention	note 66
+Mill	a gap in author’s account of voluntary action	note 67
+Bain	the will	note 68
+Author	CHAPTER XXV. Intention	396
+Mill	intention	note 69
+
+
+
+
+
+ANALYSIS
+
+OF THE PHENOMENA OF THE
+
+HUMAN MIND
+
+BY JAMES MILL
+
+WITH NOTES ILLUSTRATIVE AND CRITICAL BY
+ALEXANDER BAIN
+ANDREW FINDLATER
+AND
+GEORGE GROTE
+EDITED WITH ADDITIONAL NOTES BY
+JOHN STUART MILL
+
+IN TWO VOLUMES
+VOL. I.
+
+SECOND EDITION
+
+LONDON
+LONGMANS, GREEN, READER, AND DYER.
+1878
+
+
+“In order to prepare the way for a just and comprehensive system of Logic, a previous survey of our nature, considered as a great whole, is an indispensable requisite.”—Philosophical Essays (Prelim. Dissert.) p. lxvii. by Dugald Stewart, Esq.
+
+“Would not Education be necessarily rendered more systematical and enlightened, if the powers and faculties on which it operates were more scientifically examined, and better understood?” Ibid. p. xlviii.
+
+
+
+[Right of Translation reserved.]
+
+
+
+
+PREFACE
+TO
+THE PRESENT EDITION.
+
+IN the study of Nature, either mental or physical, the aim of the scientific enquirer is to diminish as much as possible the catalogue of ultimate truths. When, without doing violence to facts, he is able to bring one phenomenon within the laws of another; when he can shew that a fact or agency, which seemed to be original and distinct, could have been produced by other known facts and agencies, acting according to their own laws; the enquirer who has arrived at this result, considers himself to have made an important advance in the knowledge of nature, and to have brought science, in that department, a step nearer to perfection. Other accessions to science, however important practically, are, in a scientific point of view, mere additions to the materials: this is something done towards perfecting the structure itself.
+
+The manner in which this scientific improvement takes place is by the resolution of phenomena which vi are special and complex into others more general and simple. Two cases of this sort may be roughly distinguished, though the distinction between them will not be found on accurate examination to be fundamental. In one case it is the order of the phenomena that is analysed and simplified; in the other it is the phenomena themselves. When the observed facts relating to the weight of terrestrial objects, and those relating to the motion of the heavenly bodies, were found to conform to one and the same law, that of the gravitation of every particle of matter to every other particle with a force varying as the inverse square of the distance, this was an example of the first kind. The order of the phenomena was resolved into a more general law. A great number of the successions which take place in the material world were shewn to be particular cases of a law of causation pervading all Nature. The other class of investigations are those which deal, not with the successions of phenomena, but with the complex phenomena themselves, and disclose to us that the very fact which we are studying is made up of simpler facts: as when the substance Water was found to be an actual compound of two other bodies, hydrogen and oxygen; substances very unlike itself, but both actually present in every one of its particles. By processes like those employed in this case, all the variety of substances which meet our senses and compose the planet on which we live, have been shewn to be vii constituted by the intimate union, in a certain number of fixed proportions, of some two or more of sixty or seventy bodies, called Elements or Simple Substances, by which is only meant that they have not hitherto been found capable of further decomposition. This last process is known by the name of chemical analysis: but the first mentioned, of which the Newtonian generalization is the most perfect type, is no less analytical. The difference is, that the one analyses substances into simpler substances; the other, laws into simpler laws. The one is partly a physical operation; the other is wholly intellectual.
+
+Both these processes are as largely applicable, and as much required, in the investigation of mental phenomena as of material. And in the one case as in the other, the advance of scientific knowledge may be measured by the progress made in resolving complex facts into simpler ones.
+
+The phenomena of the Mind include multitudes of facts, of an extraordinary degree of complexity. By observing them one at a time with sufficient care, it is possible in the mental, as it is in the material world, to obtain empirical generalizations of limited compass, but of great value for practice. When, however, we find it possible to connect many of these detached generalizations together, by discovering the more general laws of which they are cases, and to the operation of which in some particular sets of viii circumstances they are due, we gain not only a scientific, but a practical advantage; for we then first learn how far we can rely on the more limited generalizations; within what conditions their truth is confined; by what changes of circumstances they would be defeated or modified.
+
+Not only is the order in which the more complex mental phenomena follow or accompany one another, reducible, by an analysis similar in kind to the Newtonian, to a comparatively small number of laws of succession among simpler facts, connected as cause and effect; but the phenomena themselves can mostly be shewn, by an analysis resembling those of chemistry, to be made up of simpler phenomena. “In the mind of man,” says Dr. Thomas Brown, in one of his Introductory Lectures, “all is in a state of constant and ever-varying complexity, and a single sentiment may be the slow result of innumerable feelings. There is not a single pleasure, or pain, or thought, or emotion, that may not, by the influence of that associating principle which is afterwards to come under our consideration, be so connected with other pleasures, or pains, or thoughts, or emotions, as to form with them, for ever after, an union the most intimate. The complex, or seemingly complex, phenomena of thought, which result from the constant operation of this principle of the mind, it is the labour of the intellectual inquirer to analyse, as ix it is the labour of the chemist to reduce the compound bodies on which he operates, however close and intimate their combination may be, to their constituent elements.… From the very instant of its first existence, the mind is constantly exhibiting phenomena more and more complex: sensations, thoughts, emotions, all mingling together, and almost every feeling modifying, in some greater or less degree, the feelings that succeed it; and as, in chemistry, it often happens that the qualities of the separate ingredients of a compound body are not recognizable by us in the apparently different qualities of the compound itself,—so in this spontaneous chemistry of the mind, the compound sentiment that results from the association of former feelings has, in many cases, on first consideration, so little resemblance to these constituents of it, as formerly existing in their elementary state, that it requires the most attentive reflection to separate, and evolve distinctly to others, the assemblages which even a few years may have produced. It is, therefore, scarcely possible to advance even a single step, in intellectual physics, without the necessity of performing some sort of analysis, by which we reduce to simpler elements some complex feeling that seems to us virtually to involve them.”
+
+These explanations define and characterize the task which was proposed to himself by the author of the x present treatise, and which he concisely expressed by naming his work an Analysis of the Phenomena of the Human Mind. It is an attempt to reach the simplest elements which by their combination generate the manifold complexity of our mental states, and to assign the laws of those elements, and the elementary laws of their combination, from which laws, the subordinate ones which govern the compound states are consequences and corollaries.
+
+The conception of the problem did not, of course, originate with the author; he merely applied to mental science the idea of scientific inquiry which had been matured by the successful pursuit, for many generations, of the knowledge of external nature. Even in the particular path by which he endeavoured to reach the end, he had eminent precursors. The analytic study of the facts of the human mind began with Aristotle; it was first carried to a considerable height by Hobbes and Locke, who are the real founders of that view of the Mind which regards the greater part of its intellectual structure as having been built up by Experience. These three philosophers have all left their names identified with the great fundamental law of Association of Ideas; yet none of them saw far enough to perceive that it is through this law that Experience operates in moulding our thoughts and forming our thinking powers. Dr. Hartley was the man of genius who first clearly xi discerned that this is the key to the explanation of the more complex mental phenomena, though he, too, was indebted for the original conjecture to another wise forgotten thinker, Mr. Gay. Dr. Hartley’s treatise (“Observations on Man”) goes over the whole field of the mental phenomena, both intellectual and emotional, and points out the way in which, as he thinks, sensations, ideas of sensation, and association, generate and account for the principal complications of our mental nature. If this doctrine is destined to be accepted as, in the main, the true theory of the Mind, to Hartley will always belong the glory of having originated it. But his book made scarcely any impression upon the thought of his age. He incumbered his theory of Association with a premature hypothesis respecting the physical mechanism of sensation and thought; and even had he not done so, his mode of exposition was little calculated to make any converts but such as were capable of working out the system for themselves from a few hints. His book is made up of hints rather than of proofs. It is like the production of a thinker who has carried his doctrines so long in his mind without communicating them, that he has become accustomed to leap over many of the intermediate links necessary for enabling other persons to reach his conclusions, and who, when at last he sits down to write, is unable to recover them. It was another great disadvantage to Hartley’s theory, that its xii publication so nearly coincided with the commencement of the reaction against the Experience psychology, provoked by the hardy scepticism of Hume. From these various causes, though the philosophy of Hartley never died out, having been kept alive by Priestley, the elder Darwin, and their pupils, it was generally neglected, until at length the author of the present work gave it an importance that it can never again lose. One distinguished thinker, Dr. Thomas Brown, regarded some of the mental phenomena from a point of view similar to Hartley’s, and all that he did for psychology was in this direction; but he had read Hartley’s work either very superficially, or not at all: he seems to have derived nothing from it, and though he made some successful analyses of mental phenomena by means of the laws of association, he rejected, or ignored, the more searching applications of those laws; resting content, when he arrived at the more difficult problems, with mere verbal generalizations, such as his futile explanations by what he termed “relative suggestion.” Brown’s psychology was no outcome of Hartley’s; it must be classed as an original but feebler effort in a somewhat similar direction.
+
+It is to the author of the present volumes that the honour belongs of being the reviver and second founder of the Association psychology. Great as is this merit, it was but one among many services which he rendered to his generation and to mankind. When xiii the literary and philosophical history of this century comes to be written as it deserves to be, very few are the names figuring in it to whom as high a place will be awarded as to James Mill. In the vigour and penetration of his intellect he has had few superiors in the history of thought: in the wide compass of the human interests which he cared for and served, he was almost equally remarkable: and the energy and determination of his character, giving effect to as single-minded an ardour for the improvement of mankind and of human life as I believe has ever existed, make his life a memorable example. All his work as a thinker was devoted to the service of mankind, either by the direct improvement of their beliefs and sentiments, or by warring against the various influences which he regarded as obstacles to their progress: and while he put as much conscientious thought and labour into everything he did, as if he had never done anything else, the subjects on which he wrote took as wide a range as if he had written without any labour at all. That the same man should have been the author of the History of India and of the present treatise, is of itself sufficiently significant. The former of those works, which by most men would have been thought a sufficient achievement for a whole literary life, may be said without exaggeration to have been the commencement of rational thinking on the subject of India: and by that, and his subsequent xiv labours as an administrator of Indian interests under the East India Company, he effected a great amount of good, and laid the foundation of much more, to the many millions of Asiatics for whose bad or good government his country is responsible. The same great work is full of far-reaching ideas on the practical interests of the world; and while forming an important chapter in the history and philosophy of civilization (a subject which had not then been so scientifically studied as it has been since) it is one of the most valuable contributions yet made even to the English history of the period it embraces. If, in addition to the History and to the present treatise, all the author’s minor writings were collected; the outline treatises on nearly all the great branches of moral and political science which he drew up for the Supplement to the Encyclopædia Britannica, and his countless contributions to many periodical works; although advanced thinkers have outgrown some of his opinions, and include, on many subjects, in their speculations, a wider range of considerations than his, every one would be astonished at the variety of his topics, and the abundance of the knowledge he exhibited respecting them all. One of his minor services was, that he was the first to put together in a compact and systematic form, and in a manner, adapted to learners, the principles of Political Economy as renovated by the genius of Ricardo: whose great xv work, it may be mentioned by the way, would probably never have seen the light, if his intimate and attached friend Mr. Mill had not encouraged and urged him, first to commit to paper his profound thoughts, and afterwards to send them forth to the world. Many other cases might be mentioned in which Mr. Mill’s private and personal influence was a means of doing good, hardly inferior to his public exertions. Though, like all who value their time for higher purposes, he went little into what is called society, he helped, encouraged, and not seldom prompted, many of the men who were most useful in their generation: from his obscure privacy he was during many years of his life the soul of what is now called the advanced Liberal party; and such was the effect of his conversation, and of the tone of his character, on those who were within reach of its influence, that many, then young, who have since made themselves honoured in the world by a valuable career, look back to their intercourse with him as having had a considerable share in deciding their course through life. The most distinguished of them all, Mr. Grote, has put on record, in a recent publication, his sense of these obligations, in terms equally honourable to both. As a converser, Mr. Mill has had few equals; as an argumentative converser, in modern tunes probably none. All his mental resources seemed to be at his command at any moment, and were then freely xvi employed in removing difficulties which in his writings for the public he often did not think it worth while to notice. To a logical acumen which has always been acknowledged, he united a clear appreciation of the practical side of things, for which he did not always receive credit from those who had no personal knowledge of him, but which made a deep impression on those who were acquainted with the official correspondence of the East India Company conducted by him. The moral qualities which shone in his conversation were, if possible, more valuable to those who had the privilege of sharing it, than even the intellectual. They were precisely such as young men of cultivated intellect, with good aspirations but a character not yet thoroughly formed, are likely to derive most benefit from. A deeply rooted trust in the general progress of the human race, joined with a good sense which made him never build unreasonable or exaggerated hopes on any one event or contingency; an habitual estimate of men according to their real worth as sources of good to their fellow-creatures, and an unaffected contempt for the weaknesses or temptations that divert them from that object, making those with whom he conversed feel how painful it would be to them to be counted by him among such backsliders; a sustained earnestness, in which neither vanity nor personal ambition had any part, and which spread from him by a sympathetic contagion to those xvii who had sufficient moral preparation to value and seek the opportunity; this was the mixture of qualities which made his conversation almost unrivalled in its salutary moral effect. He has been accused of asperity, and there was asperity in some few of his writings; but no party spirit, personal rivalry, or wounded amour-propre ever stirred it up. Even when he had received direct personal offence, he was the most placable of men. The bitterest and ablest attack ever publicly made on him was that which was the immediate cause of the introduction of Mr. Macaulay into public life. He felt it keenly at the time, but with a quite impersonal feeling, as he would have felt any thing that he thought unjustly said against any opinion or cause which was dear to him; and within a very few years afterwards he was on terms of personal friendship with its author, as Lord Macaulay himself, in a very creditable passage of the preface to his collected Essays, has, in feeling terms, commemorated.
+
+At an early period of Mr. Mill’s philosophical life, Hartley’s work had taken a strong hold of his mind; and in the maturity of his powers he formed and executed the purpose of following up Hartley’s leading thought, and completing what that thinker had begun. The result was the present work, which is not only an immense advance on Hartley’s in the qualities which facilitate the access of recondite xviii thoughts to minds to which they are new, but attains an elevation far beyond Hartley’s in the thoughts themselves. Compared with it, Hartley’s is little more than a sketch, though an eminently suggestive one: often rather showing where to seek for the explanation of the more complex mental phenomena, than actually explaining them. The present treatise makes clear, much that Hartley left obscure: it possesses the great secret for clearness, though a secret commonly neglected—it bestows an extra amount of explanation and exemplification on the most elementary parts. It analyses many important mental phenomena which Hartley passed over, and analyses more completely and satisfactorily most of those of which he commenced the analysis. In particular, the author was the first who fully understood and expounded (though the germs of this as of all the rest of the theory are in Hartley) the remarkable case of Inseparable Association: and inasmuch as many of the more difficult analyses of the mental phenomena can only be performed by the aid of that doctrine, much had been left for him to analyse.
+
+I am far from thinking that the more recondite specimens of analysis in this work are always successful, or that the author has not left something to be corrected as well as much to be completed by his successors. The completion has been especially the work of two distinguished thinkers in the present xix generation, Professor Bain and Mr. Herbert Spencer; in the writings of both of whom, the Association Psychology has reached a still higher development. The former of these has favoured me with his invaluable collaboration in annotating the present work. In the annotations it has been our object not only to illustrate and enforce, but to criticise, where criticism seemed called for. What there is in the work that seems to need correction, arises chiefly from two causes. First, the imperfection of physiological science at the time at which it was written, and the much greater knowledge since acquired of the functions of our nervous organism and their relations with the mental operations. Secondly, an opening was made for some mistakes, and occasional insufficiency of analysis, by a mental quality which the author exhibits not unfrequently in his speculations, though as a practical thinker both on public and on private matters it was quite otherwise; a certain impatience of detail. The bent of his mind was towards that, in which also his greatest strength lay; in seizing the larger features of a subject—the commanding laws which govern and connect many phenomena. Having reached these, he sometimes gives himself up to the current of thoughts which those comprehensive laws suggest, not stopping to guard himself carefully in the minutiæ of their application, nor devoting much of his thoughts to anticipating all the objections that xx could be made, though the necessity of replying to some of them might have led him to detect imperfections in his analyses. From this cause (as it appears to me), he has occasionally gone further in the pursuit of simplification, and in the reduction of the more recondite mental phenomena to the more elementary, than I am able to follow him; and has left some of his opinions open to objections, which he has not afforded the means of answering. When this appeared to Mr. Bain or myself to be the case, we have made such attempts as we were able to place the matter in a clearer light; and one or other, or both, have supplied what our own investigations or those of others have provided, towards correcting any shortcomings in the theory.
+
+Mr. Findlater, of Edinburgh, Editor of Chambers’ Cyclopædia, has kindly communicated, from the rich stores of his philological knowledge, the corrections required by the somewhat obsolete philology which the author had borrowed from Horne Tooke. For the rectification of an erroneous statement respecting the relation of the Aristotelian doctrine of General Ideas to the Platonic, and for some other contributions in which historical is combined with philosophical interest, I am indebted to the illustrious historian of Greece and of the Greek philosophy. Mr. Grote’s, Mr. Bain’s and Mr. Findlater’s notes are distinguished by their initials; my own, as those of the Editor. xxi
+
+The question presented itself, whether the annotations would be most useful, collected at the end of the work, or appended to the chapters or passages to which they more particularly relate. Either plan has its recommendations, but those of the course which I have adopted seemed to me on the whole to preponderate. The reader can, if he thinks fit, (and, if he is a real student, I venture to recommend that he should do so) combine the advantages of both modes, by giving a first careful reading to the book itself, or at all events to every successive chapter of the book, without paying any attention to the annotations. No other mode of proceeding will give perfectly fair play to the author, whose thoughts will in this manner have as full an opportunity of impressing themselves on the mind, without having their consecutiveness broken in upon by any other person’s thoughts, as they would have had if simply republished without comment. When the student has done all he can with the author’s own exposition—has possessed himself of the ideas, and felt, perhaps, some of the difficulties, he will be in a better position for profiting by any aid that the notes may afford, and will be in less danger of accepting, without due examination, the opinion of the last comer as the best.
+
+
+
+
+
+CONTENTS
+OF
+THE FIRST VOLUME.
+
+PAGE
+INTRODUCTION	1
+CHAPTER I.
+Sensation	2
+SECTION	1. Smell	
+7
+2. Hearing	16
+3. Sight	21
+4. Taste	25
+5. Touch	28
+6. Sensations of Disorganization, or of the Approach to Disorganization, in any part of the Body	37
+7. Muscular Sensations, or those Feelings which accompany the Action of the Muscles	40
+8. Sensations in the Alimentary Canal	45
+ 
+CHAPTER II.
+Ideas	51
+ 
+CHAPTER III.
+The Association of Ideas	70
+ 
+CHAPTER IV.
+Naming	127
+SECTION	1. Nouns Substantive	
+134
+2. Nouns Adjective	134
+3. Verbs	151
+4. Predication	159
+xxiv
+SECTION	5. Pronouns	
+194
+6. Adverbs	199
+7. Prepositions	201
+8. Conjunctions	212
+ 
+CHAPTER V.
+Consciousness	223
+ 
+CHAPTER VI.
+Conception	233
+ 
+CHAPTER VII.
+Imagination	238
+ 
+CHAPTER VIII.
+Classification	247
+ 
+CHAPTER IX.
+Abstraction	294
+ 
+CHAPTER X.
+Memory	318
+ 
+CHAPTER XI.
+Belief	341
+ 
+CHAPTER XII.
+Ratiocination	424
+ 
+CHAPTER XIII.
+Evidence	428
+APPENDIX	440
+
+
+CONTENTS
+OF
+THE SECOND VOLUME.
+CHAPTER XIV.
+PAGE
+Some Names which require a particular Explanation	1
+SECTION	1. Names of Names	3
+2. Relative Terms	6
+
+Abstract Relative Terms	72
+3. Numbers	89
+4. Privative Terms	99
+5. Time	116
+6. Motion	142
+7. Identity	164
+ 
+CHAPTER XV.
+Reflection	176
+ 
+CHAPTER XVI.
+The Distinction between the Intellectual and Active Powers of the Human Mind	181
+ 
+CHAPTER XVII.
+Pleasurable and Painful Sensations	184
+ 
+CHAPTER XVIII.
+Causes of the Pleasurable and Painful Sensations	187
+ 
+CHAPTER XIX.
+Ideas of the Pleasurable and Painful Sensations, and of the Causes of them	189
+ 
+CHAPTER XX.
+The Pleasurable and Painful Sensations, contemplated as passed, or future	196
+volume 2 vi
+CHAPTER XXI.
+The Causes of Pleasurable and Painful Sensations, contemplated as passed, or future	201
+SECTION	1. The immediate Causes of Pleasurable and Painful Sensations, contemplated as passed, or as future	201
+2. The Remote Causes of Pleasurable and Painful Sensations contemplated as passed, or future	206
+SUB-SECT.	1. Wealth, Power, and Dignity, and their Contraries, contemplated as Causes of our Pleasures and Pains	207
+2. Our Fellow-Creatures contemplated as Causes of our Pleasures and Pains	214
+1.—Friendship	216
+2.—Kindness	216
+3.—Family	218
+4.—Country	226
+5.—Party; Class	227
+6.—Mankind	229
+3. The Objects called Sublime and Beautiful, and their Contraries, contemplated as Causes of our Pleasures and Pains	230
+ 
+CHAPTER XXII.
+Motives	256
+SECTION	1. Pleasurable or Painful States, contemplated as the Consequents of our own Acts	256
+2. Causes of our Pleasurable and Painful States, contemplated as the Consequents of our own Acts	265
+ 
+CHAPTER XXIII.
+The Acts of our Fellow-creatures, which are Causes of our Pains and Pleasures, contemplated as Consequents of our own Acts	280
+ 
+CHAPTER XXIV.
+The Will	327
+ 
+CHAPTER XXV.
+Intention	396
+
+
+ANALYSIS
+ETC.
+
+INTRODUCTION
+“I shall inquire into the original of those ideas, notions, or whatever else you please to call them, which a man observes and is conscious to himself he has in his mind; and the ways whereby the understanding comes to be furnished with them.”
+
+Locke, i. 1, 3.
+
+
+PHILOSOPHICAL inquiries into the human mind have for their main, and ultimate object, the exposition of its more complex phenomena.
+
+It is necessary, however, that the simple should be premised; because they are the elements of which the complex are formed; and because a distinct knowledge of the elements is indispensable to an accurate conception of that which is compounded of them.
+
+The feelings which we have through the external senses are the most simple, at least the most familiar, of the mental phenomena. Hence the propriety of commencing with this class of our feelings.
+
+
+
+
+
+2
+
+CHAPTER I.
+SENSATION.
+“I shall not at present meddle with the physical consideration of the mind, or trouble myself to examine wherein its essence consists; or by what motions of our spirits, or alterations of our bodies, we come to have any Sensation by our organs, or any Ideas in our understandings; and whether those ideas do in their formation, any or all of them, depend on matter or no. These are speculations which, however curious and entertaining, I shall decline, as lying out of my way in the design I am now upon.”—Locke, i. 1, 2.
+
+MY object, in what I shall say respecting the phenomena classed under the head of SENSATION, is, to lead such of my readers as are new to this species of inquiry to conceive the feelings distinctly. All men are familiar with them; but this very familiarity, as the mind runs easily from one well known object to another, is a reason why the boundary between them and other feelings is not always observed. It is necessary, therefore, that the learner should by practice acquire the habit of reflecting upon his Sensations, as a distinct class of feelings; and should be hence prepared to mark well the distinction between them and other states of mind, when he 3 advances to the analysis of the more mysterious phenomena.
+
+What we commonly mean, when we use the terms Sensation or phenomena of Sensation, are the feelings which we have by the five senses,—SMELL, TASTE, HEARING, TOUCH, and SIGHT. These are the feelings from which we derive our notions of what we denominate the external world;—the things by which we are surrounded: that is, the antecedents of the most interesting consequents, in the whole series of feelings, which constitute our mental train, or existence.
+
+The feelings, however, which belong to the five external Senses are not a full enumeration of the feelings which it seems proper to rank under the head of Sensations, and which must be considered as bearing an important part in those complicated phenomena, which it is our principal business, in this inquiry, to separate into their principal elements, and explain. Of these unnamed, and generally unregarded, Sensations, two principal classes may be distinguished:—first, Those which accompany the action of the several muscles of the body; and, secondly, Those which have their place in the Alimentary Canal.1
+
+1 Important points of Psychology are raised in classifying the senses, and in assigning the order of their exposition. The author justly animadverts on the insufficiency of the common enumeration of the Five Senses, and indicates two grand omissions—the Muscular Sensibilities, and the feelings associated with Digestion.
+
+With regard to the first omission—the Muscular Feelings,—a further advance has been found requisite. Instead of adding these to the list, as a sixth sense, they are made a genus apart 4 and put in contrast to the Sensations as commonly understood. They are the feelings of our ACTIVITY, of the Active side of our nature, and are in relation to the Motor or Outcarrying nerves of the body. The Sensations proper, such as Smell and Hearing, are the feelings of our RECEPTIVITY, or Passivity, and arise in connection with the Sentient, or Incarrying nerves. In the exercise of the senses, however, a muscular element is almost always combined. This is conspicuous in Touch, which is most frequently accompanied with movements of the hand, or other parts touched; it is also the case with Sight, there being six muscles constantly engaged in moving the eye-ball. There is least muscularity in Hearing and Smell, but in neither is it wholly absent. Thus in Hearing, there are certain small muscles for adjusting the tightness of the membrane of the tympanum; apart from which, there are movements of the head in conjunction with hearing. So in Smell; the sniffing action with the breath is muscular. Nevertheless, it is easy to separate, in all the senses, the passive and proper sensibility of the sense, (called by Hamilton the idiopathic sensibility) from the active accompaniment. We can make experiments upon passive touch, or pure contact; we can isolate in our consciousness the optical sensibility of the eye; we can eliminate activity from the ear; and we can attend to the sensations of smell in their pure passivity.
+
+The best course of proceeding is to deal with Muscularity apart, in the first instance, and to give it the priority in the order of exposition. Chronologically it is an earlier fact of our being; we move before we feel; there is an inborn energy of action in the animal system, which goes out, as it were, and meets the objects of sensation. This is one reason of priority. Another is the fact just stated that movement accompanies all the senses, or is a common factor in sensation. To discuss its peculiar sensibility is thus a preparation for treating of the senses.
+
+The importance of drawing a broad line between the active and the passive branches of our primary sensibilities is seen in various applications, but most especially in the problem of 5 External Perception. The great distinction that this problem requires us to draw between the external and the internal sides of our being (so described by an imperfect metaphor) has its deepest foundation in the distinction between the sense of expended muscular energy and the feelings that are neither energy in themselves, nor vary definitely according to our energies. The qualities of things admitted on all hands to be qualities of the external (or object) world—called the Primary Qualities, Resistance and Extension,—are modes of our muscular energies; the qualities that do not of themselves suggest externality, or objectivity,—the secondary qualities, as Heat, Colour, &c.—are our passive sensibilities, and do not contain muscular energy. When these secondary qualities enter into definite connections with our movements, they are then referred to the external, or object world. Light and colour, when varying definitely with our various movements, as postures and actions, are from that circumstance referred to the external, or non-ego; without such connections they would be called internal or subjective states.
+
+The contrasted terms ‘Object’ and ‘Subject’ are the least exceptionable for expressing the fundamental antithesis of consciousness and of existence. Matter and Mind, External and Internal, are the popular synonyms, but are less free from misleading suggestions. Extension is the Object fact by pre-eminence; Pleasure and Pain are the most marked phases of pure Subjectivity. Between the consciousness of extension and the consciousness of a pleasure there is the broadest line that can be drawn within the human experience; the broadest distinction in the whole universe of being. These then are the Object and Subject extremes; and, in the final analysis, the object extreme appears to be grounded on the feeling of expended muscular energy.
+
+The second omission alluded to is the Digestive Sensibility, which ought undoubtedly to be included among sensations, having all the constituents of a sense; an object—the food; a sensitive organ—the stomach; and a characteristic form of sensibility or feeling. The author farther takes notice of 6 ‘Sensations of Disorganization, or of the approach to Disorganization, in any part of the body,’ which too deserve to be reckoned among mental facts. He might farther have adverted to the acute and depressing feelings of the Lungs, in case of partial suffocation, with the exhilaration attending the relief from such a state, and the change from a close to a fresh atmosphere. Moreover, there are states of purely physical comfort, associated with a vigorous circulation, with healthy innervation, with the proper action of the skin; and feelings of discomfort and depression from the opposite states. A slight allusion to these various feelings occurs in chapter second towards the close.
+
+These various modes of sensibility seem to be fitly grouped together under the common head of Sensations of Organic Life: their detail being arranged according to the several organs–viz.—the Alimentary Canal, Lungs, Circulation, Nervous System, &c. These would make a sixth Sense properly so called, or a department of passive sensibility.—B.
+
+
+
+7
+
+SECTION I.
+SMELL.
+It is not material to the present purpose in what order we survey the subdivisions of this elementary class of the mental phenomena. It will be convenient to take those first, which can be most easily thought of by themselves; that is, of which a conception, free from the mixture of any extraneous ingredient, can be most certainly formed. For this reason we begin with SMELL.2
+
+2 The order of exposition of the senses is not a matter of indifference. The author, like Condillac, selected Smell to begin with, as being a remarkably simple and characteristic feeling; he has found another expository advantage in it, by disturbing our routine mode of regarding the intellect as principally made up of sensations of sight. It has a startling effect on the reader, to suggest a mental life consisting wholly of smells and ideas of smell.
+
+There are two principles of arrangement of the senses, each good for its own purpose; it being understood that the active or muscular sensibility is taken apart from, and prior to, sensation proper.
+
+The first is to take them in the order of Intellectual development. Some of the senses are evidently intellectual in a high degree, as Sight and Hearing, others are intellectual in a much smaller degree, as Smell and Taste. The organic sensations are still less connected with the operations of the intellect. Many of the least intellectual sensations are remarkably intense, as pleasure and pain; perhaps more so than the intellectually higher class. The organic pains are more unendurable than the worst pains of hearing or of sight, unless these are assimilated to the other class, by injury of the organs.
+
+The intellectual superiority of the higher senses shows itself in two ways, the one strictly in the domain of Intellect, the other in the domain of Feeling. As regards Intellect, it is shown in the predominance of the ideas of the higher senses. Our intellectual or ideal trains, the materials of thought and knowledge, are made up most of all of ideas of sight, next of ideas of hearing, to a less degree of ideas of touch or skin contact, and, least of all, of ideas of stomach and lung sensations or other organic states. The trains of the scientific man, of the man of business, and even of the handicraft worker, are almost entirely made up of ideas of sight and of hearing (with active or muscular ideas). Our understanding of the order of nature, our very notion of the material universe, is a vast and complex scheme of ideas of sight.
+
+The intellectual superiority of the higher senses in the domain of Feeling is connected with the remembrance or ideal persistence of pleasures and pains. The pleasures of Digestion are weakly and ineffectively remembered, in the absence of the actuality. The pleasures of Smell are remembered better. The pleasures and pains of Hearing and Sight are remembered best of any. This gives them a higher value in life; the addition made to the actual, by the ideal, is, in their case, the greatest of all. They are said, for this among other reasons, to be more refined.
+
+The arrangement dictated by the gradation of intellectuality would be as follows:—1. Sensations of Organic Life. 2. Taste. 3. Smell. 4. Touch. 5. Hearing. 6. Sight.
+
+The second principle of arrangement starts with Touch, as the most simple in its mode of action, and the most diffused in its operation. Touch consists in mere mechanical pressure on a sensitive surface; this is the most simple and elementary of all stimuli. The other senses are regarded as specialised modifications of Touch.
+
+In Hearing, the mode of action is touch or mechanical contact. In the remaining senses, the contact is accompanied with other forces. Taste and Smell involve chemical change, as well as contact. The action of Light on the eye is probably some species of molecular disturbance involving chemical action. This mode of viewing the order and dependence of the senses belongs more especially to the theory of the development of the organic system, which is made prominent in the Psychology of Mr. Herbert Spencer. The arrangement might be variously expressed:—it might be Touch, Hearing, Sight, Taste, Smell, Organic Sensibility; or Touch, Hearing, Taste, Smell, Organic Sensibility, Sight.—B.
+
+8 In the Smell three things are commonly distinguished. There is the ORGAN, there is the SENSATION, and there is the antecedent of the Sensation, the 9 external OBJECT, as it is commonly denominated,1* to which the Sensation is referred as an effect to its cause.
+
+1* It is necessary here to observe, that I use, throughout this Inquiry, the language most commonly in use. This is attended with its disadvantages; for on the subject of mind the ordinary language almost always involves more or less of theory, which may or may not appear to me to correspond with the true exposition of the phenomena. The advantages, however, of not departing from familiar terms still appeared to me to preponderate; and I am willing to hope, that such erroneous suggestions, as are sometimes inseparable from the language I have thought it best upon the whole to employ, will be corrected, without any particular notice, by the analysis which I shall present.—(Author’s Note.)
+
+These three distinguishable particulars are common to all the five Senses. With regard to the ORGAN, which is a physical rather than a mental subject of inquiry, I shall have occasion to say little more than is required to make my reader distinguish, with sufficient accuracy, the part of his body to which the 10 separate feelings of his five Senses belong. And with regard to the antecedent of the Sensation, or OBJECT of the Senses, the proper place for explaining what is capable of being known of it is at a subsequent part of this inquiry. My desire at present is, to fix the attention of the reader upon the SENSATION; that he may mark it as a mental state of a particular kind, distinct from every other feeling of his nature.
+
+The ORGAN of Smell, as every body knows, is situated in the mouth and nostrils, or in the nerves, appropriated to smelling, which are found in the passage between the mouth and nostrils, and in the vicinity of that passage.
+
+Though it appears to be ascertained that the nerves are necessary to sensation, it is by no means ascertained in what way they become necessary. It is a mystery how the nerves, similar in all parts of the body, afford us, in one place, the sensation of sound; in another, the sensations of light and colours; in another, those of odours, in another those of flavours, and tastes, and so on.
+
+With respect to the external OBJECT, as it is usually denominated, of this particular sense; in other words, the antecedent, of which the Sensation Smell is the consequent; it is, in vulgar apprehension, the visible, tangible object, from which the odour proceeds. Thus, we are said to smell a rose, when we have the sensation derived from the odour of the rose. It is more correct language, however, to say, that we smell the odorous particles which proceed from the visible, tangible object, than that we smell the object itself; for, if any thing prevents the odorous particles, which the body emits, from reaching the organ of smell, the 11 sensation is not obtained. The object of the sense of smelling then are odorous particles, which only operate, or produce the sensation, when they reach the organ of smell.
+
+But what is meant by odorous particles we are still in ignorance. Something, neither visible nor tangible, is conveyed, through the air, to the olfactory nerves; but of this something we know no more than that it is the antecedent of that nervous change, or variety of consciousness, which we denote by the word smell.
+
+Still farther, When we say that the odorous particles, of which we are thus ignorant, reach the nerves which constitute the organ of smell, we attach hardly any meaning to the word reach. We know not whether the particles in question produce their effect, by contact, or without contact. As the nerves in every part of the body are covered, we know not how any external particles can reach them. We know not whether such particles operate upon the nerves, by their own, or by any other influence; the galvanic, for example, or electrical, influence.
+
+These observations, with regard to the organ of smell, and the object of smell, are of importance, chiefly as they show us how imperfect our knowledge still is of all that is merely corporeal in sensation, and enable us to fix our attention more exclusively upon that which alone is material to our subsequent inquiries—that point of consciousness which we denominate the sensation of smell, the mere feeling, detached from every thing else.
+
+When we smell a rose, there is a particular feeling, a particular consciousness, distinct from all others, which we mean to denote, when we call it the smell 12 of the rose. In like manner we speak of the smell of hay, the smell of turpentine, and the smell of a fox. We also speak of good smells, and bad smells; meaning by the one, those which are agreeable to us; by the other, those which are offensive. In all these cases what we speak of is a point of consciousness, a thing which we can describe no otherwise than by calling it a feeling; a part of that series, that succession, that flow of something, on account of which we call ourselves living or sensitive creatures.
+
+We can distinguish this feeling, this consciousness, the sensation of smell, from every other sensation. Smell and Sound are two very different things; so are smell and sight. The smell of a rose is different from the colour of the rose; it is also different from the smoothness of the rose, or the sensation we have by touching the rose.
+
+We not only distinguish the sensations of smell from those of the other senses, but we distinguish the sensations of smell from one another. The smell of a rose is one sensation; the smell of a violet is another. The difference we find between one smell and another is in some cases very great; between the smell of a rose, for example, and that of carrion or assafœtida.
+
+The number of distinguishable smells is very great. Almost every object in nature has a peculiar smell; every animal, every plant, and almost every mineral. Not only have the different classes of objects different smells, but probably different individuals in the same class. The different smells of different individuals are perceptible, to a certain extent, even by the human organs, and to a much greater extent by those of the 13 dog, and other animals, whose sense of smelling is more acute.
+
+We can conceive ourselves, as endowed with smelling, and not enjoying any other faculty. In that case, we should have no idea of objects as seeable, as hearable, as touchable, or tasteable. We should have a train of smells; the smell at one time of the rose, at another of the violet, at another of carrion, and so on. The successive points of consciousness, composing our sentient being, would be mere smells. Our life would be a train of smells, and nothing more. Smell, and Life, would be two names for the same thing.
+
+The terms which our language supplies, for speaking of this sense, are exceedingly imperfect. It would obviously be desirable to have, at any rate, distinct names for the ORGAN, for the OBJECT, and for the SENSATION; and that these names should never be confounded. It happens, unfortunately, that the word SMELL is applicable to all the three. That the word smell expresses, both the quality, as we vulgarly say, of the object smelt; and also the feeling of him by whom it is smelt, every one is aware. If you ask whether the smell, when I hold a violet to my nostrils, is in me or in the violet, it would be perfectly proper to say, in both. The same thing, however, is not in both, though the two things have the same name. What is in me is the sensation, the feeling, the point of consciousness; and that can be in nothing but a sentient being. What is in the rose, is what I call a quality of the rose; in fact, the antecedent of my sensation; of which, beside its being the antecedent of my sensation, I know nothing. If I were speaking of a place in which my senses had been 14 variously affected, and should say, that, along with other pleasures, I had enjoyed a succession of the most delightful smells, I should be understood to speak of my sensations. If I were speaking of a number of unknown objects, and should say of one, that it had a smell like that of honey; of another, that it had a smell like that of garlick; I should be understood as speaking of the object of each sensation, a quality of the thing smelt.
+
+The word smell, beside denoting the sensation and the object, denotes also the organ, in such phrases as the following; “Sight and Hearing are two of the inlets of my knowledge, and Smell is a third;” “The faculty by which I become sensible of odour is my Smell.”3
+
+3 It may be questioned whether, in the phrases here cited, the word Smell stands for the olfactory organ. It would perhaps be most correct to say, that in these cases it denotes the abstract capacity of smelling, rather than the concrete physical instrument. Even when smell is said to be one of the five senses, it may fairly be doubted whether a part of the meaning intended is, that it is one of the five organs of sensation. Nothing more seems to be meant, than that it is one of five distinguishable modes of having sensations, whatever the intrinsic difference between those modes may be.
+
+In the author’s footnote he recognises that the abstract power of smelling enters into this particular application of the word Smell; and refers to a subsequent part of the treatise for the meaning of Power. But he thinks that along with the power, or as part of the conception of Power, the material organ is also signified. It seems to me that the organ does not enter in either of these modes, into the signification of the word. We can imagine ourselves ignorant that we possess physical organs; or aware that we possess them, but not aware that our sensations of smell are connected with them. Yet on either of these suppositions the “power of smelling” would be perfectly intelligible, and would have the same meaning to us which it has now.—Ed.
+
+15 In the phrases in which smell is called a SENSE, as when we say, that smell is one of the five senses, there is considerable complexity. The term here imports the organ, it imports the sensation, and, in a certain way, it imports also the object. It imports the organ as existing continuously, the sensation as existing only under a certain condition, and that condition the presence of the object.2*
+
+2* It will naturally occur to some of my readers, that, in the term sense of smelling, the idea of power is also included. They will say, that when we speak of the sense of smelling, we mean not only the organ, but the function of the organ, or its power of producing a certain effect. This is undoubtedly true; but when the real meaning of the language is evolved, it only amounts to that which is delivered in the text. For what does any person mean when he says that, in the sense of smelling, he has the power of smelling? Only this, that he has an organ, and that when the object of that organ is presented to it, sensation is the consequence. In all this, there is nothing but the organ, the object, and the sensation, conceived in a certain order. This will more fully appear when the meaning of the relative terms, cause and effect, has been explained.—(Author’s Note.)
+
+
+
+16
+
+SECTION II.
+HEARING.
+In Hearing, the same three particulars, the ORGAN, the OBJECT, and the FEELING, require to be distinguished.
+
+The name of the organ is the Ear; and its nice and complicated structure has been described with minuteness and admiration by anatomists and physiologists.
+
+In vulgar discourse, the object of our Sense of Hearing is a sounding body. We say that we hear the bell, the trumpet, the cannon. This language, however, is not correct. That which precedes the feeling received through the ear, is the approach of vibrating air to the ear. Certain bodies, made to vibrate in a certain way, communicate vibrations to the air, and the vibrating air, admitted into the ear, is followed by the sensation of hearing. If the air which the body makes to vibrate does not enter the ear, however the body itself may vibrate, sensation does not follow; hearing does not take place. There is, in fact, no sound. Of the circumstances in which sound is generated, part only were present. There was the organ, and there was the object, but not that juxta-position which is needed to make the antecedent of the sensation complete. Air vibrating in juxta-position to the organ, is the object of Hearing.
+
+How air in vibration should produce the 17 remarkable effect, called hearing, in the nerves of the ear, and no effect in those of the eye, in those of smelling, or those of taste, our knowledge does not enable us to tell.
+
+It is not very difficult to think of the sensation of hearing, apart from the organ, and from the object, as well as from every other feeling. I hear the hum of bees. The feeling to which I give this name is a point of my own consciousness; it is an elementary part of my sensitive being; of that thread of consciousness, drawn out in succession, which I call myself. I have the hearing; it is a sensation of my own; it is my feeling, and no other man’s feeling; it is a very different feeling from taste, and a very different feeling from smell, and from all my other feelings.
+
+I hear the song of birds, I hear the lowing of oxen, I hear the sighing of the wind, I hear the roaring of the sea. I have a feeling, in each of these cases; a consciousness, which I can distinguish not only from the feelings of my other senses, but from the other feelings of the same sense. If I am asked, what takes place in me, when a trumpet is unexpectedly sounded in the next room, I answer, a sensation, a particular feeling. I become conscious in a particular way.
+
+The number of those feelings which we are able to distinguish is very great. In this respect, the organ of hearing in man, is much more perfect than the organ of smell. The organ of hearing can distinguish, not only the voices of different classes, but of different individuals in the same class. There never, probably, 18 was a man whose voice was not distinguishable from that of every other man, by those who were familiarly acquainted with it.
+
+The most simple case of sound is that perhaps of a single note on a musical instrument. This note may be sounded on an endless number of instruments, and by an endless number of human voices, from no two of which will the same sound exactly be returned.
+
+We can think of ourselves as having the feelings of this class, and having no other. In that case, our whole being would be a series of Hearings. It would be one sensation of hearing, another sensation of hearing, and nothing more. Our thread of consciousness would be the sensation, which we denominate sound. Life and sound would be two names for the same thing.
+
+The language by which we speak of the “sense of hearing,” is also imperfect. We have, indeed, the term Ear, to express the ORGAN, but we have no appropriate name for the SENSATION, nor for the OBJECT. The term sound is a name both of the sensation and the object. If I were asked, when the bell rings, whether the sound is in me, or in the bell, I might answer, in both; not that the same thing is in both; the things are different; having the same name. The sensation called a sound is in me, the vibration called a sound is in the bell. Hearing is equally ambiguous; a name both of the organ and the feeling. If asked, by which of my organs I have the knowledge of sound, I should answer, my hearing. And if asked what feeling it is I have by the ear, I still should say, hearing. Hearing is rarely made use of to denote 19 the object of hearing, and hardly at all except by figure.
+
+Noise is a name which denotes the object, in certain cases. There is a certain class of sounds, to which we give the name noise. In those cases, however, noise is also the name of the sensation. In fact, it is the name of the sensation first, and only by transference that of the object.
+
+In the phrase, sense of hearing, the word has the same complexity of meaning, which we found in the word smelling, in the corresponding application of that term. When I say that I have the sense of hearing, I mean to say, that I have an organ, which organ has an appropriate object; and that when the organ and the object are in the appropriate position, the sensation of hearing is the consequent. In the term, sense of hearing, then, is included, the organ, the object, and the sensation, with the idea of a synchronous order of the two first, and a successive order of the third. “Sense of hearing” is thus seen to be the name of a very complex idea, including five distinguishable ingredients, the idea of the organ of hearing, the idea of the sensation, the idea of the object of hearing, the idea of a synchronous order, and the idea of a successive order.4
+
+4 In the case of hearing, as of smell, one of the ambiguities brought to notice by the author is of questionable reality. It is doubtful if “hearing” is ever used as a name of the organ. To the question supposed in the text, “by which of my organs do I have the knowledge of sound” the correct answer would surely be, not “my hearing”—an expression which, so 20 applied, could only be accepted as elliptical,—but “my organ of hearing,” or (still better) “my ear.” Again, the phrase “I have the sense of hearing” signifies that I have a capacity of hearing, and that this capacity is classed as one of sense, or in other words, that the feelings to which it has reference belong to the class Sensations: but the organ, though a necessary condition of my having the sensations, does not seem to be implied in the name.—Ed.
+
+
+
+21
+
+SECTION III.
+SIGHT.
+In SIGHT, the organ is very conspicuous, and has an appropriate name, the Eye.
+
+In ordinary language, the object of sight is the body which is said to be seen. This is a similar error to those which we have detected in the vulgar language relating to the senses of smell and hearing. It is Light alone which enters the eye; and Light, with its numerous modifications, is the sole object on sight.
+
+How the particles of light affect the nerves of the eye, in the peculiar manner in which they are affected in sight, without affecting the other nerves of the body, in any similar manner, we can render no account.
+
+That the feeling we have in sight, is very different from the feeling we have in hearing, in smelling, in tasting, or touching, every man knows. It is difficult, however, to detach the feeling we have in sight from every other feeling; because there are other feelings which we are constantly in the habit of connecting with it; and the passage in the mind from the one to the other is so rapid, that they run together, and can not easily be distinguished. The different modifications of light we call colour. But we cannot think of the sensation of colour, without at the same time 22 thinking of something coloured, of surface or extension, a notion derived from another sense.
+
+That the feelings of sight which we are capable of distinguishing from one another, are exceedingly numerous, is obvious from this, that it is by them we distinguish the infinite variety of visible objects. We have the sensation; the sensation suggests the object; and it is only by the difference of sensation, that the difference of object can be indicated.
+
+Some of the things suggested by the sensations of sight, as extension and figure, are suggested so instantaneously, that they appear to be objects of sight, things actually seen. But this important law of our nature, by which so many things appear to be seen, which are only suggested by the feelings of sight, it requires the knowledge of other elements of the mental phenomena to explain.
+
+The imperfections of the language, by which we have to speak of the phenomena of sight, deserve the greatest attention.
+
+We have an appropriate name for the organ; it is the Eye. And we have an appropriate name for the Object; it is light. But we have no appropriate name for the Sensation. From confusion of names, proceeds confusion of ideas. And from misnaming, on this one point, not a little unprofitable discourse on the subject of the human mind has been derived.
+
+The word sight, in certain phrases, denotes the sensation. If I am asked, what is the feeling which I have by the eye? I answer, sight. But sight is also a name of the object. The light of day is said to be a beautiful sight. And sight is sometimes employed as a name of the organ. An old man informs us, 23 that his sight is failing, meaning that his eyes are failing.5
+
+5 The example given does not seem to me to prove that sight is ever employed as a name of the organ. When an old man says that his sight is failing, he means only that he is less capable of seeing. His eyes might be failing in some other respect, when he would not say that his sight was failing. The term “sense of sight,” like sense of hearing or of smell, stands, as it seems to me, for the capability, without reference to the organ.—Ed.
+
+Colour is a name, as well of the object, as of the sensation. It is most commonly a name of the object. Colour is, properly speaking, a modification of light, though it is never conceived but as something spread over a surface; it is, therefore, not the name of light simply, but the name of three things united, light, surface, and a certain position of the two. In many cases, however, we have no other name for the sensation. If I am asked, what feeling I have when a red light is presented to my eyes, I can only say, the colour of red; and so of other visual feelings, the colour of green, the colour of white, and so on.
+
+In the term sense of sight, the same complexity of meaning is involved which we have observed in the terms sense of smell, and sense of hearing. When I speak of my sense of sight, as when I speak of the attraction of the load-stone, I mean to denote an antecedent, and a consequent; the organ with its object in appropriate position, the antecedent; the sensation, the consequent. This is merely the philosophical statement of the fact, that, when light is received into the eye, the sensation of sight is the consequence.
+
+Vision, a word expressive of the phenomena of 24 sight, is ambiguous in the same manner. It is sometimes used to denote the sense of seeing; that is, the antecedent and consequent, as explained in the preceding paragraph. Thus we say, the phenomena of vision, with the same propriety as we say the phenomena of sight. It is sometimes employed to denote the sensation. If we ask what feeling a blind man is deprived of, it would be perfectly proper to say, vision is the feeling of which he is deprived. It is, also, employed to denote the object. What vision was that? would be a very intelligible question, on the sudden appearance and disappearance of something which attracted the eye.6
+
+6 Vision, I believe, is used to denote the object of sight, only when it is supposed that this object is something unreal, i.e., that it has not any extended and resisting substance behind it: or rhetorically, to signify that the object looks more like a phantom than a reality; as when Burke calls Marie Antoinette, as once seen by him, a delightful vision.—Ed.
+
+
+
+25
+
+SECTION IV.
+TASTE.
+The ORGAN of TASTE is in the mouth and fauces.
+
+In ordinary language, the OBJECT of taste is any thing, which, taken into the mouth, and tasted, as it is called, produces the peculiar SENSATION of this sense. Nor has philosophy as yet enabled us to state the object of taste more correctly. There are experiments which show, that galvanism is concerned in the phenomena, but not in what way.
+
+The SENSATION, in this case, is distinguished by every body. The taste of sugar, the taste of an apple, are words which immediately recall the ideas of distinct feelings. It is to be observed, however, that the feelings of this sense are very often united with those of the sense of smell; the two organs being often affected by the same thing, at the same time. In that case, though we have two sensations, they are so intimately blended as to seem but one; and the flavour of the apple, the flavour of the wine, appears to be a simple sensation, though compounded of taste and smell.7
+
+7 Some physiologists have been of opinion that a large proportion of what are classed as tastes, including all flavours, as distinguished from the generic tastes of sweet, sour, bitter, &c., are really affections of the nerves of smell, and are mistaken for tastes only because they are experienced along with tastes, as a consequence of taking food into the mouth.—Ed.
+
+26 It is not so easy, in the case of this, as of some of the other senses, to conceive ourselves as having this class of feelings and no other. Antecedent to the sensation of taste, there is generally some motion of the mouth, by which the object and the organ are brought into the proper position and state. The sensation can hardly be thought of without thinking of this motion, that is, of other feelings. Besides, the organ of taste is also the organ of another sense. The organ of taste has the sense of touch, and most objects of taste are objects of touch. Sensations of touch, therefore, are intimately blended with those of taste.
+
+By a little pains, however, any one may conceive the sensations of tasting, while he conceives his other organs to remain in a perfectly inactive state, and himself as nothing but a passive recipient of one taste after another. If he conceives a mere train of those sensations, perfectly unmixed with any other feeling, he will have the conception of a being made up of tastes; a thread of consciousness, which maybe called mere taste; a life which is merely taste.
+
+The language employed about this sense is not less faulty, than that employed about the other senses, which we have already surveyed.
+
+There is no proper name for the organ. The word Mouth, which we are often obliged to employ for that purpose, is the name of this organ and a great deal more.
+
+There is no proper name for the object. We are obliged to call it, that which has taste. The word flavour is used to denote that quality, which is more peculiarly the object of taste, in certain articles of food; and sometimes we borrow the word sapidity, 27 from the Latin, to answer the same purpose more extensively.
+
+The word taste is a name for the sensation. We generally call the feeling, which is the point of consciousness in this case, by the name taste. Thus we say one taste is pleasant, another unpleasant; and nothing is pleasant or unpleasant but a feeling.
+
+The word taste is also a name for the object, as when we say, that any thing has taste.
+
+It is further employed as a name of the organ. As we are said to perceive qualities by the eye, the ear, and the touch; so we are said to perceive them by the taste.
+
+In the phrase, sense of taste, there is the same complexity of meaning as we have observed in the corresponding phrase in the case of the other senses. In this phrase, taste expresses all the leading particulars; the organ, the object, and the sensation, together with the order of position in the two first, and the order of constant sequence in the last.8
+
+8 The statement that “taste” is sometimes employed as a name of the organ, seems to me, like the similar statements respecting the names of our other senses, disputable.—Ed.
+
+
+
+28
+
+SECTION V.
+TOUCH.
+In discoursing about the ORGAN, the SENSATIONS, and the OBJECTS, of touch, more vagueness has been admitted, than in the case of any of the other senses.
+
+In fact, every sensation which could not properly be assigned to any other of the senses, has been allotted to the touch. The sensations classed, or rather jumbled together, under this head, form a kind of miscellany, wherein are included feelings totally unlike.
+
+The ORGAN of TOUCH is diffused over the whole surface of the body, and reaches a certain way into the alimentary canal. Of food, as merely tangible, there is seldom a distinct sensation in the stomach, or any lower part of the channel, except towards the extremity. The stomach, however, is sensible to heat, and so is the whole of the alimentary canal, as far at least as any experiment is capable of being made. It may, indeed, be inferred, that we are insensible to the feelings of touch, throughout the intestinal canal, only from the habit of not attending to them.9
+
+9 The surface of the sense of Touch properly so called is the skin, or common integument of the body, the interior of the mouth and the tongue, and the interior of the nose. There are common anatomical peculiarities in these organs; which distinguish them from the alimentary canal and all the other interior surfaces of the body. Moreover, although, in the alimentary canal, there is solid or liquid contact with a sensitive surface, the mode of exciting the sensitive nerves, and the resulting sensibility, are peculiar and distinct. The mode of action in touch is mechanical contact or pressure, mainly of solid and resisting bodies; in digestion, the nerves are affected through chemical and other processes—solution, absorption, assimilation, &c. In touch, there is the peculiar feeling known as hard contact, together with the varying discrimination of plurality of points. In digestion, when healthy, the feeling of contact is entirely absent.—B.
+
+29 We have next to consider the OBJECT of TOUCH. Whatever yields resistance, and whatever is extended, figured, hot, or cold, we set down, in ordinary language, as objects of touch.
+
+I shall show, when the necessary explanations have been afforded, that the idea of resistance, the idea of extension, and the idea of figure, include more than can be referred to the touch, as the ideas of visible figure and magnitude include more than can be referred to the eye. It has been long known, that many of the things, which the feeling by the eye seems to include, it only suggests. It is not less important to know, that the same is the case with the tactual feeling; that this also suggests various particulars which it has been supposed to comprehend.
+
+In the present stage of our investigation, it is not expedient to push very far the inquiry, what it is, or is not, proper, to class as sensations of touch, because that can be settled with much greater advantage hereafter.
+
+The sensations of heat and cold offer this advantage,—that being often felt without the accompaniment of 30 any thing visible or extended, which can be called an object, they can be more distinctly conceived as simple feelings, than most of our other sensations.10 They are feelings very different from the ordinary sensations of touch; and possibly the only reason for classing them with those sensations was, that the organ of them, like that of touch, is diffused over the whole body. We know not that the nerves appropriated to the sensations of heat and cold are the same with those which have the sensation of touch. If they be the same, they must at any rate be affected in a very different manner.
+
+10 The sensations of heat and cold are, of all sensations, the most subjective. The reason is that they are least connected with definite muscular energies. The rise and fall of the temperature of the surrounding air may induce sensations wholly independent of our own movements; and to whatever extent such independence exists, there is a corresponding absence of objectivity. This independence, however, is still only partial, even in the case of heat and cold; in a great number, perhaps a majority, of instances, they depend upon our movements; as in changing our position with reference to a fire, in our clothing, and so on. It is the possibility of conceiving them in the pure subject character, and apart from object relations, that constitutes them simple feelings, in the acceptation of the text. Although not in an equal degree, the same is true of sensations of hearing, on which the author made a similar remark.—B.
+
+To whatever class we may refer the sensations of heat and cold, in their moderate degrees, it seems that good reasons may be given for not ranking them with the sensations of touch, when they rise to the degree of pain. All those acute feelings which attend the disorganization, or tendency toward disorganization, 31 of the several parts of our frame, seem entirely distinct from the feelings of touch. Even in the case of cutting, or laceration, the mere touch of the knife or other instrument is one feeling, the pain of the cut, or laceration, another feeling, as much as, in the mouth, the touch of the sugar is one feeling, the sweetness of it another.
+
+As we shall offer reasons hereafter to show, that the feelings of resistance, extension, and figure, are not feelings of touch, we should endeavour to conceive what feeling it is which remains when those feelings are taken away.
+
+When we detach the feeling of resistance, we, of course, detach those of hardness and softness, roughness and smoothness, which are but different modifications of resistance. And when these, and the feelings of extension and figure, are detached, a very simple sensation seems to remain, the feeling which we have when something, without being seen, comes gently in contact with our skin, in such a way, that we cannot say whether it is hard or soft, rough or smooth, of what figure it is, or of what size. A sense of something present on the skin, and perhaps also on the interior parts of the body, taken purely by itself, seems alone the feeling of touch.
+
+The feelings of this sense are mostly moderate, partaking very little of either pain or pleasure. This is the reason why the stronger feelings, which are connected with them, those of resistance, and extension, predominate in the groupe, and prevent attention to the sensations of touch. The sensations of touch operate as signs to introduce the ideas of resistance and extension, and are no more regarded.
+
+32 The imperfection of the language which we employ, in speaking of this sense, deserves not less of our regard, than that of the language we employ, in speaking of our other senses.
+
+We need distinct and appropriate names, for the organ, for the object, and for the sensation. We have no such name for any of them.
+
+The word touch is made to stand for all the three. I speak of my touch, when I mean to denote my organ of touch. I speak also of my touch, when I mean to denote my sensation. And in some cases, speaking of the object, I call it touch. If I were to call a piece of fine and brilliant velvet a fine sight, another person might say, it is a fine touch as well as fine sight.11
+
+11 It is more true of the word touch, than of the names of our other senses, that it is occasionally employed to denote the organ of touch; because that organ, being the whole surface of the body, has not, like the organs of the special senses, a compact distinctive name. But it may be doubted if the word touch ever stands for the object of touch. If a person made use of the phrase in the text, “it is a fine touch as well as a fine sight,” he would probably be regarded as purchasing an epigrammatic turn of expression at the expense of some violence to language.—Ed.
+
+In ordinary language, the word feeling is appropriated to this sense; though it has been found convenient, in philosophical discourse, to make the term generical, so as to include every modification of consciousness.3*
+
+3* “The word feeling, though in many cases we use it as synonymous to touching, has, however, a much more extensive signification, and is frequently employed to denote our internal, as well as our external, affections. We feel hunger and thirst, we feel joy and sorrow, we feel love and hatred.”—Ad. Smith, on the External Senses.—(Author’s Note.)
+
+When I say that I feel the table, there is a considerable complexity of meaning. Dr. Reid, and his followers, maintain, that I have not one point of 33 consciousness only, but two; that I feel the sensation, and that I feel the table; that the sensation is one thing, the feeling of the table another. Expositions which will be given hereafter are necessary to the complete elucidation of what takes place. But the explanations which have been already afforded will enable us to state the facts with considerable clearness. In what is called feeling the table, my organ of touch, and an object of touch, in the appropriate position, are the antecedent; of this antecedent, sensation is the consequent. The expression, “I feel the table,” includes both the antecedent and the consequent. It does not mark the sensation alone; it marks the sensation, and, along with the sensation, its antecedent, namely, the organ, and its object in conjunction.
+
+The phrase, sense of touch, or the word feeling, often synonymous, has the same complexity of meaning, which we have observed in the phrases, sense of hearing, sense of sight, and the rest of the senses.
+
+When I say that I touch, or have the sense of touch, I mean to say, that I have a certain feeling, consequent upon a certain antecedent. The phrase, therefore, notes the sensation, and at the same time connotes4* the following things: 1st, the organ; 2dly, 34 the object of the organ; 3dly, the synchronous order of the organ and object; 4thly, the successive order of the sensation; the synchronous order being, as usual, the antecedent of the successive order.5* 12
+
+4* The use, which I shall make, of the term connotation, needs to be explained. There is a large class of words, which denote two things, both together; but the one perfectly distinguishable from the other. Of these two things, also, it is observable, that such words express the one, primarily, as it were; the other, in a way which may be called secondary. Thus, white, in the phrase white horse, denotes two things, the colour, and the horse; but it denotes the colour primarily, the horse secondarily. We shall find it very convenient, to say, therefore, that it notes the primary, connotes the secondary, signification.—(Author’s Note.) [Reasons will be assigned further on, why the words to connote and connotation had better be employed, not as here indicated, but in a different and more special sense.—ED.]
+
+5* The terms synchronous order, and successive order, will be fully explained hereafter, when any obscurity which may now seem to rest upon them will be removed; it may be useful at present to say, that, by synchronous order, is meant order in space, by successive order, order in time; the first, or order in space, being nothing but the placing or position of the objects at any given time; the second, or order in time, being nothing but the antecedence of the one, and the consequence of the other.—(Author’s Note.)
+
+12 Additional Observations on the Sense of Touch.—The author is right in drawing a distinction between Touch proper and the sensibility to Heat and Cold, which, though principally found in the skin, extends beyond the seat of tactile sensibility, as, for example, to the alimentary canal, and to the lungs. It is a debated point, whether the nerves of Touch are also the nerves of Heat and Cold; some persons contending for special nerves of Temperature. Such special nerves, however, have not been proved to exist.
+
+The remark is also correct, that the feelings of temperature can be more easily attended to, as simple feelings, than the 35 feelings of touch proper. The reason is not precisely stated. It is that radiant heat may affect the surface of the body without occasioning resistance or movement, and is thus a purely passive sensibility; a subject-state without an object-accompaniment. When the degree of the sensation varies definitely with definite movements, it is treated as an object sensibility, or as pointing to the object world. Thus when we grow warmer as we move in one direction, and colder as we move in another, we no longer think of the feeling as a purely subject fact, but as having an object, or external embodiment.
+
+It is also justly remarked in the text, that the severe sensations of heat, and cold, as well as those from laceration of the skin, may be properly classed with feelings of disorganization generally. At the same time, these painful feelings have a character varying with the organ affected; the fact of injury of tissue may be the same, but the feeling will not be the same, in the skin, the nostrils, the ear, the eye, the alimentary canal.
+
+The description above given of the feeling that remains, when the different modifications of resistance are deducted, is scarcely adequate to represent the reality. Frequently it is true of them, that they ‘are mostly moderate, partaking very little of either pain or pleasure,’ but there are occasions when they rise into prominence and power. We may refer to the contact of the bedclothes at night, when the body is relieved from the tight and deadening embrace of the ordinary clothing. The case of greatest moment, however, is the contact of one human being or animal with another; such contact being the physical element in the tender as well as in the sexual affections. There is a combination of tactile sensibility and warmth in this instance, each counting for a part of the pleasure. The influence is well enough known as experienced among human beings; but the sphere of its operation in animals has been but imperfectly explored.
+
+If we observe carefully the first movements of a new-born animal, a mammal for example, we find that the guiding and 36 controlling sensation of its first moments, is the contact with the mother. In that contact, it finds satisfaction and repose; in separation, it is in discomfort and disquiet. Its earliest volitions are to retain and to recover the soft warm touch of the maternal body. When it commences sucking, and has the sensation of nourishment, a new interest springs up, perhaps still more powerful in its attractions, and able to supersede the first, or at least to put it into a second place; yet, during the whole period of maternal dependence, the feeling of touch is a source of powerful sensibility both to the mother and to the offspring. Among animals born in litter, as pigs, kittens, &c., the embrace is equally acceptable between the fellow-progeny themselves. The sensual pleasure of this contact is the essence, the fact, of animal affection, parental and fraternal; and it is the germ, or foundation, and concomitant of tender affection in human beings. It is the experience of this agreeable contact that prepares the way for a still closer conjunction after the animal reaches puberty. Independent of, and antecedent to, that still more acute sensibility, there is a pleasure in the warm embrace of two animals, and they are ready to enter upon it, at all times when the other interests, as nourishment, exercise and repose, are not engrossing. The play of animals with one another clearly involves the pleasure of the embrace, even without sexuality; and it leads to the sexual encounter at the ripe moment.—B.
+
+
+
+37
+
+SECTION VI.
+SENSATIONS OF DISORGANIZATION, OR OF THE APPROACH TO DISORGANIZATION, IN ANY PART OF THE BODY.
+That we have sensations in parts of the body suffering, or approaching to, disorganization, does not require illustration. The disorganizations of which we speak proceed sometimes from external, sometimes from internal, causes. Lacerations, cuts, bruises, burnings, poisonings, are of the former kind; inflammation, and other diseases in the parts, are the latter.
+
+These sensations are specifically different from those classed under the several heads of sense. The feelings themselves, if attended to, are evidence of this. In the next place, they have neither organ, nor object, in the sense in which those latter feelings have them. We do not talk of an organ of burning; an organ of pain; nor do we talk of an object of any of them; we do not say the object of a cut, the object of an ache, the object of a sore.
+
+Most of those sensations are of the painful kind; though some are otherwise. Some slight, or locally minute inflammations, produce a sensation called itching, which is far from disagreeable, as appears from the desire to scratch, which excites it.13
+
+13 The author, in this passage, uses the word itching out of its ordinary sense; making it denote the pleasant sensation accompanying the relief by scratching, instead of the slightly painful, and sometimes highly irritating, sensation which the scratching relieves.—Ed.
+
+38 The scratching, which excites the pleasure of itching, is a species of friction, and friction, in most parts of the body, excites a sensation very different from the mere sense of touching or the simple feeling of the object. The tickling of the feather in the nose, for example, is very different from the mere feeling of the feather in touch. In some parts of the body the most intense sensations are produced by friction.
+
+There is difficulty in classing those sensations. They are not the same with those of any of the five senses: and they are not the same with those which rise from any tendency to disorganization in the parts of the body to which they are referred. Great accuracy, however, in the classification of the sensations, is not essential to that acquaintance with them, which is requisite for the subsequent parts of this inquiry. It will suffice for our purpose, if the reader so far attend to them, as to be secure from the danger of overlooking or mistaking them, where a distinct consideration of them is necessary for developing any of the complicated phenomena in which they are concerned.14
+
+14 Organic Sensibilities.—The author did well to signalize these sensibilities, so powerful in their influence on human life. They are not confined to the side of pain. The same organs whose disorganization is connected with pain, are, in their healthy and vigorous working, more or less connected with pleasure. This is true not merely of the digestive functions, but of the respiration, the circulation, and others.
+
+Nor is it difficult in their case to make up the full analogy 39 of a sense, as having an Object, an Organ, and a characteristic Sensation. In digestion, the object is the food, the organ is the alimentary canal; in respiration, the object is the air, and the organ the lungs. If it be said that the air is an impalpable agent and not discovered to the mind by its mode of operating, so is heat, the object of an admitted sense.
+
+The accurate classification of these feelings may not have much speculative interest, in Psychology, but it has a great practical interest in the diagnosis of disease. For want of subjective knowledge on the part of the patient, and of a well understood nomenclature of subjective sympt…"

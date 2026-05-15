@@ -1,0 +1,686 @@
+"The Project Gutenberg eBook of Petrarch's Secret; or, the Soul's Conflict with Passion
+This eBook is for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever. You may copy it, give it away or re-use it under the terms of the Project Gutenberg License included with this eBook or online at www.gutenberg.org. If you are not located in the United States, you will have to check the laws of the country where you are located before using this eBook.
+Title: Petrarch's Secret; or, the Soul's Conflict with Passion
+
+Author: Francesco Petrarca
+
+Translator: William H. Draper
+
+
+Release date: July 16, 2015 [eBook #49450]
+Most recently updated: October 24, 2024
+
+Language: English
+
+Other information and formats: www.gutenberg.org/ebooks/49450
+
+Credits: Produced by Marc D'Hooghe
+
+*** START OF THE PROJECT GUTENBERG EBOOK PETRARCH'S SECRET; OR, THE SOUL'S CONFLICT WITH PASSION ***
+
+PETRARCH'S SECRET
+OR
+THE SOUL'S CONFLICT WITH
+PASSION
+THREE DIALOGUES BETWEEN HIMSELF
+AND S. AUGUSTINE
+TRANSLATED FROM THE LATIN BY
+WILLIAM H. DRAPER
+LONDON
+CHATTO & WINDUS
+MDCCCCXI
+FRANCIS PETRARCH
+EMILIAE AUGUSTAE
+PER ANNUS XXII
+COLLABORANTI MECUM, COMPATIENTI, COLLAETANTI
+PETRARCAE HOC COLLOQUIUM
+MEMORABILE
+AMORIS DULCEDINE LACRIMISQUE TINCTUM
+IAM DEMUM ANGLICE REDDITUM
+GRATUS DEDICO
+A. S. MDCCCCXI
+
+CONTENTS
+
+INTRODUCTION
+AUTHOR'S PREFACE
+DIALOGUE THE FIRST
+DIALOGUE THE SECOND
+DIALOGUE THE THIRD
+
+Illustrations
+
+Petrarch's Secretum book cover 1470 Petrarch, Veritas (Truth), Augustine and Abbot Crabbe with two attendants. (Wikimedia Commons) (frontmatter).
+
+Petrarca, the profile portrait (see introduction note 3).
+
+INTRODUCTION
+Most modern writers on Petrarch agree in stating that of all his works the Dialogues which he calls Secretum meum are the one which throws most light upon the man himself.
+
+Yet no English translation has hitherto been published. A French version by M. Victor Develay was issued a few years ago, and received the recognition of the French Academy; and, considering the great importance of Petrarch in the history of the Renaissance, not merely in Italy but in Europe, it is time that a similar opportunity of knowing him more fully was offered to English readers; for there are signs on both sides of the Atlantic that the number of those interested in him is steadily growing. The reason for this is undoubtedly the fact that, as the whole work of Petrarch comes to be better known, interest in him as a man increases. Mr. Sidney Lee has lately reminded us of his wide range and predominating influence in the matter of the sonnet in France and in Elizabethan England, as well as in his own country; and yet that influence was very far indeed from revealing all that Petrarch was. It was largely an influence of style, a triumph of the perfection of form, and his imitators did not trouble much about the precise nature of the sentiment and spirit informing the style. When this came to be weighed in the balances of a later day, the tendency of English feeling was to regard his sentiment as a trifle too serious and weak. The love-making of the Cavaliers brought in a robuster tone. When once the question was raised, "Why so pale and wan, fond lover?" there was really no good answer to it on Petrarchan lines, and the consequence was that his name and fame suffered something of eclipse among us. But eclipses are transient events, and when literary England felt once more the attraction of Italy in the end of the eighteenth century it was not only Dante who began to resume his sway and to provoke translation, but Petrarch also. Then attention was turned chiefly to his Italian poetry, but also in some degree to the general body of his Latin works and to his Letters, of which it is reported that Fox was among the first to perceive the high value. In England the pioneers in this direction were Mrs. Susannah Dobson, who published first a Life of Petrarch in two volumes in 1775, which had by 1805 reached a sixth edition, and, soon after, another volume called Petrarch's View of Life, purporting to be a translation, but in fact a very loose and attenuated abstract of the treatise De remediis utriusque Fortunæ, which nevertheless reached a new edition in 1797. Then came a volume of Essays on Petrarch (Murray 1823) by the Italian exile Ugo Foscolo, and a little later a second Life of the Poet by no less a person than Thomas Campbell, also in two volumes.
+
+Testifying to the re-awakened interest in Petrarch, numerous translations also of his poetry were published by Lady Dacre, Hugh Boyd, Leigh Hunt, Capel Lofft, and many others, who took up after a long interval the tradition begun by Chaucer and handed on by Surrey, Wyatt, Sir Philip Sidney, Spenser, Drummond of Hawthornden, and George Chapman.
+
+Then for a while there was a pause, and the main drift of such attention in England as could be spared for things Italian in mid-Victorian days was concentrated on the greater luminary of the Divine Comedy and the exciting political events of the sixties; though some attention was drawn to things connected with Petrarch by Lytton's novel of Rienzi, which was first published in 1835 and had a considerable vogue.
+
+Meanwhile in Italy itself his fame was well served by the excellent collection and reprint of his Latin letters by Fracasetti in three vols. (1859-63), and since that time there have appeared several important works dealing with the larger aspects of his life and work, most notable among them being Koerting's Petrarka's Leben und Werke (Leipsig 1878), and in France M. P. de Nolhac's Pétrarque et l'Humanisme (two vols., 1907, new edition), with other subsidiary works, and four small volumes by M. Henri Cochin, elucidating what is known of Petrarch's brother Gherardo and some of his many friends. Amongst ourselves in late years, following the labours of J. A. Symonds in his history of the Renaissance, we have Henry Reeve's small but well-planned volume in the "Foreign Classics for English Readers," and, more recently still, Mr. Hollway Calthrop's Petrarch: his Life, Work and Times (1907), and Mrs. Maud Jerrold's Francesco Petrarca: Poet and Humanist (1909).
+
+It is significant that both the last writers single out the Secretum for its psychological interest, the former stating that "to those who feel the charm of Petrarch's nature and the intense humanity of his character, these three Dialogues are the most fascinating of all his writings"; and the latter "that this conflict of the dual self is of quite peculiar interest."
+
+Mrs. Jerrold indeed goes so far as to say that Petrarch "plunges into the most scathing self-examination that any man ever made. Whether the book was intended for the public we may well doubt, both from the words of the preface and from the fact that it does not appear to have been published till after the author's death. But however this may be, it remains one of the world's great monuments of self-revelation and ranks with the Confessions of S. Augustine"—a verdict which to some critics will seem to have a touch of overstatement, though hardly beyond the opinion of Petrarch's French students, and not altogether unpardonable in so enthusiastic an admirer of her subject, and a verdict which at least would not have been displeasing to Petrarch himself.
+
+Among the many points of human interest to be found in the Dialogues not the least is the one connected with Accidie, a theme which has of itself attracted special study in the present day, particularly since attention was called to it by the late Bishop of Oxford in his well-known introduction to the Spirit of Discipline. Observers of mental life incline to the view that the form of depression denoted by the mediæval word was not confined to those times or met with only in monasteries, and it is curious that he who is sometimes called the "first of the moderns" should take us into his confidence as to his sufferings from this trouble, and exemplify the truth of the observation to which reference has been made. M. P. de Nolhac, in his interesting work entitled Le Frère de Pétrarque, calls particular attention to this trait in Petrarch's character, and in an appendix on the subject writes, "Mais il faut surtout lire l'émouvante discussion que Pétrarque, dans le second dialogue du Secretum, suppose entre Saint Augustin et lui-meme, les aveux entrecoupés de sanglots qu'il laisse échapper. Cette torture, dit-il, où il passe des jours et des nuits, a pourtant en elle je ne sais quelle atroce volupté tellement que parfois il en conte de s'y arracher" (p. 220). It is the remarking on this note of self-will, this voluptas dolendi, that M. de Nolhac considers is Petrarch's special contribution to the subject and furnishes a new point beyond what is in previous definitions.
+
+The fundamental question raised by these Dialogues is the question of what was the real nature and character of Petrarch, and wherein lay the secret of his extraordinary charm and influence among his contemporaries, and especially among contemporary men? It is difficult to convey in few words how great an impression the study of his Latin works makes in regard to this influence in his own lifetime. Of course, a reader is soon aware of the trait of personal vanity in Petrarch and of certain unconscious littlenesses, as in the matter of his appreciation of Dante; but the strange thing is how little this interfered with the regard and admiration extended to him by many sorts and conditions of men. In the ordinary intercourse of life one is apt to think such a trait fatal to anything like respect, and it must always detract somewhat from the full stature of any mind, but in the case of Petrarch it seems evident that he was one to whom much was forgiven, and that the reason is to be found in the presence in him of so rich an assemblage of other and better qualities that this one hardly counted at all, or was looked on with kindly amusement by friends large-hearted enough to think it nothing compared with what was good and admirable in his mind. We may take it for granted that, as he hints in his "Letter to Posterity," he started with the advantage of a good presence and a sufficient care of his own person and appearance in younger days; and it is evident that he had by nature a certain engaging frankness and impulsiveness, which nevertheless were not inconsistent with the contrasted qualities of gravity and dignity, learned at first from his father and mother and their friends, and cultivated by his study of the Law and afterwards by his attendance on the Papal court at Avignon. One can discern this in his Letters and see it reflected in those that were written to him or about him. But beyond these introductory qualities, as they may be called, there were other deeper traits, of rarer kind, that must be noted before one can understand the position he attained and has held so long. Studying his work from the cool distance of six centuries, one is inclined to judge that the most fundamental quality of his nature was his love of literature, and that every other trait took a subordinate place to this.
+
+It is perhaps doubtful whether this or the life of personal affection, or even of devotion in a monastery, would have gained the upper hand if the circumstances of his life had been different in the matter of his love for Laura; but taking into consideration that she was separated from him apparently by temperament and circumstance, the one course that remained open to him without let or hindrance was the life of literature in the sense of devotion to the great writers of the Past and the practice of the art of writing for himself. He loved this for its own sake, and at the same time he was quickened by the sense of a new learning, which, since his time and largely by the impetus he gave it, has taken form and outline in a wonderful way, but was then only like the first streak of dawn upon the sky.
+
+Petrarch was not the first man to find a certain contradiction between his desires and the possibilities of life around him, and to pass many years under the pain of contrary attractions that could not all be followed to fulfilment This conflict is what gives interest to the Secretum. Some have thought, and the idea was expressed by one of his correspondents, that his love for Laura was very much of a literary pose. Yet that such a view is an insufficient account of it seems pretty clearly established by the work here translated. It is, indeed, plain that his feelings ran a course, and not a smooth one, and did not continue in one stay; he came to see the whole matter in a changed light, and yet not wholly changed; his relation was transfigured, not abandoned, and after the death of Laura, which took place when he was forty-four, it continued as a memory from which the pain had faded away and only what was uplifting remained.
+
+That which persisted unchanged all through his life and seems most to have had the colour and substance of a passion was the love of Letters. To this his friendship, his very real patriotism, and (must we not add?) his religion also were in a sense second. But the mention of this last factor in the life of Petrarch leads one to express the opinion that this has not yet been quite sufficiently reckoned with. That it should not have been thought worthy of such reckoning has probably arisen from the one ugly fact in his life which he himself does not conceal, and indeed expressly refers to in his "Letter to Posterity," in the following words:—
+
+"As for the looser indulgences of appetite, would indeed I could say I was a stranger to them altogether; but if I should so say, I should lie. This I can safely affirm that, although I was hurried away to them by the fervour of my age and temperament, their vileness I have always inwardly execrated. As soon as I approached my fortieth year I repelled these weaknesses entirely from my thoughts and my remembrance, as if I had never known them. And this I count among my earliest happy recollections, thanking God, who has freed me, while yet my powers were unimpaired and strong, from this so vile and always hateful servitude."[1]
+
+Now, although Petrarch did not, as some other men have done, including his own brother, express his repentance by retiring to a monastery, yet there is evidence enough that the change of will here referred to, and professed in the Secretum, was real, and that the older he grew the more he lifted up his heart. Among other signs of this there is the curious little group of what he calls Penitential Psalms, which were translated into English by George Chapman, into whose translation of Homer Keats looked and was inspired
+
+In his Will also there are not a few passages through which one hears a note of genuine penitence. Among other curious points in it is the mention of the exact spot in which he would wish to be laid to rest in some one of seven different places where he might happen to die, the last being the city of Parma, of which he says, "At si Parmæ, in ecclesiâ majori, ubi per multos annos archidiaconus fui inutilis et semper fere absens."
+
+Petrarch must have fully weighed in his own case the pros and cons for such retirement. His treatise De Otio Religiosorum shows that he understood what good side that kind of life has, and his whole attitude towards his brother—generous, and attached, almost to the point of romance—reveals how he could admire it. But in his own case he felt that it would cramp his faculties too much to be endurable, and hinder more than it would help the kind of work to which he had put his hand. There was also another influence that told strongly on this father of Humanism. He whose nature was so full of unsatisfied natural affection had begun in his latter years to find some rest and blessing in the love and tendance of a daughter, the light of whose care and companionship for him shines through his declining days like the rays of the sun in the evening after a dark and troubled day.
+
+But if we are right in judging that the love of Letters was the dominant factor in the life of Petrarch, it was but the main thread in a singularly complex nature. Not much less in substance and strength was his genius for friendship. Indeed, his study of the writers of past ages partook of the nature of friendship, just as his friendship with living men had a deep literary tinge. He loved books and he loved men, and he loved them in the same way. This is by no means a frequent combination in the degree in which it was shown in Petrarch. More often the book-lover becomes a recluse, and the lover of his fellow-men loses his ardour for study.
+
+But not even the love of books and of men took up all the activities of this rich nature. He was also a keen traveller and among the first to write of natural scenery in the modern spirit. He had that in him which, in spite of his love for reading and writing, sent him forth into other lands and made him eager to see men and cities. Yet the love of the country in him prevailed over the love of cities. His many references to his life at Vaucluse, though to readers of to-day they may seem sometimes affected, yet show only a superficial affectation, a mere mode, which does not seriously lessen the impression of his simple taste and his genuine delight in his garden and his fishing, and his talk with the charming old farmer-man and that sun-burnt wife for whom he had such an unbounded respect.
+
+In the two recent lives of Petrarch in English a reader may make closer acquaintance with this side of his character, and will find much that falls in with modern feeling as to simplicity of living and the joys of escaping from "the man-stifled town." But what is still a desideratum is a good English translation of his Letters to his friends, which will add many glimpses of his daily interests and thoughts, and fill up the picture of his interior life as it is disclosed to us in the Dialogues here presented.
+
+What the Secretum gives us is the picture of Petrarch as he was in the crisis of his middle years. It was written in or about the year 1342 when he was thirty-eight, and in these Dialogues we find him looking back over his youth and early life—the sap and vigour of his mind as strong as ever, the recollection of many sensations green and still powerful—but finding that the sheer march of time and experience of manhood are forcing him now to see things with more mature vision. Five years later he will be seen suddenly kindled into surprising excitement in that strange Rienzi episode, but in one of his letters to that unhappy politician there is a sentence which might have been penned by Bishop Butler, and has in it the accent of grave experience:[2] "Ibunt res quâ sempiterna lex statuit: mutare ista non possum, fugere possum" (Things will go as the law eternal has decided: to alter their course is out of our power; what we can do is to get out of their way).
+
+The interest of the Secretum is heightened by remembering the time of life in which it was composed.[3] Some will find most pleasure in reading what men have written De Senectute, and others prefer the charm that belongs to youth; but is there not much to be said for the interest of what men write from that high tableland that lies between the two, in the full strength of their mind when they have lived long enough to know what is hidden from the eyes of youth and not long enough to be wearied and broken with the greatness of the way? Such is the tone that seems to pervade the Dialogues between S. Augustine and Petrarch. In the preface he looks forward to cherishing the little book himself in future years, like some flower that keeps alive remembrance of past days and yet is not cherished for memory only, but to guard the resolution which has been taken to go forward and not back, and, as his French translator suggests, "Is it to be wondered at that these pages, written with such abandon, in which he has laid bare his whole soul, should have been his own favourite work? It was the book he kept at his bedside, his faithful counsellor and friend, and to which he turned ever and again with pleasure in the hours of remembering the time past."
+
+It is not necessary to tell over again the story of Petrarch's lifelong devotion to the study of S. Augustine's Confessions, or to dwell on the obvious reasons for that devotion. Every man loves the book which tells the history of conflicts like his own, and which has helped to give him courage in his warfare and its sorrows and joys.
+
+"That loss is common would not make
+My own less bitter, rather more;"
+
+sings the poet, but if one reads the experience of those who have suffered and contended and conquered, and is sure that their load was as heavy as his own, then there is a spirit which is breathed over from one life to another, and which even though it tells us how great is the burden of sorrow in the world, yet also tells us that a man is not alone, but that there are companions in patience who a little strengthen each other and give the sense of fellowship from age to age, donec aspiret dies et inclinentur umbrae.
+
+Many of the letters of Petrarch's later years show how wistfully he waited for that day. But they also show how gallant a heart he kept, and how faithful to those friends that remained, including the one so lovable and generous and true, Giovanni Boccaccio, who survived him little more than a year.
+
+Petrarch passed the end of his life in a modest house which he built in one of the loveliest parts of Italy, that to English readers will be for ever dear because of the haunting music that Shelley wove around its name.
+
+It was in the Euganæan Hills at Arqua where Petrarch chose to wait for the dawn, and, till it came, to go on working among the books he loved as his own soul.
+
+"Many a green isle needs must be
+In the deep wide sea of misery,"
+
+and to read the story of his last years there is to think of one of those green isles. These were days of calm, and the book of the Secret ends with the expression of hope for a deeper calm still. In due time it came, but, as the English Poet sang, after more than six centuries—
+
+The love from Petrarch's urn
+Yet amid yon hills doth burn,
+
+A QUENCHLESS LAMP.
+
+
+[1]Translation by H. Reeve.
+
+[2]De rebus fam., vii. 7.
+
+[3]The profile portrait, reproduced by kind permission of Mr. T. Fisher Unwin, publisher of Mr. E. J. Mills' book on Petrarch, is from Lombardo's copy of the De viris illustribus, finished about five years after the death of Petrarch, and is believed to be an authentic picture of him in later life.
+
+PETRARCH'S SECRET
+AUTHOR'S PREFACE
+Often have I wondered with much curiosity as to our coming into this world and what will follow our departure. When I was ruminating lately on this matter, not in any dream as one in sickness and slumber, but wide awake and with all my wits about me, I was greatly astonished to behold a very beautiful Lady, shining with an indescribable light about her. She seemed as one whose beauty is not known, as it might be, to mankind. I could not tell how she came there, but from her raiment and appearance I judged her a fair Virgin, and her eyes, like the sun, seemed to send forth rays of such light that they made me lower my own before her, so that I was afraid to look up. When she saw this she said, Fear not; and let not the strangeness of my presence affright you in any wise. I saw your steps had gone astray; and I had compassion on you and have come down from above to bring you timely succour. Hitherto your eyes have been darkened and you have looked too much, yes, far too much, upon the things of earth. If these so much delight you, what shall be your rapture when you lift your gaze to things eternal!
+
+When I heard her thus speak, though my fear still clung about me with trembling voice I made reply in Virgil's words—
+
+"What name to call thee by, O Virgin fair,
+I know not, for thy looks are not of earth
+And more than mortal seems thy countenance."[1]
+
+I am that Lady, she answered, whom you have depicted in your poem Africa with rare art and skill, and for whom, like another Amphion of Thebes, you have with poetic hands built a fair and glorious Palace in the far West on Atlas's lofty peak.
+
+Be not afraid, then, to listen and to look upon the face of her who, as your finely-wrought allegory proves, has been well-known to you from of old.
+
+Scarcely had she uttered these words when, as I pondered all these things in my mind, it occurred to me this could be none other than Truth herself who thus spoke. I remembered how I had described her abode on the heights of Atlas; yet was I ignorant from what region she had come, save only that I felt assured she could have come from none other place than Heaven. Therefore I turned my gaze towards her, eagerly desiring to look upon her face; but lo, the eye of man is unable to gaze on that ethereal Form, wherefore again was I forced to turn them towards the ground. When she took note of this, after a short silence, she spoke once more; and, questioning me many times, she led me to engage with her in long discourse. From this converse I was sensible of gaining a twofold benefit for I won knowledge, and the very act of talking with her gave me confidence. I found myself by degrees becoming able to look upon the face which at first dismayed me by its splendour, and as soon as I was able to bear it without dread, and gaze fixedly on her wondrous beauty, I looked to see if she were accompanied with any other, or had come upon the retirement of my solitude alone; and as I did so I discerned at her side the figure of an aged man, of aspect venerable and full of majesty. There was no need to inquire his name. His religious bearing, modest brow, his eyes full of dignity, his measured step, his African look, but Roman speech, plainly declared him to be that most illustrious Father, Augustine. Moreover, he had so gracious a mien, and withal so noble, that one could not possibly imagine it to belong to any other than to him. Even so I was on the point of opening my lips to ask, when at that moment I heard the name so dear to me uttered from the lips of Truth herself. Turning herself to him, as if to intervene upon his deep meditation, she addressed him in these words: "Augustine, dear to me above a thousand others, you know how devoted to yourself this man is, and you are aware also with how dangerous and long a malady he is stricken, and that he is so much nearer to Death as he knows not the gravity of his disease. It is needful, then, that one take thought for this man's life forthwith, and who so fit to undertake the pious work as yourself? He has ever been deeply attached to your name and person; and all good doctrine is wont more easily to enter the mind of the disciple when he already starts with loving the Master from whom he is to learn. Unless your present happiness has made you quite forget your former sorrow, you will remember that when you were shut in the prison of the mortal body you also were subject to like temptation as his. And if that were so, most excellent Physician of those passions yourself experienced, even though your silent meditation be full of sweetness to your mind, I beg that your sacred voice, which to me is ever a delight, shall break its silence, and try whether you are able by some means to bring calm to one so deeply distressed."
+
+Augustine answered her: "You are my guide, my Counsellor, my Sovereign, my Ruler; what is it, then, you would have me say in your presence?"
+
+"I would," she replied, "that some human voice speak to the ears of this mortal man. He will better bear to hear truth so. But seeing that whatever you shall say to him he will take as said by me, I also will be present in person during your discourse."
+
+Augustine answered her, "The love I bear to this sick man, as well as the authority of her who speaks, make it my duty to obey." Then, looking kindly at me and pressing me to his heart in fatherly embrace, he led me away to the most retired corner he could find, and Truth herself went on a few steps in front. There we all three sat down. Then while Truth listened as the silent Judge, none other beside her being present, we held long converse on one side and the other; and because of the greatness of the theme, the discourse between us lasted over three days. Though we talked of many things much against the manners of this age, and on faults and failings common to mankind, in such wise that the reproaches of the Master seemed in a sense more directed against men in general than against myself, yet those which to me came closest home I have graven with more especial vividness on the tablet of my memory. That this discourse, so intimate and deep, might not be lost, I have sot it down in writing and made this book; not that I wish to class it with my other works, or desire from it any credit. My thoughts aim higher. What I desire is that I may be able by reading to renew as often as I wish the pleasure I felt from the discourse itself. So, little Book, I bid you flee the haunts of men and be content to stay with me, true to the title I have given you of "My Secret": and when I would think upon deep matters, all that you keep in remembrance that was spoken in secret you in secret will tell to me over again.
+
+To avoid the too frequent iteration of the words "said I," "said he," and to bring the personages of the Dialogue, as it were, before one's very eyes, I have acted on Cicero's method and merely placed the name of each interlocutor before each paragraph.[2] My dear Master learned this mode himself from Plato. But to cut short all further digression, this is how Augustine opened the discourse.
+
+[1]Æneid, i. 327-28.
+
+[2]De Amicitiâ, i.
+
+DIALOGUE THE FIRST
+S. AUGUSTINE—PETRARCH
+S. Augustine. What have you to say, O man of little strength? Of what are you dreaming? For what are you looking? Remember you not you are mortal?
+
+Petrarch. Yes, I remember it right well, and a shudder comes upon me every time that remembrance rises in my breast.
+
+S. Augustine. May you, indeed, remember as you say, and take heed for yourself. You will spare me much trouble by so doing. For there con be no doubt that to recollect one's misery and to practise frequent meditation on death is the surest aid in scorning the seductions of this world, and in ordering the soul amid its storms and tempests, if only such meditation be not superficial, but sink into the bones and marrow of the heart. Yet am I greatly afraid lest that happen in your case which I have seen in so many others, and you be found deceiving your own self.
+
+Petrarch. In what way do you mean? For I do not clearly understand the drift of your remarks.
+
+S. Augustine. O race of mortal men, this it is that above all makes me astonished and fearful for you, when I behold you, of your own will clinging to your miseries; pretending that you do not know the peril hanging over your heads and if one bring it under your very eyes, you try to thrust it from your sight and put it afar off.
+
+Petrarch. In what way are we so mad?
+
+S. Augustine. Do you suppose there is any living man so unreasonable that if he found himself stricken with a dangerous ailment he would not anxiously desire to regain the blessing of health?
+
+Petrarch. I do not suppose such a case has ever been heard of.
+
+S. Augustine. And do you think if one wished for a thing with all one's soul one would be so idle and careless as not to use all possible means to obtain what one desired?
+
+Petrarch. No one, I think, would be so foolish.
+
+S. Augustine. If we are agreed on these two points, so we ought also to agree on a third.
+
+Petrarch. What is this third point?
+
+S. Augustine. It is this: that just as he who by deep meditation has discovered he is miserable will ardently wish to be so no more; and as he who has formed this wish will seek to have it realised, so he who seeks will be able to reach what he wishes. It is clear that the third step depends on the second as the second on the first. And therefore the first should be, as it were, a root of salvation in man's heart. Now you mortal men, and you yourself with all your power of mind, keep doing your best by all the pleasures of the world to pull up this saving root out of your hearts, which, as I said, fills me with horror and wonder. With justice, therefore, you are punished by the loss of this root of salvation and the consequent loss of all the rest.
+
+Petrarch. I foresee this complaint you bring is likely to be lengthy, and take many words to develop it. Would you mind, therefore, postponing it to another occasion? And that I may travel more surely to your conclusion, may we send a little more time over the premisses?
+
+S. Augustine. I must concede something to, your slowness of mind; so please stop me at any point where you wish.
+
+Petrarch. Well, if I must speak for myself, I do not follow your chain of reasoning.
+
+S. Augustine. What possible obscurity is there in it? What are you in doubt about now?
+
+Petrarch. I believe there is a multitude of things for which we ardently long, which we seek for with all our energy, but which nevertheless, however diligent we are, we never have obtained and never shall.
+
+S. Augustine. That may be true of other desires, but in regard to that we have now under discussion the case is wholly different.
+
+Petrarch. What makes you say that?
+
+S. Augustine. Because every man who desires to be delivered from his misery, provided only he desires sincerely and with all his heart, cannot fail to obtain that which he desires.
+
+Petrarch. O father, what is this I hear? There are few men indeed who do not feel they lack many things and who would not confess they were so far unhappy. Every one who questions his own heart will acknowledge it is so. By natural consequence if the fulness of blessing makes man happy, all things he lacks will so far make him unhappy. This burden of unhappiness all men would fain lay down, as every one is aware; but every one is aware also that very few have been able. How many there are who have felt the crushing weight of grief, through bodily disease, or the loss of those they loved, or imprisonment, or exile, or hard poverty, or other misfortunes it would take too long to tell over; and yet they who suffer these things have only too often to lament that it is not permitted them, as you suggest, to be set free. To me, then, it seems quite beyond dispute that a multitude of men are unhappy by compulsion and in spite of themselves.
+
+S. Augustine. I must take you a long way back, and as one does with the very young whose wits are slight and slow, I must ask you to follow out the thread of my discourse from its very simplest elements. I thought your mind was more advanced, and I had no idea you still needed lessons so childish. Ah, if only you had kept in mind those true and saving maxims of the wise which you have so often read and re-read with me; if, I must take leave to say, you had but wrought for yourself instead of others; if you had but applied your study of so many volumes to the ruling of your own conduct, instead of to vanity and gaining the empty praise of men, you would not want to retail such low and absurd follies.
+
+Petrarch. I know not where you want to take me, but already I am aware of the blush mounting to my brow, and I feel like schoolboys in presence of an angry master. Before they know what they are accused of they think of many offences of which they are guilty, and at the very first word from the master's lips they are filled with confusion. In like case I too am conscious of my ignorance and of many other faults, and though I perceive not the drift of your admonition, yet as I know almost everything bad may be brought against me, I blush even before you have done speaking. So pray state more clearly what is this biting accusation that you have made.
+
+S. Augustine. I shall have many things to lay to your charge presently. Just now what makes me so indignant is to hear you suppose that any one can become or can be unhappy against his will.
+
+Petrarch. I might as well spare my blushes. For what more obvious truth than this can possibly be imagined? What man exists so ignorant or so far removed from all contact with the world as not to know that penury, grief, disgrace, illness, death, and other evils too that are reckoned among the greatest, often befall us in spite of ourselves, and never with our own consent? From which it follows that it is easy enough to know and to detest one's own misery, but not to remove it; so that if the two first steps depend on ourselves, the third is nevertheless in Fortune's hand.
+
+S. Augustine. When I saw you ashamed I was ready to give you pardon, but brazen impudence angers me more than error itself. How is it you have forgotten all those wise precepts of Philosophy, which declare that no man can be made unhappy by those things you rattle off by name? Now if it is Virtue only that makes the happiness of man, which is demonstrated by Cicero and a whole multitude of weighty reasons, it follows of necessity that nothing is opposed to true happiness except what is also opposed to Virtue. This truth you can yourself call to mind even without a word from me, at least unless your wits are very dull.
+
+Petrarch. I remember it quite well. You would have me bear in mind the precepts of the Stoics, which contradict the opinions of the crowd and are nearer truth than common custom is.
+
+S. Augustine. You would indeed be of all men the most miserable were you to try to arrive at the truth through the absurdities of the crowd, or to suppose that under the leadership of blind guides you would reach the light. You must avoid the common beaten track and set your aspirations higher; take the way marked by the steps of very few who have gone before, if you would be counted worthy to hear the Poet's word—
+
+"On, brave lad, on! your courage leading you,
+So only Heaven is scaled."[1]
+
+Petrarch. Heaven grant I may hear it ere I die! But I pray you to proceed. For I assure you I have by no means become shameless. I do not doubt the Stoics' rules are wiser far than the blunders of the crowd. I await therefore your further counsel.
+
+S. Augustine. Since we are agreed on this, that no one can become or be unhappy except through his own fault, what need of more words is there?
+
+Petrarch. Just this need, that I think I have seen very many people, and I am one of them, to whom nothing is more distressful than the inability to break the yoke of their faults, though all their life long they make the greatest efforts so to do. Wherefore, even allowing that the maxim of the Stoics holds good, one may yet admit that many people are very unhappy in spite of themselves, yes, and although they lament it and wish they were not, with their whole heart.
+
+S. Augustine. We have wandered somewhat from our course, but we are slowly working back to our starting-point. Or have you quite forgotten whence we set out?
+
+Petrarch. I had begun to lose sight of it, but it is coming back to me now.
+
+S. Augustine. What I had set out to do with you was to make clear that the first step in avoiding the distresses of this mortal life and raising the soul to higher things is to practise meditation on death and on man's misery; and that the second is to have a vehement desire and purpose to rise. When these two things were present, I promised a comparatively easy ascent to the goal of our desire. Unless haply to you it seems otherwise?
+
+Petrarch. I should certainly never venture to affirm this, for from my youth upwards I have had the increasing conviction that if in any matter I was inclined to think differently from yourself I was certain to be wrong.
+
+S. Augustine. We will please waive all compliments. And as I observe you are inclined to admit the truth of my words more out of deference than conviction, pray feel at liberty to say whatever your real judgment suggests.
+
+Petrarch. I am still afraid to be found differing, but nevertheless I will make use of the liberty you grant. Not to speak of other men, I call to witness Her who has ever been the ruling spirit of my life; you yourself also I call to witness how many times I have pondered over my own misery and over the subject of Death; with what floods of tears I have sought to wash away my stains, so that I can scarce speak of it without weeping; yet hitherto, as you see, all is in vain. This alone leads me to doubt the truth of that proposition you seek to establish, that no man has ever fallen into misery but of his own free will, or remained, miserable except of his own accord; the exact opposite of which I have proved in my own sad experience.
+
+S. Augustine. That complaint is an old one and seems likely to prove unending. Though I have already several times stated the truth in vain, I shall not cease to maintain it yet. No man can become or can be unhappy unless he so chooses; but as I said at the beginning, there is in men a certain perverse and dangerous inclination to deceive themselves, which is the most deadly thing in life. For if it is true that we rightly fear being taken in by those with whom we live, because our natural habit of trusting them tends to make us unsuspicious, and the pleasantly familiar sound of their voice is apt to put us off our guard,—how much rather ought you to fear the deceptions you practise on yourself, where love, influence, familiarity play so large a part, a case wherein every one esteems himself more than he deserves, loves himself more than he ought, and where Deceiver and Deceived are one and the same person?
+
+Petrarch. You have said this kind of thing pretty often to-day already. But I do not recollect ever practising such deception on myself; and I hope other people have not deceived me either.
+
+S. Augustine. Now at this very moment you are notably deceiving yourself when you boast never to have done such a thing at all; and I have a good enough hope of your own wit and talent to make me think that if you pay close attention you will see for yourself that no man can fall into misery of his own will. For on this point our whole discussion rests. I pray you to think well before answering, and give your closest attention, and be jealous for truth more than for disputation, but then tell me what man in the world was ever forced to sin? For the Seers and Wise Men require that sin must be a voluntary action, and so rigid is their definition that if this voluntariness is absent then the sin also is not there. But without sin no man is made unhappy, as you agreed to admit a few minutes ago.
+
+Petrarch. I perceive that by degrees I am getting away from my proposition and am being compelled to acknowledge that the beginning of my misery did arise from my own will. I feel it is true in myself, and I conjecture the same to be true of others. Now I beg you on your part to acknowledge a certain truth also.
+
+S. Augustine. What is it you wish me to acknowledge?
+
+Petrarch. That as it is true no man ever fell involuntarily, so this also is true that countless numbers of those who thus are voluntarily fallen, nevertheless do not voluntarily remain so. I affirm this confidently of my own self. And I believe that I have received this for my punishment, as I would not stand when I might, so now I cannot rise when I would.
+
+S. Augustine. That is indeed a wise and true view to take. Still as you now confess you were wrong in your first proposition, so I think you should own you are wrong in your second.
+
+Petrarch. Then you would say there is no distinction between falling and remaining fallen?
+
+S. Augustine. No, they are indeed different things; that is to say, different in time, but in the nature of the action and in the mind of the person concerned they are one and the same.
+
+Petrarch. I see in what knots you entangle me. But the wrestler who wins his victory by a trick is not necessarily the stronger man, though he may be the more practised.
+
+S. Augustine. It is Truth herself in whose presence we are discoursing. To her, plain simplicity is ever dear, and cunning is hateful. That you may see this beyond all doubt I will go forward from this point with all the plainness you can desire.
+
+Petrarch. You could give me no more welcome news. Tell me, then, as it is a question concerning myself, by what line of reasoning you mean to prove I am unhappy. I do not deny that I am; but I deny that it is with my own consent I remain so. For, on the contrary, I feel this to be most hateful and the very opposite of what I wish. But yet I can do nothing except wish.
+
+S. Augustine. If only the conditions laid down are observed, I will prove to you that you are misusing words.
+
+Petrarch. What conditions do you mean, and how would you have me use words differently?
+
+S. Augustine. Our conditions were to lay aside all juggling with terms and to seek truth in all plain simplicity, and the words I would have you use are these: instead of saying you cannot, you ought to say you will not.
+
+Petrarch. There will be no end then to our discussion, for that is what I never shall confess. I tell you I know, and you yourself are witness, how often I have wished to and yet could not rise. What floods of tears have I shed, and all to no purpose?
+
+S. Augustine. O yes, I have witnessed many tears, but very little will.
+
+Petrarch. Heaven is witness (for indeed I think no man on this earth knows) what I have suffered, and how I have longed earnestly to rise, if only I might.
+
+S. Augustine. Hush, hush. Heaven and earth will crash in ruin, the stars themselves will fall to hell, and all harmonious Nature be divided against itself, sooner than Truth, who is our Judge, can be deceived.
+
+Petrarch. And what do you mean by that?
+
+S. Augustine. I mean that your tears have often stung your conscience but not changed your will.
+
+Petrarch. I wonder how many times I must tell you that it is just this impossibility of change which I bewail.
+
+S. Augustine. And I wonder how many times I must reply that it is want of will, not want of power, which is the trouble.
+
+And yet I wonder not that now you find yourself involved in these perplexities; in which in time past I too was tossed about, when I was beginning to contemplate entering upon a new way of life.[2] I tore my hair; I beat my brow; my fingers I twisted nervously; I bent double and held my knees; I filled the air of heaven with most bitter sighs; I poured out tears like water on every side: yet nevertheless I remained what I was and no other, until a deep meditation at last showed me the root of all my misery and made it plain before my eyes. And then my will after that became fully changed, and my weakness also was changed in that same moment to power, and by a marvellous and most blessed alteration I was transformed instantly and made another man, another Augustine altogether. The full history of that transformation is known, if I mistake not, to you already in my Confessions.
+
+Petrarch. Yes, in truth I know it well, and never can I forget the story of that health-bringing fig-tree, beneath whose shade the miracle took place.[3]
+
+S. Augustine. Well indeed may you remember it. And no tree to you should be more dear: no, not the myrtle, nor the ivy, nor the laurel beloved of Apollo and ever afterwards favoured by all the band of Poets, favoured too by you, above all, who alone in your age have been counted worthy to be crowned with its leaves; yet dearer than these should be to you the memory of that fig-tree, for it greets you like some mariner coming into haven after many storms; it holds out to you the path of righteousness, and a sure hope which fadeth not away, that presently the divine Forgiveness shall be yours.
+
+Petrarch. I would not say one word in contradiction. Go on, I beseech you, with what you have begun.
+
+S. Augustine. This is what I undertook and will go on with, to prove to you that so far you are like those many others of whom it may be said in the words of Virgil—
+
+"Unchanged their mind while vainly flow their tears."[4]
+
+Though I might multiply examples, yet I will rather content myself with this alone, that we might almost reckon as belonging to ourselves, and so all the more likely to come home.
+
+Petrarch. How wisely you have made choice; for indeed it were useless to add more, and no other could be so deeply graven in my heart. Great as the gulf which parts us may be—I mean between you in your safe haven and me in peril of shipwreck, you in felicity, me in distress—still amid my winds and tempests I can recognise from time to time the traces of, your own storm-tossed passions. So that as often as I read the book of your Confessions, and am made partaker of your conflict between two contrary emotions, between hope and fear, (and weep as I read), I seem to be hearing the story of my own self, the story not of another's wandering, but of my own. Therefore, since now I have put away every inclination to mere dispute, go on, I beg, as you desire. For all my heart wishes now is not to hinder but only to follow where you lead.
+
+S. Augustine. I make no such demand on you as that. For though a certain very wise man[5] has laid it down that "Through overmuch contention truth is lost," yet often it happens that a well-ordered discussion leads to truth. It is not then expedient to accept everything advanced, which is the token of a slack and sleepy mind, any more than it is expedient to set oneself to oppose a plain and open truth, which indicates only the mind of one who likes fighting for fighting's sake.
+
+Petrarch. I understand and agree with you and will act on your advice. Now, pray go on.
+
+S. Augustine. You admit, therefore, that the argument is just and the chain of reasoning valid, when we say that a perfect knowledge of one's misery will beget a perfect desire to be rid of it, if only the power to be rid may follow the desire.
+
+Petrarch. I have professed that I will believe you in everything.
+
+S. Augustine. I feel there is still something you would like to urge, even now. Do, please, confess it, no matter what it may be.
+
+Petrarch. Nothing, only that I am much amazed I to think I should never yet have wished what I have believed I always wished.
+
+S. Augustine. You still stick at that point. O well, to put an end to this kind of talk I will agree that you have wished sometimes.
+
+Petrarch. What then?
+
+S. Augustine. Do you not remember the phrase of Ovid—
+
+"To wish for what you want is not enough;
+With ardent longing you must strive for it."[6]
+
+Petrarch. I understand, but thought that was just what I had been doing.
+
+S. Augustine. You were mistaken.
+
+Petrarch. Well, I will believe so.
+
+S. Augustine. To make your belief certain, examine your own conscience. Conscience is the best judge of virtue. It is a guide, true and unerring, that weighs every thought and deed. It will tell you that you have never longed for spiritual health as you ought, but that, considering what great dangers beset you, your wishes were but feeble and ineffective.
+
+Petrarch. I have been examining my conscience, as you suggested.
+
+S. Augustine. What do you find?
+
+Petrarch. That what you say is true.
+
+S. Augustine. We have made a little progress, if you are beginning to be awake. It will soon be better with you now you acknowledge it was not well hitherto.
+
+Petrarch. If it is enough to acknowledge, I hope to be able to be not only well but quite well, for never have I understood more clearly that my wishes for liberty and for an end to my misery have been too lukewarm. But can it be enough to desire only?
+
+S. Augustine. Why do you ask?
+
+Petrarch. I mean, to desire without doing anything.
+
+S. Augustine. What you propose is an impossibility. No one desires ardently and goes to sleep.
+
+Petrarch. Of what use is desire, then?
+
+S. Augustine. Doubtless the path leads through many difficulties, but the desire of virtue is itself a great part of virtue.
+
+Petrarch. There you give me ground for good hope.
+
+S. Augustine. All my discourse is just to teach you how to hope and to fear.
+
+Petrarch. Why to fear?
+
+S. Augustine. Then tell me why to hope?
+
+Petrarch. Because whereas so far I have striven, and with much tribulation, merely not to become worse, you now open a way to me whereby I may become better and better, even to perfection.
+
+S. Augustine. But maybe you do not think how toilsome that way is.
+
+Petrarch. Have you some now terror in store for me?
+
+S. Augustine. To desire is but one word, but how many things go to make it up!
+
+Petrarch. Your words make me tremble.
+
+S. Augustine. Not to mention the positive elements in desire, it involves the destruction of many other objects.
+
+Petrarch. I do not quite take in your meaning.
+
+S. Augustine. The desire of all good cannot exist without thrusting out every lower wish. You know how many different objects one longs for in life. All these you must first learn to count as nothing before you can rise to the desire for the chief good; which a man loves less when along with it he loves something else that does not minister to it.
+
+Petrarch. I recognise the thought.
+
+S. Augustine. How many men are there who have extinguished all their passions, or, not to speak of extinguishing, tell me how many are there who have subdued their spirit to the control of Reason, and will dare to say, "I have no more in common with my body; all that once seemed so pleasing to me is become poor in my sight. I aspire now to joys of nobler nature"?
+
+Petrarch. Such men are rare indeed. And now I understand what those difficulties are with which you threatened me.
+
+S. Augustine. When all these passions are extinguished, then, and not till then, will desire be full and free. For when the soul is uplifted on one side to heaven by its own nobility, and on the other dragged down to earth by the weight of the flesh and the seductions of the world, so that it both desires to rise and also to sink at one and the same time, then, drawn contrary ways, you find you arrive nowhither.
+
+Petrarch. What, then, would you say a man must do for his soul to break the fetters of the world, and mount up perfect and entire to the realms above?
+
+S. Augustine. What leads to this goal is, as I said in the first instance, the practice of meditation on death and the perpetual recollection of our mortal nature.
+
+Petrarch. Unless I am deceived, there is no man alive who is more often revolving this thought in his heart than I.
+
+S. Augustine. Ah, here is another delusion, a fresh obstacle in your way!
+
+Petrarch. What! Do you mean to say I am once more lying?
+
+Augustine. I would sooner hear you use more civil language.
+
+Petrarch. But to say the same thing?
+
+S. Augustine. Yes, to say nothing else.
+
+Petrarch. So then you mean I care nothing at all about death?
+
+S. Augustine. To tell the truth you think very seldom of it, and in so feeble a way that your thought never touches the root of your trouble.
+
+Petrarch. I supposed just the opposite.
+
+S. Augustine. I am not concerned with what you suppose, but with what you ought to suppose.
+
+Petrarch. Well, I may tell you that in spite of that I will suppose it no more, if you prove to me that my supposition was a false one.
+
+S. Augustine. That I will do easily enough, provided you are willing to admit the truth in good faith. For this end I will call in a witness who is not far away.
+
+Petrarch. And who may that be, pray?
+
+S. Augustine. Your conscience.
+
+Petrarch. She testifies just the contrary.
+
+S. Augustine. When you make an obscure, confused demand no witness can give precise or clear answers.
+
+Petrarch. What has that to do with the subject, I would like to know?
+
+S. Augustine. Much, every way. To see dearly, listen well. No man is so senseless (unless he be altogether out of his mind) as never once to remember his own weak nature, or who, if asked the question whether he were mortal and dwelt in a frail body, would not answer that he was. The pains of the body, the onsets of fever, attest the fact; and whom has the favour of Heaven made exempt? Moreover, your friends are carried out to their burial before your eyes; and this fills the soul with dread. When one goes to the graveside of some friend of one's own age one is forced to tremble at another's fall and to begin feeling uneasy for oneself; just as when you see your neighbour's roof on fire, you cannot fool quite happy for your own, because, as Horace puts it—
+
+"On your own head you see the stroke will fall."[7]
+
+The impression will be more strong in case you see some sudden death carry off one younger, more vigorous, finer looking than yourself. In such an event a man will say, "This one seemed to live secure, and yet he is snatched off. His youth, his beauty, his strength have brought him no help. What God or what magician has promised me any surer warrant of security? Verily, I too am mortal."
+
+When the like fate befalls kings and rulers of the earth, people of great might and such as are regarded with awe, those who see it are struck with more dread, are more shaken with alarm; they are amazed when they behold a sudden terror, or perchance hours of intense agony seize on one who was wont to strike terror into others. From what other cause proceed the doings of people who seem beside themselves upon the death of men in highest place, such as, to take an instance from history, the many things of this kind that, as you have related, were done at the funeral of Julius Cæsar? A public spectacle like this strikes the attention and touches the heart of mortal men; and what then they see in the case of another is brought home as pertaining also to themselves. Beside all these, are there not the rage of savage boasts, and of men, and the furious madness of war? Are there not the falls of those great buildings which, as some one neatly says, are first the safeguards, then the sepulchres of men? Are there not malignant motions of the air beneath some evil star and pestilential sky? And so many perils on sea and land that, look wheresoever you will, you cannot turn your gaze anywhither but you will meet the visible image and memento of your own mortality.
+
+Petrarch. I beg your pardon, but I cannot wait any longer, for, as for having my reason fortified, I do not think any more powerful aid can be brought than the many arguments you have adduced. As I listened I wondered what end you were aiming at, and when your discourse would finish.
+
+S. Augustine. As a matter of fact, you have interrupted me, and it has not yet reached its end. However, here is the conclusion—although a host of little pin-pricks play upon the surface of your mind, nothing yet has penetrated the centre. The miserable heart is hardened by long habit, and becomes like some indurated stone; impervious to warnings, however salutary, you will find few people considering with any seriousness the fact that they will die.
+
+Petrarch. Then few people are aware of the very definition of man, which nevertheless is so hackneyed in the schools, that it ought not merely to weary the ears of those who hear it, but is now long since scrawled upon the walls and pillars of every room. This prattling of the Dialecticians will never come to an end; it throws up summaries and definitions like bubbles, matter indeed for endless controversies, but for the most part they know nothing of the real truth of the things they talk about. So, if you ask one of this set of men for a definition of a man or of anything else, they have their answer quite pat, as the saying goes; if you press him further, he will lie low, or if by sheer practice in arguing he has acquired a certain boldness and power of speech, the very tone of the man will tell you he possesses no real knowledge of the thing he sets out to define. The best way of dealing with this brood, with their studied air of carelessness and empty curiosity, is to launch at their head some such invective as this, "You wretched creatures, why this everlasting labour for nothing; this expense of wit on silly subtleties? Why in total oblivion of the real basis of things will you grow old simply conversant with words, and with whitening hair and wrinkled brow, spend all your time in babyish babble? Heaven grant that your foolishness hurt no one but yourselves, and do as little harm as possible to the excellent minds and capacities of the young."
+
+S. Augustine. I agree that nothing half severe enough can be said of this monstrous perversion of learning. But let me remind you that your zeal of denunciation has so carried you away that you have omitted to finish your definition of man.
+
+Petrarch. I thought I had explained sufficiently, but I will be more explicit still. Man is an animal, or rather the chief of all animals. The veriest rustic knows that much. Every schoolboy could tell you also, if you asked him, that man is, moreover, a rational animal and that he is mortal. This definition, then, is a matter of common knowledge.
+
+S. Augustine. No, it is not. Those who are acquainted with it are very few in number.
+
+Petrarch. How so?
+
+S. Augustine. When you can find a man so governed by Reason that all his conduct is regulated by her, all his appetites subject to her alone, a man who has so mastered every motion of his spirit by Reason's curb that he knows it is she alone who distinguishes him from the savagery of the brute, and that it is only by submission to her guidance that he deserves the name of man at all; when you have found one so convinced of his own mortality as to have that always before his eyes, always to be ruling himself by it, and holding perishable things in such light esteem that he ever sighs after that life, which Reason always foresaw, wherein mortality shall be cast away; when you have found such a man, then you may say that he has some true and fruitful idea of what the definition of man is. This definition, of which we were speaking, I said it was given to few men to know, and to reflect upon as the nature of the truth requires.
+
+Petrarch. Hitherto I had believed I was of that number.
+
+S. Augustine. I have no doubt that when you turn over in your mind the many things you have learned, whether in the school of experience or in your reading of books, the thought of death has several times entered your head. But still it has not sunk down into your heart as deeply as it ought, nor is it lodged there as firmly as it should be.
+
+Petrarch. What do you call sinking down into my heart? Though I think I understand, I would like you to explain more clearly.
+
+S. Augustine. This is what I mean. Every one knows, and the greatest philosophers are of the same opinion, that of all tremendous realities Death is the most tremendous. So true is this, that from ever of old its very name is terrible and dreadful to hear. Yet though so it is, it will not do that we hear that name but lightly, or allow the remembrance of it to slip quickly from our mind. No, we must take time to realise it. We must meditate with attention thereon. We must picture to ourselves the effect of death on each several part of our bodily frame, the cold extremities, the breast in the sweat of fever, the side throbbing with pain, the vital spirits running slower and slower as death draws near, the eyes sunken and weeping, every look filled with tears, the forehead pale and drawn, the cheeks hanging and hollow, the teeth staring and discoloured, the nostrils shrunk and sharpened, the lips foaming, the tongue foul and motionless, the palate parched and dry, the languid head and panting breast, the hoarse murmur and sorrowful sigh, the evil smell of the whole body, the horror of seeing the face utterly unlike itself—all these things will come to mind and, so to speak, be ready to one's hand, if one recalls what one has seen in any close observation of some deathbed where it has fallen to our lot to attend. For things seen cling closer to our remembrance than things heard.
+
+And, moreover, it is not without a profound instinct of wisdom that in certain Religious Orders, of the stricter kind, the custom has survived, even down to our own time (though I do not think it makes for good character altogether), of allowing the members to watch the bodies of the dead being washed and put in shrouds for their burial; while the stern professors of the Rule stand by, in order that this sad and pitiful spectacle, thrust forsooth beneath their very eyes, may admonish their remembrance continually, and affright the minds of those who survive from every hope of this transitory world.
+
+This, then, is what I meant by sinking down deeply into the soul. Perchance you never name the name of Death, that so you may fall in with the custom of the time, although nothing is more certain than the fact or more uncertain than the hour. Yet in daily converse you must often speak of things connected with it, only they soon fly out of mind and leave no trace.
+
+Petrarch. I follow your counsel the more readily because now I recognise much in your words that I have myself revolved in my own breast. But please, if you think it well, will you impress some mark on my memory which will act as a warning to me and prevent me from this time henceforth from telling lies to myself and fondling my own mistakes. For this, it seems to me, is what turns men from the right way, that they dream they have already reached the goal, and make therefore no effort any more.
+
+S. Augustine. I like to hear you speak so. Your words are those of a man alert and watchful, who will not bear to be idle and trust to chance. So here is a test which will never play you false: every time you meditate on death without the least sign of motion, know that you have meditated in vain, as about any ordinary topic. But if in the act of meditation you find yourself suddenly grow stiff, if you tremble, turn pale, and feel as if already you endured its pains; if at the same time you seem to yourself as if you were leaving your body behind, and were forced to render up your account before the bar of eternal judgment, of all the words and deeds of your past life, nothing omitted or passed over; that nothing any more is to be hoped for from good looks or worldly position, nothing from eloquence, or riches, or power: if you realise that this Judge takes no bribe and that all things are naked and open in His sight; that death itself will not turn aside for any plea; that it is not the end of sufferings, but only a passage: if you picture to yourself a thousand forms of punishment and pain, the noise and wailing of Hell, the sulphurous rivers, the thick darkness, and avenging Furies,—in a word, the fierce malignity everywhere of that dark abode; and, what is the climax of its horror, that the misery knows no end, and despair thereof itself is everlasting, since the time of God's mercy is passed by; if, I say, all these things rise up before your eyes at once, not as fictions but as truth, not as being possible, but inevitable, and of a surety bound to come, yes, and even now at the door; and if you think on these things, not lightly, nor with desperation, but full of hope in God, and that His strong right hand is able and ready to pluck you out of so great calamities; if you but show yourself willing to be healed and wishful to be raised up; if you cleave to your purpose and persist in your endeavour, then you may be assured you have not meditated in vain.
+
+Petrarch. I will not deny you have terrified me greatly by putting so huge a mass of suffering before my eyes. But may God give me such plenteous mercy as that I may steep my thought in meditations like these; not only day by day, but more especially at night, when the mind, with all its daily interests laid aside, relaxes and is wont to return upon itself. When I lay my body down, as those who die, and my shrinking mind imagines the hour itself with all its horrors is at hand: so intently do I conceive it all, as though I were in the very agony of dying, that I shall seem to be already in the place of torment, beholding what you speak of and every kind of anguish. And so stricken shall I be at that sight, so terrified and affrighted, that I shall rise up (I know it) before my horrified household and cry aloud, "What am I doing? What suffering is this? For what miserable destruction is Fate keeping me alive? Jesu, by Thy mercy,
+
+"Thou whom none yet hath conquered, succour me,"[8]
+
+"Give Thy right hand to me in misery
+Through the dark waves, O bear me up with Thee,
+That dying I may rest and be in peace."[9]
+
+Many other things shall I say to myself, as one in a fever whose mind every chance impression carries hither and thither in his fear; and then I go talking strangely to my friends, weeping and making them weep, and then presently after this we shall return to what we were before. And since these things are so, what is it, I ask, which holds me back? What little hidden obstacle is there which makes it come to pass that hitherto all these meditations avail nothing but to bring me troubles and terrors: and I continue the same man that I have ever been; the same, it may be, as men to whom no reflections like these have ever come? Yet am I more miserable than they, for they, whatever may be their latter end, enjoy at least the pleasures of the present time; but as for me, I know not either what my end will be, and I taste no pleasure that is not poisoned with these embittering thoughts.
+
+S. Augustine. Vex not yourself, I pray you, when you ought rather to rejoice. The more the sinner feels pleasure in his sin, the more unhappy should we think him and the more in need of pity.
+
+Petrarch. I suppose you mean that a man whose pleasures are uninterrupted comes to forget himself, and is never led back into virtue's path; but that he who amid his carnal delights is sometime visited with adversity will come to the recollection of his true condition just in proportion as he finds fickle and wayward Pleasure desert him.
+
+If both kind of life had one and the same end, I do not see why he should not be counted the happier who enjoys the present time and puts off affliction to another day, rather than the man who neither enjoys the present nor looks for any joy hereafter; unless you are perhaps moved by this consideration that in the end the laughter of the former will be changed to more bitter tears?
+
+S. Augustine. Yes, much more bitter. For I have often noticed that if a man throws away the rein of reason altogether (and in the most excessive pleasure of all this is commonly the case), his fall is more dangerous than that of the man who may come rushing down from the same height, but keeps still some hold, though feebly, on the reins. But before all else I attach importance to what you said before, that in the case of the one there is some hope of his conversion, but in that of the other nothing remains but despair.
+
+Petrarch. Yes, that is my view also; in the meanwhile, however, have you not forgotten my first question?
+
+S. Augustine. What was it?
+
+Petrarch. Concerning what keeps me back. I asked you why I am the only one to whom the profound meditation on Death, that you said was so full of benefit, brings no good whatever.
+
+S. Augustine. In the first place it is perhaps because you look on death as something remote, whereas when one thinks how very short life is and how many divers kinds of accidents befall it, you ought not to think death is far away. "What deludes almost all of us," as Cicero says, "is that we regard death from afar off." Some correctors—I would prefer to call them corruptors—of the text have wished to change the reading by inserting a negative before the verb, and have maintained that he ought to have said, "We do NOT regard death from afar off." For the rest, there is no one in his senses who does not see death one way or another, and in reality Cicero's word prospicere means to see from afar. The one thing that makes so many people suffer illusion in their ideas on death is that they are wont to forecast for their own life some limit, which is indeed possible according to nature, but at which, nevertheless, very few arrive. Hardly any one, in fact, dies of whom the poet's line might not be quoted—
+
+"Grey hairs and length of years he for himself
+Expected."[10]
+
+The fault may touch you nearly, for your age, your vigorous constitution and temperate way of life perchance have fostered a like hope in your heart.
+
+Petrarch. Please do not suspect that of me. God keep me from such madness—
+
+"As in that monster false to put my trust!"[11]
+
+If I may borrow the words Virgil puts in the mouth of his famous pilot Palinurus. For I too am cast upon a wide ocean, cruel and full of storms. I sail across its angry waves and struggle with the wind; and the little boat I steer shivers and seems to be letting in the water in every part. I know well she cannot hold out for long, and I see I have no hope at all of safety unless the Almighty Pity put forth His strong right hand and guide my vessel rightly ere it be too late, and bring me to shore—
+
+"So that I who have lived upon the waters may die
+in port."[12]
+
+Of this I think I should have a good hope, because it has never been my lot to put any confidence in those riches and power on which I see so many of my contemporaries, yes, and older men as well, relying. For what folly would it be to pass all one's life in toil and poverty and care, heaping up riches, just to die at last and have no time to enjoy them? So, then, in truth, I regard this dark shadow of death, not as something afar off, but very nigh and ever at the doors. And I have not forgotten a certain little verse I wrote in my youth at the end of a letter to a friend—
+
+"E'en while we speak, along a thousand ways
+With stealthy steps up to our very door
+Death creeps."
+
+If I could say words like these at that time of life, what shall I say now that I am more advanced in age and more experienced in what life is? For everything I see or hear or feel or think seems, unless I deceive myself, connected in my mind with that last end. And yet the question still remains, what is it that holds me back?
+
+S. Augustine. Give humble thanks to God who so regards you and guides you with his merciful rein, and so pricks you with his spur. It is not surely possible, that he who thus has the thought of death before him day by day should ever be doomed to death eternal.
+
+But since you feel, and rightly so, that something still is wanting, I will try and unfold to you what it is, and, if God so please, remove it also; to the end that you may arise and with free, uplifted mind shake off that old bondage that so long has kept you down.
+
+Petrarch. O would that indeed you may prove able so to help me, and I on my part be capable of receiving such a boon!
+
+S. Augustine. It shall be yours if you wish. The thing is not impossible. But in the nature of man's actions two things are required, and if either be wanting, the action will come to nought. There must be will, and that will must be so strong and earnest that it can deserve the name of purpose.
+
+Petrarch. So let it be.
+
+S. Augustine. Do you know what stands in the way of your purpose of heart?
+
+Petrarch. That is what I want to know; what for so long I have earnestly desired to understand.
+
+S. Augustine. Then listen. It was from Heaven your soul came forth: never will I assert a lower origin than that. But in its contact with the flesh, wherein it is imprisoned, it has lost much of its first splendour. Have no doubt of this in your mind. And not only is it so, but by reason of the length of time it has in a manner fallen asleep; and, if one may so express it, forgotten its own beginning and its heavenly Creator.
+
+And these passions that are born in the soul through its connection with the body, and that forgetfulness of its nobler nature, seem to me to have been touched by Virgil with pen almost inspired when he writes—
+
+"The souls of men still shine with heavenly fire,
+That tells from whence they come, save that the flesh
+And limbs of earth breed dullness, hence spring fears,
+Desire, and grief and pleasures of the world,
+And so, in darkness prisoned, they no more
+Look upward to heaven's face."[13]
+
+Do you not in the poet's words discern that monster with four heads so deadly to the nature of man?
+
+Petrarch. I discern very clearly the fourfold passion of our nature, which, first of all, we divide in two as it has respect to past and future, and then subdivide again in respect of good and evil. And so, by these four winds distraught, the rest and quietness of man's soul is perished and gone.
+
+S. Augustine. You discern rightly, and the words of the Apostle are fulfilled in us, which say, "The corruptible body presseth down the soul, and the earthly tabernacle weigheth down the mind that museth upon many things."[14] Of a truth the countless forms and images of things visible, that one by one are brought into the soul by the senses of the body, gather there in the inner centre in a mass, and the soul, not being akin to these or capable of learning them, they weigh it down and overwhelm it with their contrariety. Hence that plague of too many impressions tears apart and wounds the thinking faculty of the soul, and with its fatal, distracting complexity bars the way of clear meditation, whereby it would mount up to the threshold of the One Chief Good.
+
+Petrarch. You have spoken admirably of that plague in many places, and especially in your book on True Religion (with which it is, indeed, quite incompatible). It was but the other day that I lighted on that work of yours in one of my digressions from the study of philosophy and poetry, and it was with very great eagerness that I began to peruse it. Indeed, I was like a man setting out from his own country to see the world, and coming to the gate of some famous city quite new to him, where, charmed by the novelty of all around, he stops now here, now there, and looks intently on all that meets his gaze.
+
+S. Augustine. And yet in that book, allowing for a difference of phraseology such as becomes a teacher of catholic truth, you will find a large part of its doctrine is drawn from philosophers, more especially from those of the Platonist and Socratic school. And, to keep nothing from you, I may say that what especially moved me to undertake that work was a word of your favourite Cicero. God blessed that work of mine so that from a few seeds there came an abundant harvest. But let us come back to the matter in hand.
+
+Petrarch. As you wish; but, O best of Fathers, do not hide from me what that word was which gave you the starting-point of so excellent a work.
+
+S. Augustine. It was the passage where in a certain book Cicero says, by way of expressing his detestation of the errors of his time: "They could look at nothing with their mind, but judged everything by the sight of their eyes; yet a man of any greatness of understanding is known by his detaching his thought from objects of sense, and his meditations from the ordinary track in which others move."[15] This, then, I took as my foundation, and built upon it the work which you say has given you pleasure.
+
+Petrarch. I remember the place; it is in the Tusculan Orations. I have been delighted to notice what a habit it is of yours to quote those words here and elsewhere in your works; and they deserve it, for they are words that seem to blend in one phrase truth and dignity and grace. Now, since it seems good to you, pray return to our subject.
+
+S. Augustine. This, then, is that plague that has hurt you, this is what will quickly drive you to destruction, unless you take care. Overwhelmed with too many divers impressions made on it, and everlastingly fighting with its own cares, your weak spirit is crushed so that it has not strength to judge what it should first attack or to discern what to cherish, what to destroy, what to repel; all its strength and what time the niggard hand of Fate allows are not sufficient for so many demands. So it suffers that same evil which befalls those who sow too many seeds in one small space of ground.
+
+As they spring up they choke each other. So in your overcrowded mind what there is sown can make no root and bear no fruit. With no considered plan, you are tossed now here now there in strange fluctuation, and can never put your whole strength to anything. Hence it happens that whenever the generous mind approaches (if it is allowed) the contemplation of death, or some other meditation that might help it in the path of life, and penetrates by its own acumen to the depths of its own nature, it is unable to stand there, and, driven by hosts of various cares, it starts back. And then the work, that promised so well and seemed so good, flags and grows unsteady; and there comes to pass that inward discord of which we have said so much, and that worrying torment of a mind angry with itself; when it loathes its own defilements, yet cleanses them not away; sees the crooked paths, yet does not forsake them; dreads the impending danger, yet stirs not a step to avoid it.
+
+Petrarch. Ah, woe is me! Now you have probed my wound to the quick. There is the seat of my pain, from there I fear my death will come.
+
+S. Augustine. It is well. You are awakening to life. But as we have now prolonged our discussion enough for to-day, let us, if you will, defer the rest until to-morrow, and let us take a breathing space in silence.
+
+Petrarch. Yes, I am tired somewhat, and most gladly shall I welcome quiet and rest.
+
+[1]Æneid, ix. 641.
+
+[2]S. Augustine Confessions, viii. 8.
+
+[3]S. Augustine Confessions, viii. 12.
+
+[4]Æneid, iv. 449.
+
+[5]Publius Cyrus.
+
+[6]Ovid, Pontic., III i. 35.
+
+[7]Horace, Epist., I. 18, 83.
+
+[8]Æneid, vi 365.
+
+[9]Ibid., vi 370.
+
+[10]Æneid, x. 649.
+
+[11]Ibid., v. 849.
+
+[12]Seneca, Letters, xix.
+
+[13]Æneid, vi. 730-34.
+
+[14]Book of wisdom, ix. 15
+
+[15]Tusculan Orations, i. 16.
+
+DIALOGUE THE SECOND
+S. AUGUSTINE—PETRARCH
+S. Augustine. Well, have we rested long enough?
+
+Petrarch. Certainly, if it so please you.
+
+S. Augustine. Let me hear if you feel now in good heart and confidence. For when a man has been ill, a hopeful spirit in him is no small sign of returning health.
+
+Petrarch. What hope I have is no whit in myself: God is my hope.
+
+S. Augustine. It is wisely spoken. And now I return to our theme. Many things are against you, many temptations assail, but you yourself still seem ignorant both of their numbers and their strength. And what in warfare generally happens to one who, from a distance, sees some closely marshalled battalion, has happened to you. Such a man is often deceived into thinking his foes fewer in number than they are. But when they draw nearer, when they have deployed their serried ranks before his eyes in all their martial pomp, then his fears soon increase, and he repents him of his boldness. So likewise will it be with you when I shall display before your eyes, on this side and on that, all the evils that are pressing upon you and hemming you in from every quarter. You will be ashamed of your own boldness, you will be sorry you were so light-hearted, and begin to bewail that in its sore straits your soul has been unable to break through the wedged phalanx of your foes. You will discover presently how many foolish fancies of too easy victory you have let come into your mind, excluding that wholesome dread to which I am endeavouring to bring you.
+
+Petrarch. Indeed, you make me horribly afraid. That my danger was great I have always been aware; and now, in spite of this, you tell me I have very much under-estimated it, and indeed that, compared with what they should be, my fears have been nothing at all. What hope have I then left?
+
+S. Augustine. It is never time to despair. Be sure of that. Despair is the very last and worst of evils, and therefore I would have you make it a first principle to put it away wholly.
+
+Petrarch. I knew the truth of the maxim, but in my dread forgot it at the moment.
+
+S. Augustine. Now give me all your attention, look and listen while I recall words of your favourite seer.
+
+"Behold what foemen gather round your walls
+And at your gates make sharp their gleaming sword
+To murder you and yours."[1]
+
+Look what snares the world spreads for you; what vanities it dangles before your eyes; what vain cares it has to weigh you down. To begin at the beginning, consider what made those most noble spirits among all creatures fall into the abyss of ruin; and take heed lest in like manner you also fall after them. All your forethought, all your care will be needed to save you from this danger. Think how many temptations urge your mind to perilous and soaring flights. They make you dream of nobleness and forget your frailty; they choke your faculties with fumes of self-esteem, until you think of nothing else; they lead you to wax so proud and confident in your own strength that at length you hate your Creator. So you live for self-pleasing and imagine that great things are what you deserve. Whereas if you had a truer remembrance, great blessings ought to make you not proud but humble, when you realise that they came to you for no merit of your own. What need for me to speak of the Eternal Lord God when even to earthly lords men feel their minds more humbly bound if they experience any bounty of theirs which they are conscious of being undeserved. Do we not see them striving to merit afterwards what they feel they should have earned before?
+
+Now let your mind realise, as it easily can, on what paltry grounds your pride is set up. You trust in your intellect; you boast of what eloquence much reading has given you; you take pleasure in the beauty of your mortal body. Yet do you not feel that in many things your intellect fails you? Are there not many things in which you cannot rival the skill of the humblest of mankind? Nay, might I not go further and, without mentioning mankind, may I not say that with all your labour and study you will find yourself no match in skill for some of the meanest and smallest of God's creatures? Will you boast, then, of intellect after that? And as for reading, what has it profited you? Of the multitude of things you have perused how many have remained in your mind? How many have struck root and borne fruit in due season? Search well your heart and you will find that the whole of what you know is but like a little shrunken stream dried by the summer heat compared to the mighty ocean.
+
+And of what relevance is it to know a multitude of things? Suppose you shall have learned all the circuits of the heavens and the earth, the spaces of the sea, the courses of the stars, the virtues of herbs and stones, the secrets of nature, and then be ignorant of yourself? Of what profit is it? If by the help of Scripture you shall have discovered the right and upward path, what use is it if wrath and passion make you swerve aside into the crooked, downward way? Supposing you shall have learned by heart the deeds of illustrious men of all the ages, of what profit will it be if you yourself day by day care not what you do?
+
+What need for me to speak of eloquence? Will not you yourself readily confess how often the putting any confidence in this has proved vain? And, moreover, what boots it that others shall approve what you have said if in the court of your own conscience it stands condemned? For though the applause of those who hear you may seem to yield a certain fruit which is not to be despised, yet of what worth is it after all if in his heart the speaker himself is not able to applaud? How petty is the pleasure that comes from the plaudits of the multitude! And how can a man soothe and flatter others unless he first soothe and flatter himself? Therefore you will easily understand how often you are deluded by that glory you hope for from your eloquence, and how your pride therein rests but upon a foundation of wind. For what can be more childish, nay, might I not say more insane, than to waste time and trouble over matters where all the things themselves are worthless and the words about them vain? What worse folly than to go on blind to one's real defects, and be infatuated with words and the pleasure of hearing one's own voice, like those little birds they tell of who are so ravished with the sweetness of their own song that they sing themselves to death? And furthermore, in the common affairs of every-day life does it not often happen to you to find yourself put to the blush to discover that in the use of words you are no match even for some whom you think are very inferior men? Consider also how in Nature there are many things for which names are altogether wanting, and many more to which names have indeed been given, but to express the beauty of them—as you know by experience—words are altogether inadequate. How often have I heard you lament, how often seen you dumb and dissatisfied, because neither your tongue nor your pen could sufficiently utter ideas, which nevertheless to your reflecting mind were very clear and intelligible?
+
+What, then, is this Eloquence, so limited and so weak, which is neither able to compass and bring within its scope all the things that it would, nor yet to hold fast even those things that it has compassed?
+
+The Greeks reproach you, and you in turn the Greeks, with having a paucity of words. Seneca, it is true, accounts their vocabulary the richer, but Cicero at the beginning of his treatise On the Distinctions of Good and Evil makes the following declaration, "I cannot enough marvel whence should arise that insolent scorn of our national literature. Though this is not the place to discuss it, yet I will express my conviction, which I have often maintained, not only that the Latin tongue is not poor, as it is the fashion to assert, but that it is, in fact, richer than the Greek;"[2] and as he frequently repeats elsewhere the same opinion, so, especially in the Tusculan Orations, he exclaims, "Thou Greek that countest thyself rich in words, how poor art thou in phrases."[3]
+
+This is the saying, mark you, of one who know quite well that he was the prince of Latin oratory, and had already shown that he was not afraid to challenge Greece for the palm of literary glory. Let me add that Seneca, so notable an admirer of the Greek tongue, says in his Declamations, "All that Roman eloquence can bring forward to rival or excel the pride of Greece is connected with the name of Cicero."[4] A magnificent tribute, but unquestionably true!
+
+There is, then, as you see, on the subject of the primacy in Eloquence a very great controversy, not only between you and the Greeks, but among our own most learned writers themselves. There are in our camp those who hold for the Greeks, and it may be among them there are some who hold for us, if at least we may judge from what is reported of the illustrious philosopher Plutarch. In a word, Seneca, who is ours, while doing all justice to Cicero, gives his final verdict for the Greeks, notwithstanding that Cicero is of the contrary opinion.
+
+As to my own opinion on the question in debate, I consider that both parties to the controversy have some truth on their side when they accuse both Latin and Greek of poverty of words: and if this judgment be correct in regard to two such famous languages, what hope is there for any other?
+
+Bethink you therefore what sort of confidence you can have in your own simple powers when the whole resources of that people of which you are but a little part are adjudged poor, and how ashamed you should be to have spent so much time in pursuing something which cannot be attained, and which, if it could be, would prove after all but vanity itself.
+
+I will pass on to other points. Are you perhaps inclined to plume yourself on your physical advantages? But think what a thread they hang upon! What is it you are most pleased with in this way? Is it your good health and strength? But truly nothing is more frail. It is proved by the fatigue you suffer from even little things. The various maladies to which the body is liable; the stings of insects; a slight draught of air, and a thousand other such small vexations all tell the same tale. Will you perchance be taken in by your own good-looking face, and when you behold in the glass your smooth complexion and comely features are you minded to be smitten, entranced, charmed? The story of Narcissus has no warning for you, and, content with gazing only at the outward envelope of the body, you consider not that the eyes of the mind tell you how vile and plain it is within. Moreover, if you had no other warning, the stormy course of life itself, which every day robs you of something, ought to show you how transient and perishing that flower of beauty is. And if, perhaps, which you will hardly dare affirm, you fancy yourself invincible by age, by illness, and whatever else may change the grace of bodily form, you have at least not forgotten that Last Enemy which destroys all, and you will do well to engrave in your inmost heart and mind this word of the satirist—
+
+"'Tis death alone compels us all to see
+What little things we are."[5]
+
+Here, unless I am mistaken, are the causes that inflate your mind with pride, forbid you to recognise your low estate, and keep you from the recollection of death. But others there still are that I now propose to pass in review.
+
+Petrarch. Stop a little, I beg you, lest, overwhelmed by the weight of so many reproaches, I have no strength or spirit to reply.
+
+S. Augustine. By all means say on. Gladly will I hold my peace.
+
+Petrarch. You have astonished me not a little by casting in my teeth a multitude of things of which I am perfectly sure they have never entered my head at all. You allege that I trusted in my own intelligence. But surely the one sign I have given of possessing some little intelligence is that never have I counted on that faculty at all. Shall I pride myself on much reading of books, which with a little wisdom has brought me a thousand anxieties? How can you say I have sought the glory of eloquence, I, who, as you yourself acknowledged a moment ago, am wont above all things to complain that speech is inadequate to my thoughts? Unless you wish to try and prove the contrary, I may say that you know I am always conscious of my own littleness, and that if by chance I have ever thought myself to be anything, such a thought has come but rarely and then only from seeing the ignorance of other men; for, as I often remark, we are reduced to acknowledge, according to Cicero's celebrated phrase, that "what powers we may possess come rather from the feebleness of others than from any merit in ourselves."
+
+But even were I endowed as richly as you imagine with those advantages of which you speak, what is there so magnificent about them that I should be vain? I am surely not so forgetful of myself nor so feather-brained as to let myself trouble about cares of that sort. For what use in the world are intellect, knowledge, eloquence, if they can bring no healing to a soul diseased? I remember having given expression already in one of my letters to my sad sense of this truth.
+
+As to what you remarked with an air of quasi gravity about my physical advantages, I must confess it makes me smile. That I of all men should be thought to have plumed myself on my mortal and perishing body, when every day of my life I feel in it the ravages of time at work! Heaven save me from such folly!
+
+I will not deny that in the days of my youth I took some care to trim my head and to adorn my face; but the taste for that kind of thing has gone with my early years, and I recognise now the truth of that saying of the Emperor Domitian who, writing of himself in a letter to a lady friend, and complaining of the too swift decay of the goodliness of man, said, "Know you that nothing is so sweet, but nothing also is so fleeting, as the beauty of the body."[6]
+
+S. Augustine. It would be an easy task to refute all you have advanced, but I prefer that your own conscience should send the shaft of shame to your heart rather than words of mine. I will not labour the point or draw the truth from you by torture; but as those who take revenge magnanimously, I will merely prefer a simple request that you will continue to avoid what you profess you have hitherto avoided.
+
+If by any chance the fashion of your countenance should at any time have stirred the least motion of conceit, then I beg you to reflect what soon those bodily members must become, though now they please your eye: think how their destiny is to be foul and hideous, and what repulsion they would cause even in yourself were you able to see them then. Then call often to mind this maxim of the Philosopher: "I was born for some higher destiny than to be the slave of my body."[7] Assuredly it is the very climax of folly to see men neglect their real selves in order to cosset the body and limbs in which they dwell. If a man is imprisoned for a little while in some dungeon, dark, damp, and dirty, would he not seem to have lost his senses if he did not shield himself as far as he was able from any contact with the walls and soil? And with the expectation of freedom would he not eagerly listen for the footsteps of his deliverer? But if giving up that expectation, covered with filth and plunged in darkness, he dreads to leave his prison; if he turns all his attention to painting and adorning the walls which shut him in, in a vain endeavour to counteract the nature of his dripping prison-house, will he not rightly be counted a wretched fool?
+
+Well, you yourself know and love your prison-house, wretched that you are! And on the very eve of your issuing or being dragged therefrom you chain yourself more firmly in it, labouring to adorn what you ought to despise, if you would follow the advice you yourself had tendered to the father of the great Scipio in your poem called Africa.
+
+"The bonds and fetters known and suffered long,
+The clogs on liberty are hateful to us,
+And the new freedom now attained we love."[8]
+
+Wonderful is it if you made others give the counsel which you yourself refuse! But I cannot disguise from you one word in your discourse which to you may seem very humble, but to me seems full of pride and arrogance.
+
+Petrarch. I am sorry if I have in any way expressed myself arrogantly, but if the spirit is the true rule of one's deeds and words, then my own bears me witness that I intended nothing in that sense.
+
+S. Augustine. To depreciate others is a kind of pride more intolerable than to exalt oneself above one's due measure; I would much rather see you exalt others and then put yourself above them than degrade all the world in a heap at your feet, and by a refinement of pride fashion for yourself a shield of humanity out of scorn for your neighbour.
+
+Petrarch. Take it how you will, I profess but small esteem either for others or myself. I am ashamed to tell you what experience has made me think of the majority of mankind.
+
+S. Augustine. It is very prudent to despise oneself; but it is very dangerous and very useless to despise others. However, let us proceed. Are you aware of what still makes you turn from the right way?
+
+Petrarch. Pray say anything you like, only do not accuse me of envy.
+
+S. Augustine. Please God may pride have done you as little hurt as envy! So far as I judge, you have escaped this sin, but I have others whereof to accuse you.
+
+Petrarch. Still you will not vex me whatever reproaches you may bring. Tell me freely everything that leads me astray.
+
+S. Augustine. The desire of things temporal.
+
+Petrarch. Come, come! I truly have never heard anything so absurd.
+
+S. Augustine. There! you see everything vexes you. You have forgotten your promise. This is not, however, any question of envy.
+
+Petrarch. No, but of cupidity, and I do not believe there is a man in the world more free of this fault than myself.
+
+S. Augustine. You are great at self-jus…"
