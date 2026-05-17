@@ -1372,7 +1372,8 @@ def render_part1():
                     
                     if "error" in res: st.error(res["error"])
                     else:
-                        st.session_state.p1_channel_search_results = res.get("results", [])
+                        raw = res.get("results", [])
+                        st.session_state.p1_channel_search_results = [r for r in raw if "youtube.com" in r.get("url","")]
                         st.success("[TARGET] 채널 검색 완료! 아래 목록에서 가장 적합한 채널을 선택하세요.")
         
         if st.session_state.p1_channel_search_results:
