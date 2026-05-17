@@ -207,3 +207,52 @@ def check_ollama_status() -> dict:
     except Exception as e:
         result["error"] = str(e)
     return result
+
+def youtube_search_channels(query: str, api_key: str, max_results: int = 5) -> list:
+    """구독자 적고 조회수 높은 심리/철학 채널 검색"""
+    try:
+        import requests
+        # 채널 검색
+        search_url = "https://www.googleapis.com/youtube/v3/search"
+        search_params = {
+            "part": "snippet",
+            "q": query,
+            "type": "channel",
+            "maxResults": max_results * 3,
+            "key": api_key,
+            "relevanceLanguage": "ko"
+        }
+        res = requests.get(search_url, params=search_params, timeout=10)
+        items = res.json().get("items", [])
+        channel_ids = [i["snippet"]["channelId"] for i in items]
+        if not channel_ids:
+            return []
+        # 채널 통계 조회
+        stats_url = "https://www.googleapis.com/youtube/v3/channels"
+        stats_params = {
+            "part": "snippet,statistics",
+            "id": ",".join(channel_ids),
+            "key": api_key
+        }
+        stats_res = requests.get(stats_url, params=stats_params, timeout=10)
+        channels = []
+        for ch in stats_res.json().get("items", []):
+            stats = ch.get("statistics", {})
+            subs = int(stats.get("subscriberCount", 0))
+            views = int(stats.get("viewCount", 0))
+            if subs == 0:
+                continue
+            ratio = views / subs
+            channels.append({
+                "title": ch["snippet"]["title"],
+                "url": f"https://www.youtube.com/channel/{ch['id']}",
+                "subscribers": subs,
+                "views": views,
+                "ratio": round(ratio, 1),
+                "description": ch["snippet"].get("description", "")[:100]
+            })
+        # 구독자 적고 조회수 비율 높은 순 정렬
+        channels.sort(key=lambda x: x["ratio"], reverse=True)
+        return channels[:max_results]
+    except Exception as e:
+        return [{"error": str(e)}]

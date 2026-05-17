@@ -3,7 +3,7 @@
 sage_config.py — 현자의 거울 스튜디오 v7.1 핵심 설정
 """
 
-APP_TITLE = "🪞 현자의 거울 스튜디오 (Sage's Mirror Studio)"
+APP_TITLE = "[MIRROR] 현자의 거울 스튜디오 (Sage's Mirror Studio)"
 MASTER_PW_DEFAULT = "master1234"
 PART_PINS = {f"part{i}": "7777" for i in range(1, 9)}
 OLLAMA_MODEL = "gemma4:e2b"
