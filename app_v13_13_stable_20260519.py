@@ -2425,26 +2425,27 @@ def render_part5_image():
     with tab_c: _p5_tab_c(is_locked)
     with tab_v: _p5_tab_v()
     st.divider()
-with st.expander("[BOOK] 크롬 확장 프로그램 전체 작업 순서 (섹션 F)", expanded=False):
-    st.markdown("""
-**PREP-01**: 구글 플로우 접속 -> 새 플로우 생성 "현자의거울_EP001_이미지생성"
-**PREP-02**: A-MASTER.txt -> A_Protagonist_Master.png 생성 -> 저장
-**PREP-03**: B-MASTER.txt -> B_Environment_Master.png 생성 -> 저장
-**PREP-04**: 크롬 확장 Slot 1 = A_Protagonist_Master.png **PIN 고정 [LOCK]**
-**PREP-05**: 크롬 확장 Slot 2 = B_Environment_Master.png **PIN 고정 [LOCK]**
-**PREP-06**: 젬마 프로토콜 로딩 선언 확인
+    with st.expander("[BOOK] 크롬 확장 프로그램 전체 작업 순서 (섹션 F)", expanded=False):
+          st.markdown("""
+          **PREP-01**: 구글 플로우 접속 -> 새 플로우 생성 "현자의거울_EP001_이미지생성"
+          **PREP-02**: A-MASTER.txt -> A_Protagonist_Master.png 생성 -> 저장
+          **PREP-03**: B-MASTER.txt -> B_Environment_Master.png 생성 -> 저장
+          **PREP-04**: 크롬 확장 Slot 1 = A_Protagonist_Master.png **PIN 고정 [LOCK]**
+          **PREP-05**: 크롬 확장 Slot 2 = B_Environment_Master.png **PIN 고정 [LOCK]**
+          **PREP-06**: 젬마 프로토콜 로딩 선언 확인
 
----
+         ---
 
-**씬별 루틴 (001~112 반복)**:
-STEP-01: CSV에서 해당 씬 영어프롬프트 복사
-STEP-02: 크롬 확장 Prompt 슬롯에 붙여넣기 (Slot 1,2 PIN 상태 확인)
-STEP-03: Output filename = scene_XXX.png
-STEP-04: Generate -> 대기
-STEP-05: 검수 (수염/복장/조명/소품/16:9) -> 합격/재생성
-STEP-06: 5씬마다 PIN 상태 재확인
-STEP-07: 다음 씬 (+1) 반복
-""")
+          **씬별 루틴 (001~112 반복)**:
+          STEP-01: CSV에서 해당 씬 영어프롬프트 복사
+          STEP-02: 크롬 확장 Prompt 슬롯에 붙여넣기 (Slot 1,2 PIN 상태 확인)
+          STEP-03: Output filename = scene_XXX.png
+          STEP-04: Generate -> 대기
+          STEP-05: 검수 (수염/복장/조명/소품/16:9) -> 합격/재생성
+          STEP-06: 5씬마다 PIN 상태 재확인
+          STEP-07: 다음 씬 (+1) 반복
+          """)
+
 # =====================================================================
 # Part 5 — render_part6_video() 메인 함수
 # =====================================================================
