@@ -1372,8 +1372,19 @@ def render_part1():
     with c_right:
         st.markdown("##### [SEARCH] 떡상 채널 발굴용 탐색기")
         st.caption("AI 카피를 배제한 순수 인간 운영의 최고 조회수 채널 여러 개를 검색하여 검토합니다.")
-        search_kw = st.text_input("검색 키워드 (가이드라인 기반 자동 세팅)", value="50대 심리 철학 위로 채널", disabled=is_locked)
+
+        search_kw = st.text_input(
+              "검색 키워드 (가이드라인 기반 자동 세팅)", 
+              value=st.session_state.get(
+                    "p1_search_keyword",
+                    "human operated psychology philosophy life advice channel for age 40 50 60 70 high engagement longform"
+               ),
+              disabled=is_locked
+         )
+
+        st.session_state.p1_search_keyword = search_kw
         
+  
         if st.button("🌐 전 세계 채널 5개 탐색 및 리스트업 (Tavily)", disabled=is_locked, use_container_width=True):
             if not st.session_state.tavily_api_key:
                 st.error("좌측 사이드바 '⚙️ 설정 변경'에서 Tavily API Key를 먼저 입력하세요.")
