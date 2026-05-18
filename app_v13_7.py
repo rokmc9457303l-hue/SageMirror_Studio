@@ -238,109 +238,6 @@ def save_workspace_state():
         st.error(f"Save error: {e}")
         return False
 
-def auto_save_topic_memory(topic_title, obsidian_path):
-
-    try:
-        safe_title = re.sub(r'[\\/*?:"<>|]', "_", topic_title)
-
-        topic_memory_dir = os.path.join(
-            obsidian_path,
-            "Studio",
-            "TopicMemory"
-        )
-
-        safe_makedirs(topic_memory_dir)
-
-        md_path = os.path.join(
-            topic_memory_dir,
-            f"{safe_title}.md"
-        )
-
-        md = f"""---
-tags:
-  - sage_mirror
-  - topic_memory
-  - psychology
-  - philosophy
-
-source:
-  - youtube
-  - gemma
-
-priority: high
-created: {datetime.now().strftime("%Y-%m-%d")}
----
-
-# [[{topic_title}]]
-
-## 📌 Brief Summary
-자동 저장된 선택 주제 메모입니다.
-
-## 🎯 Selected Topic
-{topic_title}
-
-"""
-
-        return save_markdown(md_path, md)
-
-    except Exception as e:
-        st.error(f"Topic memory save error: {e}")
-        return False
-
-def auto_save_research_memory(topic_title, research_text, obsidian_path):
-
-    try:
-        safe_title = re.sub(r'[\\/*?:"<>|]', "_", topic_title)
-
-        research_dir = os.path.join(
-            obsidian_path,
-            "Studio",
-            "ResearchMemory"
-        )
-
-        safe_makedirs(research_dir)
-
-        md_path = os.path.join(
-            research_dir,
-            f"{safe_title}_research.md"
-        )
-
-        md = f"""---
-tags:
-  - sage_mirror
-  - research_memory
-  - psychology
-  - philosophy
-  - longform
-
-source:
-  - youtube
-  - gemma
-  - obsidian
-
-priority: high
-created: {datetime.now().strftime("%Y-%m-%d")}
----
-
-# [[{topic_title}]]
-
-## 📌 Research Summary
-자동 저장된 자료조사 메모입니다.
-
-## 🎯 Topic
-{topic_title}
-
-## 📖 Research Content
-{research_text}
-
-"""
-
-        return save_markdown(md_path, md)
-
-    except Exception as e:
-        st.error(f"Research memory save error: {e}")
-        return False
-
 def load_workspace_state():
     if os.path.exists(WORKSPACE_STATE_FILE):
         try:
@@ -1612,31 +1509,6 @@ def render_part1():
 
                 st.session_state.pipeline_state["selected_topic"] = st.session_state.p1_topic_selection
 
-                auto_save_topic_memory(
-                    st.session_state.p1_topic_selection,
-                    st.session_state.path_obsidian
-                )
-
-source:
-  - youtube
-  - gemma
-
-priority: high
-created: {datetime.now().strftime("%Y-%m-%d")}
----
-
-# [[{st.session_state.p1_topic_selection}]]
-
-## 📌 Brief Summary
-자동 저장된 선택 주제 메모입니다.
-
-## 🎯 Selected Topic
-{st.session_state.p1_topic_selection}
-
-"""
-
-                save_markdown(topic_memory_path, topic_memory_md)
-
                 with st.expander("추출된 20개 상세 결과 보기"):
                     for t in st.session_state.p1_topics:
                         st.markdown(f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}")
@@ -1657,12 +1529,6 @@ created: {datetime.now().strftime("%Y-%m-%d")}
                               st.session_state.p1_gemma_protocol, st.session_state.base_prompt_rules
                         )
             
-                    auto_save_research_memory(
-                          topic_str,
-                          st.session_state.p1_research_result,
-                          st.session_state.path_obsidian
-                      )
-
                     st.session_state.pipeline_state["research_result"] = st.session_state.p1_research_result
 
             if st.session_state.p1_research_result:
