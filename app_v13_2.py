@@ -1491,10 +1491,16 @@ def render_part1():
                     st.error("[WARN] 우측 상단에서 채널을 먼저 검색하거나 URL을 입력해 주세요.")
                 else:
                     with st.spinner("채널 분석 중... (200개 댓글 공감 포인트 참조)"):
-                        st.session_state.p1_topics = analyze_channel_to_topics(
-                            st.session_state.p1_channel_url, st.session_state.p1_region, 
-                            st.session_state.obsidian_rules, st.session_state.base_prompt_rules, st.session_state.p1_gemma_protocol
-                        )
+
+                         st.session_state.p1_topics = analyze_channel_to_topics(
+                              st.session_state.p1_channel_url,
+                              st.session_state.p1_region, 
+                              st.session_state.obsidian_rules, 
+                              st.session_state.base_prompt_rules, 
+                              st.session_state.p1_gemma_protocol
+                         )
+
+                         st.session_state.pipeline_state["topic_candidates"] = st.session_state.p1_topics
             
             if st.session_state.p1_topics:
                 st.markdown("<br>", unsafe_allow_html=True)
