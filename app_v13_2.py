@@ -249,6 +249,19 @@ def load_workspace_state():
 # =====================================================================
 # 2. 세션 상태 초기화
 # =====================================================================
+if "pipeline_state" not in st.session_state:
+    st.session_state["pipeline_state"] = {
+        "channel_search_results": [],
+        "selected_channel": {},
+        "channel_analysis": {},
+        "comment_analysis": {},
+        "topic_candidates": [],
+        "selected_topic": "",
+        "research_notes": {},
+        "planning_result": {},
+        "script_result": {}
+    }
+
 DEFAULT_OBSIDIAN_RULES_V81 = """# [BOOK] 현자의 거울 스튜디오 — 옵시디언 지식 구조화 규칙서 v2.0
 ## 대본 파트 좌측 상단 | Obsidian RAG 연동 전용
 
