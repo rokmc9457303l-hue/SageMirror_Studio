@@ -1509,6 +1509,8 @@ def render_part1():
 
                 st.session_state.pipeline_state["selected_topic"] = st.session_state.p1_topic_selection
 
+                selected_topic_safe = re.sub(r'[\\/*?:"<>|]', "_", st.session_state.p1_topic_selection)
+
                 with st.expander("추출된 20개 상세 결과 보기"):
                     for t in st.session_state.p1_topics:
                         st.markdown(f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}")
