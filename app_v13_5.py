@@ -238,55 +238,6 @@ def save_workspace_state():
         st.error(f"Save error: {e}")
         return False
 
-def auto_save_topic_memory(topic_title, obsidian_path):
-
-    try:
-        safe_title = re.sub(r'[\\/*?:"<>|]', "_", topic_title)
-
-        topic_memory_dir = os.path.join(
-            obsidian_path,
-            "Studio",
-            "TopicMemory"
-        )
-
-        safe_makedirs(topic_memory_dir)
-
-        md_path = os.path.join(
-            topic_memory_dir,
-            f"{safe_title}.md"
-        )
-
-        md = f"""---
-tags:
-  - sage_mirror
-  - topic_memory
-  - psychology
-  - philosophy
-
-source:
-  - youtube
-  - gemma
-
-priority: high
-created: {datetime.now().strftime("%Y-%m-%d")}
----
-
-# [[{topic_title}]]
-
-## 📌 Brief Summary
-자동 저장된 선택 주제 메모입니다.
-
-## 🎯 Selected Topic
-{topic_title}
-
-"""
-
-        return save_markdown(md_path, md)
-
-    except Exception as e:
-        st.error(f"Topic memory save error: {e}")
-        return False
-
 def load_workspace_state():
     if os.path.exists(WORKSPACE_STATE_FILE):
         try:
@@ -1557,31 +1508,6 @@ def render_part1():
                 st.session_state.p1_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked)
 
                 st.session_state.pipeline_state["selected_topic"] = st.session_state.p1_topic_selection
-
-                auto_save_topic_memory(
-                    st.session_state.p1_topic_selection,
-                    st.session_state.path_obsidian
-                )
-
-source:
-  - youtube
-  - gemma
-
-priority: high
-created: {datetime.now().strftime("%Y-%m-%d")}
----
-
-# [[{st.session_state.p1_topic_selection}]]
-
-## 📌 Brief Summary
-자동 저장된 선택 주제 메모입니다.
-
-## 🎯 Selected Topic
-{st.session_state.p1_topic_selection}
-
-"""
-
-                save_markdown(topic_memory_path, topic_memory_md)
 
                 with st.expander("추출된 20개 상세 결과 보기"):
                     for t in st.session_state.p1_topics:
