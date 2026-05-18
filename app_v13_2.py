@@ -17,6 +17,8 @@ from pathlib import Path
 from datetime import datetime
 import pandas as pd
 
+from obsidian_search import simple_keyword_search
+
 try:
     from git import Repo
     GIT_AVAILABLE = True
@@ -1446,7 +1448,36 @@ def render_part1():
         st.session_state.p1_region = st.selectbox("타겟 지역", ["국내+국외 모두", "국내 우선", "국외 우선"], disabled=is_locked)
 
     st.divider()
+       
+    st.subheader("🔍 Obsidian 감정 기반 검색")
 
+    obsidian_query = st.text_input(
+        "감정 / 철학 / 성경 / 인간 결핍 검색",
+        placeholder="예: 외로움, 존재의미, 고통, 용서",
+        key="p1_obsidian_search_query"
+    )
+
+    if st.button("🔎 옵시디언 검색", use_container_width=True, key="p1_obsidian_search_btn"):
+        results = simple_keyword_search(
+            st.session_state.path_obsidian,
+            obsidian_query,
+            top_k=10
+        )
+
+        if not results:
+            st.warning("검색 결과가 없습니다.")
+        else:
+            st.session_state.pipeline_state["obsidian_search_results"] = results
+
+            for r in results:
+                with st.container(border=True):
+                    st.markdown(f"### 📘 {r['title']}")
+                    st.caption(f"점수: {r['score']}")
+                    st.code(r["path"])
+                    st.text(r["preview"][:400])
+
+   
+    st.divider()
     st.subheader("⚙️ Step 2. 현자의 거울 3단 분석 엔진 (하단 3분할)")
     c_bench, c_research, c_plan = st.columns(3, gap="large")
     

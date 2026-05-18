@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#쇼펜하우어와",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,7 +74,8 @@
               "title": "북마크"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -181,8 +182,10 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "c27a8b310516079c",
+  "active": "287d8a1eba5723e9",
   "lastOpenFiles": [
+    "맹목적인 생의 의지 (Blind Will to Live).md",
+    "Archive_Knowledge/쇼펜하우어와 빅터 프랭클 연구노트.md",
     "sessions/session_20260515_1950_v13_3.md",
     "sessions/session_20260515_1910_v13.2.4.md",
     "sessions/session_20260515_1802_v13.2.md",
@@ -193,7 +196,6 @@
     "Bible/The_Holy_Bible.md",
     "Bible",
     "Archive_Knowledge/무제 1.md",
-    "Archive_Knowledge/쇼펜하우어와 빅터 프랭클 연구노트.md",
     "Archive_Knowledge/고전문헌_아카이브/pg274-images.md",
     "Archive_Knowledge/50_Bible_TTS_Scripts.md",
     "Archive_Knowledge/01_철학_심리_연구노트",
@@ -211,7 +213,6 @@
     "00_Raw/conversations/2026-05-05.md",
     "Archive_Knowledge/고전문헌_아카이브/pg9662-images.md",
     "Archive_Knowledge/고전문헌_아카이브/pg908-images.md",
-    "Archive_Knowledge/고전문헌_아카이브/pg884-images.md",
     "Archive_Knowledge/고전문헌_아카이브/Attachments/cover 39.jpg",
     "Archive_Knowledge/고전문헌_아카이브/Attachments/logo 4.jpg",
     "Archive_Knowledge/고전문헌_아카이브/Attachments/cover 38.jpg",
