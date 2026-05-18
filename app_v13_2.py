@@ -1392,9 +1392,9 @@ def render_part1():
                 with st.spinner("최고 떡상 원본 채널 5개를 심층 탐색 중..."):
                     from sage_engine import tavily_search
 
-                    q = search_kw + " highest views human operated psychology philosophy -AI -auto youtube channel"
+                    q = search_kw + " YouTube psychology philosophy life advice channel OR video human storytelling older adults high views comments"
 
-                    res = tavily_search(q, st.session_state.tavily_api_key, max_results=5)
+                    res = tavily_search(q, st.session_state.tavily_api_key, max_results=20)
                     
                     if "error" in res: st.error(res["error"])
 
@@ -1403,10 +1403,7 @@ def render_part1():
 
                         filtered_results = [
                             r for r in raw
-                            if (
-                                "/channel/" in r.get("url", "")
-                                or "/@" in r.get("url", "")
-                            )
+                            if "youtube.com" in r.get("url", "")
                         ]
 
                         st.session_state.p1_channel_search_results = filtered_results
@@ -1425,7 +1422,13 @@ def render_part1():
                           f"[{i+1}] {r.get('title', '제목없음')} - {r.get('url', '#')}"
                     )
                 
-                selected_channel = st.radio("검색된 채널 리스트", options, label_visibility="collapsed", disabled=is_locked)
+                selected_channel = st.radio(
+                      "검색된 채널 리스트",
+                      options,
+                      key="p1_selected_channel_radio",
+                      label_visibility="collapsed",
+                      disabled=is_locked
+                )
                 
                 if selected_channel:
                     selected_url = selected_channel.split(" - ")[-1]
@@ -1436,6 +1439,7 @@ def render_part1():
 
                     st.session_state.pipeline_state["selected_channel_url"] = selected_url
 
+                   
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("##### [TARGET] 분석 대상 확정")
         st.session_state.p1_channel_url = st.text_input("타겟 유튜브 URL (위에서 선택 시 자동 입력됨)", value=st.session_state.p1_channel_url, disabled=is_locked)
