@@ -1506,6 +1506,9 @@ def render_part1():
                 st.markdown("<br>", unsafe_allow_html=True)
                 topics_display = [f"{i+1:02d}. {t['title']}" for i, t in enumerate(st.session_state.p1_topics)]
                 st.session_state.p1_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked)
+
+                st.session_state.pipeline_state["selected_topic"] = st.session_state.p1_topic_selection
+
                 with st.expander("추출된 20개 상세 결과 보기"):
                     for t in st.session_state.p1_topics:
                         st.markdown(f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}")
@@ -1522,10 +1525,12 @@ def render_part1():
                     with st.spinner("자료 융합 및 댓글 기반 리서치 중..."):
                         topic_str = st.session_state.p1_topic_selection
                         st.session_state.p1_research_result = generate_research_draft(
-                            st.session_state.p1_channel_url, topic_str,
-                            st.session_state.p1_gemma_protocol, st.session_state.base_prompt_rules
+                         st.session_state.p1_channel_url, topic_str,
+                              st.session_state.p1_gemma_protocol, st.session_state.base_prompt_rules
                         )
             
+                    st.session_state.pipeline_state["research_result"] = st.session_state.p1_research_result
+
             if st.session_state.p1_research_result:
                 st.markdown("<br>", unsafe_allow_html=True)
                 st.text_area("자료 조사 결과 (복사 가능)", value=st.session_state.p1_research_result, height=350, label_visibility="collapsed")
@@ -1544,9 +1549,12 @@ def render_part1():
                     with st.spinner("시나리오 뼈대 설계 중..."):
                         st.session_state.p1_planning_result = generate_final_planning(
                             st.session_state.p1_research_result,
-                            st.session_state.p1_gemma_protocol, st.session_state.base_prompt_rules
+                            st.session_state.p1_gemma_protocol, 
+                       st.session_state.base_prompt_rules
                         )
-            
+
+                    st.session_state.pipeline_state["planning_result"] = st.session_state.p1_planning_result
+
             if st.session_state.p1_planning_result:
                 st.markdown("<br>", unsafe_allow_html=True)
                 st.text_area("최종 기획안 (복사 가능)", value=st.session_state.p1_planning_result, height=270, label_visibility="collapsed")
