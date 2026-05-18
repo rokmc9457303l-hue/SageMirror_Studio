@@ -1716,6 +1716,9 @@ def render_part2():
                 topics_display = [f"{i+1:02d}. {t['title']}" for i, t in enumerate(st.session_state.p2_topics)]
                 st.session_state.p2_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked, key="p2_topic_sel")
                 with st.expander("추출된 20개 상세 결과 보기"):
+
+                    st.session_state.pipeline_state["topic_detail_viewed"] = True
+
                     for t in st.session_state.p2_topics:
                         st.markdown(f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}")
 
