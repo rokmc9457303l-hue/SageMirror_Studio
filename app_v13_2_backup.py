@@ -212,7 +212,7 @@ WORKSPACE_STATE_FILE = r"C:\SageMirror_Production\workspace_state.json"
 
 def save_workspace_state():
     keys_to_save = [
-        "path_obsidian", "github_repo_url", "github_pat", "tavily_api_key", "youtube_api_key",
+        "path_obsidian", "github_repo_url", "tavily_api_key",
         "obsidian_rules", "base_prompt_rules", "p1_gemma_protocol",
         "p1_channel_url", "p1_region", "p1_topics", "p1_topic_selection",
         "p1_research_result", "p1_planning_result", "unlock_part1",
