@@ -1608,7 +1608,7 @@ def render_part1():
    
     st.divider()
     st.subheader("⚙️ Step 2. 현자의 거울 3단 분석 엔진")
-    tab_bench, tab_research, tab_plan = st.tabs(["[TARGET] 1️⃣ 채널 벤치마킹", "📚 2️⃣ 자료 조사", "[PACKAGE] 3️⃣ Part 2 전달 패킷"])
+    tab_bench, tab_research, tab_plan = st.tabs(["[TARGET] 1️⃣ 채널 벤치마킹", "📚 2️⃣ 자료 조사", "[ALCHEMY] 3️⃣ 총괄 기획안"])
     
     with tab_bench:
         with st.container(border=True):
@@ -1674,19 +1674,6 @@ def render_part1():
         with st.container(border=True):
             st.markdown("### 3️⃣ 총괄 기획안")
             st.caption("15분 영상 뼈대 총괄 시나리오 기획 (마스터 플랜)")
-        col_view, col_copy, col_save, col_obsidian = st.columns(4)
-
-        with col_view:
-            st.button("👁 보기", use_container_width=True, key="p1_plan_view")
-
-        with col_copy:
-            st.button("📋 복사", use_container_width=True, key="p1_plan_copy")
-
-        with col_save:
-            st.button("💾 저장", use_container_width=True, key="p1_plan_save")
-
-        with col_obsidian:
-            st.button("🧠 옵시디언 저장", use_container_width=True, key="p1_plan_obsidian")           
             st.text_area("🤖 젬마 프롬프트 (총괄 기획)", value="[작업 지시] 자료 조사 결과를 바탕으로 '15분 분량의 유튜브 다큐멘터리 총괄 시나리오 기획안'을 작성하시오.", height=68, disabled=True)
             
             if st.button("[ALCHEMY] 철학·감정 융합 설계", use_container_width=True, disabled=is_locked):
