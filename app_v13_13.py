@@ -1350,24 +1350,21 @@ def _parse_topics(raw: str):
 
 @st.cache_data(ttl=900, show_spinner=False)
 def analyze_channel_to_topics(channel, region, obsidian_rules, base_prompt, gemma_protocol) -> list:
-    base = f"""[젬마 프로토콜]
-{gemma_protocol}
-
-[옵시디언 규칙서]
-{obsidian_rules}
-
-[기본 프롬프트]
-{base_prompt}
-
-[과제]
-다음 타겟 채널을 분석하여 핵심 주제 20개를 추출하십시오.
-(요구사항: 사람이 직접 운영하는 채널이라 가정하고, 해당 채널의 영상에 달린 시청자 댓글 200개 이상을 분석했다고 가상으로 설정하십시오. 시청자들의 실제 체험담, "나도 그런 일 있었는데 이렇게 해결했다"는 식의 공감/경험 포인트가 반영된 생생한 주제를 뽑아내야 합니다.)
-
-채널: {channel}
-지역: {region}
-
-[출력양식]
-NN. 주제 | 추천사유(체험담 기반) | 예상효과 | 예상반응"""
+    base = (
+        f"[젬마 프로토콜]\n"
+        f"{gemma_protocol}\n\n"
+        f"[옵시디언 규칙서]\n"
+        f"{obsidian_rules}\n\n"
+        f"[기본 프롬프트]\n"
+        f"{base_prompt}\n\n"
+        f"[과제]\n"
+        f"다음 타겟 채널을 분석하여 핵심 주제 20개를 추출하십시오.\n"
+        f"(요구사항: 사람이 직접 운영하는 채널이라 가정하고, 해당 채널의 영상에 달린 시청자 댓글 200개 이상을 분석했다고 가상으로 설정하십시오. 시청자들의 실제 체험담, \"나도 그런 일 있었는데 이렇게 해결했다\"는 식의 공감/경험 포인트가 반영된 생생한 주제를 뽑아내야 합니다.)\n\n"
+        f"채널: {channel}\n"
+        f"지역: {region}\n\n"
+        f"[출력양식]\n"
+        f"NN. 주제 | 추천사유(체험담 기반) | 예상효과 | 예상반응"
+    )
 
     sys_ctx = SAGE_PERSONA + "\n\n" + obsidian_rules
     raw = call_gemma(base, system=sys_ctx)
@@ -1394,49 +1391,44 @@ def generate_research_draft(channel_url, topic, gemma_protocol, master_prompt):
 
     rag_context = obsidian_context
 
-    base = f"""[젬마 프로토콜]
-
-{gemma_protocol}
-
-{rag_context}
-
-[마스터 규칙서]
-{master_prompt}
-
-[작업 지시]
-다음 선택된 주제에 대하여, 200여 개의 시청자 공감 댓글(체험담)을 참조하였다고 가정하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.
-* 주제: {topic}
-* 타겟 채널: {channel_url}
-
-[필수 포함 항목]
-1. 세부 주제 및 매력적인 제목 (Title)
-2. 핵심 키워드 (`[[키워드]]` 형식, 반드시 포함)
-3. 시청자 후킹 기법 (실제 체험담을 활용한 공감 형성)
-4. 타겟 채널 구조 분석 기반 차별화 전략
-5. **모든 대본/자료의 출처 명기 필수** (책 이름, 저자명, 성경 구절 등 명확히 표기)"""
+    base = (
+        f"[젬마 프로토콜]\n\n"
+        f"{gemma_protocol}\n\n"
+        f"{rag_context}\n\n"
+        f"[마스터 규칙서]\n"
+        f"{master_prompt}\n\n"
+        f"[작업 지시]\n"
+        f"다음 선택된 주제에 대하여, 200여 개의 시청자 공감 댓글(체험담)을 참조하였다고 가정하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.\n"
+        f"* 주제: {topic}\n"
+        f"* 타겟 채널: {channel_url}\n\n"
+        f"[필수 포함 항목]\n"
+        f"1. 세부 주제 및 매력적인 제목 (Title)\n"
+        f"2. 핵심 키워드 (`[[키워드]]` 형식, 반드시 포함)\n"
+        f"3. 시청자 후킹 기법 (실제 체험담을 활용한 공감 형성)\n"
+        f"4. 타겟 채널 구조 분석 기반 차별화 전략\n"
+        f"5. **모든 대본/자료의 출처 명기 필수** (책 이름, 저자명, 성경 구절 등 명확히 표기)"
+    )
     system_prompt = COMMON_GEMMA_PROTOCOL + "\n\n" + SAGE_PERSONA
 
     return call_gemma(base, system=system_prompt)
 
 def generate_final_planning(research_result, gemma_protocol, master_prompt):
-     base = f"""[젬마 프로토콜]
-{gemma_protocol}
+    base = (
+        f"[젬마 프로토콜]\n"
+        f"{gemma_protocol}\n\n"
+        f"[마스터 규칙서]\n"
+        f"{master_prompt}\n\n"
+        f"[자료 조사 결과]\n"
+        f"{research_result}\n\n"
+        f"[작업 지시]\n"
+        f"위 자료 조사 결과를 바탕으로 '15분 분량의 유튜브 다큐멘터리 총괄 시나리오 기획안(뼈대)'을 작성하시오.\n\n"
+        f"[필수 포함 항목]\n"
+        f"1. 영상의 구조 (도입부: 시청자 체험담 공감 - 전개부: 철학/심리 해석 - 절정부: 성경적/현자의 해답 - 결말부: 격려)\n"
+        f"2. 4070 시청자 감성 타격 전략 및 시각적 연출 가이드 (렘브란트풍 등)\n"
+        f"3. 클라이맥스에 들어갈 '오늘의 명언' 및 교훈"
+    )
 
-[마스터 규칙서]
-{master_prompt}
-
-[자료 조사 결과]
-{research_result}
-
-[작업 지시]
-위 자료 조사 결과를 바탕으로 '15분 분량의 유튜브 다큐멘터리 총괄 시나리오 기획안(뼈대)'을 작성하시오.
-
-[필수 포함 항목]
-1. 영상의 구조 (도입부: 시청자 체험담 공감 - 전개부: 철학/심리 해석 - 절정부: 성경적/현자의 해답 - 결말부: 격려)
-2. 4070 시청자 감성 타격 전략 및 시각적 연출 가이드 (렘브란트풍 등)
-3. 클라이맥스에 들어갈 '오늘의 명언' 및 교훈""
-
-    system_prompt = COMMON_GEMMA_PROTOCOL + "\n\n" + SAGE_PERSONA
+    system_prompt = COMMON_GEMMA_PROTOCOL + "\\n\\n" + SAGE_PERSONA
 
     return call_gemma(base, system=system_prompt)
 
@@ -1791,32 +1783,30 @@ def render_part2():
                 with st.spinner("자료조사 기반 썸네일 3세트 기획 중..."):
                     # 향후 Gemma API 호출 로직이 들어갈 곳
                     st.info("썸네일 생성 AI 로직 연동 대기 중...")
-                    st.session_state.p2_thumbnail_plan = """
-[썸네일 1]
-제목: 왜 사람은 늦게 후회하는가
-주제: 후회의 심리학
-이미지:
-- 어두운 방
-- 고개 숙인 중년 남성
-- 창문 빛 연출
-- 렘브란트 톤
-
-[썸네일 2]
-제목: 인간은 왜 외로움을 숨길까
-주제: 관계와 고독
-이미지:
-- 군중 속 혼자 있는 인물
-- 흐릿한 도시 배경
-- 차가운 블루톤
-
-[썸네일 3]
-제목: 당신이 무기력한 진짜 이유
-주제: 도파민 중독과 공허
-이미지:
-- 스마트폰 불빛
-- 멍한 표정
-- 블랙+레드 대비
-"""
+                    st.session_state.p2_thumbnail_plan = (
+                        "[썸네일 1]\\n"
+                        "제목: 왜 사람은 늦게 후회하는가\\n"
+                        "주제: 후회의 심리학\\n"
+                        "이미지:\\n"
+                        "- 어두운 방\\n"
+                        "- 고개 숙인 중년 남성\\n"
+                        "- 창문 빛 연출\\n"
+                        "- 렘브란트 톤\\n\\n"
+                        "[썸네일 2]\\n"
+                        "제목: 인간은 왜 외로움을 숨길까\\n"
+                        "주제: 관계와 고독\\n"
+                        "이미지:\\n"
+                        "- 군중 속 혼자 있는 인물\\n"
+                        "- 흐릿한 도시 배경\\n"
+                        "- 차가운 블루톤\\n\\n"
+                        "[썸네일 3]\\n"
+                        "제목: 당신이 무기력한 진짜 이유\\n"
+                        "주제: 도파민 중독과 공허\\n"
+                        "이미지:\\n"
+                        "- 스마트폰 불빛\\n"
+                        "- 멍한 표정\\n"
+                        "- 블랙+레드 대비\\n"
+                    )
         
         if "p2_thumbnail_plan" not in st.session_state:
             st.session_state.p2_thumbnail_plan = ""
@@ -2425,26 +2415,26 @@ def render_part5_image():
     with tab_c: _p5_tab_c(is_locked)
     with tab_v: _p5_tab_v()
     st.divider()
-with st.expander("[BOOK] 크롬 확장 프로그램 전체 작업 순서 (섹션 F)", expanded=False):
-    st.markdown("""
-**PREP-01**: 구글 플로우 접속 -> 새 플로우 생성 "현자의거울_EP001_이미지생성"
-**PREP-02**: A-MASTER.txt -> A_Protagonist_Master.png 생성 -> 저장
-**PREP-03**: B-MASTER.txt -> B_Environment_Master.png 생성 -> 저장
-**PREP-04**: 크롬 확장 Slot 1 = A_Protagonist_Master.png **PIN 고정 [LOCK]**
-**PREP-05**: 크롬 확장 Slot 2 = B_Environment_Master.png **PIN 고정 [LOCK]**
-**PREP-06**: 젬마 프로토콜 로딩 선언 확인
-
----
-
-**씬별 루틴 (001~112 반복)**:
-STEP-01: CSV에서 해당 씬 영어프롬프트 복사
-STEP-02: 크롬 확장 Prompt 슬롯에 붙여넣기 (Slot 1,2 PIN 상태 확인)
-STEP-03: Output filename = scene_XXX.png
-STEP-04: Generate -> 대기
-STEP-05: 검수 (수염/복장/조명/소품/16:9) -> 합격/재생성
-STEP-06: 5씬마다 PIN 상태 재확인
-STEP-07: 다음 씬 (+1) 반복
-""")
+    with st.expander("[BOOK] 크롬 확장 프로그램 전체 작업 순서 (섹션 F)", expanded=False):
+        st.markdown(
+            "**PREP-01**: 구글 플로우 접속 -> 새 플로우 생성 \"현자의거울_EP001_이미지생성\"\\n"
+            "**PREP-02**: A-MASTER.txt -> A_Protagonist_Master.png 생성 -> 저장\\n"
+            "**PREP-03**: B-MASTER.txt -> B_Environment_Master.png 생성 -> 저장\\n"
+            "**PREP-04**: 크롬 확장 Slot 1 = A_Protagonist_Master.png **PIN 고정 [LOCK]**\\n"
+            "**PREP-05**: 크롬 확장 Slot 2 = B_Environment_Master.png **PIN 고정 [LOCK]**\\n"
+            "**PREP-06**: 젬마 프로토콜 로딩 선언 확인\\n"
+            "\\n"
+            "---\\n"
+            "\\n"
+            "**씬별 루틴 (001~112 반복)**:\\n"
+            "STEP-01: CSV에서 해당 씬 영어프롬프트 복사\\n"
+            "STEP-02: 크롬 확장 Prompt 슬롯에 붙여넣기 (Slot 1,2 PIN 상태 확인)\\n"
+            "STEP-03: Output filename = scene_XXX.png\\n"
+            "STEP-04: Generate -> 대기\\n"
+            "STEP-05: 검수 (수염/복장/조명/소품/16:9) -> 합격/재생성\\n"
+            "STEP-06: 5씬마다 PIN 상태 재확인\\n"
+            "STEP-07: 다음 씬 (+1) 반복\\n"
+        )
 # =====================================================================
 # Part 5 — render_part6_video() 메인 함수
 # =====================================================================
@@ -2516,27 +2506,27 @@ def render_part6_video():
     with tab_v: _p6_tab_check()
     st.divider()
     with st.expander("[BOOK] Veo3 x Google Opal 영상 생성 작업 순서", expanded=False):
-        st.markdown("""
-**PREP-01**: Google Opal 접속 -> 새 워크플로우 생성 "현자의거울_EP001_영상생성"
-**PREP-02**: Veo3 마스터 프롬프트 -> Opal 공통 시스템 지시 노드에 붙여넣기
-**PREP-03**: 젬마 씬별 지시 CSV -> Opal 순차 배분 노드에 투입
-**PREP-04**: 8계정 병렬 렌더링 시작 -> 계정당 14씬 담당
-**PREP-05**: 렌더링 완료 video_XXX.mp4 -> 06_Video_Clips 폴더 저장
-
----
-
-**씬별 렌더링 루틴 (001~112 반복)**:
-STEP-01: Opal 배분 CSV에서 해당 계정 씬 데이터 확인
-STEP-02: Veo3 영상 프롬프트 + 이미지 파일 투입
-STEP-03: Output filename = video_XXX.mp4
-STEP-04: Generate -> 완료 대기
-STEP-05: 영상 검수 (인물 일관성/조명/16:9 비율)
-STEP-06: 합격 -> 저장 / 불합격 -> 재생성
-STEP-07: 다음 씬 (+1) 반복
-
-[WARN] 주의: 8계정 동시 렌더링 시 Veo3 크레딧 소모 확인
-[WARN] 10씬마다 일괄 검수 실시
-""")
+        st.markdown(
+            "**PREP-01**: Google Opal 접속 -> 새 워크플로우 생성 \"현자의거울_EP001_영상생성\"\\n"
+            "**PREP-02**: Veo3 마스터 프롬프트 -> Opal 공통 시스템 지시 노드에 붙여넣기\\n"
+            "**PREP-03**: 젬마 씬별 지시 CSV -> Opal 순차 배분 노드에 투입\\n"
+            "**PREP-04**: 8계정 병렬 렌더링 시작 -> 계정당 14씬 담당\\n"
+            "**PREP-05**: 렌더링 완료 video_XXX.mp4 -> 06_Video_Clips 폴더 저장\\n"
+            "\\n"
+            "---\\n"
+            "\\n"
+            "**씬별 렌더링 루틴 (001~112 반복)**:\\n"
+            "STEP-01: Opal 배분 CSV에서 해당 계정 씬 데이터 확인\\n"
+            "STEP-02: Veo3 영상 프롬프트 + 이미지 파일 투입\\n"
+            "STEP-03: Output filename = video_XXX.mp4\\n"
+            "STEP-04: Generate -> 완료 대기\\n"
+            "STEP-05: 영상 검수 (인물 일관성/조명/16:9 비율)\\n"
+            "STEP-06: 합격 -> 저장 / 불합격 -> 재생성\\n"
+            "STEP-07: 다음 씬 (+1) 반복\\n"
+            "\\n"
+            "[WARN] 주의: 8계정 동시 렌더링 시 Veo3 크레딧 소모 확인\\n"
+            "[WARN] 10씬마다 일괄 검수 실시\\n"
+        )
 
 
 def render_part34():
@@ -2631,18 +2621,17 @@ def render_part34():
                     st.error("[WARN] Part 2의 '총괄 기획안'이 비어 있습니다. Part 2를 먼저 완료해 주세요.")
                 else:
                     with st.spinner("기-승-전-결 112씬 뼈대 설계 중..."):
-                        prompt = f"""[지시] 아래 기획안을 바탕으로 112씬 분량의 대본 구조(뼈대)를 설계해 주세요.
-
-[기획안]
-{p2_plan}
-
-[출력 형식]
-기(001-028): 각 씬의 한 줄 요약 (감정: EXPR코드)
-승(029-056): 각 씬의 한 줄 요약 (감정: EXPR코드)
-전(057-084): 각 씬의 한 줄 요약 (감정: EXPR코드)
-결(085-112): 각 씬의 한 줄 요약 (감정: EXPR코드)
-
-{st.session_state.p34_gemma_protocol}"""
+                        prompt = (
+                            f"[지시] 아래 기획안을 바탕으로 112씬 분량의 대본 구조(뼈대)를 설계해 주세요.\\n\\n"
+                            f"[기획안]\\n"
+                            f"{p2_plan}\\n\\n"
+                            f"[출력 형식]\\n"
+                            f"기(001-028): 각 씬의 한 줄 요약 (감정: EXPR코드)\\n"
+                            f"승(029-056): 각 씬의 한 줄 요약 (감정: EXPR코드)\\n"
+                            f"전(057-084): 각 씬의 한 줄 요약 (감정: EXPR코드)\\n"
+                            f"결(085-112): 각 씬의 한 줄 요약 (감정: EXPR코드)\\n\\n"
+                            f"{st.session_state.p34_gemma_protocol}"
+                        )
                         result = call_gemma(prompt)
                         st.session_state.p34_scene_structure = result
         with c_arch_info:
@@ -2684,16 +2673,15 @@ def render_part34():
                     st.error("[WARN] Step 2의 '112씬 구조 설계'를 먼저 완료해 주세요.")
                 else:
                     with st.spinner("나레이션 대본 집필 중..."):
-                        prompt = f"""[지시] 아래 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요.
-화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다.
-
-[112씬 구조]
-{st.session_state.p34_scene_structure}
-
-[출력 형식] 
-씬번호(3자리) | 나레이션 대본 텍스트
-
-{st.session_state.p34_gemma_protocol}"""
+                        prompt = (
+                            f"[지시] 아래 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요.\\n"
+                            f"화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다.\\n\\n"
+                            f"[112씬 구조]\\n"
+                            f"{st.session_state.p34_scene_structure}\\n\\n"
+                            f"[출력 형식] \\n"
+                            f"씬번호(3자리) | 나레이션 대본 텍스트\\n\\n"
+                            f"{st.session_state.p34_gemma_protocol}"
+                        )
                         st.session_state.p34_narration_script = call_gemma(prompt)
             
             st.text_area("나레이션 대본", value=st.session_state.p34_narration_script, height=350, label_visibility="collapsed", key="p34_narr_area")
@@ -2712,18 +2700,16 @@ def render_part34():
                     st.error("[WARN] 좌측의 '나레이션 대본'을 먼저 완료해 주세요.")
                 else:
                     with st.spinner("이미지 프롬프트 변환 중..."):
-                        prompt = f"""[지시] 아래 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요.
-
-[나레이션 대본]
-{st.session_state.p34_narration_script}
-
-[출력 형식 — 반드시 준수]
-씬번호(3자리) | 대본 | @한글묘사@ | @영어프롬프트@
-
-한글묘사에는: 인물동작, 시선, 빛, 소품태그, 표정코드[EXPR-0X] 필수
-영어프롬프트에는: [A-MASTER], 소품태그, 표정값, [@배경], [MASTER STYLE TAG], [NEGATIVE PROMPT] 필수
-
-{st.session_state.p34_gemma_protocol}"""
+                        prompt = (
+                            f"[지시] 아래 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요.\\n\\n"
+                            f"[나레이션 대본]\\n"
+                            f"{st.session_state.p34_narration_script}\\n\\n"
+                            f"[출력 형식 — 반드시 준수]\\n"
+                            f"씬번호(3자리) | 대본 | @한글묘사@ | @영어프롬프트@\\n\\n"
+                            f"한글묘사에는: 인물동작, 시선, 빛, 소품태그, 표정코드[EXPR-0X] 필수\\n"
+                            f"영어프롬프트에는: [A-MASTER], 소품태그, 표정값, [@배경], [MASTER STYLE TAG], [NEGATIVE PROMPT] 필수\\n\\n"
+                            f"{st.session_state.p34_gemma_protocol}"
+                        )
                         st.session_state.p34_image_script = call_gemma(prompt)
             
             st.text_area("이미지 프롬프트", value=st.session_state.p34_image_script, height=350, label_visibility="collapsed", key="p34_img_area")
@@ -2742,15 +2728,14 @@ def render_part34():
                     st.error("[WARN] 중앙의 '이미지 대본'을 먼저 완료해 주세요.")
                 else:
                     with st.spinner("캡컷 JSON 조립 중..."):
-                        prompt = f"""[지시] 아래 이미지 대본을 CapCut 자동화 JSON으로 변환하세요.
-
-[이미지 대본]
-{st.session_state.p34_image_script}
-
-[출력 형식 — JSON]
-각 씬: scene_id, script, action_kr, expression, props_used, image_file, audio_file, timeline_order, duration_sec
-
-{st.session_state.p34_gemma_protocol}"""
+                        prompt = (
+                            f"[지시] 아래 이미지 대본을 CapCut 자동화 JSON으로 변환하세요.\\n\\n"
+                            f"[이미지 대본]\\n"
+                            f"{st.session_state.p34_image_script}\\n\\n"
+                            f"[출력 형식 — JSON]\\n"
+                            f"각 씬: scene_id, script, action_kr, expression, props_used, image_file, audio_file, timeline_order, duration_sec\\n\\n"
+                            f"{st.session_state.p34_gemma_protocol}"
+                        )
                         st.session_state.p34_capcut_data = call_gemma(prompt)
             
             st.text_area("캡컷 JSON", value=st.session_state.p34_capcut_data, height=350, label_visibility="collapsed", key="p34_cap_area")

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-🪞 현자의 거울 스튜디오 — Master App v13.14
-[v13.14 업데이트 사항: 2026-05-19]
-- Part 1 (기획 파트) UI를 Tabs 구조로 리팩토링
-- Part 1 자동 저장(save_workspace_state) 기능 추가
+🪞 현자의 거울 스튜디오 — Master App v13.15
+[v13.15 업데이트 사항: 2026-05-19]
+- Part 1: 각 단계별 젬마 프롬프트 표시창(가로형) 추가
+- Part 1: 팝업창 연동 및 UI 레이아웃 고도화
 - 벤치마킹 결과를 확인할 수 있는 팝업 기능(popup_edit_benchmarking) 추가
 """
 
@@ -1296,26 +1296,34 @@ def popup_edit_gemma_protocol():
 @st.dialog("[BOOK] 자료 조사 결과 (팝업)", width="large")
 def popup_edit_research():
     st.markdown("결과를 쾌적하게 스크롤하며 검토하고, 내용을 복사하거나 직접 수정할 수 있습니다.")
-    new_val = st.text_area("자료 조사 결과", value=st.session_state.p1_research_result, height=500, label_visibility="collapsed")
-    c1, c2 = st.columns(2)
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{st.session_state.p1_research_result}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("자료 조사 결과 수정", value=st.session_state.p1_research_result, height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
     with c1:
         if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
             st.session_state.p1_research_result = new_val
             st.rerun()
     with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"research_result_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c3:
         if st.button("닫기", use_container_width=True):
             st.rerun()
 
 @st.dialog("[PACKAGE] Part 2 전달 패킷 (팝업)", width="large")
 def popup_edit_planning():
     st.markdown("Part 2에서 철학/성경/감정 융합 작업에 사용할 리서치 패킷입니다.")
-    new_val = st.text_area("Part 2 전달 패킷", value=st.session_state.p1_planning_result, height=500, label_visibility="collapsed")
-    c1, c2 = st.columns(2)
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{st.session_state.p1_planning_result}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("Part 2 전달 패킷 수정", value=st.session_state.p1_planning_result, height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
     with c1:
         if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
             st.session_state.p1_planning_result = new_val
             st.rerun()
     with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"planning_result_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c3:
         if st.button("닫기", use_container_width=True):
             st.rerun()
 
@@ -1325,9 +1333,14 @@ def popup_edit_benchmarking():
     val = ""
     for t in st.session_state.get("p1_topics", []):
         val += f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}\n\n"
-    st.text_area("벤치마킹 상세 결과", value=val, height=500, label_visibility="collapsed", disabled=True)
-    if st.button("닫기", use_container_width=True):
-        st.rerun()
+    with st.container(height=450, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.download_button("📥 .txt 다운로드", data=val, file_name=f"benchmarking_result_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c2:
+        if st.button("닫기", use_container_width=True, type="primary"):
+            st.rerun()
 
 # =====================================================================
 # 공통 UI 레이아웃 (V8.1: 상단 PIN 로그인 통합)
@@ -1603,6 +1616,7 @@ def render_part1():
         with st.container(border=True):
             st.markdown("### 1️⃣ 벤치마킹 분석")
             st.caption("주제 20개 추천 (추천사유, 효과, 반응)")
+            st.text_area("🤖 젬마 프롬프트 (벤치마킹)", value="[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개를 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)", height=68, disabled=True)
             
             if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=is_locked):
                 if not st.session_state.p1_channel_url: 
@@ -1636,6 +1650,7 @@ def render_part1():
         with st.container(border=True):
             st.markdown("### 2️⃣ 자료 조사 결과")
             st.caption("옵시디언/리서치 융합 기초 초안 작성 (출처 명기)")
+            st.text_area("🤖 젬마 프롬프트 (자료 조사)", value="[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.", height=68, disabled=True)
             
             if st.button("[BOOK] 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked):
                 if not st.session_state.p1_topic_selection:
@@ -1661,6 +1676,7 @@ def render_part1():
         with st.container(border=True):
             st.markdown("### 3️⃣ 총괄 기획안")
             st.caption("15분 영상 뼈대 총괄 시나리오 기획 (마스터 플랜)")
+            st.text_area("🤖 젬마 프롬프트 (총괄 기획)", value="[작업 지시] 자료 조사 결과를 바탕으로 '15분 분량의 유튜브 다큐멘터리 총괄 시나리오 기획안'을 작성하시오.", height=68, disabled=True)
             
             if st.button("[ALCHEMY] 철학·감정 융합 설계", use_container_width=True, disabled=is_locked):
                 if not st.session_state.p1_research_result:

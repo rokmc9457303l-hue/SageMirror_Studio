@@ -1,5 +1,63 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
+## v13.17 — 2026-05-19 [마이너/패치]
+### 변경 내용
+- **Part 3-4 탭 기반 UI 개편**: 3분할(Columns) 구조를 Part 1, 2와 동일한 가로 탭(Tabs) 구조로 리팩토링 (나레이션 / 이미지 프롬프트 / 캡컷 JSON)
+- **프롬프트 뷰어 추가**: 각 탭 상단에 현재 단계의 Gemma 프롬프트 직관적 표시
+- **팝업창(Dialog) 신설**:
+  - `popup_edit_narration_p34()`, `popup_edit_image_p34()`, `popup_edit_capcut_p34()` 신설: 좁은 Column에서 벗어나 넓은 팝업창에서 결과물을 검토, 수정 및 다운로드(`.txt`, `.json`) 가능하도록 기능 업그레이드
+- **버전업**: 안전을 위해 원본을 `app_v13_17.py`로 분리 및 `RUN_APP.bat` 업데이트
 
+### 영향 파트
+- **Part 3-4 (Architect & Writer)**: 탭 렌더링, 신규 팝업창 연동, 데이터 저장 및 다운로드 로직
+
+### 수정 파일
+- `app_v13_17.py`
+- `RUN_APP.bat`
+
+## v13.16 — 2026-05-19 [마이너/패치]
+### 변경 내용
+- **Part 2 탭 기반 UI 개편**: 3분할(Columns) 구조를 Part 1과 동일한 가로 탭(Tabs) 구조로 리팩토링
+- **프롬프트 뷰어 추가**: 각 분석 단계(벤치마킹, 자료조사, 기획안) 탭 상단에 현재 단계의 Gemma 프롬프트 직관적 표시
+- **팝업창(Dialog) 고도화**:
+  - `popup_edit_benchmarking_p2()` 신설: 20개 주제 추출 결과를 넓은 팝업창에서 스크롤 및 다운로드 가능하도록 개선 (기존 Expander 제거)
+  - `popup_edit_research_p2()`, `popup_edit_planning_p2()`: 넓은 텍스트 영역 및 `.txt` 다운로드 버튼 추가
+- **버전업**: 안전을 위해 원본을 `app_v13_16.py`로 분리 및 `RUN_APP.bat` 업데이트
+
+### 영향 파트
+- **Part 2 (Alchemist)**: 탭 렌더링, 팝업창 교체, 자동저장 로직 보완
+
+### 수정 파일
+- `app_v13_16.py`
+- `RUN_APP.bat`## v13.15 — 2026-05-19 [마이너/패치]
+### 변경 내용
+- **Part 1 UI/UX 고도화**: 각 분석 단계(벤치마킹, 자료조사, 기획안) 탭 상단에 현재 단계의 Gemma 프롬프트를 직관적으로 보여주는 가로형 텍스트 박스 추가
+- **결과물 팝업 인터페이스 완벽 연동**: 기존 팝업 함수(`popup_edit_research`, `popup_edit_planning`, `popup_edit_benchmarking`)를 개선하여, 넓은 화면에서 스크롤 및 복사/수정이 원활하도록 UI 개선 및 txt 다운로드 버튼 추가
+- **버전업**: 안전을 위해 원본을 `app_v13_15.py`로 분리 및 `RUN_APP.bat` 업데이트
+
+### 영향 파트
+- **Part 1 (Librarian)**: 프롬프트 표시 및 팝업창 렌더링
+
+### 수정 파일
+- `app_v13_15.py`
+- `RUN_APP.bat`
+
+## v13.14 — 2026-05-19 [마이너/패치]
+### 변경 내용
+- **Part 1 UI 리팩토링**: `render_part1()` 하단의 3분할 Column 구조를 Part 4와 동일한 탭(Tabs) 구조로 개편
+- **자동 저장 고도화**: Part 1 각 단계별 결과물 생성 후 `save_workspace_state()` 자동 호출 추가
+- **벤치마킹 팝업 신설**: 20개 채널 추천 주제 결과를 팝업창에서 스크롤 및 복사할 수 있는 `popup_edit_benchmarking()` 추가
+- **옵시디언/GitHub 알림 강화**: 백업 완료 시 `st.success`와 `st.toast`를 통해 저장 경로 및 성공 여부 명시
+- **버전 패치**: `app_v13_14.py` 기반으로 메인 파일 갱신 (`RUN_APP.bat` 업데이트 완료)
+
+### 영향 파트
+- **Part 1 (Librarian)**: UI/UX 구조 변경 및 데이터 보존성 확보
+
+### 수정 파일
+- `app_v13_14.py`
+- `RUN_APP.bat`
+- `CHANGELOG.md`
+
+---
 ## v14.0 — 2026-05-15 20:55 [메이저 릴리즈]
 ### 변경 내용
 - **영상 파트(Part 5) 로직 복구**: `app_v13_2.py`의 완성된 로직을 `app_v14_0.py`에 완전 이식

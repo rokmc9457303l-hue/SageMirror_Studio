@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-🪞 현자의 거울 스튜디오 — Master App v13.14
-[v13.14 업데이트 사항: 2026-05-19]
-- Part 1 (기획 파트) UI를 Tabs 구조로 리팩토링
-- Part 1 자동 저장(save_workspace_state) 기능 추가
+🪞 현자의 거울 스튜디오 — Master App v13.17
+[v13.17 업데이트 사항: 2026-05-19]
+- Part 3-4: 3분할 칼럼을 탭(Tabs) 구조로 리팩토링
+- Part 3-4: 탭별 젬마 프롬프트 표시창(가로형) 추가
+- Part 3-4: 각 단계별 팝업 편집(Narration, Image C-1, CapCut JSON) 신설 및 연동
 - 벤치마킹 결과를 확인할 수 있는 팝업 기능(popup_edit_benchmarking) 추가
 """
 
@@ -1296,26 +1297,34 @@ def popup_edit_gemma_protocol():
 @st.dialog("[BOOK] 자료 조사 결과 (팝업)", width="large")
 def popup_edit_research():
     st.markdown("결과를 쾌적하게 스크롤하며 검토하고, 내용을 복사하거나 직접 수정할 수 있습니다.")
-    new_val = st.text_area("자료 조사 결과", value=st.session_state.p1_research_result, height=500, label_visibility="collapsed")
-    c1, c2 = st.columns(2)
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{st.session_state.p1_research_result}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("자료 조사 결과 수정", value=st.session_state.p1_research_result, height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
     with c1:
         if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
             st.session_state.p1_research_result = new_val
             st.rerun()
     with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"research_result_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c3:
         if st.button("닫기", use_container_width=True):
             st.rerun()
 
 @st.dialog("[PACKAGE] Part 2 전달 패킷 (팝업)", width="large")
 def popup_edit_planning():
     st.markdown("Part 2에서 철학/성경/감정 융합 작업에 사용할 리서치 패킷입니다.")
-    new_val = st.text_area("Part 2 전달 패킷", value=st.session_state.p1_planning_result, height=500, label_visibility="collapsed")
-    c1, c2 = st.columns(2)
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{st.session_state.p1_planning_result}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("Part 2 전달 패킷 수정", value=st.session_state.p1_planning_result, height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
     with c1:
         if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
             st.session_state.p1_planning_result = new_val
             st.rerun()
     with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"planning_result_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c3:
         if st.button("닫기", use_container_width=True):
             st.rerun()
 
@@ -1325,9 +1334,14 @@ def popup_edit_benchmarking():
     val = ""
     for t in st.session_state.get("p1_topics", []):
         val += f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}\n\n"
-    st.text_area("벤치마킹 상세 결과", value=val, height=500, label_visibility="collapsed", disabled=True)
-    if st.button("닫기", use_container_width=True):
-        st.rerun()
+    with st.container(height=450, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.download_button("📥 .txt 다운로드", data=val, file_name=f"benchmarking_result_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c2:
+        if st.button("닫기", use_container_width=True, type="primary"):
+            st.rerun()
 
 # =====================================================================
 # 공통 UI 레이아웃 (V8.1: 상단 PIN 로그인 통합)
@@ -1603,6 +1617,7 @@ def render_part1():
         with st.container(border=True):
             st.markdown("### 1️⃣ 벤치마킹 분석")
             st.caption("주제 20개 추천 (추천사유, 효과, 반응)")
+            st.text_area("🤖 젬마 프롬프트 (벤치마킹)", value="[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개를 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)", height=68, disabled=True)
             
             if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=is_locked):
                 if not st.session_state.p1_channel_url: 
@@ -1636,6 +1651,7 @@ def render_part1():
         with st.container(border=True):
             st.markdown("### 2️⃣ 자료 조사 결과")
             st.caption("옵시디언/리서치 융합 기초 초안 작성 (출처 명기)")
+            st.text_area("🤖 젬마 프롬프트 (자료 조사)", value="[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.", height=68, disabled=True)
             
             if st.button("[BOOK] 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked):
                 if not st.session_state.p1_topic_selection:
@@ -1661,6 +1677,7 @@ def render_part1():
         with st.container(border=True):
             st.markdown("### 3️⃣ 총괄 기획안")
             st.caption("15분 영상 뼈대 총괄 시나리오 기획 (마스터 플랜)")
+            st.text_area("🤖 젬마 프롬프트 (총괄 기획)", value="[작업 지시] 자료 조사 결과를 바탕으로 '15분 분량의 유튜브 다큐멘터리 총괄 시나리오 기획안'을 작성하시오.", height=68, disabled=True)
             
             if st.button("[ALCHEMY] 철학·감정 융합 설계", use_container_width=True, disabled=is_locked):
                 if not st.session_state.p1_research_result:
@@ -1716,29 +1733,52 @@ def popup_edit_gemma_protocol_p2():
         if st.button("취소", use_container_width=True):
             st.rerun()
 
+@st.dialog("[TARGET] 채널 벤치마킹 결과 (팝업)", width="large")
+def popup_edit_benchmarking_p2():
+    st.markdown("결과를 쾌적하게 스크롤하며 검토하고 복사할 수 있습니다.")
+    val = ""
+    for t in st.session_state.get("p2_topics", []):
+        val += f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}\n\n"
+    with st.container(height=450, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.download_button("📥 .txt 다운로드", data=val, file_name=f"benchmarking_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c2:
+        if st.button("닫기", use_container_width=True, type="primary"):
+            st.rerun()
+
 @st.dialog("[BOOK] 자료 조사 결과 (팝업)", width="large")
 def popup_edit_research_p2():
     st.markdown("결과를 쾌적하게 스크롤하며 검토하고, 내용을 복사하거나 직접 수정할 수 있습니다.")
-    new_val = st.text_area("자료 조사 결과", value=st.session_state.p2_research_result, height=500, label_visibility="collapsed")
-    c1, c2 = st.columns(2)
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{st.session_state.p2_research_result}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("자료 조사 결과 수정", value=st.session_state.p2_research_result, height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
     with c1:
         if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
             st.session_state.p2_research_result = new_val
             st.rerun()
     with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"research_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c3:
         if st.button("닫기", use_container_width=True):
             st.rerun()
 
 @st.dialog("[ALCHEMY] 철학·감정 융합 설계 (팝업)", width="large")
 def popup_edit_planning_p2():
     st.markdown("철학·성경·감정 융합 설계안을 검토하고 수정할 수 있습니다.")
-    new_val = st.text_area("철학·감정 융합 설계안", value=st.session_state.p2_planning_result, height=500, label_visibility="collapsed")
-    c1, c2 = st.columns(2)
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{st.session_state.p2_planning_result}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("철학·감정 융합 설계안 수정", value=st.session_state.p2_planning_result, height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
     with c1:
         if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
             st.session_state.p2_planning_result = new_val
             st.rerun()
     with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"planning_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c3:
         if st.button("닫기", use_container_width=True):
             st.rerun()
 
@@ -1827,13 +1867,14 @@ def render_part2():
 
     st.divider()
 
-    st.subheader("⚙️ Step 2. 현자의 거울 3단 분석 엔진 (하단 3분할)")
-    c_bench, c_research, c_plan = st.columns(3, gap="large")
+    st.subheader("⚙️ Step 2. 현자의 거울 3단 분석 엔진")
+    tab_bench, tab_research, tab_plan = st.tabs(["[TARGET] 1️⃣ 채널 벤치마킹", "[BOOK] 2️⃣ 자료 조사", "[ALCHEMY] 3️⃣ 총괄 기획안"])
     
-    with c_bench:
+    with tab_bench:
         with st.container(border=True):
             st.markdown("### 1️⃣ 채널 벤치마킹 및 주제 도출")
             st.caption("200개 댓글 분석 기반 타겟 시청자 공감 포인트 추출")
+            st.text_area("🤖 젬마 프롬프트 (벤치마킹)", value="[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개를 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)", height=68, disabled=True, key="p2_bench_prompt")
             
             if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=is_locked, key="p2_bench_btn"):
                 if not st.session_state.p2_channel_url: 
@@ -1844,22 +1885,22 @@ def render_part2():
                             st.session_state.p2_channel_url, st.session_state.p2_region, 
                             st.session_state.obsidian_rules, st.session_state.base_prompt_rules, st.session_state.p2_gemma_protocol
                         )
+                        save_workspace_state() # 자동 저장
             
             if "p2_topics" in st.session_state and st.session_state.p2_topics:
                 st.markdown("<br>", unsafe_allow_html=True)
                 topics_display = [f"{i+1:02d}. {t['title']}" for i, t in enumerate(st.session_state.p2_topics)]
                 st.session_state.p2_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked, key="p2_topic_sel")
-                with st.expander("추출된 20개 상세 결과 보기"):
+                save_workspace_state() # 자동 저장
+                
+                if st.button("[SEARCH] 팝업에서 상세 결과 보기", use_container_width=True, key="pop_bench_p2_btn"):
+                    popup_edit_benchmarking_p2()
 
-                    st.session_state.pipeline_state["topic_detail_viewed"] = True
-
-                    for t in st.session_state.p2_topics:
-                        st.markdown(f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}")
-
-    with c_research:
+    with tab_research:
         with st.container(border=True):
             st.markdown("### 2️⃣ 옵시디언 융합 리서치")
             st.caption("성경/철학/에세이 3원 지식 융합 초안 작성")
+            st.text_area("🤖 젬마 프롬프트 (자료 조사)", value="[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.", height=68, disabled=True, key="p2_res_prompt")
             
             if st.button("[BOOK] 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked, key="p2_res_btn"):
                 if "p2_topic_selection" not in st.session_state or not st.session_state.p2_topic_selection:
@@ -1871,6 +1912,7 @@ def render_part2():
                             st.session_state.p2_channel_url, topic_str,
                             st.session_state.p2_gemma_protocol, st.session_state.base_prompt_rules
                         )
+                        save_workspace_state() # 자동 저장
             
             if "p2_research_result" in st.session_state and st.session_state.p2_research_result:
                 st.markdown("<br>", unsafe_allow_html=True)
@@ -1878,10 +1920,11 @@ def render_part2():
                 if st.button("[SEARCH] 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_res2_btn"):
                     popup_edit_research_p2()
 
-    with c_plan:
+    with tab_plan:
         with st.container(border=True):
             st.markdown("### 3️⃣ 총괄 기획안 (컨셉 확정)")
             st.caption("영상 컨셉·핵심 메시지·서사 방향 확정 → Part 3-4로 전달")
+            st.text_area("🤖 젬마 프롬프트 (총괄 기획)", value="[작업 지시] 자료 조사 결과를 바탕으로 '15분 분량의 유튜브 다큐멘터리 총괄 시나리오 기획안(뼈대)'을 작성하시오.", height=68, disabled=True, key="p2_plan_prompt")
             
             if st.button("[CINEMA] 총괄 시나리오 기획", use_container_width=True, disabled=is_locked, key="p2_plan_btn"):
                 if "p2_research_result" not in st.session_state or not st.session_state.p2_research_result:
@@ -1892,6 +1935,7 @@ def render_part2():
                             st.session_state.p2_research_result,
                             st.session_state.p2_gemma_protocol, st.session_state.base_prompt_rules
                         )
+                        save_workspace_state() # 자동 저장
             
             if "p2_planning_result" in st.session_state and st.session_state.p2_planning_result:
                 st.markdown("<br>", unsafe_allow_html=True)
@@ -2541,6 +2585,57 @@ STEP-07: 다음 씬 (+1) 반복
 """)
 
 
+@st.dialog("[VOICE] 나레이션 대본 결과 (팝업)", width="large")
+def popup_edit_narration_p34():
+    st.markdown("나레이션 대본을 쾌적하게 스크롤하며 검토하고 복사/수정할 수 있습니다.")
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{st.session_state.get('p34_narration_script', '')}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("나레이션 대본 수정", value=st.session_state.get("p34_narration_script", ""), height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
+            st.session_state.p34_narration_script = new_val
+            st.rerun()
+    with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"narration_script_p34_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c3:
+        if st.button("닫기", use_container_width=True):
+            st.rerun()
+
+@st.dialog("[IMAGE] 씬별 이미지 프롬프트 결과 (팝업)", width="large")
+def popup_edit_image_p34():
+    st.markdown("이미지 프롬프트를 쾌적하게 스크롤하며 검토하고 복사/수정할 수 있습니다.")
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{st.session_state.get('p34_image_script', '')}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("이미지 프롬프트 수정", value=st.session_state.get("p34_image_script", ""), height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
+            st.session_state.p34_image_script = new_val
+            st.rerun()
+    with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"image_script_p34_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+    with c3:
+        if st.button("닫기", use_container_width=True):
+            st.rerun()
+
+@st.dialog("[CINEMA] 캡컷 에셋 JSON 결과 (팝업)", width="large")
+def popup_edit_capcut_p34():
+    st.markdown("캡컷 조립용 JSON을 검토하고 복사/수정할 수 있습니다.")
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:monospace;'>{st.session_state.get('p34_capcut_data', '')}</div>", unsafe_allow_html=True)
+    new_val = st.text_area("캡컷 JSON 수정", value=st.session_state.get("p34_capcut_data", ""), height=200, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
+            st.session_state.p34_capcut_data = new_val
+            st.rerun()
+    with c2:
+        st.download_button("📥 .json 다운로드", data=new_val, file_name=f"capcut_data_p34_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json", use_container_width=True)
+    with c3:
+        if st.button("닫기", use_container_width=True):
+            st.rerun()
+
 def render_part34():
     c_title, c_pin, c_popup = st.columns([5, 3, 2])
     
@@ -2675,11 +2770,13 @@ def render_part34():
     st.caption("확정된 112씬 구조 위에 살을 붙여, 나레이션·이미지·캡컷 3종 대본을 각각 집필합니다.")
     
     c_narr, c_img, c_cap = st.columns(3, gap="large")
+    tab_narr, tab_img, tab_cap = st.tabs(["[VOICE] 1️⃣ 나레이션 대본", "[IMAGE] 2️⃣ 이미지 씬(C-1)", "[CINEMA] 3️⃣ 캡컷 JSON"])
     
-    with c_narr:
+    with tab_narr:
         with st.container(border=True):
             st.markdown("### 1️⃣ 나레이션 대본")
             st.caption("시청자가 듣게 될 순수 나레이션 텍스트 (CosyVoice 연동)")
+            st.text_area("🤖 젬마 프롬프트 (나레이션)", value="[작업 지시] 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요. 화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다.", height=68, disabled=True, key="p34_narr_prompt")
             
             if st.button("🎙️ 나레이션 대본 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_narr_btn"):
                 if not st.session_state.p34_scene_structure:
@@ -2697,17 +2794,19 @@ def render_part34():
 
 {st.session_state.p34_gemma_protocol}"""
                         st.session_state.p34_narration_script = call_gemma(prompt)
+                        save_workspace_state() # 자동 저장
             
-            st.text_area("나레이션 대본", value=st.session_state.p34_narration_script, height=350, label_visibility="collapsed", key="p34_narr_area")
-            if st.button("[SAVE] 나레이션 저장", use_container_width=True, key="p34_save_narr"):
-                st.session_state.p34_narration_script = st.session_state.p34_narr_area
-                save_workspace_state()
-                st.toast("[OK] 나레이션 대본 저장!", icon="[SAVE]")
+            if st.session_state.p34_narration_script:
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.text_area("나레이션 대본", value=st.session_state.p34_narration_script, height=350, label_visibility="collapsed", key="p34_narr_area")
+                if st.button("[SEARCH] 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_narr_btn"):
+                    popup_edit_narration_p34()
 
-    with c_img:
+    with tab_img:
         with st.container(border=True):
             st.markdown("### 2️⃣ 이미지 생성용 대본")
             st.caption("씬번호 | 대본 | @한글묘사@ | @영어프롬프트@ (Part 5 연동)")
+            st.text_area("🤖 젬마 프롬프트 (이미지 대본)", value="[작업 지시] 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요. (인물동작, 시선, 소품태그, [A-MASTER] 등 포함)", height=68, disabled=True, key="p34_img_prompt")
             
             if st.button("🖼️ 이미지 프롬프트 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_img_btn"):
                 if not st.session_state.p34_narration_script:
@@ -2727,17 +2826,19 @@ def render_part34():
 
 {st.session_state.p34_gemma_protocol}"""
                         st.session_state.p34_image_script = call_gemma(prompt)
+                        save_workspace_state() # 자동 저장
             
-            st.text_area("이미지 프롬프트", value=st.session_state.p34_image_script, height=350, label_visibility="collapsed", key="p34_img_area")
-            if st.button("[SAVE] 이미지 대본 저장", use_container_width=True, key="p34_save_img"):
-                st.session_state.p34_image_script = st.session_state.p34_img_area
-                save_workspace_state()
-                st.toast("[OK] 이미지 대본 저장!", icon="[SAVE]")
+            if st.session_state.p34_image_script:
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.text_area("이미지 프롬프트", value=st.session_state.p34_image_script, height=350, label_visibility="collapsed", key="p34_img_area")
+                if st.button("[SEARCH] 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_img_btn"):
+                    popup_edit_image_p34()
 
-    with c_cap:
+    with tab_cap:
         with st.container(border=True):
             st.markdown("### 3️⃣ 캡컷 에셋 데이터")
             st.caption("CapCut 자동 조립용 JSON (타임라인·BGM·이미지 매핑)")
+            st.text_area("🤖 젬마 프롬프트 (캡컷 JSON)", value="[작업 지시] 이미지 대본을 CapCut 자동화 JSON으로 변환하세요. (scene_id, script, image_file, audio_file 등 포함)", height=68, disabled=True, key="p34_cap_prompt")
             
             if st.button("[CINEMA] 캡컷 JSON 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_cap_btn"):
                 if not st.session_state.p34_image_script:
@@ -2754,12 +2855,13 @@ def render_part34():
 
 {st.session_state.p34_gemma_protocol}"""
                         st.session_state.p34_capcut_data = call_gemma(prompt)
+                        save_workspace_state() # 자동 저장
             
-            st.text_area("캡컷 JSON", value=st.session_state.p34_capcut_data, height=350, label_visibility="collapsed", key="p34_cap_area")
-            if st.button("[SAVE] 캡컷 데이터 저장", use_container_width=True, key="p34_save_cap"):
-                st.session_state.p34_capcut_data = st.session_state.p34_cap_area
-                save_workspace_state()
-                st.toast("[OK] 캡컷 에셋 저장!", icon="[SAVE]")
+            if st.session_state.p34_capcut_data:
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.text_area("캡컷 JSON", value=st.session_state.p34_capcut_data, height=350, label_visibility="collapsed", key="p34_cap_area")
+                if st.button("[SEARCH] 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_cap_btn"):
+                    popup_edit_capcut_p34()
 
     st.divider()
 

@@ -1734,20 +1734,22 @@ def popup_edit_planning_p2():
     new_val = st.text_area("철학·감정 융합 설계안", value=st.session_state.p2_planning_result, height=500, label_visibility="collapsed")
     c1, c2 = st.columns(2)
     with c1:
-        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
-            st.session_state.p2_planning_result = new_val
-            st.rerun()
+           if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
+               st.session_state.p2_planning_result = new_val
+               st.rerun()
+               
     with c2:
-        if st.button("닫기", use_container_width=True):
-            st.rerun()
+          if st.button("닫기", use_container_width=True):
+              st.rerun()
 
-def render_part2():
     c_title, c_pin, c_popup = st.columns([5, 3, 2])
-    
-    with c_title:
+
+def render_part2():   
+
+   with c_title:
         st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">[ALCHEMY] Part 2 — Alchemist (철학·감정 융합 파트)</h3></div>', unsafe_allow_html=True)
         
-    with c_pin:
+   with c_pin:
         st.markdown('<div class="pin-input-container">', unsafe_allow_html=True)
         pin = st.text_input("[LOCK] 마스터 PIN", type="password", key="p2_pin_input", label_visibility="collapsed", placeholder="[LOCK] 마스터 PIN 입력 (7777)")
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1755,108 +1757,22 @@ def render_part2():
         if pin == PART_PINS["part2"]: st.session_state.unlock_part2 = True
         elif pin: st.session_state.unlock_part2 = False
 
-    with c_popup:
+   with c_popup:
         st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
         if st.button("[BOT] Sage Pop-up", type="secondary", use_container_width=True, key="p2_popup_btn"): popup_assistant()
 
-    if "unlock_part2" not in st.session_state:
-        st.session_state.unlock_part2 = False
-    is_locked = not st.session_state.unlock_part2
-    if is_locked:
-        st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
+        if "unlock_part2" not in st.session_state:
+            st.session_state.unlock_part2 = False
+        is_locked = not st.session_state.unlock_part2
+        if is_locked:
+            st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
     
-    st.divider()
-    render_top_panel()
-    st.divider()
+        st.divider()
+        render_top_panel()
+        st.divider()
 
-    st.subheader("🧩 Step 1. 젬마 프로토콜 및 타겟 설정 (중간 공통 영역)")
-    c_left, c_right = st.columns(2, gap="large")
-    
-    with c_left:
-        st.markdown('<div class="top-panel-card"><div class="top-panel-title">📝 젬마 프로토콜 (Gemma Protocol)</div>', unsafe_allow_html=True)
-        if "p2_gemma_protocol" not in st.session_state: st.session_state.p2_gemma_protocol = st.session_state.get("p1_gemma_protocol", "")
-        st.text_area("젬마 프로토콜 (수정은 편집 버튼 클릭)", value=st.session_state.p2_gemma_protocol, height=270, label_visibility="collapsed", key="p2_protocol_area")
-        if st.button("[SEARCH] 프로토콜 팝업 편집 (복사/붙여넣기)", key="p2_edit_proto"):
-            popup_edit_gemma_protocol_p2()
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-    with c_right:
-        st.markdown('<div class="top-panel-card"><div class="top-panel-title">🖼️ 썸네일 카드 (Thumbnail Card)</div>', unsafe_allow_html=True)
-        st.caption("자료조사 결과를 참조하여 썸네일(이미지), 주제, 제목을 3가지 버전으로 생성합니다.")
-        
-        if st.button("🚀 썸네일/주제/제목 3세트 생성 (AI)", use_container_width=True, disabled=is_locked, key="p2_thumb_btn"):
-            if "p2_research_result" not in st.session_state or not st.session_state.p2_research_result:
-                st.error("[WARN] 먼저 하단의 '자료조사 및 초안 작성'을 완료해 주세요.")
-            else:
-                with st.spinner("자료조사 기반 썸네일 3세트 기획 중..."):
-                    # 향후 Gemma API 호출 로직이 들어갈 곳
-                    st.info("썸네일 생성 AI 로직 연동 대기 중...")
-                    st.session_state.p2_thumbnail_plan = "임시 썸네일 기획안 3세트 (추후 연동)"
-        
-        if "p2_thumbnail_plan" not in st.session_state:
-            st.session_state.p2_thumbnail_plan = ""
-            
-        st.text_area("썸네일 기획 결과 (수정 가능)", value=st.session_state.p2_thumbnail_plan, height=195, label_visibility="collapsed", key="p2_thumb_area")
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    st.divider()
-
-    st.subheader("⚙️ Step 2. 현자의 거울 3단 분석 엔진 (하단 3분할)")
-    c_bench, c_research, c_plan = st.columns(3, gap="large")
-    
-    with c_bench:
-        with st.container(border=True):
-            st.markdown("### 1️⃣ 채널 벤치마킹 및 주제 도출")
-            st.caption("200개 댓글 분석 기반 타겟 시청자 공감 포인트 추출")
-            
-            if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=is_locked, key="p2_bench_btn"):
-                if not st.session_state.p2_channel_url: 
-                    st.error("[WARN] 우측 상단에서 채널을 먼저 검색하거나 URL을 입력해 주세요.")
-                else:
-                    with st.spinner("채널 분석 중... (200개 댓글 공감 포인트 참조)"):
-                        st.session_state.p2_topics = analyze_channel_to_topics(
-                            st.session_state.p2_channel_url, st.session_state.p2_region, 
-                            st.session_state.obsidian_rules, st.session_state.base_prompt_rules, st.session_state.p2_gemma_protocol
-                        )
-            
-            if "p2_topics" in st.session_state and st.session_state.p2_topics:
-                st.markdown("<br>", unsafe_allow_html=True)
-                topics_display = [f"{i+1:02d}. {t['title']}" for i, t in enumerate(st.session_state.p2_topics)]
-                st.session_state.p2_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked, key="p2_topic_sel")
-                with st.expander("추출된 20개 상세 결과 보기"):
-
-                    st.session_state.pipeline_state["topic_detail_viewed"] = True
-
-                    for t in st.session_state.p2_topics:
-                        st.markdown(f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}")
-
-    with c_research:
-        with st.container(border=True):
-            st.markdown("### 2️⃣ 옵시디언 융합 리서치")
-            st.caption("성경/철학/에세이 3원 지식 융합 초안 작성")
-            
-            if st.button("[BOOK] 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked, key="p2_res_btn"):
-                if "p2_topic_selection" not in st.session_state or not st.session_state.p2_topic_selection:
-                    st.error("[WARN] 먼저 좌측의 '벤치마킹 시작' 버튼을 눌러 분석을 완료하고 주제를 선택해 주세요.")
-                else:
-                    with st.spinner("자료 융합 및 댓글 기반 리서치 중..."):
-                        topic_str = st.session_state.p2_topic_selection
-                        st.session_state.p2_research_result = generate_research_draft(
-                            st.session_state.p2_channel_url, topic_str,
-                            st.session_state.p2_gemma_protocol, st.session_state.base_prompt_rules
-                        )
-            
-            if "p2_research_result" in st.session_state and st.session_state.p2_research_result:
-                st.markdown("<br>", unsafe_allow_html=True)
-                st.text_area("자료 조사 결과 (복사 가능)", value=st.session_state.p2_research_result, height=350, label_visibility="collapsed", key="p2_res_area")
-                if st.button("[SEARCH] 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_res2_btn"):
-                    popup_edit_research_p2()
-
-    with c_plan:
-        with st.container(border=True):
-            st.markdown("### 3️⃣ 총괄 기획안 (컨셉 확정)")
-            st.caption("영상 컨셉·핵심 메시지·서사 방향 확정 → Part 3-4로 전달")
-            
+ 
+ 	      
             if st.button("[CINEMA] 총괄 시나리오 기획", use_container_width=True, disabled=is_locked, key="p2_plan_btn"):
                 if "p2_research_result" not in st.session_state or not st.session_state.p2_research_result:
                     st.error("[WARN] 먼저 중앙의 '자료조사 및 초안 작성'을 완료해 주세요.")
