@@ -74,8 +74,7 @@
               "title": "북마크"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -182,7 +181,7 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "287d8a1eba5723e9",
+  "active": "bf942756e12d6b05",
   "lastOpenFiles": [
     "맹목적인 생의 의지 (Blind Will to Live).md",
     "Archive_Knowledge/쇼펜하우어와 빅터 프랭클 연구노트.md",
