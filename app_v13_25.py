@@ -300,6 +300,8 @@ def save_workspace_state():
         "obsidian_rules", "base_prompt_rules", "p1_gemma_protocol",
         "p1_channel_url", "p1_region", "p1_topics", "p1_topic_selection",
         "p1_research_result", "p1_planning_result", "unlock_part1",
+        "p1_bench_prompt", "p1_research_prompt", "p1_plan_prompt",
+        "p1_bench_raw", "p1_bench_tags", "p1_research_tags", "p1_plan_tags",
         "p2_gemma_protocol", "p2_channel_url", "p2_region", "p2_topics",
         "p2_topic_selection", "p2_research_result", "p2_planning_result",
         "p2_thumbnail_plan", "unlock_part2",
@@ -1154,6 +1156,13 @@ def init_session_state():
         "p1_research_result": "",
         "p1_planning_result": "",
         "p1_saved_paths": [],
+        "p1_bench_prompt": "[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개를 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)",
+        "p1_research_prompt": "[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.",
+        "p1_plan_prompt": "[작업 지시] 자료 조사 결과를 바탕으로 '15분 분량의 유튜브 다큐멘터리 총괄 시나리오 기획안'을 작성하시오.",
+        "p1_bench_raw": "",
+        "p1_bench_tags": "",
+        "p1_research_tags": "",
+        "p1_plan_tags": "",
         
         "p2_gemma_protocol": GEMMA_PROTOCOL_V81,
         "p2_channel_search_results": [],
@@ -1512,6 +1521,108 @@ def generate_final_planning(research_result, gemma_protocol, master_prompt):
 
     return call_gemma(base, system=system_prompt)
 
+@st.cache_data(ttl=900, show_spinner=False)
+def analyze_channel_to_topics_p1(channel, region, obsidian_rules, base_prompt, gemma_protocol, custom_bench_prompt) -> tuple:
+    base = f"""[젬마 프로토콜]
+{gemma_protocol}
+
+[옵시디언 규칙서]
+{obsidian_rules}
+
+[기본 프롬프트]
+{base_prompt}
+
+[과제]
+{custom_bench_prompt}
+
+채널: {channel}
+지역: {region}
+
+[출력양식]
+NN. 주제 | 추천사유(체험담 기반) | 예상효과 | 예상반응"""
+
+    sys_ctx = SAGE_PERSONA + "\n\n" + obsidian_rules
+    raw = call_gemma(base, system=sys_ctx)
+    if isinstance(raw, str) and raw.startswith("[ERROR]"): 
+        st.error(raw)
+        return raw, []
+    parsed = _parse_topics(raw)
+    if len(parsed) < 20: 
+        raw_retry = call_gemma(base + "\n\n[자가 교정] 20줄 파이프(|) 형식으로 출력.", system=sys_ctx)
+        parsed_retry = _parse_topics(raw_retry)
+        if parsed_retry:
+            parsed = parsed_retry
+            if not isinstance(raw_retry, str) or not raw_retry.startswith("[ERROR]"):
+                raw = raw_retry
+    return raw, parsed[:20]
+
+def generate_research_draft_p1(channel_url, topic, gemma_protocol, master_prompt, custom_research_prompt):
+    obsidian_context = ""
+    try:
+        search_result = simple_keyword_search(
+            st.session_state.get("path_obsidian", ""), 
+            topic,
+            top_k=5
+        )
+
+        if search_result:
+            obsidian_context = f"""
+
+[옵시디언 감정/RAG 참조 자료]
+
+{search_result}
+
+"""
+    except Exception as e:
+        st.error(f"옵시디언 검색 오류: {e}")
+        pass
+
+    rag_context = obsidian_context
+
+    base = f"""[젬마 프로토콜]
+
+{gemma_protocol}
+
+{rag_context}
+
+[마스터 규칙서]
+{master_prompt}
+
+{custom_research_prompt}
+* 주제: {topic}
+* 타겟 채널: {channel_url}
+
+[필수 포함 항목]
+1. 세부 주제 및 매력적인 제목 (Title)
+2. 핵심 키워드 (`[[키워드]]` 형식, 반드시 포함)
+3. 시청자 후킹 기법 (실제 체험담을 활용한 공감 형성)
+4. 타겟 채널 구조 분석 기반 차별화 전략
+5. **모든 대본/자료의 출처 명기 필수** (책 이름, 저자명, 성경 구절 등 명확히 표기)"""
+    system_prompt = COMMON_GEMMA_PROTOCOL + "\n\n" + SAGE_PERSONA
+
+    return call_gemma(base, system=system_prompt)
+
+def generate_final_planning_p1(research_result, gemma_protocol, master_prompt, custom_plan_prompt):
+    base = f"""[젬마 프로토콜]
+{gemma_protocol}
+
+[마스터 규칙서]
+{master_prompt}
+
+[자료 조사 결과]
+{research_result}
+
+{custom_plan_prompt}
+
+[필수 포함 항목]
+1. 영상의 구조 (도입부: 시청자 체험담 공감 - 전개부: 철학/심리 해석 - 절정부: 성경적/현자의 해답 - 결말부: 격려)
+2. 4070 시청자 감성 타격 전략 및 시각적 연출 가이드 (렘브란트풍 등)
+3. 클라이맥스에 들어갈 '오늘의 명언' 및 교훈"""
+
+    system_prompt = COMMON_GEMMA_PROTOCOL + "\n\n" + SAGE_PERSONA
+
+    return call_gemma(base, system=system_prompt)
+
 # =====================================================================
 # Part 1 렌더링
 # =====================================================================
@@ -1665,130 +1776,263 @@ def render_part1():
         with st.container(border=True):
             st.markdown("### 1️⃣ 벤치마킹 분석")
             st.caption("주제 20개 추천 (추천사유, 효과, 반응)")
-            st.text_area("🤖 젬마 프롬프트 (벤치마킹)", value="[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개를 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)", height=68, disabled=True)
             
-            if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=is_locked):
+            st.session_state.p1_bench_prompt = st.text_area(
+                "🤖 젬마 작업지시 프롬프트 (벤치마킹)", 
+                value=st.session_state.p1_bench_prompt, 
+                height=100, 
+                key="p1_bench_prompt_input",
+                disabled=is_locked
+            )
+            
+            if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=is_locked, key="p1_bench_start_btn"):
                 if not st.session_state.p1_channel_url: 
                     st.error("[WARN] 우측 상단에서 채널을 먼저 검색하거나 URL을 입력해 주세요.")
                 else:
                     with st.spinner("채널 분석 중... (200개 댓글 공감 포인트 참조)"):
-
-                         st.session_state.p1_topics = analyze_channel_to_topics(
+                         raw_res, parsed_topics = analyze_channel_to_topics_p1(
                               st.session_state.p1_channel_url,
                               st.session_state.p1_region, 
                               st.session_state.obsidian_rules, 
                               st.session_state.base_prompt_rules, 
-                              st.session_state.p1_gemma_protocol
+                              st.session_state.p1_gemma_protocol,
+                              st.session_state.p1_bench_prompt
                          )
-
-                         st.session_state.pipeline_state["topic_candidates"] = st.session_state.p1_topics
-                         save_workspace_state() # 자동 저장
+                         st.session_state.p1_bench_raw = raw_res
+                         st.session_state.p1_topics = parsed_topics
+                         st.session_state.pipeline_state["topic_candidates"] = parsed_topics
+                         save_workspace_state()
             
+            if st.session_state.p1_bench_raw:
+                st.markdown("##### 📝 벤치마킹 분석 결과 원본 (수정 가능)")
+                st.session_state.p1_bench_raw = st.text_area(
+                    "벤치마킹 원본 텍스트", 
+                    value=st.session_state.p1_bench_raw, 
+                    height=300, 
+                    key="p1_bench_raw_ta", 
+                    disabled=is_locked
+                )
+                
+                c_reparse, c_popup = st.columns(2)
+                with c_reparse:
+                    if st.button("🔄 수정 텍스트 기반 주제 재파싱", use_container_width=True, key="p1_reparse_btn"):
+                        st.session_state.p1_topics = _parse_topics(st.session_state.p1_bench_raw)
+                        st.success("수정된 텍스트에서 주제 20개가 재파싱되었습니다!")
+                        save_workspace_state()
+                        st.rerun()
+                with c_popup:
+                    if st.button("[SEARCH] 팝업에서 크게 보기", use_container_width=True, key="p1_bench_pop_btn"):
+                        popup_edit_benchmarking()
+
             if st.session_state.p1_topics:
                 st.markdown("<br>", unsafe_allow_html=True)
                 topics_display = [f"{i+1:02d}. {t['title']}" for i, t in enumerate(st.session_state.p1_topics)]
-                st.session_state.p1_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked)
-
+                st.session_state.p1_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked, key="p1_topic_selection_box")
                 st.session_state.pipeline_state["selected_topic"] = st.session_state.p1_topic_selection
-                save_workspace_state() # 자동 저장
+                save_workspace_state()
 
-                if st.button("[SEARCH] 팝업에서 상세 결과 보기", use_container_width=True):
-                    popup_edit_benchmarking()
+                st.divider()
+                st.markdown("##### 💾 벤치마킹 결과 저장 및 옵시디언 백업")
+                st.session_state.p1_bench_tags = st.text_input(
+                    "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)", 
+                    value=st.session_state.p1_bench_tags, 
+                    placeholder="예: 외로움, 존재의미, 고통, 용서", 
+                    key="p1_bench_tags_input",
+                    disabled=is_locked
+                )
+                
+                if st.button("💾 벤치마킹 결과 옵시디언 자동 백업", use_container_width=True, type="primary", key="p1_bench_save_backup_btn", disabled=is_locked):
+                    tag_list = [t.strip() for t in st.session_state.p1_bench_tags.split(",") if t.strip()]
+                    tag_links = " ".join([f"[[{t}]]" for t in tag_list])
+                    tag_hashes = " ".join([f"#{t}" for t in tag_list])
+                    
+                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    today_str = datetime.now().strftime("%Y-%m-%d")
+                    folder_name = "TopicMemory"
+                    title = f"벤치마킹 결과 - {st.session_state.p1_channel_url.replace('https://', '').replace('/', '_')}"
+                    
+                    val = f"## 📌 핵심 요약\n- 채널: {st.session_state.p1_channel_url}\n- 타겟 지역: {st.session_state.p1_region}\n\n"
+                    val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#벤치마킹'}\n\n"
+                    val += f"## 📖 벤치마킹 상세 추천 리스트\n"
+                    for t in st.session_state.p1_topics:
+                        val += f"### [[{t['title']}]]\n- **추천 사유(체험담 기반):** {t['reason']}\n- **예상 효과:** {t['effect']}\n- **예상 반응:** {t['audience_reaction']}\n\n"
+                    val += f"\n## 🔗 원본 날것의 텍스트\n```text\n{st.session_state.p1_bench_raw}\n```\n"
+                    
+                    obs_path = save_obsidian_memory(folder_name, title, val, source=st.session_state.p1_channel_url)
+                    if obs_path:
+                        lock_file_readonly(obs_path)
+                        st.toast("✅ 벤치마킹 옵시디언 백업 완료!", icon="💾")
+                        save_workspace_state()
+                        success, msg = auto_git_push(f"Auto Save (Locked): {title}")
+                        if success:
+                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
+                            st.success(f"✅ 옵시디언 및 GitHub 자동 저장 완료! (경로: {obs_path})")
+                        else:
+                            st.error(f"옵시디언은 저장되었으나 GitHub Push에 실패했습니다: {msg}")
 
     with tab_research:
         with st.container(border=True):
             st.markdown("### 2️⃣ 자료 조사 결과")
             st.caption("옵시디언/리서치 융합 기초 초안 작성 (출처 명기)")
-            st.text_area("🤖 젬마 프롬프트 (자료 조사)", value="[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.", height=68, disabled=True)
             
-            if st.button("📚 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked):
+            st.session_state.p1_research_prompt = st.text_area(
+                "🤖 젬마 작업지시 프롬프트 (자료 조사)", 
+                value=st.session_state.p1_research_prompt, 
+                height=100, 
+                key="p1_research_prompt_input",
+                disabled=is_locked
+            )
+            
+            if st.button("📚 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked, key="p1_research_start_btn"):
                 if not st.session_state.p1_topic_selection:
                     st.error("[WARN] 먼저 좌측의 '벤치마킹 시작' 버튼을 눌러 분석을 완료하고 주제를 선택해 주세요.")
                 else:
                     with st.spinner("자료 융합 및 댓글 기반 리서치 중..."):
                         topic_str = st.session_state.p1_topic_selection
-                        st.session_state.p1_research_result = generate_research_draft(
-                         st.session_state.p1_channel_url, topic_str,
-                              st.session_state.p1_gemma_protocol, st.session_state.base_prompt_rules
+                        st.session_state.p1_research_result = generate_research_draft_p1(
+                             st.session_state.p1_channel_url, 
+                             topic_str,
+                             st.session_state.p1_gemma_protocol, 
+                             st.session_state.base_prompt_rules,
+                             st.session_state.p1_research_prompt
                         )
-            
                     st.session_state.pipeline_state["research_result"] = st.session_state.p1_research_result
-                    save_workspace_state() # 자동 저장
-
+                    save_workspace_state()
+            
             if st.session_state.p1_research_result:
                 st.markdown("<br>", unsafe_allow_html=True)
-                st.text_area("자료 조사 결과 (복사 가능)", value=st.session_state.p1_research_result, height=350, label_visibility="collapsed")
-                if st.button("[SEARCH] 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_res"):
+                st.session_state.p1_research_result = st.text_area(
+                    "자료 조사 결과 (수정 가능)", 
+                    value=st.session_state.p1_research_result, 
+                    height=350, 
+                    key="p1_research_result_ta",
+                    disabled=is_locked
+                )
+                
+                if st.button("[SEARCH] 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_res_p1"):
                     popup_edit_research()
+
+                st.divider()
+                st.markdown("##### 💾 자료조사 결과 저장 및 옵시디언 백업")
+                st.session_state.p1_research_tags = st.text_input(
+                    "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)", 
+                    value=st.session_state.p1_research_tags, 
+                    placeholder="예: 외로움, 존재의미, 고통, 용서", 
+                    key="p1_research_tags_input",
+                    disabled=is_locked
+                )
+                
+                if st.button("💾 자료조사 결과 옵시디언 자동 백업", use_container_width=True, type="primary", key="p1_research_save_backup_btn", disabled=is_locked):
+                    tag_list = [t.strip() for t in st.session_state.p1_research_tags.split(",") if t.strip()]
+                    tag_links = " ".join([f"[[{t}]]" for t in tag_list])
+                    tag_hashes = " ".join([f"#{t}" for t in tag_list])
+                    
+                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    today_str = datetime.now().strftime("%Y-%m-%d")
+                    folder_name = "ResearchMemory"
+                    
+                    topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection and ". " in st.session_state.p1_topic_selection else "자료조사"
+                    title = f"자료조사 초안 - {topic_title}"
+                    
+                    val = f"## 📌 핵심 요약\n- 선택 주제: {st.session_state.p1_topic_selection}\n\n"
+                    val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#자료조사'}\n\n"
+                    val += f"## 📖 자료조사 및 초안 본문\n{st.session_state.p1_research_result}\n\n"
+                    
+                    obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Research")
+                    if obs_path:
+                        lock_file_readonly(obs_path)
+                        st.toast("✅ 자료조사 옵시디언 백업 완료!", icon="💾")
+                        save_workspace_state()
+                        success, msg = auto_git_push(f"Auto Save (Locked): {title}")
+                        if success:
+                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
+                            st.success(f"✅ 옵시디언 및 GitHub 자동 저장 완료! (경로: {obs_path})")
+                        else:
+                            st.error(f"옵시디언은 저장되었으나 GitHub Push에 실패했습니다: {msg}")
 
     with tab_plan:
         with st.container(border=True):
             st.markdown("### 3️⃣ 총괄 기획안")
             st.caption("15분 영상 뼈대 총괄 시나리오 기획 (마스터 플랜)")
+            
+            st.session_state.p1_plan_prompt = st.text_area(
+                "🤖 젬마 작업지시 프롬프트 (총괄 기획)", 
+                value=st.session_state.p1_plan_prompt, 
+                height=100, 
+                key="p1_plan_prompt_input",
+                disabled=is_locked
+            )
         
-        st.text_area("🤖 젬마 프롬프트 (총괄 기획)", value="[작업 지시] 자료 조사 결과를 바탕으로 \'15분 분량의 유튜브 다큐멘터리 총괄 시나리오 기획안\'을 작성하시오.", height=68, disabled=True)
-    
-        if st.button("[ALCHEMY] 철학·감정 융합 설계", use_container_width=True, disabled=is_locked):
-            if not st.session_state.p1_research_result:
-                st.error("[WARN] 먼저 중앙의 \'자료조사 및 초안 작성\'을 완료해 주세요.")
-            else:
-                with st.spinner("철학·성경·감정 융합 구조 설계 중..."):
-                    st.session_state.p1_planning_result = generate_final_planning(
-                    st.session_state.p1_research_result,
-                    st.session_state.p1_gemma_protocol, 
-                    st.session_state.base_prompt_rules
-                )
+            if st.button("[ALCHEMY] 철학·감정 융합 설계", use_container_width=True, disabled=is_locked, key="p1_plan_start_btn"):
+                if not st.session_state.p1_research_result:
+                    st.error("[WARN] 먼저 중앙의 '자료조사 및 초안 작성'을 완료해 주세요.")
+                else:
+                    with st.spinner("철학·성경·감정 융합 구조 설계 중..."):
+                        st.session_state.p1_planning_result = generate_final_planning_p1(
+                             st.session_state.p1_research_result,
+                             st.session_state.p1_gemma_protocol, 
+                             st.session_state.base_prompt_rules,
+                             st.session_state.p1_plan_prompt
+                        )
+                    st.session_state.pipeline_state["planning_result"] = st.session_state.p1_planning_result
+                    save_workspace_state()
 
-            st.session_state.pipeline_state["planning_result"] = st.session_state.p1_planning_result
-            save_workspace_state() # 자동 저장
+            if st.session_state.p1_planning_result:
+               st.markdown("<br>", unsafe_allow_html=True)
+               st.session_state.p1_planning_result = st.text_area(
+                   "최종 기획안 (수정 가능)", 
+                   value=st.session_state.p1_planning_result, 
+                   height=350, 
+                   key="p1_planning_result_ta",
+                   disabled=is_locked
+               )
+               
+               c_view, c_copy = st.columns(2)
+               with c_view:
+                   if st.button("👁 팝업에서 크게 보기", use_container_width=True, key="p1_plan_view_btn"):
+                       popup_edit_planning()
+               with c_copy:
+                   if st.button("📋 클립보드 복사", use_container_width=True, key="p1_plan_copy_btn"):
+                       pyperclip.copy(st.session_state.p1_planning_result)
+                       st.success("총괄 기획안 복사 완료")
 
-        if st.session_state.p1_planning_result:
-           st.markdown("<br>", unsafe_allow_html=True)
-           st.text_area("최종 기획안 (복사 가능)", value=st.session_state.p1_planning_result, height=270, label_visibility="collapsed")
-           col_view, col_copy, col_save, col_obsidian = st.columns(4)
-           with col_view:
-               if st.button("👁 보기", use_container_width=True, key="p1_plan_view"):
-                   popup_edit_planning()
-
-           with col_copy:
-               if st.button("📋 복사", use_container_width=True, key="p1_plan_copy_new"):
-                   pyperclip.copy(st.session_state.p1_planning_result)
-                   st.success("총괄 기획안 복사 완료")
-
-           with col_save:
-               if st.button("💾 저장", use_container_width=True, key="p1_plan_save"):
-                ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-                save_dir = os.path.join("Backups", "Part1_Plan")
-                os.makedirs(save_dir, exist_ok=True)
-
-                save_path = os.path.join(save_dir, f"plan_{ts}.md")
-
-                with open(save_path, "w", encoding="utf-8") as f:
-                    f.write(st.session_state.p1_planning_result)
-
-                st.success(f"저장 완료: {save_path}")
-
-           with col_obsidian:
-                if st.button("🧠 옵시디언 저장", use_container_width=True, key="p1_plan_obsidian"):
+               st.divider()
+               st.markdown("##### 💾 기획안 결과 저장 및 옵시디언 백업")
+               st.session_state.p1_plan_tags = st.text_input(
+                   "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)", 
+                   value=st.session_state.p1_plan_tags, 
+                   placeholder="예: 외로움, 존재의미, 고통, 용서", 
+                   key="p1_plan_tags_input",
+                   disabled=is_locked
+               )
+               
+               if st.button("💾 최종 기획안 옵시디언 자동 백업", use_container_width=True, type="primary", key="p1_plan_save_backup_btn", disabled=is_locked):
+                   tag_list = [t.strip() for t in st.session_state.p1_plan_tags.split(",") if t.strip()]
+                   tag_links = " ".join([f"[[{t}]]" for t in tag_list])
+                   tag_hashes = " ".join([f"#{t}" for t in tag_list])
+                   
                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                    today_str = datetime.now().strftime("%Y-%m-%d")
-                   base_name = f"part1_final_plan_{ts}"
-                   if st.session_state.path_obsidian:
-                       safe_makedirs(st.session_state.path_obsidian)
-                       md_path = os.path.join(st.session_state.path_obsidian, f"{base_name}.md")
-                       topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection else "기획안"
-                       
-                       md = f"# [[{topic_title}]]\n## 📌 Brief Summary\nSage Mirror Studio v8.1 총괄 시나리오 기획안\n\n## 📚 Core Content (Research)\n{st.session_state.p1_research_result}\n\n## [CINEMA] Final Scenario Plan\n{st.session_state.p1_planning_result}\n\n## 🔗 Knowledge Connections\n- **Related Topics:** [[심리치유]], [[현자의거울]]\n- **Projects/Contexts:** [[SageMirror_Production_v8.1]]\n\n---\n*Last updated: {today_str} {ts}*\n"
-                       
-                       if save_markdown(md_path, md):
-                           lock_file_readonly(md_path)
-                           st.toast(f"[OK] 기획안 저장 및 락(Lock) 완료", icon="🔒")
-                           success, msg = auto_git_push(f"Auto Save (Locked): \'{topic_title}\'")
-                           if success:
-                               st.success(f"✅ 옵시디언 및 GitHub 자동 저장 완료! (경로: {md_path})")
-                           else:
-                               st.error(f"옵시디언은 저장되었으나 GitHub Push에 실패했습니다: {msg}")
+                   folder_name = "PlanningMemory"
+                   
+                   topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection and ". " in st.session_state.p1_topic_selection else "기획안"
+                   title = f"최종 기획안 - {topic_title}"
+                   
+                   val = f"## 📌 핵심 요약\n- 선택 주제: {st.session_state.p1_topic_selection}\n\n"
+                   val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#총괄기획'}\n\n"
+                   val += f"## 📖 최종 시나리오 기획안 본문\n{st.session_state.p1_planning_result}\n\n"
+                   
+                   obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Planning")
+                   if obs_path:
+                       lock_file_readonly(obs_path)
+                       st.toast("✅ 기획안 옵시디언 백업 완료!", icon="💾")
+                       save_workspace_state()
+                       success, msg = auto_git_push(f"Auto Save (Locked): {title}")
+                       if success:
+                           st.toast("🚀 GitHub 백업 완료!", icon="🚀")
+                           st.success(f"✅ 옵시디언 및 GitHub 자동 저장 완료! (경로: {obs_path})")
+                       else:
+                           st.error(f"옵시디언은 저장되었으나 GitHub Push에 실패했습니다: {msg}")
 @st.dialog("📝 젬마 프로토콜 (Gemma Protocol) 편집", width="large")
 def popup_edit_gemma_protocol_p2():
     st.markdown("여기서 행동 지침과 작업 지침서를 상세하게 수정할 수 있습니다. 텍스트를 드래그하고 복사/붙여넣기 하세요.")
