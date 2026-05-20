@@ -42,7 +42,7 @@ def main():
     try:
         repo = Repo(repo_path)
         repo.git.add("--all")
-        commit_msg = f"v{version}: Part 1 Textarea State Persistence & 3-Button Alignment — {ts}"
+        commit_msg = f"v{version}: Part 1 Textarea State Persistence and 3-Button Alignment - {ts}"
         repo.index.commit(commit_msg)
         print(f"Git commit successful: {commit_msg}")
         
