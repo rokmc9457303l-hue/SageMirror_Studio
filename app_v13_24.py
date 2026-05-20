@@ -1789,6 +1789,48 @@ def render_part1():
                                st.success(f"✅ 옵시디언 및 GitHub 자동 저장 완료! (경로: {md_path})")
                            else:
                                st.error(f"옵시디언은 저장되었으나 GitHub Push에 실패했습니다: {msg}")
+st.divider()
+status_col1, status_col2, status_col3 = st.columns(3)
+with status_col1:
+    st.markdown("🔵 앱 저장 시스템 정상")
+with status_col2:
+    if st.session_state.path_obsidian:
+        st.markdown("🔵 옵시디언 연결됨")
+    else:
+        st.markdown("🔴 옵시디언 미연결")
+with status_col3:
+    if st.session_state.github_repo_url:
+        st.markdown("🔵 GitHub 연결됨")
+    else:
+        st.markdown("🔴 GitHub 미연결")
+st.markdown("<br>", unsafe_allow_html=True)
+col_v, col_c, col_s, col_o = st.columns(4)
+with col_v:
+    if st.button("👁 보기", use_container_width=True, key="p1_plan_view"):
+        popup_edit_planning()
+with col_c:
+    if st.button("📋 복사", use_container_width=True, key="p1_plan_copy_new"):
+        pyperclip.copy(st.session_state.p1_planning_result)
+        st.success("복사 완료")
+with col_s:
+    if st.button("💾 저장", use_container_width=True, key="p1_plan_save"):
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        save_dir = os.path.join("Backups", "Part1_Plan")
+        os.makedirs(save_dir, exist_ok=True)
+        save_path = os.path.join(save_dir, f"plan_{ts}.md")
+        with open(save_path, "w", encoding="utf-8") as f:
+            f.write(st.session_state.p1_planning_result)
+        st.success(f"저장: {save_path}")
+with col_o:
+    if st.button("🧠 옵시디언 저장", use_container_width=True, key="p1_plan_obsidian"):
+        obs_path = save_obsidian_memory(
+            folder_name="ScriptDrafts",
+            title="Part1 총괄 기획안",
+            content=st.session_state.p1_planning_result,
+            source="Part 1 Planning"
+        )
+        if obs_path:
+            st.success(f"저장: {obs_path}")                               
 @st.dialog("📝 젬마 프로토콜 (Gemma Protocol) 편집", width="large")
 def popup_edit_gemma_protocol_p2():
     st.markdown("여기서 행동 지침과 작업 지침서를 상세하게 수정할 수 있습니다. 텍스트를 드래그하고 복사/붙여넣기 하세요.")
