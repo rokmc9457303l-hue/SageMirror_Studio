@@ -1,0 +1,179 @@
+    with tab_plan:
+        with st.container(border=True):
+            st.markdown("### 3️⃣ 총괄 기획안 생성")
+            st.caption("Part 1 Librarian + Part 2 자료조사 결과를 융합하여 15분 영상 마스터 기획안 작성")
+
+            st.session_state.p2_plan_prompt = st.text_area(
+                "🤖 젬마 작업지시 프롬프트 (총괄 기획)",
+                value=st.session_state.get("p2_plan_prompt", "[작업 지시] 위의 자료조사 결과와 Part 1 주제 분석을 바탕으로, 성경-철학-에세이 3원 융합 구조의 15분 유튜브 롱폼 총괄 기획안을 작성하시오. 시청자 감정 곡선 (기-승-전-결)을 명시하고, 핵심 성경 구절/철학자/에세이 3가지를 반드시 포함하라."),
+                height=120,
+                key="p2_plan_prompt_input",
+                disabled=is_locked
+            )
+
+            # --- 3단 버튼 구조 ---
+            c_p1, c_p2, c_p3 = st.columns([4, 3, 3])
+            with c_p1:
+                if st.button("[ALCHEMY] 총괄 기획안 생성 (AI)", use_container_width=True, disabled=is_locked, type="primary", key="p2_plan_btn"):
+                    if not st.session_state.get("p2_research_result"):
+                        st.error("[WARN] 먼저 '자료 조사' 탭에서 자료조사를 완료해 주세요.")
+                    else:
+                        st.session_state.p2_planning_result = ""
+                        st.session_state.p2_plan_saved = False
+                        st.session_state.p2_plan_obsidian_saved = False
+                        save_workspace_state()
+
+                        with st.spinner("성경-철학-에세이 3원 융합 기획안 생성 중..."):
+                            topic_str = st.session_state.get("p2_topic_selection", "")
+                            plan_prompt_val = st.session_state.get("p2_plan_prompt", "")
+
+                            prompt = f"""[지시] 아래 자료조사 결과를 바탕으로 총괄 기획안을 작성하세요.
+
+[선택 주제]
+{topic_str}
+
+[자료조사 결과]
+{st.session_state.p2_research_result}
+
+[추가 작업 지시]
+{plan_prompt_val}
+
+[출력 요구사항]
+1. 영상 제목 (클릭 유도형, 4070 세대 타겟)
+2. 핵심 감정 키워드 3개
+3. 기-승-전-결 구조 요약 (각 25%)
+4. 성경 구절 1개 [SOURCE: 성경 — 책명 장:절]
+5. 철학자 인용 1개 [SOURCE: 책명 — 저자명]
+6. 에세이 문장 1개 [SOURCE: 에세이명 — 저자명]
+7. 썸네일 키워드 3개
+8. 예상 시청자 반응
+
+{st.session_state.p2_gemma_protocol}"""
+
+                            result = call_gemma(prompt)
+                            st.session_state.p2_planning_result = result
+                            st.session_state.pipeline_state["planning_result"] = result
+                            st.session_state.p2_plan_saved = True
+                            save_workspace_state()
+
+                            # 젬마 키워드 자동 세분화 및 옵시디언 자동 백업
+                            keywords = extract_keywords_via_gemma(result, st.session_state.base_prompt_rules)
+                            tag_list = [t.strip() for t in keywords.split(",") if t.strip()]
+                            tag_links = " ".join([f"[[{t}]]" for t in tag_list])
+                            tag_hashes = " ".join([f"#{t}" for t in tag_list])
+
+                            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                            topic_title = topic_str.split(". ")[1] if topic_str and ". " in topic_str else "기획안"
+                            title = f"[Part2] 총괄 기획안 - {topic_title}"
+
+                            val = f"## 📌 핵심 요약\n- 선택 주제: {topic_str}\n\n"
+                            val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#총괄기획'}\n\n"
+                            val += f"## 📖 총괄 기획안 본문\n{result}\n\n"
+                            val += f"## 🔗 파이프라인 연결\n- 다음 단계: Part 3-4 대본 설계 (p2_planning_result 자동 전달)\n- 선행 파트: Part 1 Librarian → Part 2 자료조사\n\n"
+
+                            obs_path = save_obsidian_memory("PlanningMemory", title, val, source="Sage Mirror Studio Part 2")
+                            if obs_path:
+                                lock_file_readonly(obs_path)
+                                st.toast("💾 총괄 기획안 로컬 자동 저장 완료!", icon="💾")
+                                success, msg = auto_git_push(f"Auto Save (Locked): {title}")
+                                if success:
+                                    st.session_state.p2_plan_obsidian_saved = True
+                                    st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
+                                else:
+                                    st.error(f"GitHub Push 실패: {msg}")
+                                save_workspace_state()
+                                st.rerun()
+
+            with c_p2:
+                if st.session_state.get("p2_plan_saved", False):
+                    st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p2_plan_local_indicator")
+                else:
+                    st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p2_plan_local_waiting")
+
+            with c_p3:
+                if st.session_state.get("p2_plan_obsidian_saved", False):
+                    st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p2_plan_obs_indicator")
+                else:
+                    st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p2_plan_obs_waiting")
+
+            if st.session_state.get("p2_planning_result"):
+                st.markdown("<br>", unsafe_allow_html=True)
+
+                # Part 3-4 전달 상태 표시
+                st.success("✅ Part 3-4 대본 설계로 자동 전달 준비 완료! (Part 3-4에서 이 기획안이 자동 수신됩니다)")
+
+                st.session_state.p2_planning_result = st.text_area(
+                    "총괄 기획안 (수정 가능)",
+                    value=st.session_state.p2_planning_result,
+                    height=450,
+                    label_visibility="collapsed",
+                    key="p2_plan_area"
+                )
+
+                c_pop2, c_copy2 = st.columns(2)
+                with c_pop2:
+                    if st.button("👁 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_plan2_btn"):
+                        popup_edit_planning_p2()
+                with c_copy2:
+                    if st.button("📋 클립보드 복사", use_container_width=True, key="p2_plan_copy_btn"):
+                        try:
+                            import pyperclip
+                            pyperclip.copy(st.session_state.p2_planning_result)
+                            st.success("총괄 기획안 복사 완료!")
+                        except Exception:
+                            st.info("복사 내용은 위 텍스트창에서 직접 드래그 선택하세요.")
+
+                st.divider()
+                st.markdown("##### 💾 수동 백업 / RAG 키워드 정보")
+                st.session_state.p2_plan_tags = st.text_input(
+                    "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)",
+                    value=st.session_state.get("p2_plan_tags", ""),
+                    placeholder="예: 외로움, 존재의미, 고통, 용서",
+                    key="p2_plan_tags_input",
+                    disabled=is_locked
+                )
+
+                if st.button("💾 (예비용) 기획안 수동 옵시디언 백업", use_container_width=True, key="p2_plan_backup_btn", disabled=is_locked):
+                    tag_list = [t.strip() for t in st.session_state.get("p2_plan_tags","").split(",") if t.strip()]
+                    tag_links = " ".join([f"[[{t}]]" for t in tag_list])
+                    tag_hashes = " ".join([f"#{t}" for t in tag_list])
+                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    topic_title = st.session_state.get("p2_topic_selection","").split(". ")[1] if st.session_state.get("p2_topic_selection") and ". " in st.session_state.get("p2_topic_selection","") else "기획안"
+                    title = f"[Part2] 총괄 기획안 - {topic_title}"
+                    val = f"## 📌 핵심 요약\n- 선택 주제: {st.session_state.get('p2_topic_selection','')}\n\n"
+                    val += f"## 🎯 RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]]'}\n- 태그: {tag_hashes if tag_hashes else '#총괄기획'}\n\n"
+                    val += f"## 📖 본문\n{st.session_state.p2_planning_result}\n\n"
+                    obs_path = save_obsidian_memory("PlanningMemory", title, val, source="Sage Mirror Studio Part 2")
+                    if obs_path:
+                        lock_file_readonly(obs_path)
+                        st.toast("✅ 수동 기획안 옵시디언 백업 완료!", icon="💾")
+                        st.session_state.p2_plan_obsidian_saved = True
+                        save_workspace_state()
+                        success, msg = auto_git_push(f"Manual Save: {title}")
+                        if success:
+                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
+                        else:
+                            st.error(f"GitHub Push 실패: {msg}")
+                        st.rerun()
+
+    st.divider()
+    if st.button("🔒 Part 2 전체 옵시디언 자동 백업", type="primary", use_container_width=True, disabled=is_locked, key="p2_final_backup"):
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        folder_name = "PlanningMemory"
+        title = f"[Part2] 전체 작업 백업 - {ts}"
+        val = f"# Part 2 Alchemist 전체 작업 백업\n\n"
+        val += f"## 📌 선택 주제\n{st.session_state.get('p2_topic_selection','')}\n\n"
+        val += f"## 📚 자료조사 결과\n{st.session_state.get('p2_research_result','')}\n\n"
+        val += f"## 📖 총괄 기획안\n{st.session_state.get('p2_planning_result','')}\n\n"
+        val += f"---\n*Last updated: {today_str} {ts}*\n"
+        obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 2")
+        if obs_path:
+            lock_file_readonly(obs_path)
+            st.toast("✅ Part 2 전체 백업 완료!", icon="🔒")
+            success, msg = auto_git_push(f"Auto Save (Part 2 Full): {ts}")
+            if success:
+                st.toast("🚀 GitHub 백업 완료!", icon="🚀")
+            else:
+                st.error(f"GitHub Push 실패: {msg}")
+

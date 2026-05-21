@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-🪞 현자의 거울 스튜디오 — Master App v13.28
-[v13.28 업데이트 사항: 2026-05-21]
-- Part 3-4 Architect & Writer 하단 3단 버튼 구조 (시작/로컬저장/옵시디언백업) 통일 완료
-- Step 2 구조 설계, Step 3 나레이션/이미지/캡컷 전 영역에 RAG 자동 백업 및 Git Push 연동
-- p34 인디케이터 키 8종을 세션 스테이트 및 workspace_state.json 영속화 추가
+🪞 현자의 거울 스튜디오 — Master App v13.29
+[v13.29 업데이트 사항: 2026-05-21]
+- Part 3-4 Step 3 Writer 3컬럼 → 탭(Tab) 방식으로 완전 교체 (나레이션/이미지/캡컷 각 탭)
+- 각 탭에 젬마 프롬프트 편집창 + 3단 버튼 + 결과 팝업(스크롤/드래그/수정) 완성
+- Part 2 Alchemist 자료조사/총괄기획안 탭에 3단 버튼 + RAG 자동 백업 + Git Push 연동
+- NameError 3종(on_p1_plan_prompt_change, on_p1_planning_result_change, on_p1_plan_tags_change) 수정
+- p2/p34 신규 세션 상태 키 12종 영속화 완료
 """
 
 

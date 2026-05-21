@@ -328,11 +328,8 @@ def save_workspace_state():
         "p2_gemma_protocol", "p2_channel_url", "p2_region", "p2_topics",
         "p2_topic_selection", "p2_research_result", "p2_planning_result",
         "p2_thumbnail_plan", "unlock_part2",
-        "p2_research_prompt", "p2_research_tags", "p2_research_saved", "p2_research_obsidian_saved",
-        "p2_plan_prompt", "p2_plan_tags", "p2_plan_saved", "p2_plan_obsidian_saved",
         "p34_gemma_protocol", "p34_master_prompt", "unlock_part34",
         "p34_scene_structure", "p34_narration_script", "p34_image_script", "p34_capcut_data",
-        "p34_narr_prompt", "p34_img_prompt", "p34_cap_prompt",
         "p34_arch_saved", "p34_arch_obsidian_saved", "p34_narr_saved", "p34_narr_obsidian_saved",
         "p34_img_saved", "p34_img_obsidian_saved", "p34_cap_saved", "p34_cap_obsidian_saved",
         "p5_image_master_prompt", "unlock_part5", 
@@ -1207,15 +1204,6 @@ def init_session_state():
         "p2_research_result": "",
         "p2_planning_result": "",
         "p2_thumbnail_plan": "",
-        # ── Part 2 3단 버튼 상태 인디케이터 키 ──
-        "p2_research_prompt": "[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.",
-        "p2_research_tags": "",
-        "p2_research_saved": False,
-        "p2_research_obsidian_saved": False,
-        "p2_plan_prompt": "[작업 지시] 위의 자료조사 결과와 Part 1 주제 분석을 바탕으로, 성경-철학-에세이 3원 융합 구조의 15분 유튜브 롱폼 총괄 기획안을 작성하시오.",
-        "p2_plan_tags": "",
-        "p2_plan_saved": False,
-        "p2_plan_obsidian_saved": False,
         "p34_gemma_protocol": PART3_GEMMA_PROTOCOL_V3,
         "p34_master_prompt": PART3_MASTER_PROMPT_V1,
         "unlock_part34": False,
@@ -1223,10 +1211,6 @@ def init_session_state():
         "p34_narration_script": "",
         "p34_image_script": "",
         "p34_capcut_data": "",
-        # ── Part 3-4 젬마 프롬프트 키 ──
-        "p34_narr_prompt": "[작업 지시] 아래 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요. 화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다.",
-        "p34_img_prompt": "[작업 지시] 아래 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요. 한글묘사에는 인물동작/시선/빛/소품태그/표정코드[EXPR-0X] 필수.",
-        "p34_cap_prompt": "[작업 지시] 아래 이미지 대본을 CapCut 자동화 JSON으로 변환하세요. 각 씬: scene_id, script, action_kr, expression, props_used, image_file(scene_XXX.png), audio_file(narration_XXX.mp3), timeline_order, duration_sec 포함.",
         # ── Part 3-4 3단 버튼 상태 인디케이터 키 ──
         "p34_arch_saved": False,
         "p34_arch_obsidian_saved": False,
@@ -2128,6 +2112,7 @@ def render_part1():
                 value=st.session_state.p1_plan_prompt, 
                 height=100, 
                 key="p1_plan_prompt_input",
+                on_change=on_p1_plan_prompt_change,
                 disabled=is_locked
             )
         
@@ -2202,11 +2187,12 @@ def render_part1():
 
             if st.session_state.p1_planning_result:
                st.markdown("<br>", unsafe_allow_html=True)
-               st.session_state.p1_planning_result = st.text_area(
+               st.text_area(
                    "최종 기획안 (수정 가능)", 
                    value=st.session_state.p1_planning_result, 
                    height=350, 
                    key="p1_planning_result_ta",
+                   on_change=on_p1_planning_result_change,
                    disabled=is_locked
                )
                
@@ -2221,11 +2207,12 @@ def render_part1():
 
                st.divider()
                st.markdown("##### 💾 수동 백업 / RAG 키워드 정보")
-               st.session_state.p1_plan_tags = st.text_input(
+               st.text_input(
                    "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)", 
                    value=st.session_state.p1_plan_tags, 
                    placeholder="예: 외로움, 존재의미, 고통, 용서", 
                    key="p1_plan_tags_input",
+                   on_change=on_p1_plan_tags_change,
                    disabled=is_locked
                )
                
@@ -2477,313 +2464,47 @@ def render_part2():
         with st.container(border=True):
             st.markdown("### 2️⃣ 옵시디언 융합 리서치")
             st.caption("성경/철학/에세이 3원 지식 융합 초안 작성")
-
-            st.session_state.p2_research_prompt = st.text_area(
-                "🤖 젬마 작업지시 프롬프트 (자료 조사)",
-                value=st.session_state.get("p2_research_prompt", "[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오."),
-                height=100,
-                key="p2_res_prompt",
-                disabled=is_locked
-            )
-
-            # --- 3단 버튼 구조 ---
-            c_r1, c_r2, c_r3 = st.columns([4, 3, 3])
-            with c_r1:
-                if st.button("📚 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked, key="p2_res_btn"):
-                    if not st.session_state.get("p2_topic_selection"):
-                        st.error("[WARN] 먼저 '채널 벤치마킹' 탭에서 분석을 완료하고 주제를 선택해 주세요.")
-                    else:
-                        st.session_state.p2_research_result = ""
-                        st.session_state.p2_research_saved = False
-                        st.session_state.p2_research_obsidian_saved = False
-                        save_workspace_state()
-
-                        with st.spinner("자료 융합 및 댓글 기반 리서치 중..."):
-                            topic_str = st.session_state.p2_topic_selection
-                            result = generate_research_draft(
-                                st.session_state.p2_channel_url, topic_str,
-                                st.session_state.p2_gemma_protocol, st.session_state.base_prompt_rules
-                            )
-                            st.session_state.p2_research_result = result
-                            st.session_state.pipeline_state["research_result"] = result
-                            st.session_state.p2_research_saved = True
-                            save_workspace_state()
-
-                            # 젬마 키워드 자동 세분화 및 옵시디언 자동 백업
-                            keywords = extract_keywords_via_gemma(result, st.session_state.base_prompt_rules)
-                            tag_list = [t.strip() for t in keywords.split(",") if t.strip()]
-                            tag_links = " ".join([f"[[{t}]]" for t in tag_list])
-                            tag_hashes = " ".join([f"#{t}" for t in tag_list])
-
-                            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                            topic_title = st.session_state.p2_topic_selection.split(". ")[1] if st.session_state.p2_topic_selection and ". " in st.session_state.p2_topic_selection else "자료조사"
-                            title = f"[Part2] 자료조사 초안 - {topic_title}"
-
-                            val = f"## 📌 핵심 요약\n- 선택 주제: {st.session_state.p2_topic_selection}\n\n"
-                            val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#자료조사'}\n\n"
-                            val += f"## 📖 자료조사 및 초안 본문\n{result}\n\n"
-                            val += f"## 🔗 파이프라인 연결\n- 다음 단계: Part 3-4 대본 설계\n- 선행 파트: Part 1 Librarian 주제 분석\n\n"
-
-                            obs_path = save_obsidian_memory("ResearchMemory", title, val, source="Sage Mirror Studio Part 2")
-                            if obs_path:
-                                lock_file_readonly(obs_path)
-                                st.toast("💾 자료조사 결과 로컬 자동 저장 완료!", icon="💾")
-                                success, msg = auto_git_push(f"Auto Save (Locked): {title}")
-                                if success:
-                                    st.session_state.p2_research_obsidian_saved = True
-                                    st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
-                                else:
-                                    st.error(f"GitHub Push 실패: {msg}")
-                                save_workspace_state()
-                                st.rerun()
-
-            with c_r2:
-                if st.session_state.get("p2_research_saved", False):
-                    st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p2_res_local_indicator")
+            st.text_area("🤖 젬마 프롬프트 (자료 조사)", value="[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.", height=68, disabled=True, key="p2_res_prompt")
+            
+            if st.button("📚 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked, key="p2_res_btn"):
+                if "p2_topic_selection" not in st.session_state or not st.session_state.p2_topic_selection:
+                    st.error("[WARN] 먼저 좌측의 '벤치마킹 시작' 버튼을 눌러 분석을 완료하고 주제를 선택해 주세요.")
                 else:
-                    st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p2_res_local_waiting")
-
-            with c_r3:
-                if st.session_state.get("p2_research_obsidian_saved", False):
-                    st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p2_res_obs_indicator")
-                else:
-                    st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p2_res_obs_waiting")
-
-            if st.session_state.get("p2_research_result"):
+                    with st.spinner("자료 융합 및 댓글 기반 리서치 중..."):
+                        topic_str = st.session_state.p2_topic_selection
+                        st.session_state.p2_research_result = generate_research_draft(
+                        st.session_state.p2_channel_url, topic_str,
+                        st.session_state.p2_gemma_protocol, st.session_state.base_prompt_rules
+                    )
+                    save_workspace_state() # 자동 저장
+            
+            if "p2_research_result" in st.session_state and st.session_state.p2_research_result:
                 st.markdown("<br>", unsafe_allow_html=True)
-                st.session_state.p2_research_result = st.text_area(
-                    "자료 조사 결과 (수정 가능)",
-                    value=st.session_state.p2_research_result,
-                    height=400,
-                    label_visibility="collapsed",
-                    key="p2_res_area"
-                )
-
-                c_pop, c_copy = st.columns(2)
-                with c_pop:
-                    if st.button("👁 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_res2_btn"):
-                        popup_edit_research_p2()
-                with c_copy:
-                    if st.button("📋 클립보드 복사", use_container_width=True, key="p2_res_copy_btn"):
-                        try:
-                            import pyperclip
-                            pyperclip.copy(st.session_state.p2_research_result)
-                            st.success("자료조사 결과 복사 완료!")
-                        except Exception:
-                            st.info("복사 내용은 위 텍스트창에서 직접 드래그 선택하세요.")
-
-                st.divider()
-                st.markdown("##### 💾 수동 백업 / RAG 키워드 정보")
-                st.session_state.p2_research_tags = st.text_input(
-                    "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)",
-                    value=st.session_state.get("p2_research_tags", ""),
-                    placeholder="예: 외로움, 존재의미, 고통, 용서",
-                    key="p2_res_tags_input",
-                    disabled=is_locked
-                )
-
-                if st.button("💾 (예비용) 자료조사 수동 옵시디언 백업", use_container_width=True, key="p2_research_save_backup_btn", disabled=is_locked):
-                    tag_list = [t.strip() for t in st.session_state.get("p2_research_tags","").split(",") if t.strip()]
-                    tag_links = " ".join([f"[[{t}]]" for t in tag_list])
-                    tag_hashes = " ".join([f"#{t}" for t in tag_list])
-                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    topic_title = st.session_state.p2_topic_selection.split(". ")[1] if st.session_state.get("p2_topic_selection") and ". " in st.session_state.p2_topic_selection else "자료조사"
-                    title = f"[Part2] 자료조사 초안 - {topic_title}"
-                    val = f"## 📌 핵심 요약\n- 선택 주제: {st.session_state.get('p2_topic_selection','')}\n\n"
-                    val += f"## 🎯 RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]]'}\n- 태그: {tag_hashes if tag_hashes else '#자료조사'}\n\n"
-                    val += f"## 📖 본문\n{st.session_state.p2_research_result}\n\n"
-                    obs_path = save_obsidian_memory("ResearchMemory", title, val, source="Sage Mirror Studio Part 2")
-                    if obs_path:
-                        lock_file_readonly(obs_path)
-                        st.toast("✅ 수동 자료조사 옵시디언 백업 완료!", icon="💾")
-                        st.session_state.p2_research_obsidian_saved = True
-                        save_workspace_state()
-                        success, msg = auto_git_push(f"Manual Save: {title}")
-                        if success:
-                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                        else:
-                            st.error(f"GitHub Push 실패: {msg}")
-                        st.rerun()
+                st.text_area("자료 조사 결과 (복사 가능)", value=st.session_state.p2_research_result, height=350, label_visibility="collapsed", key="p2_res_area")
+                if st.button("[SEARCH] 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_res2_btn"):
+                    popup_edit_research_p2()
 
 
-    with tab_plan:
-        with st.container(border=True):
-            st.markdown("### 3️⃣ 총괄 기획안 생성")
-            st.caption("Part 1 Librarian + Part 2 자료조사 결과를 융합하여 15분 영상 마스터 기획안 작성")
+    if st.button("🧠 옵시디언 저장", use_container_width=True, key="research_obsidian_btn"):
 
-            st.session_state.p2_plan_prompt = st.text_area(
-                "🤖 젬마 작업지시 프롬프트 (총괄 기획)",
-                value=st.session_state.get("p2_plan_prompt", "[작업 지시] 위의 자료조사 결과와 Part 1 주제 분석을 바탕으로, 성경-철학-에세이 3원 융합 구조의 15분 유튜브 롱폼 총괄 기획안을 작성하시오. 시청자 감정 곡선 (기-승-전-결)을 명시하고, 핵심 성경 구절/철학자/에세이 3가지를 반드시 포함하라."),
-                height=120,
-                key="p2_plan_prompt_input",
-                disabled=is_locked
-            )
-
-            # --- 3단 버튼 구조 ---
-            c_p1, c_p2, c_p3 = st.columns([4, 3, 3])
-            with c_p1:
-                if st.button("[ALCHEMY] 총괄 기획안 생성 (AI)", use_container_width=True, disabled=is_locked, type="primary", key="p2_plan_btn"):
-                    if not st.session_state.get("p2_research_result"):
-                        st.error("[WARN] 먼저 '자료 조사' 탭에서 자료조사를 완료해 주세요.")
-                    else:
-                        st.session_state.p2_planning_result = ""
-                        st.session_state.p2_plan_saved = False
-                        st.session_state.p2_plan_obsidian_saved = False
-                        save_workspace_state()
-
-                        with st.spinner("성경-철학-에세이 3원 융합 기획안 생성 중..."):
-                            topic_str = st.session_state.get("p2_topic_selection", "")
-                            plan_prompt_val = st.session_state.get("p2_plan_prompt", "")
-
-                            prompt = f"""[지시] 아래 자료조사 결과를 바탕으로 총괄 기획안을 작성하세요.
-
-[선택 주제]
-{topic_str}
-
-[자료조사 결과]
-{st.session_state.p2_research_result}
-
-[추가 작업 지시]
-{plan_prompt_val}
-
-[출력 요구사항]
-1. 영상 제목 (클릭 유도형, 4070 세대 타겟)
-2. 핵심 감정 키워드 3개
-3. 기-승-전-결 구조 요약 (각 25%)
-4. 성경 구절 1개 [SOURCE: 성경 — 책명 장:절]
-5. 철학자 인용 1개 [SOURCE: 책명 — 저자명]
-6. 에세이 문장 1개 [SOURCE: 에세이명 — 저자명]
-7. 썸네일 키워드 3개
-8. 예상 시청자 반응
-
-{st.session_state.p2_gemma_protocol}"""
-
-                            result = call_gemma(prompt)
-                            st.session_state.p2_planning_result = result
-                            st.session_state.pipeline_state["planning_result"] = result
-                            st.session_state.p2_plan_saved = True
-                            save_workspace_state()
-
-                            # 젬마 키워드 자동 세분화 및 옵시디언 자동 백업
-                            keywords = extract_keywords_via_gemma(result, st.session_state.base_prompt_rules)
-                            tag_list = [t.strip() for t in keywords.split(",") if t.strip()]
-                            tag_links = " ".join([f"[[{t}]]" for t in tag_list])
-                            tag_hashes = " ".join([f"#{t}" for t in tag_list])
-
-                            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                            topic_title = topic_str.split(". ")[1] if topic_str and ". " in topic_str else "기획안"
-                            title = f"[Part2] 총괄 기획안 - {topic_title}"
-
-                            val = f"## 📌 핵심 요약\n- 선택 주제: {topic_str}\n\n"
-                            val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#총괄기획'}\n\n"
-                            val += f"## 📖 총괄 기획안 본문\n{result}\n\n"
-                            val += f"## 🔗 파이프라인 연결\n- 다음 단계: Part 3-4 대본 설계 (p2_planning_result 자동 전달)\n- 선행 파트: Part 1 Librarian → Part 2 자료조사\n\n"
-
-                            obs_path = save_obsidian_memory("PlanningMemory", title, val, source="Sage Mirror Studio Part 2")
-                            if obs_path:
-                                lock_file_readonly(obs_path)
-                                st.toast("💾 총괄 기획안 로컬 자동 저장 완료!", icon="💾")
-                                success, msg = auto_git_push(f"Auto Save (Locked): {title}")
-                                if success:
-                                    st.session_state.p2_plan_obsidian_saved = True
-                                    st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
-                                else:
-                                    st.error(f"GitHub Push 실패: {msg}")
-                                save_workspace_state()
-                                st.rerun()
-
-            with c_p2:
-                if st.session_state.get("p2_plan_saved", False):
-                    st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p2_plan_local_indicator")
-                else:
-                    st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p2_plan_local_waiting")
-
-            with c_p3:
-                if st.session_state.get("p2_plan_obsidian_saved", False):
-                    st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p2_plan_obs_indicator")
-                else:
-                    st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p2_plan_obs_waiting")
-
-            if st.session_state.get("p2_planning_result"):
-                st.markdown("<br>", unsafe_allow_html=True)
-
-                # Part 3-4 전달 상태 표시
-                st.success("✅ Part 3-4 대본 설계로 자동 전달 준비 완료! (Part 3-4에서 이 기획안이 자동 수신됩니다)")
-
-                st.session_state.p2_planning_result = st.text_area(
-                    "총괄 기획안 (수정 가능)",
-                    value=st.session_state.p2_planning_result,
-                    height=450,
-                    label_visibility="collapsed",
-                    key="p2_plan_area"
-                )
-
-                c_pop2, c_copy2 = st.columns(2)
-                with c_pop2:
-                    if st.button("👁 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_plan2_btn"):
-                        popup_edit_planning_p2()
-                with c_copy2:
-                    if st.button("📋 클립보드 복사", use_container_width=True, key="p2_plan_copy_btn"):
-                        try:
-                            import pyperclip
-                            pyperclip.copy(st.session_state.p2_planning_result)
-                            st.success("총괄 기획안 복사 완료!")
-                        except Exception:
-                            st.info("복사 내용은 위 텍스트창에서 직접 드래그 선택하세요.")
-
-                st.divider()
-                st.markdown("##### 💾 수동 백업 / RAG 키워드 정보")
-                st.session_state.p2_plan_tags = st.text_input(
-                    "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)",
-                    value=st.session_state.get("p2_plan_tags", ""),
-                    placeholder="예: 외로움, 존재의미, 고통, 용서",
-                    key="p2_plan_tags_input",
-                    disabled=is_locked
-                )
-
-                if st.button("💾 (예비용) 기획안 수동 옵시디언 백업", use_container_width=True, key="p2_plan_backup_btn", disabled=is_locked):
-                    tag_list = [t.strip() for t in st.session_state.get("p2_plan_tags","").split(",") if t.strip()]
-                    tag_links = " ".join([f"[[{t}]]" for t in tag_list])
-                    tag_hashes = " ".join([f"#{t}" for t in tag_list])
-                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    topic_title = st.session_state.get("p2_topic_selection","").split(". ")[1] if st.session_state.get("p2_topic_selection") and ". " in st.session_state.get("p2_topic_selection","") else "기획안"
-                    title = f"[Part2] 총괄 기획안 - {topic_title}"
-                    val = f"## 📌 핵심 요약\n- 선택 주제: {st.session_state.get('p2_topic_selection','')}\n\n"
-                    val += f"## 🎯 RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]]'}\n- 태그: {tag_hashes if tag_hashes else '#총괄기획'}\n\n"
-                    val += f"## 📖 본문\n{st.session_state.p2_planning_result}\n\n"
-                    obs_path = save_obsidian_memory("PlanningMemory", title, val, source="Sage Mirror Studio Part 2")
-                    if obs_path:
-                        lock_file_readonly(obs_path)
-                        st.toast("✅ 수동 기획안 옵시디언 백업 완료!", icon="💾")
-                        st.session_state.p2_plan_obsidian_saved = True
-                        save_workspace_state()
-                        success, msg = auto_git_push(f"Manual Save: {title}")
-                        if success:
-                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                        else:
-                            st.error(f"GitHub Push 실패: {msg}")
-                        st.rerun()
-
-    st.divider()
-    if st.button("🔒 Part 2 전체 옵시디언 자동 백업", type="primary", use_container_width=True, disabled=is_locked, key="p2_final_backup"):
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        today_str = datetime.now().strftime("%Y-%m-%d")
-        folder_name = "PlanningMemory"
-        title = f"[Part2] 전체 작업 백업 - {ts}"
-        val = f"# Part 2 Alchemist 전체 작업 백업\n\n"
-        val += f"## 📌 선택 주제\n{st.session_state.get('p2_topic_selection','')}\n\n"
-        val += f"## 📚 자료조사 결과\n{st.session_state.get('p2_research_result','')}\n\n"
-        val += f"## 📖 총괄 기획안\n{st.session_state.get('p2_planning_result','')}\n\n"
-        val += f"---\n*Last updated: {today_str} {ts}*\n"
-        obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 2")
-        if obs_path:
-            lock_file_readonly(obs_path)
-            st.toast("✅ Part 2 전체 백업 완료!", icon="🔒")
-            success, msg = auto_git_push(f"Auto Save (Part 2 Full): {ts}")
-            if success:
-                st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-            else:
-                st.error(f"GitHub Push 실패: {msg}")
+
+        save_dir = os.path.join("Studio", "ResearchMemory")
+
+        os.makedirs(save_dir, exist_ok=True)
+
+        save_path = os.path.join(save_dir, f"research_memory_{ts}.md")
+
+        val = "# [[자료조사 결과]]\n\n"
+
+        val += st.session_state.p2_research_result
+
+        with open(save_path, "w", encoding="utf-8") as f:
+            f.write(val)
+
+        st.success(f"옵시디언 저장 완료: {save_path}")                    
+
+ 
 
 
 @st.dialog("[TARGET] 이미지 파트 마스터 프롬프트 편집", width="large")
@@ -2958,96 +2679,6 @@ def popup_edit_prompt_p34():
             st.rerun()
     with c2:
         if st.button("취소", use_container_width=True):
-            st.rerun()
-
-
-@st.dialog("🎙️ 나레이션 대본 — 전체 보기 / 수정", width="large")
-def popup_narr_p34():
-    st.caption("스크롤 가능 · 마우스 드래그로 복사 가능 · 직접 수정 후 저장")
-    new_val = st.text_area(
-        "나레이션 대본 전체",
-        value=st.session_state.p34_narration_script,
-        height=550,
-        label_visibility="collapsed",
-        key="popup_narr_edit"
-    )
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        if st.button("💾 수정 내용 저장", use_container_width=True, type="primary", key="popup_narr_save"):
-            st.session_state.p34_narration_script = new_val
-            save_workspace_state()
-            st.toast("나레이션 대본 저장 완료!", icon="💾")
-            st.rerun()
-    with c2:
-        if st.button("📋 전체 복사", use_container_width=True, key="popup_narr_copy"):
-            try:
-                import pyperclip
-                pyperclip.copy(st.session_state.p34_narration_script)
-                st.success("복사 완료!")
-            except Exception:
-                st.info("위 텍스트창에서 직접 드래그 선택하세요.")
-    with c3:
-        if st.button("❌ 닫기", use_container_width=True, key="popup_narr_close"):
-            st.rerun()
-
-
-@st.dialog("🖼️ 이미지 프롬프트 대본 — 전체 보기 / 수정", width="large")
-def popup_img_p34():
-    st.caption("스크롤 가능 · 마우스 드래그로 복사 가능 · 직접 수정 후 저장")
-    new_val = st.text_area(
-        "이미지 프롬프트 전체",
-        value=st.session_state.p34_image_script,
-        height=550,
-        label_visibility="collapsed",
-        key="popup_img_edit"
-    )
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        if st.button("💾 수정 내용 저장", use_container_width=True, type="primary", key="popup_img_save"):
-            st.session_state.p34_image_script = new_val
-            save_workspace_state()
-            st.toast("이미지 대본 저장 완료!", icon="💾")
-            st.rerun()
-    with c2:
-        if st.button("📋 전체 복사", use_container_width=True, key="popup_img_copy"):
-            try:
-                import pyperclip
-                pyperclip.copy(st.session_state.p34_image_script)
-                st.success("복사 완료!")
-            except Exception:
-                st.info("위 텍스트창에서 직접 드래그 선택하세요.")
-    with c3:
-        if st.button("❌ 닫기", use_container_width=True, key="popup_img_close"):
-            st.rerun()
-
-
-@st.dialog("🎬 캡컷 에셋 JSON — 전체 보기 / 수정", width="large")
-def popup_cap_p34():
-    st.caption("스크롤 가능 · 마우스 드래그로 복사 가능 · 직접 수정 후 저장")
-    new_val = st.text_area(
-        "캡컷 JSON 전체",
-        value=st.session_state.p34_capcut_data,
-        height=550,
-        label_visibility="collapsed",
-        key="popup_cap_edit"
-    )
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        if st.button("💾 수정 내용 저장", use_container_width=True, type="primary", key="popup_cap_save"):
-            st.session_state.p34_capcut_data = new_val
-            save_workspace_state()
-            st.toast("캡컷 에셋 저장 완료!", icon="💾")
-            st.rerun()
-    with c2:
-        if st.button("📋 전체 복사", use_container_width=True, key="popup_cap_copy"):
-            try:
-                import pyperclip
-                pyperclip.copy(st.session_state.p34_capcut_data)
-                st.success("복사 완료!")
-            except Exception:
-                st.info("위 텍스트창에서 직접 드래그 선택하세요.")
-    with c3:
-        if st.button("❌ 닫기", use_container_width=True, key="popup_cap_close"):
             st.rerun()
 
 
@@ -3675,26 +3306,14 @@ def render_part34():
     st.subheader("[WRITE] Step 3. Writer — 대본 집필 (3단 분리)")
     st.caption("확정된 112씬 구조 위에 살을 붙여, 나레이션·이미지·캡컷 3종 대본을 각각 집필합니다.")
 
-    # ─── Step 3: 탭 방식으로 Writer 3종 대본 집필 ───
-    tab_narr, tab_img, tab_cap = st.tabs(["🎙️ 1️⃣ 나레이션 대본", "🖼️ 2️⃣ 이미지 생성용 대본", "🎬 3️⃣ 캡컷 에셋 데이터"])
+    c_narr, c_img, c_cap = st.columns(3, gap="large")
 
-    # ─────────────────────────────────────────────────────
-    # 탭 1: 나레이션 대본
-    # ─────────────────────────────────────────────────────
-    with tab_narr:
+    # 1️⃣ 나레이션 대본
+    with c_narr:
         with st.container(border=True):
-            st.markdown("### 🎙️ 나레이션 대본")
+            st.markdown("### 1️⃣ 나레이션 대본")
             st.caption("시청자가 듣게 될 순수 나레이션 텍스트 (CosyVoice 연동)")
 
-            st.session_state.p34_narr_prompt = st.text_area(
-                "🤖 젬마 작업지시 프롬프트 (나레이션)",
-                value=st.session_state.get("p34_narr_prompt", "[작업 지시] 아래 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요. 화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다. 한 씬당 40~60자, 클라이맥스 씬은 60~80자."),
-                height=100,
-                key="p34_narr_prompt_input",
-                disabled=is_locked
-            )
-
-            # 3단 버튼 구조
             c_n1, c_n2, c_n3 = st.columns([4, 3, 3])
             with c_n1:
                 if st.button("🎙️ 나레이션 대본 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_narr_btn"):
@@ -3707,8 +3326,7 @@ def render_part34():
                         save_workspace_state()
 
                         with st.spinner("나레이션 대본 집필 중..."):
-                            narr_prompt_val = st.session_state.get("p34_narr_prompt", "")
-                            prompt = f"[지시] 아래 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요.\n화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다.\n\n[추가 지시]\n{narr_prompt_val}\n\n[112씬 구조]\n{st.session_state.p34_scene_structure}\n\n[출력 형식]\n씬번호(3자리) | 나레이션 대본 텍스트\n\n{st.session_state.p34_gemma_protocol}"
+                            prompt = f"[지시] 아래 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요.\n화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다.\n\n[112씬 구조]\n{st.session_state.p34_scene_structure}\n\n[출력 형식]\n씬번호(3자리) | 나레이션 대본 텍스트\n\n{st.session_state.p34_gemma_protocol}"
                             result = call_gemma(prompt)
                             st.session_state.p34_narration_script = result
                             st.session_state.pipeline_state["narration_script"] = result
@@ -3723,12 +3341,11 @@ def render_part34():
                             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                             topic_title = st.session_state.get("p2_topic_selection", "나레이션")
                             folder_name = "ScriptDrafts"
-                            title = f"[Part3] 나레이션 대본 - {topic_title}"
+                            title = f"나레이션 대본 - {topic_title}"
 
                             val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
                             val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[나레이션]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#나레이션'}\n\n"
                             val += f"## 🎙️ 나레이션 대본 본문\n{result}\n\n"
-                            val += f"## 🔗 파이프라인 연결\n- 선행 파트: Part 2 기획안\n- 다음 단계: 이미지 프롬프트 생성\n\n"
 
                             obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
                             if obs_path:
@@ -3755,35 +3372,17 @@ def render_part34():
                 else:
                     st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p34_narr_obs_waiting")
 
+            st.text_area("나레이션 대본", value=st.session_state.p34_narration_script, height=350, label_visibility="collapsed", key="p34_narr_area")
+
             if st.session_state.p34_narration_script:
-                st.markdown("<br>", unsafe_allow_html=True)
-                st.session_state.p34_narration_script = st.text_area(
-                    "나레이션 대본 (수정 가능)",
-                    value=st.session_state.p34_narration_script,
-                    height=500,
-                    label_visibility="collapsed",
-                    key="p34_narr_area"
-                )
-
-                c_np1, c_np2 = st.columns(2)
-                with c_np1:
-                    if st.button("👁 팝업에서 크게 보기 / 복붙", use_container_width=True, key="p34_narr_popup_btn"):
-                        popup_narr_p34()
-                with c_np2:
-                    if st.button("📋 클립보드 복사", use_container_width=True, key="p34_narr_copy_btn"):
-                        try:
-                            import pyperclip
-                            pyperclip.copy(st.session_state.p34_narration_script)
-                            st.success("나레이션 대본 복사 완료!")
-                        except Exception:
-                            st.info("위 텍스트창에서 직접 드래그 선택하세요.")
-
                 if st.button("💾 (예비용) 나레이션 수동 옵시디언 백업", use_container_width=True, key="p34_save_narr", disabled=is_locked):
+                    st.session_state.p34_narration_script = st.session_state.p34_narr_area
                     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                     topic_title = st.session_state.get("p2_topic_selection", "나레이션")
-                    title = f"[Part3] 나레이션 대본 - {topic_title}"
+                    folder_name = "ScriptDrafts"
+                    title = f"나레이션 대본 - {topic_title}"
                     val = f"## 🎙️ 나레이션 대본\n{st.session_state.p34_narration_script}\n"
-                    obs_path = save_obsidian_memory("ScriptDrafts", title, val, source="Sage Mirror Studio Part 3-4")
+                    obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
                     if obs_path:
                         lock_file_readonly(obs_path)
                         st.toast("✅ 수동 나레이션 옵시디언 백업 완료!", icon="💾")
@@ -3796,28 +3395,17 @@ def render_part34():
                             st.error(f"GitHub Push 실패: {msg}")
                         st.rerun()
 
-    # ─────────────────────────────────────────────────────
-    # 탭 2: 이미지 생성용 대본
-    # ─────────────────────────────────────────────────────
-    with tab_img:
+    # 2️⃣ 이미지 생성용 대본
+    with c_img:
         with st.container(border=True):
-            st.markdown("### 🖼️ 이미지 생성용 대본")
+            st.markdown("### 2️⃣ 이미지 생성용 대본")
             st.caption("씬번호 | 대본 | @한글묘사@ | @영어프롬프트@ (Part 5 연동)")
 
-            st.session_state.p34_img_prompt = st.text_area(
-                "🤖 젬마 작업지시 프롬프트 (이미지 대본)",
-                value=st.session_state.get("p34_img_prompt", "[작업 지시] 아래 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요. 한글묘사에는 인물동작/시선/빛/소품태그/표정코드[EXPR-0X] 필수. 영어프롬프트에는 [A-MASTER], 소품태그, 표정값, [@배경], [MASTER STYLE TAG], [NEGATIVE PROMPT] 필수."),
-                height=100,
-                key="p34_img_prompt_input",
-                disabled=is_locked
-            )
-
-            # 3단 버튼 구조
             c_i1, c_i2, c_i3 = st.columns([4, 3, 3])
             with c_i1:
                 if st.button("🖼️ 이미지 프롬프트 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_img_btn"):
                     if not st.session_state.p34_narration_script:
-                        st.error("[WARN] 먼저 '나레이션 대본' 탭에서 나레이션을 완료해 주세요.")
+                        st.error("[WARN] 좌측의 '나레이션 대본'을 먼저 완료해 주세요.")
                     else:
                         st.session_state.p34_image_script = ""
                         st.session_state.p34_img_saved = False
@@ -3825,8 +3413,7 @@ def render_part34():
                         save_workspace_state()
 
                         with st.spinner("이미지 프롬프트 변환 중..."):
-                            img_prompt_val = st.session_state.get("p34_img_prompt", "")
-                            prompt = f"[지시] 아래 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요.\n\n[추가 지시]\n{img_prompt_val}\n\n[나레이션 대본]\n{st.session_state.p34_narration_script}\n\n[출력 형식 — 반드시 준수]\n씬번호(3자리) | 대본 | @한글묘사@ | @영어프롬프트@\n\n{st.session_state.p34_gemma_protocol}"
+                            prompt = f"[지시] 아래 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요.\n\n[나레이션 대본]\n{st.session_state.p34_narration_script}\n\n[출력 형식 — 반드시 준수]\n씬번호(3자리) | 대본 | @한글묘사@ | @영어프롬프트@\n\n한글묘사에는: 인물동작, 시선, 빛, 소품태그, 표정코드[EXPR-0X] 필수\n영어프롬프트에는: [A-MASTER], 소품태그, 표정값, [@배경], [MASTER STYLE TAG], [NEGATIVE PROMPT] 필수\n\n{st.session_state.p34_gemma_protocol}"
                             result = call_gemma(prompt)
                             st.session_state.p34_image_script = result
                             st.session_state.pipeline_state["image_script"] = result
@@ -3841,12 +3428,11 @@ def render_part34():
                             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                             topic_title = st.session_state.get("p2_topic_selection", "이미지대본")
                             folder_name = "ScriptDrafts"
-                            title = f"[Part3] 이미지 프롬프트 대본 - {topic_title}"
+                            title = f"이미지 프롬프트 대본 - {topic_title}"
 
                             val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
                             val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[이미지]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#이미지대본'}\n\n"
                             val += f"## 🖼️ 이미지 프롬프트 (C-1 형식)\n{result}\n\n"
-                            val += f"## 🔗 파이프라인 연결\n- 선행 파트: 나레이션 대본\n- 다음 단계: Part 5 Image Consistency\n\n"
 
                             obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
                             if obs_path:
@@ -3873,35 +3459,17 @@ def render_part34():
                 else:
                     st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p34_img_obs_waiting")
 
+            st.text_area("이미지 프롬프트", value=st.session_state.p34_image_script, height=350, label_visibility="collapsed", key="p34_img_area")
+
             if st.session_state.p34_image_script:
-                st.markdown("<br>", unsafe_allow_html=True)
-                st.session_state.p34_image_script = st.text_area(
-                    "이미지 프롬프트 (수정 가능)",
-                    value=st.session_state.p34_image_script,
-                    height=500,
-                    label_visibility="collapsed",
-                    key="p34_img_area"
-                )
-
-                c_ip1, c_ip2 = st.columns(2)
-                with c_ip1:
-                    if st.button("👁 팝업에서 크게 보기 / 복붙", use_container_width=True, key="p34_img_popup_btn"):
-                        popup_img_p34()
-                with c_ip2:
-                    if st.button("📋 클립보드 복사", use_container_width=True, key="p34_img_copy_btn"):
-                        try:
-                            import pyperclip
-                            pyperclip.copy(st.session_state.p34_image_script)
-                            st.success("이미지 대본 복사 완료!")
-                        except Exception:
-                            st.info("위 텍스트창에서 직접 드래그 선택하세요.")
-
                 if st.button("💾 (예비용) 이미지 대본 수동 옵시디언 백업", use_container_width=True, key="p34_save_img", disabled=is_locked):
+                    st.session_state.p34_image_script = st.session_state.p34_img_area
                     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                     topic_title = st.session_state.get("p2_topic_selection", "이미지대본")
-                    title = f"[Part3] 이미지 프롬프트 대본 - {topic_title}"
+                    folder_name = "ScriptDrafts"
+                    title = f"이미지 프롬프트 대본 - {topic_title}"
                     val = f"## 🖼️ 이미지 프롬프트 (C-1 형식)\n{st.session_state.p34_image_script}\n"
-                    obs_path = save_obsidian_memory("ScriptDrafts", title, val, source="Sage Mirror Studio Part 3-4")
+                    obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
                     if obs_path:
                         lock_file_readonly(obs_path)
                         st.toast("✅ 수동 이미지 대본 옵시디언 백업 완료!", icon="💾")
@@ -3914,28 +3482,17 @@ def render_part34():
                             st.error(f"GitHub Push 실패: {msg}")
                         st.rerun()
 
-    # ─────────────────────────────────────────────────────
-    # 탭 3: 캡컷 에셋 데이터
-    # ─────────────────────────────────────────────────────
-    with tab_cap:
+    # 3️⃣ 캡컷 에셋 데이터
+    with c_cap:
         with st.container(border=True):
-            st.markdown("### 🎬 캡컷 에셋 데이터")
+            st.markdown("### 3️⃣ 캡컷 에셋 데이터")
             st.caption("CapCut 자동 조립용 JSON (타임라인·BGM·이미지 매핑)")
 
-            st.session_state.p34_cap_prompt = st.text_area(
-                "🤖 젬마 작업지시 프롬프트 (캡컷 JSON)",
-                value=st.session_state.get("p34_cap_prompt", "[작업 지시] 아래 이미지 대본을 CapCut 자동화 JSON으로 변환하세요. 각 씬: scene_id, script, action_kr, expression, props_used, image_file(scene_XXX.png), audio_file(narration_XXX.mp3), timeline_order, duration_sec 포함."),
-                height=100,
-                key="p34_cap_prompt_input",
-                disabled=is_locked
-            )
-
-            # 3단 버튼 구조
             c_c1, c_c2, c_c3 = st.columns([4, 3, 3])
             with c_c1:
-                if st.button("🎬 캡컷 JSON 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_cap_btn"):
+                if st.button("[CINEMA] 캡컷 JSON 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_cap_btn"):
                     if not st.session_state.p34_image_script:
-                        st.error("[WARN] 먼저 '이미지 생성용 대본' 탭에서 이미지 대본을 완료해 주세요.")
+                        st.error("[WARN] 중앙의 '이미지 대본'을 먼저 완료해 주세요.")
                     else:
                         st.session_state.p34_capcut_data = ""
                         st.session_state.p34_cap_saved = False
@@ -3943,8 +3500,7 @@ def render_part34():
                         save_workspace_state()
 
                         with st.spinner("캡컷 JSON 조립 중..."):
-                            cap_prompt_val = st.session_state.get("p34_cap_prompt", "")
-                            prompt = f"[지시] 아래 이미지 대본을 CapCut 자동화 JSON으로 변환하세요.\n\n[추가 지시]\n{cap_prompt_val}\n\n[이미지 대본]\n{st.session_state.p34_image_script}\n\n[출력 형식 — JSON]\n각 씬: scene_id, script, action_kr, expression, props_used, image_file, audio_file, timeline_order, duration_sec\n\n{st.session_state.p34_gemma_protocol}"
+                            prompt = f"[지시] 아래 이미지 대본을 CapCut 자동화 JSON으로 변환하세요.\n\n[이미지 대본]\n{st.session_state.p34_image_script}\n\n[출력 형식 — JSON]\n각 씬: scene_id, script, action_kr, expression, props_used, image_file, audio_file, timeline_order, duration_sec\n\n{st.session_state.p34_gemma_protocol}"
                             result = call_gemma(prompt)
                             st.session_state.p34_capcut_data = result
                             st.session_state.pipeline_state["capcut_data"] = result
@@ -3954,11 +3510,10 @@ def render_part34():
                             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                             topic_title = st.session_state.get("p2_topic_selection", "캡컷에셋")
                             folder_name = "ScriptDrafts"
-                            title = f"[Part3] 캡컷 에셋 JSON - {topic_title}"
+                            title = f"캡컷 에셋 JSON - {topic_title}"
 
                             val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
                             val += f"## 🎬 캡컷 에셋 JSON 본문\n```json\n{result}\n```\n\n"
-                            val += f"## 🔗 파이프라인 연결\n- 선행 파트: 이미지 프롬프트 대본\n- 다음 단계: Part 7 CapCut Bridge\n\n"
 
                             obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
                             if obs_path:
@@ -3985,35 +3540,17 @@ def render_part34():
                 else:
                     st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p34_cap_obs_waiting")
 
+            st.text_area("캡컷 JSON", value=st.session_state.p34_capcut_data, height=350, label_visibility="collapsed", key="p34_cap_area")
+
             if st.session_state.p34_capcut_data:
-                st.markdown("<br>", unsafe_allow_html=True)
-                st.session_state.p34_capcut_data = st.text_area(
-                    "캡컷 JSON (수정 가능)",
-                    value=st.session_state.p34_capcut_data,
-                    height=500,
-                    label_visibility="collapsed",
-                    key="p34_cap_area"
-                )
-
-                c_cp1, c_cp2 = st.columns(2)
-                with c_cp1:
-                    if st.button("👁 팝업에서 크게 보기 / 복붙", use_container_width=True, key="p34_cap_popup_btn"):
-                        popup_cap_p34()
-                with c_cp2:
-                    if st.button("📋 클립보드 복사", use_container_width=True, key="p34_cap_copy_btn"):
-                        try:
-                            import pyperclip
-                            pyperclip.copy(st.session_state.p34_capcut_data)
-                            st.success("캡컷 JSON 복사 완료!")
-                        except Exception:
-                            st.info("위 텍스트창에서 직접 드래그 선택하세요.")
-
                 if st.button("💾 (예비용) 캡컷 에셋 수동 옵시디언 백업", use_container_width=True, key="p34_save_cap", disabled=is_locked):
+                    st.session_state.p34_capcut_data = st.session_state.p34_cap_area
                     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                     topic_title = st.session_state.get("p2_topic_selection", "캡컷에셋")
-                    title = f"[Part3] 캡컷 에셋 JSON - {topic_title}"
+                    folder_name = "ScriptDrafts"
+                    title = f"캡컷 에셋 JSON - {topic_title}"
                     val = f"## 🎬 캡컷 에셋 JSON\n```json\n{st.session_state.p34_capcut_data}\n```\n"
-                    obs_path = save_obsidian_memory("ScriptDrafts", title, val, source="Sage Mirror Studio Part 3-4")
+                    obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
                     if obs_path:
                         lock_file_readonly(obs_path)
                         st.toast("✅ 수동 캡컷 에셋 옵시디언 백업 완료!", icon="💾")
@@ -4026,7 +3563,7 @@ def render_part34():
                             st.error(f"GitHub Push 실패: {msg}")
                         st.rerun()
 
-
+    st.divider()
 
     if st.button("🔒 Part 3-4 전체 대본 옵시디언 자동 백업", type="primary", use_container_width=True, disabled=is_locked, key="p34_final_backup"):
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
