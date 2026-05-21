@@ -1,5 +1,26 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
 
+## v15.3 — 2026-05-21 22:05 [패치/UI단일화]
+### 변경 내용
+- **파트 6, 7, 8 중복 상단 expander 제거 및 UI 단일화**:
+  - 파트 6(`render_part6_opal()`), 파트 7(`render_part7_capcut()`), 파트 8(`render_part8_dashboard()`) 함수 내부에 개별적으로 들어가 있던 중복 `with st.expander("📋 상단 공통: ...")` 구문 및 관련 RAG 뷰어 위젯들을 완전히 삭제함
+  - 이로써 모든 파트가 상단 공통 패널(`render_top_panel()`)로 RAG 규칙 및 마스터 프롬프트를 일원화하여 표시하도록 UI를 단순화하고 중복 렌더링에 의한 시각적/기능적 이중화를 완벽하게 해결함
+- **버전 및 구동 스크립트 갱신**:
+  - `RUN_APP.bat` 실행 타겟을 `app_v15_3.py`로 갱신하여 신버전 안전 연동 확인
+  - Python 3.14 컴파일 검사(`py_compile`)를 통해 에러 없음을 사전 검증함
+
+### 영향 파트
+- **Part 6 (Opal Dispatch)**: 중복 RAG expander 제거 및 UI 간소화
+- **Part 7 (CapCut Bridge)**: 중복 RAG expander 제거 및 UI 간소화
+- **Part 8 (Dashboard)**: 중복 RAG expander 제거 및 UI 간소화
+
+### 수정 파일
+- `app_v15_3.py`
+- `RUN_APP.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.2 — 2026-05-21 21:58 [패치/UI통일]
 ### 변경 내용
 - **상단 동기화 및 연동 패널 디자인 통일화**: 상단에 위치한 로컬 DB 연결 상태, 옵시디언 RAG, GitHub 연동 및 동기화 버튼 패널을 하단의 "실시간 데이터 연동 상황판"과 동일한 배경 그라데이션 및 골드 테두리(`border-radius: 14px`) 박스 모델로 감싸 디자인 일관성 대폭 향상 (사용자 요청 반영)
