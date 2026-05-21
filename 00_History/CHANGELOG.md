@@ -1,5 +1,25 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
 
+## v13.38 — 2026-05-21 [마이너/기능보완]
+### 변경 내용
+- **Part 4 (Image Consistency) 및 Part 5 (Video Production) 최상단 상태바 및 구분선 일관 적용**:
+  - `render_part5_image()`와 `render_part6_video()` 최상단에 `render_top_panel()` 및 `st.divider()`를 추가하여 로컬 DB, 옵시디언, 깃허브 연동 상태 표시의 일관성 확보
+- **Gemma 공통 운영 헌법(COMMON_GEMMA_PROTOCOL) 구문 오류 수정**:
+  - `app_v13_37.py`에서 잘못 닫혀 있던 트리플 따옴표(`"""`)를 제거하여, 로컬 실행 시 발생하던 파이썬 구문 에러(SyntaxError)를 해결
+- **엔트리포인트 동기화**:
+  - `RUN_APP.bat` 및 `RUN_DEBUG.bat` 파일의 실행 대상을 신규 릴리즈 버전인 `app_v13_38.py`로 변경 완료
+
+### 영향 파트
+- **Part 4 (Image Consistency)**: 상단 상태바 및 구분선 적용
+- **Part 5 (Video Production)**: 상단 상태바 및 구분선 적용
+- **App Core**: 공통 젬마 프로토콜 구문 오류 해결 및 기동 스크립트 갱신
+
+### 수정 파일
+- `app_v13_38.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `00_History\CHANGELOG.md`
+
 ## v13.33 — 2026-05-21 [마이너/기능완성]
 ### 변경 내용
 - **Part 2 Step 2 (채널 벤치마킹) 3단 버튼 구조 및 백업 시스템 개편**:
