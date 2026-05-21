@@ -1,5 +1,24 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
 
+## v14.0.1 — 2026-05-21 17:48 [패치/버그수정]
+### 변경 내용
+- **파트 6 변수 스코프 버그 수정**: `Opal 8계정 씬 자동 배분` 버튼 내부에서 `selected_bgm`/`mix_ratio` 를 외부 위젯 변수로 직접 참조하던 것을 `st.session_state.get()` 안전 접근으로 교체
+  - 수정 전: `selected_bgm`, `mix_ratio` (위젯 로컬 변수 → 버튼 클릭 시 값 유실 가능성)
+  - 수정 후: `_selected_bgm = st.session_state.get("p6_bgm_selection", ...)`, `_mix_ratio = st.session_state.get("p6_mixing_ratio", ...)` (세션 스테이트 경유 안전 참조)
+- **파트 8 통계 변수 스코프 버그 수정**: `💾 파트 8 최종 생산 세션 백업` 버튼 내부에서 `total_scenes`, `total_duration`, `avg_duration`, `completion_rate`, `exist_count`, `missing_scenes` 변수를 참조할 때 `UnboundLocalError` 발생 가능성 제거
+  - 수정 전: 버튼 외부 try 블록에서만 변수가 정의됨 → 버튼 클릭 시 해당 변수가 미정의 상태일 수 있음
+  - 수정 후: 버튼 선언 위에서 기본값으로 초기화 (`total_scenes=0`, `completion_rate=0.0` 등) 후 try 블록에서 재계산 → 항상 안전하게 참조 가능
+- **파트 8 Git Push 변수명 충돌 수정**: `auto_git_push` 반환값을 `success_push`, `msg_push`로 교체하여 내부 `st.success` 변수명과 충돌 방지
+
+### 영향 파트
+- **Part 6 (Opal Dispatch)**: 배분 버튼 내 BGM/믹싱 설정값 참조 안정화
+- **Part 8 (Dashboard)**: 저장 버튼 내 통계 변수 스코프 안정화
+
+### 수정 파일
+- `app_v14.py` (5969줄 → 5985줄)
+
+---
+
 ## v14.0 — 2026-05-21 17:41 [메이저 릴리즈]
 ### 변경 내용
 - **파트 6 (나레이션 & 배경음악) 완전 구현**: `render_part6_opal()` 함수 완성
