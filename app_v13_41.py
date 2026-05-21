@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-🪞 현자의 거울 스튜디오 — Master App v13.39
-[v13.39 업데이트 사항: 2026-05-21]
-- Part 3-4 (render_part34) 최상단에 상태바(render_top_panel) 미적용 현상 해결
-- 파트 6, 7, 8 헤더 표준 3열 레이아웃(헤더/PIN/팝업) 및 상태바 구조 정렬
-- 상태바 내 옵시디언/GitHub RAG 백업 내역 및 커밋 히스토리 조회 팝업(st.dialog) 기능 추가
+🪞 현자의 거울 스튜디오 — Master App v13.41
+[v13.41 업데이트 사항: 2026-05-21]
+- 파트 3 대본 화면의 중복된 상단 공통 패널(Expander) 제거 및 미적용 현상 해결
+- 파트 6~8 화면의 각 파트 명칭 및 고유 마스터 프롬프트 동적 연동 (프롬프트 키 분리)
+- 상단 RAG(옵시디언) 카드와 GitHub 카드를 직접 클릭 가능한 Streamlit 버튼형 카드로 통합하여 클릭 시 상세 히스토리 팝업(st.dialog) 즉시 호출 구현
 """
 
 
@@ -198,6 +198,22 @@ For each scene, use this structure:
 "Make it look like a lost masterpiece found in a vault. Deeply emotional, visually arresting."
 """
 
+P6_MASTER_PROMPT_DEFAULT = """# 🎙️ 파트 6 나레이션 & 배경음악 마스터 프롬프트 v1.0
+[작업 지시] 씬별 나레이션 텍스트를 바탕으로 음성 합성(TTS) 및 적합한 배경음악(BGM) 태그 매칭 지침을 작성하세요.
+- 등장인물은 오직 '@Protagonist'로 지칭합니다.
+- 성경 구절 및 철학 인용의 출처를 필히 확인하고 반영하세요.
+- 오디오 볼륨 밸런스 및 싱크 가이드를 명시합니다."""
+
+P7_MASTER_PROMPT_DEFAULT = """# 🎙️ 파트 7 숏폼 생성 마스터 프롬프트 v1.0
+[작업 지시] 롱폼 대본 및 핵심 테마를 바탕으로 60초 이내의 숏폼 대본과 하이라이트 구간 추출 지침을 작성하세요.
+- 등장인물은 오직 '@Protagonist'로 지칭합니다.
+- 후킹 인트로와 핵심 요약 자막 연출법을 정의합니다."""
+
+P8_MASTER_PROMPT_DEFAULT = """# ⚙️ 파트 8 캡컷 최종 조립 마스터 프롬프트 v1.0
+[작업 지시] Veo3 영상 파일, 나레이션 오디오, 캡컷 에셋 JSON을 조합하여 CapCut 타임라인으로 병합하고 최종 비디오 렌더링에 적합한 오디오/자막 싱크 조립 지침을 작성하세요.
+- 등장인물은 오직 '@Protagonist'로 지칭합니다.
+- 최종 마스터링 및 해상도, 비트레이트 조절 가이드를 명시합니다."""
+
 COMMON_GEMMA_PROTOCOL = """
 # [현자의 거울 스튜디오 — 공통 Gemma 운영 헌법]
 
@@ -371,6 +387,29 @@ st.markdown("""
     color: #F8FAFC;
     margin-bottom: 0px;
 }
+.clickable-card-wrapper button {
+    background-color: #1E293B !important;
+    border-left: 4px solid #10B981 !important;
+    color: #f5e9d3 !important;
+    height: 60px !important;
+    text-align: left !important;
+    padding: 8px 12px !important;
+    font-size: 0.82em !important;
+    white-space: pre-wrap !important;
+    line-height: 1.4 !important;
+    border-radius: 4px !important;
+    width: 100% !important;
+    display: block !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    transition: all 0.15s ease !important;
+}
+.clickable-card-wrapper button:hover {
+    border-left-color: #d4af6a !important;
+    background-color: #2D2418 !important;
+    transform: translateY(-1px) !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -401,6 +440,7 @@ def save_workspace_state():
         "p34_img_saved", "p34_img_obsidian_saved", "p34_cap_saved", "p34_cap_obsidian_saved",
         "p5_image_master_prompt", "unlock_part5", 
         "p6_veo3_master_prompt", "p6_gemma_protocol", "p6_protocol_loaded", "p6_vid_pin_input", "unlock_part6_vid",
+        "p6_master_prompt", "p7_master_prompt", "p8_master_prompt",
         "p1_verification", "p2_verification", "p2_plan_verification", "p34_narr_verification", "p34_img_verification",
         "p1_need_research_kw", "p2_need_research_kw", "p2_plan_need_research_kw", "p34_narr_need_research_kw", "p34_img_need_research_kw"
     ]
@@ -1335,6 +1375,9 @@ def init_session_state():
         # ── Part 5 (Video Production) v13.2 업데이트 ──
         "p6_veo3_master_prompt": P6_VEO3_MASTER_PROMPT_V2,
         "p6_gemma_protocol": P6_GEMMA_PROTOCOL_V2,
+        "p6_master_prompt": P6_MASTER_PROMPT_DEFAULT,
+        "p7_master_prompt": P7_MASTER_PROMPT_DEFAULT,
+        "p8_master_prompt": P8_MASTER_PROMPT_DEFAULT,
         "p6_protocol_loaded": "",
         "p6_vid_pin_input": "",
         "unlock_part6_vid": False,
@@ -1470,6 +1513,7 @@ with st.sidebar:
         "파트 7: 숏폼 생성",
         "파트 8: 캡컷 최종 조립"
     ], index=0)
+    st.session_state.sidebar_part = part
     if st.button("🔒 로그아웃", use_container_width=True):
         st.session_state.logged_in = False
         st.rerun()
@@ -1657,15 +1701,15 @@ def render_top_panel():
     obs_ok = os.path.exists(obs_path) if obs_path else False
     with c_obs:
         if obs_ok:
-            st.markdown(
-                f'<div style="background-color:#1E293B; border-left: 4px solid #10B981; padding: 10px; border-radius: 4px; height: 60px;">'
-                f'<span style="color:#10B981; font-weight:bold; font-size:0.95em;">🟢 옵시디언 RAG</span><br>'
-                f'<span style="color:#f5e9d3; font-size:0.75em; word-break:break-all;">Vault: {os.path.basename(obs_path)}</span>'
-                f'</div>', unsafe_allow_html=True
-            )
-            st.markdown('<div style="margin-top:2px;"></div>', unsafe_allow_html=True)
-            if st.button("📁 백업 내역 조회", key="top_obs_history_btn", use_container_width=True):
+            st.markdown('<div class="clickable-card-wrapper">', unsafe_allow_html=True)
+            if st.button(
+                f"🟢 옵시디언 RAG (백업 조회 📁)\nVault: {os.path.basename(obs_path)}",
+                key="top_obs_history_btn",
+                use_container_width=True,
+                help="클릭 시 옵시디언 RAG 백업 파일 목록을 팝업으로 조회합니다."
+            ):
                 popup_obsidian_history()
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.markdown(
                 '<div style="background-color:#1E293B; border-left: 4px solid #F59E0B; padding: 10px; border-radius: 4px; height: 60px;">'
@@ -1680,15 +1724,15 @@ def render_top_panel():
     with c_git:
         if git_ok:
             repo_name = git_repo.split('/')[-1].replace('.git', '')
-            st.markdown(
-                f'<div style="background-color:#1E293B; border-left: 4px solid #10B981; padding: 10px; border-radius: 4px; height: 60px;">'
-                f'<span style="color:#10B981; font-weight:bold; font-size:0.95em;">🟢 GitHub 연동</span><br>'
-                f'<span style="color:#f5e9d3; font-size:0.8em; word-break:break-all;">Repo: {repo_name}</span>'
-                f'</div>', unsafe_allow_html=True
-            )
-            st.markdown('<div style="margin-top:2px;"></div>', unsafe_allow_html=True)
-            if st.button("🚀 커밋 내역 조회", key="top_git_history_btn", use_container_width=True):
+            st.markdown('<div class="clickable-card-wrapper">', unsafe_allow_html=True)
+            if st.button(
+                f"🟢 GitHub 연동 (커밋 조회 🚀)\nRepo: {repo_name}",
+                key="top_git_history_btn",
+                use_container_width=True,
+                help="클릭 시 GitHub 로컬 커밋 및 동기화 히스토리를 팝업으로 조회합니다."
+            ):
                 popup_git_history()
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.markdown(
                 '<div style="background-color:#1E293B; border-left: 4px solid #EF4444; padding: 10px; border-radius: 4px; height: 60px;">'
@@ -1774,22 +1818,23 @@ def render_top_panel():
     # sidebar_part가 한글 파트명으로 되어 있는 경우 영문 키로 맵핑
     if sidebar_part.startswith("파트 1"): sidebar_part_key = "part1"
     elif sidebar_part.startswith("파트 2"): sidebar_part_key = "part2"
-    elif sidebar_part.startswith("파트 3"): sidebar_part_key = "part34"
-    elif sidebar_part.startswith("파트 4"): sidebar_part_key = "part5"
-    elif sidebar_part.startswith("파트 5"): sidebar_part_key = "part6"
-    elif sidebar_part.startswith("파트 6"): sidebar_part_key = "part7"
+    elif sidebar_part.startswith("파트 3"): sidebar_part_key = "part3"
+    elif sidebar_part.startswith("파트 4"): sidebar_part_key = "part4"
+    elif sidebar_part.startswith("파트 5"): sidebar_part_key = "part5"
+    elif sidebar_part.startswith("파트 6"): sidebar_part_key = "part6"
     elif sidebar_part.startswith("파트 7"): sidebar_part_key = "part7"
     elif sidebar_part.startswith("파트 8"): sidebar_part_key = "part8"
     else: sidebar_part_key = sidebar_part
 
     part_mapping = {
-        "part1": ("base_prompt_rules", "📚 Part 1 Librarian 전역 마스터 프롬프트"),
-        "part2": ("p2_bench_prompt", "🎨 Part 2 Alchemist 벤치마킹 마스터 프롬프트"),
-        "part34": ("p34_master_prompt", "✍️ Part 3/4 Writer 대본/이미지 마스터 프롬프트"),
-        "part5": ("p5_image_master_prompt", "🖼️ Part 5 Image Generator 일관성 마스터 프롬프트"),
-        "part6": ("p6_veo3_master_prompt", "🎥 Part 6 Video Generator Veo3 마스터 프롬프트"),
-        "part7": ("p6_gemma_protocol", "🎙️ Part 7 Narration/CapCut 마스터 프롬프트"),
-        "part8": ("p6_gemma_protocol", "⚙️ Part 8 Dashboard 마스터 프롬프트")
+        "part1": ("base_prompt_rules", "📚 파트 1 Librarian 전역 마스터 프롬프트"),
+        "part2": ("p2_bench_prompt", "🎨 파트 2 Alchemist 벤치마킹 마스터 프롬프트"),
+        "part3": ("p34_master_prompt", "✍️ 파트 3 대본 작성 마스터 프롬프트"),
+        "part4": ("p5_image_master_prompt", "🖼️ 파트 4 이미지 생성 마스터 프롬프트"),
+        "part5": ("p6_veo3_master_prompt", "🎥 파트 5 영상 생성 마스터 프롬프트"),
+        "part6": ("p6_master_prompt", "🎙️ 파트 6 나레이션 & 배경음악 마스터 프롬프트"),
+        "part7": ("p7_master_prompt", "🎙️ 파트 7 숏폼 생성 마스터 프롬프트"),
+        "part8": ("p8_master_prompt", "⚙️ 파트 8 캡컷 최종 조립 마스터 프롬프트")
     }
     
     prompt_key, prompt_title = part_mapping.get(sidebar_part_key, ("base_prompt_rules", "📚 Part 1 Librarian 전역 마스터 프롬프트"))
@@ -4395,7 +4440,7 @@ def render_part5_image():
     with c_popup:
         st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p5img_popup_btn"):
-            st.session_state.sidebar_part = "part5img"
+            st.session_state.sidebar_part = "part4"
             popup_assistant()
     is_locked = not st.session_state.get("unlock_part5", False)
     if is_locked: st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
@@ -4487,7 +4532,7 @@ def render_part6_video():
     with c_popup:
         st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p6_vid_popup_btn"):
-            st.session_state.sidebar_part = "part6"
+            st.session_state.sidebar_part = "part5"
             popup_assistant()
     is_locked = not st.session_state.get("unlock_part6_vid", False)
     if is_locked: st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
@@ -4586,7 +4631,7 @@ def render_part34():
     with c_popup:
         st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p34_popup_btn"):
-            st.session_state.sidebar_part = "part34"
+            st.session_state.sidebar_part = "part3"
             popup_assistant()
 
     if "unlock_part34" not in st.session_state:
@@ -4597,21 +4642,6 @@ def render_part34():
     
     st.divider()
     render_top_panel()
-    st.divider()
-    
-    with st.expander("📋 상단 공통: 옵시디언 규칙서 및 대본 마스터 프롬프트", expanded=True):
-        L, R = st.columns(2, gap="medium")
-        with L:
-            st.markdown('<div class="top-panel-card"><div class="top-panel-title">📚 옵시디언 규칙서</div>', unsafe_allow_html=True)
-            st.text_area("옵시디언 규칙서", value=st.session_state.obsidian_rules, height=300, key="p34_top_ob_view", label_visibility="collapsed")
-            if st.button("[SEARCH] 편집", key="p34_ob_btn"): popup_edit_obsidian()
-            st.markdown('</div>', unsafe_allow_html=True)
-        with R:
-            st.markdown('<div class="top-panel-card"><div class="top-panel-title">[TARGET] 대본 마스터 프롬프트 (가이드)</div>', unsafe_allow_html=True)
-            st.text_area("대본 마스터 프롬프트", value=st.session_state.p34_master_prompt, height=300, key="p34_top_pr_view", label_visibility="collapsed")
-            if st.button("[SEARCH] 편집", key="p34_pr_btn"): popup_edit_prompt_p34()
-            st.markdown('</div>', unsafe_allow_html=True)
-            
     st.divider()
 
     st.subheader("[LINK] Part 2 → Part 3-4 데이터 수신 상태")

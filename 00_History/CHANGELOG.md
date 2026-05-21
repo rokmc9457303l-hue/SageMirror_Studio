@@ -1,5 +1,43 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
 
+## v13.41 — 2026-05-21 [마이너/기능완성]
+### 변경 내용
+- **파트 3 대본 화면 중복 Expander 제거**:
+  - `render_part34()` 내부의 중복 렌더링되던 `st.expander` 블록을 완벽히 제거하여 화면 표시 오류 해결 및 상단 공통 패널과 디자인 정합성 유지
+- **파트 6~8 화면 파트 명칭 및 고유 마스터 프롬프트 동적 연동**:
+  - `p6_master_prompt`, `p7_master_prompt`, `p8_master_prompt` 전용 프롬프트 키를 신설하고 동기화하여 파트별 고유의 마스터 프롬프트가 동적으로 연동되도록 기능 구현
+  - `init_session_state()`의 기본값과 `save_workspace_state()`의 `keys_to_save` 목록에 추가하여 영구 백업 연동 완료
+- **상단 클릭형 RAG / GitHub 통합 카드 연동**:
+  - 옵시디언 RAG 상태 카드와 GitHub 연동 카드를 Streamlit 버튼 형태의 클릭형 카드로 변경하여, 클릭 시 즉시 팝업(`st.dialog`)이 뜨도록 UI 개선
+- **엔트리포인트 동기화**:
+  - `RUN_APP.bat` 및 `RUN_DEBUG.bat` 파일의 실행 타겟 및 버전을 `app_v13_41.py`로 갱신 완료
+
+### 영향 파트
+- **Part 3-4 (Architect & Writer)**: 대본 화면 중복 패널 제거 및 UI 정리
+- **Part 6 (Opal Dispatch)**: 파트 명칭 및 고유 마스터 프롬프트 연동
+- **Part 7 (Shorts Creator)**: 파트 명칭 및 고유 마스터 프롬프트 연동
+- **Part 8 (Dashboard)**: 파트 명칭 및 고유 마스터 프롬프트 연동
+- **App Core**: 상단 패널 클릭형 카드 도입 및 구동 스크립트 갱신
+
+### 수정 파일
+- `app_v13_41.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `00_History\CHANGELOG.md`
+
+## v13.40 — 2026-05-21 [마이너/기능보완]
+### 변경 내용
+- **상단 RAG 패널 동적 연동 정렬**:
+  - 사이드바 라디오 버튼으로 파트 전환 시 상단 RAG 패널의 마스터 프롬프트와 파트 명칭이 실시간으로 동적 연동되도록 정렬
+- **세션 상태 및 라디오 파트 번호 정합성 확보**:
+  - 각 파트별 Sage Pop-up 클릭 시에 지정되는 sidebar_part 세션 상태를 라디오 파트 번호와 정확히 일치시켜 일관된 UI 연동 보장
+
+### 영향 파트
+- **App Core**: 상단 RAG 패널 및 세션 상태 동기화
+
+### 수정 파일
+- `app_v13_40.py`
+
 ## v13.38 — 2026-05-21 [마이너/기능보완]
 ### 변경 내용
 - **Part 4 (Image Consistency) 및 Part 5 (Video Production) 최상단 상태바 및 구분선 일관 적용**:

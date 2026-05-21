@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-🪞 현자의 거울 스튜디오 — Master App v13.39
-[v13.39 업데이트 사항: 2026-05-21]
-- Part 3-4 (render_part34) 최상단에 상태바(render_top_panel) 미적용 현상 해결
-- 파트 6, 7, 8 헤더 표준 3열 레이아웃(헤더/PIN/팝업) 및 상태바 구조 정렬
-- 상태바 내 옵시디언/GitHub RAG 백업 내역 및 커밋 히스토리 조회 팝업(st.dialog) 기능 추가
+🪞 현자의 거울 스튜디오 — Master App v13.38
+[v13.38 업데이트 사항: 2026-05-21]
+- Part 4 (Image Consistency) 및 Part 5 (Video Production) 최상단에 상태바(render_top_panel) 및 구분선 적용
+- 기존 중복 패널의 통일 및 UI 레이아웃 정돈
+- 🛡️ Gemma 자가 검수 및 자동 교정(Self-Verification & Correction) 엔진 구축
+- ⚠️ Gemma 지식 부족 감지 & 사용자 승인형 웹 리서치 연동 구현 (환각 방지)
 """
 
 
@@ -1244,9 +1245,6 @@ def init_session_state():
         "sidebar_part": "part1",
         "unlock_part1": False,
         "unlock_part2": False,
-        "unlock_part6": False,
-        "unlock_part7": False,
-        "unlock_part8": False,
         
         "p1_gemma_protocol": GEMMA_PROTOCOL_V81,
         "p1_channel_search_results": [],
@@ -1477,88 +1475,6 @@ with st.sidebar:
 # =====================================================================
 # 팝업 로직
 # =====================================================================
-@st.dialog("📁 옵시디언 백업 내역 (최근 15개)", width="large")
-def popup_obsidian_history():
-    st.markdown("옵시디언 보관소(`00_Obsidian`) 및 세션 폴더에 저장된 마크다운 백업 목록입니다.")
-    obs_path = st.session_state.get("path_obsidian", "")
-    if not obs_path or not os.path.exists(obs_path):
-        st.error("옵시디언 경로가 존재하지 않거나 설정되지 않았습니다.")
-        return
-        
-    try:
-        md_files = []
-        for root, dirs, files in os.walk(obs_path):
-            for file in files:
-                if file.endswith(".md"):
-                    full_path = os.path.join(root, file)
-                    mtime = os.path.getmtime(full_path)
-                    size = os.path.getsize(full_path)
-                    md_files.append({
-                        "name": file,
-                        "rel_path": os.path.relpath(full_path, obs_path).replace("\\", "/"),
-                        "abs_path": full_path,
-                        "mtime": datetime.fromtimestamp(mtime),
-                        "size": f"{size / 1024:.1f} KB"
-                    })
-        
-        if not md_files:
-            st.info("백업된 마크다운 파일이 없습니다.")
-            return
-            
-        md_files.sort(key=lambda x: x["mtime"], reverse=True)
-        md_files = md_files[:15]
-        
-        import pandas as pd
-        df = pd.DataFrame(md_files)[["rel_path", "mtime", "size"]]
-        df.columns = ["백업 파일명(상대경로)", "마지막 저장 시간", "용량"]
-        st.dataframe(df, use_container_width=True)
-        
-        selected_file = st.selectbox("조회할 백업 파일을 선택하세요:", [f["rel_path"] for f in md_files], key="obs_hist_select")
-        if selected_file:
-            target_file_dict = next(item for item in md_files if item["rel_path"] == selected_file)
-            try:
-                with open(target_file_dict["abs_path"], "r", encoding="utf-8") as f:
-                    content = f.read()
-                st.text_area("백업 내용 (읽기 전용)", value=content, height=300, disabled=True, key="obs_hist_content")
-            except Exception as read_err:
-                st.error(f"파일 읽기 실패: {read_err}")
-            
-    except Exception as e:
-        st.error(f"옵시디언 내역 조회 실패: {e}")
-
-@st.dialog("🚀 GitHub 커밋 및 백업 내역 (최근 10개)", width="large")
-def popup_git_history():
-    st.markdown("GitHub 리포지토리(`SageMirror_Studio`)의 로컬 커밋 및 동기화 히스토리입니다.")
-    if not GIT_AVAILABLE:
-        st.error("Git 패키지(GitPython)를 사용할 수 없습니다.")
-        return
-        
-    try:
-        from git import Repo
-        repo = Repo(r"C:\SageMirror_Production")
-        commits = list(repo.iter_commits(max_count=10))
-        
-        if not commits:
-            st.info("커밋 내역이 존재하지 않습니다.")
-            return
-            
-        git_list = []
-        for c in commits:
-            git_list.append({
-                "hash": c.hexsha[:7],
-                "message": c.message.strip(),
-                "author": c.author.name,
-                "date": datetime.fromtimestamp(c.committed_date).strftime("%Y-%m-%d %H:%M:%S")
-            })
-            
-        import pandas as pd
-        df = pd.DataFrame(git_list)
-        df.columns = ["커밋 해시", "커밋 메시지", "작성자", "작성 일시"]
-        st.dataframe(df, use_container_width=True)
-        
-    except Exception as e:
-        st.error(f"GitHub 내역 조회 실패: {e}")
-
 @st.dialog("📝 젬마 프로토콜 (Gemma Protocol) 편집", width="large")
 def popup_edit_gemma_protocol():
     st.markdown("여기서 행동 지침과 작업 지침서를 상세하게 수정할 수 있습니다. 텍스트를 드래그하고 복사/붙여넣기 하세요.")
@@ -1663,9 +1579,6 @@ def render_top_panel():
                 f'<span style="color:#f5e9d3; font-size:0.75em; word-break:break-all;">Vault: {os.path.basename(obs_path)}</span>'
                 f'</div>', unsafe_allow_html=True
             )
-            st.markdown('<div style="margin-top:2px;"></div>', unsafe_allow_html=True)
-            if st.button("📁 백업 내역 조회", key="top_obs_history_btn", use_container_width=True):
-                popup_obsidian_history()
         else:
             st.markdown(
                 '<div style="background-color:#1E293B; border-left: 4px solid #F59E0B; padding: 10px; border-radius: 4px; height: 60px;">'
@@ -1686,9 +1599,6 @@ def render_top_panel():
                 f'<span style="color:#f5e9d3; font-size:0.8em; word-break:break-all;">Repo: {repo_name}</span>'
                 f'</div>', unsafe_allow_html=True
             )
-            st.markdown('<div style="margin-top:2px;"></div>', unsafe_allow_html=True)
-            if st.button("🚀 커밋 내역 조회", key="top_git_history_btn", use_container_width=True):
-                popup_git_history()
         else:
             st.markdown(
                 '<div style="background-color:#1E293B; border-left: 4px solid #EF4444; padding: 10px; border-radius: 4px; height: 60px;">'
@@ -4596,8 +4506,6 @@ def render_part34():
         st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
     
     st.divider()
-    render_top_panel()
-    st.divider()
     
     with st.expander("📋 상단 공통: 옵시디언 규칙서 및 대본 마스터 프롬프트", expanded=True):
         L, R = st.columns(2, gap="medium")
@@ -5437,34 +5345,17 @@ elif part.startswith("파트 4"):
 elif part.startswith("파트 5"):
     render_part6_video()
 elif part.startswith("파트 6"):
-    c_title, c_pin, c_popup = st.columns([5, 3, 2])
-    with c_title:
-        st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">🎵 파트 6 — 나레이션 & 배경음악 (CapCut Bridge)</h3></div>', unsafe_allow_html=True)
-    with c_pin:
-        st.markdown('<div class="pin-input-container">', unsafe_allow_html=True)
-        pin = st.text_input("🔒 PIN", type="password", key="p6_pin_input", label_visibility="collapsed", placeholder="🔒 마스터 PIN 입력 (7777)")
-        st.markdown('</div>', unsafe_allow_html=True)
-        if pin == PART_PINS.get("part6", "7777"): st.session_state.unlock_part6 = True
-        elif pin: st.session_state.unlock_part6 = False
-    with c_popup:
-        st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
+    _l, _r = st.columns([7, 2])
+    with _r:
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p6_popup_btn"):
             st.session_state.sidebar_part = "part6"
             popup_assistant()
-            
-    if "unlock_part6" not in st.session_state:
-        st.session_state.unlock_part6 = False
-    is_locked = not st.session_state.unlock_part6
-    if is_locked:
-        st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
-        
-    st.divider()
     render_top_panel()
     st.divider()
-    
+    st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">🎵 파트 6 — 나레이션 & 배경음악 (CapCut Bridge)</h3></div>', unsafe_allow_html=True)
     st.info("👉 render_part7_capcut() 함수가 이곳에 연결됩니다. 다음 지시서에서 구현됩니다.")
     st.divider()
-    if st.button("💾 파트 6 옵시디언 자동 백업", type="primary", use_container_width=True, key="p6_backup_btn", disabled=is_locked):
+    if st.button("[SAVE] 파트 6 옵시디언 자동 백업", type="primary", use_container_width=True, key="p6_backup_btn"):
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         if st.session_state.get("path_obsidian"):
             safe_makedirs(st.session_state.path_obsidian)
@@ -5472,43 +5363,19 @@ elif part.startswith("파트 6"):
             md = f"# [[파트 6 CapCut Bridge 작업 백업]]\n## 📌 Brief Summary\nSage Mirror Studio v11.0 — 파트 6 백업\n\n---\n*Last updated: {datetime.now().strftime('%Y-%m-%d')} {ts}*\n"
             if save_markdown(md_path, md):
                 lock_file_readonly(md_path)
-                st.toast("✅ 파트 6 백업 완료!", icon="💾")
-                success, msg = auto_git_push(f"Auto Save (Part 6): {ts}")
-                if success:
-                    st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                else:
-                    st.error(f"GitHub Push 실패: {msg}")
-                st.rerun()
-
+                st.toast("[OK] 파트 6 백업 완료!", icon="🔒")
 elif part.startswith("파트 7"):
-    c_title, c_pin, c_popup = st.columns([5, 3, 2])
-    with c_title:
-        st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">[CINEMA] 파트 7 — 숏폼 생성 (Final Assembly)</h3></div>', unsafe_allow_html=True)
-    with c_pin:
-        st.markdown('<div class="pin-input-container">', unsafe_allow_html=True)
-        pin = st.text_input("🔒 PIN", type="password", key="p7_pin_input", label_visibility="collapsed", placeholder="🔒 마스터 PIN 입력 (7777)")
-        st.markdown('</div>', unsafe_allow_html=True)
-        if pin == PART_PINS.get("part7", "7777"): st.session_state.unlock_part7 = True
-        elif pin: st.session_state.unlock_part7 = False
-    with c_popup:
-        st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
+    _l, _r = st.columns([7, 2])
+    with _r:
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p7_popup_btn"):
             st.session_state.sidebar_part = "part7"
             popup_assistant()
-            
-    if "unlock_part7" not in st.session_state:
-        st.session_state.unlock_part7 = False
-    is_locked = not st.session_state.unlock_part7
-    if is_locked:
-        st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
-        
-    st.divider()
     render_top_panel()
     st.divider()
-    
+    st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">[CINEMA] 파트 7 — 숏폼 생성 (Final Assembly)</h3></div>', unsafe_allow_html=True)
     st.info("👉 render_part8_dashboard() 함수가 이곳에 연결됩니다. 다음 지시서에서 구현됩니다.")
     st.divider()
-    if st.button("💾 파트 7 옵시디언 자동 백업", type="primary", use_container_width=True, key="p7_backup_btn", disabled=is_locked):
+    if st.button("[SAVE] 파트 7 옵시디언 자동 백업", type="primary", use_container_width=True, key="p7_backup_btn"):
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         if st.session_state.get("path_obsidian"):
             safe_makedirs(st.session_state.path_obsidian)
@@ -5516,43 +5383,19 @@ elif part.startswith("파트 7"):
             md = f"# [[파트 7 Final Assembly 작업 백업]]\n## 📌 Brief Summary\nSage Mirror Studio v11.0 — 파트 7 백업\n\n---\n*Last updated: {datetime.now().strftime('%Y-%m-%d')} {ts}*\n"
             if save_markdown(md_path, md):
                 lock_file_readonly(md_path)
-                st.toast("✅ 파트 7 백업 완료!", icon="💾")
-                success, msg = auto_git_push(f"Auto Save (Part 7): {ts}")
-                if success:
-                    st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                else:
-                    st.error(f"GitHub Push 실패: {msg}")
-                st.rerun()
-
+                st.toast("[OK] 파트 7 백업 완료!", icon="🔒")
 elif part.startswith("파트 8"):
-    c_title, c_pin, c_popup = st.columns([5, 3, 2])
-    with c_title:
-        st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">📊 파트 8 — 캡컷 최종 조립 Dashboard</h3></div>', unsafe_allow_html=True)
-    with c_pin:
-        st.markdown('<div class="pin-input-container">', unsafe_allow_html=True)
-        pin = st.text_input("🔒 PIN", type="password", key="p8_pin_input", label_visibility="collapsed", placeholder="🔒 마스터 PIN 입력 (7777)")
-        st.markdown('</div>', unsafe_allow_html=True)
-        if pin == PART_PINS.get("part8", "7777"): st.session_state.unlock_part8 = True
-        elif pin: st.session_state.unlock_part8 = False
-    with c_popup:
-        st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
+    _l, _r = st.columns([7, 2])
+    with _r:
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p8_popup_btn"):
             st.session_state.sidebar_part = "part8"
             popup_assistant()
-            
-    if "unlock_part8" not in st.session_state:
-        st.session_state.unlock_part8 = False
-    is_locked = not st.session_state.unlock_part8
-    if is_locked:
-        st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
-        
-    st.divider()
     render_top_panel()
     st.divider()
-    
+    st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">📊 파트 8 — 캡컷 최종 조립 Dashboard</h3></div>', unsafe_allow_html=True)
     st.info("👉 render_part8_dashboard() 함수가 이곳에 구현됩니다. 다음 지시서에서 구현됩니다.")
     st.divider()
-    if st.button("💾 파트 8 옵시디언 자동 백업", type="primary", use_container_width=True, key="p8_backup_btn", disabled=is_locked):
+    if st.button("[SAVE] 파트 8 옵시디언 자동 백업", type="primary", use_container_width=True, key="p8_backup_btn"):
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         if st.session_state.get("path_obsidian"):
             safe_makedirs(st.session_state.path_obsidian)
@@ -5560,10 +5403,4 @@ elif part.startswith("파트 8"):
             md = f"# [[파트 8 Final Assembly 작업 백업]]\n## 📌 Brief Summary\nSage Mirror Studio v11.0 — 파트 8 백업\n\n---\n*Last updated: {datetime.now().strftime('%Y-%m-%d')} {ts}*\n"
             if save_markdown(md_path, md):
                 lock_file_readonly(md_path)
-                st.toast("✅ 파트 8 백업 완료!", icon="💾")
-                success, msg = auto_git_push(f"Auto Save (Part 8): {ts}")
-                if success:
-                    st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                else:
-                    st.error(f"GitHub Push 실패: {msg}")
-                st.rerun()
+                st.toast("[OK] 파트 8 백업 완료!", icon="🔒")

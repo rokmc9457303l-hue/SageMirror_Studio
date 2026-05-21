@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-🪞 현자의 거울 스튜디오 — Master App v13.39
-[v13.39 업데이트 사항: 2026-05-21]
-- Part 3-4 (render_part34) 최상단에 상태바(render_top_panel) 미적용 현상 해결
-- 파트 6, 7, 8 헤더 표준 3열 레이아웃(헤더/PIN/팝업) 및 상태바 구조 정렬
-- 상태바 내 옵시디언/GitHub RAG 백업 내역 및 커밋 히스토리 조회 팝업(st.dialog) 기능 추가
+🪞 현자의 거울 스튜디오 — Master App v13.40
+[v13.40 업데이트 사항: 2026-05-21]
+- 사이드바 라디오 버튼으로 파트 전환 시 상단 RAG 패널의 마스터 프롬프트와 파트 명칭이 실시간으로 동적 연동되도록 정렬
+- 각 파트별 Sage Pop-up 클릭 시에 지정되는 sidebar_part 세션 상태를 라디오 파트 번호와 정확히 일치시켜 일관된 UI 연동 보장
 """
 
 
@@ -1470,6 +1469,7 @@ with st.sidebar:
         "파트 7: 숏폼 생성",
         "파트 8: 캡컷 최종 조립"
     ], index=0)
+    st.session_state.sidebar_part = part
     if st.button("🔒 로그아웃", use_container_width=True):
         st.session_state.logged_in = False
         st.rerun()
@@ -1774,22 +1774,23 @@ def render_top_panel():
     # sidebar_part가 한글 파트명으로 되어 있는 경우 영문 키로 맵핑
     if sidebar_part.startswith("파트 1"): sidebar_part_key = "part1"
     elif sidebar_part.startswith("파트 2"): sidebar_part_key = "part2"
-    elif sidebar_part.startswith("파트 3"): sidebar_part_key = "part34"
-    elif sidebar_part.startswith("파트 4"): sidebar_part_key = "part5"
-    elif sidebar_part.startswith("파트 5"): sidebar_part_key = "part6"
-    elif sidebar_part.startswith("파트 6"): sidebar_part_key = "part7"
+    elif sidebar_part.startswith("파트 3"): sidebar_part_key = "part3"
+    elif sidebar_part.startswith("파트 4"): sidebar_part_key = "part4"
+    elif sidebar_part.startswith("파트 5"): sidebar_part_key = "part5"
+    elif sidebar_part.startswith("파트 6"): sidebar_part_key = "part6"
     elif sidebar_part.startswith("파트 7"): sidebar_part_key = "part7"
     elif sidebar_part.startswith("파트 8"): sidebar_part_key = "part8"
     else: sidebar_part_key = sidebar_part
 
     part_mapping = {
-        "part1": ("base_prompt_rules", "📚 Part 1 Librarian 전역 마스터 프롬프트"),
-        "part2": ("p2_bench_prompt", "🎨 Part 2 Alchemist 벤치마킹 마스터 프롬프트"),
-        "part34": ("p34_master_prompt", "✍️ Part 3/4 Writer 대본/이미지 마스터 프롬프트"),
-        "part5": ("p5_image_master_prompt", "🖼️ Part 5 Image Generator 일관성 마스터 프롬프트"),
-        "part6": ("p6_veo3_master_prompt", "🎥 Part 6 Video Generator Veo3 마스터 프롬프트"),
-        "part7": ("p6_gemma_protocol", "🎙️ Part 7 Narration/CapCut 마스터 프롬프트"),
-        "part8": ("p6_gemma_protocol", "⚙️ Part 8 Dashboard 마스터 프롬프트")
+        "part1": ("base_prompt_rules", "📚 파트 1 Librarian 전역 마스터 프롬프트"),
+        "part2": ("p2_bench_prompt", "🎨 파트 2 Alchemist 벤치마킹 마스터 프롬프트"),
+        "part3": ("p34_master_prompt", "✍️ 파트 3 대본 작성 마스터 프롬프트"),
+        "part4": ("p5_image_master_prompt", "🖼️ 파트 4 이미지 생성 마스터 프롬프트"),
+        "part5": ("p6_veo3_master_prompt", "🎥 파트 5 영상 생성 마스터 프롬프트"),
+        "part6": ("p6_gemma_protocol", "🎙️ 파트 6 나레이션 & 배경음악 마스터 프롬프트"),
+        "part7": ("p6_gemma_protocol", "🎙️ 파트 7 숏폼 생성 마스터 프롬프트"),
+        "part8": ("p6_gemma_protocol", "⚙️ 파트 8 캡컷 최종 조립 마스터 프롬프트")
     }
     
     prompt_key, prompt_title = part_mapping.get(sidebar_part_key, ("base_prompt_rules", "📚 Part 1 Librarian 전역 마스터 프롬프트"))
@@ -4395,7 +4396,7 @@ def render_part5_image():
     with c_popup:
         st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p5img_popup_btn"):
-            st.session_state.sidebar_part = "part5img"
+            st.session_state.sidebar_part = "part4"
             popup_assistant()
     is_locked = not st.session_state.get("unlock_part5", False)
     if is_locked: st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
@@ -4487,7 +4488,7 @@ def render_part6_video():
     with c_popup:
         st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p6_vid_popup_btn"):
-            st.session_state.sidebar_part = "part6"
+            st.session_state.sidebar_part = "part5"
             popup_assistant()
     is_locked = not st.session_state.get("unlock_part6_vid", False)
     if is_locked: st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
@@ -4586,7 +4587,7 @@ def render_part34():
     with c_popup:
         st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
         if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p34_popup_btn"):
-            st.session_state.sidebar_part = "part34"
+            st.session_state.sidebar_part = "part3"
             popup_assistant()
 
     if "unlock_part34" not in st.session_state:
