@@ -330,6 +330,7 @@ def save_workspace_state():
         "p2_gemma_protocol", "p2_channel_url", "p2_region", "p2_topics",
         "p2_topic_selection", "p2_research_result", "p2_planning_result",
         "p2_thumbnail_plan", "unlock_part2",
+        "p2_bench_prompt", "p2_bench_raw", "p2_bench_tags", "p2_bench_saved", "p2_bench_obsidian_saved",
         "p2_research_prompt", "p2_research_tags", "p2_research_saved", "p2_research_obsidian_saved",
         "p2_plan_prompt", "p2_plan_tags", "p2_plan_saved", "p2_plan_obsidian_saved",
         "p34_gemma_protocol", "p34_master_prompt", "unlock_part34",
@@ -1213,6 +1214,11 @@ def init_session_state():
         "p2_research_result": "",
         "p2_planning_result": "",
         "p2_thumbnail_plan": "",
+        "p2_bench_prompt": "[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개, 후킹 기법, 인트로 기법, 그리고 채널 구조 분석을 생성하고 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)",
+        "p2_bench_raw": "",
+        "p2_bench_tags": "",
+        "p2_bench_saved": False,
+        "p2_bench_obsidian_saved": False,
         # ── Part 2 3단 버튼 상태 인디케이터 키 ──
         "p2_research_prompt": "[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.",
         "p2_research_tags": "",
@@ -1467,6 +1473,99 @@ def popup_edit_benchmarking():
 # 공통 UI 레이아웃 (V8.1: 상단 PIN 로그인 통합)
 # =====================================================================
 def render_top_panel():
+    st.markdown('<div style="margin-top: 10px;"></div>', unsafe_allow_html=True)
+    c_db, c_obs, c_git, c_sync = st.columns([2, 3, 3, 2])
+    
+    # 1. 로컬 DB 상태 확인
+    db_ok = os.path.exists(WORKSPACE_STATE_FILE)
+    with c_db:
+        if db_ok:
+            st.markdown(
+                '<div style="background-color:#1E293B; border-left: 4px solid #10B981; padding: 10px; border-radius: 4px; height: 60px;">'
+                '<span style="color:#10B981; font-weight:bold; font-size:0.95em;">🟢 로컬 DB 연결</span><br>'
+                '<span style="color:#f5e9d3; font-size:0.8em;">workspace_state.json</span>'
+                '</div>', unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                '<div style="background-color:#1E293B; border-left: 4px solid #EF4444; padding: 10px; border-radius: 4px; height: 60px;">'
+                '<span style="color:#EF4444; font-weight:bold; font-size:0.95em;">🔴 로컬 DB 없음</span><br>'
+                '<span style="color:#f5e9d3; font-size:0.8em;">저장 필요</span>'
+                '</div>', unsafe_allow_html=True
+            )
+            
+    # 2. 옵시디언 상태 확인
+    obs_path = st.session_state.get("path_obsidian", "")
+    obs_ok = os.path.exists(obs_path) if obs_path else False
+    with c_obs:
+        if obs_ok:
+            st.markdown(
+                f'<div style="background-color:#1E293B; border-left: 4px solid #10B981; padding: 10px; border-radius: 4px; height: 60px;">'
+                f'<span style="color:#10B981; font-weight:bold; font-size:0.95em;">🟢 옵시디언 RAG</span><br>'
+                f'<span style="color:#f5e9d3; font-size:0.75em; word-break:break-all;">Vault: {os.path.basename(obs_path)}</span>'
+                f'</div>', unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                '<div style="background-color:#1E293B; border-left: 4px solid #F59E0B; padding: 10px; border-radius: 4px; height: 60px;">'
+                '<span style="color:#F59E0B; font-weight:bold; font-size:0.95em;">🟡 옵시디언 확인필요</span><br>'
+                '<span style="color:#f5e9d3; font-size:0.8em;">경로 미설정</span>'
+                '</div>', unsafe_allow_html=True
+            )
+
+    # 3. GitHub 상태 확인
+    git_repo = st.session_state.get("github_repo_url", "")
+    git_ok = len(git_repo) > 0 and GIT_AVAILABLE
+    with c_git:
+        if git_ok:
+            repo_name = git_repo.split('/')[-1].replace('.git', '')
+            st.markdown(
+                f'<div style="background-color:#1E293B; border-left: 4px solid #10B981; padding: 10px; border-radius: 4px; height: 60px;">'
+                f'<span style="color:#10B981; font-weight:bold; font-size:0.95em;">🟢 GitHub 연동</span><br>'
+                f'<span style="color:#f5e9d3; font-size:0.8em; word-break:break-all;">Repo: {repo_name}</span>'
+                f'</div>', unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                '<div style="background-color:#1E293B; border-left: 4px solid #EF4444; padding: 10px; border-radius: 4px; height: 60px;">'
+                '<span style="color:#EF4444; font-weight:bold; font-size:0.95em;">🔴 Git 미연동</span><br>'
+                '<span style="color:#f5e9d3; font-size:0.8em;">설정 변경 필요</span>'
+                '</div>', unsafe_allow_html=True
+            )
+
+    # 4. 동기화 버튼
+    with c_sync:
+        st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
+        if st.button("🔄 전체 즉시 동기화", type="primary", use_container_width=True, key="top_force_sync_btn"):
+            with st.spinner("로컬 DB + 옵시디언 + GitHub 강제 동기화 중..."):
+                # 1) 로컬 DB 저장
+                save_workspace_state()
+                
+                # 2) 옵시디언 전체 세션 저장
+                ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                today_str = datetime.now().strftime("%Y-%m-%d")
+                folder_name = "PlanningMemory"
+                title = f"[Part2] 전체 작업 백업 - {ts}"
+                val = f"# Part 2 Alchemist 전체 작업 백업 (동기화 트리거)\n\n"
+                val += f"## 📌 선택 주제\n{st.session_state.get('p2_topic_selection','')}\n\n"
+                val += f"## 📚 자료조사 결과\n{st.session_state.get('p2_research_result','')}\n\n"
+                val += f"## 📖 총괄 기획안\n{st.session_state.get('p2_planning_result','')}\n\n"
+                val += f"---\n*Last updated: {today_str} {ts}*\n"
+                obs_path_file = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Full Sync")
+                if obs_path_file:
+                    lock_file_readonly(obs_path_file)
+                
+                # 3) Git Push
+                success, msg = auto_git_push(f"Force Full Sync: {ts}")
+                if success:
+                    st.toast("🔄 전체 즉시 동기화 & Git Push 성공!", icon="✅")
+                else:
+                    st.toast("🔄 로컬/옵시디언 동기화 완료 (Git 실패)", icon="⚠️")
+                    st.error(f"GitHub Push 실패: {msg}")
+                st.rerun()
+
+    st.markdown('<div style="margin-top: 15px;"></div>', unsafe_allow_html=True)
+
     with st.expander("📋 상단 공통: 옵시디언 규칙서 및 마스터 프롬프트", expanded=True):
         L, R = st.columns(2, gap="medium")
         with L:
@@ -1479,6 +1578,7 @@ def render_top_panel():
             st.text_area("기본 프롬프트", value=st.session_state.base_prompt_rules, height=300, key="top_pr_view", label_visibility="collapsed")
             if st.button("[SEARCH] 편집", key="pr_btn"): popup_edit_prompt()
             st.markdown('</div>', unsafe_allow_html=True)
+
 
 # =====================================================================
 # Part 1 엔진 API 로직
@@ -1519,6 +1619,37 @@ NN. 주제 | 추천사유(체험담 기반) | 예상효과 | 예상반응"""
     parsed = _parse_topics(raw)
     if len(parsed) < 20: parsed = _parse_topics(call_gemma(base + "\n\n[자가 교정] 20줄 파이프(|) 형식으로 출력.", system=sys_ctx)) or parsed
     return parsed[:20]
+
+def analyze_channel_to_topics_custom(channel, region, obsidian_rules, base_prompt, gemma_protocol, custom_prompt) -> tuple:
+    base = f"""[젬마 프로토콜]
+{gemma_protocol}
+
+[옵시디언 규칙서]
+{obsidian_rules}
+
+[기본 프롬프트]
+{base_prompt}
+
+[과제]
+{custom_prompt}
+
+채널: {channel}
+지역: {region}
+
+[출력양식]
+NN. 주제 | 추천사유(체험담 기반) | 예상효과 | 예상반응"""
+
+    sys_ctx = SAGE_PERSONA + "\n\n" + obsidian_rules
+    raw = call_gemma(base, system=sys_ctx)
+    if isinstance(raw, str) and raw.startswith("[ERROR]"): st.error(raw); return [], raw
+    parsed = _parse_topics(raw)
+    if len(parsed) < 20: 
+        raw_corrected = call_gemma(base + "\n\n[자가 교정] 20줄 파이프(|) 형식으로 출력.", system=sys_ctx)
+        parsed = _parse_topics(raw_corrected) or parsed
+        if not isinstance(raw_corrected, str) or not raw_corrected.startswith("[ERROR]"):
+            raw = raw_corrected
+    return parsed[:20], raw
+
 
 def generate_research_draft(channel_url, topic, gemma_protocol, master_prompt):
     obsidian_context = ""
@@ -2285,19 +2416,65 @@ def popup_edit_gemma_protocol_p2():
         if st.button("취소", use_container_width=True):
             st.rerun()
 
-@st.dialog("[TARGET] 채널 벤치마킹 결과 (팝업)", width="large")
-def popup_edit_benchmarking_p2():
-    st.markdown("결과를 쾌적하게 스크롤하며 검토하고 복사할 수 있습니다.")
-    val = ""
-    for t in st.session_state.get("p2_topics", []):
-        val += f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}\n\n"
-    with st.container(height=450, border=True):
-        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
+@st.dialog("🎯 프롬프트 / 텍스트 편집", width="large")
+def popup_edit_text_value(session_key: str, title: str):
+    st.markdown(f"**{title}**을(를) 전체 화면으로 확인하고 수정할 수 있습니다.")
+    val = st.session_state.get(session_key, "")
+    new_val = st.text_area("내용", value=val, height=450, key=f"popup_edit_val_ta_{session_key}", label_visibility="collapsed")
     c1, c2 = st.columns(2)
     with c1:
-        st.download_button("📥 .txt 다운로드", data=val, file_name=f"benchmarking_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+        if st.button("💾 저장 및 닫기", type="primary", use_container_width=True, key=f"popup_edit_val_save_{session_key}"):
+            st.session_state[session_key] = new_val
+            st.toast("✅ 수정 사항이 저장되었습니다!", icon="💾")
+            st.rerun()
     with c2:
-        if st.button("닫기", use_container_width=True, type="primary"):
+        if st.button("취소", use_container_width=True, key=f"popup_edit_val_cancel_{session_key}"):
+            st.rerun()
+
+@st.dialog("[TARGET] 채널 벤치마킹 결과 (팝업)", width="large")
+def popup_edit_benchmarking_p2():
+    st.markdown("벤치마킹 결과를 쾌적하게 스크롤하며 검토하고, 내용을 수정하거나 복사할 수 있습니다.")
+    
+    # topics를 하나의 편집 가능한 문자열로 구성
+    val = ""
+    for idx, t in enumerate(st.session_state.get("p2_topics", []), 1):
+        val += f"{idx:02d}. {t['title']} | {t['reason']} | {t['effect']} | {t.get('audience_reaction', '공감')}\n"
+        
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
+        
+    new_val = st.text_area("벤치마킹 결과 수정", value=val, height=220, label_visibility="collapsed", key="p2_bench_edit_ta")
+    
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary", key="p2_bench_save_dialog"):
+            # 수정된 텍스트를 다시 파싱하여 p2_topics 리스트 구조로 보관
+            parsed = []
+            for line in new_val.split("\n"):
+                if "|" in line:
+                    parts = line.split("|")
+                    if len(parts) >= 3:
+                        title_part = parts[0].strip()
+                        if ". " in title_part:
+                            title_part = title_part.split(". ", 1)[1]
+                        elif "]" in title_part:
+                            title_part = title_part.split("]", 1)[1]
+                        parsed.append({
+                            "title": title_part.strip(),
+                            "reason": parts[1].strip(),
+                            "effect": parts[2].strip(),
+                            "audience_reaction": parts[3].strip() if len(parts) > 3 else "공감"
+                        })
+            if parsed:
+                st.session_state.p2_topics = parsed
+                st.session_state.p2_bench_raw = new_val
+                save_workspace_state()
+                st.toast("✅ 벤치마킹 결과가 저장되었습니다!", icon="💾")
+            st.rerun()
+    with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"benchmarking_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True, key="p2_bench_dl_dialog")
+    with c3:
+        if st.button("닫기", use_container_width=True, key="p2_bench_close_dialog"):
             st.rerun()
 
 @st.dialog("📚 자료 조사 결과 (팝업)", width="large")

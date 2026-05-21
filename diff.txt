@@ -1,0 +1,41 @@
+diff --git a/app_v13_32.py b/app_v13_33.py
+index 4d80c59..23a1aff 100644
+--- a/app_v13_32.py
++++ b/app_v13_33.py
+@@ -2435,15 +2435,17 @@ def popup_edit_text_value(session_key: str, title: str):
+ def popup_edit_benchmarking_p2():
+     st.markdown("벤치마킹 결과를 쾌적하게 스크롤하며 검토하고, 내용을 수정하거나 복사할 수 있습니다.")
+     
+-    # topics를 하나의 편집 가능한 문자열로 구성
+-    val = ""
+-    for idx, t in enumerate(st.session_state.get("p2_topics", []), 1):
+-        val += f"{idx:02d}. {t['title']} | {t['reason']} | {t['effect']} | {t.get('audience_reaction', '공감')}\n"
++    # p2_bench_raw가 우선, 없으면 topics로 조립
++    raw_val = st.session_state.get("p2_bench_raw", "").strip()
++    if not raw_val:
++        for idx, t in enumerate(st.session_state.get("p2_topics", []), 1):
++            raw_val += f"{idx:02d}. {t['title']} | {t['reason']} | {t['effect']} | {t.get('audience_reaction', '공감')}\n"
++        raw_val = raw_val.strip()
+         
+     with st.container(height=350, border=True):
+-        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
++        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{raw_val}</div>", unsafe_allow_html=True)
+         
+-    new_val = st.text_area("벤치마킹 결과 수정", value=val, height=220, label_visibility="collapsed", key="p2_bench_edit_ta")
++    new_val = st.text_area("벤치마킹 결과 수정", value=raw_val, height=220, label_visibility="collapsed", key="p2_bench_edit_ta")
+     
+     c1, c2, c3 = st.columns(3)
+     with c1:
+@@ -2467,9 +2469,9 @@ def popup_edit_benchmarking_p2():
+                         })
+             if parsed:
+                 st.session_state.p2_topics = parsed
+-                st.session_state.p2_bench_raw = new_val
+-                save_workspace_state()
+-                st.toast("✅ 벤치마킹 결과가 저장되었습니다!", icon="💾")
++            st.session_state.p2_bench_raw = new_val
++            save_workspace_state()
++            st.toast("✅ 벤치마킹 결과가 저장되었습니다!", icon="💾")
+             st.rerun()
+     with c2:
+         st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"benchmarking_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True, key="p2_bench_dl_dialog")

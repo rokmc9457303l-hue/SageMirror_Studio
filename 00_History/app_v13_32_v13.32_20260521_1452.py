@@ -2285,19 +2285,65 @@ def popup_edit_gemma_protocol_p2():
         if st.button("취소", use_container_width=True):
             st.rerun()
 
-@st.dialog("[TARGET] 채널 벤치마킹 결과 (팝업)", width="large")
-def popup_edit_benchmarking_p2():
-    st.markdown("결과를 쾌적하게 스크롤하며 검토하고 복사할 수 있습니다.")
-    val = ""
-    for t in st.session_state.get("p2_topics", []):
-        val += f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}\n\n"
-    with st.container(height=450, border=True):
-        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
+@st.dialog("🎯 프롬프트 / 텍스트 편집", width="large")
+def popup_edit_text_value(session_key: str, title: str):
+    st.markdown(f"**{title}**을(를) 전체 화면으로 확인하고 수정할 수 있습니다.")
+    val = st.session_state.get(session_key, "")
+    new_val = st.text_area("내용", value=val, height=450, key=f"popup_edit_val_ta_{session_key}", label_visibility="collapsed")
     c1, c2 = st.columns(2)
     with c1:
-        st.download_button("📥 .txt 다운로드", data=val, file_name=f"benchmarking_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+        if st.button("💾 저장 및 닫기", type="primary", use_container_width=True, key=f"popup_edit_val_save_{session_key}"):
+            st.session_state[session_key] = new_val
+            st.toast("✅ 수정 사항이 저장되었습니다!", icon="💾")
+            st.rerun()
     with c2:
-        if st.button("닫기", use_container_width=True, type="primary"):
+        if st.button("취소", use_container_width=True, key=f"popup_edit_val_cancel_{session_key}"):
+            st.rerun()
+
+@st.dialog("[TARGET] 채널 벤치마킹 결과 (팝업)", width="large")
+def popup_edit_benchmarking_p2():
+    st.markdown("벤치마킹 결과를 쾌적하게 스크롤하며 검토하고, 내용을 수정하거나 복사할 수 있습니다.")
+    
+    # topics를 하나의 편집 가능한 문자열로 구성
+    val = ""
+    for idx, t in enumerate(st.session_state.get("p2_topics", []), 1):
+        val += f"{idx:02d}. {t['title']} | {t['reason']} | {t['effect']} | {t.get('audience_reaction', '공감')}\n"
+        
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
+        
+    new_val = st.text_area("벤치마킹 결과 수정", value=val, height=220, label_visibility="collapsed", key="p2_bench_edit_ta")
+    
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary", key="p2_bench_save_dialog"):
+            # 수정된 텍스트를 다시 파싱하여 p2_topics 리스트 구조로 보관
+            parsed = []
+            for line in new_val.split("\n"):
+                if "|" in line:
+                    parts = line.split("|")
+                    if len(parts) >= 3:
+                        title_part = parts[0].strip()
+                        if ". " in title_part:
+                            title_part = title_part.split(". ", 1)[1]
+                        elif "]" in title_part:
+                            title_part = title_part.split("]", 1)[1]
+                        parsed.append({
+                            "title": title_part.strip(),
+                            "reason": parts[1].strip(),
+                            "effect": parts[2].strip(),
+                            "audience_reaction": parts[3].strip() if len(parts) > 3 else "공감"
+                        })
+            if parsed:
+                st.session_state.p2_topics = parsed
+                st.session_state.p2_bench_raw = new_val
+                save_workspace_state()
+                st.toast("✅ 벤치마킹 결과가 저장되었습니다!", icon="💾")
+            st.rerun()
+    with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"benchmarking_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True, key="p2_bench_dl_dialog")
+    with c3:
+        if st.button("닫기", use_container_width=True, key="p2_bench_close_dialog"):
             st.rerun()
 
 @st.dialog("📚 자료 조사 결과 (팝업)", width="large")

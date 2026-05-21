@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-🪞 현자의 거울 스튜디오 — Master App v13.29
-[v13.29 업데이트 사항: 2026-05-21]
-- Part 3-4 Step 3 Writer 3컬럼 → 탭(Tab) 방식으로 완전 교체 (나레이션/이미지/캡컷 각 탭)
-- 각 탭에 젬마 프롬프트 편집창 + 3단 버튼 + 결과 팝업(스크롤/드래그/수정) 완성
-- Part 2 Alchemist 자료조사/총괄기획안 탭에 3단 버튼 + RAG 자동 백업 + Git Push 연동
-- NameError 3종(on_p1_plan_prompt_change, on_p1_planning_result_change, on_p1_plan_tags_change) 수정
-- p2/p34 신규 세션 상태 키 12종 영속화 완료
+🪞 현자의 거울 스튜디오 — Master App v13.33
+[v13.33 업데이트 사항: 2026-05-21]
+- Part 2 Alchemist 벤치마킹 탭 3단 버튼 구조 및 AI 분석 / RAG 자동 백업 / Git Push 연동 개편
+- 벤치마킹, 자료조사, 총괄기획 탭의 젬마 프롬프트 박스 아래 📝 프롬프트 팝업 편집 버튼 연동
+- Part 2 진입 시 p2_channel_url이 비어 있을 때 Part 1의 p1_channel_url 자동 상속
+- 자료조사 젬마 AI 호출 시 커스텀 프롬프트가 미반영되던 문제 수정
 """
 
 
@@ -330,6 +329,7 @@ def save_workspace_state():
         "p2_gemma_protocol", "p2_channel_url", "p2_region", "p2_topics",
         "p2_topic_selection", "p2_research_result", "p2_planning_result",
         "p2_thumbnail_plan", "unlock_part2",
+        "p2_bench_prompt", "p2_bench_raw", "p2_bench_tags", "p2_bench_saved", "p2_bench_obsidian_saved",
         "p2_research_prompt", "p2_research_tags", "p2_research_saved", "p2_research_obsidian_saved",
         "p2_plan_prompt", "p2_plan_tags", "p2_plan_saved", "p2_plan_obsidian_saved",
         "p34_gemma_protocol", "p34_master_prompt", "unlock_part34",
@@ -1213,6 +1213,11 @@ def init_session_state():
         "p2_research_result": "",
         "p2_planning_result": "",
         "p2_thumbnail_plan": "",
+        "p2_bench_prompt": "[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개, 후킹 기법, 인트로 기법, 그리고 채널 구조 분석을 생성하고 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)",
+        "p2_bench_raw": "",
+        "p2_bench_tags": "",
+        "p2_bench_saved": False,
+        "p2_bench_obsidian_saved": False,
         # ── Part 2 3단 버튼 상태 인디케이터 키 ──
         "p2_research_prompt": "[작업 지시] 선택된 주제에 대하여 200여 개의 시청자 공감 댓글을 참조하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.",
         "p2_research_tags": "",
@@ -1467,6 +1472,99 @@ def popup_edit_benchmarking():
 # 공통 UI 레이아웃 (V8.1: 상단 PIN 로그인 통합)
 # =====================================================================
 def render_top_panel():
+    st.markdown('<div style="margin-top: 10px;"></div>', unsafe_allow_html=True)
+    c_db, c_obs, c_git, c_sync = st.columns([2, 3, 3, 2])
+    
+    # 1. 로컬 DB 상태 확인
+    db_ok = os.path.exists(WORKSPACE_STATE_FILE)
+    with c_db:
+        if db_ok:
+            st.markdown(
+                '<div style="background-color:#1E293B; border-left: 4px solid #10B981; padding: 10px; border-radius: 4px; height: 60px;">'
+                '<span style="color:#10B981; font-weight:bold; font-size:0.95em;">🟢 로컬 DB 연결</span><br>'
+                '<span style="color:#f5e9d3; font-size:0.8em;">workspace_state.json</span>'
+                '</div>', unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                '<div style="background-color:#1E293B; border-left: 4px solid #EF4444; padding: 10px; border-radius: 4px; height: 60px;">'
+                '<span style="color:#EF4444; font-weight:bold; font-size:0.95em;">🔴 로컬 DB 없음</span><br>'
+                '<span style="color:#f5e9d3; font-size:0.8em;">저장 필요</span>'
+                '</div>', unsafe_allow_html=True
+            )
+            
+    # 2. 옵시디언 상태 확인
+    obs_path = st.session_state.get("path_obsidian", "")
+    obs_ok = os.path.exists(obs_path) if obs_path else False
+    with c_obs:
+        if obs_ok:
+            st.markdown(
+                f'<div style="background-color:#1E293B; border-left: 4px solid #10B981; padding: 10px; border-radius: 4px; height: 60px;">'
+                f'<span style="color:#10B981; font-weight:bold; font-size:0.95em;">🟢 옵시디언 RAG</span><br>'
+                f'<span style="color:#f5e9d3; font-size:0.75em; word-break:break-all;">Vault: {os.path.basename(obs_path)}</span>'
+                f'</div>', unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                '<div style="background-color:#1E293B; border-left: 4px solid #F59E0B; padding: 10px; border-radius: 4px; height: 60px;">'
+                '<span style="color:#F59E0B; font-weight:bold; font-size:0.95em;">🟡 옵시디언 확인필요</span><br>'
+                '<span style="color:#f5e9d3; font-size:0.8em;">경로 미설정</span>'
+                '</div>', unsafe_allow_html=True
+            )
+
+    # 3. GitHub 상태 확인
+    git_repo = st.session_state.get("github_repo_url", "")
+    git_ok = len(git_repo) > 0 and GIT_AVAILABLE
+    with c_git:
+        if git_ok:
+            repo_name = git_repo.split('/')[-1].replace('.git', '')
+            st.markdown(
+                f'<div style="background-color:#1E293B; border-left: 4px solid #10B981; padding: 10px; border-radius: 4px; height: 60px;">'
+                f'<span style="color:#10B981; font-weight:bold; font-size:0.95em;">🟢 GitHub 연동</span><br>'
+                f'<span style="color:#f5e9d3; font-size:0.8em; word-break:break-all;">Repo: {repo_name}</span>'
+                f'</div>', unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                '<div style="background-color:#1E293B; border-left: 4px solid #EF4444; padding: 10px; border-radius: 4px; height: 60px;">'
+                '<span style="color:#EF4444; font-weight:bold; font-size:0.95em;">🔴 Git 미연동</span><br>'
+                '<span style="color:#f5e9d3; font-size:0.8em;">설정 변경 필요</span>'
+                '</div>', unsafe_allow_html=True
+            )
+
+    # 4. 동기화 버튼
+    with c_sync:
+        st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
+        if st.button("🔄 전체 즉시 동기화", type="primary", use_container_width=True, key="top_force_sync_btn"):
+            with st.spinner("로컬 DB + 옵시디언 + GitHub 강제 동기화 중..."):
+                # 1) 로컬 DB 저장
+                save_workspace_state()
+                
+                # 2) 옵시디언 전체 세션 저장
+                ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                today_str = datetime.now().strftime("%Y-%m-%d")
+                folder_name = "PlanningMemory"
+                title = f"[Part2] 전체 작업 백업 - {ts}"
+                val = f"# Part 2 Alchemist 전체 작업 백업 (동기화 트리거)\n\n"
+                val += f"## 📌 선택 주제\n{st.session_state.get('p2_topic_selection','')}\n\n"
+                val += f"## 📚 자료조사 결과\n{st.session_state.get('p2_research_result','')}\n\n"
+                val += f"## 📖 총괄 기획안\n{st.session_state.get('p2_planning_result','')}\n\n"
+                val += f"---\n*Last updated: {today_str} {ts}*\n"
+                obs_path_file = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Full Sync")
+                if obs_path_file:
+                    lock_file_readonly(obs_path_file)
+                
+                # 3) Git Push
+                success, msg = auto_git_push(f"Force Full Sync: {ts}")
+                if success:
+                    st.toast("🔄 전체 즉시 동기화 & Git Push 성공!", icon="✅")
+                else:
+                    st.toast("🔄 로컬/옵시디언 동기화 완료 (Git 실패)", icon="⚠️")
+                    st.error(f"GitHub Push 실패: {msg}")
+                st.rerun()
+
+    st.markdown('<div style="margin-top: 15px;"></div>', unsafe_allow_html=True)
+
     with st.expander("📋 상단 공통: 옵시디언 규칙서 및 마스터 프롬프트", expanded=True):
         L, R = st.columns(2, gap="medium")
         with L:
@@ -1479,6 +1577,7 @@ def render_top_panel():
             st.text_area("기본 프롬프트", value=st.session_state.base_prompt_rules, height=300, key="top_pr_view", label_visibility="collapsed")
             if st.button("[SEARCH] 편집", key="pr_btn"): popup_edit_prompt()
             st.markdown('</div>', unsafe_allow_html=True)
+
 
 # =====================================================================
 # Part 1 엔진 API 로직
@@ -1520,7 +1619,38 @@ NN. 주제 | 추천사유(체험담 기반) | 예상효과 | 예상반응"""
     if len(parsed) < 20: parsed = _parse_topics(call_gemma(base + "\n\n[자가 교정] 20줄 파이프(|) 형식으로 출력.", system=sys_ctx)) or parsed
     return parsed[:20]
 
-def generate_research_draft(channel_url, topic, gemma_protocol, master_prompt):
+def analyze_channel_to_topics_custom(channel, region, obsidian_rules, base_prompt, gemma_protocol, custom_prompt) -> tuple:
+    base = f"""[젬마 프로토콜]
+{gemma_protocol}
+
+[옵시디언 규칙서]
+{obsidian_rules}
+
+[기본 프롬프트]
+{base_prompt}
+
+[과제]
+{custom_prompt}
+
+채널: {channel}
+지역: {region}
+
+[출력양식]
+NN. 주제 | 추천사유(체험담 기반) | 예상효과 | 예상반응"""
+
+    sys_ctx = SAGE_PERSONA + "\n\n" + obsidian_rules
+    raw = call_gemma(base, system=sys_ctx)
+    if isinstance(raw, str) and raw.startswith("[ERROR]"): st.error(raw); return [], raw
+    parsed = _parse_topics(raw)
+    if len(parsed) < 20: 
+        raw_corrected = call_gemma(base + "\n\n[자가 교정] 20줄 파이프(|) 형식으로 출력.", system=sys_ctx)
+        parsed = _parse_topics(raw_corrected) or parsed
+        if not isinstance(raw_corrected, str) or not raw_corrected.startswith("[ERROR]"):
+            raw = raw_corrected
+    return parsed[:20], raw
+
+
+def generate_research_draft(channel_url, topic, gemma_protocol, master_prompt, custom_prompt=None):
     obsidian_context = ""
     try:
         search_result = simple_keyword_search(
@@ -1543,6 +1673,8 @@ def generate_research_draft(channel_url, topic, gemma_protocol, master_prompt):
 
     rag_context = obsidian_context
 
+    instruction = custom_prompt if custom_prompt else "다음 선택된 주제에 대하여, 200여 개의 시청자 공감 댓글(체험담)을 참조하였다고 가정하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오."
+
     base = f"""[젬마 프로토콜]
 
 {gemma_protocol}
@@ -1553,7 +1685,7 @@ def generate_research_draft(channel_url, topic, gemma_protocol, master_prompt):
 {master_prompt}
 
 [작업 지시]
-다음 선택된 주제에 대하여, 200여 개의 시청자 공감 댓글(체험담)을 참조하였다고 가정하고, 철학/심리학/성경 기반 지식을 융합하여 '자료 조사 및 기초 초안'을 작성하시오.
+{instruction}
 * 주제: {topic}
 * 타겟 채널: {channel_url}
 
@@ -2285,19 +2417,67 @@ def popup_edit_gemma_protocol_p2():
         if st.button("취소", use_container_width=True):
             st.rerun()
 
-@st.dialog("[TARGET] 채널 벤치마킹 결과 (팝업)", width="large")
-def popup_edit_benchmarking_p2():
-    st.markdown("결과를 쾌적하게 스크롤하며 검토하고 복사할 수 있습니다.")
-    val = ""
-    for t in st.session_state.get("p2_topics", []):
-        val += f"**{t['title']}**\n- 사유: {t['reason']}\n- 효과: {t['effect']}\n\n"
-    with st.container(height=450, border=True):
-        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{val}</div>", unsafe_allow_html=True)
+@st.dialog("🎯 프롬프트 / 텍스트 편집", width="large")
+def popup_edit_text_value(session_key: str, title: str):
+    st.markdown(f"**{title}**을(를) 전체 화면으로 확인하고 수정할 수 있습니다.")
+    val = st.session_state.get(session_key, "")
+    new_val = st.text_area("내용", value=val, height=450, key=f"popup_edit_val_ta_{session_key}", label_visibility="collapsed")
     c1, c2 = st.columns(2)
     with c1:
-        st.download_button("📥 .txt 다운로드", data=val, file_name=f"benchmarking_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True)
+        if st.button("💾 저장 및 닫기", type="primary", use_container_width=True, key=f"popup_edit_val_save_{session_key}"):
+            st.session_state[session_key] = new_val
+            st.toast("✅ 수정 사항이 저장되었습니다!", icon="💾")
+            st.rerun()
     with c2:
-        if st.button("닫기", use_container_width=True, type="primary"):
+        if st.button("취소", use_container_width=True, key=f"popup_edit_val_cancel_{session_key}"):
+            st.rerun()
+
+@st.dialog("[TARGET] 채널 벤치마킹 결과 (팝업)", width="large")
+def popup_edit_benchmarking_p2():
+    st.markdown("벤치마킹 결과를 쾌적하게 스크롤하며 검토하고, 내용을 수정하거나 복사할 수 있습니다.")
+    
+    # p2_bench_raw가 우선, 없으면 topics로 조립
+    raw_val = st.session_state.get("p2_bench_raw", "").strip()
+    if not raw_val:
+        for idx, t in enumerate(st.session_state.get("p2_topics", []), 1):
+            raw_val += f"{idx:02d}. {t['title']} | {t['reason']} | {t['effect']} | {t.get('audience_reaction', '공감')}\n"
+        raw_val = raw_val.strip()
+        
+    with st.container(height=350, border=True):
+        st.markdown(f"<div style='white-space:pre-wrap;line-height:1.7;color:#f5e9d3;padding:8px;font-family:Pretendard,Noto Sans KR,sans-serif;'>{raw_val}</div>", unsafe_allow_html=True)
+        
+    new_val = st.text_area("벤치마킹 결과 수정", value=raw_val, height=220, label_visibility="collapsed", key="p2_bench_edit_ta")
+    
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary", key="p2_bench_save_dialog"):
+            # 수정된 텍스트를 다시 파싱하여 p2_topics 리스트 구조로 보관
+            parsed = []
+            for line in new_val.split("\n"):
+                if "|" in line:
+                    parts = line.split("|")
+                    if len(parts) >= 3:
+                        title_part = parts[0].strip()
+                        if ". " in title_part:
+                            title_part = title_part.split(". ", 1)[1]
+                        elif "]" in title_part:
+                            title_part = title_part.split("]", 1)[1]
+                        parsed.append({
+                            "title": title_part.strip(),
+                            "reason": parts[1].strip(),
+                            "effect": parts[2].strip(),
+                            "audience_reaction": parts[3].strip() if len(parts) > 3 else "공감"
+                        })
+            if parsed:
+                st.session_state.p2_topics = parsed
+            st.session_state.p2_bench_raw = new_val
+            save_workspace_state()
+            st.toast("✅ 벤치마킹 결과가 저장되었습니다!", icon="💾")
+            st.rerun()
+    with c2:
+        st.download_button("📥 .txt 다운로드", data=new_val, file_name=f"benchmarking_result_p2_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", use_container_width=True, key="p2_bench_dl_dialog")
+    with c3:
+        if st.button("닫기", use_container_width=True, key="p2_bench_close_dialog"):
             st.rerun()
 
 @st.dialog("📚 자료 조사 결과 (팝업)", width="large")
@@ -2354,11 +2534,19 @@ def render_part2():
             st.session_state.sidebar_part = "part2"
             popup_assistant()
 
+    if not st.session_state.get("p2_channel_url"):
+        st.session_state.p2_channel_url = st.session_state.get("p1_channel_url", "")
+
     if "unlock_part2" not in st.session_state:
         st.session_state.unlock_part2 = False
     is_locked = not st.session_state.unlock_part2
     if is_locked:
         st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
+    
+    if st.session_state.get("p2_channel_url"):
+        st.info(f"🔗 [연동] Part 1 채널 URL 상속됨: {st.session_state.p2_channel_url}")
+    else:
+        st.warning("⚠️ 타겟 채널 URL이 연동되지 않았습니다. Part 1에서 채널을 설정해 주세요.")
     
     st.divider()
     render_top_panel()
@@ -2428,69 +2616,189 @@ def render_part2():
         with st.container(border=True):
             st.markdown("### 1️⃣ 채널 벤치마킹 및 주제 도출")
             st.caption("200개 댓글 분석 기반 타겟 시청자 공감 포인트 추출")
-            st.text_area("🤖 젬마 프롬프트 (벤치마킹)", value="[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개를 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)", height=68, disabled=True, key="p2_bench_prompt")
             
-            if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=is_locked, key="p2_bench_btn"):
-                if not st.session_state.p2_channel_url: 
-                    st.error("[WARN] 우측 상단에서 채널을 먼저 검색하거나 URL을 입력해 주세요.")
+            if "p2_bench_prompt" not in st.session_state:
+                st.session_state.p2_bench_prompt = "[작업 지시] 다음 타겟 채널을 분석하여 핵심 주제 20개, 후킹 기법, 인트로 기법, 그리고 채널 구조 분석을 생성하고 추출하십시오. (200여 개 시청자 댓글 공감 포인트 참조)"
+            
+            st.session_state.p2_bench_prompt = st.text_area(
+                "🤖 젬마 작업지시 프롬프트 (벤치마킹)", 
+                value=st.session_state.p2_bench_prompt, 
+                height=100, 
+                key="p2_bench_prompt_area", 
+                disabled=is_locked
+            )
+            
+            if st.button("📝 프롬프트 팝업 편집 (채널 벤치마킹)", key="p2_edit_bench_prompt_btn"):
+                popup_edit_text_value("p2_bench_prompt", "🤖 젬마 작업지시 프롬프트 (채널 벤치마킹)")
+            
+            # --- 3단 버튼 구조 ---
+            c_b1, c_b2, c_b3 = st.columns([4, 3, 3])
+            with c_b1:
+                if st.button("🚀 벤치마킹 분석 실행", use_container_width=True, disabled=is_locked, key="p2_bench_run_btn"):
+                    if not st.session_state.get("p2_channel_url"):
+                        st.session_state.p2_channel_url = st.session_state.get("p1_channel_url", "")
+                    
+                    if not st.session_state.p2_channel_url:
+                        st.error("[WARN] 우측 상단에서 채널을 먼저 검색하거나 URL을 입력해 주세요.")
+                    else:
+                        st.session_state.p2_topics = []
+                        st.session_state.p2_bench_raw = ""
+                        st.session_state.p2_bench_saved = False
+                        st.session_state.p2_bench_obsidian_saved = False
+                        save_workspace_state()
+                        
+                        with st.spinner("채널 분석 중... (200개 댓글 공감 포인트 참조)"):
+                            parsed, raw = analyze_channel_to_topics_custom(
+                                st.session_state.p2_channel_url, st.session_state.p2_region, 
+                                st.session_state.obsidian_rules, st.session_state.base_prompt_rules, 
+                                st.session_state.p2_gemma_protocol, st.session_state.p2_bench_prompt
+                            )
+                            
+                            if parsed:
+                                st.session_state.p2_topics = parsed
+                                st.session_state.p2_bench_raw = raw
+                                st.session_state.p2_bench_saved = True
+                                save_workspace_state()
+                                
+                                # RAG 키워드 자동 추출
+                                keywords = extract_keywords_via_gemma(raw, st.session_state.base_prompt_rules)
+                                st.session_state.p2_bench_tags = keywords
+                                tag_list = [t.strip() for t in keywords.split(",") if t.strip()]
+                                tag_links = " ".join([f"[[{t}]]" for t in tag_list])
+                                tag_hashes = " ".join([f"#{t}" for t in tag_list])
+                                
+                                ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                title = f"[Part2] 채널 벤치마킹 및 주제도출 - {ts}"
+                                
+                                val = f"## 📌 핵심 요약\n- 대상 채널: {st.session_state.p2_channel_url}\n\n"
+                                val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#벤치마킹'}\n\n"
+                                val += f"## 📖 벤치마킹 분석 본문\n{raw}\n\n"
+                                val += f"## 🔗 파이프라인 연결\n- 다음 단계: Part 2 자료 조사 및 융합 리서치\n- 선행 파트: Part 1 Librarian 주제 분석\n\n"
+                                
+                                obs_path = save_obsidian_memory("TopicMemory", title, val, source="Sage Mirror Studio Part 2")
+                                if obs_path:
+                                    lock_file_readonly(obs_path)
+                                    st.toast("💾 벤치마킹 결과 로컬 자동 저장 완료!", icon="💾")
+                                    success, msg = auto_git_push(f"Auto Save (Locked): {title}")
+                                    if success:
+                                        st.session_state.p2_bench_obsidian_saved = True
+                                        st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
+                                    else:
+                                        st.error(f"GitHub Push 실패: {msg}")
+                                    save_workspace_state()
+                                    st.rerun()
+                            else:
+                                st.error("채널 분석 결과가 유효하지 않습니다. 다시 시도해 주세요.")
+                                
+            with c_b2:
+                if st.session_state.get("p2_bench_saved", False):
+                    st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p2_bench_local_indicator")
                 else:
-                    with st.spinner("채널 분석 중... (200개 댓글 공감 포인트 참조)"):
-                        st.session_state.p2_topics = analyze_channel_to_topics(
-                            st.session_state.p2_channel_url, st.session_state.p2_region, 
-                            st.session_state.obsidian_rules, st.session_state.base_prompt_rules, st.session_state.p2_gemma_protocol
-                        )
-                        save_workspace_state() # 자동 저장
+                    st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p2_bench_local_waiting")
+                    
+            with c_b3:
+                if st.session_state.get("p2_bench_obsidian_saved", False):
+                    st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p2_bench_obs_indicator")
+                else:
+                    st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p2_bench_obs_waiting")
             
-            if "p2_topics" in st.session_state and st.session_state.p2_topics:
+            if st.session_state.get("p2_topics") or st.session_state.get("p2_bench_raw"):
                 st.markdown("<br>", unsafe_allow_html=True)
                 topics_display = [f"{i+1:02d}. {t['title']}" for i, t in enumerate(st.session_state.p2_topics)]
-                st.session_state.p2_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked, key="p2_topic_sel")
-                save_workspace_state() # 자동 저장
                 
-                if st.button("[SEARCH] 팝업에서 상세 결과 보기", use_container_width=True, key="pop_bench_p2_btn"):
-                    popup_edit_benchmarking_p2()
-
-                col_b_app_save, col_b_obs_save = st.columns(2)
-
-                with col_b_app_save:
-                    if st.button("💾 벤치마킹 앱 저장", use_container_width=True, key="bench_app_save_btn"):
-                        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-                        val = "# 벤치마킹 결과\n\n"
-                        for t in st.session_state.p2_topics:
-                            val += f"## [[{t['title']}]]\n"
-                            val += f"- 추천 이유: {t['reason']}\n"
-                            val += f"- 기대 효과: {t['effect']}\n\n"
-
-                        save_dir = os.path.join("Backups", "Part1_Benchmark")
-                        os.makedirs(save_dir, exist_ok=True)
-                        save_path = os.path.join(save_dir, f"benchmark_{ts}.md")
-
-                        with open(save_path, "w", encoding="utf-8") as f:
-                            f.write(val)
-
+                if topics_display:
+                    default_sel_idx = 0
+                    if st.session_state.get("p2_topic_selection") in topics_display:
+                        default_sel_idx = topics_display.index(st.session_state.p2_topic_selection)
+                    st.session_state.p2_topic_selection = st.selectbox(
+                        "📌 기획할 주제 1개 선정", 
+                        topics_display, 
+                        index=default_sel_idx, 
+                        disabled=is_locked, 
+                        key="p2_topic_sel"
+                    )
+                    save_workspace_state()
+                
+                raw_val = st.session_state.get("p2_bench_raw", "").strip()
+                if not raw_val:
+                    for idx, t in enumerate(st.session_state.p2_topics, 1):
+                        raw_val += f"{idx:02d}. {t['title']} | {t['reason']} | {t['effect']} | {t.get('audience_reaction', '공감')}\n"
+                    raw_val = raw_val.strip()
+                    st.session_state.p2_bench_raw = raw_val
+                
+                st.session_state.p2_bench_raw = st.text_area(
+                    "벤치마킹 상세 본문 (수정 가능)",
+                    value=st.session_state.p2_bench_raw,
+                    height=400,
+                    label_visibility="collapsed",
+                    key="p2_bench_raw_area"
+                )
+                
+                c_pop, c_copy = st.columns(2)
+                with c_pop:
+                    if st.button("👁 팝업에서 크게 보기 / 복붙", use_container_width=True, key="pop_bench_p2_btn"):
+                        popup_edit_benchmarking_p2()
+                with c_copy:
+                    if st.button("📋 클립보드 복사", use_container_width=True, key="p2_bench_copy_btn"):
+                        try:
+                            import pyperclip
+                            pyperclip.copy(st.session_state.p2_bench_raw)
+                            st.success("벤치마킹 결과 복사 완료!")
+                        except Exception:
+                            st.info("복사 내용은 위 텍스트창에서 직접 드래그 선택하세요.")
+                            
+                st.divider()
+                st.markdown("##### 💾 수동 백업 / RAG 키워드 정보")
+                st.session_state.p2_bench_tags = st.text_input(
+                    "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)",
+                    value=st.session_state.get("p2_bench_tags", ""),
+                    placeholder="예: 외로움, 존재의미, 고통, 용서",
+                    key="p2_bench_tags_input",
+                    disabled=is_locked
+                )
+                
+                if st.button("💾 (예비용) 벤치마킹 수동 옵시디언 백업", use_container_width=True, key="p2_bench_save_backup_btn", disabled=is_locked):
+                    parsed = []
+                    for line in st.session_state.p2_bench_raw.split("\n"):
+                        if "|" in line:
+                            parts = line.split("|")
+                            if len(parts) >= 3:
+                                title_part = parts[0].strip()
+                                if ". " in title_part:
+                                    title_part = title_part.split(". ", 1)[1]
+                                elif "]" in title_part:
+                                    title_part = title_part.split("]", 1)[1]
+                                parsed.append({
+                                    "title": title_part.strip(),
+                                    "reason": parts[1].strip(),
+                                    "effect": parts[2].strip(),
+                                    "audience_reaction": parts[3].strip() if len(parts) > 3 else "공감"
+                                })
+                    if parsed:
+                        st.session_state.p2_topics = parsed
+                    
+                    tag_list = [t.strip() for t in st.session_state.get("p2_bench_tags","").split(",") if t.strip()]
+                    tag_links = " ".join([f"[[{t}]]" for t in tag_list])
+                    tag_hashes = " ".join([f"#{t}" for t in tag_list])
+                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    title = f"[Part2] 채널 벤치마킹 및 주제도출 - {ts}"
+                    
+                    val = f"## 📌 핵심 요약\n- 대상 채널: {st.session_state.p2_channel_url}\n\n"
+                    val += f"## 🎯 RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[심리치유]]'}\n- 태그: {tag_hashes if tag_hashes else '#벤치마킹'}\n\n"
+                    val += f"## 📖 본문\n{st.session_state.p2_bench_raw}\n\n"
+                    
+                    obs_path = save_obsidian_memory("TopicMemory", title, val, source="Sage Mirror Studio Part 2")
+                    if obs_path:
+                        lock_file_readonly(obs_path)
+                        st.toast("✅ 수동 벤치마킹 옵시디언 백업 완료!", icon="💾")
+                        st.session_state.p2_bench_obsidian_saved = True
                         save_workspace_state()
-                        st.success(f"앱 저장 완료: {save_path}")
-
-                with col_b_obs_save:
-                    if st.button("🧠 벤치마킹 옵시디언 저장", use_container_width=True, key="bench_obsidian_save_btn"):
-                        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-                        val = "# [[벤치마킹 결과]]\n\n"
-                        for t in st.session_state.p2_topics:
-                            val += f"## [[{t['title']}]]\n"
-                            val += f"- 추천 이유: {t['reason']}\n"
-                            val += f"- 기대 효과: {t['effect']}\n\n"
-
-                        obs_path = save_obsidian_memory(
-                            folder_name="TopicMemory",
-                            title="벤치마킹 결과",
-                            content=val,
-                            source="Part 1 Benchmark"
-                        )
-
-                        if obs_path:
-                            st.success(f"옵시디언 저장 완료: {obs_path}")
+                        success, msg = auto_git_push(f"Manual Save: {title}")
+                        if success:
+                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
+                        else:
+                            st.error(f"GitHub Push 실패: {msg}")
+                        st.rerun()
     with tab_research:
         with st.container(border=True):
             st.markdown("### 2️⃣ 옵시디언 융합 리서치")
@@ -2503,6 +2811,9 @@ def render_part2():
                 key="p2_res_prompt",
                 disabled=is_locked
             )
+
+            if st.button("📝 프롬프트 팝업 편집 (자료 조사)", key="p2_edit_res_prompt_btn"):
+                popup_edit_text_value("p2_research_prompt", "🤖 젬마 작업지시 프롬프트 (자료 조사)")
 
             # --- 3단 버튼 구조 ---
             c_r1, c_r2, c_r3 = st.columns([4, 3, 3])
@@ -2520,7 +2831,8 @@ def render_part2():
                             topic_str = st.session_state.p2_topic_selection
                             result = generate_research_draft(
                                 st.session_state.p2_channel_url, topic_str,
-                                st.session_state.p2_gemma_protocol, st.session_state.base_prompt_rules
+                                st.session_state.p2_gemma_protocol, st.session_state.base_prompt_rules,
+                                st.session_state.get("p2_research_prompt", "")
                             )
                             st.session_state.p2_research_result = result
                             st.session_state.pipeline_state["research_result"] = result
@@ -2636,6 +2948,9 @@ def render_part2():
                 key="p2_plan_prompt_input",
                 disabled=is_locked
             )
+
+            if st.button("📝 프롬프트 팝업 편집 (총괄 기획)", key="p2_edit_plan_prompt_btn"):
+                popup_edit_text_value("p2_plan_prompt", "🤖 젬마 작업지시 프롬프트 (총괄 기획)")
 
             # --- 3단 버튼 구조 ---
             c_p1, c_p2, c_p3 = st.columns([4, 3, 3])
