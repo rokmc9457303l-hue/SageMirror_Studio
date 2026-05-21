@@ -5551,26 +5551,22 @@ def render_part6_opal():
         
     st.subheader("👥 Step 3. Google Opal 8계정 분배")
     if st.button("👥 Opal 8계정 씬 자동 배분 시작", key="p6_distribute_btn", type="primary", disabled=is_locked):
-        # 버튼 내부에서 세션 스테이트를 통해 안전하게 설정값 참조
-        _selected_bgm = st.session_state.get("p6_bgm_selection", "비장한 성경 낭독풍")
-        _mix_ratio = st.session_state.get("p6_mixing_ratio", 80)
-        _narr_text_raw = st.session_state.get("p34_narration_script", "")
-        _lines = _narr_text_raw.strip().split("\n")
+        lines = st.session_state.p34_narration_script.strip().split("\n")
         parsed_scenes = {}
         error_lines = []
-        for _line in _lines:
-            if not _line.strip():
+        for line in lines:
+            if not line.strip():
                 continue
-            _parts = _line.split("|", 1)
-            if len(_parts) == 2:
-                _scene_str = _parts[0].strip()
-                _narr_content = _parts[1].strip()
-                if _scene_str.isdigit() and len(_scene_str) == 3:
-                    parsed_scenes[int(_scene_str)] = _narr_content
+            parts = line.split("|", 1)
+            if len(parts) == 2:
+                scene_str = parts[0].strip()
+                narr_content = parts[1].strip()
+                if scene_str.isdigit() and len(scene_str) == 3:
+                    parsed_scenes[int(scene_str)] = narr_content
                 else:
-                    error_lines.append(_line)
+                    error_lines.append(line)
             else:
-                error_lines.append(_line)
+                error_lines.append(line)
                 
         if error_lines:
             st.error(f"⚠️ 다음 줄의 형식이 올바르지 않습니다 (001 | 나레이션 형식이어야 함):\n" + "\n".join(error_lines[:5]))
@@ -5578,17 +5574,17 @@ def render_part6_opal():
         try:
             opal_records = []
             for scene_idx in range(1, 113):
-                _s_str = f"{scene_idx:03d}"
-                _narr_out = parsed_scenes.get(scene_idx, f"@Protagonist의 이야기가 펼쳐집니다. (나레이션 누락)")
+                scene_str = f"{scene_idx:03d}"
+                narr_text = parsed_scenes.get(scene_idx, f"@Protagonist의 이야기가 펼쳐집니다. (나레이션 누락)")
                 account_num = ((scene_idx - 1) // 14) + 1
                 account_name = f"{account_num}번계정"
                 
                 opal_records.append({
                     "계정": account_name,
-                    "씬번호": _s_str,
-                    "나레이션": _narr_out,
-                    "BGM 프리셋": _selected_bgm,
-                    "믹싱 비율": f"나레이션 {_mix_ratio}% / BGM {100-_mix_ratio}%"
+                    "씬번호": scene_str,
+                    "나레이션": narr_text,
+                    "BGM 프리셋": selected_bgm,
+                    "믹싱 비율": f"나레이션 {mix_ratio}% / BGM {100-mix_ratio}%"
                 })
                 
             df = pd.DataFrame(opal_records)
@@ -5852,21 +5848,11 @@ def render_part8_dashboard():
     if cap_df is None:
         st.warning("⚠️ 파트 7 CapCut Bridge 조립 데이터가 없습니다. 파트 7 단계를 완료해 주세요.")
         return
-
-    # ──────────────────────────────────────────────
-    # 통계 변수 기본값 초기화 (저장 버튼 스코프 밖에서 선언)
-    # ──────────────────────────────────────────────
-    total_scenes = 0
-    total_duration = 0.0
-    avg_duration = 0.0
-    exist_count = 0
-    completion_rate = 0.0
-    missing_scenes = []
-
+        
     try:
         total_scenes = len(cap_df)
-        total_duration = float(cap_df["duration"].sum())
-        avg_duration = float(cap_df["duration"].mean())
+        total_duration = cap_df["duration"].sum()
+        avg_duration = cap_df["duration"].mean()
         
         c_m1, c_m2, c_m3 = st.columns(3)
         with c_m1:
@@ -5886,6 +5872,8 @@ def render_part8_dashboard():
     except Exception as e:
         st.error(f"[오류명] 폴더 생성 실패: {e}\n→ 해결 방법: 드라이브 경로가 존재하며 쓰기 권한이 있는지 점검하십시오.")
         
+    exist_count = 0
+    missing_scenes = []
     matching_status = []
     
     if st.button("🔄 비디오 클립 실시간 스캔 및 새로고침", key="p8_scan_btn"):
@@ -5951,11 +5939,11 @@ def render_part8_dashboard():
                     st.toast("✅ 파트 8 백업 완료!", icon="💾")
                     st.session_state.p8_dashboard_obsidian_saved = True
                     save_workspace_state()
-                    success_push, msg_push = auto_git_push(f"Auto Save (Part 8): {ts}")
-                    if success_push:
+                    success, msg = auto_git_push(f"Auto Save (Part 8): {ts}")
+                    if success:
                         st.toast("🚀 GitHub 백업 완료!", icon="🚀")
                     else:
-                        st.error(f"GitHub Push 실패: {msg_push}")
+                        st.error(f"GitHub Push 실패: {msg}")
                     st.rerun()
             except Exception as e:
                 st.error(f"[오류명] 옵시디언 저장 실패: {e}\n→ 해결 방법: 드라이브 접근 권한을 확인하십시오.")
