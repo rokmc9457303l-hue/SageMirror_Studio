@@ -1,5 +1,27 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
 
+## v15.9 — 2026-05-22 00:20 [패치/영상생성/통합저장파이프라인]
+### 변경 내용
+- **파트 5 (영상 생성) 통합 저장 및 백업 시스템 구축**:
+  - `save_video_production_all` 통합 저장 함수와 개별 저장 버튼의 핸들러 연동 완료.
+  - "오팔 배분 외부 저장 및 백업" 버튼(`p6_step3_outputs_save_btn`) 클릭 시, `save_video_production_all` 함수를 호출하여 외부 출력 저장소(`C:\SageMirror_Outputs`)에 CSV 백업을 기록함과 동시에 옵시디언 자동 저장 및 GitHub 자동 push가 단일 트랜잭션으로 연동되도록 구현.
+  - "옵시디언 자동 백업" 버튼(`p6_video_obsidian_backup_btn`) 역시 `save_video_production_all` 단일 통합 함수를 호출하도록 단일화하여 데이터 정합성 보장 및 중복 저장 코드를 완전 제거함.
+  - 세션 데이터 호출 시 `.get()` 안전 패턴을 적용하여 Streamlit NameError 및 KeyError 사태를 원천 차단.
+- **구동 및 디버그 스크립트 실행 타겟 갱신**:
+  - `RUN_APP.bat` 및 `RUN_DEBUG.bat` 실행 타겟을 `app_v15_9.py`로 변경.
+
+### 영향 파트
+- **Part 5 (Video Production)**: 오팔 배분 데이터 백업 및 옵시디언 백업 간의 파이프라인 통합.
+- **App Core / Batch Scripts**: 실행 환경을 `app_v15_9.py`로 업데이트.
+
+### 수정 파일
+- `app_v15_9.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.8 — 2026-05-22 00:15 [마이너/영상생성개편/저장파이프라인]
 ### 변경 내용
 - **파트 5 (영상 생성) 3단 스텝 가로 배치 레이아웃 구현**:
