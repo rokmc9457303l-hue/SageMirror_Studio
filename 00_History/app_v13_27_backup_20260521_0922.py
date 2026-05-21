@@ -330,8 +330,6 @@ def save_workspace_state():
         "p2_thumbnail_plan", "unlock_part2",
         "p34_gemma_protocol", "p34_master_prompt", "unlock_part34",
         "p34_scene_structure", "p34_narration_script", "p34_image_script", "p34_capcut_data",
-        "p34_arch_saved", "p34_arch_obsidian_saved", "p34_narr_saved", "p34_narr_obsidian_saved",
-        "p34_img_saved", "p34_img_obsidian_saved", "p34_cap_saved", "p34_cap_obsidian_saved",
         "p5_image_master_prompt", "unlock_part5", 
         "p6_veo3_master_prompt", "p6_gemma_protocol", "p6_protocol_loaded", "p6_vid_pin_input", "unlock_part6_vid"
     ]
@@ -1211,15 +1209,6 @@ def init_session_state():
         "p34_narration_script": "",
         "p34_image_script": "",
         "p34_capcut_data": "",
-        # ── Part 3-4 3단 버튼 상태 인디케이터 키 ──
-        "p34_arch_saved": False,
-        "p34_arch_obsidian_saved": False,
-        "p34_narr_saved": False,
-        "p34_narr_obsidian_saved": False,
-        "p34_img_saved": False,
-        "p34_img_obsidian_saved": False,
-        "p34_cap_saved": False,
-        "p34_cap_obsidian_saved": False,
         "p5_image_master_prompt": IMAGE_PART_MASTER_PROMPT_V3,
         "unlock_part5": False,
         # ── Part 4 (Image Consistency) 전용 키 ──
@@ -3217,351 +3206,142 @@ def render_part34():
     st.subheader("🏗️ Step 2. Architect — 112씬 구조 설계 (기-승-전-결)")
     with st.container(border=True):
         st.caption("Part 2에서 완성된 기획안을 기반으로, 112씬의 기-승-전-결 서사 뼈대를 설계합니다.")
-
-        # --- 3단 버튼 구조 (시작 / 로컬저장 / 옵시디언백업) ---
-        c_arch1, c_arch2, c_arch3 = st.columns([4, 3, 3])
-        with c_arch1:
+        
+        c_arch_btn, c_arch_info = st.columns([3, 7])
+        with c_arch_btn:
             if st.button("🚀 112씬 구조 자동 설계 (AI)", use_container_width=True, disabled=is_locked, type="primary", key="p34_arch_btn"):
-                p2_plan_v = st.session_state.get("p2_planning_result", "")
-                if not p2_plan_v:
+                p2_plan = st.session_state.get("p2_planning_result", "")
+                if not p2_plan:
                     st.error("[WARN] Part 2의 '총괄 기획안'이 비어 있습니다. Part 2를 먼저 완료해 주세요.")
                 else:
-                    st.session_state.p34_scene_structure = ""
-                    st.session_state.p34_arch_saved = False
-                    st.session_state.p34_arch_obsidian_saved = False
-                    save_workspace_state()
-
                     with st.spinner("기-승-전-결 112씬 뼈대 설계 중..."):
-                        prompt = f"[지시] 아래 기획안을 바탕으로 112씬 분량의 대본 구조(뼈대)를 설계해 주세요.\n\n[기획안]\n{p2_plan_v}\n\n[출력 형식]\n기(001-028): 각 씬의 한 줄 요약 (감정: EXPR코드)\n승(029-056): 각 씬의 한 줄 요약 (감정: EXPR코드)\n전(057-084): 각 씬의 한 줄 요약 (감정: EXPR코드)\n결(085-112): 각 씬의 한 줄 요약 (감정: EXPR코드)\n\n{st.session_state.p34_gemma_protocol}"
+                        prompt = f"""[지시] 아래 기획안을 바탕으로 112씬 분량의 대본 구조(뼈대)를 설계해 주세요.
+
+[기획안]
+{p2_plan}
+
+[출력 형식]
+기(001-028): 각 씬의 한 줄 요약 (감정: EXPR코드)
+승(029-056): 각 씬의 한 줄 요약 (감정: EXPR코드)
+전(057-084): 각 씬의 한 줄 요약 (감정: EXPR코드)
+결(085-112): 각 씬의 한 줄 요약 (감정: EXPR코드)
+
+{st.session_state.p34_gemma_protocol}"""
                         result = call_gemma(prompt)
                         st.session_state.p34_scene_structure = result
-                        st.session_state.p34_arch_saved = True
-                        save_workspace_state()
+        with c_arch_info:
+            st.info("Part 2 기획안 → 기(001~028) / 승(029~056) / 전(057~084) / 결(085~112) 자동 분배")
 
-                        keywords = extract_keywords_via_gemma(result, st.session_state.base_prompt_rules)
-                        tag_list = [t.strip() for t in keywords.split(",") if t.strip()]
-                        tag_links = " ".join([f"[[{t}]]" for t in tag_list])
-                        tag_hashes = " ".join([f"#{t}" for t in tag_list])
-
-                        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                        topic_title = st.session_state.get("p2_topic_selection", "대본구조")
-                        folder_name = "ScriptDrafts"
-                        title = f"112씬 구조 설계 - {topic_title}"
-
-                        val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
-                        val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[서사구조]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#대본설계'}\n\n"
-                        val += f"## 📐 112씬 구조 설계 본문\n{result}\n\n"
-
-                        obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
-                        if obs_path:
-                            lock_file_readonly(obs_path)
-                            st.toast("💾 구조 설계 로컬 자동 저장 완료!", icon="💾")
-                            success, msg = auto_git_push(f"Auto Save (Locked): {title}")
-                            if success:
-                                st.session_state.p34_arch_obsidian_saved = True
-                                st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
-                            else:
-                                st.error(f"옵시디언은 저장되었으나 GitHub Push에 실패했습니다: {msg}")
-                            save_workspace_state()
-                            st.rerun()
-
-        with c_arch2:
-            if st.session_state.get("p34_arch_saved", False):
-                st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p34_arch_local_indicator")
-            else:
-                st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p34_arch_local_waiting")
-
-        with c_arch3:
-            if st.session_state.get("p34_arch_obsidian_saved", False):
-                st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p34_arch_obs_indicator")
-            else:
-                st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p34_arch_obs_waiting")
-
-        st.info("ℹ️ Part 2 기획안 → 기(001~028) / 승(029~056) / 전(057~084) / 결(085~112) 자동 분배")
         st.text_area("📐 112씬 구조 설계 결과 (수정 가능)", value=st.session_state.p34_scene_structure, height=400, key="p34_struct_area")
-
-        if st.session_state.p34_scene_structure:
-            if st.button("💾 (예비용) 구조 설계 수동 옵시디언 백업", use_container_width=True, key="p34_save_struct", disabled=is_locked):
+        
+        c_s1, c_s2 = st.columns(2)
+        with c_s1:
+            if st.button("[SAVE] 구조 설계 저장", use_container_width=True, key="p34_save_struct"):
                 st.session_state.p34_scene_structure = st.session_state.p34_struct_area
+                save_workspace_state()
+                st.toast("[OK] 112씬 구조 설계 저장 완료!", icon="[SAVE]")
+        with c_s2:
+            if st.button("🔒 옵시디언 백업", use_container_width=True, disabled=is_locked, key="p34_backup_struct"):
                 ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                topic_title = st.session_state.get("p2_topic_selection", "대본구조")
-                folder_name = "ScriptDrafts"
-                title = f"112씬 구조 설계 - {topic_title}"
-                val = f"## 📖 112씬 구조 설계\n{st.session_state.p34_scene_structure}\n"
-                obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
-                if obs_path:
-                    lock_file_readonly(obs_path)
-                    st.toast("✅ 수동 구조 설계 옵시디언 백업 완료!", icon="💾")
-                    st.session_state.p34_arch_obsidian_saved = True
-                    save_workspace_state()
-                    success, msg = auto_git_push(f"Manual Save: {title}")
-                    if success:
-                        st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                    else:
-                        st.error(f"GitHub Push 실패: {msg}")
-                    st.rerun()
+                if st.session_state.path_obsidian:
+                    safe_makedirs(st.session_state.path_obsidian)
+                    md_path = os.path.join(st.session_state.path_obsidian, f"part34_structure_{ts}.md")
+                    md = f"# [[112씬 구조 설계]]\n## 📌 Brief Summary\n112씬 기-승-전-결 뼈대\n\n## 📚 Core Content\n{st.session_state.p34_scene_structure}\n\n---\n*Last updated: {ts}*\n"
+                    if save_markdown(md_path, md):
+                        lock_file_readonly(md_path)
+                        st.toast("[OK] 구조 설계 백업 및 락(Lock) 완료", icon="🔒")
 
     st.divider()
 
     st.subheader("[WRITE] Step 3. Writer — 대본 집필 (3단 분리)")
     st.caption("확정된 112씬 구조 위에 살을 붙여, 나레이션·이미지·캡컷 3종 대본을 각각 집필합니다.")
-
+    
     c_narr, c_img, c_cap = st.columns(3, gap="large")
-
-    # 1️⃣ 나레이션 대본
+    
     with c_narr:
         with st.container(border=True):
             st.markdown("### 1️⃣ 나레이션 대본")
             st.caption("시청자가 듣게 될 순수 나레이션 텍스트 (CosyVoice 연동)")
-
-            c_n1, c_n2, c_n3 = st.columns([4, 3, 3])
-            with c_n1:
-                if st.button("🎙️ 나레이션 대본 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_narr_btn"):
-                    if not st.session_state.p34_scene_structure:
-                        st.error("[WARN] Step 2의 '112씬 구조 설계'를 먼저 완료해 주세요.")
-                    else:
-                        st.session_state.p34_narration_script = ""
-                        st.session_state.p34_narr_saved = False
-                        st.session_state.p34_narr_obsidian_saved = False
-                        save_workspace_state()
-
-                        with st.spinner("나레이션 대본 집필 중..."):
-                            prompt = f"[지시] 아래 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요.\n화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다.\n\n[112씬 구조]\n{st.session_state.p34_scene_structure}\n\n[출력 형식]\n씬번호(3자리) | 나레이션 대본 텍스트\n\n{st.session_state.p34_gemma_protocol}"
-                            result = call_gemma(prompt)
-                            st.session_state.p34_narration_script = result
-                            st.session_state.pipeline_state["narration_script"] = result
-                            st.session_state.p34_narr_saved = True
-                            save_workspace_state()
-
-                            keywords = extract_keywords_via_gemma(result, st.session_state.base_prompt_rules)
-                            tag_list = [t.strip() for t in keywords.split(",") if t.strip()]
-                            tag_links = " ".join([f"[[{t}]]" for t in tag_list])
-                            tag_hashes = " ".join([f"#{t}" for t in tag_list])
-
-                            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                            topic_title = st.session_state.get("p2_topic_selection", "나레이션")
-                            folder_name = "ScriptDrafts"
-                            title = f"나레이션 대본 - {topic_title}"
-
-                            val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
-                            val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[나레이션]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#나레이션'}\n\n"
-                            val += f"## 🎙️ 나레이션 대본 본문\n{result}\n\n"
-
-                            obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
-                            if obs_path:
-                                lock_file_readonly(obs_path)
-                                st.toast("💾 나레이션 로컬 자동 저장 완료!", icon="💾")
-                                success, msg = auto_git_push(f"Auto Save (Locked): {title}")
-                                if success:
-                                    st.session_state.p34_narr_obsidian_saved = True
-                                    st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
-                                else:
-                                    st.error(f"GitHub Push 실패: {msg}")
-                                save_workspace_state()
-                                st.rerun()
-
-            with c_n2:
-                if st.session_state.get("p34_narr_saved", False):
-                    st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p34_narr_local_indicator")
+            
+            if st.button("🎙️ 나레이션 대본 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_narr_btn"):
+                if not st.session_state.p34_scene_structure:
+                    st.error("[WARN] Step 2의 '112씬 구조 설계'를 먼저 완료해 주세요.")
                 else:
-                    st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p34_narr_local_waiting")
+                    with st.spinner("나레이션 대본 집필 중..."):
+                        prompt = f"""[지시] 아래 112씬 구조를 바탕으로 각 씬의 나레이션 대본을 작성하세요.
+화자는 60대 현자(Sage)이며, 4070 시청자에게 말하듯 따뜻하고 묵직한 톤으로 작성합니다.
 
-            with c_n3:
-                if st.session_state.get("p34_narr_obsidian_saved", False):
-                    st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p34_narr_obs_indicator")
-                else:
-                    st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p34_narr_obs_waiting")
+[112씬 구조]
+{st.session_state.p34_scene_structure}
 
+[출력 형식] 
+씬번호(3자리) | 나레이션 대본 텍스트
+
+{st.session_state.p34_gemma_protocol}"""
+                        st.session_state.p34_narration_script = call_gemma(prompt)
+            
             st.text_area("나레이션 대본", value=st.session_state.p34_narration_script, height=350, label_visibility="collapsed", key="p34_narr_area")
+            if st.button("[SAVE] 나레이션 저장", use_container_width=True, key="p34_save_narr"):
+                st.session_state.p34_narration_script = st.session_state.p34_narr_area
+                save_workspace_state()
+                st.toast("[OK] 나레이션 대본 저장!", icon="[SAVE]")
 
-            if st.session_state.p34_narration_script:
-                if st.button("💾 (예비용) 나레이션 수동 옵시디언 백업", use_container_width=True, key="p34_save_narr", disabled=is_locked):
-                    st.session_state.p34_narration_script = st.session_state.p34_narr_area
-                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    topic_title = st.session_state.get("p2_topic_selection", "나레이션")
-                    folder_name = "ScriptDrafts"
-                    title = f"나레이션 대본 - {topic_title}"
-                    val = f"## 🎙️ 나레이션 대본\n{st.session_state.p34_narration_script}\n"
-                    obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
-                    if obs_path:
-                        lock_file_readonly(obs_path)
-                        st.toast("✅ 수동 나레이션 옵시디언 백업 완료!", icon="💾")
-                        st.session_state.p34_narr_obsidian_saved = True
-                        save_workspace_state()
-                        success, msg = auto_git_push(f"Manual Save: {title}")
-                        if success:
-                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                        else:
-                            st.error(f"GitHub Push 실패: {msg}")
-                        st.rerun()
-
-    # 2️⃣ 이미지 생성용 대본
     with c_img:
         with st.container(border=True):
             st.markdown("### 2️⃣ 이미지 생성용 대본")
             st.caption("씬번호 | 대본 | @한글묘사@ | @영어프롬프트@ (Part 5 연동)")
-
-            c_i1, c_i2, c_i3 = st.columns([4, 3, 3])
-            with c_i1:
-                if st.button("🖼️ 이미지 프롬프트 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_img_btn"):
-                    if not st.session_state.p34_narration_script:
-                        st.error("[WARN] 좌측의 '나레이션 대본'을 먼저 완료해 주세요.")
-                    else:
-                        st.session_state.p34_image_script = ""
-                        st.session_state.p34_img_saved = False
-                        st.session_state.p34_img_obsidian_saved = False
-                        save_workspace_state()
-
-                        with st.spinner("이미지 프롬프트 변환 중..."):
-                            prompt = f"[지시] 아래 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요.\n\n[나레이션 대본]\n{st.session_state.p34_narration_script}\n\n[출력 형식 — 반드시 준수]\n씬번호(3자리) | 대본 | @한글묘사@ | @영어프롬프트@\n\n한글묘사에는: 인물동작, 시선, 빛, 소품태그, 표정코드[EXPR-0X] 필수\n영어프롬프트에는: [A-MASTER], 소품태그, 표정값, [@배경], [MASTER STYLE TAG], [NEGATIVE PROMPT] 필수\n\n{st.session_state.p34_gemma_protocol}"
-                            result = call_gemma(prompt)
-                            st.session_state.p34_image_script = result
-                            st.session_state.pipeline_state["image_script"] = result
-                            st.session_state.p34_img_saved = True
-                            save_workspace_state()
-
-                            keywords = extract_keywords_via_gemma(result, st.session_state.base_prompt_rules)
-                            tag_list = [t.strip() for t in keywords.split(",") if t.strip()]
-                            tag_links = " ".join([f"[[{t}]]" for t in tag_list])
-                            tag_hashes = " ".join([f"#{t}" for t in tag_list])
-
-                            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                            topic_title = st.session_state.get("p2_topic_selection", "이미지대본")
-                            folder_name = "ScriptDrafts"
-                            title = f"이미지 프롬프트 대본 - {topic_title}"
-
-                            val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
-                            val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[이미지]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#이미지대본'}\n\n"
-                            val += f"## 🖼️ 이미지 프롬프트 (C-1 형식)\n{result}\n\n"
-
-                            obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
-                            if obs_path:
-                                lock_file_readonly(obs_path)
-                                st.toast("💾 이미지 대본 로컬 자동 저장 완료!", icon="💾")
-                                success, msg = auto_git_push(f"Auto Save (Locked): {title}")
-                                if success:
-                                    st.session_state.p34_img_obsidian_saved = True
-                                    st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
-                                else:
-                                    st.error(f"GitHub Push 실패: {msg}")
-                                save_workspace_state()
-                                st.rerun()
-
-            with c_i2:
-                if st.session_state.get("p34_img_saved", False):
-                    st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p34_img_local_indicator")
+            
+            if st.button("🖼️ 이미지 프롬프트 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_img_btn"):
+                if not st.session_state.p34_narration_script:
+                    st.error("[WARN] 좌측의 '나레이션 대본'을 먼저 완료해 주세요.")
                 else:
-                    st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p34_img_local_waiting")
+                    with st.spinner("이미지 프롬프트 변환 중..."):
+                        prompt = f"""[지시] 아래 나레이션 대본을 이미지 파트 규격(C-1)에 맞춰 변환하세요.
 
-            with c_i3:
-                if st.session_state.get("p34_img_obsidian_saved", False):
-                    st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p34_img_obs_indicator")
-                else:
-                    st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p34_img_obs_waiting")
+[나레이션 대본]
+{st.session_state.p34_narration_script}
 
+[출력 형식 — 반드시 준수]
+씬번호(3자리) | 대본 | @한글묘사@ | @영어프롬프트@
+
+한글묘사에는: 인물동작, 시선, 빛, 소품태그, 표정코드[EXPR-0X] 필수
+영어프롬프트에는: [A-MASTER], 소품태그, 표정값, [@배경], [MASTER STYLE TAG], [NEGATIVE PROMPT] 필수
+
+{st.session_state.p34_gemma_protocol}"""
+                        st.session_state.p34_image_script = call_gemma(prompt)
+            
             st.text_area("이미지 프롬프트", value=st.session_state.p34_image_script, height=350, label_visibility="collapsed", key="p34_img_area")
+            if st.button("[SAVE] 이미지 대본 저장", use_container_width=True, key="p34_save_img"):
+                st.session_state.p34_image_script = st.session_state.p34_img_area
+                save_workspace_state()
+                st.toast("[OK] 이미지 대본 저장!", icon="[SAVE]")
 
-            if st.session_state.p34_image_script:
-                if st.button("💾 (예비용) 이미지 대본 수동 옵시디언 백업", use_container_width=True, key="p34_save_img", disabled=is_locked):
-                    st.session_state.p34_image_script = st.session_state.p34_img_area
-                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    topic_title = st.session_state.get("p2_topic_selection", "이미지대본")
-                    folder_name = "ScriptDrafts"
-                    title = f"이미지 프롬프트 대본 - {topic_title}"
-                    val = f"## 🖼️ 이미지 프롬프트 (C-1 형식)\n{st.session_state.p34_image_script}\n"
-                    obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
-                    if obs_path:
-                        lock_file_readonly(obs_path)
-                        st.toast("✅ 수동 이미지 대본 옵시디언 백업 완료!", icon="💾")
-                        st.session_state.p34_img_obsidian_saved = True
-                        save_workspace_state()
-                        success, msg = auto_git_push(f"Manual Save: {title}")
-                        if success:
-                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                        else:
-                            st.error(f"GitHub Push 실패: {msg}")
-                        st.rerun()
-
-    # 3️⃣ 캡컷 에셋 데이터
     with c_cap:
         with st.container(border=True):
             st.markdown("### 3️⃣ 캡컷 에셋 데이터")
             st.caption("CapCut 자동 조립용 JSON (타임라인·BGM·이미지 매핑)")
-
-            c_c1, c_c2, c_c3 = st.columns([4, 3, 3])
-            with c_c1:
-                if st.button("[CINEMA] 캡컷 JSON 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_cap_btn"):
-                    if not st.session_state.p34_image_script:
-                        st.error("[WARN] 중앙의 '이미지 대본'을 먼저 완료해 주세요.")
-                    else:
-                        st.session_state.p34_capcut_data = ""
-                        st.session_state.p34_cap_saved = False
-                        st.session_state.p34_cap_obsidian_saved = False
-                        save_workspace_state()
-
-                        with st.spinner("캡컷 JSON 조립 중..."):
-                            prompt = f"[지시] 아래 이미지 대본을 CapCut 자동화 JSON으로 변환하세요.\n\n[이미지 대본]\n{st.session_state.p34_image_script}\n\n[출력 형식 — JSON]\n각 씬: scene_id, script, action_kr, expression, props_used, image_file, audio_file, timeline_order, duration_sec\n\n{st.session_state.p34_gemma_protocol}"
-                            result = call_gemma(prompt)
-                            st.session_state.p34_capcut_data = result
-                            st.session_state.pipeline_state["capcut_data"] = result
-                            st.session_state.p34_cap_saved = True
-                            save_workspace_state()
-
-                            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                            topic_title = st.session_state.get("p2_topic_selection", "캡컷에셋")
-                            folder_name = "ScriptDrafts"
-                            title = f"캡컷 에셋 JSON - {topic_title}"
-
-                            val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
-                            val += f"## 🎬 캡컷 에셋 JSON 본문\n```json\n{result}\n```\n\n"
-
-                            obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
-                            if obs_path:
-                                lock_file_readonly(obs_path)
-                                st.toast("💾 캡컷 에셋 로컬 자동 저장 완료!", icon="💾")
-                                success, msg = auto_git_push(f"Auto Save (Locked): {title}")
-                                if success:
-                                    st.session_state.p34_cap_obsidian_saved = True
-                                    st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
-                                else:
-                                    st.error(f"GitHub Push 실패: {msg}")
-                                save_workspace_state()
-                                st.rerun()
-
-            with c_c2:
-                if st.session_state.get("p34_cap_saved", False):
-                    st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p34_cap_local_indicator")
+            
+            if st.button("[CINEMA] 캡컷 JSON 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_cap_btn"):
+                if not st.session_state.p34_image_script:
+                    st.error("[WARN] 중앙의 '이미지 대본'을 먼저 완료해 주세요.")
                 else:
-                    st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p34_cap_local_waiting")
+                    with st.spinner("캡컷 JSON 조립 중..."):
+                        prompt = f"""[지시] 아래 이미지 대본을 CapCut 자동화 JSON으로 변환하세요.
 
-            with c_c3:
-                if st.session_state.get("p34_cap_obsidian_saved", False):
-                    st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p34_cap_obs_indicator")
-                else:
-                    st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p34_cap_obs_waiting")
+[이미지 대본]
+{st.session_state.p34_image_script}
 
+[출력 형식 — JSON]
+각 씬: scene_id, script, action_kr, expression, props_used, image_file, audio_file, timeline_order, duration_sec
+
+{st.session_state.p34_gemma_protocol}"""
+                        st.session_state.p34_capcut_data = call_gemma(prompt)
+            
             st.text_area("캡컷 JSON", value=st.session_state.p34_capcut_data, height=350, label_visibility="collapsed", key="p34_cap_area")
-
-            if st.session_state.p34_capcut_data:
-                if st.button("💾 (예비용) 캡컷 에셋 수동 옵시디언 백업", use_container_width=True, key="p34_save_cap", disabled=is_locked):
-                    st.session_state.p34_capcut_data = st.session_state.p34_cap_area
-                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    topic_title = st.session_state.get("p2_topic_selection", "캡컷에셋")
-                    folder_name = "ScriptDrafts"
-                    title = f"캡컷 에셋 JSON - {topic_title}"
-                    val = f"## 🎬 캡컷 에셋 JSON\n```json\n{st.session_state.p34_capcut_data}\n```\n"
-                    obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
-                    if obs_path:
-                        lock_file_readonly(obs_path)
-                        st.toast("✅ 수동 캡컷 에셋 옵시디언 백업 완료!", icon="💾")
-                        st.session_state.p34_cap_obsidian_saved = True
-                        save_workspace_state()
-                        success, msg = auto_git_push(f"Manual Save: {title}")
-                        if success:
-                            st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                        else:
-                            st.error(f"GitHub Push 실패: {msg}")
-                        st.rerun()
+            if st.button("[SAVE] 캡컷 데이터 저장", use_container_width=True, key="p34_save_cap"):
+                st.session_state.p34_capcut_data = st.session_state.p34_cap_area
+                save_workspace_state()
+                st.toast("[OK] 캡컷 에셋 저장!", icon="[SAVE]")
 
     st.divider()
 
@@ -3571,7 +3351,7 @@ def render_part34():
         if st.session_state.path_obsidian:
             safe_makedirs(st.session_state.path_obsidian)
             md_path = os.path.join(st.session_state.path_obsidian, f"part34_full_script_{ts}.md")
-            md = f"# [[대본 최종본 v{ts}]]\n## 📌 Brief Summary\nSage Mirror Studio — Part 3-4 완성 대본\n\n"
+            md = f"# [[대본 최종본 v{ts}]]\n## 📌 Brief Summary\nSage Mirror Studio v10.0 — Part 3-4 완성 대본\n\n"
             md += f"## 📐 112씬 구조 설계\n{st.session_state.p34_scene_structure}\n\n"
             md += f"## 🎙️ 나레이션 대본\n{st.session_state.p34_narration_script}\n\n"
             md += f"## 🖼️ 이미지 프롬프트 대본\n{st.session_state.p34_image_script}\n\n"
@@ -3579,14 +3359,10 @@ def render_part34():
             md += f"---\n*Last updated: {today_str} {ts}*\n"
             if save_markdown(md_path, md):
                 lock_file_readonly(md_path)
-                st.toast("✅ Part 3-4 전체 대본 백업 및 락(Lock) 완료!", icon="🔒")
-                success, msg = auto_git_push(f"Auto Save (Part 3-4 Full Script): {ts}")
-                if success:
-                    st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                else:
-                    st.error(f"GitHub Push 실패: {msg}")
+                st.toast("[OK] Part 3-4 전체 대본 백업 및 락(Lock) 완료!", icon="🔒")
+                auto_git_push(f"Auto Save (Part 3-4 Full Script): {ts}")
 
-
+# =====================================================================
 # 파트 라우팅 블록
 # =====================================================================
 if part.startswith("Part 1"):

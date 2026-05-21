@@ -1,4 +1,23 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
+## v13.28 — 2026-05-21 [마이너/기능완성]
+### 변경 내용
+- **Part 3-4 Architect & Writer 하단부 3단 버튼 구조 통일**:
+  - Step 2 구조 설계(🏗️) 및 Step 3 Writer의 나레이션(🎙️), 이미지(🖼️), 캡컷([CINEMA]) 전 영역에 Part 1과 동일한 3단 버튼 레이아웃(시작 / 로컬 자동저장 완료 / 옵시디언 자동백업 완료) 완성
+  - 각 영역 시작 시 결과물 초기화 → 생성 완료 즉시 젬마 키워드 자동 세분화 → 옵시디언 RAG 폴더(ScriptDrafts) 저장 → Git Push 파이프라인 적용
+  - 예비용 수동 백업 버튼 추가(각 결과물 존재 시 표시)
+  - Part 2 → Part 3-4 데이터 수신 상태 패널을 통해 선행 데이터 의존성 검증 유지
+- **세션 스테이트 영속화 강화**:
+  - p34 인디케이터 키 8종(p34_arch_saved/obsidian, p34_narr_saved/obsidian, p34_img_saved/obsidian, p34_cap_saved/obsidian)을 기본값 초기화 블록 및 `keys_to_save` 리스트에 추가하여 탭 전환/새로고침 후에도 상태 유지
+- **엔트리포인트 동기화**: `RUN_APP.bat` 및 앱 내부 실행 버전을 `app_v13_28.py`로 갱신
+
+### 영향 파트
+- **Part 3-4: Architect & Writer**: Step 2 구조 설계 + Step 3 나레이션/이미지/캡컷 전 영역 UI 고도화
+
+### 수정 파일
+- `app_v13_28.py`
+- `RUN_APP.bat`
+- `CHANGELOG.md`
+
 ## v13.27 — 2026-05-21 [마이너/기능완성]
 ### 변경 내용
 - **Part 1 Librarian 3단 분석 엔진 UI 활성화 및 RAG 자동 백업 완전 이식**:
