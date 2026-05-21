@@ -1,5 +1,47 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
 
+## v14.0 — 2026-05-21 17:41 [메이저 릴리즈]
+### 변경 내용
+- **파트 6 (나레이션 & 배경음악) 완전 구현**: `render_part6_opal()` 함수 완성
+  - 파트 3-4 나레이션 대본(`p34_narration_script`) 또는 이미지 대본(`p34_image_script`)에서 씬 번호 + 나레이션 텍스트 자동 파싱
+  - 112개 씬을 8개 계정(1번~8번)에 14씬씩 균등 자동 배분하는 Opal 배분 테이블 생성
+  - Gemma AI 배분 지시 + 정규식 검증(`re.compile`) + 배분 실패 줄 리스트업 기능 구현
+  - `p6_opal_data` (dict list) 직렬화 세션 저장 및 `st.dataframe` 시각화
+  - CSV 다운로드(utf-8-sig, Excel 한글 깨짐 방지) 기능 탑재
+  - 옵시디언 자동 백업 + Git Push 파이프라인 연동
+- **파트 7 (숏폼 생성 CapCut Bridge) 완전 구현**: `render_part7_capcut()` 함수 완성
+  - `p6_opal_data`에서 씬 정보 복원 → 자막 지속시간 자동 연산 (글자당 0.25초, 최소 4.0초)
+  - 이미지파일명(`scene_001.png`), 비디오파일명(`video_001.mp4`), 나레이션파일명(`narration_001.mp3`) 자동 생성
+  - CapCut Bridge DataFrame(`p7_capcut_data_v2`) 구축 및 `st.dataframe` 시각화
+  - CSV 다운로드(utf-8-sig) 기능 탑재
+  - 옵시디언 자동 백업 + Git Push 파이프라인 연동
+- **파트 8 (캡컷 최종 조립 Dashboard) 완전 구현**: `render_part8_dashboard()` 함수 완성
+  - `06_Video_Clips` 로컬 폴더 실시간 스캔 → `video_001.mp4`~`video_112.mp4` 파일 매칭률(%) 계산
+  - 매칭 완료/누락 비디오 파일 리스트업 및 `st.progress` 시각화
+  - 총 씬 수 / 총 예상 재생시간 / 총 자막 글자 수 등 통계 카드 제공
+  - 옵시디언 자동 백업 + Git Push 파이프라인 연동
+- **신규 세션 스테이트 키 11개 추가**:
+  - `p6_opal_data`, `p6_opal_raw_text`, `p6_opal_saved`, `p6_opal_obsidian_saved`
+  - `p7_capcut_data_v2`, `p7_capcut_saved`, `p7_capcut_obsidian_saved`
+  - `p8_video_match_result`, `p8_dashboard_saved`, `unlock_part6`, `unlock_part7`, `unlock_part8`
+- **DataFrame 직렬화 우회**: JSON 직렬화 불가 pandas DataFrame을 `to_dict("records")` 리스트로 변환하여 `workspace_state.json` 영속화 안전 보장
+- **등장인물 규칙 준수**: 모든 나레이션 템플릿 및 프롬프트에 `@Protagonist` 표기 강제
+
+### 영향 파트
+- **Part 6 (Opal Dispatch)**: 나레이션 파싱 + 8계정 배분 + CSV 다운로드 완전 구현
+- **Part 7 (Shorts Creator / CapCut Bridge)**: 자막 지속시간 연산 + CapCut 데이터 조립 완전 구현
+- **Part 8 (Dashboard)**: 비디오 파일 매칭률 체크 + 통계 카드 완전 구현
+- **App Core**: 세션 스테이트 초기화 및 영속화(`workspace_state.json`) 강화
+
+### 수정 파일
+- `app_v14.py` (v13.42 기반 메이저 버전 업, 5937줄)
+- `RUN_APP.bat` (실행 타겟 → `app_v14.py`)
+- `RUN_DEBUG.bat` (실행 타겟 → `app_v14.py`)
+- `00_History\CHANGELOG.md`
+
+---
+
+
 ## v13.41 — 2026-05-21 [마이너/기능완성]
 ### 변경 내용
 - **파트 3 대본 화면 중복 Expander 제거**:
