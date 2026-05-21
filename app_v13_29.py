@@ -1174,6 +1174,10 @@ def init_session_state():
         "prompt_history": [],
         "popup_history": [],
         "popup_search_history": [],
+        "popup_selected_model": "gemma4:e2b",
+        "popup_auto_search": True,
+        "popup_use_rag": True,
+        "sidebar_part": "part1",
         "unlock_part1": False,
         "unlock_part2": False,
         
@@ -1700,7 +1704,9 @@ def render_part1():
 
     with c_popup:
         st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
-        if st.button("[BOT] Sage Pop-up", type="secondary", use_container_width=True): popup_assistant()
+        if st.button("[BOT] Sage Pop-up", type="secondary", use_container_width=True, key="p1_popup_btn"):
+            st.session_state.sidebar_part = "part1"
+            popup_assistant()
 
     is_locked = not st.session_state.unlock_part1
     if is_locked:
@@ -2336,7 +2342,9 @@ def render_part2():
 
     with c_popup:
         st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p2_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p2_popup_btn"):
+            st.session_state.sidebar_part = "part2"
+            popup_assistant()
 
     if "unlock_part2" not in st.session_state:
         st.session_state.unlock_part2 = False
@@ -2817,7 +2825,9 @@ def render_part5():
 
     with c_popup:
         st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p5_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p5_popup_btn"):
+            st.session_state.sidebar_part = "part5"
+            popup_assistant()
 
     if "unlock_part5" not in st.session_state:
         st.session_state.unlock_part5 = False
@@ -3338,7 +3348,9 @@ def render_part5_image():
         elif pin: st.session_state.unlock_part5 = False
     with c_popup:
         st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p5img_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p5img_popup_btn"):
+            st.session_state.sidebar_part = "part5img"
+            popup_assistant()
     is_locked = not st.session_state.get("unlock_part5", False)
     if is_locked: st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
     st.divider()
@@ -3426,7 +3438,9 @@ def render_part6_video():
         elif pin: st.session_state.unlock_part6_vid = False
     with c_popup:
         st.markdown('<div style="margin-top:5px;"></div>', unsafe_allow_html=True)
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p6_vid_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p6_vid_popup_btn"):
+            st.session_state.sidebar_part = "part6"
+            popup_assistant()
     is_locked = not st.session_state.get("unlock_part6_vid", False)
     if is_locked: st.warning("[WARN] 분석 실행 및 편집을 위해 상단 우측에 마스터 PIN(7777)을 입력해 주세요.")
     st.divider()
@@ -3521,7 +3535,9 @@ def render_part34():
 
     with c_popup:
         st.markdown('<div style="margin-top: 5px;"></div>', unsafe_allow_html=True)
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p34_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p34_popup_btn"):
+            st.session_state.sidebar_part = "part34"
+            popup_assistant()
 
     if "unlock_part34" not in st.session_state:
         st.session_state.unlock_part34 = False
@@ -4067,7 +4083,9 @@ elif part.startswith("Part 5"):
 elif part.startswith("Part 6"):
     _l, _r = st.columns([7, 2])
     with _r:
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p6_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p6_popup_btn"):
+            st.session_state.sidebar_part = "part6"
+            popup_assistant()
     render_top_panel()
     st.divider()
     st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">🎵 Part 6 — Narration & BGM (CapCut Bridge)</h3></div>', unsafe_allow_html=True)
@@ -4085,7 +4103,9 @@ elif part.startswith("Part 6"):
 elif part.startswith("Part 7"):
     _l, _r = st.columns([7, 2])
     with _r:
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p7_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p7_popup_btn"):
+            st.session_state.sidebar_part = "part7"
+            popup_assistant()
     render_top_panel()
     st.divider()
     st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">[CINEMA] Part 7 — CapCut Bridge (Final Assembly)</h3></div>', unsafe_allow_html=True)
@@ -4103,7 +4123,9 @@ elif part.startswith("Part 7"):
 elif part.startswith("Part 8"):
     _l, _r = st.columns([7, 2])
     with _r:
-        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p8_popup_btn"): popup_assistant()
+        if st.button("🤖 Sage Pop-up", type="secondary", use_container_width=True, key="p8_popup_btn"):
+            st.session_state.sidebar_part = "part8"
+            popup_assistant()
     render_top_panel()
     st.divider()
     st.markdown('<div class="sage-header-compact"><h3 style="margin:0;">📊 Part 8 — Final Assembly Dashboard</h3></div>', unsafe_allow_html=True)
