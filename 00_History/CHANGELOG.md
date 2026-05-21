@@ -1,5 +1,20 @@
 # 🪞 현자의 거울 스튜디오 — CHANGELOG
 
+## v15.1 — 2026-05-21 21:45 [패치/UI개선]
+### 변경 내용
+- **파트 6, 7, 8 PIN 경고 메시지 제거**: 파트 6(나레이션 & 배경음악), 파트 7(Shorts Creator / CapCut Bridge), 파트 8(캡컷 최종 조립 Dashboard)에서 마스터 PIN이 잠겨 있을 때 최상단에 노출되던 경고 메시지(`st.warning`)를 제거하여 UI의 시각적 복잡성 완화 (사용자 요청 반영)
+
+### 영향 파트
+- **Part 6 (Opal Dispatch)**: PIN 미입력 시 상단 경고 메시지 제거
+- **Part 7 (CapCut Bridge)**: PIN 미입력 시 상단 경고 메시지 제거
+- **Part 8 (Dashboard)**: PIN 미입력 시 상단 경고 메시지 제거
+
+### 수정 파일
+- `app_v15_1.py`
+- `RUN_APP.bat`
+
+---
+
 ## v14.0.1 — 2026-05-21 17:48 [패치/버그수정]
 ### 변경 내용
 - **파트 6 변수 스코프 버그 수정**: `Opal 8계정 씬 자동 배분` 버튼 내부에서 `selected_bgm`/`mix_ratio` 를 외부 위젯 변수로 직접 참조하던 것을 `st.session_state.get()` 안전 접근으로 교체
