@@ -1,4 +1,24 @@
 
+## v15.9.2 — 2026-05-22 13:12
+### 변경 내용
+- **파트 1 채널 탐색기 전면 개편**:
+  - 기존 Tavily 단독 검색 5개 채널 표출 구조를 제미나이(Gemini) + Tavily 큐레이션 통합 구조로 격상.
+  - "채널 탐색 시작" 버튼 클릭 시, [제미나이 7종 검색어 자동 설계 -> Tavily 후보 30개 수집 -> 제미나이 AI 복제/표절 배제 및 필터링 -> 최종 10개 큐레이션 및 1순위 자동 확정]의 일괄 자동화 프로세스 구축.
+  - 탐색된 10개 채널은 전용 팝오버 카드로 깔끔하게 표시하며, 링크 클릭 시 즉시 새 창으로 해당 유튜브 채널이 열리도록 UI 개선.
+  - API 할당량 초과 대비 및 유연성을 위해 헤더 내 Gemini 모델 선택기(gemini-2.0-flash-exp, gemini-1.5-flash 등) 동적 전환 UI 지원.
+  - 사이드바 설정 변경 섹션 내 `🤖 Gemini API Key` 입력 필드 연동.
+- **세션 상태 및 영속화 연동**:
+  - `gemini_api_key`, `p1_gemini_model`, `p1_channel_top10`, `p1_benchmark_channel`, `p1_search_keywords`를 세션 초기화(`init_session_state`) defaults 및 `save_workspace_state` 저장 키 리스트에 추가하여 영구 백업 보장.
+### 영향 파트
+- **Part 1 (Librarian)**: 채널 탐색기 UI 및 검색 자동화 엔진 교체
+- **App Core**: 사이드바 설정 필드 추가, 세션 상태 및 자동 저장 파이프라인 연동
+### 수정 파일
+- `app_v15_9_2.py`
+- `RUN_APP.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.1 — 2026-05-22 08:51
 ### 변경 내용
 - 버튼 명칭 변경: "🤖 Sage Pop-up" → "🤖 젬마 어시스턴트" (파트 1~8 전체, 9개 버튼)
