@@ -100,5 +100,15 @@
     "p7_capcut_obsidian_saved": false,
     "p8_dashboard_saved": false,
     "p8_dashboard_obsidian_saved": false,
-    "selected_model": "gemma4:e2b"
+    "selected_model": "gemma4:e2b",
+    "episode_name": "EP001",
+    "p6_video_mapped_result": "",
+    "p6_video_valid_rows": [],
+    "p6_video_opal_data": null,
+    "p6_video_opal_saved": false,
+    "p34_outputs_saved": false,
+    "p5_outputs_saved": false,
+    "p6_outputs_saved": false,
+    "p6_video_outputs_saved": false,
+    "p7_outputs_saved": false
 }
