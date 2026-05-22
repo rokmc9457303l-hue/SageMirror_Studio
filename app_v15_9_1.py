@@ -3576,6 +3576,27 @@ def render_top_panel():
 
     
 
+
+    /* ═══ 시스템 연동 팝오버 버튼 스타일 ═══ */
+    [data-testid="stPopover"] > div > button {
+        background: rgba(212,175,106,0.12) !important;
+        border: 1px solid rgba(212,175,106,0.35) !important;
+        border-radius: 6px !important;
+        color: #d4af6a !important;
+        font-size: 0.75em !important;
+        font-weight: 600 !important;
+        padding: 3px 10px !important;
+        margin-top: -2px !important;
+        letter-spacing: 0.03em !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+    }
+    [data-testid="stPopover"] > div > button:hover {
+        background: rgba(212,175,106,0.25) !important;
+        border-color: rgba(212,175,106,0.7) !important;
+        box-shadow: 0 2px 8px rgba(212,175,106,0.2) !important;
+    }
+
     /* ═══ 글래스모피즘 컨트롤 박스 — 파트 헤더 우측 통합 박스 ═══ */
     .glass-control-box {
         background: linear-gradient(135deg, rgba(30, 15, 5, 0.92) 0%, rgba(50, 25, 10, 0.88) 100%);
@@ -4088,13 +4109,27 @@ def render_top_panel():
 
             )
 
-            if st.button(
-                "🔍",
-                key="top_obs_history_btn",
-                use_container_width=True,
-                help="클릭: 옵시디언 RAG 백업 파일 목록 보기"
-            ):
-                popup_obsidian_history()
+            with st.popover("🔗 연동 내역", use_container_width=True):
+                st.caption("📂 옵시디언 RAG 최근 연동 파일")
+                try:
+                    import os as _os
+                    obs_path = st.session_state.get("obsidian_path", "")
+                    if obs_path and _os.path.exists(obs_path):
+                        _files = []
+                        for _root, _dirs, _fnames in _os.walk(obs_path):
+                            for _fn in _fnames:
+                                if _fn.endswith(".md"):
+                                    _fp = _os.path.join(_root, _fn)
+                                    _files.append((_os.path.getmtime(_fp), _fn, _fp))
+                        _files.sort(reverse=True)
+                        for _mtime, _fname, _fpath in _files[:10]:
+                            from datetime import datetime as _dt
+                            _ts = _dt.fromtimestamp(_mtime).strftime("%m/%d %H:%M")
+                            st.markdown(f"- `{_ts}` **{_fname}**")
+                    else:
+                        st.info("옵시디언 경로를 사이드바에서 설정해 주세요.")
+                except Exception as _e:
+                    st.error(f"목록 오류: {_e}")
 
         else:
 
@@ -4132,13 +4167,24 @@ def render_top_panel():
 
             )
 
-            if st.button(
-                "🔍",
-                key="top_git_history_btn",
-                use_container_width=True,
-                help="클릭: GitHub 커밋 히스토리 보기"
-            ):
-                popup_git_history()
+            with st.popover("🔗 연동 내역", use_container_width=True):
+                st.caption("🐙 GitHub 최근 커밋 내역")
+                try:
+                    from git import Repo as _Repo, InvalidGitRepositoryError
+                    import os as _os
+                    git_path = st.session_state.get("github_local_path", "")
+                    if git_path and _os.path.exists(git_path):
+                        _repo = _Repo(git_path)
+                        _commits = list(_repo.iter_commits(max_count=10))
+                        for _c in _commits:
+                            from datetime import datetime as _dt
+                            _ts = _dt.fromtimestamp(_c.committed_date).strftime("%m/%d %H:%M")
+                            _msg = _c.message.strip()[:40]
+                            st.markdown(f"- `{_ts}` {_msg}")
+                    else:
+                        st.info("GitHub 로컬 경로를 사이드바에서 설정해 주세요.")
+                except Exception as _e:
+                    st.error(f"히스토리 오류: {_e}")
 
         else:
 
