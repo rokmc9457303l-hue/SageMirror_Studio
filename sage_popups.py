@@ -725,6 +725,250 @@ def popup_part_action_dialog():
                 st.rerun()
 
 
+
+# ══════════════════════════════════════════════════════════════════════
+# 🤖 SAGE AGENT SYSTEM v1.0 — 젬마 자율 에이전트 엔진
+# ══════════════════════════════════════════════════════════════════════
+
+import re as _re_agent
+
+# ── 툴 태그 패턴 정의 ──────────────────────────────────────────────
+AGENT_TOOL_PATTERNS = {
+    "NEED_RESEARCH":  r"\[NEED_RESEARCH:\s*(.+?)\]",
+    "READ_OBSIDIAN":  r"\[READ_OBSIDIAN:\s*(.+?)\]",
+    "SAVE_MEMORY":    r"\[SAVE_MEMORY:\s*(.+?)\]",
+    "VERIFY":         r"\[VERIFY:\s*(.+?)\]",
+    "ANALYZE":        r"\[ANALYZE:\s*(.+?)\]",
+    "CHECK_SOURCE":   r"\[CHECK_SOURCE:\s*(.+?)\]",
+}
+
+def _detect_tools(response: str) -> list:
+    """젬마 응답에서 툴 태그 전체 감지"""
+    detected = []
+    for tool_name, pattern in AGENT_TOOL_PATTERNS.items():
+        matches = _re_agent.findall(pattern, response)
+        for m in matches:
+            detected.append({"tool": tool_name, "param": m.strip()})
+    # 자료부족 키워드도 감지 (기존 방식)
+    unsure_kws = ["자료가 부족", "확실하지 않", "모르겠습니다", "알 수 없", "정보가 없"]
+    if any(kw in response for kw in unsure_kws) and not detected:
+        detected.append({"tool": "NEED_RESEARCH", "param": "자동감지"})
+    return detected
+
+def _execute_tool(tool: str, param: str, question: str, model: str, part_key: str) -> str:
+    """툴 태그 실행 → 결과 반환"""
+    result = ""
+
+    if tool == "NEED_RESEARCH":
+        # Tavily 웹 검색
+        query = question if param == "자동감지" else param
+        if st.session_state.get("tavily_api_key"):
+            try:
+                sr = tavily_search(query, st.session_state.tavily_api_key, max_results=4)
+                if sr.get("results"):
+                    result = f"\n[🌐 웹 검색 결과 — {query}]\n"
+                    result += "\n".join([
+                        f"- {r.get('title','')}: {r.get('content','')[:300]} [SOURCE: {r.get('url','')}]"
+                        for r in sr["results"][:4]
+                    ])
+                    # 검색 기록 저장
+                    if "popup_search_history" not in st.session_state:
+                        st.session_state.popup_search_history = []
+                    st.session_state.popup_search_history.append({"q": query, "res": sr})
+            except Exception as e:
+                result = f"[검색 실패: {e}]"
+        else:
+            result = "[Tavily API Key 미설정]"
+
+    elif tool == "READ_OBSIDIAN":
+        # 옵시디언 RAG 검색
+        try:
+            from obsidian_search import simple_keyword_search
+            obs_results = simple_keyword_search(
+                st.session_state.get("path_obsidian", ""), param, top_k=5
+            )
+            if obs_results:
+                result = f"\n[🧠 옵시디언 검색 결과 — {param}]\n"
+                result += "\n".join([
+                    f"- [[{r['title']}]]: {r['preview'][:300]} [SOURCE: 옵시디언 — {r['title']}]"
+                    for r in obs_results[:5]
+                ])
+            else:
+                result = f"[옵시디언 검색 결과 없음: {param}]"
+        except Exception as e:
+            result = f"[옵시디언 검색 실패: {e}]"
+
+    elif tool == "SAVE_MEMORY":
+        # 옵시디언 자동 저장
+        try:
+            _save_to_obsidian_with_tags(
+                content=f"[주제] {param}\n\n[저장 요청 시각] {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+                title=param[:50],
+                source_type="젬마 자동 저장 요청",
+                part_key=part_key,
+                model_name=model,
+            )
+            result = f"[✅ 옵시디언 저장 완료: {param}]"
+        except Exception as e:
+            result = f"[저장 실패: {e}]"
+
+    elif tool == "VERIFY":
+        # 자체 검증 (젬마가 비평가로 재검토)
+        verify_prompt = f"""[자가 검증 요청]
+아래 내용이 다음 기준을 충족하는지 검증하라:
+1. 출처 [SOURCE:] 태그 포함 여부
+2. 가짜 성경 구절 또는 존재하지 않는 철학 인용 여부
+3. @Protagonist 표기 통일 여부
+4. AI 냄새 나는 문장 여부
+
+[검증 대상]: {param[:300]}
+
+[검증 결과]: PASS / FAIL + 이유"""
+        try:
+            verify_result = call_gemma(verify_prompt, model=model)
+            result = f"\n[🔍 자체 검증 결과 — {param[:30]}]\n{verify_result}"
+        except Exception as e:
+            result = f"[검증 실패: {e}]"
+
+    elif tool == "ANALYZE":
+        # 심층 분석 (별도 젬마 호출)
+        analyze_prompt = f"""[심층 분석 요청]
+주제: {param}
+현자의 거울 기준으로 아래를 분석하라:
+1. 핵심 감정 키워드 3개
+2. 관련 철학자 및 성경 구절
+3. 4070 시청자 공명 포인트
+[출력]: 분석 결과만 간결하게"""
+        try:
+            analyze_result = call_gemma(analyze_prompt, model=model)
+            result = f"\n[🔬 심층 분석 — {param}]\n{analyze_result}"
+        except Exception as e:
+            result = f"[분석 실패: {e}]"
+
+    elif tool == "CHECK_SOURCE":
+        # 출처 검증 (Tavily로 실제 존재 여부 확인)
+        if st.session_state.get("tavily_api_key"):
+            try:
+                sr = tavily_search(param, st.session_state.tavily_api_key, max_results=3)
+                if sr.get("results"):
+                    result = f"\n[✅ 출처 검증 — {param}]\n"
+                    result += "\n".join([
+                        f"- {r.get('title','')}: {r.get('url','')} [SOURCE: {r.get('url','')}]"
+                        for r in sr["results"][:3]
+                    ])
+                else:
+                    result = f"[⚠️ 출처 미확인: {param} — Gemma 추론으로 표기 필요]"
+            except Exception as e:
+                result = f"[출처 검증 실패: {e}]"
+
+    return result
+
+
+def run_agent_loop(
+    question: str,
+    sys_ctx: str,
+    model: str,
+    part_key: str,
+    max_iterations: int = 4,
+    stream_placeholder=None,
+    status_widget=None,
+) -> str:
+    """
+    🤖 SAGE AGENT LOOP v1.0
+    젬마 자율 에이전트 — 툴 감지 → 실행 → 재주입 → 반복
+    
+    흐름:
+    1. 젬마 응답 생성
+    2. 툴 태그 감지
+    3. 툴 실행 → 결과 수집
+    4. 결과를 컨텍스트에 주입
+    5. 최대 max_iterations 반복
+    6. 최종 응답 반환
+    """
+    accumulated_context = ""
+    final_response = ""
+    tools_log = []
+
+    for iteration in range(max_iterations):
+        # 컨텍스트 포함 프롬프트 구성
+        if accumulated_context:
+            enriched_prompt = (
+                f"{question}\n\n"
+                f"[수집된 자료 (툴 실행 결과)]\n{accumulated_context}\n\n"
+                f"위 자료를 바탕으로 최종 답변을 완성하라. "
+                f"모든 인용에 [SOURCE:] 태그 필수."
+            )
+        else:
+            enriched_prompt = question
+
+        # 젬마 응답 생성
+        if stream_placeholder and iteration == 0:
+            # 첫 번째 반복만 스트리밍
+            full_response = ""
+            try:
+                for token in call_gemma_stream(enriched_prompt, system=sys_ctx, model=model):
+                    full_response += token
+                    stream_placeholder.markdown(full_response + "▌")
+                stream_placeholder.markdown(full_response)
+            except Exception as e:
+                full_response = f"[오류] {e}"
+                if stream_placeholder:
+                    stream_placeholder.error(full_response)
+        else:
+            # 이후 반복은 일반 호출
+            try:
+                full_response = call_gemma(enriched_prompt, sys_ctx, model=model)
+                if stream_placeholder:
+                    stream_placeholder.markdown(full_response)
+            except Exception as e:
+                full_response = f"[오류] {e}"
+
+        final_response = full_response
+
+        # 툴 태그 감지
+        detected_tools = _detect_tools(full_response)
+
+        if not detected_tools:
+            # 툴 없음 = 완성
+            if status_widget:
+                status_widget.update(
+                    label=f"✅ 완료 ({iteration+1}회 반복{'·'+', '.join(tools_log) if tools_log else ''})",
+                    state="complete", expanded=False
+                )
+            break
+
+        # 툴 실행
+        tool_results = []
+        for tool_info in detected_tools:
+            tool_name = tool_info["tool"]
+            tool_param = tool_info["param"]
+
+            if status_widget:
+                status_widget.update(
+                    label=f"🔧 [{tool_name}] 실행 중: {tool_param[:30]}...",
+                    state="running", expanded=True
+                )
+
+            result = _execute_tool(tool_name, tool_param, question, model, part_key)
+            if result:
+                tool_results.append(result)
+                tools_log.append(tool_name)
+
+        if tool_results:
+            accumulated_context += "\n".join(tool_results)
+            # 스트리밍 플레이스홀더에 진행 상황 표시
+            if stream_placeholder:
+                stream_placeholder.markdown(
+                    f"{full_response}\n\n---\n"
+                    f"*🔧 {', '.join([t['tool'] for t in detected_tools])} 실행 완료 → 재생성 중...*"
+                )
+        else:
+            # 툴 결과 없음 = 종료
+            break
+
+    return final_response
+
+
 # ══════════════════════════════════════════════════════════════════════
 # 🤖 세이지 팝업 v3.0 — 메인 팝업
 # ══════════════════════════════════════════════════════════════════════
@@ -918,12 +1162,26 @@ def popup_assistant():
                 q_stream = st.session_state.pending_stream
                 current_model = st.session_state.popup_selected_model
 
-                # 통합 시스템 컨텍스트 구성
+                # ── 통합 시스템 컨텍스트 구성 ─────────────────────
                 sys_ctx = SAGE_PERSONA + "\n\n"
+
+                # 젬마 프로토콜 v9.0 주입
+                gemma_protocol = st.session_state.get("p1_gemma_protocol", "")
+                if gemma_protocol:
+                    sys_ctx += "[젬마 프로토콜]\n" + gemma_protocol + "\n\n"
+
+                sys_ctx += "[핵심 3원칙]\n"
+                sys_ctx += "HOW (어떻게 말하는가) → 자유 (창의·표현·서사)\n"
+                sys_ctx += "WHAT (무엇을 말하는가) → 통제 (사실 기반·출처 필수)\n"
+                sys_ctx += "WHO (누구로서 말하는가) → 고정 (@Protagonist·기승전결)\n\n"
                 sys_ctx += "[응답 원칙]\n"
-                sys_ctx += "1. 모르는 것은 '자료가 부족합니다'라고 말하라. 절대 추측하지 마라.\n"
-                sys_ctx += "2. [SOURCE: 출처]를 반드시 명기하라.\n"
-                sys_ctx += "3. 마크다운([[링크]], **강조**, ## 제목)을 활용하라.\n\n"
+                sys_ctx += "1. 모르면 [NEED_RESEARCH: 키워드] 태그 출력. 절대 추측 금지.\n"
+                sys_ctx += "2. 옵시디언 자료 필요시 [READ_OBSIDIAN: 키워드] 출력.\n"
+                sys_ctx += "3. 자동 저장 요청시 [SAVE_MEMORY: 제목] 출력.\n"
+                sys_ctx += "4. 자체 검증 필요시 [VERIFY: 내용] 출력.\n"
+                sys_ctx += "5. 심층 분석 필요시 [ANALYZE: 주제] 출력.\n"
+                sys_ctx += "6. 출처 확인 필요시 [CHECK_SOURCE: 인용구] 출력.\n"
+                sys_ctx += "7. [SOURCE: 출처] 반드시 명기. 가짜 성경 구절·철학 인용 절대 금지.\n\n"
                 sys_ctx += "[현재 파트 컨텍스트]\n" + _build_part_context(current_part_key) + "\n"
                 sys_ctx += "[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", "") + "\n"
                 if st.session_state.get("popup_use_rag", True):
@@ -932,75 +1190,48 @@ def popup_assistant():
                     if tavily_ctx:
                         sys_ctx += "\n" + tavily_ctx
 
-                with st.status("🔮 젬마가 사유 중...", expanded=True) as status_widget:
+                # ── 에이전트 루프 실행 ────────────────────────────
+                with st.status("🔮 젬마 에이전트 작동 중...", expanded=True) as status_widget:
                     st.write(f"모델: {current_model} | 파트: {current_part_name}")
-                    full_response = ""
                     ans_placeholder = st.empty()
+                    full_response = ""
 
                     try:
-                        for token in call_gemma_stream(q_stream, system=sys_ctx, model=current_model):
-                            full_response += token
-                            ans_placeholder.markdown(full_response + "▌")
-                        ans_placeholder.markdown(full_response)
-
-                        # 자료 부족 감지 → Tavily 자동 검색
-                        unsure_kws = ["자료가 부족", "확실하지 않", "모르겠", "알 수 없", "정보가 없"]
-                        if any(kw in full_response for kw in unsure_kws) and st.session_state.get("popup_auto_search", True):
-                            st.write("⚠️ 자료 부족 감지 → Tavily 자동 검색...")
-                            if st.session_state.get("tavily_api_key"):
-                                try:
-                                    sr = tavily_search(q_stream, st.session_state.tavily_api_key, max_results=3)
-                                    if sr.get("results"):
-                                        t_ctx = "\n[자동 검색 결과]\n" + "\n".join([
-                                            f"- {r.get('title','')}: {r.get('content','')[:200]} [SOURCE: {r.get('url','')}]"
-                                            for r in sr["results"][:3]
-                                        ])
-                                        supplement = call_gemma(
-                                            f"[원래 질문]\n{q_stream}\n{t_ctx}\n위 검색 결과를 바탕으로 보완 답변:",
-                                            model=current_model
-                                        )
-                                        full_response += f"\n\n---\n### 🌐 인터넷 검색 보완\n{supplement}"
-                                        ans_placeholder.markdown(full_response)
-                                        st.session_state.popup_search_history.append({"q": q_stream, "res": sr})
-
-                                        # 자동 옵시디언 저장
-                                        _save_to_obsidian_with_tags(
-                                            content=f"[질문]\n{q_stream}\n\n[자동 검색 결과]\n{t_ctx}\n\n[보완 답변]\n{supplement}",
-                                            title=f"[자동검색] {q_stream[:30]}",
-                                            source_type="Tavily 자동 검색 보완",
-                                            part_key=current_part_key,
-                                            model_name=current_model,
-                                        )
-                                except Exception as e:
-                                    st.warning(f"Tavily 자동 검색 실패: {e}")
-
-                        status_widget.update(label="✅ 완료", state="complete", expanded=False)
-
+                        full_response = run_agent_loop(
+                            question=q_stream,
+                            sys_ctx=sys_ctx,
+                            model=current_model,
+                            part_key=current_part_key,
+                            max_iterations=4,
+                            stream_placeholder=ans_placeholder,
+                            status_widget=status_widget,
+                        )
                     except Exception as e:
                         full_response = f"[오류] {e}\n→ Ollama 서버 실행 여부 확인"
                         ans_placeholder.error(full_response)
                         status_widget.update(label="❌ 오류", state="error", expanded=False)
 
-                    st.session_state.popup_history.append({
-                        "role": "assistant", "content": full_response,
-                        "model": current_model, "part": current_part_name,
-                    })
-                    st.session_state.pending_stream = None
+                st.session_state.popup_history.append({
+                    "role": "assistant", "content": full_response,
+                    "model": current_model, "part": current_part_name,
+                    "source": f"에이전트 루프 v1.0",
+                })
+                st.session_state.pending_stream = None
 
-                    # 대화 옵시디언 자동 저장
-                    try:
-                        _save_to_obsidian_with_tags(
-                            content=f"[Q] {q_stream}\n\n[A] {full_response}",
-                            title=f"[Chat] {q_stream[:30]}",
-                            source_type="Sage 팝업 대화",
-                            part_key=current_part_key,
-                            model_name=current_model,
-                        )
-                        st.toast("🧠 대화 옵시디언 자동 저장!", icon="💾")
-                    except Exception:
-                        pass
+                # 대화 옵시디언 자동 저장
+                try:
+                    _save_to_obsidian_with_tags(
+                        content=f"[Q] {q_stream}\n\n[A] {full_response}",
+                        title=f"[Chat] {q_stream[:30]}",
+                        source_type="Sage 팝업 대화",
+                        part_key=current_part_key,
+                        model_name=current_model,
+                    )
+                    st.toast("🧠 대화 옵시디언 자동 저장!", icon="💾")
+                except Exception:
+                    pass
 
-                    st.rerun()
+                st.rerun()
 
     # ══════════════════════════════════════════════════════
     # 탭 2: Tavily 인터넷 리서치
