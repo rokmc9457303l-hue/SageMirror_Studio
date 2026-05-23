@@ -8092,6 +8092,19 @@ def render_part1():
                        st.rerun()
 
 
+    # ── 🔒 Part 1 최종본 Lock & 수정본 버튼 ──────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
+        _lc1, _rc1 = st.columns(2)
+        with _lc1:
+            if st.button("🔒 Part 1 최종본 Lock & GitHub Push", key="p1_lock_btn", use_container_width=True):
+                lock_and_push_final_version(1, "벤치마킹 & 자료조사", ["p1_research_result","p1_planning_result"])
+        with _rc1:
+            if st.button("🔓 Part 1 수정본 생성", key="p1_rev_btn", use_container_width=True):
+                create_revision_version(1, "벤치마킹 & 자료조사", ["p1_research_result","p1_planning_result"])
+
+
 @st.dialog("📝 젬마 프로토콜 (Gemma Protocol) 편집", width="large")
 
 def popup_edit_gemma_protocol_p2():
