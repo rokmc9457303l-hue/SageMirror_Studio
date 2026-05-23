@@ -14112,6 +14112,19 @@ def render_part6_opal():
 
         else:
 
+            # ── 🔒 Part 6 최종본 Lock & 수정본 버튼 ──────────────
+            st.markdown("<br>", unsafe_allow_html=True)
+            with st.container(border=True):
+                st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
+                _lc6_e, _rc6_e = st.columns(2)
+                with _lc6_e:
+                    if st.button("🔒 Part 6 최종본 Lock & GitHub Push",
+                                 key="p6_lock_btn_empty", use_container_width=True):
+                        lock_and_push_final_version(6, "나레이션 & 배경음악", ["p6_bgm_selection", "p6_mixing_ratio", "p6_opal_data"])
+                with _rc6_e:
+                    if st.button("🔓 Part 6 수정본 생성",
+                                 key="p6_rev_btn_empty", use_container_width=True):
+                        create_revision_version(6, "나레이션 & 배경음악", ["p6_bgm_selection", "p6_mixing_ratio", "p6_opal_data"])
             return
 
             
@@ -14432,6 +14445,19 @@ def render_part7_capcut():
 
         st.warning("⚠️ 파트 6 Opal 배분 데이터가 존재하지 않습니다. 파트 6 단계를 완료해 주세요.")
 
+        # ── 🔒 Part 7 최종본 Lock & 수정본 버튼 ──────────────
+        st.markdown("<br>", unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
+            _lc7_e, _rc7_e = st.columns(2)
+            with _lc7_e:
+                if st.button("🔒 Part 7 최종본 Lock & GitHub Push",
+                             key="p7_lock_btn_empty", use_container_width=True):
+                    lock_and_push_final_version(7, "숏폼 생성", ["p7_shortform_hook", "p7_capcut_data_v2"])
+            with _rc7_e:
+                if st.button("🔓 Part 7 수정본 생성",
+                             key="p7_rev_btn_empty", use_container_width=True):
+                    create_revision_version(7, "숏폼 생성", ["p7_shortform_hook", "p7_capcut_data_v2"])
         return
 
         
