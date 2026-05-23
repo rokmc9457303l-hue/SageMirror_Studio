@@ -1,0 +1,3 @@
+@echo off
+echo [MIRROR] Starting ngrok Mobile Tunnel (Port: 8505)...
+ngrok http 8505
