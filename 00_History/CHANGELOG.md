@@ -1,3 +1,24 @@
+## v15.9.18 — 2026-05-23 18:50
+### 변경 내용
+- **최종본 Lock & GitHub Push 및 수정본 생성 버튼 시스템 구축**:
+  - 각 파트(Part 1 ~ Part 8) 하단에 `[🔒 최종본 Lock & GitHub Push]` 및 `[🔓 수정본 생성]` 버튼 2개를 가로 2열 나란히 배치했습니다.
+  - **최종본 LOCK**: 클릭 시 현재 세션 데이터를 마크다운 문서로 포맷팅하고 하단 주석에 원시 세션 데이터를 JSON으로 인코딩 주입하여 `00_Obsidian/Studio/Final_Locks/Part[X]_Final_LOCK.md` 경로에 저장하고 `lock_file_readonly()`로 잠근 뒤 깃허브로 백업 Push합니다. (기존 작업 영역 파일은 잠그지 않음)
+  - **수정본 생성**: LOCK 파일을 읽어와 `Part[X]_REV[N].md` 파일로 복사(잠금 해제 상태)하고, JSON 메타 주석에서 데이터를 파싱하여 작업 영역(`st.session_state`)에 완벽 복구 로드합니다.
+  - **Rembrandt Dark 커스텀 CSS 스타일링**: Lock 버튼은 다크 레드 계열(`#9B1C1C`), 수정본 버튼은 차분한 그레이/앰버 오렌지 계열로 고급스럽게 커스텀 렌더링했습니다.
+- **구동/실행 스크립트 실행 타겟 일괄 갱신**:
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일들의 Streamlit 실행 대상을 `app_v15_9_18.py`로 갱신 완료했습니다.
+### 영향 파트
+- **전 파트 (Part 1~8)**: 하단 최종본 Lock & 수정본 생성 통합 관리 기능 추가 및 UI 스타일링 완료.
+- **App Core**: 실행 환경 및 구동 배치/VBS 파일 타겟 업데이트.
+### 수정 파일
+- `app_v15_9_18.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.17 — 2026-05-23 16:30
 ### 변경 내용
 - **파트 2 Step 2 '현자의 거울 3단 분석 엔진'의 탭 라벨과 탭 내 제목 100% 일치화**:
