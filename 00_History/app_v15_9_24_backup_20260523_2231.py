@@ -2,12 +2,12 @@
 
 """
 
-🪞 현자의 거울 스튜디오 — Master App v15.9.25
+🪞 현자의 거울 스튜디오 — Master App v15.9.24
 
-[v15.9.25 업데이트 사항: 2026-05-23]
+[v15.9.24 업데이트 사항: 2026-05-23]
 
-- 8개 파트 전체의 Lock/Revision 버튼을 각 파트 최하단 가로 2열 배치로 통일 및 앰비언트 글로우 스타일 박스 디자인 적용
-- Part 1 Lock 버튼 위치를 Step 2 하단(파트 최하단)으로 이동하여 일관성 유지
+- 8개 파트 전체에 최종본 Lock 및 수정본 생성 시스템 규격 통일화 적용 (구식 중복 백업 버튼 제거)
+- Git Push 대기/무한로딩(락) 방지 환경설정 추가 (GIT_TERMINAL_PROMPT=0, GIT_SSH_COMMAND 설정)
 
 """
 
@@ -1209,18 +1209,6 @@ st.markdown("""
 
 <style>
 
-.ambient-lock-marker {
-    display: none;
-}
-div[data-testid="stVerticalBlockBorderWrapper"]:has(.ambient-lock-marker) {
-    background: linear-gradient(135deg, rgba(212, 175, 106, 0.05) 0%, rgba(139, 0, 0, 0.05) 100%) !important;
-    border: 1px solid rgba(212, 175, 106, 0.15) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 0 20px rgba(212, 175, 106, 0.08), inset 0 0 10px rgba(212, 175, 106, 0.03) !important;
-    padding: 20px !important;
-    margin-top: 15px !important;
-    margin-bottom: 15px !important;
-}
 .pin-input-container {
 
     background-color: rgba(16, 185, 129, 0.1);
@@ -6897,7 +6885,15 @@ def render_part1():
     st.divider()
 
 
-    # 🔒 Part 1 Lock 버튼 (Part 1 최하단으로 위치 이동됨)
+    # 🔒 Part 1 Lock 버튼
+    st.markdown("<br>", unsafe_allow_html=True)
+    _lc1, _rc1 = st.columns(2)
+    with _lc1:
+        if st.button("🔒 Part 1 최종본 Lock & GitHub Push", key="p1_lock_btn", use_container_width=True):
+            lock_and_push_final_version(1, "벤치마킹 & 자료조사", ["p1_research_result","p1_planning_result"])
+    with _rc1:
+        if st.button("🔓 Part 1 수정본 생성", key="p1_rev_btn", use_container_width=True):
+            create_revision_version(1, "벤치마킹 & 자료조사", ["p1_research_result","p1_planning_result"])
 
     st.subheader("⚙️ Step 2. 현자의 거울 3단 분석 엔진")
 
@@ -10169,17 +10165,15 @@ def render_part2():
 
     # ── 🔒 Part 2 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        _lc2, _rc2 = st.columns(2)
-        with _lc2:
-            if st.button("🔒 Part 2 최종본 Lock & GitHub Push",
-                         key="p2_lock_btn", use_container_width=True):
-                lock_and_push_final_version(2, "총괄기획", ["p2_topic_selection", "p2_research_result", "p2_planning_result"])
-        with _rc2:
-            if st.button("🔓 Part 2 수정본 생성",
-                         key="p2_rev_btn", use_container_width=True):
-                create_revision_version(2, "총괄기획", ["p2_topic_selection", "p2_research_result", "p2_planning_result"])
+    _lc2, _rc2 = st.columns(2)
+    with _lc2:
+        if st.button("🔒 Part 2 최종본 Lock & GitHub Push",
+                     key="p2_lock_btn", use_container_width=True):
+            lock_and_push_final_version(2, "총괄기획", ["p2_topic_selection", "p2_research_result", "p2_planning_result"])
+    with _rc2:
+        if st.button("🔓 Part 2 수정본 생성",
+                     key="p2_rev_btn", use_container_width=True):
+            create_revision_version(2, "총괄기획", ["p2_topic_selection", "p2_research_result", "p2_planning_result"])
 
 @st.dialog("[TARGET] 이미지 파트 마스터 프롬프트 편집", width="large")
 
@@ -10326,17 +10320,15 @@ def render_part5():
 
     # ── 🔒 Part 5 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        _lc5, _rc5 = st.columns(2)
-        with _lc5:
-            if st.button("🔒 Part 5 최종본 Lock & GitHub Push",
-                         key="p5_lock_btn", use_container_width=True):
-                lock_and_push_final_version(5, "나레이션 & 배경음악", ["p5_narration_result","p5_bgm_result"])
-        with _rc5:
-            if st.button("🔓 Part 5 수정본 생성",
-                         key="p5_rev_btn", use_container_width=True):
-                create_revision_version(5, "나레이션 & 배경음악", ["p5_narration_result","p5_bgm_result"])
+    _lc5, _rc5 = st.columns(2)
+    with _lc5:
+        if st.button("🔒 Part 5 최종본 Lock & GitHub Push",
+                     key="p5_lock_btn", use_container_width=True):
+            lock_and_push_final_version(5, "나레이션 & 배경음악", ["p5_narration_result","p5_bgm_result"])
+    with _rc5:
+        if st.button("🔓 Part 5 수정본 생성",
+                     key="p5_rev_btn", use_container_width=True):
+            create_revision_version(5, "나레이션 & 배경음악", ["p5_narration_result","p5_bgm_result"])
 
 @st.dialog("[CINEMA] Veo3 마스터 프롬프트 편집", width="large")
 
@@ -11657,17 +11649,15 @@ def save_video_production_all(ep_name):
 
     # ── 🔒 Part 4 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        _lc4, _rc4 = st.columns(2)
-        with _lc4:
-            if st.button("🔒 Part 4 최종본 Lock & GitHub Push",
-                         key="p4_lock_btn", use_container_width=True):
-                lock_and_push_final_version(4, "이미지 생성", ["p5_c_results", "p5_valid_rows"])
-        with _rc4:
-            if st.button("🔓 Part 4 수정본 생성",
-                         key="p4_rev_btn", use_container_width=True):
-                create_revision_version(4, "이미지 생성", ["p5_c_results", "p5_valid_rows"])
+    _lc4, _rc4 = st.columns(2)
+    with _lc4:
+        if st.button("🔒 Part 4 최종본 Lock & GitHub Push",
+                     key="p4_lock_btn", use_container_width=True):
+            lock_and_push_final_version(4, "이미지 생성", ["p5_c_results", "p5_valid_rows"])
+    with _rc4:
+        if st.button("🔓 Part 4 수정본 생성",
+                     key="p4_rev_btn", use_container_width=True):
+            create_revision_version(4, "이미지 생성", ["p5_c_results", "p5_valid_rows"])
 
 def render_part6_video():
 
@@ -12234,17 +12224,15 @@ STEP-07: 다음 씬 (+1) 반복
 
     # ── 🔒 Part 5 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        _lc5, _rc5 = st.columns(2)
-        with _lc5:
-            if st.button("🔒 Part 5 최종본 Lock & GitHub Push",
-                         key="p5_lock_btn", use_container_width=True):
-                lock_and_push_final_version(5, "영상 생성", ["p6_video_mapped_result", "p6_video_opal_data"])
-        with _rc5:
-            if st.button("🔓 Part 5 수정본 생성",
-                         key="p5_rev_btn", use_container_width=True):
-                create_revision_version(5, "영상 생성", ["p6_video_mapped_result", "p6_video_opal_data"])
+    _lc5, _rc5 = st.columns(2)
+    with _lc5:
+        if st.button("🔒 Part 5 최종본 Lock & GitHub Push",
+                     key="p5_lock_btn", use_container_width=True):
+            lock_and_push_final_version(5, "영상 생성", ["p6_video_mapped_result", "p6_video_opal_data"])
+    with _rc5:
+        if st.button("🔓 Part 5 수정본 생성",
+                     key="p5_rev_btn", use_container_width=True):
+            create_revision_version(5, "영상 생성", ["p6_video_mapped_result", "p6_video_opal_data"])
 
 def render_part34():
 
@@ -13948,17 +13936,15 @@ def render_part34():
 
     # ── 🔒 Part 3 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        _lc3, _rc3 = st.columns(2)
-        with _lc3:
-            if st.button("🔒 Part 3 최종본 Lock & GitHub Push",
-                         key="p3_lock_btn", use_container_width=True):
-                lock_and_push_final_version(3, "대본 작성", ["p34_scene_structure", "p34_narration_script", "p34_image_script", "p34_capcut_data"])
-        with _rc3:
-            if st.button("🔓 Part 3 수정본 생성",
-                         key="p3_rev_btn", use_container_width=True):
-                create_revision_version(3, "대본 작성", ["p34_scene_structure", "p34_narration_script", "p34_image_script", "p34_capcut_data"])
+    _lc3, _rc3 = st.columns(2)
+    with _lc3:
+        if st.button("🔒 Part 3 최종본 Lock & GitHub Push",
+                     key="p3_lock_btn", use_container_width=True):
+            lock_and_push_final_version(3, "대본 작성", ["p34_scene_structure", "p34_narration_script", "p34_image_script", "p34_capcut_data"])
+    with _rc3:
+        if st.button("🔓 Part 3 수정본 생성",
+                     key="p3_rev_btn", use_container_width=True):
+            create_revision_version(3, "대본 작성", ["p34_scene_structure", "p34_narration_script", "p34_image_script", "p34_capcut_data"])
 
 def render_part6_opal():
 
@@ -14296,17 +14282,15 @@ def render_part6_opal():
 
     # ── 🔒 Part 6 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        _lc6, _rc6 = st.columns(2)
-        with _lc6:
-            if st.button("🔒 Part 6 최종본 Lock & GitHub Push",
-                         key="p6_lock_btn", use_container_width=True):
-                lock_and_push_final_version(6, "나레이션 & 배경음악", ["p6_bgm_selection", "p6_mixing_ratio", "p6_opal_data"])
-        with _rc6:
-            if st.button("🔓 Part 6 수정본 생성",
-                         key="p6_rev_btn", use_container_width=True):
-                create_revision_version(6, "나레이션 & 배경음악", ["p6_bgm_selection", "p6_mixing_ratio", "p6_opal_data"])
+    _lc6, _rc6 = st.columns(2)
+    with _lc6:
+        if st.button("🔒 Part 6 최종본 Lock & GitHub Push",
+                     key="p6_lock_btn", use_container_width=True):
+            lock_and_push_final_version(6, "나레이션 & 배경음악", ["p6_bgm_selection", "p6_mixing_ratio", "p6_opal_data"])
+    with _rc6:
+        if st.button("🔓 Part 6 수정본 생성",
+                     key="p6_rev_btn", use_container_width=True):
+            create_revision_version(6, "나레이션 & 배경음악", ["p6_bgm_selection", "p6_mixing_ratio", "p6_opal_data"])
 
 def render_part7_capcut():
 
@@ -14594,17 +14578,15 @@ def render_part7_capcut():
 
     # ── 🔒 Part 7 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        _lc7, _rc7 = st.columns(2)
-        with _lc7:
-            if st.button("🔒 Part 7 최종본 Lock & GitHub Push",
-                         key="p7_lock_btn", use_container_width=True):
-                lock_and_push_final_version(7, "숏폼 생성", ["p7_shortform_hook", "p7_capcut_data_v2"])
-        with _rc7:
-            if st.button("🔓 Part 7 수정본 생성",
-                         key="p7_rev_btn", use_container_width=True):
-                create_revision_version(7, "숏폼 생성", ["p7_shortform_hook", "p7_capcut_data_v2"])
+    _lc7, _rc7 = st.columns(2)
+    with _lc7:
+        if st.button("🔒 Part 7 최종본 Lock & GitHub Push",
+                     key="p7_lock_btn", use_container_width=True):
+            lock_and_push_final_version(7, "숏폼 생성", ["p7_shortform_hook", "p7_capcut_data_v2"])
+    with _rc7:
+        if st.button("🔓 Part 7 수정본 생성",
+                     key="p7_rev_btn", use_container_width=True):
+            create_revision_version(7, "숏폼 생성", ["p7_shortform_hook", "p7_capcut_data_v2"])
 
 def render_part8_dashboard():
 
@@ -15015,15 +14997,13 @@ elif part.startswith("파트 8"):
     render_part8_dashboard()
     # ── 🔒 Part 8 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-        _lc8, _rc8 = st.columns(2)
-        with _lc8:
-            if st.button("🔒 Part 8 최종본 Lock & GitHub Push",
-                         key="p8_lock_btn", use_container_width=True):
-                lock_and_push_final_version(8, "캡컷 최종 조립", ["p8_production_guide"])
-        with _rc8:
-            if st.button("🔓 Part 8 수정본 생성",
-                         key="p8_rev_btn", use_container_width=True):
-                create_revision_version(8, "캡컷 최종 조립", ["p8_production_guide"])
+    _lc8, _rc8 = st.columns(2)
+    with _lc8:
+        if st.button("🔒 Part 8 최종본 Lock & GitHub Push",
+                     key="p8_lock_btn", use_container_width=True):
+            lock_and_push_final_version(8, "캡컷 최종 조립", ["p8_production_guide"])
+    with _rc8:
+        if st.button("🔓 Part 8 수정본 생성",
+                     key="p8_rev_btn", use_container_width=True):
+            create_revision_version(8, "캡컷 최종 조립", ["p8_production_guide"])
 
