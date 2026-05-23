@@ -1,4 +1,5 @@
 workspace_state.json
 .env
+local_secrets.json
 __pycache__/
 *.pyc

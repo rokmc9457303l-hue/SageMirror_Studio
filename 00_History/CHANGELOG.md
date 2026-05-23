@@ -1,3 +1,29 @@
+## v15.9.16 — 2026-05-23 11:15
+### 변경 내용
+- **보안 위협 원천 차단 및 소스 코드 정제**:
+  - `app_v15_9_15.py` 소스 코드의 `init_session_state` 및 설정창 텍스트 입력창 기본값에 포함되어 있던 제미나이 API Key 하드코딩(`AIzaSyAhLl...`)을 완벽하게 제거하여 공란(`""`)으로 교체했습니다.
+- **보안 중요 정보 로컬 격리 시스템 구축 (`local_secrets.json`)**:
+  - 민감한 보안 키 목록(`gemini_api_key`, `tavily_api_key`, `youtube_api_key`, `github_token`, `github_pat`)을 기존 `workspace_state.json` 저장 목록에서 완전히 제외 처리했습니다.
+  - 중요 키들은 Git 추적 목록에서 배제된 별도의 `local_secrets.json` 파일에 로컬 전용으로 따로 안전하게 격리 저장 및 업데이트되도록 `save_workspace_state()` 함수를 개조했습니다.
+  - 앱 구동 시 `workspace_state.json`과 로컬의 `local_secrets.json` 정보를 자동 병합하여 로딩하도록 `load_workspace_state()` 로직을 개선하여 UX 편의성을 100% 유지했습니다.
+- **Git 유출 차단 필터 추가**:
+  - `.gitignore` 파일에 `local_secrets.json` 필터를 추가하여, 사용자의 수동 작업이나 자동화 프로세스 중 실수가 있더라도 깃허브 원격 저장소에 노출되지 않도록 이중 안전 장치를 걸었습니다.
+- **구동 및 디버그 스크립트 실행 타겟 갱신**:
+  - `RUN_APP.bat` 및 `RUN_DEBUG.bat` 파일의 Streamlit 실행 대상을 `app_v15_9_16.py`로 갱신 완료했습니다.
+### 영향 파트
+- **App Core (보안 시스템)**: 로컬 보안 설정 이중화 및 유출 방지 조치 완료.
+- **App Core**: 실행 환경 및 구동 배치 파일 타겟 업데이트.
+### 수정 파일
+- `app_v15_9_16.py`
+- `workspace_state.json` (기존 API Key 삭제 완료)
+- `local_secrets.json` (신규 분리 저장 완료)
+- `.gitignore`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.15 — 2026-05-23 10:50
 ### 변경 내용
 - **Part 1 Obsidian 감정 기반 RAG 검색 UI 통합**:
