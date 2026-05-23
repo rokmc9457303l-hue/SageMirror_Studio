@@ -1,3 +1,24 @@
+## v15.9.15 — 2026-05-23 10:50
+### 변경 내용
+- **Part 1 Obsidian 감정 기반 RAG 검색 UI 통합**:
+  - Part 1의 기존 낡은 단순 검색 인터페이스를 공통 `render_obsidian_rag_search()` 검색 UI로 전면 교체하여 1~8 전 파트 통일성을 완료했습니다.
+  - 이와 동시에 Part 1 `tab_research` 내부에 중복으로 들어있던 검색 UI를 삭제하여 화면을 단일화하고 데이터 흐름 무결성을 확보했습니다.
+- **RAG 기본 태그/키워드 전 파트 공통 통일**:
+  - 모든 파트(Part 1~8)에 대한 기본 RAG 검색 태그(`DEFAULT_P1_TAGS` ~ `DEFAULT_P8_TAGS`)를 Part 1 기준인 `"고독, 후회, 상실, 관계, 용서, 쇼펜하우어, 성경"`으로 일괄 통일화했습니다.
+- **구동 및 디버그 스크립트 실행 타겟 갱신**:
+  - `RUN_APP.bat` 및 `RUN_DEBUG.bat` 파일의 Streamlit 실행 대상을 `app_v15_9_15.py`로 갱신 완료했습니다.
+### 영향 파트
+- **전 파트 (Part 1~8)**: RAG 기본 검색 키워드/태그 통일화 완료.
+- **Part 1 (Librarian)**: RAG 검색 UI 통합 및 중복 위젯 정리로 UI 직관성 개선.
+- **App Core**: 실행 환경 및 구동 배치 파일 타겟 업데이트.
+### 수정 파일
+- `app_v15_9_15.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.14 — 2026-05-23 10:45
 ### 변경 내용
 - **8개 파트 전체에 공통 Obsidian 감정 기반 RAG 검색 UI 적용 완료**:
