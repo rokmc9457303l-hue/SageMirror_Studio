@@ -2,11 +2,11 @@
 
 """
 
-🪞 현자의 거울 스튜디오 — Master App v15.9.18
+🪞 현자의 거울 스튜디오 — Master App v15.9.22
 
-[v15.9.18 업데이트 사항: 2026-05-23]
+[v15.9.17 업데이트 사항: 2026-05-23]
 
-- 각 파트(Part 1 ~ Part 8) 하단에 '최종본 Lock & GitHub Push' 및 '수정본 생성' 버튼 2열 배치 시스템 추가 완료
+- 파트 2 Step 2 '현자의 거울 3단 분석 엔진'의 탭 버튼 명칭과 내부 제목 명칭을 '방안 1' 기준으로 100% 일치하도록 통일화 완료
 
 """
 
@@ -1314,43 +1314,6 @@ st.markdown("""
 
 }
 
-/* 최종본 Lock & 수정본 생성 버튼 커스텀 디자인 */
-button[id*="lock_btn"] {
-    background-color: #9B1C1C !important;
-    color: #f5e9d3 !important;
-    border: 1px solid #d4af6a !important;
-    transition: all 0.3s ease !important;
-    border-radius: 6px !important;
-    height: 42px !important;
-    font-weight: 600 !important;
-}
-button[id*="lock_btn"]:hover {
-    background-color: #C81E1E !important;
-    box-shadow: 0 0 12px rgba(212,175,106,0.5) !important;
-    border-color: #f5e9d3 !important;
-}
-button[id*="lock_btn"] p {
-    color: #f5e9d3 !important;
-}
-
-button[id*="rev_btn"] {
-    background-color: #4B5563 !important;
-    color: #f5e9d3 !important;
-    border: 1px solid #d4af6a !important;
-    transition: all 0.3s ease !important;
-    border-radius: 6px !important;
-    height: 42px !important;
-    font-weight: 600 !important;
-}
-button[id*="rev_btn"]:hover {
-    background-color: #D97706 !important;
-    box-shadow: 0 0 12px rgba(212,175,106,0.5) !important;
-    border-color: #f5e9d3 !important;
-}
-button[id*="rev_btn"] p {
-    color: #f5e9d3 !important;
-}
-
 </style>
 
 """, unsafe_allow_html=True)
@@ -1595,130 +1558,6 @@ def save_obsidian_memory(folder_name, title, content, source="Sage Mirror Studio
         st.error(f"옵시디언 저장 오류: {e}")
 
         return None
-
-def lock_and_push_final_version(part_num: int, display_name: str, keys_to_backup: list):
-    base_dir = st.session_state.get("path_obsidian", "")
-    if not base_dir:
-        base_dir = "00_Obsidian"
-    
-    locks_dir = os.path.join(base_dir, "Studio", "Final_Locks")
-    os.makedirs(locks_dir, exist_ok=True)
-    
-    file_path = os.path.join(locks_dir, f"Part{part_num}_Final_LOCK.md")
-    
-    backup_data = {}
-    for key in keys_to_backup:
-        val = st.session_state.get(key)
-        if isinstance(val, pd.DataFrame):
-            backup_data[key] = {
-                "__type__": "DataFrame",
-                "data": val.to_dict(orient="records")
-            }
-        else:
-            backup_data[key] = val
-
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    md_content = f"# 🔒 Part {part_num} 최종 확정본 - {display_name}\n"
-    md_content += f"- 확정 일시: {ts}\n"
-    md_content += f"- 시스템 버전: v15.9.18\n\n"
-    md_content += "## 📋 포함된 세션 데이터 요약\n"
-    
-    for key in keys_to_backup:
-        val = st.session_state.get(key)
-        if isinstance(val, pd.DataFrame):
-            md_content += f"### 📊 {key}\n"
-            md_content += val.to_markdown(index=False) + "\n\n"
-        elif isinstance(val, list):
-            md_content += f"### 📝 {key} (리스트 아이템 {len(val)}개)\n"
-            if len(val) > 0 and isinstance(val[0], dict):
-                md_content += pd.DataFrame(val).head(10).to_markdown(index=False) + "\n\n"
-            else:
-                md_content += f"```json\n{json.dumps(val, indent=2, ensure_ascii=False)[:1000]}...\n```\n\n"
-        elif val and isinstance(val, str):
-            md_content += f"### 📝 {key}\n"
-            md_content += f"```markdown\n{val}\n```\n\n"
-        else:
-            md_content += f"- **{key}**: {val}\n"
-            
-    json_str = json.dumps(backup_data, ensure_ascii=False)
-    md_content += f"\n<!-- DATA: {json_str} -->\n"
-    
-    try:
-        if os.path.exists(file_path):
-            os.chmod(file_path, stat.S_IWRITE)
-            
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(md_content)
-            
-        lock_file_readonly(file_path)
-        st.toast(f"✅ Part {part_num} 최종본 로컬 Lock 완료!", icon="🔒")
-        
-        success, msg = auto_git_push(f"Final Lock: Part {part_num} ({display_name}) - {datetime.now().strftime('%Y%m%d_%H%M%S')}")
-        if success:
-            st.toast("🚀 GitHub 백업 Push 완료!", icon="🚀")
-            st.success(f"✅ 최종본 Lock 완료\n✅ GitHub Push 완료\n\n파일 경로: `{file_path}`")
-            return True
-        else:
-            st.warning(f"⚠️ 로컬 Lock은 완료되었으나 GitHub Push에 실패했습니다: {msg}")
-            return False
-            
-    except Exception as e:
-        st.error(f"[오류] 최종본 Lock 실패: {e}")
-        return False
-
-def create_revision_version(part_num: int, display_name: str, keys_to_backup: list):
-    base_dir = st.session_state.get("path_obsidian", "")
-    if not base_dir:
-        base_dir = "00_Obsidian"
-        
-    locks_dir = os.path.join(base_dir, "Studio", "Final_Locks")
-    lock_file = os.path.join(locks_dir, f"Part{part_num}_Final_LOCK.md")
-    
-    if not os.path.exists(lock_file):
-        st.error(f"❌ 수정본 생성 실패: 최종본(LOCK) 파일이 존재하지 않습니다.\n먼저 'Part {part_num} 최종본 Lock & GitHub Push'를 완료해 주세요.")
-        return False
-        
-    rev_idx = 1
-    while True:
-        rev_file = os.path.join(locks_dir, f"Part{part_num}_REV{rev_idx}.md")
-        if not os.path.exists(rev_file):
-            break
-        rev_idx += 1
-        
-    target_rev_file = os.path.join(locks_dir, f"Part{part_num}_REV{rev_idx}.md")
-    
-    try:
-        with open(lock_file, "r", encoding="utf-8") as f:
-            content = f.read()
-            
-        with open(target_rev_file, "w", encoding="utf-8") as f:
-            f.write(content)
-            
-        st.toast(f"✅ 수정본 파일 생성 완료: Part{part_num}_REV{rev_idx}.md", icon="🔓")
-        
-        pattern = re.compile(r"<!-- DATA: (.*) -->")
-        match = pattern.search(content)
-        if match:
-            json_str = match.group(1).strip()
-            backup_data = json.loads(json_str)
-            
-            for key, val in backup_data.items():
-                if isinstance(val, dict) and val.get("__type__") == "DataFrame":
-                    st.session_state[key] = pd.DataFrame(val["data"])
-                else:
-                    st.session_state[key] = val
-            
-            save_workspace_state()
-            st.success(f"🔓 수정본(REV{rev_idx}) 데이터가 작업 영역(session_state)에 성공적으로 로드되었습니다!")
-            st.rerun()
-            return True
-        else:
-            st.error("❌ 수정본 복원 실패: 최종본 파일 내부에 복원용 데이터가 유실되었습니다.")
-            return False
-            
-    except Exception as e:
-        st.error(f"[오류] 수정본 생성 실패: {e}")
-        return False
 
 def load_workspace_state():
 
@@ -4302,7 +4141,7 @@ if not st.session_state.logged_in:
 
 with st.sidebar:
 
-    st.markdown(f"### {APP_TITLE} **v15.9.18**")
+    st.markdown(f"### {APP_TITLE} **v15.9.22**")
 
     status = check_ollama_status()
 
@@ -6564,6 +6403,54 @@ def generate_final_planning_p1(research_result, gemma_protocol, master_prompt, c
 
 # =====================================================================
 
+
+# ══════════════════════════════════════════════════════════════
+# 🔒 최종본 Lock & 수정본 생성 시스템 v1.0
+# ══════════════════════════════════════════════════════════════
+
+def lock_and_push_final_version(part_num, display_name, keys_to_backup):
+    try:
+        obs_path = st.session_state.get("path_obsidian", "")
+        if not obs_path:
+            st.error("❌ 옵시디언 경로 미설정"); return
+        locks_dir = os.path.join(obs_path, "Studio", "Final_Locks")
+        os.makedirs(locks_dir, exist_ok=True)
+        fpath = os.path.join(locks_dir, f"Part{part_num}_Final_LOCK.md")
+        md = [f"# 🔒 Part {part_num} — {display_name} 최종본 LOCK"]
+        md.append(f"\n> 생성: {datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n---\n")
+        for key in keys_to_backup:
+            val = st.session_state.get(key, "")
+            if val: md.append(f"\n## {key}\n{val}\n")
+        with open(fpath, "w", encoding="utf-8") as f: f.write("\n".join(md))
+        try:
+            import stat as _s; os.chmod(fpath, _s.S_IRUSR | _s.S_IRGRP | _s.S_IROTH)
+        except: pass
+        st.success(f"✅ Part {part_num} 최종본 Lock 완료!")
+        ok, msg = auto_git_push(f"LOCK: Part{part_num}")
+        st.success("✅ GitHub Push 완료!") if ok else st.warning(f"⚠️ Push 실패: {msg}")
+        save_workspace_state()
+    except Exception as e:
+        st.error(f"❌ Lock 오류: {e}")
+
+def create_revision_version(part_num, display_name, keys_to_backup):
+    try:
+        obs_path = st.session_state.get("path_obsidian", "")
+        locks_dir = os.path.join(obs_path, "Studio", "Final_Locks")
+        lock_file = os.path.join(locks_dir, f"Part{part_num}_Final_LOCK.md")
+        if not os.path.exists(lock_file):
+            st.error(f"❌ 먼저 Part {part_num} 최종본 Lock을 완료하세요."); return
+        rev = 1
+        while os.path.exists(os.path.join(locks_dir, f"Part{part_num}_REV{rev}.md")):
+            rev += 1
+        rpath = os.path.join(locks_dir, f"Part{part_num}_REV{rev}.md")
+        with open(lock_file, "r", encoding="utf-8") as f: orig = f.read()
+        with open(rpath, "w", encoding="utf-8") as f:
+            f.write(f"# ✏️ Part {part_num} REV{rev}\n> {datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n---\n\n" + orig)
+        st.success(f"✅ 수정본 생성: Part{part_num}_REV{rev}.md")
+        st.info(f"📁 경로: {rpath}")
+    except Exception as e:
+        st.error(f"❌ 수정본 오류: {e}")
+
 def render_part1():
 
     c_title, c_control = st.columns([4.2, 5.8])
@@ -6769,11 +6656,29 @@ def render_part1():
                     prog.progress(25, text="✅ Step 1 완료 — 키워드 7종 생성")
 
                     # ── Step 2: Tavily 채널 후보 수집 ────────────────
+                    prog.progress(30, text="🌐 Step 2/4 — Tavily: 국내외 채널 후보 수집 중...")
+                    all_results = []
+                    for kw in keywords[:5]:
+                        q = kw + " site:youtube.com/channel OR site:youtube.com/@"
+                        try:
+                            res = tavily_search(q, st.session_state.tavily_api_key, max_results=6)
+                            raw = res.get("results", [])
+                            yt_filtered = [r for r in raw if "youtube.com" in r.get("url", "")]
+                            all_results.extend(yt_filtered)
+                        except Exception:
+                            pass
+                    # 중복 URL 제거
+                    seen_urls = set()
+                    unique_results = []
+                    for r in all_results:
+                        url = r.get("url", "")
+                        if url not in seen_urls:
+                            seen_urls.add(url)
+                            unique_results.append(r)
+                    st.session_state.p1_channel_candidates = unique_results
+                    prog.progress(55, text=f"✅ Step 2 완료 — 후보 {len(unique_results)}개 수집")
 
-
-
-
-                    # ── Step 3: 제미나이 필터링 & TOP10 선정 ────────
+                    # ── Step 3+4: 제미나이 필터링 & TOP10 선정 ────────
                     prog.progress(60, text="🤖 Step 3/4 — 제미나이: AI 복제 배제 및 TOP10 선정 중...")
 
                     candidates_text = ""
@@ -6964,6 +6869,17 @@ def render_part1():
    
 
     st.divider()
+
+
+    # 🔒 Part 1 Lock 버튼
+    st.markdown("<br>", unsafe_allow_html=True)
+    _lc1, _rc1 = st.columns(2)
+    with _lc1:
+        if st.button("🔒 Part 1 최종본 Lock & GitHub Push", key="p1_lock_btn", use_container_width=True):
+            lock_and_push_final_version(1, "벤치마킹 & 자료조사", ["p1_research_result","p1_planning_result"])
+    with _rc1:
+        if st.button("🔓 Part 1 수정본 생성", key="p1_rev_btn", use_container_width=True):
+            create_revision_version(1, "벤치마킹 & 자료조사", ["p1_research_result","p1_planning_result"])
 
     st.subheader("⚙️ Step 2. 현자의 거울 3단 분석 엔진")
 
@@ -8157,48 +8073,6 @@ def render_part1():
 
                        st.rerun()
 
-    # ── 최종본 LOCK & 수정본 생성 관리 버튼 시스템 ──
-    st.markdown("""
-    <style>
-    div[data-testid="stButton"] button[key*="_lock_btn"] {
-        background-color: #9B1C1C !important;
-        color: #f5e9d3 !important;
-        border: 1px solid #d4af6a !important;
-        transition: all 0.3s ease;
-        border-radius: 6px;
-        height: 42px;
-        font-weight: 600 !important;
-    }
-    div[data-testid="stButton"] button[key*="_lock_btn"]:hover {
-        background-color: #C81E1E !important;
-        box-shadow: 0 0 12px rgba(212,175,106,0.4) !important;
-        border-color: #f5e9d3 !important;
-    }
-    div[data-testid="stButton"] button[key*="_rev_btn"] {
-        background-color: #4B5563 !important;
-        color: #f5e9d3 !important;
-        border: 1px solid #d4af6a !important;
-        transition: all 0.3s ease;
-        border-radius: 6px;
-        height: 42px;
-        font-weight: 600 !important;
-    }
-    div[data-testid="stButton"] button[key*="_rev_btn"]:hover {
-        background-color: #D97706 !important;
-        box-shadow: 0 0 12px rgba(212,175,106,0.4) !important;
-        border-color: #f5e9d3 !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    col_lock, col_rev = st.columns(2)
-    with col_lock:
-        if st.button("🔒 Part 1 최종본 Lock & GitHub Push", key="p1_lock_btn", use_container_width=True, disabled=is_locked):
-            lock_and_push_final_version(1, "벤치마킹 & 자료조사", ["p1_planning_result", "p1_topic_selection", "p1_plan_tags"])
-    with col_rev:
-        if st.button("🔓 Part 1 수정본 생성", key="p1_rev_btn", use_container_width=True, disabled=is_locked):
-            create_revision_version(1, "벤치마킹 & 자료조사", ["p1_planning_result", "p1_topic_selection", "p1_plan_tags"])
 
 @st.dialog("📝 젬마 프로토콜 (Gemma Protocol) 편집", width="large")
 
@@ -10319,15 +10193,18 @@ def render_part2():
 
 
 
-    # ── 최종본 LOCK & 수정본 생성 관리 버튼 시스템 ──
+
+    # ── 🔒 Part 2 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    col_lock, col_rev = st.columns(2)
-    with col_lock:
-        if st.button("🔒 Part 2 최종본 Lock & GitHub Push", key="p2_lock_btn", use_container_width=True, disabled=is_locked):
-            lock_and_push_final_version(2, "총괄기획", ["p2_planning_result", "p2_research_result", "p2_topic_selection", "p2_bench_raw", "p2_topics"])
-    with col_rev:
-        if st.button("🔓 Part 2 수정본 생성", key="p2_rev_btn", use_container_width=True, disabled=is_locked):
-            create_revision_version(2, "총괄기획", ["p2_planning_result", "p2_research_result", "p2_topic_selection", "p2_bench_raw", "p2_topics"])
+    _lc2, _rc2 = st.columns(2)
+    with _lc2:
+        if st.button("🔒 Part 2 최종본 Lock & GitHub Push",
+                     key="p2_lock_btn", use_container_width=True):
+            lock_and_push_final_version(2, "총괄기획", ["p2_planning_result","p2_result"])
+    with _rc2:
+        if st.button("🔓 Part 2 수정본 생성",
+                     key="p2_rev_btn", use_container_width=True):
+            create_revision_version(2, "총괄기획", ["p2_planning_result","p2_result"])
 
 @st.dialog("[TARGET] 이미지 파트 마스터 프롬프트 편집", width="large")
 
@@ -10470,6 +10347,19 @@ def render_part5():
 
 
 
+
+
+    # ── 🔒 Part 5 최종본 Lock & 수정본 버튼 ──────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    _lc5, _rc5 = st.columns(2)
+    with _lc5:
+        if st.button("🔒 Part 5 최종본 Lock & GitHub Push",
+                     key="p5_lock_btn", use_container_width=True):
+            lock_and_push_final_version(5, "나레이션 & 배경음악", ["p5_narration_result","p5_bgm_result"])
+    with _rc5:
+        if st.button("🔓 Part 5 수정본 생성",
+                     key="p5_rev_btn", use_container_width=True):
+            create_revision_version(5, "나레이션 & 배경음악", ["p5_narration_result","p5_bgm_result"])
 
 @st.dialog("[CINEMA] Veo3 마스터 프롬프트 편집", width="large")
 
@@ -11685,16 +11575,6 @@ def render_part5_image():
 
 
 
-    # ── 최종본 LOCK & 수정본 생성 관리 버튼 시스템 ──
-    st.markdown("<br>", unsafe_allow_html=True)
-    col_lock, col_rev = st.columns(2)
-    with col_lock:
-        if st.button("🔒 Part 4 최종본 Lock & GitHub Push", key="p4_lock_btn", use_container_width=True, disabled=is_locked):
-            lock_and_push_final_version(4, "이미지 생성", ["p5_c_results", "p5_valid_rows", "p5_parsed_scenes", "p5_gemma_protocol"])
-    with col_rev:
-        if st.button("🔓 Part 4 수정본 생성", key="p4_rev_btn", use_container_width=True, disabled=is_locked):
-            create_revision_version(4, "이미지 생성", ["p5_c_results", "p5_valid_rows", "p5_parsed_scenes", "p5_gemma_protocol"])
-
 # =====================================================================
 
 # Part 5 — render_part6_video() 메인 함수 및 통합 저장 헬퍼
@@ -11796,6 +11676,19 @@ def save_video_production_all(ep_name):
         return False
 
 
+
+
+    # ── 🔒 Part 52 최종본 Lock & 수정본 버튼 ──────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    _lc52, _rc52 = st.columns(2)
+    with _lc52:
+        if st.button("🔒 Part 52 최종본 Lock & GitHub Push",
+                     key="p52_lock_btn", use_container_width=True):
+            lock_and_push_final_version(52, "이미지 생성", ["p5_image_result"])
+    with _rc52:
+        if st.button("🔓 Part 52 수정본 생성",
+                     key="p52_rev_btn", use_container_width=True):
+            create_revision_version(52, "이미지 생성", ["p5_image_result"])
 
 def render_part6_video():
 
@@ -12367,15 +12260,18 @@ STEP-07: 다음 씬 (+1) 반복
 
 
 
-    # ── 최종본 LOCK & 수정본 생성 관리 버튼 시스템 ──
+
+    # ── 🔒 Part 6 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
-    col_lock, col_rev = st.columns(2)
-    with col_lock:
-        if st.button("🔒 Part 5 최종본 Lock & GitHub Push", key="p5_lock_btn", use_container_width=True, disabled=is_locked):
-            lock_and_push_final_version(5, "영상 생성", ["p6_video_mapped_result", "p6_video_opal_data"])
-    with col_rev:
-        if st.button("🔓 Part 5 수정본 생성", key="p5_rev_btn", use_container_width=True, disabled=is_locked):
-            create_revision_version(5, "영상 생성", ["p6_video_mapped_result", "p6_video_opal_data"])
+    _lc6, _rc6 = st.columns(2)
+    with _lc6:
+        if st.button("🔒 Part 6 최종본 Lock & GitHub Push",
+                     key="p6_lock_btn", use_container_width=True):
+            lock_and_push_final_version(6, "영상 생성", ["p6_video_result"])
+    with _rc6:
+        if st.button("🔓 Part 6 수정본 생성",
+                     key="p6_rev_btn", use_container_width=True):
+            create_revision_version(6, "영상 생성", ["p6_video_result"])
 
 def render_part34():
 
@@ -14108,21 +14004,24 @@ def render_part34():
 
 
 
-    # ── 최종본 LOCK & 수정본 생성 관리 버튼 시스템 ──
-    st.markdown("<br>", unsafe_allow_html=True)
-    col_lock, col_rev = st.columns(2)
-    with col_lock:
-        if st.button("🔒 Part 3 최종본 Lock & GitHub Push", key="p3_lock_btn", use_container_width=True, disabled=is_locked):
-            lock_and_push_final_version(3, "대본 작성", ["p34_narration_script", "p34_image_script", "p34_scene_structure", "p34_capcut_data"])
-    with col_rev:
-        if st.button("🔓 Part 3 수정본 생성", key="p3_rev_btn", use_container_width=True, disabled=is_locked):
-            create_revision_version(3, "대본 작성", ["p34_narration_script", "p34_image_script", "p34_scene_structure", "p34_capcut_data"])
-
 # =====================================================================
 
 # Part 6 — render_part6_opal() 메인 함수
 
 # =====================================================================
+
+
+    # ── 🔒 Part 34 최종본 Lock & 수정본 버튼 ──────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    _lc34, _rc34 = st.columns(2)
+    with _lc34:
+        if st.button("🔒 Part 34 최종본 Lock & GitHub Push",
+                     key="p34_lock_btn", use_container_width=True):
+            lock_and_push_final_version(34, "대본 & 이미지", ["p34_script_result"])
+    with _rc34:
+        if st.button("🔓 Part 34 수정본 생성",
+                     key="p34_rev_btn", use_container_width=True):
+            create_revision_version(34, "대본 & 이미지", ["p34_script_result"])
 
 def render_part6_opal():
 
@@ -14525,21 +14424,24 @@ def render_part6_opal():
 
 
 
-    # ── 최종본 LOCK & 수정본 생성 관리 버튼 시스템 ──
-    st.markdown("<br>", unsafe_allow_html=True)
-    col_lock, col_rev = st.columns(2)
-    with col_lock:
-        if st.button("🔒 Part 6 최종본 Lock & GitHub Push", key="p6_lock_btn", use_container_width=True, disabled=is_locked):
-            lock_and_push_final_version(6, "나레이션 & 배경음악", ["p6_opal_df", "p6_bgm_selection", "p6_mixing_ratio"])
-    with col_rev:
-        if st.button("🔓 Part 6 수정본 생성", key="p6_rev_btn", use_container_width=True, disabled=is_locked):
-            create_revision_version(6, "나레이션 & 배경음악", ["p6_opal_df", "p6_bgm_selection", "p6_mixing_ratio"])
-
 # =====================================================================
 
 # Part 7 — render_part7_capcut() 메인 함수
 
 # =====================================================================
+
+
+    # ── 🔒 Part 62 최종본 Lock & 수정본 버튼 ──────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    _lc62, _rc62 = st.columns(2)
+    with _lc62:
+        if st.button("🔒 Part 62 최종본 Lock & GitHub Push",
+                     key="p62_lock_btn", use_container_width=True):
+            lock_and_push_final_version(62, "Google Opal", ["p6_opal_result"])
+    with _rc62:
+        if st.button("🔓 Part 62 수정본 생성",
+                     key="p62_rev_btn", use_container_width=True):
+            create_revision_version(62, "Google Opal", ["p6_opal_result"])
 
 def render_part7_capcut():
 
@@ -14878,21 +14780,24 @@ def render_part7_capcut():
 
 
 
-    # ── 최종본 LOCK & 수정본 생성 관리 버튼 시스템 ──
-    st.markdown("<br>", unsafe_allow_html=True)
-    col_lock, col_rev = st.columns(2)
-    with col_lock:
-        if st.button("🔒 Part 7 최종본 Lock & GitHub Push", key="p7_lock_btn", use_container_width=True, disabled=is_locked):
-            lock_and_push_final_version(7, "숏폼 생성", ["p7_shortform_hook", "p7_capcut_df"])
-    with col_rev:
-        if st.button("🔓 Part 7 수정본 생성", key="p7_rev_btn", use_container_width=True, disabled=is_locked):
-            create_revision_version(7, "숏폼 생성", ["p7_shortform_hook", "p7_capcut_df"])
-
 # =====================================================================
 
 # Part 8 — render_part8_dashboard() 메인 함수
 
 # =====================================================================
+
+
+    # ── 🔒 Part 7 최종본 Lock & 수정본 버튼 ──────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    _lc7, _rc7 = st.columns(2)
+    with _lc7:
+        if st.button("🔒 Part 7 최종본 Lock & GitHub Push",
+                     key="p7_lock_btn", use_container_width=True):
+            lock_and_push_final_version(7, "숏폼 & 캡컷", ["p7_shorts_result"])
+    with _rc7:
+        if st.button("🔓 Part 7 수정본 생성",
+                     key="p7_rev_btn", use_container_width=True):
+            create_revision_version(7, "숏폼 & 캡컷", ["p7_shorts_result"])
 
 def render_part8_dashboard():
 
@@ -15282,16 +15187,6 @@ def render_part8_dashboard():
 
 
 
-    # ── 최종본 LOCK & 수정본 생성 관리 버튼 시스템 ──
-    st.markdown("<br>", unsafe_allow_html=True)
-    col_lock, col_rev = st.columns(2)
-    with col_lock:
-        if st.button("🔒 Part 8 최종본 Lock & GitHub Push", key="p8_lock_btn", use_container_width=True, disabled=is_locked):
-            lock_and_push_final_version(8, "캡컷 최종 조립", ["p8_production_guide"])
-    with col_rev:
-        if st.button("🔓 Part 8 수정본 생성", key="p8_rev_btn", use_container_width=True, disabled=is_locked):
-            create_revision_version(8, "캡컷 최종 조립", ["p8_production_guide"])
-
 # 파트 3-4 외부 자동 백업 트리거
 
 if st.session_state.get("p34_arch_obsidian_saved", False) and not st.session_state.get("p34_outputs_saved", False):
@@ -15375,3 +15270,15 @@ elif part.startswith("파트 7"):
 elif part.startswith("파트 8"):
 
     render_part8_dashboard()
+    # ── 🔒 Part 8 최종본 Lock & 수정본 버튼 ──────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    _lc8, _rc8 = st.columns(2)
+    with _lc8:
+        if st.button("🔒 Part 8 최종본 Lock & GitHub Push",
+                     key="p8_lock_btn", use_container_width=True):
+            lock_and_push_final_version(8, "캡컷 최종 조립", ["p8_final_result"])
+    with _rc8:
+        if st.button("🔓 Part 8 수정본 생성",
+                     key="p8_rev_btn", use_container_width=True):
+            create_revision_version(8, "캡컷 최종 조립", ["p8_final_result"])
+
