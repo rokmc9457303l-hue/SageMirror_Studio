@@ -1,3 +1,23 @@
+## v15.9.34.1 — 2026-05-24 17:16
+### 변경 내용
+- **Part 2 Alchemist 마스터 프롬프트 4종 양방향 바인딩 세션 꼬임 수정**:
+  - `p2_gemma_protocol`, `p2_bench_prompt`, `p2_research_prompt`, `p2_plan_prompt` 4개 프롬프트 텍스트 영역의 위젯 key와 실제 세션 데이터 key를 분리(`_widget` 접미사 추가)하여 팝업창 편집 저장본이 메인 구버전 위젯 버퍼에 덮어써지는 현상을 완전히 해결했습니다.
+- **썸네일 3세트 다이얼로그(popup_thumbnail_selector) 플래그 기반 렌더링 전환**:
+  - 버튼 클릭/스피너 이벤트 스코프 내에서 `@st.dialog` 함수를 직접 호출할 시 발생하는 Streamlit 유령 팝업 렌더링 꼬임 버그를 해결하기 위해, 상태 플래그(`st.session_state.show_p2_thumb_popup`) 기반의 탑레벨 렌더링 감지 방식으로 개선했습니다.
+- **구동/실행 스크립트 실행 타겟 일괄 갱신**:
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일의 Streamlit 실행 대상을 신버전 `app_v15_9_34_1.py`로 일괄 업데이트했습니다.
+### 영향 파트
+- **Part 2 (총괄기획)**: 마스터 프롬프트 4종 양방향 세션 편집 연동성 보장 및 썸네일 다이얼로그 팝업 렌더링 꼬임 해결.
+- **App Core**: 실행 환경 및 구동 배치/VBS 파일 타겟 업데이트.
+### 수정 파일
+- `app_v15_9_34_1.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.33 — 2026-05-24 16:00
 ### 변경 내용
 - **RAG 검색 카테고리 분류 시스템 도입**:
