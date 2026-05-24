@@ -1,3 +1,23 @@
+## v15.9.34.9 — 2026-05-24 22:25
+### 변경 내용
+- **[A] popup_edit_text_value() 내 sync_flag_key 버그 수정**:
+  - `session_key`가 `obsidian_rules`가 아닐 때 sync flag 세션 변수명이 `top_pr_view_{session_key}_widget`과 매칭되도록 `_widget_key = f"top_pr_view_{session_key}_widget"` 및 `_sync_key = f"_sync_{_widget_key}_next_run"` 패턴으로 동기화 로직을 정확하게 매치하여 저장 후 팝업 미차단 버그를 해결했습니다.
+- **[C] P2_MASTER_PROMPT_DEFAULT 연금술 변환 공식 v2.0 완성본 교체**:
+  - 기-승-전-결 연금술 공식 및 다크심리학, 철학(쇼펜하우어, 융, 프랭클, 스토아), 에세이(몽테뉴), 성경의 융합 구조가 상세히 탑재된 마스터 프롬프트 완성본 v2.0으로 교체 완료했습니다.
+- **[D] 실행 스크립트 3종의 구동 버전 상향**:
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일들의 타겟 버전을 `app_v15_9_34_9.py`로 갱신 완료했습니다.
+### 영향 파트
+- **Part 2 (총괄기획)**: 연금술 융합 설계 프롬프트 v2.0 탑재.
+- **App Core & Dialogs**: 팝업창 텍스트 에디터 저장/동기화 락 해제 버그 수정 및 실행 파일 타겟 갱신.
+### 수정 파일
+- `app_v15_9_34_9.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.34.8 — 2026-05-24 22:10
 ### 변경 내용
 - **최종 안정본 연결 및 실행 스크립트 3개 업데이트**:
