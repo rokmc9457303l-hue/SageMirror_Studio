@@ -4,14 +4,18 @@
   - 좌측 사이드바에 글로벌 모델 선택기(`gemma4:e2b`, `gemma4:e4b`)를 추가하여 기본적으로 전체 파트에 일괄 자동 적용되도록 구현.
   - 동시에 각 파트 화면의 최상단 우측에 있는 개별 모델 선택기는 필요에 따라 개별적으로 변경해 사용할 수 있도록 세션 독립화(프록시 모델 바인딩 구조).
   - 전체 파트 렌더링 전후에 selectbox 세션 값을 동적으로 가로채어 개별 파트 키(`p1_selected_model` ~ `p8_selected_model`)에 자동 갱신 및 저장되도록 하여 [절대 수정 금지] 구역인 `render_part1()`, `render_part2()`, `render_part34()` 내부 수정을 우회하고 무결성 유지.
+- **Ollama 실시간 모델 상태 표시 동적화**:
+  - `sage_engine.py` 내 `check_ollama_status` 함수가 `target_model` 파라미터를 받아 동적 검사를 진행할 수 있도록 변경.
+  - 사이드바 내의 Ollama 연결 상태 표시 컴포넌트(`[OK] Ollama | ...`)가 하드코딩되었던 부분(`OLLAMA_MODEL` 고정)을 제거하고, 현재 선택된 글로벌 모델을 동적으로 검사하여 화면에 실시간 표시하도록 수정.
 - **구동/실행 스크립트 실행 타겟 일괄 갱신**:
   - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일의 Streamlit 실행 대상을 신버전 `app_v15_9_32.py`로 일괄 업데이트.
 ### 영향 파트
-- **App Core (Ollama Engine & Sidebar)**: 글로벌/개별 파트 연동 모델 선택 시스템.
+- **App Core (Ollama Engine & Sidebar)**: 글로벌/개별 파트 연동 모델 선택 시스템 및 Ollama 실시간 모델 상태 모듈.
 - **전체 파트 (Part 1~8)**: 개별 모델 선택기의 전역 덮어쓰기 및 독립적 오버라이드.
 - **App Core**: 실행 환경 및 구동 배치/VBS 파일 타겟 업데이트.
 ### 수정 파일
 - `app_v15_9_32.py`
+- `sage_engine.py`
 - `RUN_APP.bat`
 - `RUN_DEBUG.bat`
 - `RUN_APP.vbs`

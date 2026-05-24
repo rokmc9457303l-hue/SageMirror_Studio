@@ -187,8 +187,8 @@ def tavily_search(query: str, api_key: str, max_results: int = 5) -> dict:
 # =====================================================================
 # Ollama 연결 상태 확인
 # =====================================================================
-def check_ollama_status(target_model: str = OLLAMA_MODEL) -> dict:
-    """Ollama 서버 & 지정된 모델 상태 확인"""
+def check_ollama_status() -> dict:
+    """Ollama 서버 & gemma4:e4b 모델 상태 확인"""
     result = {"server": False, "model": False, "models": [], "error": None}
     try:
         resp = requests.get("http://localhost:11434/api/tags", timeout=5)
@@ -199,7 +199,7 @@ def check_ollama_status(target_model: str = OLLAMA_MODEL) -> dict:
         result["models"] = models
         # 설정된 모델 존재 여부 확인
         for m in models:
-            if target_model.lower() in m.lower() or m.lower().startswith(target_model.lower().split(":")[0]):
+            if OLLAMA_MODEL in m.lower() or m.lower().startswith(OLLAMA_MODEL.split(":")[0]):
                 result["model"] = True
                 break
     except requests.exceptions.ConnectionError:

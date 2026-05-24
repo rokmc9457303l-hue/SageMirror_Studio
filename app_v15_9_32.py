@@ -4691,11 +4691,12 @@ with st.sidebar:
 
     st.markdown(f"### {APP_TITLE} **v15.9.32**")
 
-    status = check_ollama_status()
+    current_global = st.session_state.get("global_model_select", "gemma4:e2b")
+    status = check_ollama_status(target_model=current_global)
 
-    if status["server"] and status["model"]: st.success(f"[OK] Ollama | {OLLAMA_MODEL}")
+    if status["server"] and status["model"]: st.success(f"[OK] Ollama | {current_global}")
 
-    else: st.error(f"[FAIL] Ollama 에러")
+    else: st.error(f"[FAIL] Ollama 에러 | {current_global} 확인 필요")
 
     # 🌐 글로벌 모델 선택 및 동기화 처리
     st.markdown("##### 🌐 글로벌 모델 선택")
