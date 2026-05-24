@@ -4691,15 +4691,8 @@ with st.sidebar:
 
     st.markdown(f"### {APP_TITLE} **v15.9.32**")
 
-    current_global = st.session_state.get("global_model_select", "gemma4:e2b")
-    status = check_ollama_status(target_model=current_global)
-
-    if status["server"] and status["model"]: st.success(f"[OK] Ollama | {current_global}")
-
-    else: st.error(f"[FAIL] Ollama 에러 | {current_global} 확인 필요")
-
     # 🌐 글로벌 모델 선택 및 동기화 처리
-    st.markdown("##### 🌐 글로벌 모델 선택")
+    st.markdown("##### 🤖 글로벌 모델 선택")
     global_options = ["gemma4:e2b", "gemma4:e4b"]
     current_global = st.session_state.get("global_model_select", "gemma4:e2b")
     if current_global not in global_options:
@@ -4716,6 +4709,13 @@ with st.sidebar:
         sync_global_model_to_parts(global_model)
         save_workspace_state()
         st.rerun()
+
+    # Ollama 동작 상태 확인 및 출력
+    status = check_ollama_status(target_model=global_model)
+    if status["server"] and status["model"]: 
+        st.success(f"[OK] Ollama | {global_model}")
+    else: 
+        st.error(f"[FAIL] Ollama 에러 | {global_model} 확인 필요")
 
     st.divider()
 
