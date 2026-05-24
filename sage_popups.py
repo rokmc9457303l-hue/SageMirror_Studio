@@ -998,8 +998,6 @@ def run_agent_loop(
         _rules = st.session_state.get("obsidian_rules", "")
         if _rules and final_response and len(final_response) > 100:
             _vr = verify_content_with_gemma("팝업 자동 검수", final_response[:3000], _rules)
-            _vr["is_pass"] = (_vr.get("status", "PASS") == "PASS")
-            _vr["fix_suggestions"] = _vr.get("suggestions", "")
             if not _vr.get("is_pass", True) and status_widget:
                 status_widget.update(
                     label=f"🔄 검수 FAIL → 수정 재생성 중...",

@@ -2,13 +2,11 @@
 
 """
 
-🪞 현자의 거울 스튜디오 — Master App v15.9.31
+🪞 현자의 거울 스튜디오 — Master App v15.9.32
 
-[v15.9.31 업데이트 사항: 2026-05-24]
+[v15.9.32 업데이트 사항: 2026-05-24]
 
-- call_gemma 에이전트 [READ_OBSIDIAN:] 자동 RAG 검색, 유튜브 키워드 감지 시 YouTube API 실시간 검색 및 Gemma Critic 2단계 데이터 무결성 검수 추가
-
-- sage_popups.py 동기화 (SEARCH_YOUTUBE 툴 실행 이식 및 팝업 대화 에이전트 루프 내 2단계 검수 이식)
+- 글로벌 모델 스위칭 시스템 도입 (사이드바 전체 모델 적용 및 파트별 개별 오버라이드 지원)
 
 """
 
@@ -1280,7 +1278,7 @@ V-7: 씬 번호 연속성 및 누락 체크
 
 st.set_page_config(
 
-    page_title="Sage's Mirror Studio v15.9.16",
+    page_title="Sage's Mirror Studio v15.9.32",
 
     page_icon="[MIRROR]",
 
@@ -1494,6 +1492,9 @@ def save_workspace_state():
         "p7_capcut_saved", "p7_capcut_obsidian_saved", "p8_dashboard_saved", "p8_dashboard_obsidian_saved",
 
         "selected_model",
+
+        "global_model_select",
+        "p1_selected_model", "p2_selected_model", "p34_selected_model", "p5img_selected_model", "p6vid_selected_model", "p6_selected_model", "p7_selected_model", "p8_selected_model",
 
         "episode_name", "p6_video_mapped_result", "p6_video_valid_rows", "p6_video_opal_data", "p6_video_opal_saved",
 
@@ -3616,10 +3617,10 @@ def save_episode_obsidian_session(episode):
         session_dir = os.path.join(base_obsidian, "Studio", "Episodes", episode)
         os.makedirs(session_dir, exist_ok=True)
         ts = datetime.now().strftime("%Y%m%d_%H%M")
-        filepath = os.path.join(session_dir, f"session_{ts}_v15.9.27.md")
+        filepath = os.path.join(session_dir, f"session_{ts}_v15.9.32.md")
         content = f"""# Episode Session Log - {episode}
 - **저장 시간**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-- **앱 버전**: v15.9.27
+- **앱 버전**: v15.9.32
 
 ## 에피소드 저장 사항 요약
 - 파트별 분할 저장 완료 (01_Librarian ~ 08_Dashboard)
@@ -3633,7 +3634,7 @@ def save_episode_obsidian_session(episode):
             f.write(content)
         hist_dir = r"C:\SageMirror_Production\00_Obsidian\sessions"
         os.makedirs(hist_dir, exist_ok=True)
-        hist_filepath = os.path.join(hist_dir, f"session_{ts}_{episode}_v15.9.27.md")
+        hist_filepath = os.path.join(hist_dir, f"session_{ts}_{episode}_v15.9.32.md")
         with open(hist_filepath, "w", encoding="utf-8") as f:
             f.write(content)
     except Exception as e:
@@ -3722,6 +3723,43 @@ def save_current_episode_all():
     auto_git_push(f"Save Episode {episode} — {datetime.now().strftime('%Y%m%d_%H%M')}")
     st.toast(f"💾 {episode} 전체 저장 및 백업 완료!", icon="💾")
 
+def sync_global_model_to_parts(model):
+    try:
+        model_lower = model.lower()
+        model_upper = model.upper()
+        
+        # 1. 개별 생성 모델 키 업데이트
+        st.session_state.p1_selected_model = model_lower
+        st.session_state.p2_selected_model = model_lower
+        st.session_state.p34_selected_model = model_lower
+        st.session_state.p5img_selected_model = model_lower
+        st.session_state.p6vid_selected_model = model_lower
+        st.session_state.p6_selected_model = model_lower
+        st.session_state.p7_selected_model = model_lower
+        st.session_state.p8_selected_model = model_lower
+        
+        # 2. RAG 모델 선택자 세션 키 업데이트
+        st.session_state.p1_rag_model_selector = model_lower
+        st.session_state.p2_rag_model_selector = model_lower
+        st.session_state.p3_rag_model_selector = model_lower
+        st.session_state.p4_rag_model_selector = model_lower
+        st.session_state.p5_rag_model_selector = model_lower
+        st.session_state.p6_rag_model_selector = model_lower
+        st.session_state.p7_rag_model_selector = model_lower
+        st.session_state.p8_rag_model_selector = model_lower
+        
+        # 3. UI 컴포넌트 세션 상태 덮어쓰기 (selectbox의 강제 선택 상태 갱신)
+        for p_key in ["p1_model_select", "p2_model_select", "p34_model_select", "p5_model_select", "p5img_model_select", "p6_vid_model_select", "p6_model_select", "p7_model_select", "p8_model_select"]:
+            st.session_state[p_key] = model_upper
+            
+        for p_key in ["p1_rag_model_select", "p2_rag_model_select", "p3_rag_model_select", "p4_rag_model_select", "p5_rag_model_select", "p6_rag_model_select", "p7_rag_model_select", "p8_rag_model_select"]:
+            st.session_state[p_key] = model_lower
+            
+        st.session_state.selected_model = model_lower
+        st.toast(f"🌐 전체 파트 모델이 {model_upper}로 자동 적용되었습니다!", icon="🌐")
+    except Exception as e:
+        st.error(f"[모델 스위칭 오류] 동기화 실패: {e}")
+
 def init_session_state():
     global WORKSPACE_STATE_FILE
     root_state_path = r"C:\SageMirror_Production\workspace_state.json"
@@ -3742,6 +3780,16 @@ def init_session_state():
     defaults = {
         "logged_in": True,
         "episode_name": active_ep,
+
+        "global_model_select": "gemma4:e2b",
+        "p1_selected_model": "gemma4:e2b",
+        "p2_selected_model": "gemma4:e2b",
+        "p34_selected_model": "gemma4:e2b",
+        "p5img_selected_model": "gemma4:e2b",
+        "p6vid_selected_model": "gemma4:e2b",
+        "p6_selected_model": "gemma4:e2b",
+        "p7_selected_model": "gemma4:e2b",
+        "p8_selected_model": "gemma4:e2b",
 
         "path_obsidian": r"C:\SageMirror_Production\00_Obsidian_Archive", 
 
@@ -4641,7 +4689,7 @@ with st.sidebar:
                 
     st.divider()
 
-    st.markdown(f"### {APP_TITLE} **v15.9.27**")
+    st.markdown(f"### {APP_TITLE} **v15.9.32**")
 
     status = check_ollama_status()
 
@@ -4649,7 +4697,24 @@ with st.sidebar:
 
     else: st.error(f"[FAIL] Ollama 에러")
 
-
+    # 🌐 글로벌 모델 선택 및 동기화 처리
+    st.markdown("##### 🌐 글로벌 모델 선택")
+    global_options = ["gemma4:e2b", "gemma4:e4b"]
+    current_global = st.session_state.get("global_model_select", "gemma4:e2b")
+    if current_global not in global_options:
+        current_global = "gemma4:e2b"
+    global_model = st.selectbox(
+        "기본 모델 설정",
+        global_options,
+        index=global_options.index(current_global),
+        key="global_model_select",
+        label_visibility="collapsed"
+    )
+    if global_model != current_global:
+        st.session_state.global_model_select = global_model
+        sync_global_model_to_parts(global_model)
+        save_workspace_state()
+        st.rerun()
 
     st.divider()
 
@@ -15346,35 +15411,83 @@ if st.session_state.get("p34_arch_obsidian_saved", False) and not st.session_sta
 # =====================================================================
 
 if part.startswith("파트 1"):
-
+    p1_ui_model = st.session_state.get("p1_model_select")
+    if p1_ui_model:
+        p1_ui_model_lower = p1_ui_model.lower()
+        if p1_ui_model_lower != st.session_state.get("p1_selected_model", "gemma4:e2b"):
+            st.session_state.p1_selected_model = p1_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p1_selected_model", "gemma4:e2b")
     render_part1()
 
 elif part.startswith("파트 2"):
-
+    p2_ui_model = st.session_state.get("p2_model_select")
+    if p2_ui_model:
+        p2_ui_model_lower = p2_ui_model.lower()
+        if p2_ui_model_lower != st.session_state.get("p2_selected_model", "gemma4:e2b"):
+            st.session_state.p2_selected_model = p2_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p2_selected_model", "gemma4:e2b")
     render_part2()
 
 elif part.startswith("파트 3"):
-
+    p34_ui_model = st.session_state.get("p34_model_select")
+    if p34_ui_model:
+        p34_ui_model_lower = p34_ui_model.lower()
+        if p34_ui_model_lower != st.session_state.get("p34_selected_model", "gemma4:e2b"):
+            st.session_state.p34_selected_model = p34_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p34_selected_model", "gemma4:e2b")
     render_part34()
 
 elif part.startswith("파트 4"):
-
+    p5img_ui_model = st.session_state.get("p5img_model_select")
+    if p5img_ui_model:
+        p5img_ui_model_lower = p5img_ui_model.lower()
+        if p5img_ui_model_lower != st.session_state.get("p5img_selected_model", "gemma4:e2b"):
+            st.session_state.p5img_selected_model = p5img_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p5img_selected_model", "gemma4:e2b")
     render_part5_image()
 
 elif part.startswith("파트 5"):
-
+    p6vid_ui_model = st.session_state.get("p6_vid_model_select")
+    if p6vid_ui_model:
+        p6vid_ui_model_lower = p6vid_ui_model.lower()
+        if p6vid_ui_model_lower != st.session_state.get("p6vid_selected_model", "gemma4:e2b"):
+            st.session_state.p6vid_selected_model = p6vid_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p6vid_selected_model", "gemma4:e2b")
     render_part6_video()
 
 elif part.startswith("파트 6"):
-
+    p6_ui_model = st.session_state.get("p6_model_select")
+    if p6_ui_model:
+        p6_ui_model_lower = p6_ui_model.lower()
+        if p6_ui_model_lower != st.session_state.get("p6_selected_model", "gemma4:e2b"):
+            st.session_state.p6_selected_model = p6_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p6_selected_model", "gemma4:e2b")
     render_part6_opal()
 
 elif part.startswith("파트 7"):
-
+    p7_ui_model = st.session_state.get("p7_model_select")
+    if p7_ui_model:
+        p7_ui_model_lower = p7_ui_model.lower()
+        if p7_ui_model_lower != st.session_state.get("p7_selected_model", "gemma4:e2b"):
+            st.session_state.p7_selected_model = p7_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p7_selected_model", "gemma4:e2b")
     render_part7_capcut()
 
 elif part.startswith("파트 8"):
-
+    p8_ui_model = st.session_state.get("p8_model_select")
+    if p8_ui_model:
+        p8_ui_model_lower = p8_ui_model.lower()
+        if p8_ui_model_lower != st.session_state.get("p8_selected_model", "gemma4:e2b"):
+            st.session_state.p8_selected_model = p8_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p8_selected_model", "gemma4:e2b")
     render_part8_dashboard()
     # ── 🔒 Part 8 최종본 Lock & 수정본 버튼 ──────────────
     st.markdown("<br>", unsafe_allow_html=True)
