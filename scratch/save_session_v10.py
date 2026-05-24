@@ -1,0 +1,33 @@
+import os
+from pathlib import Path
+from datetime import datetime
+
+def main():
+    ts = datetime.now().strftime("%Y%m%d_%H%M")
+    ver = "v15.9.34.10"
+    session_dir = Path(r"C:\SageMirror_Production\00_Obsidian\sessions")
+    session_dir.mkdir(parents=True, exist_ok=True)
+    filepath = session_dir / f"session_{ts}_{ver}.md"
+
+    content = f"""# 작업 세션 보고서 ({datetime.now().strftime('%Y-%m-%d %H:%M')})
+
+## 📌 버전 정보
+- **버전**: {ver}
+
+## 📋 변경 요약
+1. **[A] kw_prompt 수정 (7624번 줄 부근)**:
+   - 떡상채널 발굴기 내 제미나이 검색 키워드 생성용 `kw_prompt` 내부 `[공통 조건]` 블록에 다크심리학(가스라이팅, 나르시시즘, 독성관계 등), 4070 공명 및 인생 체험담 위주 채널 탐색 요건을 강화하여 주입했습니다.
+2. **[B] filter_prompt 수정 (7691번 줄 부근)**:
+   - 수집된 후보 채널 중 최종 10개를 큐레이션 및 평가하기 위한 `filter_prompt` 내부 `[공통 평가 기준]` 블록에 다크심리학 콘텐츠 보유 가산점, 4070 특화 채널 가중치(체험담 댓글 공명 지수 반영) 기준을 추가하여 발굴 정확도를 상향했습니다.
+3. **[C] 실행 스크립트 3종의 구동 버전 상향**:
+   - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일들의 타겟 버전을 `app_v15_9_34_10.py`로 갱신 완료했습니다.
+
+## 🚀 다음 작업 예정
+- 수정된 떡상채널 발굴기 제미나이 큐레이션 실행 및 작동 테스트
+- RAG 기반 감정 채널 분석 기능 검증
+"""
+    filepath.write_text(content, encoding="utf-8")
+    print(f"Session saved to {filepath}")
+
+if __name__ == "__main__":
+    main()
