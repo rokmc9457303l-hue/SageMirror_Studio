@@ -740,7 +740,6 @@ AGENT_TOOL_PATTERNS = {
     "VERIFY":         r"\[VERIFY:\s*(.+?)\]",
     "ANALYZE":        r"\[ANALYZE:\s*(.+?)\]",
     "CHECK_SOURCE":   r"\[CHECK_SOURCE:\s*(.+?)\]",
-    "SEARCH_YOUTUBE": r"\[SEARCH_YOUTUBE:\s*(.+?)\]",
 }
 
 def _detect_tools(response: str) -> list:
@@ -845,31 +844,6 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
             result = f"\n[🔬 심층 분석 — {param}]\n{analyze_result}"
         except Exception as e:
             result = f"[분석 실패: {e}]"
-
-    elif tool == "SEARCH_YOUTUBE":
-        _yt_key = st.session_state.get("youtube_api_key", "")
-        if _yt_key:
-            try:
-                import requests as _yt_req
-                _yt_url = (
-                    f"https://www.googleapis.com/youtube/v3/search"
-                    f"?part=snippet&q={param}&type=channel,video"
-                    f"&maxResults=5&key={_yt_key}"
-                )
-                _yt_resp = _yt_req.get(_yt_url, timeout=10).json()
-                _yt_items = _yt_resp.get("items", [])
-                if _yt_items:
-                    result = f"\n[📺 YouTube 검색 결과 — {param}]\n"
-                    for _it in _yt_items:
-                        _s = _it.get("snippet", {})
-                        result += f"- {_s.get('title','')}: {_s.get('description','')[:150]}\n"
-                        result += f"  URL: https://youtube.com/watch?v={_it.get('id',{}).get('videoId','')}\n"
-                else:
-                    result = f"[YouTube 검색 결과 없음: {param}]"
-            except Exception as _e:
-                result = f"[YouTube 검색 실패: {_e}]"
-        else:
-            result = "[YouTube API Key 미설정 — 사이드바 설정에서 등록 필요]"
 
     elif tool == "CHECK_SOURCE":
         # 출처 검증 (Tavily로 실제 존재 여부 확인)
@@ -991,28 +965,6 @@ def run_agent_loop(
         else:
             # 툴 결과 없음 = 종료
             break
-
-    # ── 2단계 자체 검수 (팝업 응답에도 적용) ──────────────────────
-    try:
-        from app_v15_9_31 import verify_content_with_gemma
-        _rules = st.session_state.get("obsidian_rules", "")
-        if _rules and final_response and len(final_response) > 100:
-            _vr = verify_content_with_gemma("팝업 자동 검수", final_response[:3000], _rules)
-            if not _vr.get("is_pass", True) and status_widget:
-                status_widget.update(
-                    label=f"🔄 검수 FAIL → 수정 재생성 중...",
-                    state="running", expanded=True
-                )
-                _fix = _vr.get("fix_suggestions", "")
-                _fix_prompt = (
-                    f"{question}\n\n[검수 FAIL — 수정 사항]: {_fix}\n\n"
-                    f"위 수정 사항을 반영하여 최종 완성본을 재작성하라."
-                )
-                final_response = call_gemma(_fix_prompt, sys_ctx, model=model)
-                if stream_placeholder:
-                    stream_placeholder.markdown(final_response)
-    except Exception:
-        pass
 
     return final_response
 
@@ -1211,7 +1163,11 @@ def popup_assistant():
                 current_model = st.session_state.popup_selected_model
 
                 # ── 통합 시스템 컨텍스트 구성 ─────────────────────
-                sys_ctx = SAGE_PERSONA + "\n\n"
+                try:
+                    from sage_config import RAG_TAG_SYSTEM as _rts
+                except Exception:
+                    _rts = ""
+                sys_ctx = SAGE_PERSONA + "\n\n" + (_rts if _rts else "")
 
                 # 젬마 프로토콜 v9.0 주입
                 gemma_protocol = st.session_state.get("p1_gemma_protocol", "")

@@ -57,6 +57,7 @@ except Exception:
 # ── 내부 모듈 ──
 
 from sage_config import (
+    RAG_TAG_SYSTEM,
 
     APP_TITLE, MASTER_PW_DEFAULT, PART_PINS, OLLAMA_MODEL,
 
@@ -144,7 +145,13 @@ def call_gemma(prompt, system="", model=None):
     if isinstance(model, str):
         model = model.lower()
     current_prompt = prompt
-    current_system = system
+    # ── RAG 태그 시스템 자동 주입 ──────────────────────────
+    try:
+        from sage_config import RAG_TAG_SYSTEM
+        _tag_inject = RAG_TAG_SYSTEM if RAG_TAG_SYSTEM not in (system or "") else ""
+    except Exception:
+        _tag_inject = ""
+    current_system = (system or "") + (_tag_inject if _tag_inject else "")
     max_loops = 4
     for loop_idx in range(max_loops):
         res = _orig_call_gemma(current_prompt, system=current_system, model=model)
