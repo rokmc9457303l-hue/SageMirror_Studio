@@ -1,3 +1,28 @@
+## v15.9.31 — 2026-05-24 10:40
+### 변경 내용
+- **call_gemma 에이전트 강화 ([A], [B], [C])**:
+  - `[READ_OBSIDIAN:]` 태그 감지 시 옵시디언 RAG 자동 검색 및 RAG 컨텍스트 재주입 로직 구현.
+  - YouTube API와 연동하여 유튜브/채널/영상 관련 키워드가 포함될 경우 실시간 YouTube API 검색 결과 주입.
+  - AI 생성물 반환 직전 Gemma Critic 에이전트를 이용한 2단계 자체 데이터 무결성 검수(1차 FAIL 시 자동 재생성, 2차 FAIL 시 경고 제공) 구축.
+- **sage_popups.py 동기화 및 2단계 검수 적용 ([D])**:
+  - `_execute_tool` 함수에 `SEARCH_YOUTUBE` 툴 실행 분기 추가 및 `AGENT_TOOL_PATTERNS` 딕셔너리에 추가 등록.
+  - `run_agent_loop` 팝업 에이전트 루프에도 동일한 2단계 자가 데이터 무결성 검수 프로세스 이식 완료.
+- **구동/실행 스크립트 실행 타겟 일괄 갱신 ([E])**:
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일의 Streamlit 실행 대상을 신버전 `app_v15_9_31.py`로 일괄 업데이트.
+### 영향 파트
+- **App Core (Gemma Engine)**: call_gemma 에이전트 자동 검색 및 2단계 검수 파이프라인.
+- **Popup Assistant (sage_popups)**: 자율 팝업 에이전트의 YouTube 연동 및 검수 기능.
+- **App Core**: 실행 환경 및 구동 배치/VBS 파일 타겟 업데이트.
+### 수정 파일
+- `app_v15_9_31.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.29 — 2026-05-24 09:56
 ### 변경 내용
 - **결과물 표시 전용 st.text_area 일괄 리팩토링**:
