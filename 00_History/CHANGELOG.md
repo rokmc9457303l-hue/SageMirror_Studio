@@ -1,3 +1,18 @@
+## v15.9.34.8 — 2026-05-24 22:10
+### 변경 내용
+- **최종 안정본 연결 및 실행 스크립트 3개 업데이트**:
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 실행 연결 대상을 최신 안정본인 `app_v15_9_34_8.py`로 일괄 연결 완료했습니다.
+  - `RUN_DEBUG.bat` 검사 대상에 `sage_popups.py`를 추가하여 두 핵심 파일(`app_v15_9_34_8.py`, `sage_popups.py`)의 컴파일 적합성을 엄격히 자동 체크하도록 개선했습니다.
+### 영향 파트
+- **App Core / Launch Scripts**: 실행 스크립트 3종의 타겟 갱신 및 컴파일 안정성 강화.
+### 수정 파일
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.34.1 — 2026-05-24 17:22
 ### 변경 내용
 - **Part 2 Alchemist 마스터 프롬프트 4종 양방향 바인딩 세션 꼬임 수정**:
