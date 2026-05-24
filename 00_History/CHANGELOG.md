@@ -1,3 +1,27 @@
+## v15.9.33 — 2026-05-24 16:00
+### 변경 내용
+- **RAG 검색 카테고리 분류 시스템 도입**:
+  - `RAG_CATEGORY_MAP`, `PART_DEFAULT_CATEGORIES` 상수 2개 및 `get_default_tags_for_part()` 헬퍼 함수를 추가하여 파트별 고유 기본 카테고리 세트를 매핑했습니다.
+  - `render_obsidian_rag_search()` 함수 내부에 카테고리 멀티 체크박스 선택 UI를 결합하고, 체크박스 토글 시 세션 상태(`partN_selected_categories`, `partN_rag_query_val`)가 동적으로 즉각 갱신 및 rerunning되어 검색 쿼리에 적용되도록 구현했습니다.
+  - 파트 1~8의 `render_obsidian_rag_search` 호출부 총 8개의 기본 태그 값을 `get_default_tags_for_part("partN")` 호출로 일괄 교체했습니다.
+- **세션 상태 및 저장 영속성 연동**:
+  - `init_session_state()`의 `defaults` 딕셔너리에 Part 5~8의 RAG 검색 결과, 쿼리, 모델 선택자 및 파트 1~4의 카테고리 상태 키 20개를 초기값으로 탑재했습니다.
+  - `save_workspace_state()`의 `keys_to_save` 리스트에도 해당 20개 키를 전부 등록하여 영속 저장되도록 설정했습니다.
+- **구동/실행 스크립트 실행 타겟 일괄 갱신**:
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일의 Streamlit 실행 대상을 신버전 `app_v15_9_33.py`로 일괄 업데이트했습니다.
+### 영향 파트
+- **RAG Engine (render_obsidian_rag_search)**: 카테고리 뷰 및 태그 동적 세팅 기능 추가.
+- **전체 파트 (Part 1~8)**: RAG 검색 컴포넌트의 파트별 카테고리 탑재 및 호출.
+- **App Core**: 실행 환경 및 구동 배치/VBS 파일 타겟 업데이트.
+### 수정 파일
+- `app_v15_9_33.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.32 — 2026-05-24 11:00
 ### 변경 내용
 - **글로벌 모델 스위칭 시스템 도입**:
