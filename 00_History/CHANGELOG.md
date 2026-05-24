@@ -1,19 +1,18 @@
-## v15.9.34.1 — 2026-05-24 17:16
+## v15.9.34.1 — 2026-05-24 17:22
 ### 변경 내용
 - **Part 2 Alchemist 마스터 프롬프트 4종 양방향 바인딩 세션 꼬임 수정**:
-  - `p2_gemma_protocol`, `p2_bench_prompt`, `p2_research_prompt`, `p2_plan_prompt` 4개 프롬프트 텍스트 영역의 위젯 key와 실제 세션 데이터 key를 분리(`_widget` 접미사 추가)하여 팝업창 편집 저장본이 메인 구버전 위젯 버퍼에 덮어써지는 현상을 완전히 해결했습니다.
-- **썸네일 3세트 다이얼로그(popup_thumbnail_selector) 플래그 기반 렌더링 전환**:
-  - 버튼 클릭/스피너 이벤트 스코프 내에서 `@st.dialog` 함수를 직접 호출할 시 발생하는 Streamlit 유령 팝업 렌더링 꼬임 버그를 해결하기 위해, 상태 플래그(`st.session_state.show_p2_thumb_popup`) 기반의 탑레벨 렌더링 감지 방식으로 개선했습니다.
-- **구동/실행 스크립트 실행 타겟 일괄 갱신**:
-  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일의 Streamlit 실행 대상을 신버전 `app_v15_9_34_1.py`로 일괄 업데이트했습니다.
+  - `p2_gemma_protocol`, `p2_bench_prompt`, `p2_research_prompt`, `p2_plan_prompt` 4개 프롬프트의 위젯 key와 실제 세션 데이터 key를 분리(`_widget` 접미사 추가)하여 팝업창 편집 저장본이 메인 구버전 위젯 버퍼에 덮어써지는 현상을 완전히 해결했습니다.
+- **직접 수정 방지 및 팝업 편집 가이드 안내**:
+  - 메인 화면에 표시되는 `p2_gemma_protocol` 텍스트 영역을 직접 타이핑할 수 없도록 `disabled=True` 처리하고, 하단에 `"직접 수정은 아래 [프로토콜 팝업 편집] 버튼을 사용하십시오."` 캡션 안내 문구를 추가했습니다.
+- **PIN 잠금 상태에 따른 프롬프트 편집 비활성화 정책 적용**:
+  - 보안 및 편집 안전을 위해 `p2_edit_proto`, `p2_edit_bench_prompt_btn`, `p2_edit_res_prompt_btn` (자료조사), `p2_edit_plan_prompt_btn` (총괄기획) 4개 편집 버튼에 `disabled=is_locked`를 추가하여 마스터 PIN이 풀린 상태에서만 팝업 수정이 가능하도록 제한했습니다.
+- **popup_edit_gemma_protocol_p2() 및 popup_edit_text_value() 저장 방식 개선**:
+  - 저장 시 `save_workspace_state()`를 명시적으로 실행하여 세션 데이터를 로컬 디스크 파일에 확실히 영속 저장한 뒤 토스트 메시지를 출력하고 `st.rerun()`을 호출하도록 저장 처리 흐름을 표준화했습니다.
+  - `popup_edit_gemma_protocol_p2()` 내부의 text_area와 버튼들에 고유 key(`p2_gemma_protocol_popup_textarea`, `p2_gemma_protocol_popup_save`, `p2_gemma_protocol_popup_cancel`)를 부여해 중복 충돌을 방지했습니다.
 ### 영향 파트
-- **Part 2 (총괄기획)**: 마스터 프롬프트 4종 양방향 세션 편집 연동성 보장 및 썸네일 다이얼로그 팝업 렌더링 꼬임 해결.
-- **App Core**: 실행 환경 및 구동 배치/VBS 파일 타겟 업데이트.
+- **Part 2 (총괄기획)**: 마스터 프롬프트 4종 편집 및 저장 기능 보강, 보안 잠금 상태 편집 연동.
 ### 수정 파일
 - `app_v15_9_34_1.py`
-- `RUN_APP.bat`
-- `RUN_DEBUG.bat`
-- `RUN_APP.vbs`
 - `00_History\CHANGELOG.md`
 
 ---

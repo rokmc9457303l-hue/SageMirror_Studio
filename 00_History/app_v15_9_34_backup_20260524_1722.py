@@ -2,14 +2,12 @@
 
 """
 
-🪞 현자의 거울 스튜디오 — Master App v15.9.34.1
+🪞 현자의 거울 스튜디오 — Master App v15.9.34
 
-[v15.9.34.1 업데이트 사항: 2026-05-24]
+[v15.9.33 업데이트 사항: 2026-05-24]
 
-- Part 2 Alchemist 마스터 프롬프트 4종(프로토콜, 벤치마킹, 자료조사, 총괄기획)의 텍스트 에어리어 양방향 바인딩 세션 꼬임 버그 수정
-- 직접 수정을 방지하기 위해 메인 화면의 젬마 프로토콜 영역을 disabled=True 처리 및 팝업 편집 유도 문구 추가
-- PIN 잠금(is_locked) 상태에 따른 4종 프롬프트 편집 버튼 활성화 규칙(disabled=is_locked) 적용
-- popup_edit_gemma_protocol_p2() 함수 내 고유 key 부여 및 저장 프로세스 개선
+- RAG 검색 카테고리 시스템 도입 및 session_state, keys_to_save 연동 적용
+- RUN 파일 3개 실행 타겟 app_v15_9_33.py로 일괄 갱신
 
 """
 
@@ -8897,25 +8895,21 @@ def popup_edit_gemma_protocol_p2():
 
     st.markdown("여기서 행동 지침과 작업 지침서를 상세하게 수정할 수 있습니다. 텍스트를 드래그하고 복사/붙여넣기 하세요.")
 
-    new_val = st.text_area("규칙서 내용", value=st.session_state.p2_gemma_protocol, height=400, label_visibility="collapsed", key="p2_gemma_protocol_popup_textarea")
+    new_val = st.text_area("규칙서 내용", value=st.session_state.p2_gemma_protocol, height=400, label_visibility="collapsed")
 
     c1, c2 = st.columns(2)
 
     with c1:
 
-        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary", key="p2_gemma_protocol_popup_save"):
+        if st.button("[SAVE] 저장 및 닫기", use_container_width=True, type="primary"):
 
             st.session_state.p2_gemma_protocol = new_val
-
-            save_workspace_state()
-
-            st.toast("✅ Part 2 젬마 프로토콜 저장 완료", icon="💾")
 
             st.rerun()
 
     with c2:
 
-        if st.button("취소", use_container_width=True, key="p2_gemma_protocol_popup_cancel"):
+        if st.button("취소", use_container_width=True):
 
             st.rerun()
 
@@ -9154,8 +9148,6 @@ def popup_edit_text_value(session_key: str, title: str):
         if st.button("💾 저장 및 닫기", type="primary", use_container_width=True, key=f"popup_edit_val_save_{session_key}"):
 
             st.session_state[session_key] = new_val
-
-            save_workspace_state()
 
             st.toast("✅ 수정 사항이 저장되었습니다!", icon="💾")
 
@@ -9593,10 +9585,9 @@ def render_part2():
                 "□ @Protagonist 통일 / AI냄새없음 / Part3전달패킷포함"
             )
 
-        st.text_area("젬마 프로토콜 (수정은 편집 버튼 클릭)", height=270, label_visibility="collapsed", key="p2_gemma_protocol", disabled=True)
-        st.caption("직접 수정은 아래 [프로토콜 팝업 편집] 버튼을 사용하십시오.")
+        st.text_area("젬마 프로토콜 (수정은 편집 버튼 클릭)", height=270, label_visibility="collapsed", key="p2_gemma_protocol")
 
-        if st.button("[SEARCH] 프로토콜 팝업 편집 (복사/붙여넣기)", key="p2_edit_proto", disabled=is_locked):
+        if st.button("[SEARCH] 프로토콜 팝업 편집 (복사/붙여넣기)", key="p2_edit_proto"):
 
             popup_edit_gemma_protocol_p2()
 
@@ -9788,27 +9779,21 @@ def render_part2():
 
             
 
-            bench_prompt_val = st.text_area(
+            st.text_area(
 
                 "🤖 젬마 작업지시 프롬프트 (벤치마킹)", 
 
-                value=st.session_state.get("p2_bench_prompt", ""),
-
                 height=100, 
 
-                key="p2_bench_prompt_widget", 
+                key="p2_bench_prompt", 
 
                 disabled=is_locked
 
             )
 
-            if bench_prompt_val != st.session_state.get("p2_bench_prompt", ""):
+            
 
-                st.session_state.p2_bench_prompt = bench_prompt_val
-
-                save_workspace_state()
-
-            if st.button("📝 프롬프트 팝업 편집 (채널 벤치마킹)", key="p2_edit_bench_prompt_btn", disabled=is_locked):
+            if st.button("📝 프롬프트 팝업 편집 (채널 벤치마킹)", key="p2_edit_bench_prompt_btn"):
 
                 popup_edit_text_value("p2_bench_prompt", "🤖 젬마 작업지시 프롬프트 (채널 벤치마킹)")
 
@@ -10122,27 +10107,21 @@ def render_part2():
 
 
 
-            research_prompt_val = st.text_area(
+            st.text_area(
 
                 "🤖 젬마 작업지시 프롬프트 (자료 조사)",
 
-                value=st.session_state.get("p2_research_prompt", ""),
-
                 height=100,
 
-                key="p2_research_prompt_widget",
+                key="p2_research_prompt",
 
                 disabled=is_locked
 
             )
 
-            if research_prompt_val != st.session_state.get("p2_research_prompt", ""):
 
-                st.session_state.p2_research_prompt = research_prompt_val
 
-                save_workspace_state()
-
-            if st.button("📝 프롬프트 팝업 편집 (자료 조사)", key="p2_edit_res_prompt_btn", disabled=is_locked):
+            if st.button("📝 프롬프트 팝업 편집 (자료 조사)", key="p2_edit_res_prompt_btn"):
 
                 popup_edit_text_value("p2_research_prompt", "🤖 젬마 작업지시 프롬프트 (자료 조사)")
 
@@ -10684,27 +10663,21 @@ def render_part2():
 
 
 
-            plan_prompt_val = st.text_area(
+            st.text_area(
 
                 "🤖 젬마 작업지시 프롬프트 (총괄 기획)",
 
-                value=st.session_state.get("p2_plan_prompt", ""),
-
                 height=120,
 
-                key="p2_plan_prompt_widget",
+                key="p2_plan_prompt",
 
                 disabled=is_locked
 
             )
 
-            if plan_prompt_val != st.session_state.get("p2_plan_prompt", ""):
 
-                st.session_state.p2_plan_prompt = plan_prompt_val
 
-                save_workspace_state()
-
-            if st.button("📝 프롬프트 팝업 편집 (총괄 기획)", key="p2_edit_plan_prompt_btn", disabled=is_locked):
+            if st.button("📝 프롬프트 팝업 편집 (총괄 기획)", key="p2_edit_plan_prompt_btn"):
 
                 popup_edit_text_value("p2_plan_prompt", "🤖 젬마 작업지시 프롬프트 (총괄 기획)")
 
