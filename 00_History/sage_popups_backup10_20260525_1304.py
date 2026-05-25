@@ -487,7 +487,7 @@ def popup_edit_obsidian():
             st.session_state.obsidian_history.append(st.session_state.obsidian_rules)
             st.session_state.obsidian_rules = new_val
             st.session_state.top_ob_view_widget = new_val
-            from app_v15_9_34_22 import save_workspace_state
+            from app_v15_9_34_21 import save_workspace_state
             save_workspace_state()
             st.toast("✅ 옵시디언 규칙서 저장 완료", icon="✅")
             st.rerun()
@@ -532,7 +532,7 @@ def popup_edit_prompt():
             st.session_state.prompt_history.append(st.session_state.base_prompt_rules)
             st.session_state.base_prompt_rules = new_val
             st.session_state["top_pr_view_base_prompt_rules_widget"] = new_val
-            from app_v15_9_34_22 import save_workspace_state
+            from app_v15_9_34_21 import save_workspace_state
             save_workspace_state()
             st.toast("✅ 기본 프롬프트 저장 완료", icon="✅")
             st.rerun()

@@ -1,3 +1,25 @@
+## v15.9.34.22 — 2026-05-25 13:20
+### 변경 내용
+- **Gemma RAG 주입용 최종 프롬프트 조립 엔진 구현**:
+  - 9차의 `memory_buffer`와 사용자 임시 입력을 결합하여 젬마 어시스턴트 입력 규격을 생성하는 `build_manual_memory_injected_prompt()` 함수를 구현했습니다.
+  - 최종 조립된 프롬프트 크기가 `max_chars=40000`자를 초과하는 경우, 사용자 질문 훼손 방지를 위해 memory_buffer 우선 절사 처리를 적용하고 `[프롬프트 일부 생략됨 — max_chars 제한]` 생략 문구를 자동 결합하도록 예외 방지 패턴을 적용했습니다.
+- **수동 실제 주입 테스트 UI 연동 및 1회성 call_gemma() 호출**:
+  - 최하단 테스트 영역에 "✏️ 테스트 질문 입력" 필드 및 "🚀 Gemma Memory 실제 주입 테스트" 컴포넌트를 추가하고, 사용자가 수동 버튼을 클릭했을 때에만 1회성 `call_gemma()` API 호출을 유발하여 응답 결과를 출력하도록 구성했습니다.
+  - 디버그 및 미리보기 용도인 `st.session_state["debug_memory_preview"]` 및 `st.session_state["debug_memory_response"]` 에만 기록 및 출력을 격리했습니다. (기존 popup_assistant() 및 chat_history의 데이터 오염 방지)
+- **임포트 및 배포 스크립트 갱신**:
+  - `sage_popups.py` 내 `save_workspace_state` 임포트 참조를 `app_v15_9_34_22`로 교체했습니다.
+  - `RUN_APP.bat` 및 `RUN_DEBUG.bat` 배치 파일들의 구동 대상을 `app_v15_9_34_22.py`로 변경 완료했습니다.
+### 영향 파트
+- 파일 업로드 및 RAG 어시스턴트 1회성 테스트 호출 영역
+### 수정 파일
+- `app_v15_9_34_22.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.34.21 — 2026-05-25 13:10
 ### 변경 내용
 - **임시 Gemma RAG 메모리 버퍼 빌더 구현**:
