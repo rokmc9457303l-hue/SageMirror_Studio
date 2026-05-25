@@ -1,3 +1,26 @@
+## v15.9.34.13 — 2026-05-25 11:30
+### 변경 내용
+- **상단 공통 프롬프트 HTML 오염 정화 필터 강화**:
+  - `clean_prompt_contamination(text)` 함수를 보강하여 span 태그, CSS 속성, LED UI 잔재 문자열 등 14개 이상의 오염 패턴을 정규식 및 개별 치환으로 완벽 제거하도록 구현했습니다.
+- **상태 로드 및 초기화 정화 자동화**:
+  - `load_workspace_state()` 내부에서 14개 주요 키(`obsidian_rules`, `base_prompt_rules`, `p1_gemma_protocol` 등) 로드 시 정화 함수를 일괄 적용하도록 했습니다.
+  - 앱 시작 직후 `init_session_state()`에서 로드된 세션 상태에 대해서도 1회 정화 처리를 수행하고, 변경 사항이 있을 시 `save_workspace_state()`를 통해 `workspace_state.json`에 영속화하도록 자동화했습니다.
+- **상단 공통 패널 저장 시 강제 정화 적용**:
+  - 옵시디언 규칙서 및 마스터 프롬프트 저장 버튼 핸들러 내부에서 저장 직전 `clean_prompt_contamination()`을 호출하여 오염을 원천 차단했습니다.
+- **sage_popups.py 및 구동 스크립트의 실행 타겟 버전 상향**:
+  - `sage_popups.py` 내의 `save_workspace_state` 임포트 버전을 `app_v15_9_34_13`으로 갱신하여 버전 불일치 오류를 막았습니다.
+  - `RUN_APP.bat` 파일의 Streamlit 실행 타겟을 `app_v15_9_34_13.py`로 갱신 완료했습니다.
+### 영향 파트
+- **App Core (Contamination Cleaning)**: 상태 로드/세션 초기화/저장 시점의 HTML 오염 완전 제거.
+- **sage_popups & RUN_APP.bat**: 최신 앱 구동 버전(`v15.9.34.13`) 연동 완료.
+### 수정 파일
+- `app_v15_9_34_13.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.34.10 — 2026-05-24 22:45
 ### 변경 내용
 - **떡상채널 발굴기 큐레이션 프롬프트 보강**:
