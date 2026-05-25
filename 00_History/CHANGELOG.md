@@ -1,3 +1,28 @@
+## v16.0.2 — 2026-05-25 19:55
+### 변경 내용
+- **RAG Utility Module 분리 및 Streamlit 의존성 제거**:
+  - RAG Memory와 관련된 핵심 함수 5종(`load_recent_reference_files`, `build_gemma_memory_prompt_preview`, `build_manual_gemma_memory_buffer`, `build_manual_memory_injected_prompt`, `build_condensed_reference_context`)을 `rag_memory_utils.py` 유틸 모듈로 완전히 분리 추출했습니다.
+  - `rag_memory_utils.py` 내부에서는 Streamlit 임포트(`import streamlit`) 및 `st.*` API 호출을 완전히 제거하여 순수 Python 환경에서 실행 가능하도록 정제했습니다.
+- **오염/비정상 파일 제외 로그 제어권 이관**:
+  - `build_condensed_reference_context()`가 직접 화면에 출력하지 않고, 제외된 오염/비정상 파일 목록을 튜플 `(prompt, excluded_files)`로 반환하도록 개선했습니다.
+  - `sage_popups.py` 내의 `popup_assistant()`에서 반환된 제외 파일 목록을 수신하여 팝업 렌더링 시점에 직접 `st.caption`으로 제외 로그를 출력하도록 이관했습니다.
+- **임포트 및 배포 스크립트 갱신**:
+  - `app_v16_0_2.py` 및 `sage_popups.py` 내부의 RAG 중복 정의 및 `app_v16_0_1` 임포트를 제거하고 `from rag_memory_utils import ...` 구조로 갱신하여 안정화했습니다.
+  - `sage_popups.py` 내 `save_workspace_state` 임포트 버전을 `app_v16_0_2`로 갱신했습니다.
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 배치 및 스크립트 파일들의 구동 대상을 `app_v16_0_2.py`로 변경 완료했습니다.
+### 영향 파트
+- 젬마 어시스턴트 대화 탭(`popup_assistant()`) 및 배포 파이프라인
+### 수정 파일
+- `app_v16_0_2.py`
+- `sage_popups.py`
+- `rag_memory_utils.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.0.1 — 2026-05-25 19:30
 ### 변경 내용
 - **References Memory 주입 품질 최적화**:

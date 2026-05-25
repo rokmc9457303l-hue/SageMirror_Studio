@@ -487,7 +487,7 @@ def popup_edit_obsidian():
             st.session_state.obsidian_history.append(st.session_state.obsidian_rules)
             st.session_state.obsidian_rules = new_val
             st.session_state.top_ob_view_widget = new_val
-            from app_v16_0_2 import save_workspace_state
+            from app_v16_0_1 import save_workspace_state
             save_workspace_state()
             st.toast("✅ 옵시디언 규칙서 저장 완료", icon="✅")
             st.rerun()
@@ -532,7 +532,7 @@ def popup_edit_prompt():
             st.session_state.prompt_history.append(st.session_state.base_prompt_rules)
             st.session_state.base_prompt_rules = new_val
             st.session_state["top_pr_view_base_prompt_rules_widget"] = new_val
-            from app_v16_0_2 import save_workspace_state
+            from app_v16_0_1 import save_workspace_state
             save_workspace_state()
             st.toast("✅ 기본 프롬프트 저장 완료", icon="✅")
             st.rerun()
@@ -1341,18 +1341,14 @@ def popup_assistant():
 
                 if st.session_state.get("popup_use_rag", True):
                     try:
-                        from rag_memory_utils import load_recent_reference_files, build_condensed_reference_context, build_manual_gemma_memory_buffer
+                        from app_v16_0_1 import load_recent_reference_files, build_condensed_reference_context, build_manual_gemma_memory_buffer
                         ref_items = load_recent_reference_files(max_files=20, max_chars=120000)
                         if ref_items:
-                            prompt_preview, excluded_files = build_condensed_reference_context(ref_items, max_chars=30000)
-                            if excluded_files:
-                                for exf_name, reason in excluded_files:
-                                    st.caption(f"⚠️ 오염 가능 Reference 제외: {exf_name}")
+                            prompt_preview = build_condensed_reference_context(ref_items, max_chars=30000)
                             ref_buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=30000)
                             if ref_buffer.strip():
                                 sys_ctx += "\n[References & 파일 업로드 RAG 기억]\n" + ref_buffer + "\n\n"
-                                loaded_count = len(ref_items) - len(excluded_files)
-                                st.caption(f"🧠 References Memory Loaded: {loaded_count} files")
+                                st.caption(f"🧠 References Memory Loaded: {len(ref_items)} files")
                     except Exception as e:
                         st.caption(f"References Memory 주입 생략: {e}")
 
