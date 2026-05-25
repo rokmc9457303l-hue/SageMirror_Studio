@@ -275,15 +275,6 @@ def _save_to_obsidian_with_tags(
                 existing += f"- [[{obsidian_folder}/{save_path.stem}]] — {today_str}\n"
                 tag_file.write_text(existing, encoding="utf-8")
 
-        # ── Recent Activity Dynamic Sync ──
-        try:
-            from rag_memory_utils import update_recent_activity_memory
-            state_dict = dict(st.session_state)
-            updated_mem = update_recent_activity_memory(state_dict, "obsidian", f"Obsidian 저장: {save_path.name}")
-            st.session_state.recent_activity_memory = updated_mem
-        except Exception:
-            pass
-
         return str(save_path)
 
     except Exception as e:
@@ -471,14 +462,6 @@ def _on_popup_send():
         st.session_state.popup_history.append({"role": "user", "content": q})
         st.session_state.pending_stream = q
         st.session_state.popup_chat_input_ta = ""
-        # ── Recent Activity Dynamic Sync ──
-        try:
-            from rag_memory_utils import update_recent_activity_memory
-            state_dict = dict(st.session_state)
-            updated_mem = update_recent_activity_memory(state_dict, "question", q)
-            st.session_state.recent_activity_memory = updated_mem
-        except Exception:
-            pass
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -504,12 +487,8 @@ def popup_edit_obsidian():
             st.session_state.obsidian_history.append(st.session_state.obsidian_rules)
             st.session_state.obsidian_rules = new_val
             st.session_state.top_ob_view_widget = new_val
-            from app_v16_1_2 import save_workspace_state
+            from app_v16_1_1 import save_workspace_state
             save_workspace_state()
-            try:
-                from rag_memory_utils import update_recent_activity_memory
-                st.session_state.recent_activity_memory = update_recent_activity_memory(dict(st.session_state), "system", "옵시디언 규칙서 수정")
-            except: pass
             st.toast("✅ 옵시디언 규칙서 저장 완료", icon="✅")
             st.rerun()
     with c2:
@@ -553,12 +532,8 @@ def popup_edit_prompt():
             st.session_state.prompt_history.append(st.session_state.base_prompt_rules)
             st.session_state.base_prompt_rules = new_val
             st.session_state["top_pr_view_base_prompt_rules_widget"] = new_val
-            from app_v16_1_2 import save_workspace_state
+            from app_v16_1_1 import save_workspace_state
             save_workspace_state()
-            try:
-                from rag_memory_utils import update_recent_activity_memory
-                st.session_state.recent_activity_memory = update_recent_activity_memory(dict(st.session_state), "system", "기본 프롬프트 수정")
-            except: pass
             st.toast("✅ 기본 프롬프트 저장 완료", icon="✅")
             st.rerun()
     with c2:
@@ -949,14 +924,6 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
                     if "popup_search_history" not in st.session_state:
                         st.session_state.popup_search_history = []
                     st.session_state.popup_search_history.append({"q": query, "res": sr})
-                    # ── Recent Activity Dynamic Sync ──
-                    try:
-                        from rag_memory_utils import update_recent_activity_memory
-                        state_dict = dict(st.session_state)
-                        updated_mem = update_recent_activity_memory(state_dict, "tavily", f"에이전트 검색: {query}")
-                        st.session_state.recent_activity_memory = updated_mem
-                    except Exception:
-                        pass
             except Exception as e:
                 result = f"[검색 실패: {e}]"
         else:
@@ -1379,7 +1346,7 @@ def popup_assistant():
                     recent_activity_ctx = build_recent_activity_memory(state_dict, max_chars=6000)
                     if recent_activity_ctx.strip():
                         sys_ctx += "\n" + recent_activity_ctx + "\n\n"
-                        st.caption("🧠 Recent Activity Synced")
+                        st.caption("🧠 Recent Activity Memory Loaded")
                 except Exception as e:
                     st.caption(f"Recent Activity Memory 주입 생략: {e}")
 
@@ -1397,15 +1364,6 @@ def popup_assistant():
                                 sys_ctx += "\n[References & 파일 업로드 RAG 기억]\n" + ref_buffer + "\n\n"
                                 loaded_count = len(ref_items) - len(excluded_files)
                                 st.caption(f"🧠 References Memory Loaded: {loaded_count} files")
-                                # ── Recent Activity Dynamic Sync ──
-                                try:
-                                    from rag_memory_utils import update_recent_activity_memory
-                                    state_dict = dict(st.session_state)
-                                    ref_names = ", ".join([item.get("filename", "") for item in ref_items if item.get("filename")])
-                                    updated_mem = update_recent_activity_memory(state_dict, "references", f"References 파일 로드: {ref_names}")
-                                    st.session_state.recent_activity_memory = updated_mem
-                                except Exception:
-                                    pass
                     except Exception as e:
                         st.caption(f"References Memory 주입 생략: {e}")
 
@@ -1568,14 +1526,6 @@ def popup_assistant():
                             gemma_analysis = ""
 
                         st.session_state.popup_search_history.append({"q": sq, "res": res})
-                        # ── Recent Activity Dynamic Sync ──
-                        try:
-                            from rag_memory_utils import update_recent_activity_memory
-                            state_dict = dict(st.session_state)
-                            updated_mem = update_recent_activity_memory(state_dict, "tavily", f"수동 검색: {sq}")
-                            st.session_state.recent_activity_memory = updated_mem
-                        except Exception:
-                            pass
 
                         # 감정 태그 자동 분류
                         all_content = sq + " " + " ".join([r.get("content", "") for r in res.get("results", [])[:5]])

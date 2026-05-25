@@ -1,3 +1,25 @@
+## v16.1.2 — 2026-05-26 07:15
+### 변경 내용
+- **Gemma Assistant Completion Phase 2 (Recent Activity Dynamic Sync)**:
+  - `rag_memory_utils.py` 내에 `update_recent_activity_memory()` 함수를 신규 개발하고, `build_recent_activity_memory()`를 리스트 필터링 구조로 고도화하여 정적 요약을 보완한 실시간 갱신 시스템을 구현했습니다.
+  - 리스트 용량을 최대 15개로 규정하여 오래된 기록은 자동으로 FIFO 방식으로 배출되도록 안전 한도를 적용했습니다.
+  - `sage_popups.py` 내의 이벤트 감지 시점(사용자 질문 전송 `_on_popup_send()`, 에이전트 및 수동 Tavily 검색 완료, References 파일 주입 로드 시, `_save_to_obsidian_with_tags` 옵시디언 저장 완료 시)에 자동으로 최근 활동 기록을 실시간 누적 갱신하게 연동했습니다.
+  - `app_v16_1_2.py` 내의 상태 보존 시점(`save_workspace_state()`, `save_obsidian_memory()`, 파트별 `lock_and_push_final_version()` 잠금 및 `create_revision_version()` 수정본 생성 시)에도 자동으로 활동 기억이 실시간 누적 갱신되도록 연동했습니다.
+  - `st.caption("🧠 Recent Activity Synced")` 코드를 적용하여 주입 시 인지 상태를 시각화했습니다.
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 및 내부 임포트 버전을 `app_v16_1_2.py`로 갱신하여 릴리즈를 일원화했습니다.
+### 영향 파트
+- 젬마 어시스턴트 대화 팝업(`popup_assistant()`), 세션 및 설정 보존부, 파트 최종 잠금/수정 파이프라인
+### 수정 파일
+- `app_v16_1_2.py`
+- `sage_popups.py`
+- `rag_memory_utils.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.1 — 2026-05-26 06:58
 ### 변경 내용
 - **Gemma Assistant Completion Phase 1 (Recent Activity Memory 연동)**:

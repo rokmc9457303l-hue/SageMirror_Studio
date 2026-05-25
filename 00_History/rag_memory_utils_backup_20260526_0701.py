@@ -387,110 +387,133 @@ Gemma는 아래 자료를 추측보다 우선한다.
 
 def build_recent_activity_memory(state_dict: dict, max_chars: int = 6000) -> str:
     """
-    최근 작업 흐름 및 기억을 st.session_state.recent_activity_memory 리스트를 바탕으로
-    구조화하여 젬마 프롬프트 주입용 블록을 생성합니다.
+    최근 작업 흐름 및 기억을 수집하여 젬마 프롬프트 주입용 블록을 생성합니다.
+    이 함수는 streamlit 의존성이 없는 순수 Python 함수입니다.
     """
     try:
-        memory = state_dict.get("recent_activity_memory", [])
-        if not isinstance(memory, list):
-            memory = []
-
         lines = []
         lines.append("[RECENT_ACTIVITY_MEMORY]")
         lines.append("")
 
-        # 1. 최근 사용자 질문
-        lines.append("- 최근 사용자 질문:")
-        questions = [m for m in memory if m.get("type") == "question"]
-        if questions:
-            for q in questions[-5:]:
-                lines.append(f"  - [{q.get('timestamp')}] {q.get('content')}")
+        # 1. 현재 작업 요약
+        ep_name = state_dict.get("episode_name", "").strip()
+        topic = state_dict.get("p1_topic_selection", "").strip()
+        
+        if ep_name:
+            current_work = f"{ep_name} 에피소드 제작 중"
+        elif topic:
+            current_work = f"'{topic}' 관련 콘텐츠 제작 중"
         else:
-            # 폴백: popup_history 조회
-            chat_history = state_dict.get("popup_history", [])
-            user_chats = [m.get("content", "") for m in chat_history if m.get("role") == "user"]
-            if user_chats:
-                for uc in user_chats[-3:]:
-                    lines.append(f"  - {uc.strip()}")
-            else:
-                lines.append("  - 대화 이력 없음")
+            current_work = "쇼펜하우어 심리학 시리즈 제작 중"
+        lines.append(f"- 현재 작업:\n  {current_work}")
         lines.append("")
 
-        # 2. 최근 Tavily 검색
-        lines.append("- 최근 Tavily 검색:")
-        searches = [m for m in memory if m.get("type") == "tavily"]
-        if searches:
-            for s in searches[-5:]:
-                lines.append(f"  - [{s.get('timestamp')}] {s.get('content')}")
-        else:
-            # 폴백: popup_search_history 조회
-            search_history = state_dict.get("popup_search_history", [])
-            if search_history:
-                for item in search_history[-3:]:
-                    lines.append(f"  - {item.get('q', '').strip()}")
-            else:
-                lines.append("  - 검색 기록 없음")
+        # 2. 최근 Part 진행 흐름
+        part_status = []
+        if state_dict.get("p1_topic_selection"):
+            part_status.append("  Part1 벤치마킹 완료")
+        if state_dict.get("p2_planning_result"):
+            part_status.append("  Part2 총괄 기획 완료")
+        if state_dict.get("p34_narration_script") or state_dict.get("p34_image_script"):
+            part_status.append("  Part3/4 대본 및 이미지 프롬프트 작성 완료")
+        if state_dict.get("p5_c_rows"):
+            part_status.append("  Part5 영상 씬 검증 완료")
+        if state_dict.get("p6_opal_df"):
+            part_status.append("  Part6 Opal 8계정 병렬 배분 완료")
+        if state_dict.get("p7_capcut_data") or state_dict.get("p7_capcut_df") is not None:
+            part_status.append("  Part7 CapCut 타임라인 조립 완료")
+        if state_dict.get("p8_dashboard_saved"):
+            part_status.append("  Part8 최종 대시보드 완료")
+        
+        if not part_status:
+            part_status.append("  Part1 벤치마킹 진행 중")
+            
+        lines.append("- 최근 Part:")
+        for p in part_status:
+            lines.append(p)
         lines.append("")
 
-        # 3. 최근 References
+        # 3. 최근 References 수집 (References 폴더 내 최신 3개 파일)
+        ref_files = []
+        try:
+            ref_dir = r"C:\SageMirror_Production\00_Obsidian\References"
+            if os.path.exists(ref_dir):
+                import glob
+                files = glob.glob(os.path.join(ref_dir, "*.md"))
+                files_with_time = []
+                for f in files:
+                    try:
+                        files_with_time.append((f, os.path.getmtime(f)))
+                    except Exception:
+                        continue
+                files_with_time.sort(key=lambda x: x[1], reverse=True)
+                for fpath, _ in files_with_time[:3]:
+                    ref_files.append(os.path.basename(fpath))
+        except Exception:
+            pass
+            
         lines.append("- 최근 References:")
-        refs = [m for m in memory if m.get("type") == "references"]
-        if refs:
-            for r in refs[-5:]:
-                lines.append(f"  - {r.get('content')}")
+        if ref_files:
+            for rf in ref_files:
+                lines.append(f"  {rf}")
         else:
-            # 폴백: References 폴더 최신 파일 스캔
-            ref_files = []
-            try:
-                ref_dir = r"C:\SageMirror_Production\00_Obsidian\References"
-                if os.path.exists(ref_dir):
-                    import glob
-                    files = glob.glob(os.path.join(ref_dir, "*.md"))
-                    files_with_time = []
-                    for f in files:
-                        try:
-                            files_with_time.append((f, os.path.getmtime(f)))
-                        except Exception:
-                            continue
-                    files_with_time.sort(key=lambda x: x[1], reverse=True)
-                    for fpath, _ in files_with_time[:3]:
-                        ref_files.append(os.path.basename(fpath))
-            except Exception:
-                pass
-            if ref_files:
-                for rf in ref_files:
-                    lines.append(f"  - {rf}")
-            else:
-                lines.append("  - 참조된 References 없음")
+            lines.append("  참조된 References 없음")
         lines.append("")
 
-        # 4. 최근 작업 흐름 (part_save, obsidian, packet 등 통합)
-        lines.append("- 최근 작업 흐름:")
-        flows = [m for m in memory if m.get("type") in ["part_save", "obsidian", "packet", "part_flow"]]
-        if flows:
-            for f in flows[-5:]:
-                lines.append(f"  - [{f.get('timestamp')}] {f.get('content')}")
+        # 4. 최근 키워드 추출 (최근 검색 기록 및 대화 히스토리 분석)
+        keywords = []
+        search_history = state_dict.get("popup_search_history", [])
+        if search_history:
+            for item in reversed(search_history):
+                q = item.get("q", "").strip()
+                if q and q not in keywords:
+                    keywords.append(q)
+                    if len(keywords) >= 3:
+                        break
+        
+        # 대화 기록에서 키워드 후보 추출
+        chat_history = state_dict.get("popup_history", [])
+        for msg in reversed(chat_history):
+            if msg.get("role") == "user":
+                content = msg.get("content", "")
+                words = re.findall(r'[가-힣a-zA-Z0-9_]{2,}', content)
+                for w in words:
+                    if len(w) >= 2 and w not in ["이거", "그거", "저거", "어떻게", "기억", "하고", "했어", "작업", "최근", "우리가", "어떤", "하고있었는지"]:
+                        if w not in keywords:
+                            keywords.append(w)
+                            if len(keywords) >= 5:
+                                break
+            if len(keywords) >= 5:
+                break
+
+        if not keywords:
+            keywords = ["콘텐츠 기획", "심리학 분석", "인생 성찰"]
+
+        lines.append("- 최근 키워드:")
+        for kw in keywords[:5]:
+            lines.append(f"  {kw}")
+        lines.append("")
+
+        # 5. 최근 대화 요약 (마지막 3개 질문)
+        user_chats = [m.get("content", "") for m in chat_history if m.get("role") == "user"]
+        lines.append("- 최근 사용자 질문:")
+        if user_chats:
+            for uc in user_chats[-3:]:
+                lines.append(f"  > {uc.strip()}")
         else:
-            # 폴백: 세션 상태 분석을 통한 동적 유추
-            part_status = []
-            if state_dict.get("p1_topic_selection"):
-                part_status.append("Part1 벤치마킹 완료")
-            if state_dict.get("p2_planning_result"):
-                part_status.append("Part2 총괄 기획 완료")
-            if state_dict.get("p34_narration_script") or state_dict.get("p34_image_script"):
-                part_status.append("Part3/4 대본 및 이미지 프롬프트 작성 완료")
-            if state_dict.get("p5_c_rows"):
-                part_status.append("Part5 영상 씬 검증 완료")
-            if state_dict.get("p6_opal_df"):
-                part_status.append("Part6 Opal 8계정 병렬 배분 완료")
-            if state_dict.get("p7_capcut_data") or state_dict.get("p7_capcut_df") is not None:
-                part_status.append("Part7 CapCut 타임라인 조립 완료")
-            if state_dict.get("p8_dashboard_saved"):
-                part_status.append("Part8 최종 대시보드 완료")
-            if not part_status:
-                part_status.append("콘텐츠 제작 준비 중")
-            for p in part_status:
-                lines.append(f"  - {p}")
+            lines.append("  > 대화 이력 없음")
+        lines.append("")
+
+        # 6. 최근 저장/생성 패킷 정보
+        capcut_data = state_dict.get("p7_capcut_data", "")
+        p34_capcut = state_dict.get("p34_capcut_data", {})
+        lines.append("- 최근 생성 패킷:")
+        if capcut_data:
+            lines.append("  [Part7 캡컷 자동화 JSON 존재]")
+        elif p34_capcut:
+            lines.append("  [Part3/4 캡컷 에셋 JSON 존재]")
+        else:
+            lines.append("  [캡컷 패킷 미생성]")
         lines.append("")
 
         lines.append("[/RECENT_ACTIVITY_MEMORY]")
@@ -501,36 +524,3 @@ def build_recent_activity_memory(state_dict: dict, max_chars: int = 6000) -> str
         return result
     except Exception as e:
         return f"[RECENT_ACTIVITY_MEMORY 로드 실패: {e}]"
-
-
-def update_recent_activity_memory(state_dict: dict, event_type: str, content: str) -> list:
-    """
-    사용자 행동 및 활동 발생 시 st.session_state.recent_activity_memory를 동적으로 갱신합니다.
-    최대 15개의 항목을 유지하며 FIFO 형식으로 오래된 항목은 제거합니다.
-    이 함수는 streamlit 의존성이 없는 순수 Python 함수입니다.
-    """
-    try:
-        memory = state_dict.get("recent_activity_memory", [])
-        if not isinstance(memory, list):
-            memory = []
-            
-        from datetime import datetime as _dt
-        now_str = _dt.now().strftime("%Y-%m-%d %H:%M:%S")
-        
-        # 중복 방지: 직전 추가된 항목과 내용이 같으면 무시
-        if memory and memory[-1].get("type") == event_type and memory[-1].get("content") == content:
-            return memory
-            
-        memory.append({
-            "timestamp": now_str,
-            "type": event_type,
-            "content": content
-        })
-        
-        # 15개 제한
-        if len(memory) > 15:
-            memory = memory[-15:]
-            
-        return memory
-    except Exception:
-        return state_dict.get("recent_activity_memory", [])
