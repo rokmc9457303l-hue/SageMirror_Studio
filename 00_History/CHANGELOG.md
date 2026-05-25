@@ -1,3 +1,28 @@
+## v16.1.0 — 2026-05-25 20:22
+### 변경 내용
+- **Part 7 CapCut 자동 조립 브릿지 설계 및 AI 패킷 생성 엔진 구현**:
+  - 나레이션 대본을 지정된 장면 수만큼 자동 분할하고 비주얼, BGM, 자막의 스타일을 결합하여 CapCut 조립용 JSON 패킷으로 만드는 `build_capcut_assembly_packet()` 함수를 새로 추가했습니다.
+  - JSON 파싱 오류나 AI 미동작 시에도 줄 단위 분석 및 장면 매칭을 통해 구조가 깨지지 않도록 견고한 Fallback 씬 분할 엔진을 이중 탑재했습니다.
+- **UI 및 세션 상태 보존 연동**:
+  - `render_part7_capcut` 함수 내부 최하단에 `Step 2. CapCut 자동 조립 구조 설계 (패킷 생성기)` UI 블록을 안전하게 연결하여 기존 UI 붕괴 없이 깔끔하게 2단계 프로세스를 구축했습니다.
+  - `render_result_preview` 를 통해 결과 JSON 패킷을 직접 '보기, 복사, 앱 저장, 옵시디언 자동 저장(ScriptDrafts/)' 할 수 있는 4종 조작을 일원화해 연동했습니다.
+  - 세션 초기화(`DEFAULT_RESET_VALUES`) 및 `keys_to_save` 에 Part 7의 신규 입력/출력 세션 키 6종을 추가해 영속 보존을 실현했습니다.
+- **실행 배치 및 스크립트 파일 일괄 갱신**:
+  - `sage_popups.py` 내의 `save_workspace_state` 참조 임포트를 `app_v16_1_0`로 교체했습니다.
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 배치 및 스크립트 파일들의 Streamlit 실행 대상을 `app_v16_1_0.py`로 일괄 업데이트 완료했습니다 (포트 8505 유지).
+### 영향 파트
+- Part 7 숏폼 생성 (CapCut Bridge) 및 어플리케이션 배포 파이프라인
+### 수정 파일
+- `app_v16_1_0.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_Obsidian/sessions/session_20260525_2022_v16_1_0.md`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.0.3 — 2026-05-25 20:15
 ### 변경 내용
 - **v16.0.2 검증 성공본을 Stable Checkpoint로 고정**:
