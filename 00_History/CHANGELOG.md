@@ -1,3 +1,25 @@
+## v15.9.34.14 — 2026-05-25 11:45
+### 변경 내용
+- **업로드 파일 텍스트 추출 안전 유틸 함수 추가**:
+  - `extract_text_from_uploaded_file(uploaded_file)` 함수를 추가하여 TXT, MD, HTML, PDF 파일에서 텍스트를 안전하게 추출할 수 있는 기능을 구현했습니다.
+  - HTML 파일의 경우 BeautifulSoup 라이브러리를 이용하여 script, style 태그를 분해(decompose)한 뒤 순수 텍스트만 추출하며, 라이브러리 부재 시 정규식 폴백 처리를 적용했습니다.
+  - PDF 파일의 경우 pypdf / PyPDF2 라이브러리를 사용하여 안전하게 텍스트를 추출하며, 실패하거나 라이브러리가 없을 시 None을 반환하도록 예외 처리를 구성했습니다.
+- **임시 개발자 테스트 UI 추가**:
+  - 메인 라우팅 블록의 최하단에 파일 업로더와 텍스트 프리뷰 영역을 렌더링하는 임시 테스트 UI를 안전하게 추가했습니다. (사이드바 수정금지 룰을 회피하기 위해 메인 하단에 배치함)
+- **sage_popups.py 및 구동 스크립트 실행 타겟 버전 상향**:
+  - `sage_popups.py` 내의 `save_workspace_state` 임포트 버전을 `app_v15_9_34_14`로 상향했습니다.
+  - `RUN_APP.bat` 파일의 Streamlit 실행 타겟을 `app_v15_9_34_14.py`로 갱신 완료했습니다.
+### 영향 파트
+- **App Core (File Utility)**: 파일 형식별 텍스트 추출 안전 모듈 추가.
+- **Developer Test Area**: 텍스트 추출 기능 검증을 위한 메인 하단 임시 UI 컴포넌트 추가.
+### 수정 파일
+- `app_v15_9_34_14.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.34.13 — 2026-05-25 11:30
 ### 변경 내용
 - **상단 공통 프롬프트 HTML 오염 정화 필터 강화**:
