@@ -1,3 +1,24 @@
+## v16.1.1 — 2026-05-26 06:58
+### 변경 내용
+- **Gemma Assistant Completion Phase 1 (Recent Activity Memory 연동)**:
+  - `rag_memory_utils.py` 내부에 `build_recent_activity_memory()` 유틸리티 함수를 신규 구현하여 최근 작업 흐름을 6000자 제한 내로 자동 요약하는 엔진을 구축했습니다.
+  - `sage_popups.py` 내의 `popup_assistant()` 스트리밍 대화 블록에서 `[현재 파트 컨텍스트] -> [RECENT_ACTIVITY_MEMORY] -> [REFERENCES_MEMORY]` 순으로 시스템 컨텍스트가 결합되도록 통합 연동했습니다.
+  - UI 상에 Recent Activity Memory가 성공적으로 적재되었음을 알리는 `🧠 Recent Activity Memory Loaded` 캡션 노출 코드를 적용했습니다.
+  - `sage_popups.py` 내의 `save_workspace_state` 임포트 버전을 `app_v16_1_1`로 업데이트하여 버전 미스매치를 방지했습니다.
+  - `app_v16_1_1.py` 버전을 정식 개발 기준본으로 승격하고, 배치 및 VBS 실행 파일 3종의 실행 타겟을 `app_v16_1_1.py`로 갱신했습니다.
+### 영향 파트
+- 젬마 어시스턴트 대화 팝업(`popup_assistant()`), RAG 최적화 레이어, 실행 배포 스크립트 3종
+### 수정 파일
+- `app_v16_1_1.py`
+- `sage_popups.py`
+- `rag_memory_utils.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.0.3 — 2026-05-25 20:30 (오늘 최종 작업 종료 및 안정 상태 고정)
 ### 변경 내용
 - **v16.0.3 안정 상태 고정 및 환경 정리**:

@@ -487,7 +487,7 @@ def popup_edit_obsidian():
             st.session_state.obsidian_history.append(st.session_state.obsidian_rules)
             st.session_state.obsidian_rules = new_val
             st.session_state.top_ob_view_widget = new_val
-            from app_v16_1_1 import save_workspace_state
+            from app_v16_0_3 import save_workspace_state
             save_workspace_state()
             st.toast("✅ 옵시디언 규칙서 저장 완료", icon="✅")
             st.rerun()
@@ -532,7 +532,7 @@ def popup_edit_prompt():
             st.session_state.prompt_history.append(st.session_state.base_prompt_rules)
             st.session_state.base_prompt_rules = new_val
             st.session_state["top_pr_view_base_prompt_rules_widget"] = new_val
-            from app_v16_1_1 import save_workspace_state
+            from app_v16_0_3 import save_workspace_state
             save_workspace_state()
             st.toast("✅ 기본 프롬프트 저장 완료", icon="✅")
             st.rerun()
@@ -1338,17 +1338,6 @@ def popup_assistant():
                 sys_ctx += "7. [SOURCE: 출처] 반드시 명기. 가짜 성경 구절·철학 인용 절대 금지.\n\n"
                 sys_ctx += "[현재 파트 컨텍스트]\n" + _build_part_context(current_part_key) + "\n"
                 sys_ctx += "[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", "") + "\n"
-
-                # ── Recent Activity Memory 주입 ──
-                try:
-                    from rag_memory_utils import build_recent_activity_memory
-                    state_dict = dict(st.session_state)
-                    recent_activity_ctx = build_recent_activity_memory(state_dict, max_chars=6000)
-                    if recent_activity_ctx.strip():
-                        sys_ctx += "\n" + recent_activity_ctx + "\n\n"
-                        st.caption("🧠 Recent Activity Memory Loaded")
-                except Exception as e:
-                    st.caption(f"Recent Activity Memory 주입 생략: {e}")
 
                 if st.session_state.get("popup_use_rag", True):
                     try:
