@@ -1,3 +1,25 @@
+## v15.9.34.21 — 2026-05-25 13:10
+### 변경 내용
+- **임시 Gemma RAG 메모리 버퍼 빌더 구현**:
+  - 8차 결과물(`prompt_preview`)을 받아 실제 Assistant 프롬프트 앞부분에 삽입할 수 있는 ACTIVE 구조화 버퍼(`[ACTIVE_REFERENCE_MEMORY]`)를 조립하는 `build_manual_gemma_memory_buffer()` 함수를 구현했습니다.
+  - 버퍼의 최종 크기가 `max_chars=32000`자를 초과하는 경우, 내부 프리뷰 문자열을 자르고 `[메모리 일부 생략됨 — max_chars 제한]` 생략 구문을 자동 추가하도록 설계했습니다.
+- **수동 버퍼 주입 테스트 UI 연동**:
+  - 최하단 테스트 영역에 "🧠 Gemma Memory Inject 테스트" 컴포넌트를 추가하고, 사용자가 수동 버튼을 클릭했을 때에만 메모리 로드 및 가공, 버퍼 생성을 실행하여 생성된 버퍼를 `st.text_area` 상에 출력하도록 구성했습니다.
+  - 생성된 버퍼를 디버그 미리보기 용도인 `st.session_state["debug_memory_preview"]`에만 저장하도록 격리하였습니다. (메시지, 채팅 히스토리, RAG Index 등 다른 상태의 보존성 유지)
+- **임포트 및 배포 스크립트 갱신**:
+  - `sage_popups.py` 내 `save_workspace_state` 임포트 참조를 `app_v15_9_34_21`로 교체했습니다.
+  - `RUN_APP.bat` 및 `RUN_DEBUG.bat` 배치 파일들의 구동 대상을 `app_v15_9_34_21.py`로 변경 완료했습니다.
+### 영향 파트
+- 파일 업로드 및 RAG 어시스턴트 프롬프트 주입 영역
+### 수정 파일
+- `app_v15_9_34_21.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.34.20 — 2026-05-25 13:00
 ### 변경 내용
 - **Gemma 어시스턴트용 RAG 메모리 블록 빌더 구현**:
