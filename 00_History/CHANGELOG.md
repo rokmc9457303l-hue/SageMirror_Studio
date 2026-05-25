@@ -1,3 +1,24 @@
+## v16.0.3 — 2026-05-25 20:15
+### 변경 내용
+- **v16.0.2 검증 성공본을 Stable Checkpoint로 고정**:
+  - `app_v16_0_2.py`를 기반으로 신규 `app_v16_0_3.py` 버전을 생성했습니다.
+  - 새 기능 추가나 UI 구조 변경 없이 안정 버전 고정을 위한 상단 주석 설명만 갱신 완료했습니다.
+- **실행 배치 및 스크립트 파일 일괄 갱신**:
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 파일들의 Streamlit 구동 및 검사 대상을 `app_v16_0_3.py`로 일괄 업데이트 완료했습니다 (포트 8505 유지).
+- **안정본 세션 기록 문서 작성**:
+  - `00_Obsidian/sessions/session_20260525_v16_0_3_stable_checkpoint.md` 문서를 생성하여 RAG Utility 모듈 분리 성과 및 References 테스트 파일 4종의 필터링 세부 결과(1개 로드 성공, 3개 안전 제외)를 명확히 기록해 두었습니다.
+### 영향 파트
+- 앱 배포 파이프라인 및 안정본 세션 관리
+### 수정 파일
+- `app_v16_0_3.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_Obsidian/sessions/session_20260525_v16_0_3_stable_checkpoint.md`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.0.2 — 2026-05-25 19:55
 ### 변경 내용
 - **RAG Utility Module 분리 및 Streamlit 의존성 제거**:
