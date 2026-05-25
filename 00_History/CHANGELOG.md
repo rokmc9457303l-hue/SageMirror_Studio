@@ -1,3 +1,25 @@
+## v16.1.6 — 2026-05-26 08:38
+### 변경 내용
+- **Agent Toolkit 모듈 분리**:
+  - `sage_popups.py` 및 `app_v16_1_5.py` 내부에 혼재되어 있던 에이전트 도구 실행 전후의 결과 문자열 포맷팅, 도구 이름 정규화, 명령 파싱, 지원 도구 목록 등의 비-UI 헬퍼 로직을 신규 순수 Python 모듈 `agent_toolkit.py`로 격리하여 분리했습니다.
+  - `agent_toolkit.py` 내에 분리 및 추가한 함수군: `get_supported_agent_tools()`, `normalize_tool_name()`, `parse_tool_command()`, `format_tool_result()`, `format_check_source_result()`, `format_search_web_result()`, `format_search_youtube_result()`, `format_save_obsidian_result()`, `format_save_reference_result()`, `format_build_packet_result()`.
+  - `agent_toolkit.py`는 순수 Python 모듈로서 Streamlit UI 및 세션 상태 접근을 배제하여 플랫폼 독립적으로 설계했습니다.
+  - `app_v16_1_6.py`를 신규 생성하여 버전 명을 `v16.1.6`으로 갱신하고, 기존 동작 안정성을 그대로 유지했습니다.
+  - `sage_popups.py`에서 `agent_toolkit` 모듈을 연동하여 `_detect_tools`, `_execute_tool`이 도구 이름 정규화 및 포맷터를 사용하도록 리팩토링했습니다.
+  - 구동 스크립트 3종(`RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs`)의 Streamlit 실행 대상을 `app_v16_1_6.py` 및 `8505` 포트로 갱신하여 릴리즈를 일원화했습니다.
+### 영향 파트
+- 젬마 어시스턴트 자율 에이전트 엔진, RAG 웹/옵시디언 리서치 도구 레이어, 실행 배포 파이프라인
+### 수정 파일
+- `app_v16_1_6.py`
+- `sage_popups.py`
+- `agent_toolkit.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.5 — 2026-05-26 08:20
 ### 변경 내용
 - **Research Router 모듈 분리**:

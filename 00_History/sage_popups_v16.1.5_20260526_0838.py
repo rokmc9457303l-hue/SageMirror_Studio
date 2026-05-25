@@ -22,14 +22,6 @@ from research_router import (
     build_tavily_rag_context_core,
     format_source_citation,
 )
-from agent_toolkit import (
-    normalize_tool_name,
-    format_tool_result,
-    get_supported_agent_tools,
-    format_check_source_result,
-    format_search_web_result,
-    format_save_obsidian_result,
-)
 
 # ─── 상수 ───
 AVAILABLE_MODELS = ["gemma4:e2b", "gemma4:e4b"]
@@ -906,7 +898,14 @@ def popup_part_action_dialog():
 import re as _re_agent
 
 # ── 툴 태그 패턴 정의 ──────────────────────────────────────────────
-AGENT_TOOL_PATTERNS = get_supported_agent_tools()
+AGENT_TOOL_PATTERNS = {
+    "NEED_RESEARCH":  r"\[NEED_RESEARCH:\s*(.+?)\]",
+    "READ_OBSIDIAN":  r"\[READ_OBSIDIAN:\s*(.+?)\]",
+    "SAVE_MEMORY":    r"\[SAVE_MEMORY:\s*(.+?)\]",
+    "VERIFY":         r"\[VERIFY:\s*(.+?)\]",
+    "ANALYZE":        r"\[ANALYZE:\s*(.+?)\]",
+    "CHECK_SOURCE":   r"\[CHECK_SOURCE:\s*(.+?)\]",
+}
 
 def _detect_tools(response: str) -> list:
     """젬마 응답에서 툴 태그 전체 감지"""
@@ -914,45 +913,45 @@ def _detect_tools(response: str) -> list:
     for tool_name, pattern in AGENT_TOOL_PATTERNS.items():
         matches = _re_agent.findall(pattern, response)
         for m in matches:
-            detected.append({"tool": normalize_tool_name(tool_name), "param": m.strip()})
+            detected.append({"tool": tool_name, "param": m.strip()})
     # 자료부족 키워드도 감지 (기존 방식)
     unsure_kws = ["자료가 부족", "확실하지 않", "모르겠습니다", "알 수 없", "정보가 없"]
     if any(kw in response for kw in unsure_kws) and not detected:
-        detected.append({"tool": "SEARCH_WEB", "param": "자동감지"})
+        detected.append({"tool": "NEED_RESEARCH", "param": "자동감지"})
     return detected
 
 def _execute_tool(tool: str, param: str, question: str, model: str, part_key: str) -> str:
     """툴 태그 실행 → 결과 반환"""
     result = ""
-    norm_tool = normalize_tool_name(tool)
 
-    if norm_tool == "SEARCH_WEB" or tool == "NEED_RESEARCH":
+    if tool == "NEED_RESEARCH":
         # Tavily 웹 검색
         query = question if param == "자동감지" else param
         api_key = st.session_state.get("tavily_api_key")
         if api_key:
             sr = run_tavily_research(query, api_key, max_results=4)
             if "error" not in sr:
-                # 결과 포맷팅 위임
-                result = format_search_web_result(query, sr.get("results", []), format_search_results_markdown)
-                # 검색 기록 저장
-                if "popup_search_history" not in st.session_state:
-                    st.session_state.popup_search_history = []
-                st.session_state.popup_search_history.append({"q": query, "res": sr})
-                # ── Recent Activity Dynamic Sync ──
-                try:
-                    from rag_memory_utils import update_recent_activity_memory
-                    state_dict = dict(st.session_state)
-                    updated_mem = update_recent_activity_memory(state_dict, "tavily", f"에이전트 검색: {query}")
-                    st.session_state.recent_activity_memory = updated_mem
-                except Exception:
-                    pass
+                if sr.get("results"):
+                    result = f"\n[🌐 웹 검색 결과 — {query}]\n"
+                    result += format_search_results_markdown(sr["results"][:4])
+                    # 검색 기록 저장
+                    if "popup_search_history" not in st.session_state:
+                        st.session_state.popup_search_history = []
+                    st.session_state.popup_search_history.append({"q": query, "res": sr})
+                    # ── Recent Activity Dynamic Sync ──
+                    try:
+                        from rag_memory_utils import update_recent_activity_memory
+                        state_dict = dict(st.session_state)
+                        updated_mem = update_recent_activity_memory(state_dict, "tavily", f"에이전트 검색: {query}")
+                        st.session_state.recent_activity_memory = updated_mem
+                    except Exception:
+                        pass
             else:
-                result = format_tool_result(norm_tool, False, "", sr['error'])
+                result = f"[검색 실패: {sr['error']}]"
         else:
-            result = format_tool_result(norm_tool, False, "", "Tavily API Key 미설정")
+            result = "[Tavily API Key 미설정]"
 
-    elif norm_tool == "READ_OBSIDIAN" or tool == "READ_OBSIDIAN":
+    elif tool == "READ_OBSIDIAN":
         # 옵시디언 RAG 검색
         try:
             from obsidian_search import simple_keyword_search
@@ -970,7 +969,7 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
         except Exception as e:
             result = f"[옵시디언 검색 실패: {e}]"
 
-    elif norm_tool == "SAVE_OBSIDIAN" or tool == "SAVE_MEMORY":
+    elif tool == "SAVE_MEMORY":
         # 옵시디언 자동 저장
         try:
             _save_to_obsidian_with_tags(
@@ -980,11 +979,11 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
                 part_key=part_key,
                 model_name=model,
             )
-            result = format_save_obsidian_result(param, True)
+            result = f"[✅ 옵시디언 저장 완료: {param}]"
         except Exception as e:
-            result = format_save_obsidian_result(param, False, str(e))
+            result = f"[저장 실패: {e}]"
 
-    elif norm_tool == "VERIFY" or tool == "VERIFY":
+    elif tool == "VERIFY":
         # 자체 검증 (젬마가 비평가로 재검토)
         verify_prompt = f"""[자가 검증 요청]
 아래 내용이 다음 기준을 충족하는지 검증하라:
@@ -1002,7 +1001,7 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
         except Exception as e:
             result = f"[검증 실패: {e}]"
 
-    elif norm_tool == "ANALYZE" or tool == "ANALYZE":
+    elif tool == "ANALYZE":
         # 심층 분석 (별도 젬마 호출)
         analyze_prompt = f"""[심층 분석 요청]
 주제: {param}
@@ -1017,18 +1016,22 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
         except Exception as e:
             result = f"[분석 실패: {e}]"
 
-    elif norm_tool == "CHECK_SOURCE" or tool == "CHECK_SOURCE":
+    elif tool == "CHECK_SOURCE":
         # 출처 검증 (Tavily로 실제 존재 여부 확인)
         api_key = st.session_state.get("tavily_api_key")
         if api_key:
             sr = run_tavily_research(param, api_key, max_results=3)
             if "error" not in sr:
-                # 결과 포맷팅 위임
-                result = format_check_source_result(param, sr.get("results", []), format_source_citation)
+                if sr.get("results"):
+                    result = f"\n[✅ 출처 검증 — {param}]\n"
+                    result += "\n".join([
+                        f"- {r.get('title','')}: {r.get('url','')} {format_source_citation(r.get('url',''), title=r.get('title',''))}"
+                        for r in sr["results"][:3]
+                    ])
+                else:
+                    result = f"[⚠️ 출처 미확인: {param} — Gemma 추론으로 표기 필요]"
             else:
-                result = format_tool_result(norm_tool, False, "", sr['error'])
-        else:
-            result = format_tool_result(norm_tool, False, "", "Tavily API Key 미설정")
+                result = f"[출처 검증 실패: {sr['error']}]"
 
     return result
 
