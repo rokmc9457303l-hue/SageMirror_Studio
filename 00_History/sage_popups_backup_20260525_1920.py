@@ -487,7 +487,7 @@ def popup_edit_obsidian():
             st.session_state.obsidian_history.append(st.session_state.obsidian_rules)
             st.session_state.obsidian_rules = new_val
             st.session_state.top_ob_view_widget = new_val
-            from app_v16_0_0 import save_workspace_state
+            from app_v15_9_34_26 import save_workspace_state
             save_workspace_state()
             st.toast("✅ 옵시디언 규칙서 저장 완료", icon="✅")
             st.rerun()
@@ -532,7 +532,7 @@ def popup_edit_prompt():
             st.session_state.prompt_history.append(st.session_state.base_prompt_rules)
             st.session_state.base_prompt_rules = new_val
             st.session_state["top_pr_view_base_prompt_rules_widget"] = new_val
-            from app_v16_0_0 import save_workspace_state
+            from app_v15_9_34_26 import save_workspace_state
             save_workspace_state()
             st.toast("✅ 기본 프롬프트 저장 완료", icon="✅")
             st.rerun()
@@ -1338,21 +1338,6 @@ def popup_assistant():
                 sys_ctx += "7. [SOURCE: 출처] 반드시 명기. 가짜 성경 구절·철학 인용 절대 금지.\n\n"
                 sys_ctx += "[현재 파트 컨텍스트]\n" + _build_part_context(current_part_key) + "\n"
                 sys_ctx += "[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", "") + "\n"
-
-                # References & 파일 RAG 기억 주입 (v16.0.0 최소 범위 통합)
-                if st.session_state.get("popup_use_rag", True):
-                    try:
-                        from app_v16_0_0 import load_recent_reference_files, build_gemma_memory_prompt_preview, build_manual_gemma_memory_buffer
-                        ref_items = load_recent_reference_files(max_files=20, max_chars=120000)
-                        if ref_items:
-                            prompt_preview = build_gemma_memory_prompt_preview(ref_items, max_chars=30000)
-                            ref_buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=30000)
-                            if ref_buffer.strip():
-                                sys_ctx += "\n[References & 파일 업로드 RAG 기억]\n" + ref_buffer + "\n\n"
-                                st.caption("✅ References Memory가 시스템 컨텍스트에 성공적으로 주입되었습니다 (max_chars=30000).")
-                    except Exception as e:
-                        st.caption(f"References Memory 주입 생략: {e}")
-
                 if st.session_state.get("popup_use_rag", True):
                     sys_ctx += "\n" + _build_obsidian_rag_context()
                     tavily_ctx = _build_tavily_rag_context()

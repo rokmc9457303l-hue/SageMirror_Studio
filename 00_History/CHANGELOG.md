@@ -1,3 +1,25 @@
+## v16.0.0 — 2026-05-25 19:25
+### 변경 내용
+- **젬마 어시스턴트 팝업 내 References RAG 메모리 주입 연동**:
+  - `sage_popups.py`의 `popup_assistant()` Gemma 대화 스트리밍 처리부(`pending_stream` 처리 블록)에 `load_recent_reference_files()` 및 `build_gemma_memory_prompt_preview()`와 `build_manual_gemma_memory_buffer()`를 결합하여 최근 References 및 파일 RAG 데이터를 주입 완료했습니다.
+  - RAG 데이터 주입은 `max_chars=30000`자로 안전 절사 처리를 동반하며, `try-except` 예외 처리 및 폴백(`st.caption` 우회 알림)을 적용하여 로드 실패 시에도 대화 흐름이 절대 중단되지 않도록 완벽하게 안전망을 구축했습니다.
+- **임포트 및 배포 스크립트 갱신**:
+  - `sage_popups.py` 내 `save_workspace_state` 임포트 참조를 `app_v16_0_0`으로 업데이트했습니다.
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 배치 및 스크립트 파일들의 구동 대상을 `app_v16_0_0.py`로 통합 완료했습니다. (포트 8505)
+- **컴파일 무오류 검증 완료**:
+  - `app_v16_0_0.py` 및 `sage_popups.py` 두 자산의 `py_compile` 무오류 통과를 완료했습니다.
+### 영향 파트
+- 젬마 어시스턴트 대화 탭(`popup_assistant()`) 및 배포 파이프라인
+### 수정 파일
+- `app_v16_0_0.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.34.26 — 2026-05-25 18:55
 ### 변경 내용
 - **하단 임시 개발자 테스트 UI 비활성화 처리**:
