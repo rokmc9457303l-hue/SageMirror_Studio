@@ -1,3 +1,22 @@
+## v16.1.3 — 2026-05-26 07:30
+### 변경 내용
+- **RAG Tag System 모듈 분리**:
+  - `app_v16_1_2.py`에 혼재되어 있던 RAG 태그, 카테고리, 폴더 맵 및 RAG 자동 분류 핵심 로직 함수들(`RAG_CATEGORY_MAP`, `PART_DEFAULT_CATEGORIES`, `PART_RAG_TAG_MAP`, `PART_RAG_FOLDER_MAP`, `get_default_tags_for_part()`, `detect_rag_categories()`, `build_rag_classification_markdown()`, `_unique_keep_order()`)을 순수 Python 모듈인 `rag_tag_system.py`로 분리 추출하였습니다.
+  - `rag_tag_system.py` 모듈 내에서 Streamlit 임포트 및 세션 상태 접근을 배제하여 의존성 없는 구조를 구축했습니다.
+  - `app_v16_1_3.py`를 신규 생성하여 분리된 RAG 자산들을 `from rag_tag_system import ...` 형식으로 불러와 연결되도록 리팩토링을 마쳤습니다.
+  - 구동 스크립트 3종(`RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs`)의 Streamlit 실행 타겟을 `app_v16_1_3.py`로 갱신하여 릴리즈를 일원화했습니다.
+### 영향 파트
+- RAG 자동 분류 및 태그 인덱싱 엔진, 파트별 RAG 검색 컴포넌트(Librarian, Alchemist 등), 실행 배포 파이프라인
+### 수정 파일
+- `app_v16_1_3.py`
+- `rag_tag_system.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.2 — 2026-05-26 07:15
 ### 변경 내용
 - **Gemma Assistant Completion Phase 2 (Recent Activity Dynamic Sync)**:
