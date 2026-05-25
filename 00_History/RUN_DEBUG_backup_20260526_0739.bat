@@ -6,11 +6,9 @@ echo ======================================
 echo Sage Mirror Debug Mode
 echo ======================================
 
-python -m py_compile app_v16_1_4.py
+python -m py_compile app_v16_1_3.py
 python -m py_compile sage_popups.py
 python -m py_compile rag_memory_utils.py
-python -m py_compile rag_tag_system.py
-python -m py_compile memory_state_manager.py
 
 if errorlevel 1 (
     echo.
@@ -23,6 +21,6 @@ echo.
 echo [OK] Compile Success
 echo.
 
-python -m streamlit run app_v16_1_4.py --server.port 8505
+python -m streamlit run app_v16_1_3.py --server.port 8505
 
 pause

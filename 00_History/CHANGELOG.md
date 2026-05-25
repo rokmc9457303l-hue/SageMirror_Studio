@@ -1,3 +1,22 @@
+## v16.1.4 — 2026-05-26 07:45
+### 변경 내용
+- **Memory Layer 안정화 및 분리**:
+  - `app_v16_1_3.py` 내의 비-UI 메모리 관리 기능(오염 방지 필터 `clean_prompt_contamination`, 워크스페이스 상태 일괄 정화 `sanitize_workspace_prompt_values_once_core`, 워크스페이스 저장 `save_workspace_state_core`, 워크스페이스 설정값 로드 `load_workspace_state_core`, 업로드 파일 텍스트 추출 `extract_text_from_uploaded_file`, 텍스트 마크다운 구조화 `convert_text_to_markdown_structure`, 공용 태그 빌더 `build_all_parts_common_tags_preview`, References 저장 `save_reference_markdown_file`, References 파싱 `parse_markdown_reference`)을 순수 Python 모듈인 `memory_state_manager.py`로 격리/분리했습니다.
+  - `memory_state_manager.py` 모듈 내에서 Streamlit 임포트 및 세션 상태 접근을 최소화/배제하여 UI 및 플랫폼 의존성 없는 독립 코어 구조를 보장했습니다.
+  - `app_v16_1_4.py`를 신규 생성하여 분리된 메모리 코어 기능들을 `from memory_state_manager import ...`로 import하여 연결하고, 기존 동작(UI 토스트 알림, 에러 메시지 처리, 세션 스테이트 갱신 및 Recent Activity Sync)에 문제가 없도록 안전한 래퍼 함수 구조를 설계했습니다.
+  - 구동 스크립트 3종(`RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs`)의 Streamlit 실행 대상을 `app_v16_1_4.py`로 갱신하여 릴리즈를 일원화했습니다.
+### 영향 파트
+- 메모리 관리 레이어(RAG, References, Workspace, Session) 독립화, 전체 앱의 상태 보존 및 로드 시스템, 실행 배포 파이프라인
+### 수정 파일
+- `app_v16_1_4.py`
+- `memory_state_manager.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.3 — 2026-05-26 07:30
 ### 변경 내용
 - **RAG Tag System 모듈 분리**:
