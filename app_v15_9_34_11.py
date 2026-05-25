@@ -2,10 +2,13 @@
 
 """
 
-🪞 현자의 거울 스튜디오 — Master App v15.9.34.10
+🪞 현자의 거울 스튜디오 — Master App v15.9.34.11
 
-[v15.9.34.10 업데이트 사항: 2026-05-24]
-- 떡상채널 발굴기 프롬프트 보강 (다크심리학 + 4070 공명 + 댓글 체험담)
+[v15.9.34.11 업데이트 사항: 2026-05-24]
+- [A] 탭1 실행 로직 (base_prompt_rules -> p2_master_prompt 교체)
+- [B] 탭2 실행 로직 (base_prompt_rules -> p2_master_prompt 교체)
+- [C] 탭3 실행 로직 (p2_master_prompt 주입 추가)
+- [D] 젬마 프로토콜 v9.0 완성본 교체
 
 """
 
@@ -5714,7 +5717,7 @@ def popup_edit_benchmarking():
 # =====================================================================
 
 def render_top_panel():
-    st.caption("RUNNING VERSION: v15.9.34.10")
+    st.caption("RUNNING VERSION: v15.9.34.11")
 
     # ──────────────────────────────────────────────────────────────
 
@@ -8079,61 +8082,8 @@ def render_part1():
 
                 with c_reparse:
 
-                    if st.button("🔄 수정 텍스트 기반 주제 재파싱", use_container_width=True, key="p1_reparse_btn"):
-
-                        st.session_state.p1_topics = _parse_topics(st.session_state.p1_bench_raw)
-
-                        st.success("수정된 텍스트에서 주제 20개가 재파싱되었습니다!")
-
-                        save_workspace_state()
-
-                        st.rerun()
-
-                with c_popup:
-
-                    if st.button("[SEARCH] 팝업에서 크게 보기", use_container_width=True, key="p1_bench_pop_btn"):
-
-                        popup_edit_benchmarking()
-
-
-
-            if st.session_state.p1_topics:
-
-                st.markdown("<br>", unsafe_allow_html=True)
-
-                topics_display = [f"{i+1:02d}. {t['title']}" for i, t in enumerate(st.session_state.p1_topics)]
-
-                st.session_state.p1_topic_selection = st.selectbox("📌 기획할 주제 1개 선정", topics_display, disabled=is_locked, key="p1_topic_selection_box")
-
-                st.session_state.pipeline_state["selected_topic"] = st.session_state.p1_topic_selection
-
-                save_workspace_state()
-
-
-
-                st.divider()
-
-                st.markdown("##### 💾 수동 백업 / RAG 키워드 정보")
-
-                st.session_state.p1_bench_tags = st.text_input(
-
-                    "🏷️ 옵시디언 저장 키워드/태그 (쉼표로 구분)", 
-
-                    value=st.session_state.p1_bench_tags, 
-
-                    placeholder="예: 외로움, 존재의미, 고통, 용서", 
-
-                    key="p1_bench_tags_input",
-
-                    disabled=is_locked
-
-                )
-
-                
-
-                if st.button("💾 (예비용) 벤치마킹 수동 옵시디언 백업 실행", use_container_width=True, key="p1_bench_save_backup_btn", disabled=is_locked):
-
-                    tag_list = [t.strip() for t in st.session_state.p1_bench_tags.split(",") if t.strip()]
+                    if st.button("🔄 벤치마킹 수동 옵시디언 백업 실행", use_container_width=True, key="p1_bench_save_backup_btn", disabled=is_locked):
+                        tag_list = [t.strip() for t in st.session_state.p1_bench_tags.split(",") if t.strip()]
 
                     tag_links = " ".join([f"[[{t}]]" for t in tag_list])
 
@@ -9834,7 +9784,7 @@ def render_part2():
 
         st.markdown('<div class="top-panel-card"><div class="top-panel-title">📝 젬마 프로토콜 (Gemma Protocol)</div>', unsafe_allow_html=True)
 
-        if True:  # 항상 최신 프로토콜로 갱신
+        if "p2_gemma_protocol" not in st.session_state or len(st.session_state.get("p2_gemma_protocol","")) < 50:
             st.session_state.p2_gemma_protocol = (
                 "# 🧙 젬마 프로토콜 v9.0 — Part 2 Alchemist 전용\n"
                 "# ═══════════════════════════════════════\n\n"
@@ -10019,7 +9969,7 @@ def render_part2():
 
             
 
-            if True:  # 항상 최신 프롬프트로 갱신
+            if "p2_bench_prompt" not in st.session_state or len(st.session_state.get("p2_bench_prompt","")) < 50:
                 st.session_state.p2_bench_prompt = (
                     "# 🎬 Part 2 Alchemist [탭1: 채널 벤치마킹 및 주제 도출]\n\n"
                     "너는 연금술사다. Part 1 원석 데이터를 기승전결 구조로 변환하라.\n\n"
@@ -10128,7 +10078,7 @@ def render_part2():
 
                                 st.session_state.p2_channel_url, st.session_state.p2_region, 
 
-                                st.session_state.obsidian_rules, st.session_state.base_prompt_rules, 
+                                st.session_state.obsidian_rules, st.session_state.get("p2_master_prompt", st.session_state.base_prompt_rules), 
 
                                 st.session_state.p2_gemma_protocol, st.session_state.p2_bench_prompt
 
@@ -10462,7 +10412,7 @@ def render_part2():
 
                                 st.session_state.p2_channel_url, topic_str,
 
-                                st.session_state.p2_gemma_protocol, st.session_state.base_prompt_rules,
+                                st.session_state.p2_gemma_protocol, st.session_state.get("p2_master_prompt", st.session_state.base_prompt_rules),
 
                                 st.session_state.get("p2_research_prompt", ""),
 
@@ -11082,6 +11032,10 @@ def render_part2():
 
 
 
+[Part 2 전역 마스터 지침]
+{st.session_state.get("p2_master_prompt", "")}
+
+[Part 2 젬마 프로토콜]
 {st.session_state.p2_gemma_protocol}"""
 
 
