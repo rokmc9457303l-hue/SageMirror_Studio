@@ -1,3 +1,24 @@
+## v15.9.34.16 — 2026-05-25 12:05
+### 변경 내용
+- **기존 detect_rag_categories() 분석 시스템 연결**:
+  - 파일 업로드 -> 텍스트 추출 -> 마크다운 구조화 결과에 대해 기존에 완성되어 있던 RAG 카테고리/키워드/위키링크/해시태그 감지 함수인 `detect_rag_categories()`를 연동했습니다. (임시 part_key="part1" 고정 참조)
+- **임시 개발자 테스트 UI 확장**:
+  - 메인 페이지 최하단 개발자 테스트 UI에 "자동 RAG 카테고리 분석 미리보기" 컴포넌트를 탑재하여 감지된 카테고리, 점수, 키워드, 위키링크, 해시태그(각각 상위 30개)를 실시간 `st.write`로 시각화해 줍니다.
+- **sage_popups.py, 구동 및 디버그 스크립트 실행 타겟 버전 상향**:
+  - `sage_popups.py` 내의 `save_workspace_state` 임포트 버전을 `app_v15_9_34_16`으로 상향했습니다.
+  - `RUN_APP.bat` 및 `RUN_DEBUG.bat` 파일의 Streamlit 실행/컴파일 타겟을 `app_v15_9_34_16.py`로 갱신 완료했습니다.
+### 영향 파트
+- **App Core (RAG Category Connection)**: 파일에서 구조화된 마크다운을 분석해 RAG 인덱싱할 카테고리/태그 정보를 추출하는 시스템 연동.
+- **Developer Test Area**: 분석된 RAG 카테고리 및 해시태그 메타데이터를 즉각 검증할 수 있는 디버깅 뷰 구성.
+### 수정 파일
+- `app_v15_9_34_16.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v15.9.34.15 — 2026-05-25 11:55
 ### 변경 내용
 - **Markdown 구조화 엔진 추가**:
