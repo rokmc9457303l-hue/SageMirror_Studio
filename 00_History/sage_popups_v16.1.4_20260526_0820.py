@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-sage_popups.py — 팝업 다이얼로그 v3.1
-[v3.1 업그레이드: 2026-05-26]
-- Agent Layer Separation Phase 1 (Research Router) 연동
-- Tavily 검색 및 태그 디텍션 동작 위임
+sage_popups.py — 팝업 다이얼로그 v3.0
+[v3.0 업그레이드]
+- 파트 작업 지시 → 별도 대형 팝업창 (popup_part_action_dialog)
+- 리서치 결과 → 젬마 자동 컨텍스트 주입 (session_state.tavily_rag_context)
+- 심리학 채널 전용 감정/태그 세분화 자동저장 시스템
+- 각 파트 상단 옵시디언 규칙서 참조 → 저장 시 자동 반영
+- 모든 데이터 소스(Tavily+옵시디언+파트데이터) 통합 RAG 컨텍스트
 """
 
 import streamlit as st
@@ -14,14 +17,6 @@ from sage_config import (
     SAGE_PERSONA, OLLAMA_MODEL,
 )
 from sage_engine import call_gemma, call_gemma_stream, tavily_search, check_ollama_status
-from research_router import (
-    should_trigger_research,
-    run_tavily_research,
-    clean_search_query,
-    format_search_results_markdown,
-    build_tavily_rag_context_core,
-    format_source_citation,
-)
 
 # ─── 상수 ───
 AVAILABLE_MODELS = ["gemma4:e2b", "gemma4:e4b"]
@@ -141,7 +136,21 @@ def _build_obsidian_rag_context() -> str:
 def _build_tavily_rag_context() -> str:
     """저장된 Tavily 검색 결과를 젬마 컨텍스트로 반환"""
     history = st.session_state.get("popup_search_history", [])
-    return build_tavily_rag_context_core(history)
+    if not history:
+        return ""
+    ctx = "\n[인터넷 리서치 자료 (Tavily — 자동 수집)]\n"
+    for item in history[-5:]:  # 최근 5개 검색
+        q = item.get("q", "")
+        res = item.get("res", {})
+        ctx += f"\n🔎 검색어: {q}\n"
+        if res.get("answer"):
+            ctx += f"  즉시답변: {res['answer'][:200]}\n"
+        for r in res.get("results", [])[:3]:
+            ctx += f"  - [{r.get('title','')}]: {r.get('content','')[:200]}\n"
+            ctx += f"    [SOURCE: {r.get('url','')}]\n"
+        if res.get("gemma_analysis"):
+            ctx += f"  젬마 분석: {res['gemma_analysis'][:300]}\n"
+    return ctx
 
 
 def _classify_emotion_tags(text: str) -> dict:
@@ -927,13 +936,15 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
     if tool == "NEED_RESEARCH":
         # Tavily 웹 검색
         query = question if param == "자동감지" else param
-        api_key = st.session_state.get("tavily_api_key")
-        if api_key:
-            sr = run_tavily_research(query, api_key, max_results=4)
-            if "error" not in sr:
+        if st.session_state.get("tavily_api_key"):
+            try:
+                sr = tavily_search(query, st.session_state.tavily_api_key, max_results=4)
                 if sr.get("results"):
                     result = f"\n[🌐 웹 검색 결과 — {query}]\n"
-                    result += format_search_results_markdown(sr["results"][:4])
+                    result += "\n".join([
+                        f"- {r.get('title','')}: {r.get('content','')[:300]} [SOURCE: {r.get('url','')}]"
+                        for r in sr["results"][:4]
+                    ])
                     # 검색 기록 저장
                     if "popup_search_history" not in st.session_state:
                         st.session_state.popup_search_history = []
@@ -946,8 +957,8 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
                         st.session_state.recent_activity_memory = updated_mem
                     except Exception:
                         pass
-            else:
-                result = f"[검색 실패: {sr['error']}]"
+            except Exception as e:
+                result = f"[검색 실패: {e}]"
         else:
             result = "[Tavily API Key 미설정]"
 
@@ -1018,20 +1029,19 @@ def _execute_tool(tool: str, param: str, question: str, model: str, part_key: st
 
     elif tool == "CHECK_SOURCE":
         # 출처 검증 (Tavily로 실제 존재 여부 확인)
-        api_key = st.session_state.get("tavily_api_key")
-        if api_key:
-            sr = run_tavily_research(param, api_key, max_results=3)
-            if "error" not in sr:
+        if st.session_state.get("tavily_api_key"):
+            try:
+                sr = tavily_search(param, st.session_state.tavily_api_key, max_results=3)
                 if sr.get("results"):
                     result = f"\n[✅ 출처 검증 — {param}]\n"
                     result += "\n".join([
-                        f"- {r.get('title','')}: {r.get('url','')} {format_source_citation(r.get('url',''), title=r.get('title',''))}"
+                        f"- {r.get('title','')}: {r.get('url','')} [SOURCE: {r.get('url','')}]"
                         for r in sr["results"][:3]
                     ])
                 else:
                     result = f"[⚠️ 출처 미확인: {param} — Gemma 추론으로 표기 필요]"
-            else:
-                result = f"[출처 검증 실패: {sr['error']}]"
+            except Exception as e:
+                result = f"[출처 검증 실패: {e}]"
 
     return result
 
@@ -1513,10 +1523,7 @@ def popup_assistant():
             else:
                 with st.spinner("🌐 Tavily 검색 중..."):
                     try:
-                        res = run_tavily_research(sq, st.session_state.tavily_api_key)
-                        if "error" in res:
-                            st.error(f"❌ Tavily 검색 중 오류 발생: {res['error']}")
-                            st.stop()
+                        res = tavily_search(sq, st.session_state.tavily_api_key)
 
                         # 젬마 자동 분석
                         if analyze_with_gemma and res.get("results"):

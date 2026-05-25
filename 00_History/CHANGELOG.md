@@ -1,3 +1,24 @@
+## v16.1.5 — 2026-05-26 08:20
+### 변경 내용
+- **Research Router 모듈 분리**:
+  - `app_v16_1_4.py` 및 `sage_popups.py` 내부에 섞여 있던 Tavily 검색, `NEED_RESEARCH` 태그 분석, 검색 결과 마크다운 가공, RAG 컨텍스트 구축 등 비-UI 검색 흐름을 신규 순수 Python 모듈 `research_router.py`로 분리하여 격리했습니다.
+  - `research_router.py` 내에 분리한 함수군: `should_trigger_research()`, `run_tavily_research()`, `clean_search_query()`, `format_search_results_markdown()`, `build_tavily_rag_context_core()`, `build_gemini_search_context_core()`, `build_youtube_search_context_core()`, `build_research_markdown_document()`, `format_source_citation()`.
+  - `research_router.py`는 순수 Python 모듈로서 Streamlit UI 및 세션 상태 접근을 원천 배제하여 플랫폼 독립적인 코어로 설계했습니다.
+  - `app_v16_1_5.py`를 신규 생성하여 분리된 기능들을 import 하여 연결하고, `call_gemma` 핵심 웹 검색 루프 및 어시스턴트 팝업의 실행 흐름을 안정적으로 연동했습니다.
+  - 구동 스크립트 3종(`RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs`)의 Streamlit 실행 타겟을 `app_v16_1_5.py` 및 `8505` 포트로 갱신하여 릴리즈를 일원화했습니다.
+### 영향 파트
+- RAG 웹 검색 엔진, 어시스턴트 백그라운드 리서치 라우터, 파트 1~8 지식 검색 파이프라인
+### 수정 파일
+- `app_v16_1_5.py`
+- `sage_popups.py`
+- `research_router.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.4 — 2026-05-26 07:45
 ### 변경 내용
 - **Memory Layer 안정화 및 분리**:
