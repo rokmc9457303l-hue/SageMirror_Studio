@@ -1,3 +1,27 @@
+## v16.1.7 — 2026-05-26 08:53
+### 변경 내용
+- **Agent Registry System 도입**:
+  - Gemma Assistant가 사용할 수 있는 에이전트 도구들의 메타데이터(설명, 별칭, 패턴, 카테고리, 활성화 여부 등)를 통합 관리하는 중앙 레지스트리 모듈 `agent_registry.py`를 신규 설계하여 추가했습니다.
+  - `agent_registry.py` 내에 구현한 핵심 함수군: `get_agent_tool_registry()`, `normalize_registry_tool_name()`, `get_enabled_tools()`, `get_tool_metadata()`, `get_tool_description()`, `get_tool_category()`.
+  - `agent_registry.py`는 순수 Python 모듈로서 Streamlit UI 및 플랫폼 의존성을 원천 배제했습니다.
+  - `agent_toolkit.py`를 수정하여 기존에 하드코딩되어 있던 툴 목록 사전을 걷어내고, `agent_registry`를 import하여 연동 및 정규식 패턴을 동적 빌드하도록 리팩토링했습니다.
+  - `sage_popups.py`에서 `agent_toolkit`을 통해 정규화 및 탐색할 때 Registry 사전에 등록되어 비활성화(`enabled=False`) 처리된 도구들은 자동으로 감지 대상에서 배제되도록 정합성을 고도화했습니다.
+  - `app_v16_1_7.py`를 신규 생성하여 버전 명을 `v16.1.7`로 갱신하고, 기존 에이전트 구동에 지장이 없도록 안정성을 유지했습니다.
+  - 구동 스크립트 3종(`RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs`)의 Streamlit 실행 대상을 `app_v16_1_7.py` 및 `8505` 포트로 갱신하여 릴리즈를 일원화했습니다.
+### 영향 파트
+- 젬마 어시스턴트 자율 에이전트 엔진, 도구 Registry 탐색 및 정규화 레이어, 실행 배포 파이프라인
+### 수정 파일
+- `app_v16_1_7.py`
+- `sage_popups.py`
+- `agent_toolkit.py`
+- `agent_registry.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.6 — 2026-05-26 08:38
 ### 변경 내용
 - **Agent Toolkit 모듈 분리**:

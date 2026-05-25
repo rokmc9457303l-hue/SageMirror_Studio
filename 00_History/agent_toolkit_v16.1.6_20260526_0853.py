@@ -7,31 +7,40 @@ agent_toolkit.py — Agent Layer Tool Toolkit (비-UI 에이전트 도구 실행
 import re
 from datetime import datetime
 
-from agent_registry import (
-    get_agent_tool_registry,
-    normalize_registry_tool_name,
-    get_enabled_tools,
-    get_tool_metadata,
-)
-
 # 지원 도구 목록 및 정규식 패턴 사전 반환 함수
 def get_supported_agent_tools() -> dict:
     """
-    에이전트가 지원하며 활성화된(enabled=True) 도구와 해당 정규식 패턴 딕셔너리를 반환합니다.
+    에이전트가 지원하는 도구와 해당 정규식 패턴 딕셔너리를 반환합니다.
     """
-    supported = {}
-    registry = get_agent_tool_registry()
-    for tool_name, metadata in registry.items():
-        if metadata.get("enabled", True):
-            supported[tool_name] = metadata.get("pattern", "")
-    return supported
+    return {
+        "NEED_RESEARCH":  r"\[NEED_RESEARCH:\s*(.+?)\]",
+        "READ_OBSIDIAN":  r"\[READ_OBSIDIAN:\s*(.+?)\]",
+        "SAVE_MEMORY":    r"\[SAVE_MEMORY:\s*(.+?)\]",
+        "VERIFY":         r"\[VERIFY:\s*(.+?)\]",
+        "ANALYZE":        r"\[ANALYZE:\s*(.+?)\]",
+        "CHECK_SOURCE":   r"\[CHECK_SOURCE:\s*(.+?)\]",
+        "SEARCH_WEB":     r"\[SEARCH_WEB:\s*(.+?)\]",
+        "SEARCH_YOUTUBE": r"\[SEARCH_YOUTUBE:\s*(.+?)\]",
+        "SAVE_OBSIDIAN":  r"\[SAVE_OBSIDIAN:\s*(.+?)\]",
+        "SAVE_REFERENCE": r"\[SAVE_REFERENCE:\s*(.+?)\]",
+        "BUILD_PACKET":   r"\[BUILD_PACKET:\s*(.+?)\]",
+    }
 
 # tool 이름 정규화 함수
 def normalize_tool_name(name: str) -> str:
     """
-    입력된 도구 명을 레지스트리 표준 명칭으로 정규화합니다.
+    입력된 도구 명을 정규화합니다.
+    예: NEED_RESEARCH -> SEARCH_WEB 등 클렌징 및 정규화
     """
-    return normalize_registry_tool_name(name)
+    if not name:
+        return ""
+    cleaned = name.strip().upper()
+    # 하위 호환성 및 정규화 매핑
+    if cleaned == "NEED_RESEARCH":
+        return "SEARCH_WEB"
+    if cleaned == "SAVE_MEMORY":
+        return "SAVE_OBSIDIAN"
+    return cleaned
 
 # tool 명령 파싱 헬퍼
 def parse_tool_command(text: str) -> dict | None:
