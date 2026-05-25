@@ -1,3 +1,31 @@
+## v16.0.1 — 2026-05-25 19:30
+### 변경 내용
+- **References Memory 주입 품질 최적화**:
+  - `app_v16_0_1.py` 에 최신 References 기억을 압축 및 최적화하여 젬마 프롬프트 형태로 변환해 주는 `build_condensed_reference_context()` 함수를 추가했습니다.
+  - 최신 8개 파일은 본문 일부(최대 800자) 및 요약/키워드/위키링크/SOURCE를 유지하며, 9번째 이후 파일(오래된 파일)은 본문을 생략하고 메타데이터 및 핵심 키워드/요약만 고압축하여 제공하도록 개선했습니다.
+  - 파일 간의 중복된 위키링크와 해시태그를 전역적으로 머지 및 정리하여 최상단에 제공하는 전역 위키링크 모음 기능을 포함했습니다.
+- **RAG 파일 안전 필터링 규칙 도입 (추가 안전 조건)**:
+  - 본문 길이 300자 미만 파일 제외
+  - 특정 HTML/오염 문자열(span, display, background-color, 자동저장:, [EP001]) 포함 파일 제외
+  - SOURCE / 키워드 / 위키링크가 모두 비어있는 파일 제외
+  - 동일 파일명 중복 시 수정시간(mtime) 기준 최신 파일만 사용
+  - 필터링에 의해 제외된 오염/비정상 파일 발생 시 `st.caption` 제외 로그 출력 적용
+- **임포트 및 배포 스크립트 갱신**:
+  - `sage_popups.py` 내의 `save_workspace_state` 및 RAG 임포트 경로를 `app_v16_0_1`로 갱신했습니다.
+  - `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 배치 및 스크립트 파일들의 구동 대상을 `app_v16_0_1.py`로 변경 완료했습니다.
+  - RAG 로딩 상태 표시를 `"🧠 References Memory Loaded: X files"` 형태로 변경하고, 에러가 발생해도 대화 흐름이 무너지지 않도록 예외 처리 안전망을 유지했습니다.
+### 영향 파트
+- 젬마 어시스턴트 대화 탭(`popup_assistant()`) 및 배포 파이프라인
+### 수정 파일
+- `app_v16_0_1.py`
+- `sage_popups.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.0.0 — 2026-05-25 19:25
 ### 변경 내용
 - **젬마 어시스턴트 팝업 내 References RAG 메모리 주입 연동**:
