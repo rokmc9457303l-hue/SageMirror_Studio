@@ -1,3 +1,21 @@
+## v16.1.9 - 2026-05-26 14:53
+### 변경 내용
+- **Part 2 Step 1 영속성 복구 패치 (Persistent Memory Recovery Patch)**:
+  - **영속성 누락 키 추가**: `memory_state_manager.py` 내 `keys_to_save` 리스트에 `"p2_gemma_protocol"`, `"p2_thumbnail_sets"`, `"p2_selected_thumbnail"` 키들이 누락되어 있었던 현상을 발견하고 이를 추가했습니다. 이를 통해 젬마 프로토콜, 썸네일 카드, 선택값 등이 `workspace_state.json` 파일에 정상 저장되도록 복구했습니다.
+  - **세션 초기화 기본값 세팅 보완**: `app_v16_1_9.py`를 신규 생성하여 버전 명을 `v16.1.9`로 업데이트하고, `init_session_state()`의 `defaults` 사전에 누락 키들의 기본값을 선언하여 초기화 시 덮어쓰기를 방지하고 로드된 데이터가 안전하게 유지되도록 조치했습니다.
+  - **배포 스크립트 3종 갱신**: `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 타겟을 `app_v16_1_9.py`로 갱신 완료했습니다.
+### 영향 파트
+- Part 2 Alchemist 기획 단계(Step 1), 영속성 관리 및 설정 저장 장치, 실행 배포 파이프라인
+### 수정 파일
+- `app_v16_1_9.py`
+- `memory_state_manager.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.8 - 2026-05-26 12:26
 ### 변경 내용
 - **Gemma Assistant 안정화 및 견고화 (Stabilization Phase)**:

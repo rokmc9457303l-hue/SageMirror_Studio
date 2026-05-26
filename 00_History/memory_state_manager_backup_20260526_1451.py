@@ -106,7 +106,6 @@ def save_workspace_state_core(state_dict: dict, workspace_file: str, secrets_fil
         "p1_bench_raw", "p1_bench_tags", "p1_research_tags", "p1_plan_tags",
         "p1_bench_saved", "p1_bench_obsidian_saved", "p1_research_saved", "p1_research_obsidian_saved", "p1_plan_saved", "p1_plan_obsidian_saved",
         "p2_topic_selection", "p2_research_result", "p2_planning_result", "p2_obsidian_search_results",
-        "p2_gemma_protocol", "p2_thumbnail_sets", "p2_selected_thumbnail",
         "p2_thumbnail_plan", "unlock_part2",
         "p2_bench_prompt", "p2_bench_raw", "p2_bench_tags", "p2_bench_saved", "p2_bench_obsidian_saved",
         "p2_research_prompt", "p2_research_tags", "p2_research_saved", "p2_research_obsidian_saved",
