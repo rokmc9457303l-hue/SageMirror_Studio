@@ -1,3 +1,19 @@
+## v16.1.15 - 2026-05-26 18:40
+### 변경 내용
+- **Part 2 Step 1 데이터 저장 버그 수정 (Thumbnail Save Integration)**:
+  - **썸네일 기획안 직접 수정 저장 연동**: 썸네일 기획안 `text_area` 위젯을 고유 위젯 key `p2_thumb_area_widget`으로 지정하고, 사용자가 기획안 텍스트를 직접 편집하여 변경했을 시에만 `st.session_state.p2_thumbnail_plan`을 갱신하고 `save_workspace_state()`를 유기적으로 자동 호출하도록 수정하여 저장 유실 문제를 최종 보완하였습니다.
+  - **배포 스크립트 3종 갱신**: `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 타겟을 `app_v16_1_15.py`로 갱신 완료했습니다.
+### 영향 파트
+- Part 2 Alchemist 기획 단계(Step 1) 썸네일 기획안 사용자 편집 레이어 및 실행 배포 파이프라인
+### 수정 파일
+- `app_v16_1_15.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.11 - 2026-05-26 15:31
 ### 변경 내용
 - **Part 2 Step 1 긴급 복구 및 롤백 (Emergency Recovery from v16.1.9 Baseline)**:
