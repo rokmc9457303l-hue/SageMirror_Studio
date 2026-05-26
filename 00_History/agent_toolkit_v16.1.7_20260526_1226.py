@@ -52,20 +52,14 @@ def parse_tool_command(text: str) -> dict | None:
             }
     return None
 
-def format_tool_error(tool_name: str, error_msg: str) -> str:
-    """
-    도구 실행 실패 또는 오류 발생 시 에러 마크다운 형식으로 포맷팅합니다.
-    """
-    norm_name = normalize_tool_name(tool_name)
-    return f"[{norm_name} 실행 실패: {error_msg if error_msg else '알 수 없는 오류'}]"
-
 # tool 실행 결과 포맷터 (공통)
 def format_tool_result(tool_name: str, success: bool, data: str, error_msg: str = "") -> str:
     """
     도구 실행 결과를 마크다운 형태로 통일되게 래핑하여 포맷팅합니다.
     """
+    norm_name = normalize_tool_name(tool_name)
     if not success:
-        return format_tool_error(tool_name, error_msg)
+        return f"[{norm_name} 실행 실패: {error_msg if error_msg else '알 수 없는 오류'}]"
     return data
 
 # 개별 도구 결과 포맷터 군

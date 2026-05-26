@@ -74,7 +74,6 @@ def format_search_results_markdown(web_results: list) -> str:
 def build_tavily_rag_context_core(search_history: list) -> str:
     """
     최근 Tavily 검색 이력 목록을 기반으로 젬마에 주입할 컨텍스트 텍스트를 작성합니다.
-    검색 실패 건도 RAG 컨텍스트 내에 Fallback 정보로 보존합니다.
     """
     if not search_history:
         return ""
@@ -83,9 +82,6 @@ def build_tavily_rag_context_core(search_history: list) -> str:
         q = item.get("q", "")
         res = item.get("res", {})
         ctx += f"\n🔎 검색어: {q}\n"
-        if "error" in res:
-            ctx += f"  ⚠️ 웹 검색 임시 장애: {res['error']} (현재 실시간 검색 불가)\n"
-            continue
         if res.get("answer"):
             ctx += f"  즉시답변: {res['answer'][:200]}\n"
         for r in res.get("results", [])[:3]:

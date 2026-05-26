@@ -12,8 +12,6 @@ AGENT_TOOL_REGISTRY = {
         "category": "research",
         "requires_web": True,
         "enabled": True,
-        "experimental": False,
-        "safe_mode": True,
     },
     "SEARCH_YOUTUBE": {
         "aliases": ["SEARCH_YOUTUBE"],
@@ -22,8 +20,6 @@ AGENT_TOOL_REGISTRY = {
         "category": "research",
         "requires_web": True,
         "enabled": True,
-        "experimental": False,
-        "safe_mode": True,
     },
     "CHECK_SOURCE": {
         "aliases": ["CHECK_SOURCE"],
@@ -32,8 +28,6 @@ AGENT_TOOL_REGISTRY = {
         "category": "verify",
         "requires_web": True,
         "enabled": True,
-        "experimental": False,
-        "safe_mode": True,
     },
     "SAVE_OBSIDIAN": {
         "aliases": ["SAVE_MEMORY", "SAVE_OBSIDIAN"],
@@ -42,8 +36,6 @@ AGENT_TOOL_REGISTRY = {
         "category": "storage",
         "requires_web": False,
         "enabled": True,
-        "experimental": False,
-        "safe_mode": True,
     },
     "SAVE_REFERENCE": {
         "aliases": ["SAVE_REFERENCE"],
@@ -52,8 +44,6 @@ AGENT_TOOL_REGISTRY = {
         "category": "storage",
         "requires_web": False,
         "enabled": True,
-        "experimental": False,
-        "safe_mode": True,
     },
     "BUILD_PACKET": {
         "aliases": ["BUILD_PACKET"],
@@ -62,8 +52,6 @@ AGENT_TOOL_REGISTRY = {
         "category": "system",
         "requires_web": False,
         "enabled": True,
-        "experimental": False,
-        "safe_mode": True,
     },
     "SAVE_MEMORY": {
         "aliases": ["SAVE_MEMORY", "SAVE_OBSIDIAN"],
@@ -72,8 +60,6 @@ AGENT_TOOL_REGISTRY = {
         "category": "storage",
         "requires_web": False,
         "enabled": True,
-        "experimental": False,
-        "safe_mode": True,
     },
     "NEED_RESEARCH": {
         "aliases": ["NEED_RESEARCH", "SEARCH_WEB"],
@@ -82,8 +68,6 @@ AGENT_TOOL_REGISTRY = {
         "category": "research",
         "requires_web": True,
         "enabled": True,
-        "experimental": False,
-        "safe_mode": True,
     }
 }
 

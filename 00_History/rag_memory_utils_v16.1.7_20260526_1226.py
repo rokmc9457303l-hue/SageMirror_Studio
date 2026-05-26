@@ -388,7 +388,7 @@ Gemma는 아래 자료를 추측보다 우선한다.
 def build_recent_activity_memory(state_dict: dict, max_chars: int = 6000) -> str:
     """
     최근 작업 흐름 및 기억을 st.session_state.recent_activity_memory 리스트를 바탕으로
-    구조화하여 젬마 프롬프트 주입용 블록을 생성합니다. (Stabilized v16.1.8)
+    구조화하여 젬마 프롬프트 주입용 블록을 생성합니다.
     """
     try:
         memory = state_dict.get("recent_activity_memory", [])
@@ -399,92 +399,44 @@ def build_recent_activity_memory(state_dict: dict, max_chars: int = 6000) -> str
         lines.append("[RECENT_ACTIVITY_MEMORY]")
         lines.append("")
 
-        # 1. 최근 사용자 질문 (압축 및 디듀프)
-        lines.append("- 최근 사용자 질문 (핵심 흐름):")
+        # 1. 최근 사용자 질문
+        lines.append("- 최근 사용자 질문:")
         questions = [m for m in memory if m.get("type") == "question"]
-        seen_q = set()
-        unique_questions = []
-        for q in reversed(questions): # 최신순
-            q_clean = q.get('content', '').strip()
-            if q_clean and q_clean not in seen_q:
-                seen_q.add(q_clean)
-                unique_questions.append(q)
-        unique_questions.reverse() # 다시 시간순으로 정렬
-        
-        if unique_questions:
-            for q in unique_questions[-5:]:
-                q_text = q.get('content', '')
-                if len(q_text) > 80:
-                    q_text = q_text[:80] + "..."
-                lines.append(f"  - [{q.get('timestamp')}] {q_text}")
+        if questions:
+            for q in questions[-5:]:
+                lines.append(f"  - [{q.get('timestamp')}] {q.get('content')}")
         else:
             # 폴백: popup_history 조회
             chat_history = state_dict.get("popup_history", [])
-            user_chats = [m.get("content", "").strip() for m in chat_history if m.get("role") == "user"]
-            seen_chats = set()
-            unique_chats = []
-            for uc in reversed(user_chats):
-                if uc and uc not in seen_chats:
-                    seen_chats.add(uc)
-                    unique_chats.append(uc)
-            unique_chats.reverse()
-            if unique_chats:
-                for uc in unique_chats[-3:]:
-                    uc_text = uc
-                    if len(uc_text) > 80:
-                        uc_text = uc_text[:80] + "..."
-                    lines.append(f"  - {uc_text}")
+            user_chats = [m.get("content", "") for m in chat_history if m.get("role") == "user"]
+            if user_chats:
+                for uc in user_chats[-3:]:
+                    lines.append(f"  - {uc.strip()}")
             else:
                 lines.append("  - 대화 이력 없음")
         lines.append("")
 
-        # 2. 최근 웹 리서치 검색 흐름 (정리 및 디듀프)
-        lines.append("- 최근 웹 리서치 검색 흐름:")
+        # 2. 최근 Tavily 검색
+        lines.append("- 최근 Tavily 검색:")
         searches = [m for m in memory if m.get("type") == "tavily"]
-        seen_s = set()
-        unique_searches = []
-        for s in reversed(searches):
-            s_clean = s.get('content', '').strip()
-            if s_clean and s_clean not in seen_s:
-                seen_s.add(s_clean)
-                unique_searches.append(s)
-        unique_searches.reverse()
-        
-        if unique_searches:
-            for s in unique_searches[-5:]:
+        if searches:
+            for s in searches[-5:]:
                 lines.append(f"  - [{s.get('timestamp')}] {s.get('content')}")
         else:
             # 폴백: popup_search_history 조회
             search_history = state_dict.get("popup_search_history", [])
-            seen_sh = set()
-            unique_sh = []
-            for item in reversed(search_history):
-                sh_q = item.get('q', '').strip()
-                if sh_q and sh_q not in seen_sh:
-                    seen_sh.add(sh_q)
-                    unique_sh.append(sh_q)
-            unique_sh.reverse()
-            if unique_sh:
-                for sh_q in unique_sh[-3:]:
-                    lines.append(f"  - {sh_q}")
+            if search_history:
+                for item in search_history[-3:]:
+                    lines.append(f"  - {item.get('q', '').strip()}")
             else:
                 lines.append("  - 검색 기록 없음")
         lines.append("")
 
-        # 3. 최근 References (우선순위 정리 및 디듀프)
-        lines.append("- 최근 참조 References 파일:")
+        # 3. 최근 References
+        lines.append("- 최근 References:")
         refs = [m for m in memory if m.get("type") == "references"]
-        seen_r = set()
-        unique_refs = []
-        for r in reversed(refs):
-            r_clean = r.get('content', '').strip()
-            if r_clean and r_clean not in seen_r:
-                seen_r.add(r_clean)
-                unique_refs.append(r)
-        unique_refs.reverse()
-        
-        if unique_refs:
-            for r in unique_refs[-5:]:
+        if refs:
+            for r in refs[-5:]:
                 lines.append(f"  - {r.get('content')}")
         else:
             # 폴백: References 폴더 최신 파일 스캔
@@ -512,20 +464,11 @@ def build_recent_activity_memory(state_dict: dict, max_chars: int = 6000) -> str
                 lines.append("  - 참조된 References 없음")
         lines.append("")
 
-        # 4. 최근 작업 흐름 (통합 요약 품질 개선)
-        lines.append("- 최근 기획 및 제작 작업 흐름:")
+        # 4. 최근 작업 흐름 (part_save, obsidian, packet 등 통합)
+        lines.append("- 최근 작업 흐름:")
         flows = [m for m in memory if m.get("type") in ["part_save", "obsidian", "packet", "part_flow"]]
-        seen_f = set()
-        unique_flows = []
-        for f in reversed(flows):
-            f_clean = f.get('content', '').strip()
-            if f_clean and f_clean not in seen_f:
-                seen_f.add(f_clean)
-                unique_flows.append(f)
-        unique_flows.reverse()
-        
-        if unique_flows:
-            for f in unique_flows[-5:]:
+        if flows:
+            for f in flows[-5:]:
                 lines.append(f"  - [{f.get('timestamp')}] {f.get('content')}")
         else:
             # 폴백: 세션 상태 분석을 통한 동적 유추
@@ -563,7 +506,6 @@ def build_recent_activity_memory(state_dict: dict, max_chars: int = 6000) -> str
 def update_recent_activity_memory(state_dict: dict, event_type: str, content: str) -> list:
     """
     사용자 행동 및 활동 발생 시 st.session_state.recent_activity_memory를 동적으로 갱신합니다.
-    중복 제거(deduplicate)를 진행하고 최신 타임스탬프 정보로 맨 뒤에 누적합니다.
     최대 15개의 항목을 유지하며 FIFO 형식으로 오래된 항목은 제거합니다.
     이 함수는 streamlit 의존성이 없는 순수 Python 함수입니다.
     """
@@ -575,23 +517,20 @@ def update_recent_activity_memory(state_dict: dict, event_type: str, content: st
         from datetime import datetime as _dt
         now_str = _dt.now().strftime("%Y-%m-%d %H:%M:%S")
         
-        # 중복 제거: 리스트 내에 동일한 type과 content를 가진 항목이 있으면 우선 제거
-        cleaned_memory = []
-        for item in memory:
-            if item.get("type") == event_type and item.get("content") == content:
-                continue
-            cleaned_memory.append(item)
+        # 중복 방지: 직전 추가된 항목과 내용이 같으면 무시
+        if memory and memory[-1].get("type") == event_type and memory[-1].get("content") == content:
+            return memory
             
-        cleaned_memory.append({
+        memory.append({
             "timestamp": now_str,
             "type": event_type,
             "content": content
         })
         
         # 15개 제한
-        if len(cleaned_memory) > 15:
-            cleaned_memory = cleaned_memory[-15:]
+        if len(memory) > 15:
+            memory = memory[-15:]
             
-        return cleaned_memory
+        return memory
     except Exception:
         return state_dict.get("recent_activity_memory", [])

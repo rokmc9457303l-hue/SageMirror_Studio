@@ -30,7 +30,6 @@ from agent_toolkit import (
     format_search_web_result,
     format_save_obsidian_result,
 )
-from agent_registry import get_tool_metadata
 
 # ─── 상수 ───
 AVAILABLE_MODELS = ["gemma4:e2b", "gemma4:e4b"]
@@ -910,37 +909,22 @@ import re as _re_agent
 AGENT_TOOL_PATTERNS = get_supported_agent_tools()
 
 def _detect_tools(response: str) -> list:
-    """젬마 응답에서 툴 태그 전체 감지 (Stabilized v16.1.8)"""
+    """젬마 응답에서 툴 태그 전체 감지"""
     detected = []
     for tool_name, pattern in AGENT_TOOL_PATTERNS.items():
-        # 레지스트리 비활성화 도구 사전 차단
-        meta = get_tool_metadata(tool_name)
-        if meta and not meta.get("enabled", True):
-            continue
-            
         matches = _re_agent.findall(pattern, response)
         for m in matches:
             detected.append({"tool": normalize_tool_name(tool_name), "param": m.strip()})
     # 자료부족 키워드도 감지 (기존 방식)
     unsure_kws = ["자료가 부족", "확실하지 않", "모르겠습니다", "알 수 없", "정보가 없"]
     if any(kw in response for kw in unsure_kws) and not detected:
-        # SEARCH_WEB이 레지스트리 상 활성화된 상태인지 확인
-        web_meta = get_tool_metadata("SEARCH_WEB")
-        if web_meta and web_meta.get("enabled", True):
-            detected.append({"tool": "SEARCH_WEB", "param": "자동감지"})
+        detected.append({"tool": "SEARCH_WEB", "param": "자동감지"})
     return detected
 
 def _execute_tool(tool: str, param: str, question: str, model: str, part_key: str) -> str:
     """툴 태그 실행 → 결과 반환"""
     result = ""
     norm_tool = normalize_tool_name(tool)
-
-    # ── 레지스트리 기반 도구 검증 및 조기 차단 (Stabilized v16.1.8) ──
-    meta = get_tool_metadata(norm_tool)
-    if not meta:
-        return f"[도구 거부: {tool} — 레지스트리에 등록되지 않은 알 수 없는 도구입니다.]"
-    if not meta.get("enabled", True):
-        return f"[도구 거부: {norm_tool} — 현재 비활성화 상태인 도구입니다.]"
 
     if norm_tool == "SEARCH_WEB" or tool == "NEED_RESEARCH":
         # Tavily 웹 검색
@@ -1134,12 +1118,7 @@ def run_agent_loop(
                     state="running", expanded=True
                 )
 
-            try:
-                result = _execute_tool(tool_name, tool_param, question, model, part_key)
-            except Exception as e:
-                from agent_toolkit import format_tool_error
-                result = format_tool_error(tool_name, f"도구 실행 중 치명적 오류 발생: {e}")
-
+            result = _execute_tool(tool_name, tool_param, question, model, part_key)
             if result:
                 tool_results.append(result)
                 tools_log.append(tool_name)

@@ -1,3 +1,27 @@
+## v16.1.8 - 2026-05-26 12:26
+### 변경 내용
+- **Gemma Assistant 안정화 및 견고화 (Stabilization Phase)**:
+  - **Recent Activity 디듀플리케이션 및 품질 개선**: `rag_memory_utils.py` 내의 `update_recent_activity_memory()` 함수에 중복 제거 로직을 구현하여, 동일한 type과 content를 가진 활동이 계속 추가되더라도 최신 정보만 남기도록 개선하였습니다. 또한 `build_recent_activity_memory()`의 마크다운 정리와 최신순 정렬 방식을 최적화했습니다.
+  - **도구 레지스트리 메타데이터 보강**: `agent_registry.py` 내의 각 도구 명세에 `"experimental": False`, `"safe_mode": True` 속성을 수록하여 도구의 안전 등급 관리를 시작하였습니다.
+  - **검색 RAG 폴백 강화**: `research_router.py` 내 `build_tavily_rag_context_core()`에서 임시 검색 실패 상황(API 차단 또는 에러 키 감지) 시에도 전체 시스템이 먹통이 되지 않고 RAG 규격의 폴백 응답을 안정적으로 반환하도록 보완하였습니다.
+  - **에이전트 런타임 차단 및 복구력(Recovery) 강화**: `sage_popups.py` 내 `_detect_tools()`에서 `enabled=False` 상태의 도구를 원천적으로 탐색 대상에서 배제하고, `_execute_tool()` 진입부에서 미등록 혹은 비활성화 도구를 차단하며, `run_agent_loop()` 내부에서 툴 호출부를 `try-except`로 묶어 예외 상황이 발생해도 시스템이 중단되지 않고 RAG에 에러를 반영하여 복구할 수 있도록 개선하였습니다.
+  - **배포 스크립트 3종 갱신**: `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 타겟을 `app_v16_1_8.py` 및 포트 `8505`로 갱신 완료했습니다.
+### 영향 파트
+- 젬마 어시스턴트 자율 에이전트 엔진, RAG 메모리 시스템, 검색 폴백 파이프라인, 도구 권한 필터 및 런타임 에러 처리기
+### 수정 파일
+- `app_v16_1_8.py`
+- `sage_popups.py`
+- `agent_registry.py`
+- `agent_toolkit.py`
+- `rag_memory_utils.py`
+- `research_router.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.7 — 2026-05-26 08:53
 ### 변경 내용
 - **Agent Registry System 도입**:
