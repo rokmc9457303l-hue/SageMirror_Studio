@@ -6,7 +6,7 @@ echo ======================================
 echo Sage Mirror Debug Mode
 echo ======================================
 
-python -m py_compile app_v16_1_10.py
+python -m py_compile app_v16_1_9.py
 python -m py_compile sage_popups.py
 python -m py_compile rag_memory_utils.py
 python -m py_compile rag_tag_system.py
@@ -26,6 +26,6 @@ echo.
 echo [OK] Compile Success
 echo.
 
-python -m streamlit run app_v16_1_10.py --server.port 8505
+python -m streamlit run app_v16_1_9.py --server.port 8505
 
 pause

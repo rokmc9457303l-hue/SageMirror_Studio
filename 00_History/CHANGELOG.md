@@ -1,3 +1,21 @@
+## v16.1.10 - 2026-05-26 15:11
+### 변경 내용
+- **Part 2 Step 1 UI 상태 관리 패치 (UI State Management Patch)**:
+  - **프롬프트 덮어쓰기 조건 수정**: `render_part2()` 최상단에서 프롬프트를 무조건 덮어쓰던 코드를 `if not st.session_state.get(_k):` 조건문으로 감싸, 사용자가 저장한 커스텀 프롬프트가 유지되도록 복구했습니다.
+  - **젬마 프로토콜 직접 편집 저장 연동**: 프로토콜 `text_area` 위젯을 editable하게 변경하고 고유 위젯 key `p2_gemma_protocol_widget`을 지정하여, 텍스트 직접 편집 시 세션에 양방향 동기화 및 `save_workspace_state()` 자동 호출이 유기적으로 일어나도록 고도화했습니다.
+  - **썸네일 기획 편집 결과 저장 연동**: 썸네일 기획 `text_area` 위젯을 고유 위젯 key `p2_thumb_area_widget`으로 갱신하여, 직접 편집 결과가 `p2_thumbnail_plan` 세션 및 워크스페이스 상태에 안전하게 자동 저장되도록 복구했습니다.
+  - **배포 스크립트 3종 갱신**: `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 타겟을 `app_v16_1_10.py`로 갱신 완료했습니다.
+### 영향 파트
+- Part 2 Alchemist 기획 단계(Step 1) UI 인터페이스 및 사용자 편집 저장 연동 레이어, 실행 배포 파이프라인
+### 수정 파일
+- `app_v16_1_10.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.9 - 2026-05-26 14:53
 ### 변경 내용
 - **Part 2 Step 1 영속성 복구 패치 (Persistent Memory Recovery Patch)**:
