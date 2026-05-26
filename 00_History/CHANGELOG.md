@@ -1,3 +1,20 @@
+## v16.1.18 - 2026-05-26 20:15
+### 변경 내용
+- **중복 위젯 키 대응 및 로컬 상태 동기화 강화 (DuplicateWidgetID Response & Session State Sync)**:
+  - **위젯 식별자(Key) 고유화**: `render_part2()` 내부의 썸네일 기획안 텍스트 영역(`p2_thumb_area_widget`) 및 젬마 프로토콜 텍스트 영역(`p2_gemma_protocol_display`)의 key를 에피소드 식별자가 동적으로 포함된 `f"thumb_area_{st.session_state.get('episode_name', 'EP')}"` 및 `f"gemma_proto_{st.session_state.get('episode_name', 'EP')}"`로 각각 재설계하여 에피소드 전환 시 발생하는 Streamlit의 `DuplicateWidgetID` 중복 위젯 키 오류를 근본적으로 차단했습니다.
+  - **세션 상태 동기화 재설계**: `init_session_state()` 함수 내부에서 파일 로딩 전 강제 정화(`sanitize_workspace_prompt_values_once()`)를 수행하고, 로드된 설정 데이터를 세션 상태에 덮어쓸 수 있도록 로직을 수정하여 상태 데이터가 휘발되거나 유실되는 문제를 해결했습니다.
+  - **배포 스크립트 3종 갱신**: `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 타겟을 `app_v16_1_18.py`로 갱신 완료했습니다.
+### 영향 파트
+- Part 2 Alchemist 기획 단계(Step 1) UI 위젯 상태 엔진, 에피소드 전환 상태 동기화 파이프라인
+### 수정 파일
+- `app_v16_1_18.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.15 - 2026-05-26 18:40
 ### 변경 내용
 - **Part 2 Step 1 데이터 저장 버그 수정 (Thumbnail Save Integration)**:
