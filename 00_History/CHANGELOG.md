@@ -1,3 +1,20 @@
+## v16.1.11 - 2026-05-26 15:31
+### 변경 내용
+- **Part 2 Step 1 긴급 복구 및 롤백 (Emergency Recovery from v16.1.9 Baseline)**:
+  - **안정 버전 복구**: v16.1.10에서 추가된 Part 2 UI 직접 편집 기능, 위젯 키 변경, `on_change` 저장 루프 등을 전면 폐기하고, 검증 완료된 v16.1.9 안정본을 기준으로 `app_v16_1_11.py` 신규 버전을 생성했습니다.
+  - **UI 구조 원복**: 젬마 프로토콜 표시창의 `disabled=True` 속성 및 원래의 썸네일 텍스트 영역 구조를 온전히 복구하여 UI 오작동 가능성을 제거했습니다.
+  - **배포 스크립트 3종 갱신**: `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 타겟을 `app_v16_1_11.py`로 갱신 완료했습니다.
+### 영향 파트
+- Part 2 Alchemist 기획 단계(Step 1) UI 인터페이스 및 사용자 편집 레이어, 실행 배포 파이프라인
+### 수정 파일
+- `app_v16_1_11.py`
+- `RUN_APP.bat`
+- `RUN_DEBUG.bat`
+- `RUN_APP.vbs`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.10 - 2026-05-26 15:11
 ### 변경 내용
 - **Part 2 Step 1 UI 상태 관리 패치 (UI State Management Patch)**:
