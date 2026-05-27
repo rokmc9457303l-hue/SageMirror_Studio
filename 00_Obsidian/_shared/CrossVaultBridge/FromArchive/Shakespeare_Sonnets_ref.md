@@ -1,0 +1,24 @@
+# 📚 Shakespeare_Sonnets
+
+> [!NOTE] Archive 연결 자료
+> 원본 경로: `C:\SageMirror_Production\00_Obsidian_Archive\Shakespeare_Sonnets.md`
+
+## 원본 내용 발췌
+# [[Shakespeare's Sonnets (셰익스피어 소네트)]]
+
+## 📌 Brief Summary
+윌리엄 셰익스피어가 남긴 154편의 서정시 모음집으로, 사랑, 시간의 흐름, 아름다움의 덧없음, 그리고 예술을 통한 불멸성을 14행시(소네트) 형식에 담아낸 영문학의 정수입니다.
+
+## 📖 Core Content
+- **시간의 파괴력과 보존:** 시간이 모든 아름다운 것을 앗아가지만, 시(예술) 속에 담긴 연인의 아름다움은 영원히 남을 것이라는 '문학적 불멸성'을 노래합니다.
+- **사랑의 다각적 묘사:** 숭고하고 순수한 사랑부터 고통스럽고 치명적인 욕망에 이르기까지, 인간이 느끼는 가장 강렬한 감정들을 치밀한 비유와 상징으로 표현합니다.
+- **철학적 사유:** 젊음의 덧없음과 죽음이라는 필연적 운명 앞에서 인간이 가질 수 있는 희망과 예술의 역할을 탐구합니다.
+
+## 🔗 Knowledge Connections
+- **Related Topics:** [[서정시의 문법]], 
+
+## 연결 정보
+- **원본 볼트**: 00_Obsidian_Archive
+- **현재 볼트**: 00_Obsidian
+- **연결 생성**: 2026-05-27 20:10:43
+- **태그**: #Archive #CrossVault #Shakespeare_Sonnets

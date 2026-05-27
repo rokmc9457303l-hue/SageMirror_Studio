@@ -1,0 +1,21 @@
+# 📚 Lifes_Handicap_Kipling
+
+> [!NOTE] Archive 연결 자료
+> 원본 경로: `C:\SageMirror_Production\00_Obsidian_Archive\Lifes_Handicap_Kipling.md`
+
+## 원본 내용 발췌
+# [[Life's Handicap (인생의 장애물)]]
+
+## 📌 Brief Summary
+<정글북>의 저자로 유명한 루디야드 키플링(Rudyard Kipling)의 단편 소설집으로, 인도와 대영제국을 배경으로 평범한 사람들이 삶에서 마주하는 다양한 결핍, 장애물, 그리고 그것을 극복하거나 굴복하는 인간 군상을 다룹니다.
+
+## 📖 Core Content
+- **삶의 제약과 조건:** 제목인 'Life's Handicap'은 인간이 태어날 때부터 혹은 살아가며 짊어지게 되는 신체적, 환경적, 정신적 제약을 의미하며, 이를 통해 인간의 한계를 탐구합니다.
+- **다양한 문화의 충돌:** 영국과 인도의 서로 다른 문화적 배경 속에서 발생하는 갈등과 오해, 그리고 그 속에서 피어나는 인간미를 키플링 특유의 날카로운 관찰력으로 묘사합니다.
+- **인내와 숙명:** 피할 수 없는 고통이나 장애물 앞에서도 묵묵히 자신의 길을 가는 인물들을 통해, 비극적인 현실 속에서도 빛나는 인간의 존엄성을
+
+## 연결 정보
+- **원본 볼트**: 00_Obsidian_Archive
+- **현재 볼트**: 00_Obsidian
+- **연결 생성**: 2026-05-27 20:10:43
+- **태그**: #Archive #CrossVault #Lifes_Handicap_Kipling

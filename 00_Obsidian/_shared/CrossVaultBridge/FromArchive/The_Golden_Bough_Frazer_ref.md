@@ -1,0 +1,23 @@
+# 📚 The_Golden_Bough_Frazer
+
+> [!NOTE] Archive 연결 자료
+> 원본 경로: `C:\SageMirror_Production\00_Obsidian_Archive\The_Golden_Bough_Frazer.md`
+
+## 원본 내용 발췌
+# [[The Golden Bough (황금가지)]]
+
+## 📌 Brief Summary
+제임스 조지 프레이저(James George Frazer)가 집필한 인류학 및 비교 종교학의 고전으로, 전 세계의 신화, 마술, 종교적 의례의 공통적인 기원과 변천 과정을 방대한 자료를 통해 추적한 역작입니다.
+
+## 📖 Core Content
+- **마술에서 종교, 과학으로:** 인류가 세상을 이해하고 통제하려 했던 방식이 '유감 마술(Sympathetic Magic)'에서 '종교'로, 다시 '과학'으로 진화해왔다는 가설을 제시합니다.
+- **죽고 부활하는 신:** 식물의 생장 주기와 결부된 '죽고 부활하는 신(살해당하는 왕)'의 모티프가 전 세계 다양한 문화권의 신화와 의식 속에서 어떻게 반복되는지 분석합니다.
+- **희생 제의와 금기:** 공동체의 안녕을 위해 치러지는 희생 제사(Scapegoat)와 일상생활을 규제하는 다양한 '금기(Taboo)'의 기원과 사회적 기능을 탐구합니다.
+
+##
+
+## 연결 정보
+- **원본 볼트**: 00_Obsidian_Archive
+- **현재 볼트**: 00_Obsidian
+- **연결 생성**: 2026-05-27 20:10:43
+- **태그**: #Archive #CrossVault #The_Golden_Bough_Frazer
