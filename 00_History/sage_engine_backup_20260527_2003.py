@@ -81,16 +81,12 @@ def save_txt(filepath, content):
 # =====================================================================
 # Gemma4:e4b 호출 (ollama 패키지 + HTTP 폴백)
 # =====================================================================
+@st.cache_data(ttl=300, show_spinner=False)
 def call_gemma(prompt: str, system: str = "", model: str = OLLAMA_MODEL) -> str:
     """
-    gemma4:e2b / e4b 모델 호출.
-    1차: ollama 패키지 사용 (빈 응답 시 HTTP 폴백)
-    2차: HTTP 직접 호출 (Ollama REST API)
-
-    주의: @st.cache_data 제거됨 —
-      팝업 다이얼로그(@st.dialog) 내부에서 Streamlit 컨텍스트 없이
-      캐시 함수가 호출되면 빈 응답이 캐싱되어 반복 에러가 발생하므로
-      캐싱을 완전히 제거하고 매번 새로 호출합니다.
+    gemma4:e4b 모델 호출.
+    1차: ollama 패키지 사용
+    2차: HTTP 직접 호출 (패키지 실패 시 폴백)
     """
     # 방법 1: ollama 패키지
     if OLLAMA_AVAILABLE:
@@ -100,13 +96,10 @@ def call_gemma(prompt: str, system: str = "", model: str = OLLAMA_MODEL) -> str:
                 messages.append({"role": "system", "content": system})
             messages.append({"role": "user", "content": prompt})
             resp = ollama.chat(model=model, messages=messages)
-            result_text = resp["message"]["content"]
-            # 빈 응답 감지 → HTTP 폴백으로 재시도
-            if result_text and result_text.strip():
-                return result_text
-            # 빈 응답이면 HTTP 폴백으로 진행
-        except Exception:
-            pass  # 패키지 실패 → HTTP 폴백
+            return resp["message"]["content"]
+        except Exception as e:
+            # 패키지 실패 → HTTP 폴백
+            pass
 
     # 방법 2: HTTP 직접 호출 (Ollama REST API)
     try:
@@ -124,15 +117,7 @@ def call_gemma(prompt: str, system: str = "", model: str = OLLAMA_MODEL) -> str:
         resp = requests.post(ollama_url, json=payload, timeout=180)
         resp.raise_for_status()
         data = resp.json()
-        content = data.get("message", {}).get("content", "")
-        # 빈 응답 방어: 빈 문자열이면 에러 메시지 반환
-        if not content or not content.strip():
-            return (
-                f"[ERROR] 모델 '{model}'이 빈 응답을 반환했습니다.\n"
-                f"→ Ollama 재시작 후 재시도하십시오: ollama serve\n"
-                f"→ 모델 재설치: ollama pull {model}"
-            )
-        return content
+        return data.get("message", {}).get("content", "[ERROR] 응답 파싱 실패")
     except requests.exceptions.ConnectionError:
         return (
             f"[ERROR] Ollama 서버 연결 불가\n"
@@ -202,7 +187,6 @@ def tavily_search(query: str, api_key: str, max_results: int = 5) -> dict:
 # =====================================================================
 # Ollama 연결 상태 확인
 # =====================================================================
-@st.cache_data(ttl=30, show_spinner=False)
 def check_ollama_status(target_model: str = OLLAMA_MODEL) -> dict:
     """Ollama 서버 & 지정된 모델 상태 확인"""
     result = {"server": False, "model": False, "models": [], "error": None}

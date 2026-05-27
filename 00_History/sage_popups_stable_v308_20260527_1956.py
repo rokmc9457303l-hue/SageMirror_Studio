@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-sage_popups.py — 팝업 다이얼로그 v3.2
-[v3.2 업그레이드: 2026-05-27]
-- [수술 A] _save_to_obsidian_with_tags lite_mode — 대화 자동 저장 시 LLM 재호출 완전 차단
-- [수술 B] pending_stream 처리 순서 재정렬 — history 먼저, 자동 저장 예외 완전 격리
-- [수술 C] RAG 로딩 결과 60초 캐싱 — 매 대화 시 파일 재스캔 방지
-- [수술 D] 모드 토글(일반 대화/옵시디언 아카이빙) + 로컬 파일 경로 직접 읽기 UI 추가
+sage_popups.py — 팝업 다이얼로그 v3.1
+[v3.1 업그레이드: 2026-05-26]
+- Agent Layer Separation Phase 1 (Research Router) 연동
+- Tavily 검색 및 태그 디텍션 동작 위임
 """
 
 import streamlit as st
-import time
 from datetime import datetime
 from pathlib import Path
 from sage_config import (
@@ -167,34 +164,6 @@ def _classify_emotion_tags(text: str) -> dict:
     return matched
 
 
-def _extract_keywords_lite(content: str, title: str) -> list:
-    """
-    LLM 없이 텍스트에서 키워드를 빠르게 추출 (lite_mode용).
-    감정 태그 딕셔너리 + 빈도 높은 명사 추출 방식.
-    """
-    import re
-    combined = (title + " " + content[:800]).lower()
-    found_tags = ["세이지대화", "현자의거울"]
-    # 감정/철학 키워드 딕셔너리 기반 탐지
-    keyword_pool = {
-        "외로움": "외로", "고독": "고독", "불안": "불안", "두려움": "두려",
-        "상실": "상실", "슬픔": "슬픔", "무기력": "무기력", "공허": "공허",
-        "분노": "분노", "수치": "수치", "성장": "성장", "치유": "치유",
-        "관계": "관계", "갈등": "갈등", "의미": "의미", "목적": "목적",
-        "철학": "철학", "성경": "성경", "지혜": "지혜", "심리": "심리",
-        "쇼펜하우어": "쇼펜하우어", "프랭클": "프랭클", "스토아": "스토아",
-        "시편": "시편", "잠언": "잠언", "노년": "노년", "은퇴": "은퇴",
-        "자존감": "자존감", "트라우마": "트라우마", "번아웃": "번아웃",
-        "자아성찰": "자아성찰", "실존": "실존", "영성": "영성",
-    }
-    for tag, kw in keyword_pool.items():
-        if kw in combined and tag not in found_tags:
-            found_tags.append(tag)
-        if len(found_tags) >= 8:
-            break
-    return found_tags[:8]
-
-
 def _save_to_obsidian_with_tags(
     content: str,
     title: str,
@@ -202,13 +171,10 @@ def _save_to_obsidian_with_tags(
     part_key: str,
     model_name: str,
     extra_tags: list = None,
-    folder_override: str = None,
-    lite_mode: bool = False,
+    folder_override: str = None
 ) -> str | None:
     """
     옵시디언에 심리학 태그 세분화하여 자동 저장.
-    - lite_mode=True : LLM 키워드 추출 없이 딕셔너리 기반 빠른 태그 생성 (대화 자동 저장 전용)
-    - lite_mode=False: 젬마 LLM 키워드 추출 (수동 저장 버튼 전용)
     - 감정 태그 자동 분류
     - 채널 전용 태그 + 범용 태그 동시 생성
     - 각 파트 옵시디언 규칙서 참조
@@ -220,12 +186,8 @@ def _save_to_obsidian_with_tags(
         # 감정 태그 자동 분류
         emotion_tags = _classify_emotion_tags(content + " " + title)
 
-        # ── [수술 A] lite_mode: LLM 재호출 없이 딕셔너리로 키워드 추출 ──
-        if lite_mode:
-            tag_list = _extract_keywords_lite(content, title)
-        else:
-            # 젬마로 키워드 추출 (수동 저장 버튼 클릭 시에만)
-            kw_prompt = f"""아래 내용에서 옵시디언 RAG 태그로 사용할 핵심 키워드 6~8개를 쉼표로만 출력하라.
+        # 젬마로 키워드 추출
+        kw_prompt = f"""아래 내용에서 옵시디언 RAG 태그로 사용할 핵심 키워드 6~8개를 쉼표로만 출력하라.
 심리학 채널 특성상 감정, 인물(철학자/성경 인물), 개념, 주제를 포함할 것.
 예시: 외로움, 쇼펜하우어, 자아성찰, 심리치유, 시편23편, 실존주의, 4070세대, 관계갈등
 
@@ -233,11 +195,11 @@ def _save_to_obsidian_with_tags(
 {content[:600]}
 
 [KEYWORDS]:"""
-            try:
-                kw_raw = call_gemma(kw_prompt, model=model_name)
-                tag_list = [t.strip() for t in kw_raw.replace("#", "").split(",") if t.strip()][:8]
-            except Exception:
-                tag_list = _extract_keywords_lite(content, title)
+        try:
+            kw_raw = call_gemma(kw_prompt, model=model_name)
+            tag_list = [t.strip() for t in kw_raw.replace("#", "").split(",") if t.strip()][:8]
+        except Exception:
+            tag_list = ["세이지대화", "현자의거울", "심리치유", "자아성찰"]
 
         if extra_tags:
             tag_list = list(set(tag_list + extra_tags))
@@ -1208,13 +1170,6 @@ def popup_assistant():
         "popup_use_rag": True,
         "tavily_rag_context": "",
         "part_action_quick_input": "",
-        # [수술 D] 모드 토글 + 로컬 파일 경로 상태
-        "popup_gemma_mode": "A",  # "A"=일반 대화, "B"=옵시디언 아카이빙
-        "popup_local_file_path": "",
-        "popup_local_file_content": "",
-        # [수술 C] RAG 캐시
-        "popup_rag_cache": "",
-        "popup_rag_cache_ts": 0.0,
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -1259,14 +1214,12 @@ def popup_assistant():
     with col_save:
         if st.button("💾 대화 옵시디언 저장", use_container_width=True, key="popup_obs_save_btn",
                      disabled=not st.session_state.popup_history):
-            # 수동 저장 버튼: lite_mode=False → LLM 전체 키워드 분석 허용
             saved = _save_to_obsidian_with_tags(
                 content="\n".join([f"[{m['role'].upper()}] {m['content']}" for m in st.session_state.popup_history]),
                 title=f"[Sage Chat] {current_part_name}",
                 source_type="Sage 팝업 대화",
                 part_key=current_part_key,
                 model_name=st.session_state.popup_selected_model,
-                lite_mode=False,  # 수동 저장 = LLM 전체 분석
             )
             if saved:
                 st.toast("🧠 대화 옵시디언 저장 완료!", icon="💾")
@@ -1295,54 +1248,8 @@ def popup_assistant():
     # 탭 1: Gemma 대화
     # ══════════════════════════════════════════════════════
     with tab_chat:
-        # ══════════════════════════════════════════════
-        # [수술 D] 젬마 모드 토글
-        # ══════════════════════════════════════════════
-        current_mode = st.session_state.get("popup_gemma_mode", "A")
-        mode_col1, mode_col2 = st.columns(2)
-        with mode_col1:
-            if st.button(
-                f"{'✅ ' if current_mode == 'A' else ''}A 일반 대화 (빠름)",
-                use_container_width=True,
-                key="popup_mode_a_btn",
-                type="primary" if current_mode == "A" else "secondary",
-                help="RAG·자동 저장 없이 가벼운 텍스트 대화만 수행합니다.",
-            ):
-                st.session_state.popup_gemma_mode = "A"
-                st.session_state.popup_use_rag = False
-                st.rerun()
-        with mode_col2:
-            if st.button(
-                f"{'✅ ' if current_mode == 'B' else ''}B 옵시디언 아카이빙",
-                use_container_width=True,
-                key="popup_mode_b_btn",
-                type="primary" if current_mode == "B" else "secondary",
-                help="RAG 활성화 + 대화 완료 후 옵시디언 자동 태그 분류 저장합니다.",
-            ):
-                st.session_state.popup_gemma_mode = "B"
-                st.session_state.popup_use_rag = True
-                st.rerun()
-
-        # 현재 모드 표시 배너
-        if current_mode == "A":
-            st.markdown(
-                "<div style='background:#0d2240;border:1px solid #d4af6a;border-radius:6px;"
-                "padding:4px 12px;font-size:0.82rem;color:#d4af6a;margin-bottom:4px;'>"
-                "⚡ A 모드: 가벼운 일반 대화 — RAG·자동 저장 비활성화"
-                "</div>",
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown(
-                "<div style='background:#0d2a0d;border:1px solid #10B981;border-radius:6px;"
-                "padding:4px 12px;font-size:0.82rem;color:#10B981;margin-bottom:4px;'>"
-                "🧠 B 모드: 옵시디언 아카이빙 — RAG 활성화 + 대화 자동 저장"
-                "</div>",
-                unsafe_allow_html=True,
-            )
-
         st.markdown("##### 💬 대화 기록 (스크롤 / 드래그 복사)")
-        chat_container = st.container(height=300, border=True)
+        chat_container = st.container(height=340, border=True)
 
         st.markdown("##### ✏️ 질문 입력")
         st.text_area(
@@ -1353,106 +1260,8 @@ def popup_assistant():
                 "예: '빅터 프랭클의 의미치료에 대해 설명해줘'\n"
                 "예: '지금 수집된 인터넷 자료를 요약해줘'"
             ),
-            height=100, label_visibility="collapsed",
+            height=110, label_visibility="collapsed",
         )
-
-        # ══════════════════════════════════════════════
-        # [수술 D] 로컬 파일 직접 읽기 UI
-        # ══════════════════════════════════════════════
-        with st.expander("📂 로컬 파일 읽기 → 채팅창 주입 (.txt / .md)", expanded=False):
-            st.caption("파일 경로를 입력하거나 00_Memo 폴더에서 선택하면 내용이 채팅창 컨텍스트로 자동 주입됩니다.")
-            lf_col1, lf_col2 = st.columns([4, 1])
-            with lf_col1:
-                local_file_path = st.text_input(
-                    "파일 경로",
-                    value=st.session_state.get("popup_local_file_path", ""),
-                    placeholder=r"예: C:\SageMirror_Production\00_Memo\자료.txt",
-                    key="popup_local_file_path_input",
-                    label_visibility="collapsed",
-                )
-            with lf_col2:
-                if st.button("📖 읽기", use_container_width=True, key="popup_local_file_read_btn",
-                             disabled=not local_file_path.strip()):
-                    try:
-                        fp = Path(local_file_path.strip())
-                        if not fp.exists():
-                            st.error(f"파일을 찾을 수 없습니다: {fp}")
-                        elif fp.suffix.lower() not in [".txt", ".md", ".csv", ".json", ".py", ".srt"]:
-                            st.warning("지원 형식: .txt .md .csv .json .py .srt")
-                        else:
-                            for enc in ["utf-8", "cp949", "euc-kr"]:
-                                try:
-                                    file_content = fp.read_text(encoding=enc, errors="ignore")
-                                    break
-                                except Exception:
-                                    file_content = ""
-                            st.session_state.popup_local_file_path = str(fp)
-                            st.session_state.popup_local_file_content = file_content
-                            st.toast(f"✅ 파일 읽기 완료: {fp.name} ({len(file_content):,}자)", icon="📖")
-                            st.rerun()
-                    except Exception as e:
-                        st.error(f"파일 읽기 오류: {e}")
-
-            # 00_Memo 폴더 스캔
-            memo_dir = Path(r"C:\SageMirror_Production\00_Memo")
-            if memo_dir.exists():
-                memo_files = sorted(
-                    [f for f in memo_dir.iterdir() if f.suffix.lower() in [".txt", ".md"]],
-                    key=lambda x: x.stat().st_mtime, reverse=True
-                )
-                if memo_files:
-                    st.caption(f"📁 00_Memo 폴더 내 파일 ({len(memo_files)}개)")
-                    selected_memo = st.selectbox(
-                        "파일 선택",
-                        options=[""] + [str(f) for f in memo_files],
-                        format_func=lambda x: Path(x).name if x else "-- 선택 --",
-                        key="popup_memo_file_select",
-                        label_visibility="collapsed",
-                    )
-                    if selected_memo and st.button("📖 선택 파일 읽기", use_container_width=True, key="popup_memo_read_btn"):
-                        try:
-                            fp2 = Path(selected_memo)
-                            for enc in ["utf-8", "cp949", "euc-kr"]:
-                                try:
-                                    file_content2 = fp2.read_text(encoding=enc, errors="ignore")
-                                    break
-                                except Exception:
-                                    file_content2 = ""
-                            st.session_state.popup_local_file_path = str(fp2)
-                            st.session_state.popup_local_file_content = file_content2
-                            st.toast(f"✅ {fp2.name} 읽기 완료 ({len(file_content2):,}자)", icon="📖")
-                            st.rerun()
-                        except Exception as e:
-                            st.error(f"파일 읽기 오류: {e}")
-
-            # 읽어온 파일이 있으면 미리보기 + 채팅 주입 버튼
-            loaded_content = st.session_state.get("popup_local_file_content", "")
-            loaded_path = st.session_state.get("popup_local_file_path", "")
-            if loaded_content:
-                st.success(f"✅ 로드됨: `{Path(loaded_path).name}` ({len(loaded_content):,}자)")
-                with st.container(height=120, border=True):
-                    st.text(loaded_content[:500] + ("..." if len(loaded_content) > 500 else ""))
-                inj_col1, inj_col2 = st.columns(2)
-                with inj_col1:
-                    if st.button("💬 채팅에 파일 내용 주입 + 전송", use_container_width=True,
-                                 key="popup_inject_file_btn", type="primary"):
-                        fname = Path(loaded_path).name
-                        injected_msg = (
-                            f"[파일 첨부: {fname}]\n"
-                            f"아래 파일 내용을 옵시디언 규칙서에 맞게 분석·태그 분류하여 옵시디언에 저장해줘.\n\n"
-                            f"--- 파일 내용 시작 ---\n{loaded_content[:8000]}\n--- 파일 내용 끝 ---"
-                        )
-                        st.session_state.popup_history.append({"role": "user", "content": injected_msg})
-                        st.session_state.pending_stream = injected_msg
-                        st.session_state.popup_gemma_mode = "B"  # 자동으로 B 모드로 전환
-                        st.session_state.popup_use_rag = True
-                        st.rerun()
-                with inj_col2:
-                    if st.button("🗑️ 로드 파일 지우기", use_container_width=True,
-                                 key="popup_clear_file_btn"):
-                        st.session_state.popup_local_file_content = ""
-                        st.session_state.popup_local_file_path = ""
-                        st.rerun()
 
         col_opt1, col_opt2 = st.columns(2)
         with col_opt1:
@@ -1462,7 +1271,7 @@ def popup_assistant():
             st.session_state.popup_auto_search = auto_search
         with col_opt2:
             use_rag = st.checkbox("🧠 옵시디언 + 인터넷 자료 주입",
-                                   value=st.session_state.get("popup_use_rag", current_mode == "B"),
+                                   value=st.session_state.get("popup_use_rag", True),
                                    key="popup_use_rag_cb")
             st.session_state.popup_use_rag = use_rag
 
@@ -1492,8 +1301,6 @@ def popup_assistant():
         if clear:
             st.session_state.popup_history = []
             st.session_state.pending_stream = None
-            st.session_state.popup_local_file_content = ""
-            st.session_state.popup_local_file_path = ""
             st.rerun()
 
         # 대화 기록 렌더링
@@ -1579,49 +1386,38 @@ def popup_assistant():
                 except Exception as e:
                     st.caption(f"Recent Activity Memory 주입 생략: {e}")
 
-                # ── [수술 C] RAG 캐싱: 60초 TTL, 모드 A에서는 완전 스킵 ──
-                _current_mode = st.session_state.get("popup_gemma_mode", "A")
-                _use_rag = st.session_state.get("popup_use_rag", False)
+                if st.session_state.get("popup_use_rag", True):
+                    try:
+                        from rag_memory_utils import load_recent_reference_files, build_condensed_reference_context, build_manual_gemma_memory_buffer
+                        # 로컬 연산 병목을 막기 위해 팝업창 전용 메모리 상한을 30000자로 대폭 축소
+                        ref_items = load_recent_reference_files(max_files=10, max_chars=30000) 
+                        if ref_items:
+                            prompt_preview, excluded_files = build_condensed_reference_context(ref_items, max_chars=15000)
+                            if excluded_files:
+                                for exf_name, reason in excluded_files:
+                                    st.caption(f"⚠️ 오염 가능 Reference 제외: {exf_name}")
+                            ref_buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=30000)
+                            if ref_buffer.strip():
+                                sys_ctx += "\n[References & 파일 업로드 RAG 기억]\n" + ref_buffer + "\n\n"
+                                loaded_count = len(ref_items) - len(excluded_files)
+                                st.caption(f"🧠 References Memory Loaded: {loaded_count} files")
+                                # ── Recent Activity Dynamic Sync ──
+                                try:
+                                    from rag_memory_utils import update_recent_activity_memory
+                                    state_dict = dict(st.session_state)
+                                    ref_names = ", ".join([item.get("filename", "") for item in ref_items if item.get("filename")])
+                                    updated_mem = update_recent_activity_memory(state_dict, "references", f"References 파일 로드: {ref_names}")
+                                    st.session_state.recent_activity_memory = updated_mem
+                                except Exception:
+                                    pass
+                    except Exception as e:
+                        st.caption(f"References Memory 주입 생략: {e}")
 
-                if _use_rag and _current_mode == "B":
-                    now_ts = time.time()
-                    cache_valid = (
-                        st.session_state.get("popup_rag_cache", "").strip() != "" and
-                        (now_ts - st.session_state.get("popup_rag_cache_ts", 0.0)) < 60
-                    )
-                    if not cache_valid:
-                        # 캐시 미스: 새로 로드
-                        try:
-                            from rag_memory_utils import load_recent_reference_files, build_condensed_reference_context, build_manual_gemma_memory_buffer
-                            ref_items = load_recent_reference_files(max_files=8, max_chars=20000)
-                            if ref_items:
-                                prompt_preview, excluded_files = build_condensed_reference_context(ref_items, max_chars=10000)
-                                ref_buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=20000)
-                                if ref_buffer.strip():
-                                    st.session_state.popup_rag_cache = ref_buffer
-                                    st.session_state.popup_rag_cache_ts = now_ts
-                                    loaded_count = len(ref_items) - len(excluded_files)
-                                    st.caption(f"🧠 References Memory 갱신: {loaded_count}파일 (캐시 60초)")
-                                else:
-                                    st.session_state.popup_rag_cache = ""
-                        except Exception as e:
-                            st.caption(f"References Memory 주입 생략: {e}")
-                    else:
-                        st.caption("🧠 References Memory 캐시 사용 중 (TTL 60s)")
-
-                    # 캐시에서 컨텍스트 주입
-                    cached_ref = st.session_state.get("popup_rag_cache", "")
-                    if cached_ref.strip():
-                        sys_ctx += "\n[References & 파일 업로드 RAG 기억]\n" + cached_ref + "\n\n"
-
-                    # 옵시디언 + Tavily RAG 주입 (B 모드에서만)
+                if st.session_state.get("popup_use_rag", True):
                     sys_ctx += "\n" + _build_obsidian_rag_context()
                     tavily_ctx = _build_tavily_rag_context()
                     if tavily_ctx:
                         sys_ctx += "\n" + tavily_ctx
-                else:
-                    # A 모드: RAG 완전 스킵
-                    st.caption("⚡ A 모드: RAG 스킵 — 빠른 대화 모드")
 
                 # ── 에이전트 루프 실행 ────────────────────────────
                 with st.status("🔮 젬마 에이전트 작동 중...", expanded=True) as status_widget:
@@ -1644,31 +1440,27 @@ def popup_assistant():
                         ans_placeholder.error(full_response)
                         status_widget.update(label="❌ 오류", state="error", expanded=False)
 
-                # ── [수술 B] 순서 재정렬: pending_stream 먼저 None, history 안전 추가 ──
-                st.session_state.pending_stream = None  # 1순위: 스트림 플래그 해제
-                st.session_state.popup_history.append({  # 2순위: history 기록
+                st.session_state.popup_history.append({
                     "role": "assistant", "content": full_response,
                     "model": current_model, "part": current_part_name,
-                    "source": "에이전트 루프 v1.0",
+                    "source": f"에이전트 루프 v1.0",
                 })
+                st.session_state.pending_stream = None
 
-                # 3순위: 옵시디언 자동 저장 — B 모드에서만, lite_mode=True로 LLM 재호출 완전 차단
-                _save_mode = st.session_state.get("popup_gemma_mode", "A")
-                if _save_mode == "B":
-                    try:
-                        _save_to_obsidian_with_tags(
-                            content=f"[Q] {q_stream}\n\n[A] {full_response}",
-                            title=f"[Chat] {q_stream[:30]}",
-                            source_type="Sage 팝업 대화",
-                            part_key=current_part_key,
-                            model_name=current_model,
-                            lite_mode=True,  # ← LLM 재호출 완전 차단
-                        )
-                        st.toast("🧠 옵시디언 자동 저장 (B 모드)", icon="💾")
-                    except Exception:
-                        pass  # 저장 실패해도 대화는 유지됨
+                # 대화 옵시디언 자동 저장
+                try:
+                    _save_to_obsidian_with_tags(
+                        content=f"[Q] {q_stream}\n\n[A] {full_response}",
+                        title=f"[Chat] {q_stream[:30]}",
+                        source_type="Sage 팝업 대화",
+                        part_key=current_part_key,
+                        model_name=current_model,
+                    )
+                    st.toast("🧠 대화 옵시디언 자동 저장!", icon="💾")
+                except Exception:
+                    pass
 
-                st.rerun()  # 4순위: 마지막에 rerun
+                st.rerun()
 
     # ══════════════════════════════════════════════════════
     # 탭 2: Tavily 인터넷 리서치
