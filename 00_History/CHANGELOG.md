@@ -1,3 +1,19 @@
+## v16.1.21 - 2026-05-27 00:15
+### 변경 내용
+- **프롬프트 입력칸 편집/저장 구조 통일화 (Part 1~5 통합 에디터 전면 적용)**:
+  - **render_unified_prompt_editor 구현 및 탑재**: 모든 젬마 작업지시 프롬프트, 젬마 프로토콜, 결과 영역을 편집하고 영구 보존할 수 있는 통일된 Streamlit 에디터 위젯 개발.
+  - **Part 1~5 마스터 프롬프트 및 프로토콜 에디터 전면 교체**: Part 1, Part 2, Part 3/4, Part 5의 모든 마스터 프롬프트와 젬마 프로토콜 `text_area`를 `render_unified_prompt_editor` 호출 구조로 일괄 전환.
+  - **Part 1~5 결과 미리보기/편집기 에디터 교체**: Part 1 (주제선정결과 `p1_topic_selection`, 총괄기획결과 `p1_planning_result`), Part 2 (기획안결과 `p2_planning_result`), Part 3/4 (나레이션 대본 결과 `p34_narration_script`, 이미지 대본 결과 `p34_image_script`), Part 5 (A-MASTER 결과 `p5_a_result`, B-MASTER 결과 `p5_b_result`, C-씬 결과 `p5_c_results`) 영역을 통합 에디터로 통일.
+  - **배포 스크립트 갱신**: `RUN_APP.bat` 실행 타겟을 `app_v16_1_21.py`로 갱신 완료.
+### 영향 파트
+- Part 1 Librarian, Part 2 Alchemist, Part 3/4 Script, Part 5 Image 파트의 젬마 작업지시 프롬프트, 프로토콜, 결과 UI 컴포넌트 레이어
+### 수정 파일
+- `app_v16_1_21.py`
+- `RUN_APP.bat`
+- `00_History\CHANGELOG.md`
+
+---
+
 ## v16.1.19 - 2026-05-27 00:30
 ### 변경 내용
 - **프롬프트 입력칸 편집/저장 구조 통일 (Unified Prompt Editor Integration)**:

@@ -4752,7 +4752,7 @@ def render_unified_prompt_editor(label: str, session_key: str, height: int = 150
     
     # 2. 텍스트 영역 렌더링 (평소엔 disabled=True, 편집 중일 땐 disabled=False)
     # 위젯 고유 key 규칙 준수: key="[session_key]_edit_widget"
-    disabled_state = False
+    disabled_state = not edit_mode or is_locked
     
     current_value = st.session_state.get(session_key, "")
     
@@ -4767,12 +4767,12 @@ def render_unified_prompt_editor(label: str, session_key: str, height: int = 150
     # 3. 4단 버튼 세트 렌더링
     c1, c2, c3, c4 = st.columns(4)
     with c1:
-        if st.button("📝 편집", key=f"{session_key}_edit_btn", use_container_width=True, disabled=False):
+        if st.button("📝 편집", key=f"{session_key}_edit_btn", use_container_width=True, disabled=is_locked):
             st.session_state[edit_mode_key] = True
             st.rerun()
             
     with c2:
-        if st.button("💾 저장", key=f"{session_key}_save_btn", use_container_width=True, disabled=False):
+        if st.button("💾 저장", key=f"{session_key}_save_btn", use_container_width=True, disabled=is_locked):
             st.session_state[session_key] = prompt_val
             st.session_state[edit_mode_key] = False
             save_workspace_state()
@@ -7255,12 +7255,12 @@ def render_part1():
             cur_gm = st.session_state.get("p1_gemini_model", "gemini-2.5-flash")
             gm_idx = gemini_models.index(cur_gm) if cur_gm in gemini_models else 0
             sel_gm = st.selectbox("🤖 제미나이 모델", gemini_models, index=gm_idx,
-                                   key="p1_gemini_model_select", disabled=False,
+                                   key="p1_gemini_model_select", disabled=is_locked,
                                    help="할당량 초과 시 다른 모델로 전환하세요")
             st.session_state.p1_gemini_model = sel_gm
         with col_region:
             st.session_state.p1_region = st.selectbox("🌏 탐색 지역", ["국내+국외 모두", "국내 우선", "국외 우선"],
-                                                        key="p1_region_select", disabled=False)
+                                                        key="p1_region_select", disabled=is_locked)
 
         # 검색 키워드 미리보기 (자동 생성 + 수동 수정 가능)
         search_kw = st.text_area(
@@ -7269,14 +7269,14 @@ def render_part1():
                 "심리학 철학 인생조언 유튜브 롱폼 채널 2025 조회수 급상승 시청지속시간 높은\npsychology philosophy life wisdom YouTube longform channel high views retention 2025\n인간 나레이터 심리학 철학 채널 쇼펜하우어 융 빅터프랭클 구독자 적음 조회수 폭발\nAI TTS narration psychology philosophy original content NOT reuse NOT compilation"),
             height=68,
             key="p1_search_kw_ta",
-            disabled=False,
+            disabled=is_locked,
             help="제미나이가 탐색 시작 시 자동으로 최적 키워드를 생성합니다."
         )
         st.session_state.p1_search_keyword = search_kw
 
         # ── 채널 탐색 시작 버튼 ──────────────────────────────────
         if st.button("🚀 채널 탐색 시작 (제미나이 + Tavily 자동화)",
-                     disabled=False, use_container_width=True,
+                     disabled=is_locked, use_container_width=True,
                      type="primary", key="p1_channel_search_btn"):
 
             if not st.session_state.get("gemini_api_key"):
@@ -7516,7 +7516,7 @@ def render_part1():
         st.session_state.p1_channel_url = st.text_input(
             "타겟 유튜브 URL (탐색 완료 시 자동 입력)",
             value=st.session_state.get("p1_channel_url", ""),
-            disabled=False,
+            disabled=is_locked,
             key="p1_target_url_input"
         )
         st.session_state.p1_region = st.session_state.get("p1_region", "국내+국외 모두")
@@ -7525,7 +7525,7 @@ def render_part1():
             if st.button("📊 벤치마킹 대상 확정 → Part 2 연동",
                          use_container_width=True, type="primary",
                          key="p1_to_benchmark_btn",
-                         disabled=False):
+                         disabled=is_locked):
                 st.session_state.p2_channel_url = st.session_state.p1_channel_url
                 st.session_state.p2_region = st.session_state.get("p1_region", "국내+국외 모두")
                 st.session_state.pipeline_state["start_benchmarking"] = True
@@ -7588,7 +7588,7 @@ def render_part1():
 
             with c_btn1:
 
-                if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=False, key="p1_bench_start_btn"):
+                if st.button("🚀 벤치마킹 시작", use_container_width=True, disabled=is_locked, key="p1_bench_start_btn"):
 
                     if not st.session_state.p1_channel_url: 
 
@@ -7760,7 +7760,7 @@ def render_part1():
 
                 with c_reparse:
 
-                    if st.button("🔄 벤치마킹 수동 옵시디언 백업 실행", use_container_width=True, key="p1_bench_save_backup_btn", disabled=False):
+                    if st.button("🔄 벤치마킹 수동 옵시디언 백업 실행", use_container_width=True, key="p1_bench_save_backup_btn", disabled=is_locked):
                         tag_list = [t.strip() for t in st.session_state.p1_bench_tags.split(",") if t.strip()]
 
                     tag_links = " ".join([f"[[{t}]]" for t in tag_list])
@@ -7837,7 +7837,7 @@ def render_part1():
 
             with c_btn1:
 
-                if st.button("📚 자료조사 및 초안 작성", use_container_width=True, disabled=False, key="p1_research_start_btn"):
+                if st.button("📚 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked, key="p1_research_start_btn"):
 
                     if not st.session_state.p1_topic_selection:
 
@@ -8321,13 +8321,13 @@ def render_part1():
 
                     key="p1_research_tags_input",
 
-                    disabled=False
+                    disabled=is_locked
 
                 )
 
                 
 
-                if st.button("💾 (예비용) 자료조사 결과 수동 옵시디언 백업 실행", use_container_width=True, key="p1_research_save_backup_btn", disabled=False):
+                if st.button("💾 (예비용) 자료조사 결과 수동 옵시디언 백업 실행", use_container_width=True, key="p1_research_save_backup_btn", disabled=is_locked):
 
                     tag_list = [t.strip() for t in st.session_state.p1_research_tags.split(",") if t.strip()]
 
@@ -8403,7 +8403,7 @@ def render_part1():
 
             with c_btn1:
 
-                if st.button("[ALCHEMY] 철학·감정 융합 설계", use_container_width=True, disabled=False, key="p1_plan_start_btn"):
+                if st.button("[ALCHEMY] 철학·감정 융합 설계", use_container_width=True, disabled=is_locked, key="p1_plan_start_btn"):
 
                     if not st.session_state.p1_research_result:
 
@@ -8557,13 +8557,13 @@ def render_part1():
 
                    key="p1_plan_tags_input",
 
-                   disabled=False
+                   disabled=is_locked
 
                )
 
                
 
-               if st.button("💾 (예비용) 최종 기획안 수동 옵시디언 백업 실행", use_container_width=True, key="p1_plan_save_backup_btn", disabled=False):
+               if st.button("💾 (예비용) 최종 기획안 수동 옵시디언 백업 실행", use_container_width=True, key="p1_plan_save_backup_btn", disabled=is_locked):
 
                    tag_list = [t.strip() for t in st.session_state.p1_plan_tags.split(",") if t.strip()]
 
@@ -9357,7 +9357,7 @@ def render_part2():
 
         
 
-        if st.button("🚀 썸네일/주제/제목 3세트 생성 (AI)", use_container_width=True, disabled=False, key="p2_thumb_btn"):
+        if st.button("🚀 썸네일/주제/제목 3세트 생성 (AI)", use_container_width=True, disabled=is_locked, key="p2_thumb_btn"):
 
             if "p2_research_result" not in st.session_state or not st.session_state.p2_research_result:
 
@@ -9538,7 +9538,7 @@ def render_part2():
 
             with c_b1:
 
-                if st.button("🚀 벤치마킹 분석 실행", use_container_width=True, disabled=False, key="p2_bench_run_btn"):
+                if st.button("🚀 벤치마킹 분석 실행", use_container_width=True, disabled=is_locked, key="p2_bench_run_btn"):
 
                     if not st.session_state.get("p2_channel_url"):
 
@@ -9698,7 +9698,7 @@ def render_part2():
 
                         index=default_sel_idx, 
 
-                        disabled=False, 
+                        disabled=is_locked, 
 
                         key="p2_topic_sel"
 
@@ -9740,13 +9740,13 @@ def render_part2():
 
                     key="p2_bench_tags_input",
 
-                    disabled=False
+                    disabled=is_locked
 
                 )
 
                 
 
-                if st.button("💾 (예비용) 벤치마킹 수동 옵시디언 백업", use_container_width=True, key="p2_bench_save_backup_btn", disabled=False):
+                if st.button("💾 (예비용) 벤치마킹 수동 옵시디언 백업", use_container_width=True, key="p2_bench_save_backup_btn", disabled=is_locked):
 
                     parsed = []
 
@@ -9850,7 +9850,7 @@ def render_part2():
 
             with c_r1:
 
-                if st.button("📚 자료조사 및 초안 작성", use_container_width=True, disabled=False, key="p2_res_btn"):
+                if st.button("📚 자료조사 및 초안 작성", use_container_width=True, disabled=is_locked, key="p2_res_btn"):
 
                     if not st.session_state.get("p2_topic_selection"):
 
@@ -10316,13 +10316,13 @@ def render_part2():
 
                     key="p2_res_tags_input",
 
-                    disabled=False
+                    disabled=is_locked
 
                 )
 
 
 
-                if st.button("💾 (예비용) 자료조사 수동 옵시디언 백업", use_container_width=True, key="p2_research_save_backup_btn", disabled=False):
+                if st.button("💾 (예비용) 자료조사 수동 옵시디언 백업", use_container_width=True, key="p2_research_save_backup_btn", disabled=is_locked):
 
                     tag_list = [t.strip() for t in st.session_state.get("p2_research_tags","").split(",") if t.strip()]
 
@@ -10390,7 +10390,7 @@ def render_part2():
 
                 key="p2_plan_prompt_widget",
 
-                disabled=False
+                disabled=is_locked
 
             )
 
@@ -10400,7 +10400,7 @@ def render_part2():
 
                 save_workspace_state()
 
-            if st.button("📝 프롬프트 팝업 편집 (총괄 기획)", key="p2_edit_plan_prompt_btn", disabled=False):
+            if st.button("📝 프롬프트 팝업 편집 (총괄 기획)", key="p2_edit_plan_prompt_btn", disabled=is_locked):
 
                 popup_edit_text_value("p2_plan_prompt", "🤖 젬마 작업지시 프롬프트 (총괄 기획)")
 
@@ -10412,7 +10412,7 @@ def render_part2():
 
             with c_p1:
 
-                if st.button("[ALCHEMY] 총괄 기획안 생성 (AI)", use_container_width=True, disabled=False, type="primary", key="p2_plan_btn"):
+                if st.button("[ALCHEMY] 총괄 기획안 생성 (AI)", use_container_width=True, disabled=is_locked, type="primary", key="p2_plan_btn"):
 
                     if not st.session_state.get("p2_research_result"):
 
@@ -10940,13 +10940,13 @@ def render_part2():
 
                     key="p2_plan_tags_input",
 
-                    disabled=False
+                    disabled=is_locked
 
                 )
 
 
 
-                if st.button("💾 (예비용) 기획안 수동 옵시디언 백업", use_container_width=True, key="p2_plan_backup_btn", disabled=False):
+                if st.button("💾 (예비용) 기획안 수동 옵시디언 백업", use_container_width=True, key="p2_plan_backup_btn", disabled=is_locked):
 
                     tag_list = [t.strip() for t in st.session_state.get("p2_plan_tags","").split(",") if t.strip()]
 
@@ -11585,7 +11585,7 @@ def _p5_tab_a(is_locked):
 
     st.info("📌 A-MASTER 프롬프트로 이미지 생성 → A_Protagonist_Master.png → 크롬 확장 Slot 1 PIN")
 
-    if st.button("✨ A-MASTER 인물 참조 프롬프트 생성", use_container_width=True, key="p5_a_gen_btn", disabled=False):
+    if st.button("✨ A-MASTER 인물 참조 프롬프트 생성", use_container_width=True, key="p5_a_gen_btn", disabled=is_locked):
 
         prompt = (
 
@@ -11659,7 +11659,7 @@ def _p5_tab_b(is_locked):
 
     ], key="p5_b_select")
 
-    if st.button("✨ B-MASTER 환경/소품 참조 프롬프트 생성", use_container_width=True, key="p5_b_gen_btn", disabled=False):
+    if st.button("✨ B-MASTER 환경/소품 참조 프롬프트 생성", use_container_width=True, key="p5_b_gen_btn", disabled=is_locked):
 
         prompt = (
 
@@ -11745,7 +11745,7 @@ def _p5_tab_c(is_locked):
 
                 src_data = st.text_area("대본 데이터 붙여넣기", height=200, key="p5_src_manual", placeholder="씬번호|대본|@한글묘사@|@영어프롬프트@")
 
-            if st.button("[SEARCH] 데이터 파싱 및 씬 목록 구성", use_container_width=True, key="p5_parse_btn", disabled=False):
+            if st.button("[SEARCH] 데이터 파싱 및 씬 목록 구성", use_container_width=True, key="p5_parse_btn", disabled=is_locked):
 
                 if not src_data or not src_data.strip():
 
@@ -11805,7 +11805,7 @@ def _p5_tab_c(is_locked):
 
             parsed = st.session_state.get("p5_parsed_scenes", [])
 
-            if st.button("[CINEMA] C-1 프롬프트 생성 (AI)", use_container_width=True, key="p5_c_gen_btn", disabled=False or not parsed):
+            if st.button("[CINEMA] C-1 프롬프트 생성 (AI)", use_container_width=True, key="p5_c_gen_btn", disabled=is_locked or not parsed):
 
                 if not parsed:
 
@@ -11923,7 +11923,7 @@ def _p5_tab_c(is_locked):
 
                 st.download_button("🤖 크롬 확장 투입용 CSV", data=csv_eng, file_name=f"Chrome_Input_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mime="text/csv", key="p5_dl_eng")
 
-                if st.button("[SAVE] 전체 저장 및 백업", type="primary", use_container_width=True, key="p5_final_save", disabled=False):
+                if st.button("[SAVE] 전체 저장 및 백업", type="primary", use_container_width=True, key="p5_final_save", disabled=is_locked):
 
                     try:
 
@@ -11973,7 +11973,7 @@ def _p6_tab_veo3(is_locked):
 
     st.caption("Part 3-4 이미지 대본 → Veo3 고해상도 영상 프롬프트(3줄 형식)로 정밀 변환")
 
-    if st.button("✨ Veo3 영상 프롬프트 112씬 일괄 생성", type="primary", use_container_width=True, disabled=False, key="p6_veo3_gen_btn"):
+    if st.button("✨ Veo3 영상 프롬프트 112씬 일괄 생성", type="primary", use_container_width=True, disabled=is_locked, key="p6_veo3_gen_btn"):
 
         src_data = st.session_state.get("p34_image_script", "")
 
@@ -12011,7 +12011,7 @@ def _p6_tab_gemma(is_locked):
 
     st.markdown("### 🤖 Gemma: 씬별 영상 생성 지시서 (Opal 투입용)")
 
-    if st.button("📋 Opal 전용 지시서 CSV 생성", type="primary", use_container_width=True, disabled=False, key="p6_opal_csv_btn"):
+    if st.button("📋 Opal 전용 지시서 CSV 생성", type="primary", use_container_width=True, disabled=is_locked, key="p6_opal_csv_btn"):
 
         st.success("[OK] Opal 지시서 생성 완료!")
 
@@ -12126,7 +12126,7 @@ def render_part5_image():
 
             st.text_area("옵시디언", value=st.session_state.get("obsidian_rules",""), height=250, key="p5_ob_view", label_visibility="collapsed")
 
-            if st.button("[EDIT] 편집", key="p5_ob_btn", disabled=False): popup_edit_obsidian()
+            if st.button("[EDIT] 편집", key="p5_ob_btn", disabled=is_locked): popup_edit_obsidian()
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -12136,7 +12136,7 @@ def render_part5_image():
 
             st.text_area("이미지마스터", value=st.session_state.get("p5_image_master_prompt",""), height=250, key="p5_master_view", label_visibility="collapsed")
 
-            if st.button("[EDIT] 편집", key="p5_master_btn", disabled=False): popup_edit_image_master()
+            if st.button("[EDIT] 편집", key="p5_master_btn", disabled=is_locked): popup_edit_image_master()
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -12177,7 +12177,7 @@ def render_part5_image():
 
     with st.expander("🤖 젬마 프로토콜 v2.0 — 이미지 파트 전용 (클릭하여 확인/편집)", expanded=False):
         render_unified_prompt_editor("이미지 젬마 프로토콜 v2.0", "p5_gemma_protocol", height=180, is_locked=is_locked)
-        if st.button("🤖 젬마에게 프로토콜 로딩 선언 요청", key="p5_protocol_load", disabled=False, use_container_width=True):
+        if st.button("🤖 젬마에게 프로토콜 로딩 선언 요청", key="p5_protocol_load", disabled=is_locked, use_container_width=True):
 
                 with st.spinner("젬마 프로토콜 로딩 중..."):
 
@@ -12449,7 +12449,7 @@ def render_part6_video():
 
             st.text_area("옵시디언", value=st.session_state.get("obsidian_rules",""), height=250, key="p6_ob_view", label_visibility="collapsed")
 
-            if st.button("[SEARCH] 편집", key="p6_ob_btn", disabled=False): popup_edit_obsidian()
+            if st.button("[SEARCH] 편집", key="p6_ob_btn", disabled=is_locked): popup_edit_obsidian()
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -12459,7 +12459,7 @@ def render_part6_video():
 
             st.text_area("Veo3마스터", value=st.session_state.get("p6_veo3_master_prompt",""), height=250, key="p6_master_view", label_visibility="collapsed")
 
-            if st.button("[EDIT] 편집", key="p6_master_btn", disabled=False): popup_edit_veo3_master()
+            if st.button("[EDIT] 편집", key="p6_master_btn", disabled=is_locked): popup_edit_veo3_master()
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -12506,13 +12506,13 @@ def render_part6_video():
 
     with st.expander("[VIDEO] 젬마 프로토콜 v2.0 — 영상 파트 전용 (클릭하여 확인/편집)", expanded=False):
 
-        new_proto = st.text_area("영상 젬마 프로토콜 v2.0", value=st.session_state.p6_gemma_protocol, height=180, key="p6_protocol_ta", disabled=False)
+        new_proto = st.text_area("영상 젬마 프로토콜 v2.0", value=st.session_state.p6_gemma_protocol, height=180, key="p6_protocol_ta", disabled=is_locked)
 
         cp1, cp2 = st.columns(2)
 
         with cp1:
 
-            if st.button("[SAVE] 프로토콜 저장", key="p6_protocol_save", disabled=False):
+            if st.button("[SAVE] 프로토콜 저장", key="p6_protocol_save", disabled=is_locked):
 
                 st.session_state.p6_gemma_protocol = new_proto
 
@@ -12520,7 +12520,7 @@ def render_part6_video():
 
         with cp2:
 
-            if st.button("🤖 젬마에게 프로토콜 로딩 선언 요청", key="p6_protocol_load", disabled=False):
+            if st.button("🤖 젬마에게 프로토콜 로딩 선언 요청", key="p6_protocol_load", disabled=is_locked):
 
                 with st.spinner("젬마 프로토콜 로딩 중..."):
 
@@ -12616,7 +12616,7 @@ def render_part6_video():
 
         
 
-        if st.button("🤖 [Step 2] AI 4단 매핑 조립 실행", type="primary", use_container_width=True, key="p6_step2_run_btn", disabled=False or not st.session_state.get("p5_c_results", "").strip()):
+        if st.button("🤖 [Step 2] AI 4단 매핑 조립 실행", type="primary", use_container_width=True, key="p6_step2_run_btn", disabled=is_locked or not st.session_state.get("p5_c_results", "").strip()):
 
             src_scenes = [l.strip() for l in st.session_state.get("p5_c_results", "").split("\n") if l.strip()]
 
@@ -13119,7 +13119,7 @@ def render_part34():
 
         with c_arch1:
 
-            if st.button("🚀 112씬 구조 자동 설계 (AI)", use_container_width=True, disabled=False, type="primary", key="p34_arch_btn"):
+            if st.button("🚀 112씬 구조 자동 설계 (AI)", use_container_width=True, disabled=is_locked, type="primary", key="p34_arch_btn"):
 
                 p2_plan_v = st.session_state.get("p2_planning_result", "")
 
@@ -13239,7 +13239,7 @@ def render_part34():
 
         if st.session_state.p34_scene_structure:
 
-            if st.button("💾 (예비용) 구조 설계 수동 옵시디언 백업", use_container_width=True, key="p34_save_struct", disabled=False):
+            if st.button("💾 (예비용) 구조 설계 수동 옵시디언 백업", use_container_width=True, key="p34_save_struct", disabled=is_locked):
 
                 st.session_state.p34_scene_structure = st.session_state.p34_struct_area
 
@@ -13334,7 +13334,7 @@ def render_part34():
 
                 key="p34_narr_prompt_input",
 
-                disabled=False
+                disabled=is_locked
 
             )
 
@@ -13346,7 +13346,7 @@ def render_part34():
 
             with c_n1:
 
-                if st.button("🎙️ 나레이션 대본 생성 (AI)", use_container_width=True, disabled=False, key="p34_narr_btn"):
+                if st.button("🎙️ 나레이션 대본 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_narr_btn"):
 
                     if not st.session_state.p34_scene_structure:
 
@@ -13786,7 +13786,7 @@ def render_part34():
 
 
 
-                if st.button("💾 (예비용) 나레이션 수동 옵시디언 백업", use_container_width=True, key="p34_save_narr", disabled=False):
+                if st.button("💾 (예비용) 나레이션 수동 옵시디언 백업", use_container_width=True, key="p34_save_narr", disabled=is_locked):
 
                     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -13848,7 +13848,7 @@ def render_part34():
 
                 key="p34_img_prompt_input",
 
-                disabled=False
+                disabled=is_locked
 
             )
 
@@ -13860,7 +13860,7 @@ def render_part34():
 
             with c_i1:
 
-                if st.button("🖼️ 이미지 프롬프트 생성 (AI)", use_container_width=True, disabled=False, key="p34_img_btn"):
+                if st.button("🖼️ 이미지 프롬프트 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_img_btn"):
 
                     if not st.session_state.p34_narration_script:
 
@@ -14288,7 +14288,7 @@ def render_part34():
 
 
 
-                if st.button("💾 (예비용) 이미지 대본 수동 옵시디언 백업", use_container_width=True, key="p34_save_img", disabled=False):
+                if st.button("💾 (예비용) 이미지 대본 수동 옵시디언 백업", use_container_width=True, key="p34_save_img", disabled=is_locked):
 
                     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -14350,7 +14350,7 @@ def render_part34():
 
                 key="p34_cap_prompt_input",
 
-                disabled=False
+                disabled=is_locked
 
             )
 
@@ -14362,7 +14362,7 @@ def render_part34():
 
             with c_c1:
 
-                if st.button("🎬 캡컷 JSON 생성 (AI)", use_container_width=True, disabled=False, key="p34_cap_btn"):
+                if st.button("🎬 캡컷 JSON 생성 (AI)", use_container_width=True, disabled=is_locked, key="p34_cap_btn"):
 
                     if not st.session_state.p34_image_script:
 
@@ -14512,7 +14512,7 @@ def render_part34():
 
 
 
-                if st.button("💾 (예비용) 캡컷 에셋 수동 옵시디언 백업", use_container_width=True, key="p34_save_cap", disabled=False):
+                if st.button("💾 (예비용) 캡컷 에셋 수동 옵시디언 백업", use_container_width=True, key="p34_save_cap", disabled=is_locked):
 
                     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -14684,7 +14684,7 @@ def render_part6_opal():
 
             st.info("💡 이미지 대본(C-1 씬 형식)에서 나레이션을 정밀 추출할 수 있습니다.")
 
-            if st.button("🤖 이미지 대본에서 나레이션 정밀 추출 (AI)", key="p6_extract_narr_btn", disabled=False):
+            if st.button("🤖 이미지 대본에서 나레이션 정밀 추출 (AI)", key="p6_extract_narr_btn", disabled=is_locked):
 
                 with st.spinner("이미지 대본에서 나레이션 추출 중..."):
 
@@ -14735,7 +14735,7 @@ def render_part6_opal():
 
             
 
-    edited_narr = st.text_area("🎙️ 나레이션 대본 편집 (001 | 나레이션 내용 형식)", value=st.session_state.get("p34_narration_script", ""), height=300, key="p6_narr_editor", disabled=False)
+    edited_narr = st.text_area("🎙️ 나레이션 대본 편집 (001 | 나레이션 내용 형식)", value=st.session_state.get("p34_narration_script", ""), height=300, key="p6_narr_editor", disabled=is_locked)
 
     if edited_narr != st.session_state.get("p34_narration_script", ""):
 
@@ -14751,13 +14751,13 @@ def render_part6_opal():
 
         bgm_presets = ["비장한 성경 낭독풍", "잔잔한 철학 수필풍", "긴박한 다큐멘터리풍", "신비롭고 몽환적인 뉴에이지"]
 
-        selected_bgm = st.selectbox("💿 BGM 분위기 프리셋 선택", bgm_presets, index=bgm_presets.index(st.session_state.get("p6_bgm_selection", "비장한 성경 낭독풍")), disabled=False, key="p6_bgm_select")
+        selected_bgm = st.selectbox("💿 BGM 분위기 프리셋 선택", bgm_presets, index=bgm_presets.index(st.session_state.get("p6_bgm_selection", "비장한 성경 낭독풍")), disabled=is_locked, key="p6_bgm_select")
 
         st.session_state.p6_bgm_selection = selected_bgm
 
     with c_bgm2:
 
-        mix_ratio = st.slider("🔊 오디오 믹싱 비율 (나레이션 볼륨 %)", min_value=50, max_value=100, value=st.session_state.get("p6_mixing_ratio", 80), step=5, disabled=False, key="p6_mix_slider")
+        mix_ratio = st.slider("🔊 오디오 믹싱 비율 (나레이션 볼륨 %)", min_value=50, max_value=100, value=st.session_state.get("p6_mixing_ratio", 80), step=5, disabled=is_locked, key="p6_mix_slider")
 
         st.session_state.p6_mixing_ratio = mix_ratio
 
@@ -14765,7 +14765,7 @@ def render_part6_opal():
 
     st.subheader("👥 Step 3. Google Opal 8계정 분배")
 
-    if st.button("👥 Opal 8계정 씬 자동 배분 시작", key="p6_distribute_btn", type="primary", disabled=False):
+    if st.button("👥 Opal 8계정 씬 자동 배분 시작", key="p6_distribute_btn", type="primary", disabled=is_locked):
 
         # 버튼 내부에서 세션 스테이트를 통해 안전하게 설정값 참조
 
@@ -15150,7 +15150,7 @@ def render_part7_capcut():
 
         
 
-    if st.button("🎬 CapCut Bridge 데이터 자동 조립 및 타임라인 연산", key="p7_assemble_btn", type="primary", disabled=False):
+    if st.button("🎬 CapCut Bridge 데이터 자동 조립 및 타임라인 연산", key="p7_assemble_btn", type="primary", disabled=is_locked):
 
         with st.spinner("CapCut 자동화 템플릿용 데이터 구성 중..."):
 
@@ -15262,13 +15262,13 @@ def render_part7_capcut():
         value=st.session_state.get("p7_hook_prompt_val", "나레이션 대본 전체를 요약하고, 틱톡/쇼츠용 극강의 어그로 후킹 문구 3개와 시청자 행동 유도(CTA) 멘트 1개를 생성하라."),
         height=100,
         key="p7_hook_prompt_input",
-        disabled=False
+        disabled=is_locked
     )
     st.session_state["p7_hook_prompt_val"] = p7_hook_prompt
 
     c_hk1, c_hk2 = st.columns([4, 6])
     with c_hk1:
-        if st.button("🚀 숏폼 후킹 멘트 생성", key="p7_gen_hook_btn", type="secondary", disabled=False or opal_df is None):
+        if st.button("🚀 숏폼 후킹 멘트 생성", key="p7_gen_hook_btn", type="secondary", disabled=is_locked or opal_df is None):
             with st.spinner("후킹 멘트 및 핵심 메시지 생성 중..."):
                 try:
                     p7_rag_res = st.session_state.get("p7_obsidian_search_results", "")
@@ -15314,7 +15314,7 @@ def render_part7_capcut():
         value=default_script,
         height=200,
         key="p7_script_input_widget",
-        disabled=False
+        disabled=is_locked
     )
     st.session_state.p7_script_input = p7_script
 
@@ -15328,7 +15328,7 @@ def render_part7_capcut():
             value=st.session_state.get("p7_scenes_input", 8),
             step=1,
             key="p7_scenes_input_widget",
-            disabled=False
+            disabled=is_locked
         )
         st.session_state.p7_scenes_input = p7_scenes
 
@@ -15336,7 +15336,7 @@ def render_part7_capcut():
             "🖼 영상 비주얼 스타일 (Visual Style)",
             value=st.session_state.get("p7_video_style_input", "Warm Amber Cinematic, Rembrandt lighting, deep shadows"),
             key="p7_video_style_input_widget",
-            disabled=False
+            disabled=is_locked
         )
         st.session_state.p7_video_style_input = p7_video_style
         
@@ -15345,7 +15345,7 @@ def render_part7_capcut():
             "🎵 BGM 스타일 (Audio Mood)",
             value=st.session_state.get("p7_bgm_style_input", "Quiet, cello and piano reflective harmony"),
             key="p7_bgm_style_input_widget",
-            disabled=False
+            disabled=is_locked
         )
         st.session_state.p7_bgm_style_input = p7_bgm_style
 
@@ -15353,12 +15353,12 @@ def render_part7_capcut():
             "💬 자막 스타일 (Subtitle Style)",
             value=st.session_state.get("p7_subtitle_style_input", "Minimalist yellow-warm subtitle, center-bottom"),
             key="p7_subtitle_style_input_widget",
-            disabled=False
+            disabled=is_locked
         )
         st.session_state.p7_subtitle_style_input = p7_subtitle_style
 
     # 패킷 생성 실행 버튼
-    if st.button("🚀 CapCut 조립용 패킷 생성 (AI)", type="primary", key="p7_gen_packet_btn", disabled=False or not p7_script.strip()):
+    if st.button("🚀 CapCut 조립용 패킷 생성 (AI)", type="primary", key="p7_gen_packet_btn", disabled=is_locked or not p7_script.strip()):
         with st.spinner("Gemma AI가 대본을 장면 단위로 분할하여 CapCut 조립용 패킷을 생성하는 중..."):
             try:
                 # build_capcut_assembly_packet 호출
@@ -15684,13 +15684,13 @@ def render_part8_dashboard():
         value=st.session_state.get("p8_guide_prompt_val", "112개 대본의 서사 흐름과 RAG 자료를 기반으로, 영상 편집 단계에서 반드시 지켜야 할 최종 연출 가이드라인, 분위기(Mood), 오디오 믹싱 시 주의사항을 담은 검수 가이드라인을 생성하라."),
         height=100,
         key="p8_guide_prompt_input",
-        disabled=False
+        disabled=is_locked
     )
     st.session_state["p8_guide_prompt_val"] = p8_guide_prompt
 
     c_gd1, c_gd2 = st.columns([4, 6])
     with c_gd1:
-        if st.button("🚀 AI 최종 검수 가이드라인 생성", key="p8_gen_guide_btn", type="secondary", disabled=False):
+        if st.button("🚀 AI 최종 검수 가이드라인 생성", key="p8_gen_guide_btn", type="secondary", disabled=is_locked):
             with st.spinner("최종 검수 가이드라인 생성 중..."):
                 try:
                     p8_rag_res = st.session_state.get("p8_obsidian_search_results", "")
