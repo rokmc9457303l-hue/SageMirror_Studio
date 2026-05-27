@@ -1625,27 +1625,41 @@ def popup_assistant():
 
                 # ── 에이전트 루프 실행 ────────────────────────────
                 _current_mode = st.session_state.get("popup_gemma_mode", "A")
-                _max_iter = 1 if _current_mode == "A" else 4
-                
-                with st.status("🔮 젬마 에이전트 작동 중...", expanded=True) as status_widget:
-                    st.write(f"모델: {current_model} | 파트: {current_part_name}")
-                    ans_placeholder = st.empty()
-                    full_response = ""
+                if _current_mode == "A":
+                    # A 모드: 빠른 답변 (일반 호출 - 캐시 미적용 직접 호출 보장)
+                    from sage_engine import call_gemma
+                    with st.spinner("🔮 빠른 답변 생성 중..."):
+                        try:
+                            response = call_gemma(q_stream, system=sys_ctx, model=current_model)
+                            if not response or "error" in response.lower():
+                                st.warning("⚠️ 젬마 엔진이 빈 응답을 반환하여 재시도합니다...")
+                                response = call_gemma(q_stream, system=sys_ctx, model=current_model) # 2차 시도
+                            full_response = response
+                            st.write(full_response)
+                        except Exception as e:
+                            st.error(f"A모드 답변 생성 실패: {e}")
+                            full_response = f"[A모드 답변 생성 실패] {e}"
+                else:
+                    # B 모드: 옵시디언 아카이빙 (기존 에이전트 루프)
+                    with st.status("🔮 젬마 에이전트 작동 중...", expanded=True) as status_widget:
+                        st.write(f"모델: {current_model} | 파트: {current_part_name}")
+                        ans_placeholder = st.empty()
+                        full_response = ""
 
-                    try:
-                        full_response = run_agent_loop(
-                            question=q_stream,
-                            sys_ctx=sys_ctx,
-                            model=current_model,
-                            part_key=current_part_key,
-                            max_iterations=_max_iter,
-                            stream_placeholder=ans_placeholder,
-                            status_widget=status_widget,
-                        )
-                    except Exception as e:
-                        full_response = f"[오류] {e}\n→ Ollama 서버 실행 여부 확인"
-                        ans_placeholder.error(full_response)
-                        status_widget.update(label="❌ 오류", state="error", expanded=False)
+                        try:
+                            full_response = run_agent_loop(
+                                question=q_stream,
+                                sys_ctx=sys_ctx,
+                                model=current_model,
+                                part_key=current_part_key,
+                                max_iterations=4,
+                                stream_placeholder=ans_placeholder,
+                                status_widget=status_widget,
+                            )
+                        except Exception as e:
+                            full_response = f"[오류] {e}\n→ Ollama 서버 실행 여부 확인"
+                            ans_placeholder.error(full_response)
+                            status_widget.update(label="❌ 오류", state="error", expanded=False)
 
                 # ── [수술 B] 순서 재정렬: pending_stream 먼저 None, history 안전 추가 ──
                 st.session_state.pending_stream = None  # 1순위: 스트림 플래그 해제

@@ -1624,9 +1624,6 @@ def popup_assistant():
                     st.caption("⚡ A 모드: RAG 스킵 — 빠른 대화 모드")
 
                 # ── 에이전트 루프 실행 ────────────────────────────
-                _current_mode = st.session_state.get("popup_gemma_mode", "A")
-                _max_iter = 1 if _current_mode == "A" else 4
-                
                 with st.status("🔮 젬마 에이전트 작동 중...", expanded=True) as status_widget:
                     st.write(f"모델: {current_model} | 파트: {current_part_name}")
                     ans_placeholder = st.empty()
@@ -1638,7 +1635,7 @@ def popup_assistant():
                             sys_ctx=sys_ctx,
                             model=current_model,
                             part_key=current_part_key,
-                            max_iterations=_max_iter,
+                            max_iterations=4,
                             stream_placeholder=ans_placeholder,
                             status_widget=status_widget,
                         )
