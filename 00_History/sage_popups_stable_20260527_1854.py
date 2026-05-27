@@ -1086,8 +1086,9 @@ def run_agent_loop(
         else:
             enriched_prompt = question
 
-        # 젬마 응답 생성 (모든 반복에 실시간 스트리밍 적용)
-        if stream_placeholder:
+        # 젬마 응답 생성
+        if stream_placeholder and iteration == 0:
+            # 첫 번째 반복만 스트리밍
             full_response = ""
             try:
                 for token in call_gemma_stream(enriched_prompt, system=sys_ctx, model=model):
@@ -1096,10 +1097,14 @@ def run_agent_loop(
                 stream_placeholder.markdown(full_response)
             except Exception as e:
                 full_response = f"[오류] {e}"
-                stream_placeholder.error(full_response)
+                if stream_placeholder:
+                    stream_placeholder.error(full_response)
         else:
+            # 이후 반복은 일반 호출
             try:
                 full_response = call_gemma(enriched_prompt, sys_ctx, model=model)
+                if stream_placeholder:
+                    stream_placeholder.markdown(full_response)
             except Exception as e:
                 full_response = f"[오류] {e}"
 
@@ -1389,10 +1394,9 @@ def popup_assistant():
                 if st.session_state.get("popup_use_rag", True):
                     try:
                         from rag_memory_utils import load_recent_reference_files, build_condensed_reference_context, build_manual_gemma_memory_buffer
-                        # 로컬 연산 병목을 막기 위해 팝업창 전용 메모리 상한을 30000자로 대폭 축소
-                        ref_items = load_recent_reference_files(max_files=10, max_chars=30000) 
+                        ref_items = load_recent_reference_files(max_files=20, max_chars=120000)
                         if ref_items:
-                            prompt_preview, excluded_files = build_condensed_reference_context(ref_items, max_chars=15000)
+                            prompt_preview, excluded_files = build_condensed_reference_context(ref_items, max_chars=30000)
                             if excluded_files:
                                 for exf_name, reason in excluded_files:
                                     st.caption(f"⚠️ 오염 가능 Reference 제외: {exf_name}")
