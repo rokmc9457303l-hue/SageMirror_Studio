@@ -1,3 +1,21 @@
+## v16.1.22 - 2026-05-27 11:56
+### 변경 내용
+- **[긴급 복구] popup_editor_safe 전역 스코프 이식 및 render_part1 들여쓰기 대붕괴 수리 (OPERATION ANTI-GEMINI)**:
+  - **STEP 1 — 안전 백업**: `app_v16_1_21_fixed.py`를 `app_v16_1_22_stable.py`로 복사하여 새 버전 생성. 원본은 `00_History/app_v16_1_21_fixed_backup_20260527_1156.py`로 보존.
+  - **STEP 2 — 버튼 세트 복구**: `render_unified_prompt_editor()` 내 c1 컬럼을 2분할하여 `🔓 직접 편집` + `📝 팝업 편집` 버튼을 나란히 배치. 직접 편집 버튼 클릭 시 `edit_mode_key=True` → `st.rerun()` 흐름 복구.
+  - **STEP 3 — popup_editor_safe 전역 이식**: Gemini Flash가 render_part1() 함수 내부(7213~7225줄)에 박아 넣었던 `@st.dialog popup_editor_safe`를 추출하여 `render_unified_prompt_editor` 선언 직전인 4741번째 줄(전역 스코프)로 완전히 이동.
+  - **STEP 4 — render_part1 body 복구**: popup_editor_safe 이후 끊겼던 render_part1()의 body 코드(`is_locked = False` 이후 `render_top_panel()`, Step 1~4 UI 전체)를 4칸 들여쓰기로 재정렬하여 함수 내부로 복구.
+  - **STEP 5 — 배포 스크립트 갱신**: `RUN_APP.bat` 실행 타겟을 `app_v16_1_22_stable.py`로 강제 갱신.
+  - **컴파일 검증**: `python -m py_compile` 무오류 통과 확인.
+### 영향 파트
+- 전체 앱 (render_part1 UI 복구 및 전역 팝업 에디터 안정화)
+### 수정 파일
+- `app_v16_1_22_stable.py` [NEW]
+- `RUN_APP.bat`
+- `00_History/CHANGELOG.md`
+
+---
+
 ## v16.1.21 - 2026-05-27 00:15
 ### 변경 내용
 - **프롬프트 입력칸 편집/저장 구조 통일화 (Part 1~5 통합 에디터 전면 적용)**:
