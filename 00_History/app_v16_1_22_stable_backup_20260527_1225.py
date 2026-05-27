@@ -4605,8 +4605,6 @@ RAG 부족 시:
 
         "p8_master_prompt": P8_MASTER_PROMPT_DEFAULT,
 
-        "p2_master_prompt": "",
-
         "p6_protocol_loaded": "",
 
         "p6_vid_pin_input": "",
@@ -4759,33 +4757,65 @@ def popup_editor_safe(session_key, title):
 
 def render_unified_prompt_editor(label: str, session_key: str, height: int = 150, is_locked: bool = False):
     """
-    Part 1~5 Step 1/2/3 프롬프트 입력칸의 팝업 편집 및 저장을 처리하는 공통 UI 컴포넌트.
-    버튼: [📝 팝업 편집] [💾 저장] 2개만 유지
+    Part 1~5 Step 1/2/3 프롬프트 입력칸의 편집, 저장, 보기, 복사를 통일하여 처리하는 공통 UI 컴포넌트.
     """
-    # 현재 값 표시 (항상 disabled — 편집은 팝업으로만)
+    import json
+    
+    # 1. 편집 모드 플래그 초기화
+    edit_mode_key = f"{session_key}_edit_mode"
+    if edit_mode_key not in st.session_state:
+        st.session_state[edit_mode_key] = False
+        
+    edit_mode = st.session_state[edit_mode_key]
+    
+    # 2. 텍스트 영역 렌더링 (평소엔 disabled=True, 편집 중일 땐 disabled=False)
+    # 위젯 고유 key 규칙 준수: key="[session_key]_edit_widget"
+    disabled_state = not edit_mode or is_locked
+    
     current_value = st.session_state.get(session_key, "")
-
-    st.text_area(
+    
+    prompt_val = st.text_area(
         label,
         value=current_value,
         height=height,
         key=f"{session_key}_edit_widget",
-        disabled=True
+        disabled=disabled_state
     )
-
-    # 2버튼 세트: 팝업 편집 + 저장
-    c1, c2 = st.columns(2)
+    
+    # 3. 4단 버튼 세트 렌더링
+    c1, c2, c3, c4 = st.columns(4)
     with c1:
-        if st.button("📝 팝업 편집", key=f"{session_key}_popup_btn", use_container_width=True, disabled=is_locked):
-            popup_editor_safe(session_key, label)
+        c1_a, c1_b = st.columns(2)
+        with c1_a:
+            if st.button("🔓 직접 편집", key=f"{session_key}_edit_btn", use_container_width=True, disabled=is_locked):
+                st.session_state[edit_mode_key] = True
+                st.rerun()
+        with c1_b:
+            if st.button("📝 팝업 편집", key=f"{session_key}_popup_btn", use_container_width=True):
+                popup_editor_safe(session_key, label)
+
     with c2:
-        widget_val = st.session_state.get(f"{session_key}_edit_widget", current_value)
         if st.button("💾 저장", key=f"{session_key}_save_btn", use_container_width=True, disabled=is_locked):
-            st.session_state[session_key] = st.session_state.get(session_key, current_value)
+            st.session_state[session_key] = prompt_val
+            st.session_state[edit_mode_key] = False
             save_workspace_state()
             st.toast(f"💾 저장 완료!", icon="💾")
             st.rerun()
-
+            
+    with c3:
+        if st.button("👁 보기", key=f"{session_key}_view_btn", use_container_width=True):
+            st.session_state[edit_mode_key] = False
+            st.rerun()
+            
+    with c4:
+        if st.button("📋 복사", key=f"{session_key}_copy_btn", use_container_width=True):
+            escaped_val = json.dumps(current_value)
+            st.toast("📋 텍스트가 클립보드에 복사되었습니다!", icon="📋")
+            st.components.v1.html(f"""
+                <script>
+                navigator.clipboard.writeText({escaped_val});
+                </script>
+            """, height=0)
 
 # =====================================================================
 
@@ -6470,7 +6500,7 @@ def render_top_panel():
 
             pr_btn_cols = st.columns(2)
             with pr_btn_cols[0]:
-                if st.button("📝 편집", key=f"pr_btn_{prompt_key}", use_container_width=True):
+                if st.button("[SEARCH] 편집", key=f"pr_btn_{prompt_key}", use_container_width=True):
                     popup_edit_text_value(prompt_key, prompt_title)
             with pr_btn_cols[1]:
                 if st.button("💾 마스터 프롬프트 저장", key=f"pr_save_btn_{prompt_key}", use_container_width=True):

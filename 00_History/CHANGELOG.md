@@ -1,3 +1,25 @@
+## v16.1.23 - 2026-05-27 12:26
+### 변경 내용
+- **[버그 수정] 파트2 전역 마스터 프롬프트 영구 소실 문제 해결 (`memory_state_manager.py`)**:
+  - `save_workspace_state_core()`의 `keys_to_save` 목록에 `p2_master_prompt` 키가 누락되어 있어 앱 재시작 시마다 내용이 초기화됨.
+  - `memory_state_manager.py` 120번째 줄에 `"p2_master_prompt"` 추가.
+  - `app_v16_1_22_stable.py` `init_session_state` defaults에도 `"p2_master_prompt": ""` 초기값 추가.
+- **[UI 단순화] `render_unified_prompt_editor` 버튼 정리 (전체 파트 동일 적용)**:
+  - 기존 4버튼(🔓 직접 편집 / 📝 팝업 편집 / 💾 저장 / 👁 보기 / 📋 복사)을 제거.
+  - `📝 팝업 편집` + `💾 저장` 2버튼으로 단순화.
+  - 텍스트 영역은 항상 `disabled=True` (읽기전용) — 편집은 팝업으로만.
+  - 직접 편집 모드 state 로직(`edit_mode_key`) 완전 제거.
+- **[UI 수정] 상단 공통 패널 마스터 프롬프트 편집 버튼 텍스트 정리**:
+  - `[SEARCH] 편집` → `📝 편집`으로 변경.
+### 영향 파트
+- 전체 파트 (render_unified_prompt_editor 공통 적용)
+- 파트 2 (p2_master_prompt 영속성 복구)
+### 수정 파일
+- `app_v16_1_22_stable.py`
+- `memory_state_manager.py`
+
+---
+
 ## v16.1.22 - 2026-05-27 11:56
 ### 변경 내용
 - **[긴급 복구] popup_editor_safe 전역 스코프 이식 및 render_part1 들여쓰기 대붕괴 수리 (OPERATION ANTI-GEMINI)**:
