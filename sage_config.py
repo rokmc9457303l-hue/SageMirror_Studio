@@ -8,6 +8,32 @@ MASTER_PW_DEFAULT = "master1234"
 PART_PINS = {f"part{i}": "7777" for i in range(1, 9)}
 OLLAMA_MODEL = "gemma4:e2b"
 
+# ══════════════════════════════════════════════════════════════
+# 🌾 밭 연결 경로 상수 (CrossVault Bridge) — 2026-05-27 추가
+# Production ↔ Backup ↔ Obsidian 세 밭 통합 경로 관리
+# ══════════════════════════════════════════════════════════════
+import os as _os
+
+# 밭1: 메인 프로덕션
+FIELD_PRODUCTION     = r"C:\SageMirror_Production"
+# 밭2: 백업 워크스페이스 (v13.x 참조용)
+FIELD_BACKUP         = r"C:\SageMirror_Production_BACKUP_2026_05_20"
+# 밭3a: 메인 옵시디언 볼트
+FIELD_OBSIDIAN       = r"C:\SageMirror_Production\00_Obsidian"
+# 밭3b: 아카이브 볼트 (고전 32개 문헌)
+FIELD_ARCHIVE        = r"C:\SageMirror_Production\00_Obsidian_Archive"
+# 밭 연결 브릿지
+CROSS_VAULT_BRIDGE   = r"C:\SageMirror_Production\00_Obsidian\_shared\CrossVaultBridge"
+BRIDGE_FROM_ARCHIVE  = _os.path.join(CROSS_VAULT_BRIDGE, "FromArchive")
+BRIDGE_FROM_BACKUP   = _os.path.join(CROSS_VAULT_BRIDGE, "FromBackup")
+BRIDGE_PIPELINE      = _os.path.join(CROSS_VAULT_BRIDGE, "Pipeline")
+BRIDGE_SHARED_INDEX  = _os.path.join(CROSS_VAULT_BRIDGE, "SharedIndex")
+
+# 앱 포트
+APP_PORT = 8505
+
+
+
 DEFAULT_OBSIDIAN_RULES = (
     "# 현자의 거울 — 젬마 핵심 3원칙\n"
     "HOW (어떻게 말하는가)  → 자유   (창의 영역)\n"
