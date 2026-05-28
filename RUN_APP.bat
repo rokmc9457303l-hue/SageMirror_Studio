@@ -1,4 +1,5 @@
 @echo off
 cd /d C:\SageMirror_Production
-python -m streamlit run app_v17_1_0.py --server.port 8505
+echo [MIRROR] Sage Mirror Studio v17.1.3 Starting...
+python -m streamlit run app_v17_1_3.py --server.port 8505 --theme.base="dark"
 pause

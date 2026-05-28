@@ -1183,38 +1183,6 @@ def run_agent_loop(
 # ══════════════════════════════════════════════════════════════════════
 # 🤖 세이지 팝업 v3.0 — 메인 팝업
 # ══════════════════════════════════════════════════════════════════════
-# ─── 대화 영속성 헬퍼 ─────────────────────────────────────────────
-CHAT_JSON_PATH = Path(r"C:\SageMirror_Outputs\00_Session_States\popup_chat_EP001.json")
-
-def _save_chat_history(history: list) -> None:
-    """popup_history를 JSON 파일로 영속 저장"""
-    try:
-        CHAT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
-        CHAT_JSON_PATH.write_text(
-            __import__('json').dumps(history, ensure_ascii=False, indent=2),
-            encoding="utf-8"
-        )
-    except Exception:
-        pass
-
-def _load_chat_history() -> list:
-    """JSON 파일에서 popup_history 복원"""
-    try:
-        if CHAT_JSON_PATH.exists():
-            raw = CHAT_JSON_PATH.read_text(encoding="utf-8", errors="ignore")
-            data = __import__('json').loads(raw)
-            if isinstance(data, list):
-                return data
-    except Exception:
-        pass
-    return []
-
-def _compress_chat_history_stub(history: list) -> list:
-    """대화 압축 구조 뼈대 (50턴 초과 시 앞 30턴 요약 — 추후 구현)"""
-    # TODO: 50턴 초과 시 앞 30턴 요약 압축, 최근 20턴 원문 유지
-    return history
-
-
 @st.dialog("🤖 세이지 팝업 — Gemma × Tavily × Obsidian RAG", width="large")
 def popup_assistant():
     # ── 상태 초기화 ──
@@ -1224,21 +1192,14 @@ def popup_assistant():
         "popup_search_history": [],
         "pending_stream": None,
         "popup_chat_input_ta": "",
-        "popup_auto_search": False,
-        "popup_use_rag": False,
-        "popup_gemma_mode": "A",
+        "popup_auto_search": True,
+        "popup_use_rag": True,
         "tavily_rag_context": "",
         "part_action_quick_input": "",
     }
     for k, v in defaults.items():
         if k not in st.session_state:
             st.session_state[k] = v
-
-    # ── 대화 영속성 복원 (첫 진입 시 JSON에서 로드) ──
-    if not st.session_state.popup_history:
-        loaded = _load_chat_history()
-        if loaded:
-            st.session_state.popup_history = loaded
 
     current_part_key = _get_current_part()
     current_part_info = PART_CONTEXT_MAP.get(current_part_key, PART_CONTEXT_MAP["part1"])
@@ -1303,68 +1264,69 @@ def popup_assistant():
 
     # ── 탭 구성 ──
     tab_chat, tab_tavily, tab_upload, tab_part_action = st.tabs([
-        "💬 빠른 대화",
-        "🔎 자료 조사",
-        "📂 젬마 자료 업로드",
-        "🧠 옵시디언 저장소"
+        "💬 Gemma 대화",
+        "🌐 Tavily 인터넷 리서치",
+        "📎 파일 업로드 저장",
+        "⚙️ 파트 작업 지시"
     ])
 
     # ══════════════════════════════════════════════════════
-    # 탭 1: 빠른 대화 (A 시스템 — 경량 1회 호출)
+    # 탭 1: Gemma 대화
     # ══════════════════════════════════════════════════════
     with tab_chat:
-        # A 모드 강제 고정 (빠른 대화 탭은 항상 A 모드)
-        st.session_state.popup_gemma_mode = "A"
+        st.markdown("##### 💬 대화 기록 (스크롤 / 드래그 복사)")
+        chat_container = st.container(height=340, border=True)
 
-        # 모드 안내 배지
-        st.markdown(
-            "<div style='background:linear-gradient(135deg,#1a3a5c,#0d2240);"
-            "border-left:3px solid #d4af6a;padding:6px 12px;border-radius:0 8px 8px 0;"
-            "margin-bottom:8px;font-size:0.82rem;color:#d4af6a;'>"
-            "⚡ A 시스템 — 빠른 대화 모드 | Tavily·RAG 자동 검색 <b>OFF</b> | "
-            "call_gemma() 1회 직접 호출"
-            "</div>",
-            unsafe_allow_html=True,
-        )
-
-        st.markdown("##### 💬 대화 기록")
-        chat_container = st.container(height=320, border=True)
-
+        st.markdown("##### ✏️ 질문 입력")
         st.text_area(
             "질문 입력", key="popup_chat_input_ta",
             placeholder=(
-                "안녕 / 간단한 질문을 입력하세요.\n"
+                "현자에게 물어보세요...\n\n"
                 "예: '이 파트의 나레이션을 더 감성적으로 수정해줘'\n"
-                "예: '빅터 프랭클의 의미치료 핵심을 3줄로 설명해줘'"
+                "예: '빅터 프랭클의 의미치료에 대해 설명해줘'\n"
+                "예: '지금 수집된 인터넷 자료를 요약해줘'"
             ),
-            height=100, label_visibility="collapsed",
+            height=110, label_visibility="collapsed",
         )
 
-        c1, c2, c3 = st.columns(3)
+        col_opt1, col_opt2 = st.columns(2)
+        with col_opt1:
+            auto_search = st.checkbox("🌐 모를 때 Tavily 자동 검색",
+                                      value=st.session_state.get("popup_auto_search", True),
+                                      key="popup_auto_search_cb")
+            st.session_state.popup_auto_search = auto_search
+        with col_opt2:
+            use_rag = st.checkbox("🧠 옵시디언 + 인터넷 자료 주입",
+                                   value=st.session_state.get("popup_use_rag", True),
+                                   key="popup_use_rag_cb")
+            st.session_state.popup_use_rag = use_rag
+
+        c1, c2, c3, c4 = st.columns(4)
         with c1:
             st.button("📤 전송", use_container_width=True, key="popup_send",
                       type="primary", on_click=_on_popup_send)
         with c2:
+            back = st.button(f"⬅️ 뒤로 ({len(st.session_state.popup_history) // 2})",
+                             use_container_width=True, key="popup_back",
+                             disabled=len(st.session_state.popup_history) < 2)
+        with c3:
+            clear = st.button("🗑️ 초기화", use_container_width=True, key="popup_clear")
+        with c4:
             if st.session_state.popup_history:
                 all_chat = "\n\n".join(
                     f"### [{m['role'].upper()}]\n{m['content']}"
                     for m in st.session_state.popup_history
                 )
-                st.download_button("💾 대화 저장", data=all_chat,
+                st.download_button("📥 .md", data=all_chat,
                                    file_name=f"sage_chat_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
                                    use_container_width=True, key="popup_dl")
-            else:
-                st.button("💾 대화 저장", use_container_width=True, key="popup_dl_disabled",
-                          disabled=True)
-        with c3:
-            clear = st.button("🗑️ 대화 초기화", use_container_width=True, key="popup_clear")
 
+        if back and len(st.session_state.popup_history) >= 2:
+            st.session_state.popup_history = st.session_state.popup_history[:-2]
+            st.rerun()
         if clear:
-            confirm_clear = True
             st.session_state.popup_history = []
             st.session_state.pending_stream = None
-            _save_chat_history([])
-            st.toast("🗑️ 대화 기록 초기화 완료", icon="🗑️")
             st.rerun()
 
         # 대화 기록 렌더링
@@ -1407,105 +1369,122 @@ def popup_assistant():
                     with st.expander("📋 복사용 텍스트", expanded=False):
                         st.code(msg["content"], language="markdown")
 
-            # ── 스트리밍 처리 (A 모드 / B 모드 분기) ─────────────
+            # 스트리밍 처리
             if st.session_state.get("pending_stream"):
                 q_stream = st.session_state.pending_stream
                 current_model = st.session_state.popup_selected_model
-                current_mode = st.session_state.get("popup_gemma_mode", "A")
 
-                # ── 공통 시스템 컨텍스트 (A/B 모드 공통) ──
-                sys_ctx = SAGE_PERSONA + "\n\n"
-                sys_ctx += "[현재 파트]\n" + current_part_name + "\n"
-                sys_ctx += "[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", "")[:500] + "\n"
+                # ── 통합 시스템 컨텍스트 구성 ─────────────────────
+                try:
+                    from sage_config import RAG_TAG_SYSTEM as _rts
+                except Exception:
+                    _rts = ""
+                sys_ctx = SAGE_PERSONA + "\n\n" + (_rts if _rts else "")
 
-                full_response = ""
+                # 젬마 프로토콜 v9.0 주입
+                gemma_protocol = st.session_state.get("p1_gemma_protocol", "")
+                if gemma_protocol:
+                    sys_ctx += "[젬마 프로토콜]\n" + gemma_protocol + "\n\n"
 
-                if current_mode == "A":
-                    # ══════════════════════════════════════════
-                    # A 모드: 빠른 대화 — call_gemma() 1회만 직접 호출
-                    # Tavily 자동 검색 금지 / RAG 자동 주입 금지
-                    # References Memory 로드 금지 / run_agent_loop 금지
-                    # ══════════════════════════════════════════
-                    with st.spinner(f"💬 {current_model} 응답 생성 중..."):
-                        try:
-                            from sage_engine import call_gemma as _direct_gemma
-                            full_response = _direct_gemma(
-                                q_stream,
-                                system=sys_ctx,
-                                model=current_model
-                            )
-                        except Exception as e:
-                            full_response = f"[오류] {e}\n→ Ollama 서버 실행 여부를 확인하세요."
+                sys_ctx += "[핵심 3원칙]\n"
+                sys_ctx += "HOW (어떻게 말하는가) → 자유 (창의·표현·서사)\n"
+                sys_ctx += "WHAT (무엇을 말하는가) → 통제 (사실 기반·출처 필수)\n"
+                sys_ctx += "WHO (누구로서 말하는가) → 고정 (@Protagonist·기승전결)\n\n"
+                sys_ctx += "[응답 원칙]\n"
+                sys_ctx += "1. 모르면 [NEED_RESEARCH: 키워드] 태그 출력. 절대 추측 금지.\n"
+                sys_ctx += "2. 옵시디언 자료 필요시 [READ_OBSIDIAN: 키워드] 출력.\n"
+                sys_ctx += "3. 자동 저장 요청시 [SAVE_MEMORY: 제목] 출력.\n"
+                sys_ctx += "4. 자체 검증 필요시 [VERIFY: 내용] 출력.\n"
+                sys_ctx += "5. 심층 분석 필요시 [ANALYZE: 주제] 출력.\n"
+                sys_ctx += "6. 출처 확인 필요시 [CHECK_SOURCE: 인용구] 출력.\n"
+                sys_ctx += "7. [SOURCE: 출처] 반드시 명기. 가짜 성경 구절·철학 인용 절대 금지.\n\n"
+                sys_ctx += "[현재 파트 컨텍스트]\n" + _build_part_context(current_part_key) + "\n"
+                sys_ctx += "[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", "") + "\n"
 
-                else:
-                    # ══════════════════════════════════════════
-                    # B 모드: 심층 분석 — 기존 에이전트 루프 (Tavily/RAG 주입 포함)
-                    # ══════════════════════════════════════════
-                    # Recent Activity Memory 주입
+                # ── Recent Activity Memory 주입 ──
+                try:
+                    from rag_memory_utils import build_recent_activity_memory
+                    state_dict = dict(st.session_state)
+                    recent_activity_ctx = build_recent_activity_memory(state_dict, max_chars=6000)
+                    if recent_activity_ctx.strip():
+                        sys_ctx += "\n" + recent_activity_ctx + "\n\n"
+                        st.caption("🧠 Recent Activity Synced")
+                except Exception as e:
+                    st.caption(f"Recent Activity Memory 주입 생략: {e}")
+
+                if st.session_state.get("popup_use_rag", True):
                     try:
-                        from rag_memory_utils import build_recent_activity_memory
-                        state_dict = dict(st.session_state)
-                        recent_activity_ctx = build_recent_activity_memory(state_dict, max_chars=6000)
-                        if recent_activity_ctx.strip():
-                            sys_ctx += "\n" + recent_activity_ctx + "\n\n"
-                            st.caption("🧠 Recent Activity Synced")
+                        from rag_memory_utils import load_recent_reference_files, build_condensed_reference_context, build_manual_gemma_memory_buffer
+                        # 로컬 연산 병목을 막기 위해 팝업창 전용 메모리 상한을 30000자로 대폭 축소
+                        ref_items = load_recent_reference_files(max_files=10, max_chars=30000) 
+                        if ref_items:
+                            prompt_preview, excluded_files = build_condensed_reference_context(ref_items, max_chars=15000)
+                            if excluded_files:
+                                for exf_name, reason in excluded_files:
+                                    st.caption(f"⚠️ 오염 가능 Reference 제외: {exf_name}")
+                            ref_buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=30000)
+                            if ref_buffer.strip():
+                                sys_ctx += "\n[References & 파일 업로드 RAG 기억]\n" + ref_buffer + "\n\n"
+                                loaded_count = len(ref_items) - len(excluded_files)
+                                st.caption(f"🧠 References Memory Loaded: {loaded_count} files")
+                                # ── Recent Activity Dynamic Sync ──
+                                try:
+                                    from rag_memory_utils import update_recent_activity_memory
+                                    state_dict = dict(st.session_state)
+                                    ref_names = ", ".join([item.get("filename", "") for item in ref_items if item.get("filename")])
+                                    updated_mem = update_recent_activity_memory(state_dict, "references", f"References 파일 로드: {ref_names}")
+                                    st.session_state.recent_activity_memory = updated_mem
+                                except Exception:
+                                    pass
                     except Exception as e:
-                        st.caption(f"Recent Activity Memory 주입 생략: {e}")
+                        st.caption(f"References Memory 주입 생략: {e}")
 
-                    # References Memory 주입
-                    if st.session_state.get("popup_use_rag", False):
-                        try:
-                            from rag_memory_utils import load_recent_reference_files, build_condensed_reference_context, build_manual_gemma_memory_buffer
-                            ref_items = load_recent_reference_files(max_files=10, max_chars=30000)
-                            if ref_items:
-                                prompt_preview, excluded_files = build_condensed_reference_context(ref_items, max_chars=15000)
-                                if excluded_files:
-                                    for exf_name, reason in excluded_files:
-                                        st.caption(f"⚠️ 오염 가능 Reference 제외: {exf_name}")
-                                ref_buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=30000)
-                                if ref_buffer.strip():
-                                    sys_ctx += "\n[References & 파일 업로드 RAG 기억]\n" + ref_buffer + "\n\n"
-                                    loaded_count = len(ref_items) - len(excluded_files)
-                                    st.caption(f"🧠 References Memory Loaded: {loaded_count} files")
-                        except Exception as e:
-                            st.caption(f"References Memory 주입 생략: {e}")
+                if st.session_state.get("popup_use_rag", True):
+                    sys_ctx += "\n" + _build_obsidian_rag_context()
+                    tavily_ctx = _build_tavily_rag_context()
+                    if tavily_ctx:
+                        sys_ctx += "\n" + tavily_ctx
 
-                        sys_ctx += "\n" + _build_obsidian_rag_context()
-                        tavily_ctx = _build_tavily_rag_context()
-                        if tavily_ctx:
-                            sys_ctx += "\n" + tavily_ctx
+                # ── 에이전트 루프 실행 ────────────────────────────
+                with st.status("🔮 젬마 에이전트 작동 중...", expanded=True) as status_widget:
+                    st.write(f"모델: {current_model} | 파트: {current_part_name}")
+                    ans_placeholder = st.empty()
+                    full_response = ""
 
-                    # 에이전트 루프 실행
-                    with st.status("🔮 젬마 에이전트 작동 중...", expanded=True) as status_widget:
-                        st.write(f"모델: {current_model} | 파트: {current_part_name}")
-                        ans_placeholder = st.empty()
-                        try:
-                            full_response = run_agent_loop(
-                                question=q_stream,
-                                sys_ctx=sys_ctx,
-                                model=current_model,
-                                part_key=current_part_key,
-                                max_iterations=4,
-                                stream_placeholder=ans_placeholder,
-                                status_widget=status_widget,
-                            )
-                        except Exception as e:
-                            full_response = f"[오류] {e}\n→ Ollama 서버 실행 여부 확인"
-                            ans_placeholder.error(full_response)
-                            status_widget.update(label="❌ 오류", state="error", expanded=False)
+                    try:
+                        full_response = run_agent_loop(
+                            question=q_stream,
+                            sys_ctx=sys_ctx,
+                            model=current_model,
+                            part_key=current_part_key,
+                            max_iterations=4,
+                            stream_placeholder=ans_placeholder,
+                            status_widget=status_widget,
+                        )
+                    except Exception as e:
+                        full_response = f"[오류] {e}\n→ Ollama 서버 실행 여부 확인"
+                        ans_placeholder.error(full_response)
+                        status_widget.update(label="❌ 오류", state="error", expanded=False)
 
-                # 공통: 대화 기록 저장
                 st.session_state.popup_history.append({
-                    "role": "assistant",
-                    "content": full_response,
-                    "model": current_model,
-                    "part": current_part_name,
-                    "source": f"A모드 직접 호출" if current_mode == "A" else "에이전트 루프 v1.0",
+                    "role": "assistant", "content": full_response,
+                    "model": current_model, "part": current_part_name,
+                    "source": f"에이전트 루프 v1.0",
                 })
                 st.session_state.pending_stream = None
 
-                # 대화 영속성 JSON 저장
-                _save_chat_history(st.session_state.popup_history)
+                # 대화 옵시디언 자동 저장
+                try:
+                    _save_to_obsidian_with_tags(
+                        content=f"[Q] {q_stream}\n\n[A] {full_response}",
+                        title=f"[Chat] {q_stream[:30]}",
+                        source_type="Sage 팝업 대화",
+                        part_key=current_part_key,
+                        model_name=current_model,
+                    )
+                    st.toast("🧠 대화 옵시디언 자동 저장!", icon="💾")
+                except Exception:
+                    pass
 
                 st.rerun()
 
@@ -1633,7 +1612,7 @@ def popup_assistant():
 
                         # 감정 태그 자동 분류
                         all_content = sq + " " + " ".join([r.get("content", "") for r in res.get("results", [])[:5]])
-                        auto_emotion_tags = list(_classify_universal_tags(all_content).keys())
+                        auto_emotion_tags = list(_classify_emotion_tags(all_content).keys())
                         all_extra_tags = selected_emotion_cats + auto_emotion_tags
 
                         # 옵시디언 자동 저장 (심리학 태그 세분화)

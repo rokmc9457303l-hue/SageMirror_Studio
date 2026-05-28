@@ -1312,29 +1312,28 @@ def popup_assistant():
     # ══════════════════════════════════════════════════════
     # 탭 1: 빠른 대화 (A 시스템 — 경량 1회 호출)
     # ══════════════════════════════════════════════════════
-    with tab_chat:
-        # A 모드 강제 고정 (빠른 대화 탭은 항상 A 모드)
-        st.session_state.popup_gemma_mode = "A"
+    with tab_        # 범용 카테고리 수동 선택 (Gemma 분류 보완용)
+        with st.expander("🏷️ 예상 자료 카테고리 선택 (선택, Gemma에게 힌트 제공)", expanded=False):
+            st.caption("선택하면 Gemma의 자료 분류에 즧을 주는 힌트로 활용됩니다. Gemma가 수집 원자료를 스스로 읽고 최종 분류합니다.")
+            selected_emotion_cats = []
+            cols = st.columns(2)
+            for i, cat in enumerate(UNIVERSAL_CATEGORY_TAGS.keys()):
+                with cols[i % 2]:
+                    if st.checkbox(cat, key=f"emotion_tag_{i}"):
+                        selected_emotion_cats.append(cat)
 
-        # 모드 안내 배지
-        st.markdown(
-            "<div style='background:linear-gradient(135deg,#1a3a5c,#0d2240);"
-            "border-left:3px solid #d4af6a;padding:6px 12px;border-radius:0 8px 8px 0;"
-            "margin-bottom:8px;font-size:0.82rem;color:#d4af6a;'>"
-            "⚡ A 시스템 — 빠른 대화 모드 | Tavily·RAG 자동 검색 <b>OFF</b> | "
-            "call_gemma() 1회 직접 호출"
-            "</div>",
-            unsafe_allow_html=True,
-        )
+        # 옵시디언 저장 옵션
+        col_o1, col_o2 = st.columns(2)
+        with col_o1:
+            analyze_with_gemma = st.checkbox("🤖 Gemma로 자동 분석 후 MD 생성", value=True, key="tavily_gemma_analyze")
+        with col_o2:
+            auto_obs_save = st.checkbox("💾 옵시디언 자동 저장", value=True, key="tavily_auto_obs")
 
-        st.markdown("##### 💬 대화 기록")
-        chat_container = st.container(height=320, border=True)
-
-        st.text_area(
-            "질문 입력", key="popup_chat_input_ta",
-            placeholder=(
-                "안녕 / 간단한 질문을 입력하세요.\n"
-                "예: '이 파트의 나레이션을 더 감성적으로 수정해줘'\n"
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            do_search = st.button("🔍 자료 수집 시작", key="tavily_search_btn",
+                                  use_container_width=True, type="primary")
+        with c2:�적으로 수정해줘'\n"
                 "예: '빅터 프랭클의 의미치료 핵심을 3줄로 설명해줘'"
             ),
             height=100, label_visibility="collapsed",
@@ -1348,80 +1347,191 @@ def popup_assistant():
             if st.session_state.popup_history:
                 all_chat = "\n\n".join(
                     f"### [{m['role'].upper()}]\n{m['content']}"
-                    for m in st.session_state.popup_history
-                )
-                st.download_button("💾 대화 저장", data=all_chat,
-                                   file_name=f"sage_chat_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
-                                   use_container_width=True, key="popup_dl")
+                    for m in st        if do_search and sq.strip():
+            # 엔진 선택: Gemini 또는 Tavily
+            use_gemini_engine = "Gemini" in st.session_state.get("research_engine_select", "Tavily")
+            gemini_key = st.session_state.get("gemini_api_key", "").strip()
+            tavily_key = st.session_state.get("tavily_api_key", "").strip()
+
+            if use_gemini_engine and not gemini_key:
+                st.error("⚠️ Gemini API Key가 없습니다. 사이드바 설정에서 입력해 주세요.")
+            elif not use_gemini_engine and not tavily_key:
+                st.error("⚠️ Tavily API Key가 없습니다. 사이드바 설정에서 입력해 주세요.")
             else:
-                st.button("💾 대화 저장", use_container_width=True, key="popup_dl_disabled",
-                          disabled=True)
-        with c3:
-            clear = st.button("🗑️ 대화 초기화", use_container_width=True, key="popup_clear")
+                engine_label = "Gemini Google 검색" if use_gemini_engine else "Tavily 웹 리서치"
+                with st.spinner(f"🔍 [{engine_label}] 원자료 수집 중..."):
+                    try:
+                        # ══════════════════════════════════════════
+                        # STEP 1. 수집기(Gemini/Tavily)로 원자료 수집
+                        # ══════════════════════════════════════════
+                        res = None
+                        raw_results_text = ""
+                        gemini_summary = ""
 
-        if clear:
-            confirm_clear = True
-            st.session_state.popup_history = []
-            st.session_state.pending_stream = None
-            _save_chat_history([])
-            st.toast("🗑️ 대화 기록 초기화 완료", icon="🗑️")
-            st.rerun()
+                        if use_gemini_engine:
+                            # Gemini Google 검색
+                            try:
+                                import google.generativeai as genai
+                                genai.configure(api_key=gemini_key)
+                                g_model_name = st.session_state.get("research_gemini_model_select", "gemini-2.5-flash")
+                                g_model = genai.GenerativeModel(
+                                    model_name=g_model_name,
+                                    tools="google_search"
+                                )
+                                g_prompt = (
+                                    f"[자료 수집 지시]\n"
+                                    f"아래 키워드를 구글에서 검색하고, 출처 URL과 함께 원문 자료를 최대한 상세히 수집해라.\n"
+                                    f"수집 원용 표현을 유지하고 공식적 SOURCE를 막대 표시하라.\n\n"
+                                    f"[수집 키워드]\n{sq}\n\n"
+                                    f"[출력 원칙]\n"
+                                    f"- 원자료 우선 (요약 금지)\n"
+                                    f"- 이 단계에서 정리/분류 금지 (그다음 단계에서 Gemma가 수행)\n"
+                                    f"- 원리 URL(SOURCE) 정확 목록화 필수"
+                                )
+                                g_response = g_model.generate_content(g_prompt)
+                                gemini_summary = g_response.text if hasattr(g_response, "text") else ""
+                                # 출처 URL 추출
+                                g_results = []
+                                try:
+                                    metadata = g_response.candidates[0].grounding_metadata
+                                    chunks = getattr(metadata, "grounding_chunks", [])
+                                    for chunk in chunks:
+                                        web = getattr(chunk, "web", None)
+                                        if web:
+                                            uri = getattr(web, "uri", "")
+                                            title = getattr(web, "title", "")
+                                            if uri and not any(r.get("url") == uri for r in g_results):
+                                                g_results.append({"title": title, "url": uri, "content": f"Gemini 검색 출처: {title}"})
+                                except Exception:
+                                    pass
+                                res = {"results": g_results, "gemini_summary": gemini_summary}
+                                raw_results_text = gemini_summary
+                                st.caption(f"✅ Gemini {g_model_name} 검색 완료. 출처 {len(g_results)}개 수집.")
+                            except Exception as g_e:
+                                st.error(f"Gemini 검색 실패: {g_e}")
+                                res = {"results": []}
+                        else:
+                            # Tavily 웹 리서치
+                            res = run_tavily_research(sq, tavily_key)
+                            if "error" in res:
+                                st.error(f"❌ Tavily 검색 오류: {res['error']}")
+                                res = {"results": []}
+                            else:
+                                raw_results_text = "\n".join([
+                                    f"[{r.get('title','')}] {r.get('content','')[:400]}\n[SOURCE: {r.get('url','')}]"
+                                    for r in res.get("results", [])[:5]
+                                ])
+                                st.caption(f"✅ Tavily 웹 검색 완료. {len(res.get('results', []))}개 결과 수집.")
 
-        # 대화 기록 렌더링
-        with chat_container:
-            if not st.session_state.popup_history and not st.session_state.get("pending_stream"):
-                st.markdown(
-                    "<div style='color:#888;padding:20px;text-align:center;'>"
-                    "💭 아직 대화가 없습니다.<br><br>"
-                    "<small style='color:#d4af6a;'>"
-                    "• 수집된 인터넷 자료를 젬마가 자동 참조합니다<br>"
-                    "• 모를 때는 자동으로 Tavily 검색 후 보완합니다<br>"
-                    "• 모든 대화는 옵시디언에 태그 분류 후 자동 저장됩니다"
-                    "</small></div>",
-                    unsafe_allow_html=True,
-                )
-            for msg in st.session_state.popup_history:
-                if msg["role"] == "user":
-                    st.markdown(
-                        f"<div style='background:linear-gradient(135deg,#1a3a5c,#0d2440);"
-                        f"border-left:3px solid #d4af6a;padding:10px 14px;margin:6px 0;"
-                        f"border-radius:0 8px 8px 0;'>"
-                        f"<b style='color:#d4af6a;'>🧑 사용자</b><br>"
-                        f"<span style='color:#f5e9d3;white-space:pre-wrap;'>{msg['content']}</span>"
-                        f"</div>",
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    model_used = msg.get("model", sel_model)
-                    source_info = msg.get("source", "")
-                    st.markdown(
-                        f"<div style='background:linear-gradient(135deg,#2d1b00,#1a1000);"
-                        f"border-left:3px solid #10B981;padding:8px 14px;margin:6px 0;"
-                        f"border-radius:0 8px 8px 0;'>"
-                        f"<b style='color:#10B981;'>🤖 Sage ({model_used})</b>"
-                        f"{(' <small style=\"color:#555;\">| ' + source_info + '</small>') if source_info else ''}"
-                        f"</div>",
-                        unsafe_allow_html=True,
-                    )
-                    st.markdown(msg['content'])
-                    with st.expander("📋 복사용 텍스트", expanded=False):
-                        st.code(msg["content"], language="markdown")
+                        # ══════════════════════════════════════════
+                        # STEP 2–5. Gemma = 자료 가공 관리자
+                        # 원자료를 읽고 요약, 범용 카테고리, 태그, MD 생성
+                        # ══════════════════════════════════════════
+                        gemma_analysis = ""
+                        if analyze_with_gemma and raw_results_text.strip():
+                            hint_cats = selected_emotion_cats  # 사용자 힌트
+                            hint_text = (f"[\uc0ac\uc6a9\uc790 \ud78c\ud2b8 \uce74\ud14c\uace0\ub9ac]: {', '.join(hint_cats)}\n" if hint_cats else "")
+                            cat_list = ", ".join(UNIVERSAL_CATEGORY_TAGS.keys())
+                            analysis_prompt = f"""[Gemma 역할: 자료 가공 관리자]
+너는 수집기(Gemini/Tavily)에서 가져온 원자료를 받는 Gemma다.
+모든 수집 개요, 데이터 파싱, SOURCE 추출, 분류, 태그 생성, MD 변환은 네의 역할이다.
+Gemini/Tavily는 자료만 수집했다. 네가 반드시 직접 분류, 태그 생성, MD 저장을 수행해라.
 
-            # ── 스트리밍 처리 (A 모드 / B 모드 분기) ─────────────
-            if st.session_state.get("pending_stream"):
-                q_stream = st.session_state.pending_stream
-                current_model = st.session_state.popup_selected_model
-                current_mode = st.session_state.get("popup_gemma_mode", "A")
+[검색어]
+{sq}
 
-                # ── 공통 시스템 컨텍스트 (A/B 모드 공통) ──
-                sys_ctx = SAGE_PERSONA + "\n\n"
-                sys_ctx += "[현재 파트]\n" + current_part_name + "\n"
-                sys_ctx += "[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", "")[:500] + "\n"
+[수집기가 가져온 원자료 전체]
+{raw_results_text[:3000]}
 
-                full_response = ""
+{hint_text}
+[지원 수집어와 원자료에서 출처(SOURCE)를 반드시 포함하라.]
 
-                if current_mode == "A":
-                    # ══════════════════════════════════════════
+[출력 형식 — 반드시 준수]
+## 🔎 핵심 요약 (3줄)
+(수집 원자료 기반 3줄 요약. 상상 금지.)
+
+## 📖 자료 심층 분석
+(원자료 내용 분석. 스키마 타입 요약 금지. 실질 내용만.)
+
+## 🏷️ 범용 카테고리 분류
+(아래 범용 카테고리 리스트에서 원자료와 가장 원짐 있는 카테고리 1위로 선택 후 이유 1줄 설명.)
+[사용 가능 범용 카테고리]: {cat_list}
+
+## 📌 태그 목록
+(원자료에서 추출한 태그 5~10개. 하이픈없는 언어로, 쉼표 구분.)
+
+## 💡 활용 방안
+(현재사 2026년 콘텐츠 제작에 어떻게 활용할 수 있는가)
+
+## 📚 출처 목록
+(원자료의 URL 목록. [SOURCE: URL — 검색일: {datetime.now().strftime('%Y-%m-%d')}] 형식 엄수.)
+
+[SOURCE: {engine_label} — {sq[:30]} — {datetime.now().strftime('%Y-%m-%d')}]"""
+                            st.caption("🤖 Gemma가 원자료를 분석·분류·MD 변환 중...")
+                            try:
+                                from sage_engine import call_gemma as _direct_gemma
+                                gemma_analysis = _direct_gemma(
+                                    analysis_prompt,
+                                    model=st.session_state.popup_selected_model
+                                )
+                            except Exception as e:
+                                gemma_analysis = f"[오류] Gemma 분석 실패: {e}"
+                            if res is not None:
+                                res["gemma_analysis"] = gemma_analysis
+
+                        if res is not None:
+                            st.session_state.popup_search_history.append({"q": sq, "res": res, "engine": engine_label})
+
+                        # Recent Activity Dynamic Sync
+                        try:
+                            from rag_memory_utils import update_recent_activity_memory
+                            state_dict = dict(st.session_state)
+                            updated_mem = update_recent_activity_memory(state_dict, "tavily", f"[{engine_label}] {sq}")
+                            st.session_state.recent_activity_memory = updated_mem
+                        except Exception:
+                            pass
+
+                        # ══════════════════════════════════════════
+                        # STEP 6–7. Gemma가 생성한 MD를 옵시디언에 저장
+                        # ══════════════════════════════════════════
+                        auto_tags = list(_classify_universal_tags(
+                            sq + " " + raw_results_text[:1000]
+                        ).keys())
+                        all_extra_tags = selected_emotion_cats + auto_tags
+
+                        if auto_obs_save and gemma_analysis:
+                            save_content = (
+                                f"# [[{sq[:50]}]]\n\n"
+                                f"## 🔎 수집 엔진\n{engine_label}\n\n"
+                                f"## 🤖 Gemma 분석 결과\n{gemma_analysis}\n\n"
+                                f"## 📄 원자료 (SOURCE 포함)\n"
+                            )
+                            for r in (res.get("results", []) if res else [])[:5]:
+                                save_content += (
+                                    f"\n### [{r.get('title','')}]({r.get('url','')})\n"
+                                    f"{r.get('content','')[:400]}\n"
+                                    f"[SOURCE: {r.get('url','')}]\n"
+                                )
+
+                            saved_path = _save_to_obsidian_with_tags(
+                                content=save_content,
+                                title=f"[{engine_label[:5]}] {sq[:40]}",
+                                source_type=f"{engine_label} 자료조사",
+                                part_key=current_part_key,
+                                model_name=st.session_state.popup_selected_model,
+                                extra_tags=all_extra_tags,
+                                folder_override="ResearchMemory",
+                            )
+                            if saved_path:
+                                st.toast(
+                                    f"🧠 옵시디언 ResearchMemory 저장 완료! (Gemma 범용 태그 {len(auto_tags)}개)",
+                                    icon="💾"
+                                )
+
+                        st.rerun()
+
+                    except Exception as e:
+                        st.error(f"자료 수집/분석 실패: {e}")��═══════════════════════════════
                     # A 모드: 빠른 대화 — call_gemma() 1회만 직접 호출
                     # Tavily 자동 검색 금지 / RAG 자동 주입 금지
                     # References Memory 로드 금지 / run_agent_loop 금지
@@ -1663,17 +1773,19 @@ def popup_assistant():
                         st.error(f"검색 실패: {e}")
 
         # 검색 결과 표시
-        st.markdown("##### 📊 검색 결과")
-        with st.container(height=380, border=True):
+        st.markdown("##### 📊 자료 수집 결과")
+        with st.container(height=400, border=True):
             if not st.session_state.popup_search_history:
                 st.markdown(
                     "<div style='color:#888;padding:20px;text-align:center;'>"
-                    "🔍 아직 검색 기록이 없습니다.</div>",
+                    "🔍 아직 자료 조사 기록이 없습니다."
+                    "</div>",
                     unsafe_allow_html=True,
                 )
             else:
                 latest = st.session_state.popup_search_history[-1]
-                st.markdown(f"**🔎 검색어:** `{latest['q']}`")
+                eng = latest.get("engine", "Tavily")
+                st.markdown(f"✅ **수집 엔진:** `{eng}` | **검색어:** `{latest['q']}`")
                 res = latest["res"]
                 if "error" in res:
                     st.error(res["error"])

@@ -164,6 +164,63 @@ def _build_obsidian_rag_context() -> str:
     return ctx
 
 
+def call_gemini_search(keyword: str, api_key: str, model_name: str = "gemini-2.5-flash") -> dict:
+    try:
+        import google.generativeai as genai
+        import re as _re
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel(
+            model_name=model_name,
+            tools="google_search"
+        )
+        prompt = f"""
+[지시]
+입력된 키워드 '{keyword}'에 대해 구글 검색을 수행하고, 그 결과를 바탕으로 사실 위주의 풍부한 리서치 조사 정보를 작성하라.
+특히, 각 구체적인 사실 또는 문장 근처에 정보 출처 웹사이트의 URL을 매치하여 자세히 명시하라.
+
+[검색 키워드]
+{keyword}
+"""
+        response = model.generate_content(prompt)
+        text_content = response.text if hasattr(response, "text") else ""
+        
+        results = []
+        try:
+            metadata = response.grounding_metadata
+            chunks = getattr(metadata, "grounding_chunks", [])
+            for chunk in chunks:
+                web = getattr(chunk, "web", None)
+                if web:
+                    uri = getattr(web, "uri", "")
+                    title = getattr(web, "title", "웹 검색 출처")
+                    if uri and not any(r.get("url") == uri for r in results):
+                        results.append({
+                            "title": title,
+                            "url": uri,
+                            "content": f"구글 검색 출처: {title}"
+                        })
+        except Exception:
+            pass
+            
+        if not results:
+            urls = _re.findall(r'https?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))', text_content)
+            for idx, url in enumerate(list(set(urls))[:5], 1):
+                results.append({
+                    "title": f"구글 검색 결과 {idx}",
+                    "url": url,
+                    "content": "구글 검색을 통해 참조된 웹 페이지입니다."
+                })
+                
+        return {
+            "summary": text_content,
+            "results": results
+        }
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
+
+
 def _build_tavily_rag_context() -> str:
     """저장된 Tavily 검색 결과를 젬마 컨텍스트로 반환"""
     history = st.session_state.get("popup_search_history", [])
@@ -530,8 +587,19 @@ def popup_edit_obsidian():
             st.session_state.obsidian_history.append(st.session_state.obsidian_rules)
             st.session_state.obsidian_rules = new_val
             st.session_state.top_ob_view_widget = new_val
-            from app_v16_1_2 import save_workspace_state
-            save_workspace_state()
+            try:
+                import sys
+                import importlib
+                app_module = None
+                for mod_name in list(sys.modules.keys()):
+                    if mod_name.startswith('app_v') and hasattr(sys.modules[mod_name], 'save_workspace_state'):
+                        app_module = sys.modules[mod_name]
+                        break
+                if app_module is None:
+                    app_module = importlib.import_module("app_v17_1_3")
+                app_module.save_workspace_state()
+            except Exception:
+                pass
             try:
                 from rag_memory_utils import update_recent_activity_memory
                 st.session_state.recent_activity_memory = update_recent_activity_memory(dict(st.session_state), "system", "옵시디언 규칙서 수정")
@@ -579,8 +647,19 @@ def popup_edit_prompt():
             st.session_state.prompt_history.append(st.session_state.base_prompt_rules)
             st.session_state.base_prompt_rules = new_val
             st.session_state["top_pr_view_base_prompt_rules_widget"] = new_val
-            from app_v16_1_2 import save_workspace_state
-            save_workspace_state()
+            try:
+                import sys
+                import importlib
+                app_module = None
+                for mod_name in list(sys.modules.keys()):
+                    if mod_name.startswith('app_v') and hasattr(sys.modules[mod_name], 'save_workspace_state'):
+                        app_module = sys.modules[mod_name]
+                        break
+                if app_module is None:
+                    app_module = importlib.import_module("app_v17_1_3")
+                app_module.save_workspace_state()
+            except Exception:
+                pass
             try:
                 from rag_memory_utils import update_recent_activity_memory
                 st.session_state.recent_activity_memory = update_recent_activity_memory(dict(st.session_state), "system", "기본 프롬프트 수정")
@@ -1327,6 +1406,18 @@ def popup_assistant():
             unsafe_allow_html=True,
         )
 
+        if st.session_state.get("popup_last_elapsed"):
+            el = st.session_state.popup_last_elapsed
+            st.markdown(
+                f"<div style='background:rgba(20,10,10,0.3);border:1px solid rgba(214,175,106,0.15);"
+                f"padding:8px 12px;border-radius:6px;font-size:0.85rem;margin-bottom:10px;color:#f5e9d3;'>"
+                f"⏱️ <b>최근 응답 속도 계측</b> | 모델: <code>{el['model']}</code><br>"
+                f"- 응답 생성: <span style='color:#d4af6a;font-weight:700;'>{el['total']:.2f}초</span> | "
+                f"JSON 저장: <span style='color:#10B981;font-weight:700;'>{el['save']:.4f}초</span>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
+
         st.markdown("##### 💬 대화 기록")
         chat_container = st.container(height=320, border=True)
 
@@ -1428,14 +1519,19 @@ def popup_assistant():
                     # ══════════════════════════════════════════
                     with st.spinner(f"💬 {current_model} 응답 생성 중..."):
                         try:
+                            import time
+                            t_start = time.perf_counter()
                             from sage_engine import call_gemma as _direct_gemma
                             full_response = _direct_gemma(
                                 q_stream,
                                 system=sys_ctx,
                                 model=current_model
                             )
+                            t_end = time.perf_counter()
+                            elapsed_total = t_end - t_start
                         except Exception as e:
                             full_response = f"[오류] {e}\n→ Ollama 서버 실행 여부를 확인하세요."
+                            elapsed_total = 0.0
 
                 else:
                     # ══════════════════════════════════════════
@@ -1505,61 +1601,67 @@ def popup_assistant():
                 st.session_state.pending_stream = None
 
                 # 대화 영속성 JSON 저장
-                _save_chat_history(st.session_state.popup_history)
+                try:
+                    import time
+                    t_save_start = time.perf_counter()
+                    _save_chat_history(st.session_state.popup_history)
+                    t_save_end = time.perf_counter()
+                    elapsed_save = t_save_end - t_save_start
+                except Exception:
+                    elapsed_save = 0.0
+
+                if current_mode == "A":
+                    st.session_state.popup_last_elapsed = {
+                        "total": elapsed_total,
+                        "save": elapsed_save,
+                        "model": current_model
+                    }
 
                 st.rerun()
 
     # ══════════════════════════════════════════════════════
-    # 탭 2: Tavily 인터넷 리서치
+    # 탭 2: 🔎 자료 조사
     # ══════════════════════════════════════════════════════
     with tab_tavily:
-        st.markdown("##### 🌐 인터넷 리서치 (Tavily)")
-        st.info(
-            "🔍 **검색한 모든 자료는:**\n"
-            "① 젬마 대화 탭에서 자동으로 컨텍스트로 활용됩니다\n"
-            "② 심리학 감정 태그로 세분화되어 옵시디언에 자동 저장됩니다\n"
-            "③ 저장된 자료는 다음 검색 때도 젬마가 참조합니다",
-            icon="💡"
+        st.markdown("##### 🔎 자료 조사 (Gemini / Tavily)")
+        st.markdown(
+            "<div style='background:rgba(214,175,106,0.05);border:1px solid rgba(214,175,106,0.15);"
+            "padding:10px 14px;border-radius:6px;font-size:0.88rem;margin-bottom:12px;color:#f5e9d3;'>"
+            "💡 <b>역할 분리 시스템 안내</b><br>"
+            "- <b>Gemini / Tavily</b>: 실시간 웹 및 전문 데이터베이스로부터 외부 자료를 강력하게 수집합니다.<br>"
+            "- <b>Gemma (Local)</b>: 수집된 날것의 자료를 심도 있게 분석·요약하고 범용 카테고리와 RAG 태그를 추출하여 옵시디언 <code>ResearchMemory</code>에 체계적으로 구조화하여 저장합니다."
+            "</div>",
+            unsafe_allow_html=True,
+        )
+
+        search_tool = st.radio(
+            "검색 도구 선택",
+            ["Gemini 자료조사", "Tavily Research"],
+            horizontal=True,
+            key="p_research_tool"
         )
 
         sq = st.text_area(
-            "검색어", key="tavily_q_ta",
+            "검색어 입력",
             placeholder=(
-                "예: 빅터 프랭클 의미치료 사례\n"
-                "예: 쇼펜하우어 의지와 표상으로서의 세계\n"
-                "예: 4070 세대 유튜브 심리학 채널 트렌드\n"
-                "예: 시편 23편 목자 의미 해석"
+                "예: 쇼펜하우어 의지와 표상으로서의 세계의 현대 심리학적 의미\n"
+                "예: 빅터 프랭클의 의미치료(로고테라피) 실제 상담 사례\n"
+                "예: 60대 은퇴 후 노년층이 겪는 상실감과 우울증 극복 방안"
             ),
-            height=100, label_visibility="collapsed",
+            height=100,
+            key="p_research_q",
+            label_visibility="collapsed"
         )
-
-        # 심리학 감정 태그 선택 (수동 추가)
-        with st.expander("🎭 감정 태그 수동 추가 (선택)", expanded=False):
-            st.caption("검색 주제와 관련된 감정 태그를 선택하면 옵시디언 분류에 활용됩니다.")
-            selected_emotion_cats = []
-            cols = st.columns(2)
-            for i, cat in enumerate(UNIVERSAL_CATEGORY_TAGS.keys()):
-                with cols[i % 2]:
-                    if st.checkbox(cat, key=f"emotion_tag_{i}"):
-                        selected_emotion_cats.append(cat)
-
-        # 검색 옵션
-        col_o1, col_o2 = st.columns(2)
-        with col_o1:
-            analyze_with_gemma = st.checkbox("🤖 젬마로 자동 분석 후 정리", value=True, key="tavily_gemma_analyze")
-        with col_o2:
-            auto_obs_save = st.checkbox("💾 옵시디언 자동 저장", value=True, key="tavily_auto_obs")
 
         c1, c2, c3 = st.columns(3)
         with c1:
-            do_search = st.button("🔍 인터넷 검색", key="tavily_search_btn",
-                                  use_container_width=True, type="primary")
+            do_search = st.button("🚀 검색 및 젬마 분석", key="p_research_btn", use_container_width=True, type="primary")
         with c2:
             sback = st.button(f"⬅️ 이전 ({len(st.session_state.popup_search_history)})",
-                              key="tavily_back", use_container_width=True,
+                              key="p_research_back", use_container_width=True,
                               disabled=len(st.session_state.popup_search_history) == 0)
         with c3:
-            sclear = st.button("🗑️ 초기화", key="tavily_clear", use_container_width=True)
+            sclear = st.button("🗑️ 기록 초기화", key="p_research_clear", use_container_width=True)
 
         if sback and st.session_state.popup_search_history:
             st.session_state.popup_search_history.pop()
@@ -1569,98 +1671,135 @@ def popup_assistant():
             st.rerun()
 
         if do_search and sq.strip():
-            if not st.session_state.get("tavily_api_key"):
-                st.error("⚠️ Tavily API Key가 없습니다. 사이드바 설정에서 입력해 주세요.")
-            else:
-                with st.spinner("🌐 Tavily 검색 중..."):
-                    try:
-                        res = run_tavily_research(sq, st.session_state.tavily_api_key)
-                        if "error" in res:
-                            st.error(f"❌ Tavily 검색 중 오류 발생: {res['error']}")
-                            st.stop()
+            # API Key 체크
+            gemini_key = st.session_state.get("gemini_api_key", "").strip()
+            tavily_key = st.session_state.get("tavily_api_key", "").strip()
 
-                        # 젬마 자동 분석
-                        if analyze_with_gemma and res.get("results"):
+            error_msg = None
+            if search_tool == "Gemini 자료조사" and not gemini_key:
+                error_msg = "⚠️ Gemini API Key가 없습니다. 사이드바 설정에서 입력해 주세요."
+            elif search_tool == "Tavily Research" and not tavily_key:
+                error_msg = "⚠️ Tavily API Key가 없습니다. 사이드바 설정에서 입력해 주세요."
+
+            if error_msg:
+                st.error(error_msg)
+            else:
+                with st.spinner(f"🌐 {search_tool} 자료 수집 중..."):
+                    try:
+                        res = {}
+                        raw_results = ""
+                        source_info = ""
+
+                        if search_tool == "Gemini 자료조사":
+                            # 구글 검색 Grounding
+                            g_res = call_gemini_search(sq, gemini_key)
+                            if "error" in g_res:
+                                st.error(f"❌ Gemini 검색 중 오류 발생: {g_res['error']}")
+                                st.stop()
+                            
+                            res["results"] = g_res.get("results", [])
+                            res["answer"] = g_res.get("summary", "")
+                            raw_results = f"[Gemini 구글 검색 요약]\n{res['answer']}\n\n"
+                            raw_results += "\n".join([
+                                f"[{r.get('title','')}] {r.get('content','')} (URL: {r.get('url','')})"
+                                for r in res.get("results", [])
+                            ])
+                            source_info = "Gemini 구글 검색"
+                        else:
+                            # Tavily 웹 리서치
+                            t_res = run_tavily_research(sq, tavily_key)
+                            if "error" in t_res:
+                                st.error(f"❌ Tavily 검색 중 오류 발생: {t_res['error']}")
+                                st.stop()
+                            
+                            res["results"] = t_res.get("results", [])
+                            res["answer"] = t_res.get("answer", "")
                             raw_results = "\n".join([
-                                f"[{r.get('title','')}] {r.get('content','')[:300]} (URL: {r.get('url','')})"
+                                f"[{r.get('title','')}] {r.get('content','')[:400]} (URL: {r.get('url','')})"
                                 for r in res.get("results", [])[:5]
                             ])
-                            analysis_prompt = f"""[지시] 아래 인터넷 검색 결과를 현자의 거울 스튜디오 옵시디언 형식으로 분석하라.
+                            source_info = "Tavily 웹 검색"
 
-[검색어]
+                        # Gemma 가공 및 분석
+                        st.info("🔮 수집된 날것의 자료를 Gemma 모델이 정제 및 구조화 분석 중...")
+                        analysis_prompt = f"""[지시] 수집된 리서치 자료를 현자의 거울 스튜디오 형식으로 면밀히 가공 및 요약하라.
+인위적인 환각(허구 인용)을 배제하고 사실에 근거하여 작성하라.
+
+[검색 주제]
 {sq}
 
-[현재 파트]
-{current_part_name}
-
-[검색 결과 원문]
-{raw_results}
+[수집 자료]
+{raw_results[:4000]}
 
 [출력 형식 — 반드시 준수]
 ## 🔎 핵심 요약 (3줄)
-(핵심 내용 3줄 요약)
+- (핵심 요점 1)
+- (핵심 요점 2)
+- (핵심 요점 3)
 
 ## 📖 심층 분석
-(내용 분석 + 현자의 거울 주제 연관성)
+(내용 분석 + 현자의 거울 주제와의 깊이 있는 학술적/감성적 연관성)
 
-## 💡 파트 활용 방안
-({current_part_name}에서 이 자료를 어떻게 활용할 수 있는가)
+## 💡 파트별 활용 방안
+({current_part_name}에서 이 리서치 정보를 어떻게 대본이나 기획에 접목할 수 있는지 상세히 기술)
 
-## 🎭 심리학 감정 연결
-(이 자료와 연결되는 시청자 감정 상태: 외로움/불안/상실/무기력 등)
+## 🎭 범용 카테고리 & 시청자 감정 매핑
+(이 자료와 연결되는 시청자 상태 또는 분류: 외로움/불안/상실/죽음/용서 등 기술)
 
-## 📚 참고 문헌 / 출처
-(URL 목록 — [SOURCE: URL] 형식)
+## 📚 자료 출처 정보
+(참조한 URL들을 [SOURCE: URL] 형식으로 명시할 것)"""
 
-[SOURCE: Tavily 검색 — {datetime.now().strftime('%Y-%m-%d')}]"""
-                            gemma_analysis = call_gemma(
-                                analysis_prompt,
-                                model=st.session_state.popup_selected_model
-                            )
-                            res["gemma_analysis"] = gemma_analysis
-                        else:
-                            gemma_analysis = ""
+                        gemma_analysis = call_gemma(
+                            analysis_prompt,
+                            model=st.session_state.popup_selected_model
+                        )
+                        res["gemma_analysis"] = gemma_analysis
 
-                        st.session_state.popup_search_history.append({"q": sq, "res": res})
+                        st.session_state.popup_search_history.append({"q": sq, "res": res, "tool": search_tool})
+
                         # ── Recent Activity Dynamic Sync ──
                         try:
                             from rag_memory_utils import update_recent_activity_memory
                             state_dict = dict(st.session_state)
-                            updated_mem = update_recent_activity_memory(state_dict, "tavily", f"수동 검색: {sq}")
+                            updated_mem = update_recent_activity_memory(state_dict, "tavily", f"자료조사 ({search_tool}): {sq}")
                             st.session_state.recent_activity_memory = updated_mem
                         except Exception:
                             pass
 
-                        # 감정 태그 자동 분류
-                        all_content = sq + " " + " ".join([r.get("content", "") for r in res.get("results", [])[:5]])
+                        # 범용 감정/RAG 카테고리 추출 및 태그화
+                        all_content = sq + " " + gemma_analysis + " " + " ".join([r.get("content", "") for r in res.get("results", [])[:5]])
                         auto_emotion_tags = list(_classify_universal_tags(all_content).keys())
-                        all_extra_tags = selected_emotion_cats + auto_emotion_tags
 
-                        # 옵시디언 자동 저장 (심리학 태그 세분화)
-                        if auto_obs_save:
-                            save_content = f"[검색어]\n{sq}\n\n"
-                            if gemma_analysis:
-                                save_content += f"[젬마 분석]\n{gemma_analysis}\n\n"
-                            save_content += "[원문 결과]\n"
-                            for r in res.get("results", [])[:5]:
-                                save_content += f"\n### [{r.get('title','')}]({r.get('url','')})\n{r.get('content','')[:500]}\n[SOURCE: {r.get('url','')}]\n"
+                        # 옵시디언 자동 저장 (ResearchMemory로 강제고정)
+                        save_content = f"[검색 도구]: {search_tool}\n"
+                        save_content += f"[검색 키워드]: {sq}\n\n"
+                        if gemma_analysis:
+                            save_content += f"## 🤖 Gemma 구조화 요약 및 정제 보고서\n\n{gemma_analysis}\n\n"
+                        
+                        save_content += "## 🌐 수집 원문 데이터 레퍼런스\n"
+                        if res.get("answer"):
+                            save_content += f"\n*검색 엔진 직속 요약 답변:*\n{res['answer']}\n"
+                        for r in res.get("results", []):
+                            save_content += f"\n### [{r.get('title','')}]({r.get('url','')})\n{r.get('content','')}\n[SOURCE: {r.get('url','')}]\n"
 
-                            saved_path = _save_to_obsidian_with_tags(
-                                content=save_content,
-                                title=f"[리서치] {sq[:40]}",
-                                source_type="Tavily 인터넷 검색",
-                                part_key=current_part_key,
-                                model_name=st.session_state.popup_selected_model,
-                                extra_tags=all_extra_tags,
-                                folder_override="WebResearch",
-                            )
-                            if saved_path:
-                                st.toast(f"🧠 옵시디언 자동 저장 완료! (감정 태그 {len(auto_emotion_tags)}개)", icon="💾")
+                        saved_path = _save_to_obsidian_with_tags(
+                            content=save_content,
+                            title=f"Research_{sq[:40]}",
+                            source_type=f"{search_tool} 수집 및 Gemma 정제",
+                            part_key=current_part_key,
+                            model_name=st.session_state.popup_selected_model,
+                            extra_tags=auto_emotion_tags,
+                            folder_override="ResearchMemory",
+                        )
+
+                        if saved_path:
+                            st.success(f"💾 옵시디언 ResearchMemory 저장 완료!\n경로: `{saved_path}`")
+                            st.toast("🧠 옵시디언 저장 및 RAG 인덱싱 완료!", icon="💾")
 
                         st.rerun()
 
                     except Exception as e:
-                        st.error(f"검색 실패: {e}")
+                        st.error(f"❌ 리서치 작업 중 에러 발생: {e}")
 
         # 검색 결과 표시
         st.markdown("##### 📊 검색 결과")
@@ -1673,19 +1812,19 @@ def popup_assistant():
                 )
             else:
                 latest = st.session_state.popup_search_history[-1]
-                st.markdown(f"**🔎 검색어:** `{latest['q']}`")
+                st.markdown(f"**🔎 검색어:** `{latest['q']}` (도구: {latest.get('tool', 'Tavily Research')})")
                 res = latest["res"]
                 if "error" in res:
                     st.error(res["error"])
                 else:
                     if res.get("gemma_analysis"):
-                        st.markdown("### 🤖 젬마 분석 결과")
+                        st.markdown("### 🤖 Gemma 정제 보고서")
                         st.markdown(res["gemma_analysis"])
                         with st.expander("📋 복사용", expanded=False):
                             st.code(res["gemma_analysis"], language="markdown")
                         st.divider()
                     if res.get("answer"):
-                        st.info(f"💡 **즉시 답변:** {res['answer']}")
+                        st.info(f"💡 **직속 요약:** {res['answer']}")
                         st.divider()
                     for idx, r in enumerate(res.get("results", []), 1):
                         st.markdown(f"**{idx}. [{r.get('title','')}]({r.get('url','')})**")

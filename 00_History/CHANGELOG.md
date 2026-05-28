@@ -1,3 +1,51 @@
+## v17.1.3 — 2026-05-29 02:30
+### 변경 내용
+- **[응답 시간 계측] A모드 빠른 대화 응답 및 저장 속도 계측 추가**:
+  - `time.perf_counter()`를 사용하여 젬마 빠른 대화(A모드) 응답 시간 및 JSON 저장(대화 영속성 저장) 시간을 정밀 계측.
+  - 세션 스테이트 `popup_last_elapsed`에 기록을 저장하고 💬 빠른 대화 탭 안내 배지 아래에 최근 속도를 시각화하여 노출.
+- **[모델/자료조사 분리] 자료 조사 탭 Gemini/Tavily 수집 및 Gemma 가공·분류·저장 프로세스 전면 개편**:
+  - `Gemini 자료조사` 및 `Tavily Research` 도구를 선택할 수 있는 UI 제공.
+  - Gemini 선택 시 2.5 Flash 기반 Google Search Grounding 검색을 수행하고, Tavily 선택 시 실시간 웹 리서치를 수행하여 날것의 자료를 1차 수집.
+  - 수집된 자료를 바탕으로 Gemma 모델을 활용하여 핵심 요약, 심층 분석, 파트별 활용 방안, 감정/범용 카테고리를 체계적으로 정제 및 가공하는 2단계 프로세스 구조화.
+  - 가공된 보고서 및 수집 데이터를 RAG 태그와 함께 옵시디언 `ResearchMemory`에 자동으로 저장하고 저장 경로를 화면에 출력하도록 개편.
+- **[동적 import 적용] 팝업 에디터 모듈 동적 참조 적용**:
+  - `popup_edit_obsidian` 및 `popup_edit_prompt` 내 `from app_v16_1_2 import save_workspace_state` 정적 모듈 참조를 `sys.modules` 탐색 기반 동적 import 구조로 교체하여 향후 버전 업그레이드 시 버전 불일치로 인한 오작동 원천 차단.
+- **[버전 업]**: `app_v17_1_2.py` → `app_v17_1_3.py`, `sage_popups.py` → `sage_popups_v17_1_3.py`.
+- **[배포 스크립트 갱신]**: `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs` 배치 및 스크립트 실행 대상을 `app_v17_1_3.py` 및 `sage_popups_v17_1_3.py`로 갱신 완료.
+### 영향 파트
+- 팝업 어시스턴트 A 시스템 전체 (💬 빠른 대화 탭, 🔎 자료 조사 탭)
+- 옵시디언 규칙서 및 기본 프롬프트 팝업 에디터
+- 배포 파이프라인 및 실행 스크립트 3종
+### 수정 파일
+- `app_v17_1_3.py`
+- `sage_popups_v17_1_3.py`
+- `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs`
+- `00_History/CHANGELOG.md`
+
+---
+
+## v17.1.2 — 2026-05-29 00:54
+### 변경 내용
+- **[A 시스템 복구] 젬마 어시스턴트 빠른 대화 탭 무한 로딩 근본 원인 제거**:
+  - `popup_auto_search=True`, `popup_use_rag=True` → `False`로 기본값 변경.
+  - `pending_stream` 처리 시 `popup_gemma_mode=="A"`이면 `run_agent_loop` 없이 `call_gemma()` 1회만 직접 호출.
+  - References Memory 자동 로드, Obsidian RAG 자동 주입, Recent Activity 대량 주입 모두 A 모드에서 차단.
+- **[A/B 시스템 분리 1차]**: 빠른 대화 탭에서 `popup_gemma_mode = "A"` 강제 고정. B 모드(기존 에이전트 루프)는 별도 분기 유지.
+- **[탭 UI 재정리]**: 💬 빠른 대화 / 🔎 자료 조사 / 📂 젬마 자료 업로드 / 🧠 옵시디언 저장소.
+- **[대화 영속성]**: `_save_chat_history()` / `_load_chat_history()` 함수 추가. 저장 위치: `C:\SageMirror_Outputs\00_Session_States\popup_chat_EP001.json`.
+- **[압축 뼈대]**: `_compress_chat_history_stub()` 함수 추가 (50턴 초과 시 앞 30턴 압축 — 추후 구현).
+- **[태그 버그 수정]**: Tavily 탭 `_classify_emotion_tags` → `_classify_universal_tags` 잔존 참조 수정.
+- **[버전 업]**: `app_v17_1_1.py` → `app_v17_1_2.py`. RUN 파일 3종 모두 갱신.
+### 영향 파트
+- A 시스템 전체 (🤖 세이지 팝업 — 빠른 대화 탭)
+### 수정 파일
+- `sage_popups.py`
+- `app_v17_1_2.py` (신규 버전)
+- `RUN_APP.bat`, `RUN_DEBUG.bat`, `RUN_APP.vbs`
+- `00_History/CHANGELOG.md`
+
+---
+
 ## v17.1.2 — 2026-05-28 23:12
 ### 변경 내용
 - **[태그 시스템 범용화] PSYCHOLOGY_EMOTION_TAGS → UNIVERSAL_CATEGORY_TAGS 교체**:
