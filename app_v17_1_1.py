@@ -2,9 +2,9 @@
 
 """
 
-🪞 현자의 거울 스튜디오 — Master App v17.0.9
+🪞 현자의 거울 스튜디오 — Master App v17.1.0
 
-[v17.0.9 업데이트 사항: 2026-05-27]
+[v17.1.0 업데이트 사항: 2026-05-27]
 - [수술 A] sage_popups.py — _save_to_obsidian_with_tags lite_mode 도입: 대화 자동 저장 시 LLM 재호출 완전 차단 → 무한 로딩 근본 원인 제거
 - [수술 B] pending_stream 처리 순서 재정렬: history 먼저, 자동 저장 예외 완전 격리 → 대화창 증발 버그 수정
 - [수술 C] RAG 로딩 결과 60초 캐싱: 매 대화 시 파일 재스캔 방지 → 성능 병목 완화
@@ -157,6 +157,13 @@ def call_gemma(prompt, system="", model=None):
     if isinstance(model, str):
         model = model.lower()
     current_prompt = prompt
+    # ── A 모드(팝업 일반 대화) — 루프 없이 1회 직접 호출 ──
+    if st.session_state.get("popup_gemma_mode") == "A":
+        try:
+            return _orig_call_gemma(prompt, system=system, model=model)
+        except Exception as _e_a:
+            return f"[오류] 젬마 A모드 응답 실패: {_e_a}"
+
     # ── RAG 태그 시스템 자동 주입 ──────────────────────────
     try:
         from sage_config import RAG_TAG_SYSTEM
