@@ -1,7 +1,7 @@
 @echo off
-set APP_VER=app_v17_1_9.py
+set APP_VER=app_v17_1_10.py
 set PORT=8505
 cd /d C:\SageMirror_Production
-echo [MIRROR] Sage Mirror Studio v17.1.9 Starting...
+echo [MIRROR] Sage Mirror Studio v17.1.10 Starting...
 python -m streamlit run %APP_VER% --server.port %PORT% --theme.base="dark"
 pause
