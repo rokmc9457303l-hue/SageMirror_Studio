@@ -1645,13 +1645,16 @@ div[data-testid="stSelectbox"] > div {
 }
 </style>""", unsafe_allow_html=True)
 
-        if "popup_chat_input_text" not in st.session_state:
-            st.session_state["popup_chat_input_text"] = ""
+        # 완벽한 텍스트 초기화를 위한 고유 키(Key) 카운터 세션 도입
+        if "chat_widget_key" not in st.session_state:
+            st.session_state["chat_widget_key"] = 0
+            
         _ic, _bc, _mc = st.columns([5, 1, 1.5], gap="small")
         with _ic:
             _prompt = st.text_area(
                 "입력",
-                key="popup_chat_input_text",
+                # 카운터를 키에 결합하여 새로고침 시 완전히 새로운 위젯으로 인식하게 함
+                key=f"popup_input_{st.session_state['chat_widget_key']}",
                 placeholder="현자에게 물어보세요...",
                 label_visibility="collapsed",
                 height=68,
@@ -1729,6 +1732,11 @@ div[data-testid="stSelectbox"] > div {
                 "part": current_part_name,
             })
             _save_chat_history(st.session_state.popup_history)
-            st.session_state["popup_chat_input_text"] = ""
+            
+            # [해결 핵심] 입력창 텍스트를 강제로 지우려다 에러가 나므로, 
+            # 위젯 키 카운터를 1 증가시켜 다음 렌더링 시 완전히 빈 새로운 텍스트 에어리어가 생성되도록 유도함.
+            st.session_state["chat_widget_key"] += 1
+            
+            # 즉시 새로고침하여 화면 갱신
             st.rerun()
 
