@@ -1,3 +1,18 @@
+## v17.1.23 — 2026-05-31 14:55
+### 변경 내용
+- **[StreamlitAPIException 크래시 복구 및 Key Increment 패턴 도입]**: 대화창 `st.text_area` 입력 위젯에 텍스트 리셋 과정에서 발생하던 `StreamlitAPIException`을 방지하고자 위젯 key에 `input_key` 카운터를 결합하는 동적 키 할당 방식('Key Increment')을 도입.
+- **[텍스트 입력 초기화 최적화]**: 입력 전송 완료 시 세션 스테이트의 widget key 값을 직접 수정하는 대신 `input_key` 값을 1씩 증가시켜 위젯을 새로 렌더링함으로써 텍스트창을 안전하게 비우는 구조로 개편.
+- **[배포 버전 갱신]**: `app_v17_1_23.py`, `sage_popups_v17_1_23.py`, `RUN_APP.bat`, `RUN_DEBUG.bat` 업데이트.
+### 영향 파트
+- 팝업 어시스턴트 대화 입력 및 전송 영역
+- 배포/실행 스크립트 2종
+### 수정 파일
+- app_v17_1_23.py
+- sage_popups_v17_1_23.py
+- RUN_APP.bat
+- RUN_DEBUG.bat
+
+
 ## v17.1.22 — 2026-05-31 14:40
 ### 변경 내용
 - **[Streamlit 상태 충돌 및 고스트 텍스트 버그 수정]**: `sage_popups` 어시스턴트 대화창에서 텍스트 전송 후 창이 비워지지 않고, 복사 버튼 클릭 시 예전 텍스트가 부활하는 버그 해결.
