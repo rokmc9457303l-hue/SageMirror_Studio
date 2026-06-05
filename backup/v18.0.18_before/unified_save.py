@@ -16,8 +16,6 @@ core/unified_save.py — 모든 자료의 통합 자동 저장 엔진
 
 import threading
 import queue
-import json
-import hashlib
 from datetime import datetime
 from pathlib import Path
 from core.config import (
@@ -25,38 +23,6 @@ from core.config import (
 )
 from core.obsidian import save_dual, classify_tags
 from core.obsidian import classify_3layer, format_tags_3layer
-
-
-HASH_INDEX_PATH = Path(__file__).parent.parent / "data" / "content_hashes.json"
-
-def _load_hash_index():
-    if HASH_INDEX_PATH.exists():
-        try:
-            return json.loads(HASH_INDEX_PATH.read_text(encoding="utf-8"))
-        except Exception:
-            return {}
-    return {}
-
-def _save_hash_index(index):
-    HASH_INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
-    HASH_INDEX_PATH.write_text(
-        json.dumps(index, ensure_ascii=False, indent=2),
-        encoding="utf-8"
-    )
-
-def _check_and_register_hash(content, filepath=None):
-    """중복 체크 + 등록. 중복이면 기존 경로 반환, 아니면 None."""
-    text = (content or "").strip()
-    if len(text) < 10:
-        return None
-    content_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()
-    index = _load_hash_index()
-    if content_hash in index:
-        return index[content_hash]
-    if filepath:
-        index[content_hash] = str(filepath)
-        _save_hash_index(index)
-    return None
 
 
 # ── 통합 저장 큐 ──────────────────────────────────
@@ -88,7 +54,7 @@ def build_metadata(content_type: str, **kwargs) -> dict:
         "timestamp": datetime.now().isoformat(),
         "date":      datetime.now().strftime("%Y-%m-%d"),
         "time":      datetime.now().strftime("%H:%M:%S"),
-        "version":   "v18.0.18",
+        "version":   "v18.0.17",
         **kwargs,
     }
 
@@ -139,13 +105,6 @@ def save_anything(
         part_num: 파트 번호 (해당 시)
         extra_meta: 추가 메타데이터
     """
-    # === v18.0.18 중복 방지 ===
-    _dup = _check_and_register_hash(content)
-    if _dup:
-        import logging
-        logging.getLogger(__name__).info(f"중복 감지 스킵: {_dup}")
-        return {"status": "skipped", "reason": "duplicate", "existing_file": _dup}
-        
     _ensure_worker()
     
     metadata = build_metadata(content_type, **(extra_meta or {}))
@@ -179,15 +138,6 @@ def _process_task(task: dict):
             source_type=metadata["type_label"],
         )
         _log_save("part", title, result, metadata)
-        
-        # === v18.0.18 해시 등록 ===
-        _saved_path = result.get("채널", result.get("규칙서", ""))
-        if not _saved_path and result:
-            _saved_path = list(result.values())[0]
-            if isinstance(_saved_path, list) and _saved_path:
-                _saved_path = _saved_path[0]
-        if _saved_path:
-            _check_and_register_hash(content, filepath=str(_saved_path))
     
     elif content_type == "chat_dialog":
         # 대화 → Chat 폴더 + 의미있는 대화는 범용에도
@@ -210,9 +160,6 @@ def _save_chat(content: str, title: str, metadata: dict):
     
     md = _build_chat_md(content, metadata)
     chat_file.write_text(md, encoding="utf-8")
-    
-    # === v18.0.18 해시 등록 ===
-    _check_and_register_hash(content, filepath=str(chat_file))
     
     saved_universal = []
     
@@ -254,9 +201,6 @@ def _save_external(content: str, title: str, metadata: dict):
     channel_id = metadata.get("channel_id")
     md = _build_external_md(content, metadata, channel_id=channel_id)
     raw_file.write_text(md, encoding="utf-8")
-    
-    # === v18.0.18 해시 등록 ===
-    _check_and_register_hash(content, filepath=str(raw_file))
     
     # 범용 카테고리에도 저장
     saved_universal = []
