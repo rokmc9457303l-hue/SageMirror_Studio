@@ -30,7 +30,6 @@ except ImportError:
 
 from core.config import OBSIDIAN_SYSTEM
 from core.unified_save import save_anything
-from core.obsidian import get_channel_by_drive_folder, list_active_channels
 
 
 # ── 설정 경로 ──────────────────────────────────
@@ -167,15 +166,11 @@ def save_sync_state(state: dict):
 
 
 # ── 메인 동기화 함수 ─────────────────────────
-def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: str = None) -> dict:
-    """지정 Drive 폴더 자료 자동 수집 (channel_id 전달 지원)"""
+def sync_drive_folder(folder_name: str = "현자의거울_자료") -> dict:
+    """지정 Drive 폴더 자료 자동 수집"""
     
     if not GOOGLE_API_AVAILABLE:
         return {"success": False, "error": "google-api-python-client 미설치"}
-    
-    # channel_id 자동 탐색
-    if not channel_id:
-        channel_id = get_channel_by_drive_folder(folder_name)
     
     try:
         creds = get_credentials()
@@ -204,8 +199,7 @@ def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: s
             return {
                 "success": True,
                 "new_files": 0,
-                "message": f"새 파일 없음 ({folder_name})",
-                "channel_id": channel_id,
+                "message": "새 파일 없음",
             }
         
         # 처리
@@ -214,7 +208,7 @@ def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: s
             content = extract_file_content(drive_service, docs_service, f)
             
             if content and not content.startswith("[추출 실패"):
-                # 통합 저장 엔진 호출 (channel_id 전달)
+                # 통합 저장 엔진 호출
                 save_anything(
                     content=content,
                     title=f["name"].replace(".gdoc", "").replace(".pdf", ""),
@@ -224,15 +218,12 @@ def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: s
                         "mime_type": f["mimeType"],
                         "modified": f.get("modifiedTime"),
                         "source": "Google Drive",
-                        "channel_id": channel_id,
-                        "drive_folder": folder_name,
                     },
                 )
                 processed.append({
                     "name": f["name"],
                     "id": f["id"],
                     "size": len(content),
-                    "channel_id": channel_id,
                 })
         
         # 상태 업데이트
@@ -260,8 +251,8 @@ _sync_thread = None
 _sync_active = False
 
 
-def start_auto_sync(interval: int = 300):
-    """백그라운드 자동 동기화 시작 (모든 활성 채널)"""
+def start_auto_sync(folder_name: str = "현자의거울_자료", interval: int = 300):
+    """백그라운드 자동 동기화 시작"""
     global _sync_thread, _sync_active
     
     if _sync_active:
@@ -272,10 +263,9 @@ def start_auto_sync(interval: int = 300):
     def worker():
         while _sync_active:
             try:
-                result = sync_all_channels()
-                total = result.get("new_files", 0)
-                if total > 0:
-                    print(f"[GDrive 동기화] 새 파일 {total}건 수집 ({result.get('channels_synced', 0)}채널)")
+                result = sync_drive_folder(folder_name)
+                if result.get("new_files", 0) > 0:
+                    print(f"[GDrive 동기화] 새 파일 {result['new_files']}건 수집")
             except Exception as e:
                 print(f"[GDrive 동기화 오류] {e}")
             

@@ -22,7 +22,6 @@ from core.config import (
     PART_NAMES, OBSIDIAN_CHANNEL, OBSIDIAN_UNIVERSAL, OBSIDIAN_SYSTEM,
 )
 from core.obsidian import save_dual, classify_tags
-from core.obsidian import classify_3layer, format_tags_3layer
 
 
 # ── 통합 저장 큐 ──────────────────────────────────
@@ -54,7 +53,7 @@ def build_metadata(content_type: str, **kwargs) -> dict:
         "timestamp": datetime.now().isoformat(),
         "date":      datetime.now().strftime("%Y-%m-%d"),
         "time":      datetime.now().strftime("%H:%M:%S"),
-        "version":   "v18.0.17",
+        "version":   "v18",
         **kwargs,
     }
 
@@ -198,8 +197,7 @@ def _save_external(content: str, title: str, metadata: dict):
     safe_title = "".join(c for c in title[:40] if c.isalnum() or c in " -_").strip()
     raw_file = target_dir / f"{ts}_{safe_title}.md"
     
-    channel_id = metadata.get("channel_id")
-    md = _build_external_md(content, metadata, channel_id=channel_id)
+    md = _build_external_md(content, metadata)
     raw_file.write_text(md, encoding="utf-8")
     
     # 범용 카테고리에도 저장
@@ -235,20 +233,16 @@ def _build_chat_md(content: str, metadata: dict) -> str:
 """
 
 
-def _build_external_md(content: str, metadata: dict, channel_id: str = None) -> str:
+def _build_external_md(content: str, metadata: dict) -> str:
     src_info = ""
     if "url" in metadata:
         src_info += f"- **원본 URL**: {metadata['url']}\n"
     if "source" in metadata:
         src_info += f"- **출처**: {metadata['source']}\n"
     
-    _cls = classify_3layer(content, metadata.get('original_title', ''), channel_id=channel_id)
-    _tags_md = format_tags_3layer(_cls, channel_id=channel_id)
-    
     return f"""# {metadata.get('original_title', '외부 자료')}
 
 ## 메타 정보
-- **채널**: {channel_id or '미지정'}
 - **유형**: {metadata['type_label']}
 - **수집 시각**: {metadata['timestamp']}
 {src_info}
@@ -258,7 +252,7 @@ def _build_external_md(content: str, metadata: dict, channel_id: str = None) -> 
 {content}
 
 ## 자동 분류
-{_tags_md}
+{', '.join(['#' + t for t in classify_tags(content).keys()])}
 """
 
 

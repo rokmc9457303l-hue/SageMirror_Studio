@@ -1,0 +1,8 @@
+{
+  "scope": "channel",
+  "channel_id": null,
+  "concept": "예약된 빈 슬롯 — 새 채널 컨셉 확정 시 _template.json 복사해서 사용",
+  "enabled": false,
+  "drive_folder": null,
+  "domains": {}
+}

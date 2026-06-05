@@ -1,0 +1,20 @@
+{
+  "scope": "channel",
+  "channel_id": null,
+  "concept": "새 채널 만들 때 이 파일을 복사해서 (채널이름).json 으로 저장한 뒤 값을 채우세요",
+  "enabled": false,
+  "drive_folder": null,
+  "domains": {
+    "도메인1": [
+      "키워드1",
+      "키워드2",
+      "키워드3"
+    ],
+    "도메인2": [
+      "키워드1",
+      "키워드2",
+      "키워드3"
+    ]
+  },
+  "notes": "Google Drive 폴더명은 '(channel_id)_자료' 형식 권장. 예: '현자의거울_자료'"
+}
