@@ -155,7 +155,7 @@ def extract_file_content(service, docs_service, file_info: dict) -> str:
 def load_sync_state() -> dict:
     if SYNC_STATE_FILE.exists():
         return json.loads(SYNC_STATE_FILE.read_text(encoding="utf-8"))
-    return {"last_sync": None, "processed_files": {}}
+    return {"last_sync": None, "processed_ids": []}
 
 
 def save_sync_state(state: dict):
@@ -193,35 +193,14 @@ def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: s
         
         # 상태 로드
         state = load_sync_state()
-        
-        # 하위 호환 마이그레이션
-        if "processed_ids" in state and "processed_files" not in state:
-            state["processed_files"] = {}
-            for pid in state.get("processed_ids", []):
-                state["processed_files"][pid] = {
-                    "modified_time": "",
-                    "title": "",
-                    "channel_id": ""
-                }
-            del state["processed_ids"]
-            save_sync_state(state)
-            
         last_sync = state.get("last_sync")
         
         # 파일 목록
         files = list_files_in_folder(drive_service, folder_id, last_sync)
         
-        processed = state.get("processed_files", {})
-        new_or_updated = []
-        for f in files:
-            fid = f["id"]
-            mod_time = f.get("modifiedTime", "")
-            if fid not in processed:
-                new_or_updated.append(f)
-            elif processed[fid].get("modified_time") != mod_time:
-                new_or_updated.append(f)
+        new_files = [f for f in files if f["id"] not in state.get("processed_ids", [])]
         
-        if not new_or_updated:
+        if not new_files:
             return {
                 "success": True,
                 "new_files": 0,
@@ -230,8 +209,8 @@ def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: s
             }
         
         # 처리
-        processed_list = []
-        for f in new_or_updated:
+        processed = []
+        for f in new_files:
             content = extract_file_content(drive_service, docs_service, f)
             
             if content and not content.startswith("[추출 실패"):
@@ -249,7 +228,7 @@ def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: s
                         "drive_folder": folder_name,
                     },
                 )
-                processed_list.append({
+                processed.append({
                     "name": f["name"],
                     "id": f["id"],
                     "size": len(content),
@@ -258,22 +237,15 @@ def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: s
         
         # 상태 업데이트
         state["last_sync"] = datetime.now().isoformat()
-        if "processed_files" not in state:
-            state["processed_files"] = {}
-            
-        for f in new_or_updated:
-            state["processed_files"][f["id"]] = {
-                "modified_time": f.get("modifiedTime", ""),
-                "title": f.get("name", ""),
-                "channel_id": channel_id or ""
-            }
-            
+        state["processed_ids"] = list(set(
+            state.get("processed_ids", []) + [f["id"] for f in new_files]
+        ))[-200:]  # 최근 200개만 유지
         save_sync_state(state)
         
         return {
             "success": True,
-            "new_files": len(processed_list),
-            "processed": processed_list,
+            "new_files": len(processed),
+            "processed": processed,
         }
     
     except Exception as e:
@@ -286,20 +258,6 @@ def sync_drive_folder(folder_name: str = "현자의거울_자료", channel_id: s
 # ── 백그라운드 동기화 (5분 주기) ─────────────
 _sync_thread = None
 _sync_active = False
-
-def sync_all_channels() -> dict:
-    results = {}
-    total_new = 0
-    channels = list_active_channels()
-    for channel in channels:
-        folder_name = channel.get("drive_folder")
-        cid = channel.get("id")
-        if folder_name:
-            res = sync_drive_folder(folder_name=folder_name, channel_id=cid)
-            results[cid] = res
-            if res.get("success"):
-                total_new += res.get("new_files", 0)
-    return {"channels_synced": len(channels), "new_files": total_new, "results": results}
 
 
 def start_auto_sync(interval: int = 300):
@@ -338,5 +296,5 @@ def get_sync_status() -> dict:
     return {
         "active": _sync_active,
         "last_sync": state.get("last_sync"),
-        "total_processed": len(state.get("processed_files", state.get("processed_ids", []))),
+        "total_processed": len(state.get("processed_ids", [])),
     }
