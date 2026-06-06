@@ -19,6 +19,7 @@ def call_gemma(prompt: str, system: str = "", model: str = None,
         "prompt": full,
         "stream": False,
         "keep_alive": "10m",
+        "think": False,
         "options": {"num_predict": max_tokens, "temperature": temperature, "top_p": 0.9},
     }
     try:
@@ -38,6 +39,7 @@ def stream_gemma(prompt: str, system: str = "", model: str = None):
     full = (system.strip() + "\n\n" + prompt) if system.strip() else prompt
     payload = {
         "model": model, "prompt": full, "stream": True, "keep_alive": "10m",
+        "think": False,
         "options": {"num_predict": 512, "temperature": 0.3, "top_p": 0.9},
     }
     try:
