@@ -24,7 +24,7 @@ def call_gemma(prompt: str, system: str = "", model: str = None,
     try:
         resp = requests.post(
             "http://localhost:11434/api/generate",
-            json=payload, timeout=180
+            json=payload, timeout=300
         )
         resp.raise_for_status()
         return resp.json().get("response", "")
@@ -43,7 +43,7 @@ def stream_gemma(prompt: str, system: str = "", model: str = None):
     try:
         with requests.post(
             "http://localhost:11434/api/generate",
-            json=payload, stream=True, timeout=180
+            json=payload, stream=True, timeout=300
         ) as resp:
             resp.raise_for_status()
             for line in resp.iter_lines():
