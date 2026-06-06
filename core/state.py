@@ -57,9 +57,12 @@ def save_workspace():
     """파일로 영구 저장"""
     try:
         STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        _WIDGET_PREFIXES = ("sb_", "req_", "btn_")
         save_data = {
             k: v for k, v in st.session_state.items()
-            if not k.startswith("_") and not callable(v)
+            if not k.startswith("_")
+            and not k.startswith(_WIDGET_PREFIXES)
+            and not callable(v)
         }
         for k, v in save_data.items():
             try:
