@@ -10,7 +10,7 @@ from core.config import DEFAULT_MODEL
 
 
 def call_gemma(prompt: str, system: str = "", model: str = None,
-               max_tokens: int = 512, temperature: float = 0.3) -> str:
+               max_tokens: int = 8192, temperature: float = 0.3) -> str:
     """Ollama Gemma 동기 호출 (전체 응답)"""
     model = model or DEFAULT_MODEL
     full = (system.strip() + "\n\n" + prompt) if system.strip() else prompt
