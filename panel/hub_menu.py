@@ -39,10 +39,10 @@ HUB_CATEGORIES = {
     },
     "cloud": {
         "icon": "☁️",
-        "label": "클라우드 자동 동기화",
+        "label": "수동 동기화 모드",
         "color": "#10B981",
         "items": [
-            {"id": "gdrive_sync",  "icon": "📁", "label": "Google Drive 동기화 시작",  "ready": True},
+            {"id": "gdrive_sync",  "icon": "📁", "label": "[v18.0.20 비활성] 동기화 시작",  "ready": False},
             {"id": "gdrive_test",  "icon": "🔍", "label": "즉시 한 번 동기화",         "ready": True},
             {"id": "gdrive_status","icon": "📊", "label": "동기화 상태 보기",          "ready": True},
             {"id": "gdrive_stop",  "icon": "⏸️", "label": "동기화 정지",                "ready": True},
@@ -179,12 +179,13 @@ def handle_hub_action(category: str, item_id: str):
         st.toast("🔑 API 키 설정 (사이드바에서 가능)")
     
     elif item_id == "gdrive_sync":
-        from core.gdrive_sync import start_auto_sync
-        success = start_auto_sync()
-        if success:
-            st.toast("✅ Google Drive 자동 동기화 시작 (5분 주기)")
-        else:
-            st.toast("⚠️ 이미 동기화 진행 중")
+        # from core.gdrive_sync import start_auto_sync
+        # success = start_auto_sync() # v18.0.20: 자동 5분 동기화 비활성화
+        # if success:
+        #     st.toast("✅ Google Drive 자동 동기화 시작 (5분 주기)")
+        # else:
+        #     st.toast("⚠️ 이미 동기화 진행 중")
+        st.toast("⚠️ v18.0.20: 5분 자동 동기화가 비활성화되었습니다. '즉시 한 번 동기화'를 사용하세요.")
     
     elif item_id == "gdrive_test":
         from core.gdrive_sync import sync_drive_folder
