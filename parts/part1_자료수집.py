@@ -99,6 +99,12 @@ def render_benchmark_tab():
     bench = get_state("p1_bench_result")
     if bench:
         result_display(bench, title="벤치마킹 결과", height=300)
+        if st.button("📤 주제추천으로 전달", key="btn_send_to_topics", use_container_width=True):
+            set_state("p1_bench_packet", {
+                "bench_raw": get_state("p1_bench_result"),
+                "channel_url": get_state("p1_channel_url"),
+            })
+            st.toast("✅ 벤치마킹 결과가 주제추천 탭으로 전달됐습니다!")
 
 
 def run_benchmark(channel_url: str, api_key: str) -> str:
@@ -161,7 +167,11 @@ def run_benchmark(channel_url: str, api_key: str) -> str:
 # ─────────────────────────────────────────────────
 def render_topic_tab():
     st.markdown("### 2️⃣ 주제 20개 추천")
-    
+
+    packet = get_state("p1_bench_packet")
+    if packet:
+        st.info(f"📥 벤치마킹 채널 수신: {packet.get('channel_url','')}")
+
     bench = get_state("p1_bench_result")
     if not bench:
         st.info("먼저 벤치마킹 탭에서 채널 분석을 완료하세요")
@@ -176,7 +186,7 @@ def render_topic_tab():
     
     if st.button("🎯 주제 20개 생성", key="p1_topic_gen", type="primary", use_container_width=True):
         with st.spinner("💡 주제 발굴 중..."):
-            topics = generate_topics(bench, additional)
+            topics = generate_topics(get_state("p1_bench_packet", {}).get("bench_raw", ""), additional)
         
         if topics:
             set_state("p1_topics_result", topics)
