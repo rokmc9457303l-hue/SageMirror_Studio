@@ -178,6 +178,12 @@ def render_main():
 # 메인 실행
 # ─────────────────────────────────────────────────
 def main():
+    # secrets.toml API 키 자동 로드
+    for key, field in [("api_youtube", "youtube"), ("api_gemini", "gemini"),
+                       ("api_github", "github"), ("api_tavily", "tavily")]:
+        if key not in st.session_state:
+            st.session_state[key] = st.secrets.get("api_keys", {}).get(field, "")
+
     # session_state 초기화
     init_state()
     

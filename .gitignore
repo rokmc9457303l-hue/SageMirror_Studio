@@ -13,7 +13,8 @@ __pycache__/
 *.pyc
 *.pyo
 
-# 보안 민감 파일 (OAuth 토큰 + 인증정보)
+# 보안 민감 파일 (API 키 + OAuth 토큰 + 인증정보)
+.streamlit/secrets.toml
 data/google_token.json
 data/google_credentials.json
 
