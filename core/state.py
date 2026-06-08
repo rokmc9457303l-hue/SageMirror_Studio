@@ -63,6 +63,7 @@ def save_workspace():
             if not k.startswith("_")
             and not k.startswith(_WIDGET_PREFIXES)
             and not callable(v)
+            and not isinstance(v, bool)
         }
         for k, v in save_data.items():
             try:
