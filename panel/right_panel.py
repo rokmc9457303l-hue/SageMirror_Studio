@@ -32,13 +32,29 @@ BRAIN_SYSTEM_PROMPT = """너는 현자의 거울 스튜디오의 공장장 젬�
 
 def call_ollama_sync(prompt: str, system: str = "", model: str = None,
                      timeout: int = 120) -> tuple:
-    """Ollama 동기 호출 (비스트리밍) — Thinking 후처리"""
+    """Ollama 동기 호출 (비스트리밍) — Thinking 후처리 / Gemini 자동 라우팅"""
     import time
     import re
-    
-    model = model or DEFAULT_MODEL
+
+    current_model = get_state("current_model", DEFAULT_MODEL)
+    model = model or current_model
+
+    # ── Gemini 라우팅 ────────────────────────────────
+    if "gemini" in model.lower():
+        start = time.time()
+        try:
+            from core.brain import call_gemini
+            response = call_gemini(prompt=prompt, system=system, model=model)
+            elapsed = time.time() - start
+            if not response or response.startswith("[Gemini"):
+                return False, response or "(빈 응답)", elapsed
+            return True, response, elapsed
+        except Exception as e:
+            return False, f"(Gemini 오류: {e})", time.time() - start
+
+    # ── Ollama 호출 ──────────────────────────────────
     full = (system.strip() + "\n\n" + prompt) if system.strip() else prompt
-    
+
     payload = {
         "model": model,
         "prompt": full,
@@ -52,9 +68,9 @@ def call_ollama_sync(prompt: str, system: str = "", model: str = None,
             "repeat_penalty": 1.1,
         },
     }
-    
+
     start = time.time()
-    
+
     try:
         resp = requests.post(
             "http://localhost:11434/api/generate",
@@ -62,24 +78,24 @@ def call_ollama_sync(prompt: str, system: str = "", model: str = None,
             timeout=timeout,
         )
         elapsed = time.time() - start
-        
+
         if resp.status_code != 200:
             return False, f"오류: HTTP {resp.status_code}", elapsed
-        
+
         data = resp.json()
         response_text = data.get("response", "")
-        
+
         if not response_text:
             return False, "(빈 응답 — 모델 재시도 권장)", elapsed
-        
+
         # ── Thinking 부분 후처리 ────────────────────
         cleaned = clean_thinking_response(response_text)
-        
+
         if not cleaned.strip():
             return False, "(Thinking 후 빈 응답 — 다시 시도해주세요)", elapsed
-        
+
         return True, cleaned, elapsed
-    
+
     except requests.Timeout:
         elapsed = time.time() - start
         return False, f"({timeout}초 시간 초과)", elapsed
