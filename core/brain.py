@@ -60,7 +60,7 @@ def stream_gemma(prompt: str, system: str = "", model: str = None):
         yield f"\n[스트리밍 오류] {e}"
 
 
-def call_gemini(prompt: str, system: str = "", model: str = "gemini-2.0-flash") -> str:
+def call_gemini(prompt: str, system: str = "", model: str = "gemini-1.5-flash") -> str:
     """Gemini API 호출"""
     try:
         import google.generativeai as genai
