@@ -1,0 +1,26 @@
+[
+  {
+    "role": "user",
+    "content": "안녕",
+    "model": "gemma4:e2b",
+    "ts": "2026-05-31 19:19"
+  },
+  {
+    "role": "assistant",
+    "content": "...\n\n고요함 속에 머무르라",
+    "model": "gemma4:e2b",
+    "ts": "2026-05-31 19:20"
+  },
+  {
+    "role": "user",
+    "content": "속도 테스트",
+    "model": "gemma4:e2b",
+    "ts": "2026-05-31 19:46"
+  },
+  {
+    "role": "assistant",
+    "content": "안녕하세요.\n\n명령을 기다리겠습니다. 바로 실행하겠습니다.",
+    "model": "gemma4:e2b",
+    "ts": "2026-05-31 19:48"
+  }
+]

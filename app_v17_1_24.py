@@ -5124,7 +5124,6 @@ with st.sidebar:
 
     part = st.radio("이동할 파트", [
 
-        "파트 0: 🤖 젬마 스튜디오 (대화 & 자료수집)",
 
         "파트 1: 벤치마킹 & 자료조사",
 
@@ -16199,12 +16198,7 @@ with _col_right:
     render_right_panel()
 
 with _col_main:
-    if part.startswith("파트 0"):
-        p0_ui_model = st.session_state.get("p0_selected_model", "gemma4:e2b")
-        st.session_state.selected_model = p0_ui_model
-        render_part0_assistant()
-
-    elif part.startswith("파트 1"):
+    if part.startswith("파트 1"):
         p1_ui_model = st.session_state.get("p1_model_select")
         if p1_ui_model:
             p1_ui_model_lower = p1_ui_model.lower()

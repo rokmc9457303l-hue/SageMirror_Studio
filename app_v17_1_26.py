@@ -76,11 +76,9 @@ from sage_engine import (
 
 )
 
-from sage_popups_v17_1_22 import (
 
-    popup_edit_obsidian, popup_edit_prompt, popup_assistant,
 
-)
+from sage_right_panel_v3 import render_right_panel
 
 from research_router import (
     should_trigger_research,
@@ -1427,6 +1425,12 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 
 )
+
+st.markdown("""<style>
+section[data-testid="stMain"] .block-container{
+    padding-right: 340px !important;
+}
+</style>""", unsafe_allow_html=True)
 
 st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
 
@@ -7372,7 +7376,7 @@ def render_part0_assistant():
 
     with c_popup:
         if st.button("🤖 젬마 어시스턴트", type="secondary", use_container_width=True, key="p0_popup_btn"):
-            popup_assistant()  # 안내문 띄우지 말고 즉시 대화창(팝업)을 열 것!
+            pass  # 안내문 띄우지 말고 즉시 대화창(팝업)을 열 것!
 
     st.markdown('<hr style="margin: 8px 0; border: none; border-top: 1px solid rgba(212,175,106,0.15);">', unsafe_allow_html=True)
     render_top_panel()
@@ -7659,7 +7663,7 @@ def render_part1():
 
                 st.session_state.sidebar_part = "part1"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -9718,7 +9722,7 @@ def render_part2():
 
                 st.session_state.sidebar_part = "part2"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -11553,7 +11557,7 @@ def render_part5():
 
                 st.session_state.sidebar_part = "part5"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -11581,7 +11585,7 @@ def render_part5():
 
             st.text_area("옵시디언 규칙서", value=st.session_state.obsidian_rules, height=300, key="p5_top_ob_view", label_visibility="collapsed")
 
-            if st.button("[SEARCH] 편집", key="p5_ob_btn"): popup_edit_obsidian()
+            if st.button("[SEARCH] 편집", key="p5_ob_btn"): pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -12564,7 +12568,7 @@ def render_part5_image():
 
                 st.session_state.sidebar_part = "part4"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)  # glass-control-box 닫기
@@ -12587,7 +12591,7 @@ def render_part5_image():
 
             st.text_area("옵시디언", value=st.session_state.get("obsidian_rules",""), height=250, key="p5_ob_view", label_visibility="collapsed", disabled=True)
 
-            if st.button("[EDIT] 편집", key="p5_ob_btn", disabled=is_locked): popup_edit_obsidian()
+            if st.button("[EDIT] 편집", key="p5_ob_btn", disabled=is_locked): pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -12887,7 +12891,7 @@ def render_part6_video():
 
                 st.session_state.sidebar_part = "part5"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)  # glass-control-box 닫기
@@ -12910,7 +12914,7 @@ def render_part6_video():
 
             st.text_area("옵시디언", value=st.session_state.get("obsidian_rules",""), height=250, key="p6_ob_view", label_visibility="collapsed", disabled=True)
 
-            if st.button("[SEARCH] 편집", key="p6_ob_btn", disabled=is_locked): popup_edit_obsidian()
+            if st.button("[SEARCH] 편집", key="p6_ob_btn", disabled=is_locked): pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -13454,7 +13458,7 @@ def render_part34():
 
                 st.session_state.sidebar_part = "part3"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -15048,7 +15052,7 @@ def render_part6_opal():
 
                 st.session_state.sidebar_part = "part6"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -15491,7 +15495,7 @@ def render_part7_capcut():
 
                 st.session_state.sidebar_part = "part7"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -15882,7 +15886,7 @@ def render_part8_dashboard():
 
                 st.session_state.sidebar_part = "part8"
 
-                popup_assistant()
+                pass
 
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -16188,17 +16192,14 @@ if st.session_state.get("p34_arch_obsidian_saved", False) and not st.session_sta
 
 
 
-# 파트 라우팅 블록 — v17.1.23 (우측 고정 패널 통합)
+# 파트 라우팅 블록
+
 # =====================================================================
 
-from sage_right_panel import render_right_panel
-
-_col_main, _col_right = st.columns([7, 3], gap="small")
-
-with _col_right:
-    render_right_panel()
-
-with _col_main:
+col_main, col_gemma = st.columns([7, 3])
+with col_gemma:
+    st.subheader("🤖 젬마 어시스턴트")
+with col_main:
     if part.startswith("파트 0"):
         p0_ui_model = st.session_state.get("p0_selected_model", "gemma4:e2b")
         st.session_state.selected_model = p0_ui_model
@@ -16296,6 +16297,8 @@ with _col_main:
                 if st.button("🔓 Part 8 수정본 생성",
                              key="p8_rev_btn", use_container_width=True):
                     create_revision_version(8, "캡컷 최종 조립", ["p8_production_guide"])
+
+    render_right_panel()
 
 # ── 임시 개발자 테스트 UI (파일 업로드 및 텍스트 추출) ──
 if False:  # [DEBUG_DEV_PANEL 비활성화 처리]

@@ -5124,8 +5124,6 @@ with st.sidebar:
 
     part = st.radio("이동할 파트", [
 
-        "파트 0: 🤖 젬마 스튜디오 (대화 & 자료수집)",
-
         "파트 1: 벤치마킹 & 자료조사",
 
         "파트 2: 총괄기획",
@@ -7351,253 +7349,6 @@ def _load_chat_history() -> list:
     except Exception as e:
         print(f"[채팅 로드 오류] {e}")
     return []
-
-def render_part0_assistant():
-    """파트 0: 🤖 젬마 스튜디오 (대화 & 자료수집) 풀스크린 화면 렌더링"""
-    # 1. 최상단 3열 레이아웃
-    c_title, c_pin, c_popup = st.columns([5, 3, 2])
-    
-    with c_title:
-        st.markdown("<h3 class='sage-header-compact' style='margin: 0; line-height: 52px; color: #d4af6a; font-size: 1.85em; font-weight: 700;'>🤖 파트 0: 젬마 스튜디오</h3>", unsafe_allow_html=True)
-        
-    with c_pin:
-        st.markdown('<div class="pin-input-container">', unsafe_allow_html=True)
-        from sage_config import PART_PINS
-        pin = st.text_input("🔒 마스터 PIN", type="password", key="p0_pin_input", label_visibility="collapsed", placeholder="🔒 마스터 PIN (7777)")
-        st.markdown('</div>', unsafe_allow_html=True)
-        if pin == PART_PINS.get("part0", "7777"):
-            st.session_state.unlock_part0 = True
-        elif pin:
-            st.session_state.unlock_part0 = False
-
-    with c_popup:
-        if st.button("🤖 젬마 어시스턴트", type="secondary", use_container_width=True, key="p0_popup_btn"):
-            popup_assistant()  # 안내문 띄우지 말고 즉시 대화창(팝업)을 열 것!
-
-    st.markdown('<hr style="margin: 8px 0; border: none; border-top: 1px solid rgba(212,175,106,0.15);">', unsafe_allow_html=True)
-    render_top_panel()
-    st.markdown('<hr style="margin: 8px 0; border: none; border-top: 1px solid rgba(212,175,106,0.15);">', unsafe_allow_html=True)
-
-    # 3:7 풀스크린 분할
-    col_tools, col_chat = st.columns([3, 7], gap="large")
-    
-    # ──────────────────────────────────────────────────────────────
-    # [좌측 영역] 30% 툴박스 - 파일/링크 텍스트 추출 및 규칙서 v4.0 변환 저장
-    # ──────────────────────────────────────────────────────────────
-    with col_tools:
-        st.markdown("### 📂 지식 수집 및 탐색기")
-        uploaded_files = st.file_uploader(
-            "문서 업로드 (TXT, MD, PDF, HTML)",
-            accept_multiple_files=True,
-            key="p0_file_uploader"
-        )
-        google_link = st.text_input(
-            "🔗 구글 독스 / 드라이브 / 웹 URL",
-            placeholder="링크를 입력하세요...",
-            key="p0_url_input"
-        )
-        
-        if st.button("📥 추출 및 옵시디언 자동 저장", type="primary", use_container_width=True, key="p0_extract_save_btn"):
-            extracted_texts = []
-            sources = []
-            
-            # 파일 업로드 추출
-            if uploaded_files:
-                for f in uploaded_files:
-                    txt = extract_text_from_uploaded_file(f)
-                    if txt:
-                        extracted_texts.append(txt)
-                        sources.append(f.name)
-            
-            # 구글/웹 링크 추출
-            if google_link.strip():
-                txt = extract_text_from_google_link(google_link.strip())
-                if txt:
-                    extracted_texts.append(txt)
-                    sources.append(google_link.strip())
-            
-            if extracted_texts:
-                combined_text = "\n\n--- 파일 구분 ---\n\n".join(extracted_texts)
-                source_names = ", ".join(sources)
-                st.success(f"✅ [{len(sources)}개 소스] 텍스트 추출 성공!")
-                
-                with st.spinner("젬마가 마스터 규칙서 v4.0 규격으로 내용을 분석하고 마크다운 변환 중..."):
-                    system_prompt = "당신은 현자의 거울 스튜디오의 지식 관리 시스템입니다. 제공된 자료를 분석하여 '옵시디언 마스터 규칙서 v4.0' 구조에 맞게 마크다운 파일로 정제해 주십시오."
-                    user_prompt = f"""
-[작업 지시]
-제공된 텍스트 자료를 바탕으로 고도로 구조화된 '옵시디언 마스터 규칙서 v4.0' 형태의 마크다운(.md) 문서를 작성해 주십시오.
-
-[요구사항]
-1. 문서는 대제목(#)과 소주제별 헤더(##, ###) 구조를 명확히 갖추어야 합니다.
-2. 상단에 3줄 내외의 명확한 핵심 요약 영역을 만드십시오.
-3. 본문 내에 연관된 감정, 철학자, 성경 등의 주요 개념들을 옵시디언 [[위키링크]] 형태로 최소 5개 이상 자연스럽게 심어두십시오. (예: [[쇼펜하우어]], [[시편23편]], [[존재불안]])
-4. 모든 본문 텍스트 내에서 주인공 또는 등장인물을 지칭할 때는 오직 '@Protagonist'로 통일하여 표기해야 합니다. 절대 '주인공', '노인', '그', '그녀' 등의 일반 대명사나 고유명사를 사용하지 마십시오.
-5. 문서의 맨 아래에 출처 표기 [SOURCE: {source_names}] 를 확실히 명시하십시오.
-6. 변환 완료된 순수 Markdown 본문 이외에 어떠한 설명, 사족, 전주곡도 출력하지 마십시오.
-
-[입력 데이터]
-출처: {source_names}
-내용:
-{combined_text}
-"""
-                    try:
-                        selected_engine = st.session_state.get("p0_engine_select", "⚡ Gemma (빠른 대화)")
-                        if "Gemini" in selected_engine:
-                            model_id = "gemini-2.5-flash"
-                            gemma_output = call_gemini(user_prompt, system_prompt)
-                        elif "심층" in selected_engine:
-                            model_id = "gemma4:e4b"
-                            gemma_output = call_gemma(user_prompt, system=system_prompt, model=model_id)
-                        else:
-                            model_id = "gemma4:e2b"
-                            gemma_output = call_gemma(user_prompt, system=system_prompt, model=model_id)
-                            
-                        # Obsidian 저장
-                        first_source = sources[0]
-                        title = os.path.splitext(os.path.basename(first_source))[0] if "/" not in first_source and "\\" not in first_source else "Link_Reference"
-                        title = re.sub(r'[\\/:*?"<>|]', "_", title).strip()
-                        save_path = save_obsidian_memory("References", title, gemma_output, source=source_names)
-                        
-                        if save_path:
-                            st.success(f"💾 저장 완료: {save_path}")
-                            st.toast("✅ 옵시디언 마스터 규칙서 v4.0 저장 완료!", icon="💾")
-                            
-                            # GitHub 자동 Push 연계
-                            commit_msg = f"v17.1.11: 옵시디언 마스터 규칙서 v4.0 백업 - {title}"
-                            push_ok, push_msg = auto_git_push(commit_msg)
-                            if push_ok:
-                                st.toast("🚀 GitHub 백업 완료!", icon="🚀")
-                            else:
-                                st.warning(f"Git Push 실패: {push_msg}")
-                            
-                            save_workspace_state()
-                    except Exception as e:
-                        st.error(f"[변환 오류] 실패: {e}\n→ 해결 방법: Ollama 서버 상태 또는 API Key 설정을 점검하십시오.")
-            else:
-                st.error("⚠️ 추출할 텍스트 소스(업로드 파일 혹은 링크)가 비어있습니다.")
-                
-        st.divider()
-        st.markdown("### ⚙️ 대화 설정")
-        if st.button("🗑️ 대화 내역 초기화", use_container_width=True, key="p0_clear_btn"):
-            st.session_state.popup_history = []
-            _save_chat_history([])
-            st.toast("🗑️ 대화 기록 초기화 완료", icon="🗑️")
-            st.rerun()
-
-    # ──────────────────────────────────────────────────────────────
-    # [우측 영역] 70% 대화창 - 가로 칩 모델 선택 + 네이티브 채팅
-    # ──────────────────────────────────────────────────────────────
-    with col_chat:
-        # 직관적인 모델 스위처 (Chips/Radio 형태)
-        models = ["⚡ Gemma (빠른 대화)", "🧠 Gemma (심층 분석)", "🌐 Gemini (리서치)", "🔍 Tavily (웹 검색)"]
-        selected_mode = st.radio("🤖 AI 엔진 선택", models, horizontal=True, key="p0_engine_select", label_visibility="collapsed")
-        
-        # 엔진에 따른 모델명 매핑
-        model_mapping = {
-            "⚡ Gemma (빠른 대화)": "gemma4:e2b",
-            "🧠 Gemma (심층 분석)": "gemma4:e4b",
-            "🌐 Gemini (리서치)": "gemini-2.5-flash",
-            "🔍 Tavily (웹 검색)": "tavily"
-        }
-        new_model_id = model_mapping[selected_mode]
-        
-        # 채팅 내역 컨테이너
-        chat_container = st.container(height=600, border=True)
-        
-        # 대화 기록 로드 (첫 진입 시)
-        if "popup_history" not in st.session_state or not st.session_state.popup_history:
-            st.session_state.popup_history = _load_chat_history()
-            
-        with chat_container:
-            if not st.session_state.popup_history:
-                st.markdown(
-                    "<div style='color:#888;padding:20px;text-align:center;'>"
-                    "💭 아직 대화가 없습니다.<br><br>"
-                    "<small style='color:#d4af6a;'>"
-                    "• E2B / E4B 로컬 젬마 모델 또는 Gemini 최신 모델을 선택해 보세요.<br>"
-                    "• Tavily 검색 모드에서는 입력하신 질문을 바탕으로 자동 구글 리서치 분석 답변을 생성합니다.<br>"
-                    "• 등장인물 언급 시 반드시 <b>@Protagonist</b> 로 표기됩니다."
-                    "</small></div>",
-                    unsafe_allow_html=True,
-                )
-            for msg in st.session_state.popup_history:
-                with st.chat_message(msg["role"]):
-                    st.markdown(msg["content"])
-                    
-        # 하단 고정 채팅 입력칸
-        if prompt := st.chat_input("젬마에게 질문하거나 작업을 지시하세요...", key="p0_chat_input_widget"):
-            st.session_state.popup_history.append({
-                "role": "user",
-                "content": prompt,
-                "model": new_model_id,
-                "part": "파트 0",
-                "source": "사용자 입력"
-            })
-            with chat_container.chat_message("user"):
-                st.markdown(prompt)
-                
-            # AI 응답 처리 (선택된 모드에 따라 분기)
-            with chat_container.chat_message("assistant"):
-                sys_prompt = "너는 현자의 거울 스튜디오의 수석 어시스턴트다. 묻는 말에 사실에 기초하여 신중히 답하라. 등장인물은 오직 @Protagonist 로 지칭하라."
-                
-                # 1) Tavily 웹 검색 연동 모드
-                if new_model_id == "tavily":
-                    tavily_key = st.session_state.get("tavily_api_key", "").strip()
-                    if not tavily_key:
-                        response = "⚠️ Tavily API Key가 설정되지 않았습니다. 사이드바 설정에서 입력해 주세요."
-                        st.error(response)
-                        source_label = "Tavily 에러"
-                    else:
-                        with st.spinner("🔍 인터넷 검색을 수행하고 있습니다..."):
-                            try:
-                                search_res = run_tavily_research(prompt, tavily_key, max_results=5)
-                                formatted_results = ""
-                                if "results" in search_res:
-                                    for idx, r in enumerate(search_res["results"], 1):
-                                        formatted_results += f"[{idx}] 제목: {r.get('title')}\n요약: {r.get('content')}\nURL: {r.get('url')}\n\n"
-                                
-                                # 수집된 자료 바탕으로 로컬 젬마가 분석 및 답변 생성
-                                sys_ctx = (
-                                    "당신은 웹 검색 결과 분석 전문가입니다. 수집된 최신 데이터를 참고하여 질문에 객체화된 풍부한 답변을 완성해 주십시오. "
-                                    "모든 인용에는 [SOURCE: URL] 태그 형태로 출처를 필수로 밝히고, 인물 지칭 시 반드시 @Protagonist 로 표기하십시오."
-                                )
-                                search_enriched_prompt = f"질문: {prompt}\n\n[수집된 최신 검색 데이터]\n{formatted_results}"
-                                
-                                stream_gen = _stream_gemma_a_mode_p0(
-                                    search_enriched_prompt,
-                                    system=sys_ctx,
-                                    model=st.session_state.get("global_model_select", "gemma4:e2b")
-                                )
-                                response = st.write_stream(stream_gen)
-                                source_label = "Tavily RAG 검색 분석"
-                            except Exception as e:
-                                response = f"[검색 분석 실패] 오류: {e}"
-                                st.error(response)
-                                source_label = "Tavily 실패"
-                                
-                # 2) Gemini 호출 모드
-                elif new_model_id == "gemini-2.5-flash":
-                    with st.spinner("Gemini 응답 생성 중..."):
-                        stream_gen = stream_gemini(prompt, system_prompt=sys_prompt)
-                        response = st.write_stream(stream_gen)
-                        source_label = "Gemini API"
-                        
-                # 3) 로컬 Gemma (E2B / E4B) 모드
-                else:
-                    with st.spinner("Gemma 응답 생성 중..."):
-                        stream_gen = _stream_gemma_a_mode_p0(prompt, system=sys_prompt, model=new_model_id)
-                        response = st.write_stream(stream_gen)
-                        source_label = f"로컬 {new_model_id.upper()} 스트리밍"
-                        
-            st.session_state.popup_history.append({
-                "role": "assistant",
-                "content": response,
-                "model": new_model_id,
-                "part": "파트 0",
-                "source": source_label
-            })
-            _save_chat_history(st.session_state.popup_history)
-            st.rerun()
 
 def render_part1():
 
@@ -16188,23 +15939,29 @@ if st.session_state.get("p34_arch_obsidian_saved", False) and not st.session_sta
 
 
 
-# 파트 라우팅 블록 — v17.1.23 (우측 고정 패널 통합)
+# 파트 라우팅 블록
+
 # =====================================================================
 
-from sage_right_panel import render_right_panel
+st.markdown("""
+<style>
+div[data-testid="column"]:has(#gemma-right-anchor) {
+    position: sticky !important;
+    top: 3rem !important;
+    height: calc(100vh - 3rem) !important;
+    overflow-y: auto !important;
+}
+div[data-testid="column"]:has(#gemma-right-anchor)::-webkit-scrollbar { width: 4px; }
+</style>
+""", unsafe_allow_html=True)
 
-_col_main, _col_right = st.columns([7, 3], gap="small")
-
-with _col_right:
-    render_right_panel()
-
-with _col_main:
-    if part.startswith("파트 0"):
-        p0_ui_model = st.session_state.get("p0_selected_model", "gemma4:e2b")
-        st.session_state.selected_model = p0_ui_model
-        render_part0_assistant()
-
-    elif part.startswith("파트 1"):
+col_main, col_gemma = st.columns([7, 3], gap="large")
+with col_gemma:
+    st.markdown('<div id="gemma-right-anchor"></div>', unsafe_allow_html=True)
+    st.markdown("<h4 style='color:#d4af6a;'>🤖 젬마 어시스턴트</h4>", unsafe_allow_html=True)
+    st.info("이곳이 1~8 파트 스크롤과 무관하게 영구 고정될 우측 젬마 대화창입니다.")
+with col_main:
+    if part.startswith("파트 1"):
         p1_ui_model = st.session_state.get("p1_model_select")
         if p1_ui_model:
             p1_ui_model_lower = p1_ui_model.lower()
@@ -16297,134 +16054,134 @@ with _col_main:
                              key="p8_rev_btn", use_container_width=True):
                     create_revision_version(8, "캡컷 최종 조립", ["p8_production_guide"])
 
-# ── 임시 개발자 테스트 UI (파일 업로드 및 텍스트 추출) ──
-if False:  # [DEBUG_DEV_PANEL 비활성화 처리]
-    st.markdown("---")
-    st.markdown("### 🛠️ 개발자 테스트 영역: 파일 텍스트 추출기")
-    uploaded_file_dev = st.file_uploader(
-        "텍스트 추출 테스트 (TXT, MD, HTML, PDF 지원)",
-        type=["txt", "md", "html", "pdf"],
-        key="dev_test_file_uploader"
-    )
-    if uploaded_file_dev:
-        extracted_text = extract_text_from_uploaded_file(uploaded_file_dev)
-        if extracted_text is not None:
-            st.success("텍스트 추출 성공!")
-            st.text_area("추출된 텍스트 프리뷰 (최대 5000자)", value=extracted_text[:5000], height=300, key="dev_test_extracted_ta")
+    # ── 임시 개발자 테스트 UI (파일 업로드 및 텍스트 추출) ──
+    if False:  # [DEBUG_DEV_PANEL 비활성화 처리]
+        st.markdown("---")
+        st.markdown("### 🛠️ 개발자 테스트 영역: 파일 텍스트 추출기")
+        uploaded_file_dev = st.file_uploader(
+            "텍스트 추출 테스트 (TXT, MD, HTML, PDF 지원)",
+            type=["txt", "md", "html", "pdf"],
+            key="dev_test_file_uploader"
+        )
+        if uploaded_file_dev:
+            extracted_text = extract_text_from_uploaded_file(uploaded_file_dev)
+            if extracted_text is not None:
+                st.success("텍스트 추출 성공!")
+                st.text_area("추출된 텍스트 프리뷰 (최대 5000자)", value=extracted_text[:5000], height=300, key="dev_test_extracted_ta")
         
-            # ── 2차 추가 UI: Markdown 구조화 ──
-            md_result = convert_text_to_markdown_structure(
-                extracted_text,
-                uploaded_file_dev.name
-            )
-            st.success("Markdown 구조화 완료")
-            st.text_area(
-                "Markdown 결과",
-                md_result[:8000],
-                height=400,
-                key="dev_test_md_result_ta"
-            )
-        
-            # ── 3차 추가 UI: 자동 RAG 카테고리 분석 미리보기 ──
-            st.markdown("---")
-            st.markdown("### 🧠 자동 RAG 카테고리 분석 미리보기")
-            detection = detect_rag_categories(md_result, part_key="part1")
-            st.write("감지 카테고리:", detection.get("categories", []))
-            st.write("카테고리 점수:", detection.get("category_scores", {}))
-            st.write("키워드:", detection.get("keywords", [])[:30])
-            st.write("위키링크:", detection.get("wiki_links", [])[:30])
-            st.write("해시태그:", detection.get("hash_tags", [])[:30])
-        
-            # ── 4차 추가 UI: 전체 8파트 공용 태그 미리보기 ──
-            all_parts_preview = build_all_parts_common_tags_preview(detection)
-            st.markdown("---")
-            st.markdown("### 🌐 전체 8파트 공용 태그 미리보기")
-            st.write("전체 파트 태그:", all_parts_preview.get("all_part_tags", []))
-            st.write("통합 키워드:", all_parts_preview.get("combined_keywords", [])[:120])
-            st.write("통합 위키링크:", all_parts_preview.get("wiki_links", [])[:120])
-            st.write("통합 해시태그:", all_parts_preview.get("hash_tags", [])[:120])
-        
-            # ── 6차 추가 UI: References 수동 저장 테스트 ──
-            st.markdown("---")
-            if st.button("📥 References 저장 테스트", key="p6_save_ref_test_btn", use_container_width=True):
-                preview_data_for_save = all_parts_preview.copy()
-                preview_data_for_save["categories"] = detection.get("categories", [])
-            
-                saved_path = save_reference_markdown_file(
-                    markdown_text=md_result,
-                    preview_data=preview_data_for_save,
-                    source_name=uploaded_file_dev.name
+                # ── 2차 추가 UI: Markdown 구조화 ──
+                md_result = convert_text_to_markdown_structure(
+                    extracted_text,
+                    uploaded_file_dev.name
                 )
-                if saved_path:
-                    st.success(f"저장 완료: {saved_path}")
+                st.success("Markdown 구조화 완료")
+                st.text_area(
+                    "Markdown 결과",
+                    md_result[:8000],
+                    height=400,
+                    key="dev_test_md_result_ta"
+                )
+        
+                # ── 3차 추가 UI: 자동 RAG 카테고리 분석 미리보기 ──
+                st.markdown("---")
+                st.markdown("### 🧠 자동 RAG 카테고리 분석 미리보기")
+                detection = detect_rag_categories(md_result, part_key="part1")
+                st.write("감지 카테고리:", detection.get("categories", []))
+                st.write("카테고리 점수:", detection.get("category_scores", {}))
+                st.write("키워드:", detection.get("keywords", [])[:30])
+                st.write("위키링크:", detection.get("wiki_links", [])[:30])
+                st.write("해시태그:", detection.get("hash_tags", [])[:30])
+        
+                # ── 4차 추가 UI: 전체 8파트 공용 태그 미리보기 ──
+                all_parts_preview = build_all_parts_common_tags_preview(detection)
+                st.markdown("---")
+                st.markdown("### 🌐 전체 8파트 공용 태그 미리보기")
+                st.write("전체 파트 태그:", all_parts_preview.get("all_part_tags", []))
+                st.write("통합 키워드:", all_parts_preview.get("combined_keywords", [])[:120])
+                st.write("통합 위키링크:", all_parts_preview.get("wiki_links", [])[:120])
+                st.write("통합 해시태그:", all_parts_preview.get("hash_tags", [])[:120])
+        
+                # ── 6차 추가 UI: References 수동 저장 테스트 ──
+                st.markdown("---")
+                if st.button("📥 References 저장 테스트", key="p6_save_ref_test_btn", use_container_width=True):
+                    preview_data_for_save = all_parts_preview.copy()
+                    preview_data_for_save["categories"] = detection.get("categories", [])
+            
+                    saved_path = save_reference_markdown_file(
+                        markdown_text=md_result,
+                        preview_data=preview_data_for_save,
+                        source_name=uploaded_file_dev.name
+                    )
+                    if saved_path:
+                        st.success(f"저장 완료: {saved_path}")
                 
-            # ── 7차 추가 UI: References 읽기 전용 로드 테스트 ──
-            st.markdown("---")
-            if st.button("📖 References 로드 테스트", key="p7_load_ref_test_btn", use_container_width=True):
-                loaded_refs = load_recent_reference_files(max_files=20, max_chars=120000)
-                st.success(f"로드를 완료했습니다. (로드된 파일 수: {len(loaded_refs)}개)")
+                # ── 7차 추가 UI: References 읽기 전용 로드 테스트 ──
+                st.markdown("---")
+                if st.button("📖 References 로드 테스트", key="p7_load_ref_test_btn", use_container_width=True):
+                    loaded_refs = load_recent_reference_files(max_files=20, max_chars=120000)
+                    st.success(f"로드를 완료했습니다. (로드된 파일 수: {len(loaded_refs)}개)")
             
-                total_len = sum([len(r["content"]) for r in loaded_refs])
-                st.write(f"총 로드 글자 수: {total_len}자 / 120,000자")
+                    total_len = sum([len(r["content"]) for r in loaded_refs])
+                    st.write(f"총 로드 글자 수: {total_len}자 / 120,000자")
             
-                for idx, ref in enumerate(loaded_refs):
-                    with st.expander(f"📄 {ref['filename']} (크기: {len(ref['content'])}자, {'생략됨' if ref['truncated'] else '완전함'})", expanded=False):
-                        st.code(ref["content"][:3000], language="markdown")
-                        if len(ref["content"]) > 3000:
-                            st.caption("...(최대 3000자 프리뷰 표시)")
+                    for idx, ref in enumerate(loaded_refs):
+                        with st.expander(f"📄 {ref['filename']} (크기: {len(ref['content'])}자, {'생략됨' if ref['truncated'] else '완전함'})", expanded=False):
+                            st.code(ref["content"][:3000], language="markdown")
+                            if len(ref["content"]) > 3000:
+                                st.caption("...(최대 3000자 프리뷰 표시)")
                         
-            # ── 8차 추가 UI: Gemma Memory Prompt 미리보기 ──
-            st.markdown("---")
-            if st.button("🧠 Gemma Memory Prompt 미리보기", key="p8_gemma_mem_prompt_preview_btn", use_container_width=True):
-                memory_items = load_recent_reference_files(max_files=20, max_chars=120000)
-                prompt_preview = build_gemma_memory_prompt_preview(memory_items, max_chars=30000)
-                st.text_area("Gemma 주입용 메모리 프롬프트", value=prompt_preview, height=500, key="p8_gemma_mem_prompt_ta")
+                # ── 8차 추가 UI: Gemma Memory Prompt 미리보기 ──
+                st.markdown("---")
+                if st.button("🧠 Gemma Memory Prompt 미리보기", key="p8_gemma_mem_prompt_preview_btn", use_container_width=True):
+                    memory_items = load_recent_reference_files(max_files=20, max_chars=120000)
+                    prompt_preview = build_gemma_memory_prompt_preview(memory_items, max_chars=30000)
+                    st.text_area("Gemma 주입용 메모리 프롬프트", value=prompt_preview, height=500, key="p8_gemma_mem_prompt_ta")
             
-            # ── 9차 추가 UI: Gemma Memory Inject 테스트 ──
-            st.markdown("---")
-            if st.button("🧠 Gemma Memory Inject 테스트", key="p9_gemma_mem_inject_test_btn", use_container_width=True):
-                memory_items = load_recent_reference_files(max_files=20, max_chars=120000)
-                prompt_preview = build_gemma_memory_prompt_preview(memory_items, max_chars=30000)
-                buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=32000)
-            
-                # 허용된 유일한 session_state 저장
-                st.session_state["debug_memory_preview"] = buffer
-            
-                st.text_area("임시 Gemma Memory Buffer", value=buffer, height=500, key="p9_gemma_mem_buffer_ta")
-                st.success("임시 버퍼 주입 테스트 완료! (st.session_state['debug_memory_preview'] 에 보관됨)")
-            
-            # ── 10차 추가 UI: Gemma Memory 실제 주입 테스트 ──
-            st.markdown("---")
-            user_query = st.text_input("✏️ 테스트 질문 입력", key="p10_test_query_in")
-            if st.button("🚀 Gemma Memory 실제 주입 테스트", key="p10_test_inject_btn", use_container_width=True):
-                if not user_query.strip():
-                    st.error("테스트 질문을 입력해 주세요.")
-                else:
+                # ── 9차 추가 UI: Gemma Memory Inject 테스트 ──
+                st.markdown("---")
+                if st.button("🧠 Gemma Memory Inject 테스트", key="p9_gemma_mem_inject_test_btn", use_container_width=True):
                     memory_items = load_recent_reference_files(max_files=20, max_chars=120000)
                     prompt_preview = build_gemma_memory_prompt_preview(memory_items, max_chars=30000)
                     buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=32000)
-                
-                    # debug_memory_preview 세션 키 저장 허용
+            
+                    # 허용된 유일한 session_state 저장
                     st.session_state["debug_memory_preview"] = buffer
+            
+                    st.text_area("임시 Gemma Memory Buffer", value=buffer, height=500, key="p9_gemma_mem_buffer_ta")
+                    st.success("임시 버퍼 주입 테스트 완료! (st.session_state['debug_memory_preview'] 에 보관됨)")
+            
+                # ── 10차 추가 UI: Gemma Memory 실제 주입 테스트 ──
+                st.markdown("---")
+                user_query = st.text_input("✏️ 테스트 질문 입력", key="p10_test_query_in")
+                if st.button("🚀 Gemma Memory 실제 주입 테스트", key="p10_test_inject_btn", use_container_width=True):
+                    if not user_query.strip():
+                        st.error("테스트 질문을 입력해 주세요.")
+                    else:
+                        memory_items = load_recent_reference_files(max_files=20, max_chars=120000)
+                        prompt_preview = build_gemma_memory_prompt_preview(memory_items, max_chars=30000)
+                        buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=32000)
                 
-                    # 최종 Prompt 생성 (max_chars=40000)
-                    injected_prompt = build_manual_memory_injected_prompt(user_query, buffer, max_chars=40000)
+                        # debug_memory_preview 세션 키 저장 허용
+                        st.session_state["debug_memory_preview"] = buffer
                 
-                    with st.spinner("Gemma 어시스턴트 응답 생성 중..."):
-                        try:
-                            # 1회 호출
-                            response = call_gemma(injected_prompt, system_prompt="이 답변은 References 기억에만 의존하며, 출처 없는 사실은 단정하지 않습니다.")
+                        # 최종 Prompt 생성 (max_chars=40000)
+                        injected_prompt = build_manual_memory_injected_prompt(user_query, buffer, max_chars=40000)
+                
+                        with st.spinner("Gemma 어시스턴트 응답 생성 중..."):
+                            try:
+                                # 1회 호출
+                                response = call_gemma(injected_prompt, system_prompt="이 답변은 References 기억에만 의존하며, 출처 없는 사실은 단정하지 않습니다.")
                         
-                            # debug_memory_response 세션 키 저장 허용
-                            st.session_state["debug_memory_response"] = response
+                                # debug_memory_response 세션 키 저장 허용
+                                st.session_state["debug_memory_response"] = response
                         
-                            st.markdown("### 📝 최종 주입 프롬프트 프리뷰")
-                            st.code(injected_prompt, language="markdown")
+                                st.markdown("### 📝 최종 주입 프롬프트 프리뷰")
+                                st.code(injected_prompt, language="markdown")
                         
-                            st.markdown("### 🤖 Gemma 1회성 응답 결과")
-                            st.write(response)
-                        except Exception as e:
-                            st.error(f"[Gemma 호출 실패] {e}")
-        else:
-            st.error("텍스트 추출 실패 또는 지원하지 않는 형식입니다.")
+                                st.markdown("### 🤖 Gemma 1회성 응답 결과")
+                                st.write(response)
+                            except Exception as e:
+                                st.error(f"[Gemma 호출 실패] {e}")
+            else:
+                st.error("텍스트 추출 실패 또는 지원하지 않는 형식입니다.")
 

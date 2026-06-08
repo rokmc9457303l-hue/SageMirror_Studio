@@ -2,13 +2,13 @@
 
 """
 
-🪞 현자의 거울 스튜디오 — Master App v17.1.22
+🪞 현자의 거울 스튜디오 — Master App v17.2.3
 
-[v17.1.22 업데이트 사항: 2026-05-31]
-- Streamlit 상태 충돌 및 고스트 텍스트 버그 수정 (세션 제어 정공법)
-- 동적 키 제거 및 세션 기반 고정 키 할당
-- JS 강제 초기화 코드 삭제 및 st.rerun() 적용
-- 배포 버전 app_v17_1_22.py 및 RUN_APP.bat 갱신 완료
+[v17.2.3 안정화 사항: 2026-06-08]
+- V17.2.2 기준 안정화 복사본에서 작업
+- 팝업 모듈 sage_popups_v17_2_3.py 연결
+- 실행 표시 버전명 정리
+- 기존 원본 파일 직접 덮어쓰기 금지 원칙 적용
 
 """
 
@@ -76,7 +76,7 @@ from sage_engine import (
 
 )
 
-from sage_popups_v17_1_22 import (
+from sage_popups_v17_2_3 import (
 
     popup_edit_obsidian, popup_edit_prompt, popup_assistant,
 
@@ -1418,7 +1418,7 @@ V-7: 씬 번호 연속성 및 누락 체크
 
 st.set_page_config(
 
-    page_title="Sage's Mirror Studio v15.9.33",
+    page_title="Sage's Mirror Studio v17.2.3",
 
     page_icon="[MIRROR]",
 
@@ -3820,10 +3820,10 @@ def save_episode_obsidian_session(episode):
         session_dir = os.path.join(base_obsidian, "Studio", "Episodes", episode)
         os.makedirs(session_dir, exist_ok=True)
         ts = datetime.now().strftime("%Y%m%d_%H%M")
-        filepath = os.path.join(session_dir, f"session_{ts}_v15.9.33.md")
+        filepath = os.path.join(session_dir, f"session_{ts}_v17.2.3.md")
         content = f"""# Episode Session Log - {episode}
 - **저장 시간**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-- **앱 버전**: v15.9.33
+- **앱 버전**: v17.2.3
 
 ## 에피소드 저장 사항 요약
 - 파트별 분할 저장 완료 (01_Librarian ~ 08_Dashboard)
@@ -3837,7 +3837,7 @@ def save_episode_obsidian_session(episode):
             f.write(content)
         hist_dir = r"C:\SageMirror_Production\00_Obsidian\sessions"
         os.makedirs(hist_dir, exist_ok=True)
-        hist_filepath = os.path.join(hist_dir, f"session_{ts}_{episode}_v15.9.33.md")
+        hist_filepath = os.path.join(hist_dir, f"session_{ts}_{episode}_v17.2.3.md")
         with open(hist_filepath, "w", encoding="utf-8") as f:
             f.write(content)
     except Exception as e:
@@ -5447,7 +5447,7 @@ def popup_edit_benchmarking():
 # =====================================================================
 
 def render_top_panel():
-    st.caption("RUNNING VERSION: v17.1.4-C")
+    st.caption("RUNNING VERSION: v17.2.3")
 
     # ──────────────────────────────────────────────────────────────
 
@@ -16188,114 +16188,107 @@ if st.session_state.get("p34_arch_obsidian_saved", False) and not st.session_sta
 
 
 
-# 파트 라우팅 블록 — v17.1.23 (우측 고정 패널 통합)
+# 파트 라우팅 블록
+
 # =====================================================================
 
-from sage_right_panel import render_right_panel
+if part.startswith("파트 0"):
+    p0_ui_model = st.session_state.get("p0_selected_model", "gemma4:e2b")
+    st.session_state.selected_model = p0_ui_model
+    render_part0_assistant()
 
-_col_main, _col_right = st.columns([7, 3], gap="small")
+elif part.startswith("파트 1"):
+    p1_ui_model = st.session_state.get("p1_model_select")
+    if p1_ui_model:
+        p1_ui_model_lower = p1_ui_model.lower()
+        if p1_ui_model_lower != st.session_state.get("p1_selected_model", "gemma4:e2b"):
+            st.session_state.p1_selected_model = p1_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p1_selected_model", "gemma4:e2b")
+    render_part1()
 
-with _col_right:
-    render_right_panel()
+elif part.startswith("파트 2"):
+    p2_ui_model = st.session_state.get("p2_model_select")
+    if p2_ui_model:
+        p2_ui_model_lower = p2_ui_model.lower()
+        if p2_ui_model_lower != st.session_state.get("p2_selected_model", "gemma4:e2b"):
+            st.session_state.p2_selected_model = p2_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p2_selected_model", "gemma4:e2b")
+    render_part2()
 
-with _col_main:
-    if part.startswith("파트 0"):
-        p0_ui_model = st.session_state.get("p0_selected_model", "gemma4:e2b")
-        st.session_state.selected_model = p0_ui_model
-        render_part0_assistant()
+elif part.startswith("파트 3"):
+    p34_ui_model = st.session_state.get("p34_model_select")
+    if p34_ui_model:
+        p34_ui_model_lower = p34_ui_model.lower()
+        if p34_ui_model_lower != st.session_state.get("p34_selected_model", "gemma4:e2b"):
+            st.session_state.p34_selected_model = p34_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p34_selected_model", "gemma4:e2b")
+    render_part34()
 
-    elif part.startswith("파트 1"):
-        p1_ui_model = st.session_state.get("p1_model_select")
-        if p1_ui_model:
-            p1_ui_model_lower = p1_ui_model.lower()
-            if p1_ui_model_lower != st.session_state.get("p1_selected_model", "gemma4:e2b"):
-                st.session_state.p1_selected_model = p1_ui_model_lower
-                save_workspace_state()
-        st.session_state.selected_model = st.session_state.get("p1_selected_model", "gemma4:e2b")
-        render_part1()
+elif part.startswith("파트 4"):
+    p5img_ui_model = st.session_state.get("p5img_model_select")
+    if p5img_ui_model:
+        p5img_ui_model_lower = p5img_ui_model.lower()
+        if p5img_ui_model_lower != st.session_state.get("p5img_selected_model", "gemma4:e2b"):
+            st.session_state.p5img_selected_model = p5img_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p5img_selected_model", "gemma4:e2b")
+    render_part5_image()
 
-    elif part.startswith("파트 2"):
-        p2_ui_model = st.session_state.get("p2_model_select")
-        if p2_ui_model:
-            p2_ui_model_lower = p2_ui_model.lower()
-            if p2_ui_model_lower != st.session_state.get("p2_selected_model", "gemma4:e2b"):
-                st.session_state.p2_selected_model = p2_ui_model_lower
-                save_workspace_state()
-        st.session_state.selected_model = st.session_state.get("p2_selected_model", "gemma4:e2b")
-        render_part2()
+elif part.startswith("파트 5"):
+    p6vid_ui_model = st.session_state.get("p6_vid_model_select")
+    if p6vid_ui_model:
+        p6vid_ui_model_lower = p6vid_ui_model.lower()
+        if p6vid_ui_model_lower != st.session_state.get("p6vid_selected_model", "gemma4:e2b"):
+            st.session_state.p6vid_selected_model = p6vid_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p6vid_selected_model", "gemma4:e2b")
+    render_part6_video()
 
-    elif part.startswith("파트 3"):
-        p34_ui_model = st.session_state.get("p34_model_select")
-        if p34_ui_model:
-            p34_ui_model_lower = p34_ui_model.lower()
-            if p34_ui_model_lower != st.session_state.get("p34_selected_model", "gemma4:e2b"):
-                st.session_state.p34_selected_model = p34_ui_model_lower
-                save_workspace_state()
-        st.session_state.selected_model = st.session_state.get("p34_selected_model", "gemma4:e2b")
-        render_part34()
+elif part.startswith("파트 6"):
+    p6_ui_model = st.session_state.get("p6_model_select")
+    if p6_ui_model:
+        p6_ui_model_lower = p6_ui_model.lower()
+        if p6_ui_model_lower != st.session_state.get("p6_selected_model", "gemma4:e2b"):
+            st.session_state.p6_selected_model = p6_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p6_selected_model", "gemma4:e2b")
+    render_part6_opal()
 
-    elif part.startswith("파트 4"):
-        p5img_ui_model = st.session_state.get("p5img_model_select")
-        if p5img_ui_model:
-            p5img_ui_model_lower = p5img_ui_model.lower()
-            if p5img_ui_model_lower != st.session_state.get("p5img_selected_model", "gemma4:e2b"):
-                st.session_state.p5img_selected_model = p5img_ui_model_lower
-                save_workspace_state()
-        st.session_state.selected_model = st.session_state.get("p5img_selected_model", "gemma4:e2b")
-        render_part5_image()
+elif part.startswith("파트 7"):
+    p7_ui_model = st.session_state.get("p7_model_select")
+    if p7_ui_model:
+        p7_ui_model_lower = p7_ui_model.lower()
+        if p7_ui_model_lower != st.session_state.get("p7_selected_model", "gemma4:e2b"):
+            st.session_state.p7_selected_model = p7_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p7_selected_model", "gemma4:e2b")
+    render_part7_capcut()
 
-    elif part.startswith("파트 5"):
-        p6vid_ui_model = st.session_state.get("p6_vid_model_select")
-        if p6vid_ui_model:
-            p6vid_ui_model_lower = p6vid_ui_model.lower()
-            if p6vid_ui_model_lower != st.session_state.get("p6vid_selected_model", "gemma4:e2b"):
-                st.session_state.p6vid_selected_model = p6vid_ui_model_lower
-                save_workspace_state()
-        st.session_state.selected_model = st.session_state.get("p6vid_selected_model", "gemma4:e2b")
-        render_part6_video()
-
-    elif part.startswith("파트 6"):
-        p6_ui_model = st.session_state.get("p6_model_select")
-        if p6_ui_model:
-            p6_ui_model_lower = p6_ui_model.lower()
-            if p6_ui_model_lower != st.session_state.get("p6_selected_model", "gemma4:e2b"):
-                st.session_state.p6_selected_model = p6_ui_model_lower
-                save_workspace_state()
-        st.session_state.selected_model = st.session_state.get("p6_selected_model", "gemma4:e2b")
-        render_part6_opal()
-
-    elif part.startswith("파트 7"):
-        p7_ui_model = st.session_state.get("p7_model_select")
-        if p7_ui_model:
-            p7_ui_model_lower = p7_ui_model.lower()
-            if p7_ui_model_lower != st.session_state.get("p7_selected_model", "gemma4:e2b"):
-                st.session_state.p7_selected_model = p7_ui_model_lower
-                save_workspace_state()
-        st.session_state.selected_model = st.session_state.get("p7_selected_model", "gemma4:e2b")
-        render_part7_capcut()
-
-    elif part.startswith("파트 8"):
-        p8_ui_model = st.session_state.get("p8_model_select")
-        if p8_ui_model:
-            p8_ui_model_lower = p8_ui_model.lower()
-            if p8_ui_model_lower != st.session_state.get("p8_selected_model", "gemma4:e2b"):
-                st.session_state.p8_selected_model = p8_ui_model_lower
-                save_workspace_state()
-        st.session_state.selected_model = st.session_state.get("p8_selected_model", "gemma4:e2b")
-        render_part8_dashboard()
-        # ── 🔒 Part 8 최종본 Lock & 수정본 버튼 ──────────────
-        st.markdown("<br>", unsafe_allow_html=True)
-        with st.container(border=True):
-            st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
-            _lc8, _rc8 = st.columns(2)
-            with _lc8:
-                if st.button("🔒 Part 8 최종본 Lock & GitHub Push",
-                             key="p8_lock_btn", use_container_width=True):
-                    lock_and_push_final_version(8, "캡컷 최종 조립", ["p8_production_guide"])
-            with _rc8:
-                if st.button("🔓 Part 8 수정본 생성",
-                             key="p8_rev_btn", use_container_width=True):
-                    create_revision_version(8, "캡컷 최종 조립", ["p8_production_guide"])
+elif part.startswith("파트 8"):
+    p8_ui_model = st.session_state.get("p8_model_select")
+    if p8_ui_model:
+        p8_ui_model_lower = p8_ui_model.lower()
+        if p8_ui_model_lower != st.session_state.get("p8_selected_model", "gemma4:e2b"):
+            st.session_state.p8_selected_model = p8_ui_model_lower
+            save_workspace_state()
+    st.session_state.selected_model = st.session_state.get("p8_selected_model", "gemma4:e2b")
+    render_part8_dashboard()
+    # ── 🔒 Part 8 최종본 Lock & 수정본 버튼 ──────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown('<div class="ambient-lock-marker" style="display:none;"></div>', unsafe_allow_html=True)
+        _lc8, _rc8 = st.columns(2)
+        with _lc8:
+            if st.button("🔒 Part 8 최종본 Lock & GitHub Push",
+                         key="p8_lock_btn", use_container_width=True):
+                lock_and_push_final_version(8, "캡컷 최종 조립", ["p8_production_guide"])
+        with _rc8:
+            if st.button("🔓 Part 8 수정본 생성",
+                         key="p8_rev_btn", use_container_width=True):
+                create_revision_version(8, "캡컷 최종 조립", ["p8_production_guide"])
 
 # ── 임시 개발자 테스트 UI (파일 업로드 및 텍스트 추출) ──
 if False:  # [DEBUG_DEV_PANEL 비활성화 처리]

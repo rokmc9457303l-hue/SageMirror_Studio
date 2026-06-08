@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-sage_popups.py — 팝업 다이얼로그 v3.1
-[v3.1 업그레이드: 2026-05-26]
-- Agent Layer Separation Phase 1 (Research Router) 연동
-- Tavily 검색 및 태그 디텍션 동작 위임
+sage_popups.py — 팝업 다이얼로그 v17.1.22
+[v17.1.22 업그레이드: 2026-05-31]
+- Streamlit 상태 충돌 및 고스트 텍스트 버그 수정 (세션 제어 정공법)
+- 동적 키 제거 및 세션 기반 고정 키 할당
+- JS 강제 초기화 코드 삭제 및 st.rerun() 적용
 """
 
 import streamlit as st
@@ -164,6 +165,63 @@ def _build_obsidian_rag_context() -> str:
     return ctx
 
 
+def call_gemini_search(keyword: str, api_key: str, model_name: str = "gemini-2.5-flash") -> dict:
+    try:
+        import google.generativeai as genai
+        import re as _re
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel(
+            model_name=model_name,
+            tools="google_search"
+        )
+        prompt = f"""
+[지시]
+입력된 키워드 '{keyword}'에 대해 구글 검색을 수행하고, 그 결과를 바탕으로 사실 위주의 풍부한 리서치 조사 정보를 작성하라.
+특히, 각 구체적인 사실 또는 문장 근처에 정보 출처 웹사이트의 URL을 매치하여 자세히 명시하라.
+
+[검색 키워드]
+{keyword}
+"""
+        response = model.generate_content(prompt)
+        text_content = response.text if hasattr(response, "text") else ""
+        
+        results = []
+        try:
+            metadata = response.grounding_metadata
+            chunks = getattr(metadata, "grounding_chunks", [])
+            for chunk in chunks:
+                web = getattr(chunk, "web", None)
+                if web:
+                    uri = getattr(web, "uri", "")
+                    title = getattr(web, "title", "웹 검색 출처")
+                    if uri and not any(r.get("url") == uri for r in results):
+                        results.append({
+                            "title": title,
+                            "url": uri,
+                            "content": f"구글 검색 출처: {title}"
+                        })
+        except Exception:
+            pass
+            
+        if not results:
+            urls = _re.findall(r'https?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))', text_content)
+            for idx, url in enumerate(list(set(urls))[:5], 1):
+                results.append({
+                    "title": f"구글 검색 결과 {idx}",
+                    "url": url,
+                    "content": "구글 검색을 통해 참조된 웹 페이지입니다."
+                })
+                
+        return {
+            "summary": text_content,
+            "results": results
+        }
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
+
+
 def _build_tavily_rag_context() -> str:
     """저장된 Tavily 검색 결과를 젬마 컨텍스트로 반환"""
     history = st.session_state.get("popup_search_history", [])
@@ -179,6 +237,49 @@ def _classify_universal_tags(text: str) -> dict:
         if found:
             matched[category] = found
     return matched
+
+
+
+def _save_raw_wiki(content, title, source_type, part_key, model_name):
+    """Raw/Wiki 이중 저장 — 00_Raw(원본) + 01_Wiki(개념추출)"""
+    try:
+        vault = st.session_state.get("path_obsidian", "")
+        if not vault:
+            return "[경로 미설정]"
+        from pathlib import Path as _P
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        safe = "".join(c for c in title if c.isalnum() or c in " _-")[:40].strip()
+        if not safe:
+            safe = "untitled"
+
+        # Raw 저장 (원본 그대로)
+        raw_dir = _P(vault) / "00_Raw"
+        raw_dir.mkdir(parents=True, exist_ok=True)
+        raw_path = raw_dir / f"{safe}_{ts}.md"
+        raw_md = f"# [RAW] {title}\n\n## 메타\n- 소스: {source_type}\n- 모델: {model_name}\n- 저장: {today}\n\n## 원본 내용\n\n{content}\n\n---\n*[RAW DATA - 원본 보존]*\n"
+        raw_path.write_text(raw_md, encoding="utf-8")
+
+        # Wiki 저장 (개념 추출)
+        wiki_dir = _P(vault) / "01_Wiki"
+        wiki_dir.mkdir(parents=True, exist_ok=True)
+        wiki_path = wiki_dir / f"{safe}_{ts}.md"
+        try:
+            cp = f"아래 내용에서 한줄 요약과 핵심 개념 5개를 추출하라.\n형식:\n요약: (한줄)\n개념: 개념1, 개념2, 개념3, 개념4, 개념5\n\n[내용]\n{content[:800]}"
+            concept = call_gemma(cp, model=model_name)
+        except Exception:
+            concept = "요약: 자동 추출 실패\n개념: 미분류"
+        try:
+            tags = _classify_universal_tags(content + " " + title)
+            tag_links = " ".join([f"[[{t}]]" for cat in tags.values() for t in cat])
+        except Exception:
+            tag_links = ""
+        wiki_md = f"# [[{title}]]\n\n## 핵심 개념 (Wiki Node)\n{concept}\n\n## 연결 개념\n{tag_links}\n\n## 메타\n- 소스: {source_type}\n- 모델: {model_name}\n- 저장: {today}\n- Raw 원본: [[00_Raw/{safe}_{ts}]]\n\n---\n*[WIKI NODE - 개념 신경망]*\n"
+        wiki_path.write_text(wiki_md, encoding="utf-8")
+
+        return f"Raw+Wiki 저장 완료: {safe}_{ts}.md"
+    except Exception as e:
+        return f"[Raw/Wiki 저장 오류] {e}"
 
 
 def _save_to_obsidian_with_tags(
@@ -495,7 +596,6 @@ def _on_popup_send():
     q = st.session_state.get("popup_chat_input_ta", "")
     if q.strip():
         st.session_state.popup_history.append({"role": "user", "content": q})
-        st.session_state.pending_stream = q
         st.session_state.popup_chat_input_ta = ""
         # ── Recent Activity Dynamic Sync ──
         try:
@@ -530,8 +630,19 @@ def popup_edit_obsidian():
             st.session_state.obsidian_history.append(st.session_state.obsidian_rules)
             st.session_state.obsidian_rules = new_val
             st.session_state.top_ob_view_widget = new_val
-            from app_v16_1_2 import save_workspace_state
-            save_workspace_state()
+            try:
+                import sys
+                import importlib
+                app_module = None
+                for mod_name in list(sys.modules.keys()):
+                    if mod_name.startswith('app_v') and hasattr(sys.modules[mod_name], 'save_workspace_state'):
+                        app_module = sys.modules[mod_name]
+                        break
+                if app_module is None:
+                    app_module = importlib.import_module("app_v17_1_4C")
+                app_module.save_workspace_state()
+            except Exception:
+                pass
             try:
                 from rag_memory_utils import update_recent_activity_memory
                 st.session_state.recent_activity_memory = update_recent_activity_memory(dict(st.session_state), "system", "옵시디언 규칙서 수정")
@@ -579,8 +690,19 @@ def popup_edit_prompt():
             st.session_state.prompt_history.append(st.session_state.base_prompt_rules)
             st.session_state.base_prompt_rules = new_val
             st.session_state["top_pr_view_base_prompt_rules_widget"] = new_val
-            from app_v16_1_2 import save_workspace_state
-            save_workspace_state()
+            try:
+                import sys
+                import importlib
+                app_module = None
+                for mod_name in list(sys.modules.keys()):
+                    if mod_name.startswith('app_v') and hasattr(sys.modules[mod_name], 'save_workspace_state'):
+                        app_module = sys.modules[mod_name]
+                        break
+                if app_module is None:
+                    app_module = importlib.import_module("app_v17_1_4C")
+                app_module.save_workspace_state()
+            except Exception:
+                pass
             try:
                 from rag_memory_utils import update_recent_activity_memory
                 st.session_state.recent_activity_memory = update_recent_activity_memory(dict(st.session_state), "system", "기본 프롬프트 수정")
@@ -1183,703 +1305,415 @@ def run_agent_loop(
 # ══════════════════════════════════════════════════════════════════════
 # 🤖 세이지 팝업 v3.0 — 메인 팝업
 # ══════════════════════════════════════════════════════════════════════
-@st.dialog("🤖 세이지 팝업 — Gemma × Tavily × Obsidian RAG", width="large")
+def _call_gemma_fast_a_mode(prompt: str, system: str = "", model: str = "gemma4:e2b") -> str:
+    """
+    [A모드 전용 v17.1.4-E] 동기 방식 단일 호출.
+    @st.dialog 팝업 내부에서 스트리밍 placeholder 실시간 업데이트가
+    작동하지 않아 응답이 화면에 표시되지 않는 문제 해결.
+    sage_engine.call_gemma() 동기 호출 후 popup_assistant에서
+    st.rerun()으로 화면 갱신 → 대화창 닫지 않아도 응답 즉시 표시.
+    """
+    try:
+        from sage_engine import call_gemma as _cg
+        result = _cg(prompt, system=system, model=model)
+        if not result or not result.strip():
+            return "응답을 생성하지 못했습니다. 다시 시도해 주세요."
+        return result
+    except Exception as e:
+        return f"[A모드 호출 오류] {e}"
+
+
+# ─── A모드 스트리밍 제너레이터 (v17.1.5) ─────────────────────────
+def _stream_gemma_a_mode(prompt: str, system: str = "", model: str = "gemma4:e2b"):
+    """
+    [A모드 전용 v17.1.5] Ollama /api/generate 스트리밍 제너레이터.
+    st.write_stream()에 전달하여 토큰을 한 글자씩 실시간 출력.
+    - 초경량 system prompt(50자 내외)와 함께 사용
+    - HTTP 연결 유지 방식으로 타임아웃 원천 차단
+    - thinking 태그 필터링 포함
+    """
+    import requests as _req
+    import json as _json
+
+    ka_val = st.session_state.get("popup_keep_alive", "10m")
+    np_val = st.session_state.get("popup_num_predict", 300)
+    temp_val = st.session_state.get("popup_temperature", 0.2)
+    tp_val = st.session_state.get("popup_top_p", 0.8)
+
+    full_prompt = ""
+    if system and system.strip():
+        full_prompt = system.strip() + "\n\n"
+    full_prompt += prompt
+
+    ollama_url = "http://localhost:11434/api/generate"
+    payload = {
+        "model": model,
+        "prompt": full_prompt,
+        "stream": True,
+        "keep_alive": ka_val,
+        "options": {
+            "num_predict": np_val,
+            "temperature": temp_val,
+            "top_p": tp_val,
+        }
+    }
+
+    try:
+        in_thinking = False
+        with _req.post(ollama_url, json=payload, stream=True, timeout=120) as resp:
+            resp.raise_for_status()
+            for raw_line in resp.iter_lines():
+                if not raw_line:
+                    continue
+                try:
+                    chunk = _json.loads(raw_line.decode("utf-8"))
+                except Exception:
+                    continue
+                token = chunk.get("response", "")
+                if token:
+                    # <think> 태그 필터링 (thinking 모드 출력 제거)
+                    if "<think>" in token:
+                        in_thinking = True
+                    if in_thinking:
+                        if "</think>" in token:
+                            in_thinking = False
+                        continue
+                    yield token
+                if chunk.get("done", False):
+                    break
+    except Exception as e:
+        yield f"\n[스트리밍 오류] {e}"
+
+
+# ─── 대화 영속성 헬퍼 ─────────────────────────────────────────────
+CHAT_JSON_PATH = Path(r"C:\SageMirror_Outputs\00_Session_States\popup_chat_EP001.json")
+
+def _save_chat_history(history: list) -> None:
+    """popup_history를 JSON 파일로 영속 저장"""
+    try:
+        CHAT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
+        CHAT_JSON_PATH.write_text(
+            __import__('json').dumps(history, ensure_ascii=False, indent=2),
+            encoding="utf-8"
+        )
+    except Exception:
+        pass
+
+def _load_chat_history() -> list:
+    """JSON 파일에서 popup_history 복원"""
+    try:
+        if CHAT_JSON_PATH.exists():
+            raw = CHAT_JSON_PATH.read_text(encoding="utf-8", errors="ignore")
+            data = __import__('json').loads(raw)
+            if isinstance(data, list):
+                return data
+    except Exception:
+        pass
+    return []
+
+def _compress_chat_history_stub(history: list) -> list:
+    """대화 압축 구조 뼈대 (50턴 초과 시 앞 30턴 요약 — 추후 구현)"""
+    # TODO: 50턴 초과 시 앞 30턴 요약 압축, 최근 20턴 원문 유지
+    return history
+
+
+@st.dialog("🤖 어시스턴트", width="large")
 def popup_assistant():
-    # ── 상태 초기화 ──
-    defaults = {
+    """클로드 스타일 심플 채팅 UI v17.1.14"""
+
+    # ── 모델 목록 ──────────────────────────────────────────────
+    _MODELS = [
+        "gemma4:e2b",
+        "gemma4:e4b",
+        "gemini-2.5-flash",
+        "gemini-3.1-flash-lite",
+        "gemini-3.1-pro",
+        "tavily-search",
+    ]
+
+    # ── 세션 초기화 ────────────────────────────────────────────
+    if "input_key" not in st.session_state:
+        st.session_state["input_key"] = 0
+    _defs = {
         "popup_selected_model": OLLAMA_MODEL,
         "popup_history": [],
         "popup_search_history": [],
-        "pending_stream": None,
-        "popup_chat_input_ta": "",
-        "popup_auto_search": True,
-        "popup_use_rag": True,
         "tavily_rag_context": "",
-        "part_action_quick_input": "",
+        "sidebar_open": True,
+        "sidebar_tab": "",
     }
-    for k, v in defaults.items():
-        if k not in st.session_state:
-            st.session_state[k] = v
+    for _k, _v in _defs.items():
+        if _k not in st.session_state:
+            st.session_state[_k] = _v
+
+    # ── 대화 영속성 복원 ───────────────────────────────────────
+    if not st.session_state.popup_history:
+        _loaded = _load_chat_history()
+        if _loaded:
+            st.session_state.popup_history = _loaded
 
     current_part_key = _get_current_part()
     current_part_info = PART_CONTEXT_MAP.get(current_part_key, PART_CONTEXT_MAP["part1"])
     current_part_name = current_part_info["name"]
 
-    # ── 연결 상태 ──
-    status_obj = check_ollama_status()
-    c_stat1, c_stat2 = st.columns(2)
-    with c_stat1:
-        sel_model = st.session_state.popup_selected_model
-        if status_obj.get("server") and status_obj.get("model"):
-            st.success(f"🟢 연결 정상: {sel_model}")
-        else:
-            st.error(f"🔴 연결 에러: {sel_model}")
-    with c_stat2:
-        if st.session_state.get("tavily_api_key"):
-            st.success("🟢 Tavily API 연결 정상")
-        else:
-            st.warning("🟡 Tavily API Key 미입력")
+    # ── 좌측 바 너비 (접기/펼치기) ────────────────────────────
+    _is_open = st.session_state.sidebar_open
+    _col_w = [1, 3] if _is_open else [0.15, 3.85]
+    col_left, col_chat = st.columns(_col_w, gap="small")
 
-    # ── 파트 배지 + 모델 선택 ──
-    col_badge, col_model, col_save = st.columns([3, 3, 2])
-    with col_badge:
-        st.markdown(
-            f"<div style='background:#1a3a5c;color:#d4af6a;padding:4px 12px;"
-            f"border-radius:20px;font-size:0.82rem;font-weight:700;margin-top:6px;'>"
-            f"📍 {current_part_name}</div>",
-            unsafe_allow_html=True,
-        )
-    with col_model:
-        selected_model = st.selectbox(
-            "모델", AVAILABLE_MODELS,
-            index=AVAILABLE_MODELS.index(st.session_state.popup_selected_model)
-            if st.session_state.popup_selected_model in AVAILABLE_MODELS else 0,
-            key="popup_model_selector", label_visibility="collapsed",
-        )
-        st.session_state.popup_selected_model = selected_model
-    with col_save:
-        if st.button("💾 대화 옵시디언 저장", use_container_width=True, key="popup_obs_save_btn",
-                     disabled=not st.session_state.popup_history):
-            saved = _save_to_obsidian_with_tags(
-                content="\n".join([f"[{m['role'].upper()}] {m['content']}" for m in st.session_state.popup_history]),
-                title=f"[Sage Chat] {current_part_name}",
-                source_type="Sage 팝업 대화",
-                part_key=current_part_key,
-                model_name=st.session_state.popup_selected_model,
+    # ══════════════════════════════════════════
+    # 좌측 바
+    # ══════════════════════════════════════════
+    with col_left:
+        if _is_open:
+            # 접기 버튼
+            if st.button("≪", key="sb_close", help="좌측 바 접기"):
+                st.session_state.sidebar_open = False
+
+            st.divider()
+
+            # 파트 표시
+            st.markdown(
+                f"<div style='background:#1a3a5c;color:#d4af6a;"
+                f"padding:6px 8px;border-radius:8px;"
+                f"font-size:0.78rem;font-weight:700;text-align:center;'>"
+                f"📍 {current_part_name[:20]}</div>",
+                unsafe_allow_html=True,
             )
-            if saved:
-                st.toast("🧠 대화 옵시디언 저장 완료!", icon="💾")
 
-    # Tavily 자료가 있으면 표시
-    if st.session_state.get("popup_search_history"):
-        search_count = len(st.session_state.popup_search_history)
-        st.markdown(
-            f"<div style='background:#0d2a0d;border:1px solid #10B981;padding:4px 10px;"
-            f"border-radius:6px;font-size:0.8rem;color:#10B981;margin:4px 0;'>"
-            f"🌐 인터넷 자료 {search_count}건 수집됨 — 젬마가 자동으로 참조합니다</div>",
-            unsafe_allow_html=True,
-        )
+            st.divider()
 
-    st.divider()
-
-    # ── 탭 구성 ──
-    tab_chat, tab_tavily, tab_upload, tab_part_action = st.tabs([
-        "💬 Gemma 대화",
-        "🌐 Tavily 인터넷 리서치",
-        "📎 파일 업로드 저장",
-        "⚙️ 파트 작업 지시"
-    ])
-
-    # ══════════════════════════════════════════════════════
-    # 탭 1: Gemma 대화
-    # ══════════════════════════════════════════════════════
-    with tab_chat:
-        st.markdown("##### 💬 대화 기록 (스크롤 / 드래그 복사)")
-        chat_container = st.container(height=340, border=True)
-
-        st.markdown("##### ✏️ 질문 입력")
-        st.text_area(
-            "질문 입력", key="popup_chat_input_ta",
-            placeholder=(
-                "현자에게 물어보세요...\n\n"
-                "예: '이 파트의 나레이션을 더 감성적으로 수정해줘'\n"
-                "예: '빅터 프랭클의 의미치료에 대해 설명해줘'\n"
-                "예: '지금 수집된 인터넷 자료를 요약해줘'"
-            ),
-            height=110, label_visibility="collapsed",
-        )
-
-        col_opt1, col_opt2 = st.columns(2)
-        with col_opt1:
-            auto_search = st.checkbox("🌐 모를 때 Tavily 자동 검색",
-                                      value=st.session_state.get("popup_auto_search", True),
-                                      key="popup_auto_search_cb")
-            st.session_state.popup_auto_search = auto_search
-        with col_opt2:
-            use_rag = st.checkbox("🧠 옵시디언 + 인터넷 자료 주입",
-                                   value=st.session_state.get("popup_use_rag", True),
-                                   key="popup_use_rag_cb")
-            st.session_state.popup_use_rag = use_rag
-
-        c1, c2, c3, c4 = st.columns(4)
-        with c1:
-            st.button("📤 전송", use_container_width=True, key="popup_send",
-                      type="primary", on_click=_on_popup_send)
-        with c2:
-            back = st.button(f"⬅️ 뒤로 ({len(st.session_state.popup_history) // 2})",
-                             use_container_width=True, key="popup_back",
-                             disabled=len(st.session_state.popup_history) < 2)
-        with c3:
-            clear = st.button("🗑️ 초기화", use_container_width=True, key="popup_clear")
-        with c4:
-            if st.session_state.popup_history:
-                all_chat = "\n\n".join(
-                    f"### [{m['role'].upper()}]\n{m['content']}"
-                    for m in st.session_state.popup_history
-                )
-                st.download_button("📥 .md", data=all_chat,
-                                   file_name=f"sage_chat_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
-                                   use_container_width=True, key="popup_dl")
-
-        if back and len(st.session_state.popup_history) >= 2:
-            st.session_state.popup_history = st.session_state.popup_history[:-2]
-            st.rerun()
-        if clear:
-            st.session_state.popup_history = []
-            st.session_state.pending_stream = None
-            st.rerun()
-
-        # 대화 기록 렌더링
-        with chat_container:
-            if not st.session_state.popup_history and not st.session_state.get("pending_stream"):
-                st.markdown(
-                    "<div style='color:#888;padding:20px;text-align:center;'>"
-                    "💭 아직 대화가 없습니다.<br><br>"
-                    "<small style='color:#d4af6a;'>"
-                    "• 수집된 인터넷 자료를 젬마가 자동 참조합니다<br>"
-                    "• 모를 때는 자동으로 Tavily 검색 후 보완합니다<br>"
-                    "• 모든 대화는 옵시디언에 태그 분류 후 자동 저장됩니다"
-                    "</small></div>",
-                    unsafe_allow_html=True,
-                )
-            for msg in st.session_state.popup_history:
-                if msg["role"] == "user":
-                    st.markdown(
-                        f"<div style='background:linear-gradient(135deg,#1a3a5c,#0d2440);"
-                        f"border-left:3px solid #d4af6a;padding:10px 14px;margin:6px 0;"
-                        f"border-radius:0 8px 8px 0;'>"
-                        f"<b style='color:#d4af6a;'>🧑 사용자</b><br>"
-                        f"<span style='color:#f5e9d3;white-space:pre-wrap;'>{msg['content']}</span>"
-                        f"</div>",
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    model_used = msg.get("model", sel_model)
-                    source_info = msg.get("source", "")
-                    st.markdown(
-                        f"<div style='background:linear-gradient(135deg,#2d1b00,#1a1000);"
-                        f"border-left:3px solid #10B981;padding:8px 14px;margin:6px 0;"
-                        f"border-radius:0 8px 8px 0;'>"
-                        f"<b style='color:#10B981;'>🤖 Sage ({model_used})</b>"
-                        f"{(' <small style=\"color:#555;\">| ' + source_info + '</small>') if source_info else ''}"
-                        f"</div>",
-                        unsafe_allow_html=True,
-                    )
-                    st.markdown(msg['content'])
-                    with st.expander("📋 복사용 텍스트", expanded=False):
-                        st.code(msg["content"], language="markdown")
-
-            # 스트리밍 처리
-            if st.session_state.get("pending_stream"):
-                q_stream = st.session_state.pending_stream
-                current_model = st.session_state.popup_selected_model
-
-                # ── 통합 시스템 컨텍스트 구성 ─────────────────────
-                try:
-                    from sage_config import RAG_TAG_SYSTEM as _rts
-                except Exception:
-                    _rts = ""
-                sys_ctx = SAGE_PERSONA + "\n\n" + (_rts if _rts else "")
-
-                # 젬마 프로토콜 v9.0 주입
-                gemma_protocol = st.session_state.get("p1_gemma_protocol", "")
-                if gemma_protocol:
-                    sys_ctx += "[젬마 프로토콜]\n" + gemma_protocol + "\n\n"
-
-                sys_ctx += "[핵심 3원칙]\n"
-                sys_ctx += "HOW (어떻게 말하는가) → 자유 (창의·표현·서사)\n"
-                sys_ctx += "WHAT (무엇을 말하는가) → 통제 (사실 기반·출처 필수)\n"
-                sys_ctx += "WHO (누구로서 말하는가) → 고정 (@Protagonist·기승전결)\n\n"
-                sys_ctx += "[응답 원칙]\n"
-                sys_ctx += "1. 모르면 [NEED_RESEARCH: 키워드] 태그 출력. 절대 추측 금지.\n"
-                sys_ctx += "2. 옵시디언 자료 필요시 [READ_OBSIDIAN: 키워드] 출력.\n"
-                sys_ctx += "3. 자동 저장 요청시 [SAVE_MEMORY: 제목] 출력.\n"
-                sys_ctx += "4. 자체 검증 필요시 [VERIFY: 내용] 출력.\n"
-                sys_ctx += "5. 심층 분석 필요시 [ANALYZE: 주제] 출력.\n"
-                sys_ctx += "6. 출처 확인 필요시 [CHECK_SOURCE: 인용구] 출력.\n"
-                sys_ctx += "7. [SOURCE: 출처] 반드시 명기. 가짜 성경 구절·철학 인용 절대 금지.\n\n"
-                sys_ctx += "[현재 파트 컨텍스트]\n" + _build_part_context(current_part_key) + "\n"
-                sys_ctx += "[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", "") + "\n"
-
-                # ── Recent Activity Memory 주입 ──
-                try:
-                    from rag_memory_utils import build_recent_activity_memory
-                    state_dict = dict(st.session_state)
-                    recent_activity_ctx = build_recent_activity_memory(state_dict, max_chars=6000)
-                    if recent_activity_ctx.strip():
-                        sys_ctx += "\n" + recent_activity_ctx + "\n\n"
-                        st.caption("🧠 Recent Activity Synced")
-                except Exception as e:
-                    st.caption(f"Recent Activity Memory 주입 생략: {e}")
-
-                if st.session_state.get("popup_use_rag", True):
-                    try:
-                        from rag_memory_utils import load_recent_reference_files, build_condensed_reference_context, build_manual_gemma_memory_buffer
-                        # 로컬 연산 병목을 막기 위해 팝업창 전용 메모리 상한을 30000자로 대폭 축소
-                        ref_items = load_recent_reference_files(max_files=10, max_chars=30000) 
-                        if ref_items:
-                            prompt_preview, excluded_files = build_condensed_reference_context(ref_items, max_chars=15000)
-                            if excluded_files:
-                                for exf_name, reason in excluded_files:
-                                    st.caption(f"⚠️ 오염 가능 Reference 제외: {exf_name}")
-                            ref_buffer = build_manual_gemma_memory_buffer(prompt_preview, max_chars=30000)
-                            if ref_buffer.strip():
-                                sys_ctx += "\n[References & 파일 업로드 RAG 기억]\n" + ref_buffer + "\n\n"
-                                loaded_count = len(ref_items) - len(excluded_files)
-                                st.caption(f"🧠 References Memory Loaded: {loaded_count} files")
-                                # ── Recent Activity Dynamic Sync ──
-                                try:
-                                    from rag_memory_utils import update_recent_activity_memory
-                                    state_dict = dict(st.session_state)
-                                    ref_names = ", ".join([item.get("filename", "") for item in ref_items if item.get("filename")])
-                                    updated_mem = update_recent_activity_memory(state_dict, "references", f"References 파일 로드: {ref_names}")
-                                    st.session_state.recent_activity_memory = updated_mem
-                                except Exception:
-                                    pass
-                    except Exception as e:
-                        st.caption(f"References Memory 주입 생략: {e}")
-
-                if st.session_state.get("popup_use_rag", True):
-                    sys_ctx += "\n" + _build_obsidian_rag_context()
-                    tavily_ctx = _build_tavily_rag_context()
-                    if tavily_ctx:
-                        sys_ctx += "\n" + tavily_ctx
-
-                # ── 에이전트 루프 실행 ────────────────────────────
-                with st.status("🔮 젬마 에이전트 작동 중...", expanded=True) as status_widget:
-                    st.write(f"모델: {current_model} | 파트: {current_part_name}")
-                    ans_placeholder = st.empty()
-                    full_response = ""
-
-                    try:
-                        full_response = run_agent_loop(
-                            question=q_stream,
-                            sys_ctx=sys_ctx,
-                            model=current_model,
-                            part_key=current_part_key,
-                            max_iterations=4,
-                            stream_placeholder=ans_placeholder,
-                            status_widget=status_widget,
-                        )
-                    except Exception as e:
-                        full_response = f"[오류] {e}\n→ Ollama 서버 실행 여부 확인"
-                        ans_placeholder.error(full_response)
-                        status_widget.update(label="❌ 오류", state="error", expanded=False)
-
-                st.session_state.popup_history.append({
-                    "role": "assistant", "content": full_response,
-                    "model": current_model, "part": current_part_name,
-                    "source": f"에이전트 루프 v1.0",
-                })
-                st.session_state.pending_stream = None
-
-                # 대화 옵시디언 자동 저장
-                try:
+            # 기능 버튼
+            if st.button("💾 저장", use_container_width=True, key="sb_save"):
+                if st.session_state.popup_history:
                     _save_to_obsidian_with_tags(
-                        content=f"[Q] {q_stream}\n\n[A] {full_response}",
-                        title=f"[Chat] {q_stream[:30]}",
+                        content="\n".join([
+                            f"[{m['role'].upper()}] {m['content']}"
+                            for m in st.session_state.popup_history
+                        ]),
+                        title=f"[Chat] {current_part_name}",
                         source_type="Sage 팝업 대화",
-                        part_key=current_part_key,
-                        model_name=current_model,
-                    )
-                    st.toast("🧠 대화 옵시디언 자동 저장!", icon="💾")
-                except Exception:
-                    pass
-
-                st.rerun()
-
-    # ══════════════════════════════════════════════════════
-    # 탭 2: Tavily 인터넷 리서치
-    # ══════════════════════════════════════════════════════
-    with tab_tavily:
-        st.markdown("##### 🌐 인터넷 리서치 (Tavily)")
-        st.info(
-            "🔍 **검색한 모든 자료는:**\n"
-            "① 젬마 대화 탭에서 자동으로 컨텍스트로 활용됩니다\n"
-            "② 심리학 감정 태그로 세분화되어 옵시디언에 자동 저장됩니다\n"
-            "③ 저장된 자료는 다음 검색 때도 젬마가 참조합니다",
-            icon="💡"
-        )
-
-        sq = st.text_area(
-            "검색어", key="tavily_q_ta",
-            placeholder=(
-                "예: 빅터 프랭클 의미치료 사례\n"
-                "예: 쇼펜하우어 의지와 표상으로서의 세계\n"
-                "예: 4070 세대 유튜브 심리학 채널 트렌드\n"
-                "예: 시편 23편 목자 의미 해석"
-            ),
-            height=100, label_visibility="collapsed",
-        )
-
-        # 심리학 감정 태그 선택 (수동 추가)
-        with st.expander("🎭 감정 태그 수동 추가 (선택)", expanded=False):
-            st.caption("검색 주제와 관련된 감정 태그를 선택하면 옵시디언 분류에 활용됩니다.")
-            selected_emotion_cats = []
-            cols = st.columns(2)
-            for i, cat in enumerate(UNIVERSAL_CATEGORY_TAGS.keys()):
-                with cols[i % 2]:
-                    if st.checkbox(cat, key=f"emotion_tag_{i}"):
-                        selected_emotion_cats.append(cat)
-
-        # 검색 옵션
-        col_o1, col_o2 = st.columns(2)
-        with col_o1:
-            analyze_with_gemma = st.checkbox("🤖 젬마로 자동 분석 후 정리", value=True, key="tavily_gemma_analyze")
-        with col_o2:
-            auto_obs_save = st.checkbox("💾 옵시디언 자동 저장", value=True, key="tavily_auto_obs")
-
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            do_search = st.button("🔍 인터넷 검색", key="tavily_search_btn",
-                                  use_container_width=True, type="primary")
-        with c2:
-            sback = st.button(f"⬅️ 이전 ({len(st.session_state.popup_search_history)})",
-                              key="tavily_back", use_container_width=True,
-                              disabled=len(st.session_state.popup_search_history) == 0)
-        with c3:
-            sclear = st.button("🗑️ 초기화", key="tavily_clear", use_container_width=True)
-
-        if sback and st.session_state.popup_search_history:
-            st.session_state.popup_search_history.pop()
-            st.rerun()
-        if sclear:
-            st.session_state.popup_search_history = []
-            st.rerun()
-
-        if do_search and sq.strip():
-            if not st.session_state.get("tavily_api_key"):
-                st.error("⚠️ Tavily API Key가 없습니다. 사이드바 설정에서 입력해 주세요.")
-            else:
-                with st.spinner("🌐 Tavily 검색 중..."):
-                    try:
-                        res = run_tavily_research(sq, st.session_state.tavily_api_key)
-                        if "error" in res:
-                            st.error(f"❌ Tavily 검색 중 오류 발생: {res['error']}")
-                            st.stop()
-
-                        # 젬마 자동 분석
-                        if analyze_with_gemma and res.get("results"):
-                            raw_results = "\n".join([
-                                f"[{r.get('title','')}] {r.get('content','')[:300]} (URL: {r.get('url','')})"
-                                for r in res.get("results", [])[:5]
-                            ])
-                            analysis_prompt = f"""[지시] 아래 인터넷 검색 결과를 현자의 거울 스튜디오 옵시디언 형식으로 분석하라.
-
-[검색어]
-{sq}
-
-[현재 파트]
-{current_part_name}
-
-[검색 결과 원문]
-{raw_results}
-
-[출력 형식 — 반드시 준수]
-## 🔎 핵심 요약 (3줄)
-(핵심 내용 3줄 요약)
-
-## 📖 심층 분석
-(내용 분석 + 현자의 거울 주제 연관성)
-
-## 💡 파트 활용 방안
-({current_part_name}에서 이 자료를 어떻게 활용할 수 있는가)
-
-## 🎭 심리학 감정 연결
-(이 자료와 연결되는 시청자 감정 상태: 외로움/불안/상실/무기력 등)
-
-## 📚 참고 문헌 / 출처
-(URL 목록 — [SOURCE: URL] 형식)
-
-[SOURCE: Tavily 검색 — {datetime.now().strftime('%Y-%m-%d')}]"""
-                            gemma_analysis = call_gemma(
-                                analysis_prompt,
-                                model=st.session_state.popup_selected_model
-                            )
-                            res["gemma_analysis"] = gemma_analysis
-                        else:
-                            gemma_analysis = ""
-
-                        st.session_state.popup_search_history.append({"q": sq, "res": res})
-                        # ── Recent Activity Dynamic Sync ──
-                        try:
-                            from rag_memory_utils import update_recent_activity_memory
-                            state_dict = dict(st.session_state)
-                            updated_mem = update_recent_activity_memory(state_dict, "tavily", f"수동 검색: {sq}")
-                            st.session_state.recent_activity_memory = updated_mem
-                        except Exception:
-                            pass
-
-                        # 감정 태그 자동 분류
-                        all_content = sq + " " + " ".join([r.get("content", "") for r in res.get("results", [])[:5]])
-                        auto_emotion_tags = list(_classify_emotion_tags(all_content).keys())
-                        all_extra_tags = selected_emotion_cats + auto_emotion_tags
-
-                        # 옵시디언 자동 저장 (심리학 태그 세분화)
-                        if auto_obs_save:
-                            save_content = f"[검색어]\n{sq}\n\n"
-                            if gemma_analysis:
-                                save_content += f"[젬마 분석]\n{gemma_analysis}\n\n"
-                            save_content += "[원문 결과]\n"
-                            for r in res.get("results", [])[:5]:
-                                save_content += f"\n### [{r.get('title','')}]({r.get('url','')})\n{r.get('content','')[:500]}\n[SOURCE: {r.get('url','')}]\n"
-
-                            saved_path = _save_to_obsidian_with_tags(
-                                content=save_content,
-                                title=f"[리서치] {sq[:40]}",
-                                source_type="Tavily 인터넷 검색",
-                                part_key=current_part_key,
-                                model_name=st.session_state.popup_selected_model,
-                                extra_tags=all_extra_tags,
-                                folder_override="WebResearch",
-                            )
-                            if saved_path:
-                                st.toast(f"🧠 옵시디언 자동 저장 완료! (감정 태그 {len(auto_emotion_tags)}개)", icon="💾")
-
-                        st.rerun()
-
-                    except Exception as e:
-                        st.error(f"검색 실패: {e}")
-
-        # 검색 결과 표시
-        st.markdown("##### 📊 검색 결과")
-        with st.container(height=380, border=True):
-            if not st.session_state.popup_search_history:
-                st.markdown(
-                    "<div style='color:#888;padding:20px;text-align:center;'>"
-                    "🔍 아직 검색 기록이 없습니다.</div>",
-                    unsafe_allow_html=True,
-                )
-            else:
-                latest = st.session_state.popup_search_history[-1]
-                st.markdown(f"**🔎 검색어:** `{latest['q']}`")
-                res = latest["res"]
-                if "error" in res:
-                    st.error(res["error"])
-                else:
-                    if res.get("gemma_analysis"):
-                        st.markdown("### 🤖 젬마 분석 결과")
-                        st.markdown(res["gemma_analysis"])
-                        with st.expander("📋 복사용", expanded=False):
-                            st.code(res["gemma_analysis"], language="markdown")
-                        st.divider()
-                    if res.get("answer"):
-                        st.info(f"💡 **즉시 답변:** {res['answer']}")
-                        st.divider()
-                    for idx, r in enumerate(res.get("results", []), 1):
-                        st.markdown(f"**{idx}. [{r.get('title','')}]({r.get('url','')})**")
-                        st.write(r.get("content", ""))
-                        st.caption(f"[SOURCE: {r.get('url','')}]")
-                        st.divider()
-
-    # ══════════════════════════════════════════════════════
-    # 탭 3: 파일 업로드 → 키워드/파트 태그 분류 → 옵시디언 저장
-    # ══════════════════════════════════════════════════════
-    with tab_upload:
-        st.markdown("##### 📎 파일 업로드 → RAG 카테고리/태그 자동 저장")
-        st.caption("파일을 읽고, 젬마가 옵시디언 규칙서 기준으로 분석한 뒤 카테고리·파트 태그와 함께 저장합니다.")
-
-        up_col1, up_col2 = st.columns([3, 2])
-        with up_col1:
-            uploaded_files = st.file_uploader(
-                "파일 선택",
-                type=["txt", "md", "csv", "json", "py", "srt", "vtt", "pdf"],
-                accept_multiple_files=True,
-                key="sage_file_memory_uploader",
-                label_visibility="collapsed",
-            )
-        with up_col2:
-            destination_folder = st.selectbox(
-                "옵시디언 저장 폴더",
-                ["References", "TopicMemory", "ResearchMemory", "ScriptDrafts", "Assets", "Logs"],
-                index=0,
-                key="sage_file_memory_dest_folder",
-            )
-
-        st.markdown("**저장 방식**")
-        opt_col1, opt_col2 = st.columns(2)
-        with opt_col1:
-            use_gemma_analysis = st.checkbox("🤖 Gemma 분석 포함", value=True, key="sage_file_use_gemma")
-        with opt_col2:
-            save_each_file = st.checkbox("💾 파일별 개별 저장", value=True, key="sage_file_save_each")
-
-        if uploaded_files:
-            st.info(f"선택된 파일: {len(uploaded_files)}개")
-            for uf in uploaded_files:
-                st.caption(f"- {uf.name} ({len(uf.getvalue()):,} bytes)")
-
-        if st.button(
-            "📎 업로드 파일 분석 및 옵시디언 저장",
-            type="primary",
-            use_container_width=True,
-            key="sage_file_analyze_save_btn",
-            disabled=not uploaded_files,
-        ):
-            saved_paths = []
-            for uf in uploaded_files:
-                with st.spinner(f"📖 {uf.name} 읽는 중..."):
-                    file_text, suffix = _read_uploaded_file_text(uf)
-
-                if not file_text or file_text.startswith("[지원하지 않는"):
-                    st.warning(f"{uf.name}: 읽을 수 없는 파일입니다.")
-                    continue
-
-                detected_categories = _detect_file_rag_categories(file_text)
-                current_model = st.session_state.get("popup_selected_model", OLLAMA_MODEL)
-
-                gemma_analysis = "Gemma 분석 생략됨."
-                if use_gemma_analysis:
-                    analysis_prompt = f"""[작업 지시]
-아래 업로드 파일을 현자의 거울 옵시디언 규칙서 기준으로 분석하라.
-
-[현재 파트]
-{current_part_name}
-
-[파일명]
-{uf.name}
-
-[자동 감지 카테고리]
-{detected_categories}
-
-[출력 형식]
-## 핵심 요약
-## 감정/철학/성경/심리 키워드
-## RAG 저장 분류 제안
-## 유튜브 제작 활용 포인트
-## 출처 표기
-[SOURCE: 사용자 업로드 파일 — {uf.name}]
-
-[파일 내용]
-{file_text[:6000]}
-"""
-                    try:
-                        gemma_analysis = call_gemma(
-                            analysis_prompt,
-                            system=SAGE_PERSONA + "\n\n[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", ""),
-                            model=current_model,
-                        )
-                    except Exception as e:
-                        gemma_analysis = f"[Gemma 분석 실패: {e}]"
-
-                md_content, tags = _build_uploaded_file_memory_markdown(
-                    filename=uf.name,
-                    file_text=file_text,
-                    gemma_analysis=gemma_analysis,
-                    detected_categories=detected_categories,
-                    part_key=current_part_key,
-                    model_name=current_model,
-                    destination_folder=destination_folder,
-                )
-
-                if save_each_file:
-                    saved = _save_to_obsidian_with_tags(
-                        content=md_content,
-                        title=f"[업로드자료] {Path(uf.name).stem[:35]}",
-                        source_type=f"파일 업로드 — {uf.name}",
-                        part_key=current_part_key,
-                        model_name=current_model,
-                        extra_tags=tags,
-                        folder_override=destination_folder,
-                    )
-                    if saved:
-                        saved_paths.append(saved)
-
-                st.session_state.popup_history.append({
-                    "role": "assistant",
-                    "content": md_content,
-                    "model": current_model,
-                    "part": current_part_name,
-                    "source": f"파일 업로드 분석 — {uf.name}",
-                })
-
-                with st.expander(f"📄 분석 결과 보기 — {uf.name}", expanded=False):
-                    st.markdown(md_content)
-                    st.download_button(
-                        "📥 분석 결과 다운로드",
-                        data=md_content,
-                        file_name=f"upload_memory_{Path(uf.name).stem}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
-                        mime="text/markdown",
-                        key=f"upload_memory_dl_{uf.name}",
-                    )
-
-            if saved_paths:
-                st.success(f"✅ 옵시디언 저장 완료: {len(saved_paths)}개")
-                with st.expander("📂 저장 경로 확인", expanded=True):
-                    for sp in saved_paths:
-                        st.code(sp)
-            else:
-                st.info("분석 결과는 대화 기록에 추가되었지만, 파일 저장은 수행되지 않았습니다.")
-
-    # ══════════════════════════════════════════════════════
-    # 탭 4: 파트 작업 지시 (팝업 전환 버튼)
-    # ══════════════════════════════════════════════════════
-    with tab_part_action:
-        st.markdown(f"##### ⚙️ 현재 파트 직접 작업 지시")
-        st.markdown(
-            f"<div style='background:linear-gradient(135deg,#1a3a5c,#0d2240);border-left:4px solid #d4af6a;"
-            f"padding:10px 16px;border-radius:0 8px 8px 0;margin-bottom:12px;'>"
-            f"<b style='color:#d4af6a;'>📍 {current_part_name}</b><br>"
-            f"<span style='color:#aaa;font-size:0.85rem;'>{current_part_info['desc']}</span>"
-            f"</div>",
-            unsafe_allow_html=True,
-        )
-
-        # 현재 파트 데이터 미리보기
-        with st.container(height=130, border=True):
-            part_ctx = _build_part_context(current_part_key)
-            st.code(part_ctx[:700], language="markdown")
-
-        st.divider()
-
-        st.markdown(
-            "<div style='background:linear-gradient(135deg,#1a2a00,#0d1a00);border:1px solid #d4af6a;"
-            "padding:16px;border-radius:8px;text-align:center;margin:8px 0;'>"
-            "<h3 style='color:#d4af6a;margin:0 0 8px 0;'>⚙️ 전체 작업 기능</h3>"
-            "<p style='color:#aaa;margin:0 0 12px 0;font-size:0.9rem;'>"
-            "AI 작업 실행, 직접 수정, 파트 간 연결, 작업 이력<br>"
-            "4가지 전문 기능이 대형 팝업창에서 제공됩니다</p>"
-            "</div>",
-            unsafe_allow_html=True,
-        )
-
-        if st.button(
-            "⚙️ 파트 작업 지시 전용 팝업창 열기",
-            type="primary",
-            use_container_width=True,
-            key="open_part_action_popup_btn"
-        ):
-            popup_part_action_dialog()
-
-        st.divider()
-        st.markdown("**⚡ 빠른 실행 (팝업 없이)**")
-        quick_input = st.text_area(
-            "빠른 지시",
-            placeholder="간단한 작업은 여기서 바로 실행하세요...",
-            height=80,
-            key="quick_part_action_input",
-            label_visibility="collapsed",
-        )
-        if st.button("🚀 빠른 실행", use_container_width=True, key="quick_part_action_btn",
-                     disabled=not quick_input.strip()):
-            sys_ctx = SAGE_PERSONA + "\n\n[현재 파트]\n" + _build_part_context(current_part_key)
-            sys_ctx += "\n[옵시디언 규칙서]\n" + st.session_state.get("obsidian_rules", "")
-            sys_ctx += "\n" + _build_tavily_rag_context()
-            with st.spinner("🔮 실행 중..."):
-                try:
-                    quick_result = call_gemma(quick_input, system=sys_ctx,
-                                              model=st.session_state.popup_selected_model)
-                    st.markdown("**결과:**")
-                    st.markdown(quick_result)
-                    with st.expander("📋 복사용"):
-                        st.code(quick_result, language="markdown")
-                    # 옵시디언 저장
-                    _save_to_obsidian_with_tags(
-                        content=f"[빠른 지시]\n{quick_input}\n\n[결과]\n{quick_result}",
-                        title=f"[빠른작업] {quick_input[:30]}",
-                        source_type="빠른 작업 지시",
                         part_key=current_part_key,
                         model_name=st.session_state.popup_selected_model,
                     )
-                    st.toast("🧠 결과 옵시디언 저장 완료!", icon="💾")
-                except Exception as e:
-                    st.error(f"실행 실패: {e}")
+                    st.toast("💾 저장 완료!")
+
+            if st.button("🔎 리서치", use_container_width=True, key="sb_res"):
+                st.session_state.sidebar_tab = (
+                    "" if st.session_state.sidebar_tab == "research" else "research"
+                )
+
+            if st.button("📂 파일", use_container_width=True, key="sb_file"):
+                st.session_state.sidebar_tab = (
+                    "" if st.session_state.sidebar_tab == "upload" else "upload"
+                )
+
+            if st.button("🧠 옵시디언", use_container_width=True, key="sb_obs"):
+                st.session_state.sidebar_tab = (
+                    "" if st.session_state.sidebar_tab == "obsidian" else "obsidian"
+                )
+
+            # 사이드 탭 영역
+            _tab = st.session_state.sidebar_tab
+            if _tab == "research":
+                st.divider()
+                st.caption("🔎 자료 조사")
+                _q = st.text_input("검색어", key="sb_q", label_visibility="collapsed",
+                                   placeholder="검색어 입력...")
+                if st.button("검색", key="sb_search_go") and _q:
+                    with st.spinner("검색 중..."):
+                        _tkey = st.session_state.get("tavily_api_key", "")
+                        _res = tavily_search(_q, _tkey)
+                        if "results" in _res:
+                            _ctx = "\n".join([
+                                f"- {r.get('title','')}: {r.get('content','')[:200]}"
+                                for r in _res["results"][:3]
+                            ])
+                            st.session_state.tavily_rag_context = _ctx
+                            st.session_state.popup_search_history.append(
+                                {"query": _q, "context": _ctx}
+                            )
+                            st.success("✅ 수집 완료")
+
+            elif _tab == "upload":
+                st.divider()
+                st.caption("📂 파일 업로드")
+                _uf = st.file_uploader(
+                    "파일", type=["txt", "md", "pdf", "docx"],
+                    key="sb_uploader", label_visibility="collapsed"
+                )
+                if _uf and st.button("분석·저장", key="sb_analyze"):
+                    with st.spinner("분석 중..."):
+                        _text, _ = _read_uploaded_file_text(_uf)
+                        if _text:
+                            _save_to_obsidian_with_tags(
+                                content=_text[:5000],
+                                title=f"[업로드] {_uf.name}",
+                                source_type=f"파일 업로드 — {_uf.name}",
+                                part_key=current_part_key,
+                                model_name=st.session_state.popup_selected_model,
+                            )
+                            st.success("✅ 저장 완료")
+
+            elif _tab == "obsidian":
+                st.divider()
+                st.caption("🧠 최근 저장")
+                _vault = st.session_state.get("path_obsidian", "")
+                if _vault:
+                    try:
+                        from pathlib import Path as _P
+                        _recent = sorted(
+                            _P(_vault).rglob("*.md"),
+                            key=lambda f: f.stat().st_mtime,
+                            reverse=True
+                        )[:5]
+                        for _f in _recent:
+                            st.caption(f"📄 {_f.name[:25]}")
+                    except Exception:
+                        st.caption("자료 없음")
+                else:
+                    st.caption("경로 미설정")
+
+    # ══════════════════════════════════════════
+    # 대화창 (우측)
+    # ══════════════════════════════════════════
+    with col_chat:
+
+        # 펼치기 버튼 (좌측 바 닫혔을 때)
+        if not _is_open:
+            if st.button("≫", key="sb_open", help="좌측 바 열기"):
+                st.session_state.sidebar_open = True
+
+        # 대화 기록
+        _chat_box = st.container(height=500)
+        with _chat_box:
+            if not st.session_state.popup_history:
+                st.markdown(
+                    "<div style='color:#555;text-align:center;margin-top:100px;"
+                    "font-size:0.95rem;'>현자에게 무엇이든 물어보세요 🤖</div>",
+                    unsafe_allow_html=True,
+                )
+            for _idx, _msg in enumerate(st.session_state.popup_history):
+                with st.chat_message(_msg["role"]):
+                    st.markdown(_msg["content"])
+                    # 복사 버튼 (어시스턴트 응답만)
+                    if _msg["role"] == "assistant":
+                        _copy_id = f"copy_btn_{_idx}"
+                        if st.button("□ 복사", key=_copy_id, help="클립보드 복사"):
+                            st.toast("📋 응답이 클립보드에 복사되었습니다!")
+                            try:
+                                _esc = _msg["content"].replace("`", "\\`").replace("$", "\\$")
+                                st.html(f"<script>navigator.clipboard.writeText(`{_esc}`);</script>")
+                            except Exception:
+                                pass
+
+        # ── 입력 영역 (Claude 스타일) ──────────────────────────
+        # CSS: Claude 스타일 입력창
+        st.markdown("""
+<style>
+div[data-testid="stTextArea"] textarea {
+    min-height: 60px !important;
+    max-height: 200px !important;
+    overflow-y: auto !important;
+    resize: none !important;
+    padding: 18px 22px !important;
+    font-size: 1rem !important;
+    border-radius: 24px !important;
+    background-color: #1a1a21 !important;
+    border: 1px solid #333344 !important;
+    color: #EAEAEA !important;
+}
+div[data-testid="stTextArea"] textarea:focus {
+    border-color: #9B59B6 !important;
+    box-shadow: 0 0 0 2px rgba(155, 89, 182, 0.2) !important;
+}
+div[data-testid="stTextArea"] {
+    border-radius: 24px !important;
+}
+button[data-testid="baseButton-primary"] {
+    border-radius: 50% !important;
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    padding: 0 !important;
+    font-size: 1.2rem !important;
+}
+div[data-testid="stSelectbox"] > div {
+    border-radius: 20px !important;
+    background-color: #1a1a21 !important;
+}
+</style>""", unsafe_allow_html=True)
+
+        # 완벽한 텍스트 초기화를 위한 고유 키(Key) 카운터 세션 도입
+        if "chat_widget_key" not in st.session_state:
+            st.session_state["chat_widget_key"] = 0
+            
+        _ic, _bc, _mc = st.columns([5, 1, 1.5], gap="small")
+        with _ic:
+            _prompt = st.text_area(
+                "입력",
+                # 카운터를 키에 결합하여 새로고침 시 완전히 새로운 위젯으로 인식하게 함
+                key=f"popup_input_{st.session_state['chat_widget_key']}",
+                placeholder="현자에게 물어보세요...",
+                label_visibility="collapsed",
+                height=68,
+                max_chars=3000,
+            )
+        with _bc:
+            st.markdown("<div style='margin-top:20px'></div>",
+                        unsafe_allow_html=True)
+            _send = st.button("↑", key="popup_send_17", type="primary",
+                              use_container_width=True)
+        with _mc:
+            st.markdown("<div style='margin-top:4px'></div>",
+                        unsafe_allow_html=True)
+            _sel = st.selectbox(
+                "모델",
+                _MODELS,
+                index=_MODELS.index(st.session_state.popup_selected_model)
+                if st.session_state.popup_selected_model in _MODELS else 0,
+                key="popup_model_sel_17",
+                label_visibility="collapsed",
+            )
+            st.session_state.popup_selected_model = _sel
+
+        # ── 젬마 응답 처리 ─────────────────────────────────────
+        if _send and _prompt and _prompt.strip():
+            _cur_model = st.session_state.popup_selected_model
+
+            st.session_state.popup_history.append({
+                "role": "user",
+                "content": _prompt,
+                "model": _cur_model,
+                "part": current_part_name,
+            })
+
+
+
+            _sys = "너는 현자의 거울 스튜디오의 어시스턴트다. 묻는 말에 정확하고 짧게 답하라."
+            if st.session_state.get("tavily_rag_context"):
+                _sys += f"\n\n[참조 자료]\n{st.session_state.tavily_rag_context[:800]}"
+
+            with st.spinner("⚙️ 생성 중..."):
+                full_response = call_gemma(
+                    prompt=_prompt,
+                    system=_sys,
+                    model=_cur_model
+                )
+
+            if full_response:
+                st.session_state.popup_history.append({
+                    "role": "assistant",
+                    "content": full_response,
+                    "model": _cur_model,
+                    "part": current_part_name,
+                })
+                _save_chat_history(st.session_state.popup_history)
+                
+                # [해결 핵심] 입력창 텍스트를 강제로 지우려다 에러가 나므로, 
+                # 위젯 키 카운터를 1 증가시켜 다음 렌더링 시 완전히 빈 새로운 텍스트 에어리어가 생성되도록 유도함.
+                st.session_state["chat_widget_key"] += 1
+                
+                st.rerun()
+
+
