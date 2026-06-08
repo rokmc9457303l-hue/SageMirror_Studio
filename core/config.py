@@ -37,7 +37,7 @@ PART_NAMES = {
 MODELS = {
     "gemma4:e2b":       {"label": "Gemma 4 e2b", "type": "local",  "desc": "로컬 기본"},
     "gemma4:e4b":       {"label": "Gemma 4 e4b", "type": "local",  "desc": "로컬 강화"},
-    "gemini-2.5-flash": {"label": "Gemini Flash", "type": "remote", "desc": "자료조사 보조"},
+    "gemini-2.0-flash": {"label": "Gemini Flash", "type": "remote", "desc": "자료조사 보조"},
 }
 DEFAULT_MODEL = "gemma4:e2b"
 
