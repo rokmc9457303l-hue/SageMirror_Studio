@@ -60,17 +60,20 @@ def stream_gemma(prompt: str, system: str = "", model: str = None):
         yield f"\n[스트리밍 오류] {e}"
 
 
-def call_gemini(prompt: str, system: str = "", model: str = "gemini-1.5-flash") -> str:
+def call_gemini(prompt: str, system: str = "", model: str = "gemini-2.0-flash") -> str:
     """Gemini API 호출"""
     try:
-        import google.generativeai as genai
+        from google import genai
+        from google.genai import types
         api_key = st.session_state.get("api_gemini", "")
         if not api_key:
             return "[Gemini API 키 없음]"
-        genai.configure(api_key=api_key)
-        gmodel = genai.GenerativeModel(model)
+        client = genai.Client(api_key=api_key)
         full = (system + "\n\n" + prompt) if system else prompt
-        resp = gmodel.generate_content(full)
+        resp = client.models.generate_content(
+            model=model,
+            contents=full
+        )
         return resp.text or ""
     except Exception as e:
         return f"[Gemini 오류] {e}"
