@@ -60,7 +60,7 @@ def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 3) -
                 )
         cfg_obj = _genai.types.GenerateContentConfig(
             system_instruction=system_txt,
-            max_output_tokens=4096,
+            max_output_tokens=8192,
             temperature=0.7,
         )
         resp = client.models.generate_content(
@@ -272,7 +272,7 @@ def render_chat_with_response():
     """대화 표시 + 응답 생성 (모두 컨테이너 안)"""
     history = get_state("rp_history", [])
     
-    box = st.container(height=400, border=True)
+    box = st.container(height=700, border=True)
     
     with box:
         if not history:
