@@ -297,47 +297,74 @@ def render_chat_with_response():
             set_state("rp_history", history)
 
 
-def search_youtube_channels(query: str, api_key: str, max_results: int = 20) -> str:
-    """YouTube API 채널 검색 → 구독자 1만↓ + 조회수 10만↑ 필터링"""
+def _fetch_channels(query: str, api_key: str, lang: str, max_results: int = 25) -> list:
+    """YouTube API 채널 검색 후 통계 포함 반환"""
+    import requests as _req
+    params = f"part=snippet&q={query}&type=channel&maxResults={max_results}&key={api_key}"
+    if lang == "ko":
+        params += "&relevanceLanguage=ko&regionCode=KR"
+    items = _req.get(
+        f"https://www.googleapis.com/youtube/v3/search?{params}", timeout=15
+    ).json().get("items", [])
+    if not items:
+        return []
+    ids = ",".join(i["id"]["channelId"] for i in items)
+    channels = _req.get(
+        f"https://www.googleapis.com/youtube/v3/channels"
+        f"?part=snippet,statistics&id={ids}&key={api_key}", timeout=15
+    ).json().get("items", [])
+    result = []
+    for ch in channels:
+        stats = ch.get("statistics", {})
+        snippet = ch.get("snippet", {})
+        hidden = stats.get("hiddenSubscriberCount", False)
+        subs = int(stats.get("subscriberCount", 0)) if not hidden else 0
+        views = int(stats.get("viewCount", 0))
+        if (hidden or subs <= 10000) and views >= 100000:
+            result.append({
+                "name": snippet.get("title", ""),
+                "url": f"https://www.youtube.com/channel/{ch['id']}",
+                "subs": "비공개" if hidden else f"{subs:,}명",
+                "views": f"{views:,}회",
+                "desc": snippet.get("description", "")[:120],
+                "lang": lang,
+            })
+    return result
+
+
+def search_youtube_channels(query: str, api_key: str, max_results: int = 25) -> str:
+    """국내 5개 + 국외 5개 심리학·철학 채널 검색"""
     import requests as _req
     try:
-        search_url = (
-            "https://www.googleapis.com/youtube/v3/search"
-            f"?part=snippet&q={query}&type=channel&maxResults={max_results}&key={api_key}"
-        )
-        items = _req.get(search_url, timeout=15).json().get("items", [])
-        if not items:
-            return ""
-        channel_ids = [i["id"]["channelId"] for i in items]
-        stats_url = (
-            "https://www.googleapis.com/youtube/v3/channels"
-            f"?part=snippet,statistics&id={','.join(channel_ids)}&key={api_key}"
-        )
-        channels = _req.get(stats_url, timeout=15).json().get("items", [])
-        matched = []
-        for ch in channels:
-            stats = ch.get("statistics", {})
-            snippet = ch.get("snippet", {})
-            subs = int(stats.get("subscriberCount", 0))
-            views = int(stats.get("viewCount", 0))
-            if subs <= 10000 and views >= 100000:
-                matched.append({
-                    "name": snippet.get("title", ""),
-                    "url": f"https://www.youtube.com/channel/{ch['id']}",
-                    "subs": subs,
-                    "views": views,
-                    "desc": snippet.get("description", "")[:120],
-                })
-        if not matched:
-            return "[YouTube] 구독자 1만↓ + 조회수 10만↑ 조건 채널 없음 (검색어 조정 필요)"
-        lines = ["[YouTube API 검색결과 — 구독자 1만↓ + 조회수 10만↑]"]
-        for i, ch in enumerate(matched[:5], 1):
-            lines.append(
-                f"{i}. {ch['name']}\n"
-                f"   구독자: {ch['subs']:,}명 | 총조회수: {ch['views']:,}회\n"
-                f"   URL: {ch['url']}\n"
-                f"   {ch['desc']}"
-            )
+        domestic = _fetch_channels(f"{query} 심리학 철학", api_key, "ko", max_results)
+        foreign  = _fetch_channels(f"{query} psychology philosophy", api_key, "en", max_results)
+
+        lines = ["[YouTube 채널 검색결과 — 구독자 1만↓ + 조회수 10만↑]"]
+
+        lines.append("\n■ 국내 채널 (심리학·철학)")
+        if domestic:
+            for i, ch in enumerate(domestic[:5], 1):
+                lines.append(
+                    f"{i}. {ch['name']}\n"
+                    f"   구독자: {ch['subs']} | 총조회수: {ch['views']}\n"
+                    f"   URL: {ch['url']}\n"
+                    f"   {ch['desc']}"
+                )
+        else:
+            lines.append("   (조건 충족 채널 없음 — Gemini가 직접 추천)")
+
+        lines.append("\n■ 국외 채널 (psychology·philosophy)")
+        if foreign:
+            for i, ch in enumerate(foreign[:5], 1):
+                lines.append(
+                    f"{i}. {ch['name']}\n"
+                    f"   구독자: {ch['subs']} | 총조회수: {ch['views']}\n"
+                    f"   URL: {ch['url']}\n"
+                    f"   {ch['desc']}"
+                )
+        else:
+            lines.append("   (조건 충족 채널 없음 — Gemini가 직접 추천)")
+
         return "\n".join(lines)
     except Exception as e:
         return f"[YouTube 검색 오류] {e}"
@@ -400,13 +427,26 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         "타겟: 4070세대 / 철학·심리·성경 다큐 스타일\n"
         "답변은 반드시 한국어로, 존댓말로 작성하세요.\n"
     )
-    if yt_context:
+    if is_yt_channel_query:
         system_prompt += (
-            "\n[YouTube API 실시간 채널 검색 결과]\n"
-            + yt_context
-            + "\n\n위 채널들을 현재 트렌드 적합성과 성장 가능성(떡상 가능성) 기준으로 분석하여 "
-            "벤치마킹에 가장 적합한 채널 1개를 선정하세요.\n"
-            "답변 마지막에 반드시 아래 형식으로 선정 채널 URL을 기재하세요:\n"
+            "\n[역할] 당신은 유튜브 채널 발굴 전문가입니다.\n"
+            "심리학·철학을 다루는 채널 중 구독자 1만 이하이면서 조회수·성장세가 뛰어난 "
+            "'떡상' 가능성 채널을 국내 5개·국외 5개 찾아 분석하세요.\n"
+            "YouTube API 결과가 부족하면 당신의 지식으로 직접 추천하세요.\n\n"
+        )
+        if yt_context:
+            system_prompt += (
+                "[YouTube API 실시간 검색결과]\n"
+                + yt_context + "\n\n"
+            )
+        system_prompt += (
+            "[분석 기준]\n"
+            "1. 현재 트렌드 적합성 (4070 감정·철학·심리 콘텐츠)\n"
+            "2. 구독자 대비 조회수 비율 (떡상 지수)\n"
+            "3. 콘텐츠 방향성 유사성 (현자의 거울 채널 기준)\n\n"
+            "[출력 형식]\n"
+            "국내 5개 / 국외 5개 각각: 채널명, URL, 구독자수, 주요 조회수, 선정이유\n"
+            "마지막에 최종 벤치마킹 추천 1개를 아래 형식으로 반드시 기재:\n"
             "[선정채널URL: https://www.youtube.com/channel/CHANNEL_ID]\n"
         )
     if tavily_context:
