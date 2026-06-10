@@ -274,13 +274,13 @@ def render_right_panel():
 
 
 def _extract_yt_urls(text: str) -> list:
-    """응답 텍스트에서 YouTube 채널 URL 중복 없이 추출"""
+    """응답 텍스트에서 YouTube 채널 URL 중복 없이 추출 (@ / channel / c 형식 모두)"""
     import re
     urls = re.findall(
-        r'https://www\.youtube\.com/(?:channel|c|@)[^\s)\]"\'<>]+',
+        r'https?://(?:www\.)?youtube\.com/(?:channel/[A-Za-z0-9_\-]+|@[A-Za-z0-9_.\-]+|c/[A-Za-z0-9_.\-]+)',
         text
     )
-    return list(dict.fromkeys(url.rstrip('/.,') for url in urls))
+    return list(dict.fromkeys(url.rstrip('/.,)') for url in urls))
 
 
 def render_chat_with_response():
@@ -345,6 +345,8 @@ def render_chat_with_response():
             col = cols[idx % n]
             if col.button(f"📤 {short}", key=f"rp_bench_{idx}", help=url, use_container_width=True):
                 set_state("p1_channel_url", url)
+                # text_input 위젯 state 직접 주입 (value= 파라미터만으로는 갱신 안 됨)
+                st.session_state["p1_channel_url_input"] = url
                 set_state("rp_last_channel_urls", [])
                 st.toast(f"✅ 벤치마킹 탭에 적용됨: {url}")
                 st.rerun()
@@ -569,15 +571,19 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
             "- 구독자 대비 조회수 비율 (떡상 지수)\n"
             "- 4070 감정·철학·심리 콘텐츠 적합성\n"
             "- 현자의 거울 채널 방향성 유사도 (렘브란트풍·시네마틱·철학·성경)\n\n"
+            "[출력 규칙 — 반드시 준수]\n"
+            "★ 국내 채널 반드시 5개, 국외 채널 반드시 5개, 총 10개 빠짐없이 기재\n"
+            "★ YouTube API 데이터가 없거나 부족해도 당신의 학습 지식으로 반드시 5개씩 채울 것\n"
+            "★ 채널을 모른다는 말 금지 — 가장 적합한 채널을 반드시 추천할 것\n\n"
             "[출력 형식 — 채널당 6개 항목 반드시 기재]\n"
             "1. 채널명\n"
-            "2. 유튜브 채널 URL\n"
+            "2. 유튜브 채널 URL (https://www.youtube.com/@채널명 형식)\n"
             "3. 구독자 수 및 최근 평균 조회수 추이\n"
             "4. 현자의 거울과 유사한 점 (구조적/감성적 측면)\n"
             "5. 벤치마킹해야 할 핵심 후킹 기법 (제목 또는 영상 도입부)\n"
             "6. 댓글창에서 발견되는 핵심 시청자 고통 키워드 (체험담 기반)\n\n"
             "마지막에 최종 벤치마킹 추천 1개를 아래 형식으로 반드시 기재:\n"
-            "[선정채널URL: https://www.youtube.com/channel/CHANNEL_ID]\n"
+            "[선정채널URL: https://www.youtube.com/@채널명]\n"
         )
     if tavily_context:
         system_prompt += (
@@ -613,11 +619,13 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
     # 5. 선정 채널 URL 자동 추출 → 벤치마킹 탭 푸시
     if is_yt_channel_query and result:
         import re
-        url_match = re.search(r'\[선정채널URL:\s*(https://[^\]\s]+)\]', result)
+        url_match = re.search(r'\[선정채널URL:\s*(https?://[^\]\s]+)\]', result)
         if url_match:
-            selected_url = url_match.group(1).strip()
+            selected_url = url_match.group(1).strip().rstrip('/.,)')
             set_state("p1_channel_url", selected_url)
             set_state("p1_bench_auto_selected", selected_url)
+            # text_input 위젯 state 직접 주입
+            st.session_state["p1_channel_url_input"] = selected_url
 
     if not result or result.strip() == "":
         return f"[디버그] model_type={model_type}, yt_context길이={len(yt_context)}, tavily_context길이={len(tavily_context)}"
