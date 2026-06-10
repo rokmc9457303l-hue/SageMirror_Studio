@@ -376,25 +376,22 @@ def render_chat_with_response():
                 st.rerun()
 
 
+# 쿼리 3개 × 언어 2 = 6회 API 호출 (기존 5×2=10회에서 축소)
 KO_QUERIES = [
-    "4070 심리 상담",
-    "인문학 다큐멘터리",
-    "쇼펜하우어 에세이 유튜브",
-    "관계 심리학 인간관계",
-    "실존주의 철학 채널",
+    "4070 심리 인문학 다큐",
+    "쇼펜하우어 실존주의 유튜브",
+    "관계 심리학 다크심리학 채널",
 ]
 
 EN_QUERIES = [
-    "Philosophy documentary 40s 50s",
-    "Jungian psychology channel",
-    "Stoicism for life advice",
-    "Existential crisis video essay",
-    "Psychology of relationships deep dive",
+    "Jungian psychology existential documentary",
+    "Stoicism philosophy life meaning channel",
+    "Dark psychology narcissism relationships",
 ]
 
 
 def _is_recently_active(channel_id: str, api_key: str, days: int = 15) -> bool:
-    """최근 days일 이내 영상 업로드 여부 확인 (YouTube search API)"""
+    """최근 days일 이내 영상 업로드 여부 확인"""
     from datetime import datetime, timedelta, timezone
     import requests as _req
     cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -404,82 +401,110 @@ def _is_recently_active(channel_id: str, api_key: str, days: int = 15) -> bool:
             f"?part=snippet&channelId={channel_id}&type=video"
             f"&order=date&maxResults=1&publishedAfter={cutoff}&key={api_key}"
         )
-        items = _req.get(url, timeout=10).json().get("items", [])
+        items = _req.get(url, timeout=5).json().get("items", [])
         return len(items) > 0
     except Exception:
-        return True  # 오류 시 필터링 생략
+        return True  # 오류 시 통과
 
 
-def _fetch_channels(queries: list, api_key: str, lang: str, max_results: int = 10) -> list:
-    """여러 키워드로 YouTube 채널 검색 후 중복 제거 + 통계 + 최근 15일 활동 반환"""
+@st.cache_data(ttl=1800, show_spinner=False)
+def _fetch_channels(queries: tuple, api_key: str, lang: str, max_results: int = 5) -> list:
+    """병렬 쿼리 + 캐시(30분) — YouTube 채널 검색 및 필터링"""
     import requests as _req
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     seen_ids = set()
     all_items = []
-    for q in queries:
+
+    def _search_one(q):
         params = f"part=snippet&q={q}&type=channel&maxResults={max_results}&key={api_key}"
         if lang == "ko":
             params += "&relevanceLanguage=ko&regionCode=KR"
-        items = _req.get(
-            f"https://www.googleapis.com/youtube/v3/search?{params}", timeout=15
-        ).json().get("items", [])
-        for item in items:
-            cid = item["id"]["channelId"]
-            if cid not in seen_ids:
-                seen_ids.add(cid)
-                all_items.append(cid)
+        try:
+            return _req.get(
+                f"https://www.googleapis.com/youtube/v3/search?{params}", timeout=5
+            ).json().get("items", [])
+        except Exception:
+            return []
+
+    # 쿼리를 병렬 실행 (전체 제한 15초)
+    try:
+        with ThreadPoolExecutor(max_workers=3) as ex:
+            futures = {ex.submit(_search_one, q): q for q in queries}
+            for fut in as_completed(futures, timeout=15):
+                try:
+                    for item in fut.result():
+                        cid = item["id"]["channelId"]
+                        if cid not in seen_ids:
+                            seen_ids.add(cid)
+                            all_items.append(cid)
+                except Exception:
+                    pass
+    except Exception:
+        pass
 
     if not all_items:
         return []
 
-    # 50개씩 나눠서 통계 조회 (API 제한)
+    # 통계 조회 (최대 50개 배치)
     channels = []
-    for i in range(0, len(all_items), 50):
-        batch = ",".join(all_items[i:i+50])
-        resp = _req.get(
-            f"https://www.googleapis.com/youtube/v3/channels"
-            f"?part=snippet,statistics&id={batch}&key={api_key}", timeout=15
-        ).json().get("items", [])
-        channels.extend(resp)
+    try:
+        for i in range(0, min(len(all_items), 50), 50):
+            batch = ",".join(all_items[i:i+50])
+            resp = _req.get(
+                f"https://www.googleapis.com/youtube/v3/channels"
+                f"?part=snippet,statistics&id={batch}&key={api_key}", timeout=8
+            ).json().get("items", [])
+            channels.extend(resp)
+    except Exception:
+        pass
 
+    # 필터링 및 떡상 지수 계산
     result = []
     for ch in channels:
-        stats = ch.get("statistics", {})
-        snippet = ch.get("snippet", {})
-        hidden = stats.get("hiddenSubscriberCount", False)
-        subs = int(stats.get("subscriberCount", 0)) if not hidden else 0
-        views = int(stats.get("viewCount", 0))
-        video_count = max(int(stats.get("videoCount", 1)), 1)
-        if (hidden or subs <= 10000) and views >= 100000:
-            ch_id = ch["id"]
-            recently_active = _is_recently_active(ch_id, api_key, days=15)
-            # 떡상 지수: 구독자 대비 총 조회수 (높을수록 숨은 보석)
-            bang_score = views / max(subs if not hidden else 500, 1)
-            # 영상당 평균 조회수 (시청지속 간접 지표)
-            avg_views = views // video_count
-            result.append({
-                "id": ch_id,
-                "name": snippet.get("title", ""),
-                "url": f"https://www.youtube.com/channel/{ch_id}",
-                "subs": "비공개" if hidden else f"{subs:,}명",
-                "views": f"{views:,}회",
-                "avg_views": f"{avg_views:,}회/영상",
-                "bang_score": bang_score,
-                "desc": snippet.get("description", "")[:120],
-                "recent": "✅ 15일내 업로드" if recently_active else "⚠️ 장기 미업로드",
-            })
-    # 정렬: 1순위 최근 활동, 2순위 떡상 지수 높은 순
-    result.sort(key=lambda x: (
-        0 if x["recent"].startswith("✅") else 1,
-        -x.get("bang_score", 0)
-    ))
+        try:
+            stats   = ch.get("statistics", {})
+            snippet = ch.get("snippet", {})
+            hidden  = stats.get("hiddenSubscriberCount", False)
+            subs    = int(stats.get("subscriberCount", 0)) if not hidden else 0
+            views   = int(stats.get("viewCount", 0))
+            videos  = max(int(stats.get("videoCount", 1)), 1)
+            if (hidden or subs <= 10000) and views >= 100000:
+                bang  = views / max(subs if not hidden else 500, 1)
+                result.append({
+                    "id":         ch["id"],
+                    "name":       snippet.get("title", ""),
+                    "url":        f"https://www.youtube.com/channel/{ch['id']}",
+                    "subs":       "비공개" if hidden else f"{subs:,}명",
+                    "views":      f"{views:,}회",
+                    "avg_views":  f"{views // videos:,}회/영상",
+                    "bang_score": bang,
+                    "desc":       snippet.get("description", "")[:120],
+                    "recent":     "⏳ 확인중",  # 나중에 상위 3개만 체크
+                })
+        except Exception:
+            continue
+
+    # 떡상 지수 기준 정렬 후 상위 5개만 유지
+    result.sort(key=lambda x: -x.get("bang_score", 0))
+    result = result[:5]
+
+    # _is_recently_active 는 상위 3개만 체크 (API 절약)
+    for ch_data in result[:3]:
+        active = _is_recently_active(ch_data["id"], api_key, days=15)
+        ch_data["recent"] = "✅ 15일내 업로드" if active else "⚠️ 장기 미업로드"
+    for ch_data in result[3:]:
+        ch_data["recent"] = "—"
+
     return result
 
 
-def search_youtube_channels(query: str, api_key: str, max_results: int = 10) -> str:
-    """국내 5개 + 국외 5개 심리학·철학 채널 검색"""
+def search_youtube_channels(query: str, api_key: str, max_results: int = 5) -> str:
+    """국내 5개 + 국외 5개 심리학·철학 채널 검색 (병렬·캐시)"""
     try:
-        domestic = _fetch_channels(KO_QUERIES, api_key, "ko", max_results)
-        foreign  = _fetch_channels(EN_QUERIES, api_key, "en", max_results)
+        # tuple로 변환해야 st.cache_data 캐시 키로 사용 가능
+        domestic = _fetch_channels(tuple(KO_QUERIES), api_key, "ko", max_results)
+        foreign  = _fetch_channels(tuple(EN_QUERIES), api_key, "en", max_results)
 
         lines = ["[YouTube 채널 검색결과 — 구독자 1만↓ + 조회수 10만↑]"]
 
