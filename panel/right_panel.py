@@ -414,7 +414,7 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
     if model_type == "remote":
         result = call_gemini_with_messages(messages, cur_model)
     else:
-        success, result, _ = call_ollama_sync(user_msg, BRAIN_SYSTEM_PROMPT, cur_model)
+        success, result, _ = call_ollama_sync(user_msg, system_prompt, cur_model)
         if not success:
             result = result or "응답을 생성하지 못했습니다."
 
