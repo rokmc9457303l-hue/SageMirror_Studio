@@ -46,7 +46,14 @@ def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 2) -
         if not api_key:
             return "⚠️ Gemini API 키가 없습니다. 우측 설정에서 키를 입력하세요."
 
-        client = _genai.Client(api_key=api_key)
+        # AQ. 형식(Auth Key) 또는 AIza 형식 모두 지원
+        if api_key.startswith("AQ."):
+            import google.auth.credentials as _creds
+            import google.oauth2.credentials as _oauth2
+            cred = _oauth2.Credentials(token=api_key)
+            client = _genai.Client(credentials=cred)
+        else:
+            client = _genai.Client(api_key=api_key)
         system_txt = ""
         gemini_contents = []
         for m in messages:
