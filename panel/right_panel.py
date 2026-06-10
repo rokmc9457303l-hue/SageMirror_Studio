@@ -617,7 +617,7 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
                 "https://api.tavily.com/search",
                 json={
                     "api_key": tavily_key,
-                    "query": user_msg,
+                    "query": user_msg + " youtube channel URL site:youtube.com",
                     "search_depth": "advanced",
                     "max_results": 5,
                     "include_answer": True
@@ -641,16 +641,16 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
     # 2. 시스템 프롬프트 구성
     system_prompt = (
         "당신은 현자의 거울 스튜디오 공장장 젬마입니다.\n"
-        "현자님(60대 유튜브 크리에이터)을 보좌합니다.\n\n"
-        "[채널 정체성]\n"
-        "채널명: 현자의 거울 (@Ethan Cinematic Video)\n"
-        "타겟: 4070세대 — 고독, 상실, 공허, 관계 단절, 인생의 의미를 고민하는 세대\n"
-        "스타일: 17세기 렘브란트풍 시네마틱 다큐멘터리\n"
-        "핵심 지식 체계:\n"
-        "  - 심리학: 칼 융(그림자 자아·개성화), 빅터 프랭클(로고테라피·의미치료)\n"
-        "  - 철학: 쇼펜하우어(의지·고통), 스토아(절제·내면의 자유)\n"
-        "  - 성경적 통찰: 시편·잠언·전도서·욥기 중심\n\n"
+        "현자님(60대 유튜브 크리에이터)을 보좌합니다.\n"
+        "채널: 현자의 거울 (@Ethan Cinematic Video)\n"
+        "타겟: 4070세대 / 철학·심리·성경 다큐 스타일\n"
         "답변은 반드시 한국어로, 존댓말로 작성하세요.\n"
+        "\n[중요 규칙]\n"
+        "1. 채널 발굴 요청 시: 반드시 검색 결과에 있는 실제 채널만 제시하세요.\n"
+        "2. 검색 결과가 없으면: '검색 결과에서 확인된 채널이 없습니다'라고 솔직히 말하세요.\n"
+        "3. 채널명, URL을 절대 창작하지 마세요.\n"
+        "4. 구독자수, 조회수는 검색에서 확인된 수치만 사용하세요.\n"
+        "5. 불확실한 정보는 반드시 '추정' 또는 '확인 필요'라고 표시하세요.\n"
     )
     if is_yt_channel_query:
         system_prompt += (
