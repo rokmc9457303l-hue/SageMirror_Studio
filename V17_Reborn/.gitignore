@@ -1,0 +1,12 @@
+.env
+*.env
+google_token.json
+credentials.json
+client_secret.json
+local_secrets.json
+*.token
+*.key
+*.pem
+__pycache__/
+*.pyc
+*_backup.py
