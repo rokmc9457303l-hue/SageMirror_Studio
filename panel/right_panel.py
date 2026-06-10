@@ -293,9 +293,63 @@ def render_chat_with_response():
             set_state("rp_history", history)
 
 
+def search_youtube_channels(query: str, api_key: str, max_results: int = 20) -> str:
+    """YouTube API 채널 검색 → 구독자 1만↓ + 조회수 10만↑ 필터링"""
+    import requests as _req
+    try:
+        search_url = (
+            "https://www.googleapis.com/youtube/v3/search"
+            f"?part=snippet&q={query}&type=channel&maxResults={max_results}&key={api_key}"
+        )
+        items = _req.get(search_url, timeout=15).json().get("items", [])
+        if not items:
+            return ""
+        channel_ids = [i["id"]["channelId"] for i in items]
+        stats_url = (
+            "https://www.googleapis.com/youtube/v3/channels"
+            f"?part=snippet,statistics&id={','.join(channel_ids)}&key={api_key}"
+        )
+        channels = _req.get(stats_url, timeout=15).json().get("items", [])
+        matched = []
+        for ch in channels:
+            stats = ch.get("statistics", {})
+            snippet = ch.get("snippet", {})
+            subs = int(stats.get("subscriberCount", 0))
+            views = int(stats.get("viewCount", 0))
+            if subs <= 10000 and views >= 100000:
+                matched.append({
+                    "name": snippet.get("title", ""),
+                    "url": f"https://www.youtube.com/channel/{ch['id']}",
+                    "subs": subs,
+                    "views": views,
+                    "desc": snippet.get("description", "")[:120],
+                })
+        if not matched:
+            return "[YouTube] 구독자 1만↓ + 조회수 10만↑ 조건 채널 없음 (검색어 조정 필요)"
+        lines = ["[YouTube API 검색결과 — 구독자 1만↓ + 조회수 10만↑]"]
+        for i, ch in enumerate(matched[:5], 1):
+            lines.append(
+                f"{i}. {ch['name']}\n"
+                f"   구독자: {ch['subs']:,}명 | 총조회수: {ch['views']:,}회\n"
+                f"   URL: {ch['url']}\n"
+                f"   {ch['desc']}"
+            )
+        return "\n".join(lines)
+    except Exception as e:
+        return f"[YouTube 검색 오류] {e}"
+
+
 def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
     """Tavily 검색 우선 → Gemini/Ollama 분석 응답 생성"""
     import requests as _req
+
+    # 0. YouTube 채널 검색 감지
+    yt_context = ""
+    yt_keywords = ["유튜브 채널", "youtube 채널", "채널 찾", "채널 추천", "채널 국내", "채널 국외"]
+    if any(kw in user_msg.lower() for kw in yt_keywords):
+        yt_key = st.session_state.get("api_youtube", "")
+        if yt_key:
+            yt_context = search_youtube_channels(user_msg, yt_key)
 
     # 1. Tavily 실시간 검색 시도
     tavily_context = ""
@@ -335,6 +389,11 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         "타겟: 4070세대 / 철학·심리·성경 다큐 스타일\n"
         "답변은 반드시 한국어로, 존댓말로 작성하세요.\n"
     )
+    if yt_context:
+        system_prompt += (
+            "\n[YouTube API 실시간 채널 검색 결과 - 반드시 아래 데이터를 그대로 포함하여 답변하세요]\n"
+            + yt_context + "\n"
+        )
     if tavily_context:
         system_prompt += (
             "\n[실시간 검색 결과 - 반드시 아래 정보를 바탕으로 답변하세요]\n"
