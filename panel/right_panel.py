@@ -337,18 +337,42 @@ def render_chat_with_response():
             set_state("rp_last_channel_urls", last_urls)
 
     if last_urls:
-        st.markdown("##### 📌 채널 벤치마킹 바로 적용")
-        n = min(len(last_urls), 3)
-        cols = st.columns(n)
-        for idx, url in enumerate(last_urls[:6]):
-            short = url.rstrip('/').split('/')[-1][:28]
-            col = cols[idx % n]
-            if col.button(f"📤 {short}", key=f"rp_bench_{idx}", help=url, use_container_width=True):
-                set_state("p1_channel_url", url)
-                set_state("p1_channel_url_pending", url)  # widget pop 신호
-                set_state("p1_nav_pending", 1)            # Part 1 자동 이동
-                set_state("rp_last_channel_urls", [])
-                st.toast(f"✅ Part 1 벤치마킹 탭으로 이동합니다")
+        st.markdown("#### 📺 발굴 채널 적용")
+        st.caption("🔗 = 유튜브 열기 (새 탭)  |  📤 = 벤치마킹 탭에 적용")
+        for idx, url in enumerate(last_urls[:8]):
+            name = url.rstrip('/').split('/')[-1][:32]
+            col1, col2 = st.columns([3, 2])
+            with col1:
+                st.link_button(f"🔗 {name}", url, use_container_width=True)
+            with col2:
+                if st.button("📤 벤치마킹", key=f"rp_bench_{idx}", use_container_width=True):
+                    new_counter = get_state("p1_url_counter", 0) + 1
+                    set_state("p1_url_counter", new_counter)
+                    set_state("p1_channel_url", url)
+                    set_state("p1_channel_url_pending", url)
+                    set_state("p1_nav_pending", 1)
+                    set_state("rp_last_channel_urls", [])
+                    st.toast(f"✅ 벤치마킹 탭 적용 → Part 1으로 이동합니다")
+                    st.rerun()
+
+        # 직접 URL 입력 → 벤치마킹 적용
+        st.markdown("---")
+        st.caption("✏️ URL 직접 입력 후 적용")
+        manual_url = st.text_input(
+            "채널 URL 직접 입력",
+            placeholder="https://www.youtube.com/@채널명",
+            key="rp_manual_url",
+            label_visibility="collapsed",
+        )
+        if st.button("📤 이 URL 벤치마킹 적용", key="rp_manual_apply", use_container_width=True):
+            target = manual_url.strip() if manual_url.strip() else get_state("p1_channel_url", "")
+            if target:
+                new_counter = get_state("p1_url_counter", 0) + 1
+                set_state("p1_url_counter", new_counter)
+                set_state("p1_channel_url", target)
+                set_state("p1_channel_url_pending", target)
+                set_state("p1_nav_pending", 1)
+                st.toast(f"✅ 적용: {target}")
                 st.rerun()
 
 
@@ -654,9 +678,10 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         url_match = re.search(r'\[선정채널URL:\s*(https?://[^\]\s]+)\]', result)
         if url_match:
             selected_url = url_match.group(1).strip().rstrip('/.,)')
+            set_state("p1_url_counter", get_state("p1_url_counter", 0) + 1)
             set_state("p1_channel_url", selected_url)
             set_state("p1_channel_url_pending", selected_url)
-            set_state("p1_nav_pending", 1)            # Part 1 자동 이동
+            set_state("p1_nav_pending", 1)
             set_state("p1_bench_auto_selected", selected_url)
 
     if not result or result.strip() == "":

@@ -67,21 +67,34 @@ def render_part1():
 def render_benchmark_tab():
     st.markdown("### 1️⃣ 채널 벤치마킹")
 
-    # 우측 패널 버튼/자동선정으로 URL이 전달된 경우 위젯 초기화 (widget 렌더 전에 처리)
+    # 우측 패널 버튼/자동선정으로 URL 전달 시 → 카운터 증가 → key 변경 → 위젯 강제 초기화
     pending = get_state("p1_channel_url_pending", "")
     if pending:
-        st.session_state.pop("p1_channel_url_input", None)  # 이전 widget state 제거
         set_state("p1_channel_url", pending)
         set_state("p1_channel_url_pending", "")
+        # 카운터 증가 → text_input key 변경 → value= 파라미터로 새 URL 강제 적용
+        set_state("p1_url_counter", get_state("p1_url_counter", 0) + 1)
+        st.success(f"✅ 채널 적용됨: {pending}")
 
+    # 현재 선정 채널 표시
+    current_url = get_state("p1_channel_url", "")
+    if current_url:
+        c1, c2 = st.columns([5, 1])
+        with c1:
+            st.info(f"🎯 선정 채널: `{current_url}`")
+        with c2:
+            st.link_button("🔗 열기", current_url, use_container_width=True)
+
+    # 카운터 기반 동적 key → 외부에서 URL 변경 시 위젯이 새 값으로 초기화됨
+    url_key = f"p1_channel_url_input_{get_state('p1_url_counter', 0)}"
     channel_url = st.text_input(
-        "🔗 벤치마킹 채널 URL 또는 채널 ID",
-        value=get_state("p1_channel_url", ""),
+        "🔗 채널 URL 직접 입력 또는 수정",
+        value=current_url,
         placeholder="예: https://youtube.com/@channelname 또는 UCxxxxxx",
-        key="p1_channel_url_input",
+        key=url_key,
     )
 
-    if channel_url:
+    if channel_url and channel_url != current_url:
         set_state("p1_channel_url", channel_url)
     
     yt_key = get_state("api_youtube", "")
