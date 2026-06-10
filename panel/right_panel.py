@@ -35,14 +35,17 @@ BRAIN_SYSTEM_PROMPT = """너는 현자의 거울 스튜디오의 공장장 젬�
 """
 
 
-def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 3) -> str:
-    """Gemini API 멀티턴 호출 — 503/429 재시도 + Ollama 폴백"""
+def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 2) -> str:
+    """Gemini API 멀티턴 호출 — 30초 타임아웃 + 503/429 재시도 + Ollama 폴백"""
     import time
+    from concurrent.futures import ThreadPoolExecutor, TimeoutError as _FutTimeout
+
     try:
         from google import genai as _genai
         api_key = st.session_state.get("api_gemini", "")
         if not api_key:
-            return "Gemini API 키가 없습니다."
+            return "⚠️ Gemini API 키가 없습니다. 우측 설정에서 키를 입력하세요."
+
         client = _genai.Client(api_key=api_key)
         system_txt = ""
         gemini_contents = []
@@ -63,31 +66,60 @@ def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 3) -
                         parts=[_genai.types.Part(text=m["content"])]
                     )
                 )
+
         cfg_obj = _genai.types.GenerateContentConfig(
             system_instruction=system_txt,
             max_output_tokens=8192,
             temperature=0.7,
         )
-        resp = client.models.generate_content(
-            model=model_key,
-            contents=gemini_contents,
-            config=cfg_obj,
-        )
-        return resp.text or "응답 없음"
+
+        def _do_call():
+            return client.models.generate_content(
+                model=model_key,
+                contents=gemini_contents,
+                config=cfg_obj,
+            )
+
+        # ── 30초 하드 타임아웃 (SDK 기본 120초 대기 차단) ──
+        with ThreadPoolExecutor(max_workers=1) as _ex:
+            _fut = _ex.submit(_do_call)
+            try:
+                resp = _fut.result(timeout=30)
+                return resp.text or "응답 없음"
+            except _FutTimeout:
+                raise Exception("Gemini 30초 시간 초과")
+
     except Exception as e:
         err_str = str(e)
-        # 503(과부하) / 429(쿼터) → 재시도
-        if _retry > 0 and ("503" in err_str or "429" in err_str or "UNAVAILABLE" in err_str):
-            wait = (4 - _retry) * 5  # 5초 → 10초 → 15초
-            time.sleep(wait)
+
+        # 503 / 429 → 재시도 (최대 2회, 5·10초 대기)
+        if _retry > 0 and any(k in err_str for k in ("503", "429", "UNAVAILABLE", "Resource")):
+            time.sleep((3 - _retry) * 5)
             return call_gemini_with_messages(messages, model_key, _retry - 1)
-        # 재시도 소진 → Ollama 폴백
-        user_content = next((m["content"] for m in reversed(messages) if m["role"] == "user"), "")
+
+        # ── Ollama 폴백 ──────────────────────────────────
+        user_content   = next((m["content"] for m in reversed(messages) if m["role"] == "user"), "")
         system_content = next((m["content"] for m in messages if m["role"] == "system"), "")
-        _, fallback, _ = call_ollama_sync(user_content, system_content)
-        if fallback:
-            return f"[Gemini 불가 — Gemma 대체 응답]\n{fallback}"
-        return f"[Gemini 오류] {e}"
+
+        # 시스템프롬프트가 너무 길면 Ollama도 타임아웃 → 핵심만 트림
+        OLLAMA_SYS_LIMIT = 1500
+        if len(system_content) > OLLAMA_SYS_LIMIT:
+            system_trimmed = system_content[:OLLAMA_SYS_LIMIT] + "\n...(이하 생략)"
+        else:
+            system_trimmed = system_content
+
+        _, fallback, _ = call_ollama_sync(user_content, system_trimmed, timeout=60)
+        if fallback and not fallback.startswith("["):
+            return f"[Gemini 불가 → Gemma 대체]\n{fallback}"
+
+        # 둘 다 실패 → 명확한 안내 반환
+        return (
+            f"⚠️ **Gemini 응답 실패**: {err_str[:120]}\n\n"
+            "**해결 방법:**\n"
+            "1. Gemini API 키 확인 (AIza... 형식이어야 함)\n"
+            "2. Google AI Studio에서 새 키 발급\n"
+            "3. 또는 잠시 후 다시 시도"
+        )
 
 
 def call_ollama_sync(prompt: str, system: str = "", model: str = None,
