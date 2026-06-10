@@ -102,6 +102,7 @@ def call_ollama_sync(prompt: str, system: str = "", model: str = None,
         "prompt": full,
         "stream": False,
         "keep_alive": "30m",
+        "think": False,
         "options": {
             "num_predict": 400,
             "temperature": 0.3,
@@ -358,4 +359,7 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         if not success:
             result = result or "응답을 생성하지 못했습니다."
 
-    return result if result else "응답을 생성하지 못했습니다."
+    if not result or result.strip() == "":
+        debug_info = f"[디버그] model_type={model_type}, cur_model={cur_model}, tavily_context길이={len(tavily_context)}"
+        return debug_info
+    return result
