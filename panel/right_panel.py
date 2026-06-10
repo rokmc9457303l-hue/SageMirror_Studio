@@ -349,11 +349,18 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
 
     # 0. YouTube 채널 검색 감지
     yt_context = ""
-    yt_keywords = ["유튜브 채널", "youtube 채널", "채널 찾", "채널 추천", "채널 국내", "채널 국외"]
+    is_yt_channel_query = False
+    yt_keywords = ["유튜브 채널", "youtube 채널", "채널 찾", "채널 추천", "채널 국내", "채널 국외", "채널 선정", "벤치마킹 채널"]
     if any(kw in user_msg.lower() for kw in yt_keywords):
+        is_yt_channel_query = True
         yt_key = st.session_state.get("api_youtube", "")
         if yt_key:
-            yt_context = search_youtube_channels(user_msg, yt_key)
+            # 문장에서 핵심 검색 키워드만 추출 (YouTube API용)
+            import re as _re
+            domain_keywords = ["심리학", "철학", "성경", "명상", "자존감", "힐링", "psychology",
+                               "감정", "인문학", "라이프", "동기", "치유", "상담"]
+            yt_query = next((k for k in domain_keywords if k in user_msg), "심리학 유튜브")
+            yt_context = search_youtube_channels(yt_query, yt_key)
 
     # 1. Tavily 실시간 검색 시도
     tavily_context = ""
@@ -419,8 +426,8 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
     model_info = MODELS.get(cur_model, {})
     model_type = model_info.get("type", "local")
 
-    if yt_context:
-        # YouTube 채널 분석은 Gemini로 강제 라우팅
+    if is_yt_channel_query:
+        # YouTube 채널 분석은 데이터 유무와 관계없이 Gemini 강제 라우팅
         gemini_model = next(
             (k for k, v in MODELS.items() if v.get("type") == "remote"),
             "gemini-2.5-flash"
@@ -434,7 +441,7 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
             result = result or "응답을 생성하지 못했습니다."
 
     # 5. 선정 채널 URL 자동 추출 → 벤치마킹 탭 푸시
-    if yt_context and result:
+    if is_yt_channel_query and result:
         import re
         url_match = re.search(r'\[선정채널URL:\s*(https://[^\]\s]+)\]', result)
         if url_match:
