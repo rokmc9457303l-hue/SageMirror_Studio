@@ -169,7 +169,7 @@ def call_ollama_sync(prompt: str, system: str = "", model: str = None,
         "keep_alive": "30m",
         "think": False,
         "options": {
-            "num_predict": 400,
+            "num_predict": 4000,
             "temperature": 0.3,
             "top_p": 0.9,
             "top_k": 40,
