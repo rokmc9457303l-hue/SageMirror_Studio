@@ -629,4 +629,39 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
 
     if not result or result.strip() == "":
         return f"[디버그] model_type={model_type}, yt_context길이={len(yt_context)}, tavily_context길이={len(tavily_context)}"
+
+    # ── 옵시디언 자동 저장 (백그라운드) ──────────────
+    try:
+        from core.unified_save import save_anything
+        part_ctx = st.session_state.get("current_part")
+
+        # 1. Tavily 검색 결과 → Raw/TavilyResearch
+        if tavily_context and len(tavily_context) > 50:
+            save_anything(
+                content=tavily_context,
+                title=f"Tavily_{user_msg[:30]}",
+                content_type="tavily_research",
+                part_num=part_ctx,
+            )
+
+        # 2. YouTube 채널 데이터 → Raw/YouTube
+        if yt_context and len(yt_context) > 50:
+            save_anything(
+                content=yt_context,
+                title=f"YouTube채널_{user_msg[:20]}",
+                content_type="youtube_channel",
+                part_num=part_ctx,
+            )
+
+        # 3. AI 응답 → Raw/GeminiResearch + 10_Wiki + 범용카테고리
+        if len(result) > 100:
+            save_anything(
+                content=f"## 질문\n{user_msg}\n\n## AI 응답\n{result}",
+                title=user_msg[:40],
+                content_type="gemini_research",
+                part_num=part_ctx,
+            )
+    except Exception:
+        pass
+
     return result
