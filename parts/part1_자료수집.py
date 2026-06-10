@@ -66,14 +66,21 @@ def render_part1():
 # ─────────────────────────────────────────────────
 def render_benchmark_tab():
     st.markdown("### 1️⃣ 채널 벤치마킹")
-    
+
+    # 우측 패널 버튼/자동선정으로 URL이 전달된 경우 위젯 초기화 (widget 렌더 전에 처리)
+    pending = get_state("p1_channel_url_pending", "")
+    if pending:
+        st.session_state.pop("p1_channel_url_input", None)  # 이전 widget state 제거
+        set_state("p1_channel_url", pending)
+        set_state("p1_channel_url_pending", "")
+
     channel_url = st.text_input(
         "🔗 벤치마킹 채널 URL 또는 채널 ID",
         value=get_state("p1_channel_url", ""),
         placeholder="예: https://youtube.com/@channelname 또는 UCxxxxxx",
         key="p1_channel_url_input",
     )
-    
+
     if channel_url:
         set_state("p1_channel_url", channel_url)
     

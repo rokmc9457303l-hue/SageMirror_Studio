@@ -345,8 +345,7 @@ def render_chat_with_response():
             col = cols[idx % n]
             if col.button(f"📤 {short}", key=f"rp_bench_{idx}", help=url, use_container_width=True):
                 set_state("p1_channel_url", url)
-                # text_input 위젯 state 직접 주입 (value= 파라미터만으로는 갱신 안 됨)
-                st.session_state["p1_channel_url_input"] = url
+                set_state("p1_channel_url_pending", url)  # widget pop 신호 (rerun 후 적용)
                 set_state("rp_last_channel_urls", [])
                 st.toast(f"✅ 벤치마킹 탭에 적용됨: {url}")
                 st.rerun()
@@ -592,10 +591,23 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         )
 
     # 3. 대화 히스토리 구성
+    # YouTube 채널 쿼리일 때 user_msg에 국외 강제 지시 주입
+    final_user_msg = user_msg
+    if is_yt_channel_query:
+        final_user_msg = (
+            f"{user_msg}\n\n"
+            "━━━ 출력 필수 지시 ━━━\n"
+            "반드시 국내 채널 5개, 국외 채널 5개, 총 10개를 모두 출력하세요.\n"
+            "국외 채널은 영어권(미국·영국·캐나다·호주) 및 비영어권 포함 5개 이상 반드시 포함.\n"
+            "채널 하나당 1~6번 항목을 빠짐없이 작성하세요.\n"
+            "URL이 불확실하면 https://www.youtube.com/@채널명 형식으로 최선 추정치 제공.\n"
+            "국외 채널 생략 절대 금지."
+        )
+
     messages = [{"role": "system", "content": system_prompt}]
     for h in history[-10:]:
         messages.append({"role": h["role"], "content": h["content"]})
-    messages.append({"role": "user", "content": user_msg})
+    messages.append({"role": "user", "content": final_user_msg})
 
     # 4. 모델 라우팅 — YouTube 채널 분석 시 Gemini 강제 사용
     cur_model = st.session_state.get("current_model", DEFAULT_MODEL)
@@ -623,9 +635,8 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         if url_match:
             selected_url = url_match.group(1).strip().rstrip('/.,)')
             set_state("p1_channel_url", selected_url)
+            set_state("p1_channel_url_pending", selected_url)  # widget pop 신호
             set_state("p1_bench_auto_selected", selected_url)
-            # text_input 위젯 state 직접 주입
-            st.session_state["p1_channel_url_input"] = selected_url
 
     if not result or result.strip() == "":
         return f"[디버그] model_type={model_type}, yt_context길이={len(yt_context)}, tavily_context길이={len(tavily_context)}"
