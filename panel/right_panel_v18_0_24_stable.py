@@ -30,48 +30,6 @@ BRAIN_SYSTEM_PROMPT = """너는 현자의 거울 스튜디오의 공장장 젬�
 """
 
 
-def call_gemini_with_messages(messages: list, model_key: str) -> str:
-    """Gemini API 멀티턴 호출"""
-    try:
-        from google import genai as _genai
-        api_key = st.session_state.get("api_gemini", "")
-        if not api_key:
-            return "Gemini API 키가 없습니다."
-        client = _genai.Client(api_key=api_key)
-        system_txt = ""
-        gemini_contents = []
-        for m in messages:
-            if m["role"] == "system":
-                system_txt = m["content"]
-            elif m["role"] == "user":
-                gemini_contents.append(
-                    _genai.types.Content(
-                        role="user",
-                        parts=[_genai.types.Part(text=m["content"])]
-                    )
-                )
-            elif m["role"] == "assistant":
-                gemini_contents.append(
-                    _genai.types.Content(
-                        role="model",
-                        parts=[_genai.types.Part(text=m["content"])]
-                    )
-                )
-        cfg_obj = _genai.types.GenerateContentConfig(
-            system_instruction=system_txt,
-            max_output_tokens=4096,
-            temperature=0.7,
-        )
-        resp = client.models.generate_content(
-            model=model_key,
-            contents=gemini_contents,
-            config=cfg_obj,
-        )
-        return resp.text or "응답 없음"
-    except Exception as e:
-        return f"[Gemini 오류] {e}"
-
-
 def call_ollama_sync(prompt: str, system: str = "", model: str = None,
                      timeout: int = 120) -> tuple:
     """Ollama 동기 호출 (비스트리밍) — Thinking 후처리 / Gemini 자동 라우팅"""
@@ -275,87 +233,73 @@ def render_chat_with_response():
                 st.markdown(msg["content"])
         
         if history[-1]["role"] == "user":
-            user_msg = history[-1]["content"]
-            model_key = get_state("rp_model", DEFAULT_MODEL)
-            with st.chat_message("assistant"):
-                with st.status("⬡ 생각 중...", expanded=True) as status_box:
-                    st.write("📡 모델 호출 중...")
-                    response = generate_response_sync(user_msg, history[:-1], model_key)
-                    status_box.update(label="✅ 완료", state="complete")
-                st.markdown(response)
-            history.append({
-                "role": "assistant",
-                "content": response,
-                "timestamp": datetime.now().isoformat(),
-                "model": model_key,
-            })
-            set_state("rp_history", history)
+            generate_response_sync(history)
 
 
-def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
-    """Tavily 검색 우선 → Gemini/Ollama 분석 응답 생성"""
-    import requests as _req
+def generate_response_sync(history):
+    """동기 응답 생성 + 명시적 진행 표시"""
+    
+    with st.chat_message("assistant"):
+        # 진행 상태 표시 (사용자가 명확히 인지)
+        with st.status("⬡ 생각 중...", expanded=True) as status:
+            st.write("📡 Ollama 모델 호출 중")
+            st.write("⏱️ 최대 2분 소요 가능 (Thinking 모드)")
+            
+            # 컨텍스트 준비
+            recent = history[-7:-1] if len(history) > 1 else []
+            recent_ctx = "\n".join([
+                f"{m['role']}: {m['content'][:200]}"
+                for m in recent
+            ])
+            
+            current_part = get_state("current_part", 1)
+            model = get_state("rp_model", DEFAULT_MODEL)
+            
+            full_prompt = f"""[Part {current_part} - {PART_NAMES.get(current_part)}]
 
-    # 1. Tavily 실시간 검색 시도
-    tavily_context = ""
-    tavily_key = st.session_state.get("api_tavily", "")
-    if tavily_key:
-        try:
-            tv_res = _req.post(
-                "https://api.tavily.com/search",
-                json={
-                    "api_key": tavily_key,
-                    "query": user_msg,
-                    "search_depth": "advanced",
-                    "max_results": 5,
-                    "include_answer": True
-                },
-                timeout=15
+[최근 대화]
+{recent_ctx if recent_ctx else '(첫 대화)'}
+
+[메시지]
+{history[-1]["content"]}
+
+위에 한국어로 즉시 답변하라. Thinking 표시 금지."""
+            
+            # 동기 호출 (응답 또는 timeout 명확)
+            success, response, elapsed = call_ollama_sync(
+                prompt=full_prompt,
+                system=BRAIN_SYSTEM_PROMPT,
+                model=model,
+                timeout=120,
             )
-            if tv_res.status_code == 200:
-                tv_data = tv_res.json()
-                lines = []
-                if tv_data.get("answer"):
-                    lines.append(f"[검색 요약] {tv_data['answer']}")
-                for r in tv_data.get("results", [])[:5]:
-                    lines.append(
-                        f"- {r.get('title','')}: {r.get('content','')[:200]} "
-                        f"(출처: {r.get('url','')})"
-                    )
-                tavily_context = "\n".join(lines)
-        except Exception:
-            tavily_context = ""
-
-    # 2. 시스템 프롬프트 구성
-    system_prompt = (
-        "당신은 현자의 거울 스튜디오 공장장 젬마입니다.\n"
-        "현자님(60대 유튜브 크리에이터)을 보좌합니다.\n"
-        "채널: 현자의 거울 (@Ethan Cinematic Video)\n"
-        "타겟: 4070세대 / 철학·심리·성경 다큐 스타일\n"
-        "답변은 반드시 한국어로, 존댓말로 작성하세요.\n"
-    )
-    if tavily_context:
-        system_prompt += (
-            "\n[실시간 검색 결과 - 반드시 아래 정보를 바탕으로 답변하세요]\n"
-            + tavily_context + "\n"
-        )
-
-    # 3. 대화 히스토리 구성
-    messages = [{"role": "system", "content": system_prompt}]
-    for h in history[-10:]:
-        messages.append({"role": h["role"], "content": h["content"]})
-    messages.append({"role": "user", "content": user_msg})
-
-    # 4. 모델 라우팅
-    cur_model = st.session_state.get("current_model", DEFAULT_MODEL)
-    model_info = MODELS.get(cur_model, {})
-    model_type = model_info.get("type", "local")
-
-    if model_type == "remote":
-        result = call_gemini_with_messages(messages, cur_model)
-    else:
-        success, result, _ = call_ollama_sync(user_msg, BRAIN_SYSTEM_PROMPT, cur_model)
-        if not success:
-            result = result or "응답을 생성하지 못했습니다."
-
-    return result if result else "응답을 생성하지 못했습니다."
+            
+            if success:
+                st.write(f"✅ 응답 수신 ({elapsed:.1f}초)")
+                status.update(label=f"✅ 완료 ({elapsed:.1f}초)", state="complete")
+            else:
+                st.write(f"❌ 실패 ({elapsed:.1f}초)")
+                status.update(label="⚠️ 실패", state="error")
+        
+        # 응답 표시
+        st.markdown(response)
+        
+        # history 저장
+        history.append({
+            "role": "assistant",
+            "content": response,
+            "timestamp": datetime.now().isoformat(),
+            "model": model,
+            "elapsed": elapsed,
+        })
+        set_state("rp_history", history)
+        
+        # 백그라운드 저장
+        if success:
+            try:
+                schedule_chat_save(
+                    user_input=history[-2]["content"],
+                    ai_response=response,
+                    part_context=current_part,
+                )
+            except Exception:
+                pass
