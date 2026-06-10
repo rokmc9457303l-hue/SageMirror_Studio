@@ -113,11 +113,11 @@ def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 2) -
 
         # 시스템프롬프트 + 사용자 메시지 트림 (Ollama 부하 최소화)
         OLLAMA_SYS_LIMIT = 1500
-        OLLAMA_USR_LIMIT = 2000
+        OLLAMA_USR_LIMIT = 4000
         system_trimmed = (system_content[:OLLAMA_SYS_LIMIT] + "\n...(이하 생략)") if len(system_content) > OLLAMA_SYS_LIMIT else system_content
         user_trimmed   = (user_content[:OLLAMA_USR_LIMIT]   + "\n...(이하 생략)") if len(user_content)   > OLLAMA_USR_LIMIT else user_content
 
-        _, fallback, _ = call_ollama_sync(user_trimmed, system_trimmed, timeout=120)
+        _, fallback, _ = call_ollama_sync(user_trimmed, system_trimmed, timeout=300)
 
         # 오류 패턴: "초 시간 초과", "오류", "연결 실패", "빈 응답" 등은 실패로 간주
         _err_tokens = ("시간 초과", "연결 실패", "빈 응답", "HTTP ", "오류:", "Ollama")
@@ -169,7 +169,7 @@ def call_ollama_sync(prompt: str, system: str = "", model: str = None,
         "keep_alive": "30m",
         "think": False,
         "options": {
-            "num_predict": 4000,
+            "num_predict": 2000,
             "temperature": 0.3,
             "top_p": 0.9,
             "top_k": 40,
