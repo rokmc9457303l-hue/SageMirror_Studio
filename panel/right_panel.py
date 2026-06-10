@@ -297,22 +297,54 @@ def render_chat_with_response():
             set_state("rp_history", history)
 
 
-def _fetch_channels(query: str, api_key: str, lang: str, max_results: int = 25) -> list:
-    """YouTube API 채널 검색 후 통계 포함 반환"""
+KO_QUERIES = [
+    "4070 심리 상담",
+    "인문학 다큐멘터리",
+    "쇼펜하우어 에세이 유튜브",
+    "관계 심리학 인간관계",
+    "실존주의 철학 채널",
+]
+
+EN_QUERIES = [
+    "Philosophy documentary 40s 50s",
+    "Jungian psychology channel",
+    "Stoicism for life advice",
+    "Existential crisis video essay",
+    "Psychology of relationships deep dive",
+]
+
+
+def _fetch_channels(queries: list, api_key: str, lang: str, max_results: int = 10) -> list:
+    """여러 키워드로 YouTube 채널 검색 후 중복 제거 + 통계 반환"""
     import requests as _req
-    params = f"part=snippet&q={query}&type=channel&maxResults={max_results}&key={api_key}"
-    if lang == "ko":
-        params += "&relevanceLanguage=ko&regionCode=KR"
-    items = _req.get(
-        f"https://www.googleapis.com/youtube/v3/search?{params}", timeout=15
-    ).json().get("items", [])
-    if not items:
+    seen_ids = set()
+    all_items = []
+    for q in queries:
+        params = f"part=snippet&q={q}&type=channel&maxResults={max_results}&key={api_key}"
+        if lang == "ko":
+            params += "&relevanceLanguage=ko&regionCode=KR"
+        items = _req.get(
+            f"https://www.googleapis.com/youtube/v3/search?{params}", timeout=15
+        ).json().get("items", [])
+        for item in items:
+            cid = item["id"]["channelId"]
+            if cid not in seen_ids:
+                seen_ids.add(cid)
+                all_items.append(cid)
+
+    if not all_items:
         return []
-    ids = ",".join(i["id"]["channelId"] for i in items)
-    channels = _req.get(
-        f"https://www.googleapis.com/youtube/v3/channels"
-        f"?part=snippet,statistics&id={ids}&key={api_key}", timeout=15
-    ).json().get("items", [])
+
+    # 50개씩 나눠서 통계 조회 (API 제한)
+    channels = []
+    for i in range(0, len(all_items), 50):
+        batch = ",".join(all_items[i:i+50])
+        resp = _req.get(
+            f"https://www.googleapis.com/youtube/v3/channels"
+            f"?part=snippet,statistics&id={batch}&key={api_key}", timeout=15
+        ).json().get("items", [])
+        channels.extend(resp)
+
     result = []
     for ch in channels:
         stats = ch.get("statistics", {})
@@ -327,21 +359,19 @@ def _fetch_channels(query: str, api_key: str, lang: str, max_results: int = 25) 
                 "subs": "비공개" if hidden else f"{subs:,}명",
                 "views": f"{views:,}회",
                 "desc": snippet.get("description", "")[:120],
-                "lang": lang,
             })
     return result
 
 
-def search_youtube_channels(query: str, api_key: str, max_results: int = 25) -> str:
+def search_youtube_channels(query: str, api_key: str, max_results: int = 10) -> str:
     """국내 5개 + 국외 5개 심리학·철학 채널 검색"""
-    import requests as _req
     try:
-        domestic = _fetch_channels(f"{query} 심리학 철학", api_key, "ko", max_results)
-        foreign  = _fetch_channels(f"{query} psychology philosophy", api_key, "en", max_results)
+        domestic = _fetch_channels(KO_QUERIES, api_key, "ko", max_results)
+        foreign  = _fetch_channels(EN_QUERIES, api_key, "en", max_results)
 
         lines = ["[YouTube 채널 검색결과 — 구독자 1만↓ + 조회수 10만↑]"]
 
-        lines.append("\n■ 국내 채널 (심리학·철학)")
+        lines.append("\n■ 국내 채널")
         if domestic:
             for i, ch in enumerate(domestic[:5], 1):
                 lines.append(
@@ -351,9 +381,9 @@ def search_youtube_channels(query: str, api_key: str, max_results: int = 25) -> 
                     f"   {ch['desc']}"
                 )
         else:
-            lines.append("   (조건 충족 채널 없음 — Gemini가 직접 추천)")
+            lines.append("   (API 조건 충족 채널 없음 — Gemini 지식으로 직접 추천)")
 
-        lines.append("\n■ 국외 채널 (psychology·philosophy)")
+        lines.append("\n■ 국외 채널")
         if foreign:
             for i, ch in enumerate(foreign[:5], 1):
                 lines.append(
@@ -363,7 +393,7 @@ def search_youtube_channels(query: str, api_key: str, max_results: int = 25) -> 
                     f"   {ch['desc']}"
                 )
         else:
-            lines.append("   (조건 충족 채널 없음 — Gemini가 직접 추천)")
+            lines.append("   (API 조건 충족 채널 없음 — Gemini 지식으로 직접 추천)")
 
         return "\n".join(lines)
     except Exception as e:
@@ -440,12 +470,18 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
                 + yt_context + "\n\n"
             )
         system_prompt += (
+            "[채널 선정 기준 — 엄격 준수]\n"
+            "1. 구독자 1만↓ '숨은 보석' 또는 10만↓ '급성장 채널'\n"
+            "2. 지식 나열 아닌 시청자 '내면 결핍'을 공감으로 치유하는 서사 중심 채널\n"
+            "3. 2025~2026 트렌드 부합 (긴 호흡 롱폼, 인간 중심 나레이션)\n"
+            "4. 다크심리학(가스라이팅/나르시시즘/정서적 착취) 다루는 채널 우대\n"
+            "5. 표절·재사용·컴필레이션 채널 철저 배제 — 오리지널 기획력 채널만\n\n"
             "[분석 기준]\n"
-            "1. 현재 트렌드 적합성 (4070 감정·철학·심리 콘텐츠)\n"
-            "2. 구독자 대비 조회수 비율 (떡상 지수)\n"
-            "3. 콘텐츠 방향성 유사성 (현자의 거울 채널 기준)\n\n"
+            "- 구독자 대비 조회수 비율 (떡상 지수)\n"
+            "- 4070 감정·철학·심리 콘텐츠 적합성\n"
+            "- 현자의 거울 채널 방향성 유사도\n\n"
             "[출력 형식]\n"
-            "국내 5개 / 국외 5개 각각: 채널명, URL, 구독자수, 주요 조회수, 선정이유\n"
+            "국내 5개 / 국외 5개 각각: 채널명, URL, 구독자수, 대표 조회수, 선정이유\n"
             "마지막에 최종 벤치마킹 추천 1개를 아래 형식으로 반드시 기재:\n"
             "[선정채널URL: https://www.youtube.com/channel/CHANNEL_ID]\n"
         )
