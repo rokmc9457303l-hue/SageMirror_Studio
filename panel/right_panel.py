@@ -30,8 +30,9 @@ BRAIN_SYSTEM_PROMPT = """너는 현자의 거울 스튜디오의 공장장 젬�
 """
 
 
-def call_gemini_with_messages(messages: list, model_key: str) -> str:
-    """Gemini API 멀티턴 호출"""
+def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 3) -> str:
+    """Gemini API 멀티턴 호출 — 503/429 재시도 + Ollama 폴백"""
+    import time
     try:
         from google import genai as _genai
         api_key = st.session_state.get("api_gemini", "")
@@ -69,6 +70,18 @@ def call_gemini_with_messages(messages: list, model_key: str) -> str:
         )
         return resp.text or "응답 없음"
     except Exception as e:
+        err_str = str(e)
+        # 503(과부하) / 429(쿼터) → 재시도
+        if _retry > 0 and ("503" in err_str or "429" in err_str or "UNAVAILABLE" in err_str):
+            wait = (4 - _retry) * 5  # 5초 → 10초 → 15초
+            time.sleep(wait)
+            return call_gemini_with_messages(messages, model_key, _retry - 1)
+        # 재시도 소진 → Ollama 폴백
+        user_content = next((m["content"] for m in reversed(messages) if m["role"] == "user"), "")
+        system_content = next((m["content"] for m in messages if m["role"] == "system"), "")
+        _, fallback, _ = call_ollama_sync(user_content, system_content)
+        if fallback:
+            return f"[Gemini 불가 — Gemma 대체 응답]\n{fallback}"
         return f"[Gemini 오류] {e}"
 
 
