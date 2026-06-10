@@ -345,9 +345,10 @@ def render_chat_with_response():
             col = cols[idx % n]
             if col.button(f"📤 {short}", key=f"rp_bench_{idx}", help=url, use_container_width=True):
                 set_state("p1_channel_url", url)
-                set_state("p1_channel_url_pending", url)  # widget pop 신호 (rerun 후 적용)
+                set_state("p1_channel_url_pending", url)  # widget pop 신호
+                set_state("p1_nav_pending", 1)            # Part 1 자동 이동
                 set_state("rp_last_channel_urls", [])
-                st.toast(f"✅ 벤치마킹 탭에 적용됨: {url}")
+                st.toast(f"✅ Part 1 벤치마킹 탭으로 이동합니다")
                 st.rerun()
 
 
@@ -423,20 +424,30 @@ def _fetch_channels(queries: list, api_key: str, lang: str, max_results: int = 1
         hidden = stats.get("hiddenSubscriberCount", False)
         subs = int(stats.get("subscriberCount", 0)) if not hidden else 0
         views = int(stats.get("viewCount", 0))
+        video_count = max(int(stats.get("videoCount", 1)), 1)
         if (hidden or subs <= 10000) and views >= 100000:
             ch_id = ch["id"]
             recently_active = _is_recently_active(ch_id, api_key, days=15)
+            # 떡상 지수: 구독자 대비 총 조회수 (높을수록 숨은 보석)
+            bang_score = views / max(subs if not hidden else 500, 1)
+            # 영상당 평균 조회수 (시청지속 간접 지표)
+            avg_views = views // video_count
             result.append({
                 "id": ch_id,
                 "name": snippet.get("title", ""),
                 "url": f"https://www.youtube.com/channel/{ch_id}",
                 "subs": "비공개" if hidden else f"{subs:,}명",
                 "views": f"{views:,}회",
+                "avg_views": f"{avg_views:,}회/영상",
+                "bang_score": bang_score,
                 "desc": snippet.get("description", "")[:120],
                 "recent": "✅ 15일내 업로드" if recently_active else "⚠️ 장기 미업로드",
             })
-    # 최근 활동 채널 우선 정렬
-    result.sort(key=lambda x: 0 if x["recent"].startswith("✅") else 1)
+    # 정렬: 1순위 최근 활동, 2순위 떡상 지수 높은 순
+    result.sort(key=lambda x: (
+        0 if x["recent"].startswith("✅") else 1,
+        -x.get("bang_score", 0)
+    ))
     return result
 
 
@@ -449,26 +460,31 @@ def search_youtube_channels(query: str, api_key: str, max_results: int = 10) -> 
         lines = ["[YouTube 채널 검색결과 — 구독자 1만↓ + 조회수 10만↑]"]
 
         lines.append("\n■ 국내 채널")
+        def _fmt_ch(i, ch):
+            bang = ch.get("bang_score", 0)
+            bang_label = (
+                "🔥🔥 초강력 떡상" if bang >= 500 else
+                "🔥 떡상" if bang >= 100 else
+                "📈 성장중" if bang >= 30 else "➡️ 일반"
+            )
+            return (
+                f"{i}. {ch['name']} {ch.get('recent', '')} {bang_label}\n"
+                f"   구독자: {ch['subs']} | 총조회수: {ch['views']} "
+                f"| 영상당평균: {ch.get('avg_views','?')} | 떡상지수: {bang:.0f}x\n"
+                f"   URL: {ch['url']}\n"
+                f"   {ch['desc']}"
+            )
+
         if domestic:
             for i, ch in enumerate(domestic[:5], 1):
-                lines.append(
-                    f"{i}. {ch['name']} {ch.get('recent', '')}\n"
-                    f"   구독자: {ch['subs']} | 총조회수: {ch['views']}\n"
-                    f"   URL: {ch['url']}\n"
-                    f"   {ch['desc']}"
-                )
+                lines.append(_fmt_ch(i, ch))
         else:
             lines.append("   (API 조건 충족 채널 없음 — Gemini 지식으로 직접 추천)")
 
         lines.append("\n■ 국외 채널")
         if foreign:
             for i, ch in enumerate(foreign[:5], 1):
-                lines.append(
-                    f"{i}. {ch['name']} {ch.get('recent', '')}\n"
-                    f"   구독자: {ch['subs']} | 총조회수: {ch['views']}\n"
-                    f"   URL: {ch['url']}\n"
-                    f"   {ch['desc']}"
-                )
+                lines.append(_fmt_ch(i, ch))
         else:
             lines.append("   (API 조건 충족 채널 없음 — Gemini 지식으로 직접 추천)")
 
@@ -560,14 +576,18 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         system_prompt += (
             "[채널 선정 기준 — 엄격 준수]\n"
             "1. 구독자 1만↓ '숨은 보석' 또는 10만↓ '급성장 채널'\n"
-            "   ★ 최근 15일 이내 영상을 꾸준히 업로드하는 '활성 채널' 최우선 선정\n"
-            "   (API 결과에 ✅ 15일내 업로드 표시된 채널 우선, ⚠️ 장기 미업로드 채널 감점)\n"
-            "2. 지식 나열 아닌 시청자 '내면 결핍'을 공감으로 치유하는 서사 중심 채널\n"
-            "3. 2025~2026 트렌드 부합 (긴 호흡 롱폼, 인간 중심 나레이션)\n"
-            "4. 다크심리학(가스라이팅/나르시시즘/정서적 착취) 다루는 채널 우대\n"
-            "5. 표절·재사용·컴필레이션 채널 철저 배제 — 오리지널 기획력 채널만\n\n"
+            "   ★ 최근 15일 이내 영상을 꾸준히 업로드하는 '활성 채널' 최우선\n"
+            "   API 결과: ✅ 15일내 업로드·🔥 떡상지수 높은 채널 우선, ⚠️ 미업로드 채널 감점\n"
+            "2. 떡상 지수(조회수÷구독자) 높은 채널 — 구독자 대비 폭발적 조회수 = 알고리즘 탑승 신호\n"
+            "3. 시청지속시간 우수 채널 — 영상당 평균 조회수가 구독자 수 대비 50% 이상인 채널\n"
+            "4. 지식 나열 아닌 시청자 '내면 결핍'을 공감으로 치유하는 서사 중심 채널\n"
+            "5. 2025~2026 현재 트렌드 부합 (긴 호흡 롱폼, 인간 중심 나레이션, 감성 다큐)\n"
+            "6. 다크심리학(가스라이팅/나르시시즘/정서적 착취) 다루는 채널 우대\n"
+            "7. 표절·재사용·컴필레이션 채널 철저 배제 — 오리지널 기획력 채널만\n\n"
             "[분석 기준]\n"
-            "- 구독자 대비 조회수 비율 (떡상 지수)\n"
+            "- 떡상 지수: 총조회수 ÷ 구독자수 (30x↑ 성장중, 100x↑ 떡상, 500x↑ 초강력)\n"
+            "- 시청지속 지표: 영상당 평균 조회수 (높을수록 알고리즘 최적화)\n"
+            "- 현재 트렌드: 2025~2026년 감성 다큐·심리·철학 롱폼 유튜브 흐름\n"
             "- 4070 감정·철학·심리 콘텐츠 적합성\n"
             "- 현자의 거울 채널 방향성 유사도 (렘브란트풍·시네마틱·철학·성경)\n\n"
             "[출력 규칙 — 반드시 준수]\n"
@@ -635,7 +655,8 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         if url_match:
             selected_url = url_match.group(1).strip().rstrip('/.,)')
             set_state("p1_channel_url", selected_url)
-            set_state("p1_channel_url_pending", selected_url)  # widget pop 신호
+            set_state("p1_channel_url_pending", selected_url)
+            set_state("p1_nav_pending", 1)            # Part 1 자동 이동
             set_state("p1_bench_auto_selected", selected_url)
 
     if not result or result.strip() == "":

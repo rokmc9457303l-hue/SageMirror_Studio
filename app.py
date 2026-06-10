@@ -58,8 +58,16 @@ def render_sidebar():
         # 파트 선택
         st.markdown("#### 📂 작업 파트")
         part_options = [f"{i}. {PART_NAMES[i]}" for i in range(1, 9)]
+
+        # 채널 버튼 클릭 등으로 파트 이동 요청 시 → radio 위젯 렌더 전에 처리
+        nav_target = get_state("p1_nav_pending", 0)
+        if nav_target:
+            st.session_state.pop("sb_part_radio", None)  # radio 위젯 state 초기화
+            set_state("current_part", nav_target)
+            set_state("p1_nav_pending", 0)
+
         current = get_state("current_part", 1)
-        
+
         selected = st.radio(
             "이동할 파트",
             part_options,
