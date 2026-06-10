@@ -97,28 +97,36 @@ def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 2) -
             time.sleep((3 - _retry) * 5)
             return call_gemini_with_messages(messages, model_key, _retry - 1)
 
+        # ── Gemini 오류 로깅 ─────────────────────────────
+        gemini_err_short = err_str[:200]
+
         # ── Ollama 폴백 ──────────────────────────────────
         user_content   = next((m["content"] for m in reversed(messages) if m["role"] == "user"), "")
         system_content = next((m["content"] for m in messages if m["role"] == "system"), "")
 
-        # 시스템프롬프트가 너무 길면 Ollama도 타임아웃 → 핵심만 트림
+        # 시스템프롬프트 + 사용자 메시지 트림 (Ollama 부하 최소화)
         OLLAMA_SYS_LIMIT = 1500
-        if len(system_content) > OLLAMA_SYS_LIMIT:
-            system_trimmed = system_content[:OLLAMA_SYS_LIMIT] + "\n...(이하 생략)"
-        else:
-            system_trimmed = system_content
+        OLLAMA_USR_LIMIT = 2000
+        system_trimmed = (system_content[:OLLAMA_SYS_LIMIT] + "\n...(이하 생략)") if len(system_content) > OLLAMA_SYS_LIMIT else system_content
+        user_trimmed   = (user_content[:OLLAMA_USR_LIMIT]   + "\n...(이하 생략)") if len(user_content)   > OLLAMA_USR_LIMIT else user_content
 
-        _, fallback, _ = call_ollama_sync(user_content, system_trimmed, timeout=60)
-        if fallback and not fallback.startswith("["):
+        _, fallback, _ = call_ollama_sync(user_trimmed, system_trimmed, timeout=120)
+
+        # 오류 패턴: "초 시간 초과", "오류", "연결 실패", "빈 응답" 등은 실패로 간주
+        _err_tokens = ("시간 초과", "연결 실패", "빈 응답", "HTTP ", "오류:", "Ollama")
+        _is_fallback_err = not fallback or any(t in fallback for t in _err_tokens)
+
+        if not _is_fallback_err:
             return f"[Gemini 불가 → Gemma 대체]\n{fallback}"
 
-        # 둘 다 실패 → 명확한 안내 반환
+        # 둘 다 실패 → Gemini 실제 오류 + 안내 반환
         return (
-            f"⚠️ **Gemini 응답 실패**: {err_str[:120]}\n\n"
+            f"⚠️ **Gemini 오류**: `{gemini_err_short}`\n\n"
+            f"⚠️ **Gemma 오류**: `{fallback[:100]}`\n\n"
             "**해결 방법:**\n"
-            "1. Gemini API 키 확인 (AIza... 형식이어야 함)\n"
-            "2. Google AI Studio에서 새 키 발급\n"
-            "3. 또는 잠시 후 다시 시도"
+            "1. Gemini API 키 만료 여부 확인 (AI Studio에서 재발급)\n"
+            "2. Ollama 서버 실행 상태 확인\n"
+            "3. 잠시 후 재시도"
         )
 
 
