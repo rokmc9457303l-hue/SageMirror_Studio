@@ -20,3 +20,7 @@ data/google_credentials.json
 
 # 동기화 상태 (런타임 생성)
 data/gdrive_sync_state.json
+data/workspace_state.json
+data/drive_sync_state.json
+data/content_hashes.json
+company_state.json
