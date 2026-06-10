@@ -273,12 +273,22 @@ def render_right_panel():
         st.rerun()
 
 
+def _extract_yt_urls(text: str) -> list:
+    """응답 텍스트에서 YouTube 채널 URL 중복 없이 추출"""
+    import re
+    urls = re.findall(
+        r'https://www\.youtube\.com/(?:channel|c|@)[^\s)\]"\'<>]+',
+        text
+    )
+    return list(dict.fromkeys(url.rstrip('/.,') for url in urls))
+
+
 def render_chat_with_response():
     """대화 표시 + 응답 생성 (모두 컨테이너 안)"""
     history = get_state("rp_history", [])
-    
+
     box = st.container(height=700, border=True)
-    
+
     with box:
         if not history:
             st.markdown(
@@ -288,11 +298,11 @@ def render_chat_with_response():
                 unsafe_allow_html=True
             )
             return
-        
+
         for msg in history:
             with st.chat_message(msg["role"]):
                 st.markdown(msg["content"])
-        
+
         if history[-1]["role"] == "user":
             user_msg = history[-1]["content"]
             model_key = get_state("rp_model", DEFAULT_MODEL)
@@ -313,6 +323,31 @@ def render_chat_with_response():
                 "model": model_key,
             })
             set_state("rp_history", history)
+            # 응답에서 채널 URL 추출 → 버튼용 저장
+            extracted = _extract_yt_urls(response)
+            if extracted:
+                set_state("rp_last_channel_urls", extracted)
+
+    # ── 채팅 컨테이너 밖: 채널 벤치마킹 바로 적용 버튼 ────────────
+    # 마지막 assistant 응답에서 추출한 채널 URL이 있으면 버튼 표시
+    last_urls = get_state("rp_last_channel_urls", [])
+    if not last_urls and history and history[-1]["role"] == "assistant":
+        last_urls = _extract_yt_urls(history[-1]["content"])
+        if last_urls:
+            set_state("rp_last_channel_urls", last_urls)
+
+    if last_urls:
+        st.markdown("##### 📌 채널 벤치마킹 바로 적용")
+        n = min(len(last_urls), 3)
+        cols = st.columns(n)
+        for idx, url in enumerate(last_urls[:6]):
+            short = url.rstrip('/').split('/')[-1][:28]
+            col = cols[idx % n]
+            if col.button(f"📤 {short}", key=f"rp_bench_{idx}", help=url, use_container_width=True):
+                set_state("p1_channel_url", url)
+                set_state("rp_last_channel_urls", [])
+                st.toast(f"✅ 벤치마킹 탭에 적용됨: {url}")
+                st.rerun()
 
 
 KO_QUERIES = [
@@ -332,8 +367,25 @@ EN_QUERIES = [
 ]
 
 
+def _is_recently_active(channel_id: str, api_key: str, days: int = 15) -> bool:
+    """최근 days일 이내 영상 업로드 여부 확인 (YouTube search API)"""
+    from datetime import datetime, timedelta, timezone
+    import requests as _req
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).strftime('%Y-%m-%dT%H:%M:%SZ')
+    try:
+        url = (
+            f"https://www.googleapis.com/youtube/v3/search"
+            f"?part=snippet&channelId={channel_id}&type=video"
+            f"&order=date&maxResults=1&publishedAfter={cutoff}&key={api_key}"
+        )
+        items = _req.get(url, timeout=10).json().get("items", [])
+        return len(items) > 0
+    except Exception:
+        return True  # 오류 시 필터링 생략
+
+
 def _fetch_channels(queries: list, api_key: str, lang: str, max_results: int = 10) -> list:
-    """여러 키워드로 YouTube 채널 검색 후 중복 제거 + 통계 반환"""
+    """여러 키워드로 YouTube 채널 검색 후 중복 제거 + 통계 + 최근 15일 활동 반환"""
     import requests as _req
     seen_ids = set()
     all_items = []
@@ -371,13 +423,19 @@ def _fetch_channels(queries: list, api_key: str, lang: str, max_results: int = 1
         subs = int(stats.get("subscriberCount", 0)) if not hidden else 0
         views = int(stats.get("viewCount", 0))
         if (hidden or subs <= 10000) and views >= 100000:
+            ch_id = ch["id"]
+            recently_active = _is_recently_active(ch_id, api_key, days=15)
             result.append({
+                "id": ch_id,
                 "name": snippet.get("title", ""),
-                "url": f"https://www.youtube.com/channel/{ch['id']}",
+                "url": f"https://www.youtube.com/channel/{ch_id}",
                 "subs": "비공개" if hidden else f"{subs:,}명",
                 "views": f"{views:,}회",
                 "desc": snippet.get("description", "")[:120],
+                "recent": "✅ 15일내 업로드" if recently_active else "⚠️ 장기 미업로드",
             })
+    # 최근 활동 채널 우선 정렬
+    result.sort(key=lambda x: 0 if x["recent"].startswith("✅") else 1)
     return result
 
 
@@ -393,7 +451,7 @@ def search_youtube_channels(query: str, api_key: str, max_results: int = 10) -> 
         if domestic:
             for i, ch in enumerate(domestic[:5], 1):
                 lines.append(
-                    f"{i}. {ch['name']}\n"
+                    f"{i}. {ch['name']} {ch.get('recent', '')}\n"
                     f"   구독자: {ch['subs']} | 총조회수: {ch['views']}\n"
                     f"   URL: {ch['url']}\n"
                     f"   {ch['desc']}"
@@ -405,7 +463,7 @@ def search_youtube_channels(query: str, api_key: str, max_results: int = 10) -> 
         if foreign:
             for i, ch in enumerate(foreign[:5], 1):
                 lines.append(
-                    f"{i}. {ch['name']}\n"
+                    f"{i}. {ch['name']} {ch.get('recent', '')}\n"
                     f"   구독자: {ch['subs']} | 총조회수: {ch['views']}\n"
                     f"   URL: {ch['url']}\n"
                     f"   {ch['desc']}"
@@ -500,6 +558,8 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         system_prompt += (
             "[채널 선정 기준 — 엄격 준수]\n"
             "1. 구독자 1만↓ '숨은 보석' 또는 10만↓ '급성장 채널'\n"
+            "   ★ 최근 15일 이내 영상을 꾸준히 업로드하는 '활성 채널' 최우선 선정\n"
+            "   (API 결과에 ✅ 15일내 업로드 표시된 채널 우선, ⚠️ 장기 미업로드 채널 감점)\n"
             "2. 지식 나열 아닌 시청자 '내면 결핍'을 공감으로 치유하는 서사 중심 채널\n"
             "3. 2025~2026 트렌드 부합 (긴 호흡 롱폼, 인간 중심 나레이션)\n"
             "4. 다크심리학(가스라이팅/나르시시즘/정서적 착취) 다루는 채널 우대\n"
