@@ -284,6 +284,10 @@ def render_chat_with_response():
                     response = generate_response_sync(user_msg, history[:-1], model_key)
                     status_box.update(label="✅ 완료", state="complete")
                 st.markdown(response)
+                auto_url = get_state("p1_bench_auto_selected", "")
+                if auto_url:
+                    st.success(f"✅ 벤치마킹 탭에 자동 입력됨: {auto_url}")
+                    set_state("p1_bench_auto_selected", "")
             history.append({
                 "role": "assistant",
                 "content": response,
@@ -391,12 +395,16 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
     )
     if yt_context:
         system_prompt += (
-            "\n[YouTube API 실시간 채널 검색 결과 - 반드시 아래 데이터를 그대로 포함하여 답변하세요]\n"
-            + yt_context + "\n"
+            "\n[YouTube API 실시간 채널 검색 결과]\n"
+            + yt_context
+            + "\n\n위 채널들을 현재 트렌드 적합성과 성장 가능성(떡상 가능성) 기준으로 분석하여 "
+            "벤치마킹에 가장 적합한 채널 1개를 선정하세요.\n"
+            "답변 마지막에 반드시 아래 형식으로 선정 채널 URL을 기재하세요:\n"
+            "[선정채널URL: https://www.youtube.com/channel/CHANNEL_ID]\n"
         )
     if tavily_context:
         system_prompt += (
-            "\n[실시간 검색 결과 - 반드시 아래 정보를 바탕으로 답변하세요]\n"
+            "\n[실시간 트렌드 검색 결과]\n"
             + tavily_context + "\n"
         )
 
@@ -406,19 +414,34 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         messages.append({"role": h["role"], "content": h["content"]})
     messages.append({"role": "user", "content": user_msg})
 
-    # 4. 모델 라우팅
+    # 4. 모델 라우팅 — YouTube 채널 분석 시 Gemini 강제 사용
     cur_model = st.session_state.get("current_model", DEFAULT_MODEL)
     model_info = MODELS.get(cur_model, {})
     model_type = model_info.get("type", "local")
 
-    if model_type == "remote":
+    if yt_context:
+        # YouTube 채널 분석은 Gemini로 강제 라우팅
+        gemini_model = next(
+            (k for k, v in MODELS.items() if v.get("type") == "remote"),
+            "gemini-2.5-flash"
+        )
+        result = call_gemini_with_messages(messages, gemini_model)
+    elif model_type == "remote":
         result = call_gemini_with_messages(messages, cur_model)
     else:
         success, result, _ = call_ollama_sync(user_msg, system_prompt, cur_model)
         if not success:
             result = result or "응답을 생성하지 못했습니다."
 
+    # 5. 선정 채널 URL 자동 추출 → 벤치마킹 탭 푸시
+    if yt_context and result:
+        import re
+        url_match = re.search(r'\[선정채널URL:\s*(https://[^\]\s]+)\]', result)
+        if url_match:
+            selected_url = url_match.group(1).strip()
+            set_state("p1_channel_url", selected_url)
+            set_state("p1_bench_auto_selected", selected_url)
+
     if not result or result.strip() == "":
-        debug_info = f"[디버그] model_type={model_type}, cur_model={cur_model}, tavily_context길이={len(tavily_context)}"
-        return debug_info
+        return f"[디버그] model_type={model_type}, yt_context길이={len(yt_context)}, tavily_context길이={len(tavily_context)}"
     return result
