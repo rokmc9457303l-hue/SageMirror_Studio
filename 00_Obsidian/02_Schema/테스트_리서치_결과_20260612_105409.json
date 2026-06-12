@@ -1,0 +1,13 @@
+{
+  "memory_id": "테스트_리서치_결과_20260612_105409",
+  "title": "테스트_리서치_결과",
+  "source_type": "Right_Gemma_Test",
+  "part_key": "part1",
+  "model_name": "test-model",
+  "raw_path": "C:\\SageMirror_Production\\00_Obsidian\\00_Raw\\테스트_리서치_결과_20260612_105409.md",
+  "wiki_path": "C:\\SageMirror_Production\\00_Obsidian\\01_Wiki\\테스트_리서치_결과_20260612_105409.md",
+  "schema_path": "C:\\SageMirror_Production\\00_Obsidian\\02_Schema\\테스트_리서치_결과_20260612_105409.json",
+  "created_at": "2026-06-12 10:54:09",
+  "content_length": 63,
+  "storage_format": "Raw/Wiki/Schema"
+}

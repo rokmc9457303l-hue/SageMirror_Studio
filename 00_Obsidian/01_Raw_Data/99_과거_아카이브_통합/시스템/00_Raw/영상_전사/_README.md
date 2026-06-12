@@ -1,0 +1,22 @@
+---
+channel_id: UNCLASSIFIED
+category: 일반/미분류
+status: "#Raw_Data"
+migrated_date: 2026-06-12
+---
+# 영상_전사 폴더
+
+## 목적
+원본 자료 보존
+
+## 저장 형식
+원본 그대로 보존 (가공 없음)
+
+## 자동 저장
+앱이 자동으로 이곳에 자료를 저장합니다.
+- 형식: Markdown (.md)
+- 메타: YAML frontmatter
+- 명명: 시각_제목.md
+
+## 카테고리
+영상_전사

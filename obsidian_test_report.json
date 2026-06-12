@@ -1,0 +1,28 @@
+{
+  "before": {
+    "raw": 0,
+    "wiki": 0,
+    "schema": 0
+  },
+  "after": {
+    "raw": 1,
+    "wiki": 1,
+    "schema": 1
+  },
+  "result_msg": "Raw+Wiki+Schema 저장 완료: 테스트_리서치_결과_20260612_105409.md",
+  "newest_raw": {
+    "path": "C:\\SageMirror_Production\\00_Obsidian\\00_Raw\\테스트_리서치_결과_20260612_105409.md",
+    "size": 330,
+    "mtime": 1781229249.897226
+  },
+  "newest_wiki": {
+    "path": "C:\\SageMirror_Production\\00_Obsidian\\01_Wiki\\테스트_리서치_결과_20260612_105409.md",
+    "size": 457,
+    "mtime": 1781229250.0451899
+  },
+  "newest_schema": {
+    "path": "C:\\SageMirror_Production\\00_Obsidian\\02_Schema\\테스트_리서치_결과_20260612_105409.json",
+    "size": 651,
+    "mtime": 1781229250.0525706
+  }
+}

@@ -1,0 +1,7 @@
+﻿682: '@st.dialog("?뱴 ?듭떆?붿뼵 洹쒖튃?????곸꽭 ?몄쭛", width="large")'
+734: '@st.dialog("?렞 湲곕낯 ?꾨＼?꾪듃 ?몄쭛", width="large")'
+785: '@st.dialog("?숋툘 ?뚰듃 吏곸젒 ?묒뾽 吏????Gemma AI ?묒뾽 ?ㅽ뻾", width="large")'
+1362: '    @st.dialog ?앹뾽 ?대??먯꽌 ?ㅽ듃由щ컢 placeholder ?ㅼ떆媛??낅뜲?댄듃媛'
+1364: '    sage_engine.call_gemma() ?숆린 ?몄텧 ??popup_assistant?먯꽌'
+1471: '@st.dialog("?쨼 ?댁떆?ㅽ꽩??, width="large")'
+1472: 'def popup_assistant():'

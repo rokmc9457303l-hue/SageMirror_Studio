@@ -1,0 +1,36 @@
+{
+  "found_completed_folders": [
+    {
+      "Name": "V17_Completed_RightResearchPanel_UICheckpoint_001_20260610",
+      "Time": 1781100065.325178
+    }
+  ],
+  "latest_folder": "C:\\SageMirror_Production\\V17_Completed_RightResearchPanel_UICheckpoint_001_20260610",
+  "latest_folder_time": 1781100065.325178,
+  "has_newer_than_target": false,
+  "core_files_exist": {
+    "app_v17_2_3.py": true,
+    "sage_popups_v17_2_3.py": true,
+    "sage_config.py": true,
+    "sage_engine.py": true,
+    "research_router.py": true,
+    "agent_toolkit.py": true,
+    "agent_registry.py": true,
+    "memory_state_manager.py": true,
+    "rag_memory_utils.py": true,
+    "rag_tag_system.py": true,
+    "obsidian_search.py": true
+  },
+  "has_render_right_gemma_panel": true,
+  "has_right_research_history": true,
+  "has_render_part0_assistant": false,
+  "has_popup_assistant": false,
+  "has_running_version": false,
+  "has_master_pin": false,
+  "has_gemma_assistant": false,
+  "has_text_input": true,
+  "has_text_area": true,
+  "hash_app": "1bcac13d7ee2b46c998568b39f7edd01855618642050db5f3814538867af952d",
+  "hash_popups": "a685d7c0f97bf55a4623ed492396735577dfa576741f944882ef51debea3d2c6",
+  "new_work_dir": "C:\\SageMirror_Production\\V17_Working_Part1Benchmark_001"
+}

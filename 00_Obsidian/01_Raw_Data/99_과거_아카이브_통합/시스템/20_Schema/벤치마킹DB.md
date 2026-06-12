@@ -1,0 +1,15 @@
+---
+type: 벤치마킹DB
+fields: [채널명, URL, 영상제목, 조회수, 후킹방식, 구조패턴, 핵심키워드, 감정곡선]
+-
+channel_id: UNCLASSIFIED
+category: 유튜브전략
+status: "#Raw_Data"
+migrated_date: 2026-06-12
+---
+# YouTube 벤치마킹 데이터베이스
+
+분석한 유튜브 영상들의 구조·전략 DB.
+
+## 자동 추가
+우측 작업창에서 유튜브 URL 입력 시 자동 분석·등재.
