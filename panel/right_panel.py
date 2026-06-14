@@ -303,8 +303,47 @@ def render_right_panel():
     part_name = PART_NAMES.get(current_part, "?")
     
     st.markdown("### 🧙 SAGE 브레인")
+
+    # ── Task 24: 시작 버튼 ─────────────────────────────────────────
+    try:
+        from core.profile_loader import load_current_profile
+        _cur_profile = load_current_profile()
+        _cur_ch_name = _cur_profile.get("channel_name", "채널")
+    except Exception:
+        _cur_ch_name = "채널"
+
+    _start_col, _edit_col = st.columns([4, 1])
+    with _start_col:
+        if st.button(
+            f"🚀 시작 — {_cur_ch_name}",
+            key="rp_start_btn",
+            use_container_width=True,
+            type="primary",
+            help="현재 채널로 자동 시작 (채널검색 + 댓글분석 + 주제발굴)",
+        ):
+            _start_response = start_channel_workflow()
+            _hist = get_state("rp_history", [])
+            _hist.append({"role": "user", "content": "시작",
+                          "timestamp": datetime.now().isoformat()})
+            _hist.append({"role": "assistant", "content": _start_response,
+                          "timestamp": datetime.now().isoformat()})
+            set_state("rp_history", _hist)
+            set_state("rp_input_counter", get_state("rp_input_counter", 0) + 1)
+            st.rerun()
+    with _edit_col:
+        _md_edit_on = get_state("rp_md_editor_open", False)
+        if st.button("✏️", key="rp_md_edit_btn", help="프롬프트 MD 편집",
+                     use_container_width=True):
+            set_state("rp_md_editor_open", not _md_edit_on)
+            st.rerun()
+
+    # MD 편집기 패널
+    if get_state("rp_md_editor_open", False):
+        with st.container(border=True):
+            render_md_editor()
+
     st.caption(f"📍 Part {current_part} - {part_name}")
-    
+
     # 자동 모니터링 상태
     from core.auto_monitor import get_all_status, has_alerts, get_alert_summary
     status = get_all_status()
@@ -794,6 +833,147 @@ def search_youtube_channels(query: str, api_key: str, max_results: int = 5) -> s
         return f"[YouTube 검색 오류] {e}"
 
 
+# ── Task 23/24: "시작" 명령 핸들러 ──────────────────────────────────
+
+_START_KEYWORDS = {"시작", "start", "go", "ㅅㅈ", "출발", "시작!", "시작하자", "시작해"}
+
+
+def handle_command(user_input: str) -> str:
+    """우측 대화창 명령 처리 — 특수 명령 감지 후 라우팅"""
+    cmd = user_input.strip().lower().rstrip("!")
+    if cmd in _START_KEYWORDS or user_input.strip() in _START_KEYWORDS:
+        return start_channel_workflow()
+    return ""  # 일반 메시지 → generate_response_sync 에서 처리
+
+
+def start_channel_workflow() -> str:
+    """현재 채널로 자동 시작 — LibrarianAgent 자동 실행"""
+    try:
+        from core.profile_loader import load_current_profile
+        profile = load_current_profile()
+    except Exception:
+        profile = {}
+
+    channel_name = profile.get("channel_name", "")
+    channel_key  = st.session_state.get("current_channel_profile", "")
+
+    if not channel_key or not channel_name:
+        return (
+            "먼저 채널을 선택해주세요.\n\n"
+            "사이드바 **채널 선택** 드롭다운에서 채널을 고르거나,\n"
+            "**+ 새 채널 만들기**로 채널을 생성하세요."
+        )
+
+    # 채널 MD 파일 로드
+    try:
+        from core.md_loader import load_channel_md
+        identity  = load_channel_md(channel_key, "IDENTITY.md")
+        start_cmd = load_channel_md(channel_key, "START_COMMAND.md")
+        topic_rules    = load_channel_md(channel_key, "TOPIC_RULES.md")
+        benchmark_rules = load_channel_md(channel_key, "BENCHMARK_RULES.md")
+    except Exception:
+        identity = start_cmd = topic_rules = benchmark_rules = ""
+
+    # 이전 영상 RAG
+    prev_context = ""
+    try:
+        from core.obsidian import search_rag
+        channel_dir = profile.get("obsidian_channel_dir", f"채널_{channel_name}")
+        prev_context = search_rag(channel_dir, max_files=5, max_chars=600)
+    except Exception:
+        pass
+
+    # LibrarianAgent 자동 실행
+    try:
+        from core.agents.librarian import LibrarianAgent
+        agent = LibrarianAgent(profile=profile)
+        context = {
+            "identity":       identity,
+            "start_command":  start_cmd,
+            "topic_rules":    topic_rules,
+            "benchmark_rules": benchmark_rules,
+            "previous_context": prev_context,
+            "channel_key":    channel_key,
+            "auto_start":     True,
+        }
+        result = agent.execute(context)
+        topics = result.get("topics", [])
+        if topics:
+            lines = [f"## 🚀 {channel_name} — 자동 시작 완료\n"]
+            lines.append("### 주제 후보 (댓글 기반)")
+            for i, t in enumerate(topics[:10], 1):
+                title = t.get("title", t.get("topic", str(t)))
+                reason = t.get("reason", "")
+                lines.append(f"**{i}.** {title}")
+                if reason:
+                    lines.append(f"   → {reason}")
+            lines.append("\n주제 번호를 입력하면 Part 2로 자동 진입합니다.")
+            return "\n".join(lines)
+        else:
+            return f"## 🚀 {channel_name} — 분석 완료\n\n{str(result)[:800]}"
+    except Exception as e:
+        # LibrarianAgent 없거나 오류 시 → 프롬프트 기반 시작 안내
+        parts = [f"## 🚀 {channel_name} 채널 시작"]
+        if identity:
+            parts.append(f"\n**채널 정체성 로드 완료**")
+            parts.append(f"- 타겟: {profile.get('target_audience', '')}")
+            parts.append(f"- 톤: {profile.get('tone', '')}")
+        if prev_context:
+            parts.append(f"\n**이전 자료 RAG 완료** — 기존 자료 참조 중")
+        if start_cmd:
+            parts.append(f"\n**실행 계획:**\n{start_cmd[:500]}")
+        parts.append(f"\n⚙️ Part 1 탭으로 이동하여 자료수집을 시작하세요.")
+        return "\n".join(parts)
+
+
+# ── Task 35: MD 편집기 UI ─────────────────────────────────────────────
+
+def render_md_editor():
+    """프롬프트 MD 파일 편집 UI (사이드바/우측 패널 고급 모드)"""
+    st.markdown("#### ⚙️ 프롬프트 편집")
+    try:
+        from core.md_loader import list_all_prompts, load_md, save_md
+        tree = list_all_prompts()
+    except Exception as e:
+        st.error(f"MD 로더 오류: {e}")
+        return
+
+    if not tree:
+        st.info("prompts/ 폴더에 MD 파일이 없습니다")
+        return
+
+    # 카테고리 선택
+    categories = list(tree.keys())
+    cat = st.selectbox("카테고리", categories, key="md_edit_cat")
+    files = tree.get(cat, [])
+    if not files:
+        return
+
+    file_names = [f["name"] for f in files]
+    sel_name = st.selectbox("파일", file_names, key="md_edit_file")
+    sel_file = next((f for f in files if f["name"] == sel_name), None)
+    if not sel_file:
+        return
+
+    current_content = load_md(sel_file["path"])
+    edited = st.text_area(
+        f"편집: {sel_file['rel']}",
+        value=current_content,
+        height=300,
+        key=f"md_edit_content_{sel_file['rel']}",
+    )
+
+    col1, col2 = st.columns(2)
+    if col1.button("💾 저장", key="md_edit_save", use_container_width=True, type="primary"):
+        try:
+            save_md(sel_file["path"], edited)
+            st.success(f"✅ 저장 완료 — 1분 후 자동 반영")
+        except Exception as e:
+            st.error(f"저장 오류: {e}")
+    if col2.button("↩️ 원복", key="md_edit_reset", use_container_width=True):
+        st.rerun()
+
+
 def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
     """도구 라우팅 → 컨텍스트 수집 → 모델 응답 생성
 
@@ -801,8 +981,14 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
     + Tavily 도구 활성화 시: 웹검색 결과 컨텍스트 추가
     + Gemini Deep 도구 활성화 시: Gemini 강제 사용
     + 유튜브 채널 키워드 감지 시: YouTube API + Gemini 강제
+    + "시작" 명령 감지 시: start_channel_workflow() 직접 실행
     """
     import requests as _req
+
+    # ── "시작" 명령 최우선 감지 ─────────────────────────────────────
+    cmd_response = handle_command(user_msg)
+    if cmd_response:
+        return cmd_response
 
     active_tool = get_state("rp_active_tool", "")
     extra_context = ""

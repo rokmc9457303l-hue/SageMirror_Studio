@@ -9,6 +9,7 @@ from .critic import CriticAgent
 from .librarian import LibrarianAgent, HitChannelFinder
 from .trend_analyzer import TrendAnalyzer
 from .quality_assurance import QualityAssuranceAgent
+from .identity_guard import IdentityGuardAgent
 from .loop import critic_scout_loop
 
 __all__ = [
@@ -21,5 +22,6 @@ __all__ = [
     "HitChannelFinder",
     "TrendAnalyzer",
     "QualityAssuranceAgent",
+    "IdentityGuardAgent",
     "critic_scout_loop",
 ]
