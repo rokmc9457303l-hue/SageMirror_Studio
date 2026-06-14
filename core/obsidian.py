@@ -12,14 +12,23 @@ from core.config import (
 import json as _json_schema
 
 
-def get_channel_path():
-    """현재 세션의 채널명으로 채널 경로 반환 (동적 다채널 지원)"""
+def get_channel_path(sub: str = "") -> Path:
+    """현재 채널의 옵시디언 Raw 경로 반환 (동적 — 하드코딩 없음).
+    profile_loader.get_channel_path() 위임. 하위 호환성 유지.
+    """
     try:
-        import streamlit as _st
-        ch = _st.session_state.get("current_channel_name", "현자의거울")
+        from core.profile_loader import get_channel_path as _gcp
+        return _gcp(sub)
     except Exception:
-        ch = "현자의거울"
-    return OBSIDIAN_RAW / f"채널_{ch}"
+        # profile_loader 없을 때 session_state 폴백 (채널명 미지정 시 '기본채널')
+        try:
+            import streamlit as _st
+            ch = _st.session_state.get("current_channel_name", "")
+        except Exception:
+            ch = ""
+        ch = ch or "기본채널"
+        base = OBSIDIAN_RAW / f"채널_{ch}"
+        return base / sub if sub else base
 
 
 # ── 1. 범용 태그 자동 분류 ────────────────────────
