@@ -29,6 +29,14 @@ from core.version_control import render_action_buttons
 PART_NUM = 1
 
 
+def _get_librarian():
+    """LibrarianAgent 싱글톤 (세션 내 재사용)"""
+    if "librarian_agent" not in st.session_state:
+        from core.agents.librarian import LibrarianAgent
+        st.session_state["librarian_agent"] = LibrarianAgent()
+    return st.session_state["librarian_agent"]
+
+
 # ─────────────────────────────────────────────────
 # 메인 렌더링
 # ─────────────────────────────────────────────────
@@ -101,21 +109,46 @@ def render_benchmark_tab():
     if not yt_key:
         st.warning("⚙️ 우측 패널 설정에서 YouTube API 키를 입력하세요")
     
-    if st.button("🚀 벤치마킹 시작", key="p1_bench_start", type="primary", use_container_width=True):
-        if not channel_url:
-            st.error("채널 URL을 입력하세요")
-            return
-        if not yt_key:
-            st.error("YouTube API 키가 필요합니다")
-            return
-        
-        with st.spinner("🔍 채널 분석 중..."):
-            result = run_benchmark(channel_url, yt_key)
-        
-        if result:
-            set_state("p1_bench_result", result)
-            st.success("✅ 벤치마킹 완료")
-    
+    bc1, bc2 = st.columns(2)
+    with bc1:
+        if st.button("🚀 벤치마킹 시작", key="p1_bench_start", type="primary", use_container_width=True):
+            if not channel_url:
+                st.error("채널 URL을 입력하세요")
+                return
+            if not yt_key:
+                st.error("YouTube API 키가 필요합니다")
+                return
+            with st.spinner("🔍 채널 분석 중..."):
+                result = run_benchmark(channel_url, yt_key)
+            if result:
+                set_state("p1_bench_result", result)
+                st.success("✅ 벤치마킹 완료")
+    with bc2:
+        if st.button("💬 댓글 200개 수집", key="p1_collect_comments", use_container_width=True):
+            if not channel_url or not yt_key:
+                st.error("채널 URL과 YouTube API 키가 필요합니다")
+                return
+            with st.spinner("💬 댓글 수집 중 (최대 200개)..."):
+                ch_id = channel_url.split("/")[-1].replace("@", "")
+                agent = _get_librarian()
+                comments = agent.collect_comments(ch_id, yt_key, max_count=200)
+            if comments:
+                set_state("p1_comments_raw", comments)
+                st.success(f"✅ 댓글 {len(comments)}개 수집 완료")
+            else:
+                st.warning("댓글 수집 실패 또는 결과 없음")
+
+    # 댓글 수집 현황 표시
+    comments = get_state("p1_comments_raw", [])
+    if comments:
+        from core.agents.librarian import LibrarianAgent
+        classified = LibrarianAgent()._classify_comments(comments)
+        top3 = [c for c in classified[:3] if c["star"] in ("⭐⭐⭐", "⭐⭐")]
+        if top3:
+            with st.expander(f"💬 댓글 {len(comments)}개 수집됨 — ⭐⭐⭐ 상위 {len(top3)}개"):
+                for c in top3:
+                    st.markdown(f"{c['star']} **좋아요 {c['likes']}개** — {c['text'][:120]}")
+
     bench = get_state("p1_bench_result")
     if bench:
         result_display(bench, title="벤치마킹 결과", height=300)
@@ -228,23 +261,22 @@ def render_topic_tab():
 
 
 def generate_topics(benchmark: str, additional: str = "") -> str:
-    rag = search_rag("주제 감정 고독 후회 상실", max_files=3, max_chars=300)
-    prompt = load_prompt(PART_NUM)
-    
-    user_query = f"""
-[벤치마킹 결과]
-{benchmark[:1500]}
-
-[옵시디언 RAG 참조]
-{rag[:600]}
-
-[추가 지시]
-{additional}
-
-위 자료를 바탕으로 4070 시청자 감정 고통에 기반한 주제 20개를 추천하라.
-출력 형식: NN. 주제 | 추천사유 | 예상효과 | 예상반응 [SOURCE: ...]
-"""
-    return call_model(prompt=user_query, system=prompt, model=get_state("current_model"))
+    agent = _get_librarian()
+    comments = get_state("p1_comments_raw", [])
+    topics = agent.generate_topics(bench_raw=benchmark, comments=comments, extra=additional)
+    if not topics:
+        # 폴백: 기존 방식
+        rag = search_rag("주제 감정 고독 후회 상실", max_files=3, max_chars=300)
+        prompt = load_prompt(PART_NUM)
+        user_query = (
+            f"[벤치마킹 결과]\n{benchmark[:1500]}\n\n"
+            f"[옵시디언 RAG 참조]\n{rag[:600]}\n\n"
+            f"[추가 지시]\n{additional}\n\n"
+            "위 자료를 바탕으로 4070 시청자 감정 고통에 기반한 주제 20개를 추천하라.\n"
+            "출력 형식: NN. 주제 | 추천사유 | 예상효과 | 예상반응 [SOURCE: ...]"
+        )
+        return call_model(prompt=user_query, system=prompt, model=get_state("current_model"))
+    return "\n".join(f"{i+1}. {t}" for i, t in enumerate(topics))
 
 
 # ─────────────────────────────────────────────────

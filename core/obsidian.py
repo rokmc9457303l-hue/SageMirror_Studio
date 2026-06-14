@@ -6,9 +6,20 @@ core/obsidian.py — 옵시디언 듀얼 엔진 (RAG + 듀얼 저장)
 from pathlib import Path
 from datetime import datetime
 from core.config import (
-    OBSIDIAN_PATH, OBSIDIAN_CHANNEL, OBSIDIAN_UNIVERSAL,
-    OBSIDIAN_SYSTEM, UNIVERSAL_CATEGORIES, PART_NAMES,
+    OBSIDIAN_PATH, OBSIDIAN_RAW, OBSIDIAN_WIKI, OBSIDIAN_SCHEMA,
+    OBSIDIAN_ARCHIVE, OBSIDIAN_CHANNEL, UNIVERSAL_CATEGORIES, PART_NAMES,
 )
+import json as _json_schema
+
+
+def get_channel_path():
+    """현재 세션의 채널명으로 채널 경로 반환 (동적 다채널 지원)"""
+    try:
+        import streamlit as _st
+        ch = _st.session_state.get("current_channel_name", "현자의거울")
+    except Exception:
+        ch = "현자의거울"
+    return OBSIDIAN_RAW / f"채널_{ch}"
 
 
 # ── 1. 범용 태그 자동 분류 ────────────────────────
@@ -53,7 +64,7 @@ def save_dual(content: str, title: str, part_num: int = None,
 
     # 규칙서 형식 저장
     if part_num and part_num in PART_NAMES:
-        folder = OBSIDIAN_CHANNEL / f"Part{part_num}_{PART_NAMES[part_num]}"
+        folder = get_channel_path() / f"Part{part_num}_{PART_NAMES[part_num]}"
         folder.mkdir(parents=True, exist_ok=True)
         path = folder / f"{safe}_{ts}.md"
         md = _build_rules_format(title, content, part_num, today, source_type)
@@ -63,7 +74,7 @@ def save_dual(content: str, title: str, part_num: int = None,
     # 범용 형식 저장 (해당 카테고리들에)
     tags = classify_tags(content, title)
     for category, keywords in tags.items():
-        folder = OBSIDIAN_UNIVERSAL / category
+        folder = OBSIDIAN_WIKI / category
         folder.mkdir(parents=True, exist_ok=True)
         path = folder / f"{safe}_{ts}.md"
         md = _build_universal_format(title, content, category, keywords, today, part_num)
@@ -137,7 +148,7 @@ def search_rag(query: str, max_files: int = 5, max_chars: int = 500,
         for folder in search_folders:
             search_paths.append(OBSIDIAN_PATH / folder)
     else:
-        search_paths = [OBSIDIAN_CHANNEL, OBSIDIAN_UNIVERSAL]
+        search_paths = [get_channel_path(), OBSIDIAN_WIKI, OBSIDIAN_ARCHIVE]
 
     keywords = [w for w in query.lower().split() if len(w) > 1][:8]
     if not keywords:
@@ -283,3 +294,129 @@ def format_tags_3layer(classification, channel_id=None):
         f"### 채널 도메인 ({channel_id or '미지정'})\n{_fmt(c)}\n\n"
         f"### 제작 메타\n{_fmt(p)}"
     )
+
+
+# ═══════════════════════════════════════════════════════════
+# v18.0.42 — 스키마 저장/검색 시스템 (02_Schema/)
+# ═══════════════════════════════════════════════════════════
+
+def save_schema(content: str, meta: dict, title: str) -> str:
+    """구조화 스키마 .md + .json 동시 저장 → 02_Schema/"""
+    ts    = datetime.now().strftime("%Y%m%d_%H%M%S")
+    today = datetime.now().strftime("%Y-%m-%d")
+    safe  = "".join(c for c in title[:40] if c.isalnum() or c in " -_[]").strip()
+
+    OBSIDIAN_SCHEMA.mkdir(parents=True, exist_ok=True)
+
+    md_path = OBSIDIAN_SCHEMA / f"{safe}_{ts}.md"
+    md_path.write_text(_build_schema_md(title, content, meta, today), encoding="utf-8")
+
+    json_path = OBSIDIAN_SCHEMA / f"{safe}_{ts}.json"
+    json_data = {"title": title, "created": today, **meta,
+                 "content_preview": content[:500]}
+    json_path.write_text(
+        _json_schema.dumps(json_data, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    return str(md_path)
+
+
+def _build_schema_md(title: str, content: str, meta: dict, today: str) -> str:
+    kw   = ", ".join(meta.get("keywords", []))
+    tags = ", ".join(meta.get("tags", []))
+    pts  = ", ".join(str(p) for p in meta.get("related_parts", []))
+    emo  = ", ".join(meta.get("emotion_keywords", []))
+    return (
+        f"---\nschema_version: \"1.0\"\ncreated: {today}\n"
+        f"source_type: {meta.get('source_type', 'unknown')}\n"
+        f"category: {meta.get('category', '미분류')}\n"
+        f"keywords: [{kw}]\ntags: [{tags}]\n"
+        f"related_parts: [{pts}]\n"
+        f"channel_relevance: {meta.get('channel_relevance', 0.5)}\n"
+        f"---\n\n# {title}\n\n"
+        f"## 핵심 요약\n{meta.get('summary', '(자동 분석 필요)')}\n\n"
+        f"## 주요 인용구\n{meta.get('quote', '(없음)')}\n\n"
+        f"## 감정 키워드\n{emo or '(없음)'}\n\n"
+        f"## 활용 가능 파트\nPart {pts} 관련 자료\n\n"
+        f"## 원본 일부\n{content[:300]}...\n"
+    )
+
+
+def load_schema(name: str) -> dict:
+    """스키마 이름(부분 일치)으로 JSON 메타 로드"""
+    if not OBSIDIAN_SCHEMA.exists():
+        return {}
+    for f in OBSIDIAN_SCHEMA.glob("*.json"):
+        if name.lower() in f.stem.lower():
+            try:
+                return _json_schema.loads(f.read_text(encoding="utf-8"))
+            except Exception:
+                return {}
+    return {}
+
+
+def search_schema(query: str, max_files: int = 5) -> list:
+    """스키마 키워드 검색 → [{name, meta}] 목록"""
+    if not OBSIDIAN_SCHEMA.exists():
+        return []
+    keywords = [w.lower() for w in query.split() if len(w) > 1]
+    scored = []
+    for f in OBSIDIAN_SCHEMA.glob("*.md"):
+        try:
+            text = f.read_text(encoding="utf-8", errors="ignore")
+            score = sum(text.lower().count(kw) for kw in keywords)
+            if score > 0:
+                meta = {}
+                json_f = f.with_suffix(".json")
+                if json_f.exists():
+                    try:
+                        meta = _json_schema.loads(json_f.read_text(encoding="utf-8"))
+                    except Exception:
+                        pass
+                scored.append((score, f.stem, meta))
+        except Exception:
+            continue
+    scored.sort(key=lambda x: -x[0])
+    return [{"name": s[1], "meta": s[2]} for s in scored[:max_files]]
+
+
+def link_schema_to_part(schema_name: str, part_num: int) -> bool:
+    """스키마 파일에 파트 연결 추가"""
+    if not OBSIDIAN_SCHEMA.exists():
+        return False
+    for f in OBSIDIAN_SCHEMA.glob("*.md"):
+        if schema_name.lower() in f.stem.lower():
+            try:
+                text = f.read_text(encoding="utf-8")
+                if f"Part {part_num}" not in text:
+                    text = text.replace(
+                        "related_parts: [",
+                        f"related_parts: [{part_num}, ",
+                        1
+                    )
+                    f.write_text(text, encoding="utf-8")
+                return True
+            except Exception:
+                return False
+    return False
+
+
+# ═══════════════════════════════════════════════════════════
+# 에이전트 로그 기록 (03_Logs/)
+# ═══════════════════════════════════════════════════════════
+
+def log_agent_action(agent_name: str, message: str):
+    """에이전트 행동 로그를 03_Logs/에 JSON Lines 형식으로 기록"""
+    try:
+        from core.config import OBSIDIAN_LOGS
+        OBSIDIAN_LOGS.mkdir(parents=True, exist_ok=True)
+        today = datetime.now().strftime("%Y-%m-%d")
+        log_file = OBSIDIAN_LOGS / f"agent_log_{today}.jsonl"
+        entry = _json_schema.dumps({
+            "ts": datetime.now().isoformat(),
+            "agent": agent_name,
+            "msg": message,
+        }, ensure_ascii=False)
+        with log_file.open("a", encoding="utf-8") as f:
+            f.write(entry + "\n")
+    except Exception:
+        pass

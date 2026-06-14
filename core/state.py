@@ -6,7 +6,7 @@ core/state.py — session_state 통합 관리
 import streamlit as st
 import json
 from pathlib import Path
-from core.config import BASE_PATH, DEFAULT_MODEL, API_KEYS
+from core.config import BASE_PATH, DEFAULT_MODEL, API_KEYS, CHANNEL_NAME
 
 STATE_FILE = BASE_PATH / "data" / "workspace_state.json"
 
@@ -35,6 +35,10 @@ def init_state():
         # API 키
         **{f"api_{k}": v for k, v in API_KEYS.items()},
         
+        # 채널 설정
+        "current_channel_name": CHANNEL_NAME,
+        "known_channels":       [CHANNEL_NAME],
+
         # 우측 패널 (별도 관리)
         "rp_history":       [],
         "rp_hub_open":      False,

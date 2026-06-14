@@ -46,14 +46,8 @@ def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 2) -
         if not api_key:
             return "⚠️ Gemini API 키가 없습니다. 우측 설정에서 키를 입력하세요."
 
-        # AQ. 형식(Auth Key) 또는 AIza 형식 모두 지원
-        if api_key.startswith("AQ."):
-            import google.auth.credentials as _creds
-            import google.oauth2.credentials as _oauth2
-            cred = _oauth2.Credentials(token=api_key)
-            client = _genai.Client(credentials=cred)
-        else:
-            client = _genai.Client(api_key=api_key)
+        # AQ. / AIza 모두 api_key로 직접 전달 (구 SDK 방식과 동일)
+        client = _genai.Client(api_key=api_key)
         system_txt = ""
         gemini_contents = []
         for m in messages:
@@ -124,7 +118,7 @@ def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 2) -
         _is_fallback_err = not fallback or any(t in fallback for t in _err_tokens)
 
         if not _is_fallback_err:
-            return f"[Gemini 불가 → Gemma 대체]\n{fallback}"
+            return f"⚠️ Gemini 오류: `{gemini_err_short}`\n\n[Gemma 대체]\n{fallback}"
 
         # 둘 다 실패 → Gemini 실제 오류 + 안내 반환
         return (
@@ -285,38 +279,153 @@ def render_right_panel():
             for alert in alerts:
                 st.warning(f"**{alert['type']}**: {alert['message']}")
     
-    # [+] 허브 메뉴 (새로 추가)
-    from panel.hub_menu import render_hub_menu, render_text_input_panel
-    render_hub_menu()
-    render_text_input_panel()
-    
-    # 모델 선택
-    models = list(MODELS.keys())
-    cur_model = get_state("rp_model", DEFAULT_MODEL)
-    sel = st.selectbox(
-        "모델",
-        models,
-        index=models.index(cur_model) if cur_model in models else 0,
-        format_func=lambda x: MODELS[x]["label"],
-        key="rp_model_sel",
-    )
-    if sel != cur_model:
-        set_state("rp_model", sel)
-    
-    st.markdown("---")
-    
     render_chat_with_response()
-    
-    user_input = st.chat_input("메시지를 입력하세요...")
-    
-    if user_input:
+
+    # + 팝업 (입력창 바로 위, 2×3 그리드)
+    if get_state("rp_plus_open", False):
+        with st.container(border=True):
+            st.caption("📎 추가 도구")
+            r1c1, r1c2, r1c3 = st.columns(3)
+            r2c1, r2c2, r2c3 = st.columns(3)
+            for _col, _label, _key in [
+                (r1c1, "🔍 Tavily\n웹검색",      "tavily"),
+                (r1c2, "🧠 Gemini\nDeep",         "gemini_deep"),
+                (r1c3, "📂 파일\n탐색기",          "file_explorer"),
+                (r2c1, "☁️ 구글\n드라이브",        "gdrive"),
+                (r2c2, "🎬 YouTube\n영상분석",      "youtube_analyze"),
+                (r2c3, "✏️ 직접\n추가",            "manual"),
+            ]:
+                with _col:
+                    if st.button(_label, key=f"rp_tool_{_key}", use_container_width=True):
+                        set_state("rp_active_tool", _key)
+                        set_state("rp_plus_open", False)
+                        st.rerun()
+
+    # ── 파일 탐색기 / 구글 드라이브 도구 UI ──────────
+    _active_now = get_state("rp_active_tool", "")
+
+    if _active_now == "file_explorer":
+        with st.container(border=True):
+            st.caption("📂 파일 업로드 → Gemma 분석 → 옵시디언 3중 저장")
+            _uploaded = st.file_uploader(
+                "파일 선택",
+                type=["md", "txt", "pdf", "docx", "csv"],
+                key=f"rp_file_up_{get_state('rp_file_counter', 0)}",
+                label_visibility="collapsed",
+            )
+            _fc1, _fc2 = st.columns(2)
+            if _fc1.button("❌ 취소", key="rp_file_cancel", use_container_width=True):
+                set_state("rp_active_tool", "")
+                st.rerun()
+            if _uploaded and _fc2.button("⚡ 분석 시작", key="rp_file_go", use_container_width=True):
+                with st.spinner("Gemma 분석 중..."):
+                    try:
+                        from core.file_processor import extract_text, process_and_save
+                        _raw_bytes = _uploaded.read()
+                        _content = extract_text(_raw_bytes, _uploaded.name)
+                        _part = get_state("current_part")
+                        _res = process_and_save(_content, _uploaded.name, _part, "file_upload")
+                        _ana = _res["analysis"]
+                        _msg = (
+                            f"📂 **파일 분석 완료**: `{_uploaded.name}`\n\n"
+                            f"**요약**: {_ana['summary']}\n\n"
+                            f"**카테고리**: {_ana['category']}  |  "
+                            f"**채널 관련성**: {_ana['channel_relevance']:.0%}\n"
+                            f"**키워드**: {', '.join(_ana['keywords'])}\n\n"
+                            f"✅ 옵시디언 저장 완료 (Raw + Wiki + Schema)"
+                        )
+                        _hist = get_state("rp_history", [])
+                        _hist.append({"role": "assistant", "content": _msg,
+                                      "timestamp": datetime.now().isoformat()})
+                        set_state("rp_history", _hist)
+                        set_state("rp_file_counter", get_state("rp_file_counter", 0) + 1)
+                        set_state("rp_active_tool", "")
+                        st.rerun()
+                    except Exception as _e:
+                        st.error(f"분석 오류: {_e}")
+
+    elif _active_now == "gdrive":
+        with st.container(border=True):
+            st.caption("☁️ Google Drive → Gemma 분석 → 옵시디언 저장")
+            _gfolder = st.text_input(
+                "Drive 폴더명", value="현자의거울_자료",
+                key="rp_gdrive_folder", label_visibility="collapsed",
+                placeholder="Google Drive 폴더명 입력",
+            )
+            _gc1, _gc2 = st.columns(2)
+            if _gc1.button("❌ 취소", key="rp_gdrive_cancel", use_container_width=True):
+                set_state("rp_active_tool", "")
+                st.rerun()
+            if _gc2.button("🔄 동기화 시작", key="rp_gdrive_sync", use_container_width=True):
+                with st.spinner("Drive 동기화 중..."):
+                    try:
+                        from core.gdrive_sync import sync_drive_folder
+                        _gres = sync_drive_folder(_gfolder.strip() or "현자의거울_자료")
+                        if _gres.get("success"):
+                            _n = _gres.get("new_files", 0)
+                            _gmsg = (
+                                f"☁️ **Drive 동기화 완료**\n\n"
+                                f"폴더: `{_gfolder}`\n"
+                                f"새 파일: {_n}건\n"
+                                + ("✅ 옵시디언 저장 완료" if _n > 0 else "ℹ️ 새 파일 없음")
+                            )
+                        else:
+                            _gmsg = f"⚠️ Drive 오류: {_gres.get('error', '알 수 없음')}"
+                        _ghist = get_state("rp_history", [])
+                        _ghist.append({"role": "assistant", "content": _gmsg,
+                                       "timestamp": datetime.now().isoformat()})
+                        set_state("rp_history", _ghist)
+                        set_state("rp_active_tool", "")
+                        st.rerun()
+                    except ImportError as _ie:
+                        st.error(f"Drive 라이브러리 미설치: {_ie}")
+                    except Exception as _ge:
+                        st.error(f"Drive 오류: {_ge}")
+
+    # ── 입력 한 줄: [+] [입력창] [모델▼] [▶] (st.form 제거 — 패스워드 팝업 방지)
+    _ic = get_state("rp_input_counter", 0)
+    models_list = list(MODELS.keys())
+    cur_model   = get_state("rp_model", DEFAULT_MODEL)
+
+    c_plus, c_input, c_model, c_send = st.columns([1, 6, 3, 1])
+
+    with c_plus:
+        if st.button("➕", key="rp_plus_btn", use_container_width=True, help="추가 도구"):
+            set_state("rp_plus_open", not get_state("rp_plus_open", False))
+
+    with c_input:
+        user_input = st.text_input(
+            "입력",
+            placeholder="메시지를 입력하세요...",
+            key=f"rp_text_input_{_ic}",
+            label_visibility="collapsed",
+        )
+
+    with c_model:
+        sel = st.selectbox(
+            "모델",
+            models_list,
+            index=models_list.index(cur_model) if cur_model in models_list else 0,
+            format_func=lambda x: MODELS[x]["label"],
+            key=f"rp_model_sel_{_ic}",
+            label_visibility="collapsed",
+        )
+        if sel != cur_model:
+            set_state("rp_model", sel)
+            set_state("current_model", sel)
+
+    with c_send:
+        send_btn = st.button("▶", key=f"rp_send_{_ic}", use_container_width=True)
+
+    if send_btn and user_input.strip():
         history = get_state("rp_history", [])
         history.append({
             "role": "user",
-            "content": user_input,
+            "content": user_input.strip(),
             "timestamp": datetime.now().isoformat(),
         })
         set_state("rp_history", history)
+        set_state("rp_input_counter", _ic + 1)
         st.rerun()
 
 
@@ -332,12 +441,33 @@ def _extract_yt_urls(text: str) -> list:
 
 def render_chat_with_response():
     """대화 표시 + 응답 생성 (모두 컨테이너 안)"""
+    st.markdown("""
+<style>
+/* ── 우측 컬럼 sticky 고정 ──────────────────────────── */
+div[data-testid="stHorizontalBlock"] { align-items: flex-start !important; }
+div[data-testid="stHorizontalBlock"]
+> div[data-testid="column"]:last-child {
+    position: sticky !important;
+    top: 3.75rem !important;
+    max-height: calc(100vh - 3.75rem) !important;
+    overflow-y: auto !important;
+    padding-bottom: 1rem;
+}
+/* ── 대화창 높이 calc 적용 ──────────────────────────── */
+div[data-testid="stVerticalBlockBorderWrapper"]
+> div[style*="height"] {
+    height: calc(100vh - 280px) !important;
+    min-height: 300px !important;
+    overflow-y: auto !important;
+}
+</style>""", unsafe_allow_html=True)
     history = get_state("rp_history", [])
 
-    box = st.container(height=700, border=True)
+    box = st.container(height=580, border=True)
 
     with box:
         if not history:
+            set_state("rp_last_channel_urls", [])  # 잔류 URL 클리어
             st.markdown(
                 "<div style='color:#888; text-align:center; padding:50px 20px;'>"
                 "💬 SAGE 브레인과 대화를 시작하세요"
@@ -375,8 +505,24 @@ def render_chat_with_response():
             if extracted:
                 set_state("rp_last_channel_urls", extracted)
 
+    # ── 자동 스크롤 다운 (iframe JS) ─────────────────────
+    import streamlit.components.v1 as _stc
+    _stc.html(
+        """<script>
+(function(){
+    function s(){
+        var doc=window.parent.document;
+        var bs=doc.querySelectorAll(
+            'div[data-testid="stVerticalBlockBorderWrapper"]>div[style*="height"]');
+        if(bs.length>0){var b=bs[bs.length-1];b.scrollTop=b.scrollHeight;}
+    }
+    setTimeout(s,300); setTimeout(s,900);
+})();
+</script>""",
+        height=0,
+    )
+
     # ── 채팅 컨테이너 밖: 채널 벤치마킹 바로 적용 버튼 ────────────
-    # 마지막 assistant 응답에서 추출한 채널 URL이 있으면 버튼 표시
     last_urls = get_state("rp_last_channel_urls", [])
     if not last_urls and history and history[-1]["role"] == "assistant":
         last_urls = _extract_yt_urls(history[-1]["content"])
@@ -590,134 +736,152 @@ def search_youtube_channels(query: str, api_key: str, max_results: int = 5) -> s
 
 
 def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
-    """Tavily 검색 우선 → Gemini/Ollama 분석 응답 생성"""
+    """도구 라우팅 → 컨텍스트 수집 → 모델 응답 생성
+
+    기본 동작: 선택된 모델로 직접 질문에 답변 (일반 챗봇)
+    + Tavily 도구 활성화 시: 웹검색 결과 컨텍스트 추가
+    + Gemini Deep 도구 활성화 시: Gemini 강제 사용
+    + 유튜브 채널 키워드 감지 시: YouTube API + Gemini 강제
+    """
     import requests as _req
 
-    # 0. YouTube 채널 검색 감지
-    yt_context = ""
+    active_tool = get_state("rp_active_tool", "")
+    extra_context = ""
+    force_gemini  = False
     is_yt_channel_query = False
-    yt_keywords = ["유튜브 채널", "youtube 채널", "채널 찾", "채널 추천", "채널 국내", "채널 국외", "채널 선정", "벤치마킹 채널"]
+    yt_context    = ""
+
+    # ── 0. + 버튼 도구 처리 ────────────────────────────────
+    if active_tool == "tavily":
+        tavily_key = st.session_state.get("api_tavily", "")
+        if tavily_key:
+            try:
+                tv_res = _req.post(
+                    "https://api.tavily.com/search",
+                    json={"api_key": tavily_key, "query": user_msg,
+                          "search_depth": "advanced", "max_results": 5,
+                          "include_answer": True},
+                    timeout=15,
+                )
+                if tv_res.status_code == 200:
+                    tv_data = tv_res.json()
+                    lines = []
+                    if tv_data.get("answer"):
+                        lines.append(f"[검색 요약] {tv_data['answer']}")
+                    for r in tv_data.get("results", [])[:5]:
+                        lines.append(
+                            f"- {r.get('title','')}: {r.get('content','')[:200]} "
+                            f"(출처: {r.get('url','')})"
+                        )
+                    extra_context = "\n".join(lines)
+            except Exception:
+                pass
+        set_state("rp_active_tool", "")
+
+    elif active_tool == "gemini_deep":
+        force_gemini = True
+        model_key = next(
+            (k for k, v in MODELS.items() if v.get("type") == "remote"),
+            "gemini-2.5-flash"
+        )
+        set_state("rp_active_tool", "")
+
+    elif active_tool == "youtube_analyze":
+        # YouTube 영상 URL → 메타데이터 추출 후 Gemini 분석
+        import re as _re
+        _yt_vid = _re.search(
+            r'https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/)([A-Za-z0-9_\-]{11})',
+            user_msg
+        )
+        if _yt_vid:
+            _vid_id = _yt_vid.group(1)
+            _yt_key = st.session_state.get("api_youtube", "")
+            if _yt_key:
+                try:
+                    _meta_r = _req.get(
+                        f"https://www.googleapis.com/youtube/v3/videos"
+                        f"?part=snippet,statistics&id={_vid_id}&key={_yt_key}",
+                        timeout=5,
+                    )
+                    if _meta_r.status_code == 200:
+                        _items = _meta_r.json().get("items", [])
+                        if _items:
+                            _snip  = _items[0].get("snippet", {})
+                            _stats = _items[0].get("statistics", {})
+                            extra_context = (
+                                f"[YouTube 영상 정보]\n"
+                                f"제목: {_snip.get('title','')}\n"
+                                f"채널: {_snip.get('channelTitle','')}\n"
+                                f"설명: {_snip.get('description','')[:500]}\n"
+                                f"조회수: {_stats.get('viewCount','?')}\n"
+                                f"좋아요: {_stats.get('likeCount','?')}\n"
+                                f"댓글수: {_stats.get('commentCount','?')}\n"
+                            )
+                except Exception:
+                    pass
+        force_gemini = True
+        set_state("rp_active_tool", "")
+
+    elif active_tool in ("notebooklm", "manual", "file_explorer", "gdrive"):
+        set_state("rp_active_tool", "")
+
+    # ── 1. YouTube 채널 검색 (명시적 키워드 시에만) ──────────
+    yt_keywords = ["유튜브 채널", "youtube 채널", "채널 찾", "채널 추천",
+                   "채널 국내", "채널 국외", "채널 선정", "벤치마킹 채널"]
     if any(kw in user_msg.lower() for kw in yt_keywords):
         is_yt_channel_query = True
         yt_key = st.session_state.get("api_youtube", "")
         if yt_key:
-            # 문장에서 핵심 검색 키워드만 추출 (YouTube API용)
-            import re as _re
-            domain_keywords = ["심리학", "철학", "성경", "명상", "자존감", "힐링", "psychology",
-                               "감정", "인문학", "라이프", "동기", "치유", "상담"]
+            domain_keywords = ["심리학", "철학", "성경", "명상", "자존감", "힐링",
+                               "psychology", "감정", "인문학", "라이프", "동기", "치유", "상담"]
             yt_query = next((k for k in domain_keywords if k in user_msg), "심리학 유튜브")
             yt_context = search_youtube_channels(yt_query, yt_key)
 
-    # 1. Tavily 실시간 검색 시도
-    tavily_context = ""
-    tavily_key = st.session_state.get("api_tavily", "")
-    if tavily_key:
-        try:
-            tv_res = _req.post(
-                "https://api.tavily.com/search",
-                json={
-                    "api_key": tavily_key,
-                    "query": user_msg + " youtube channel URL site:youtube.com",
-                    "search_depth": "advanced",
-                    "max_results": 5,
-                    "include_answer": True
-                },
-                timeout=15
-            )
-            if tv_res.status_code == 200:
-                tv_data = tv_res.json()
-                lines = []
-                if tv_data.get("answer"):
-                    lines.append(f"[검색 요약] {tv_data['answer']}")
-                for r in tv_data.get("results", [])[:5]:
-                    lines.append(
-                        f"- {r.get('title','')}: {r.get('content','')[:200]} "
-                        f"(출처: {r.get('url','')})"
-                    )
-                tavily_context = "\n".join(lines)
-        except Exception:
-            tavily_context = ""
-
-    # 2. 시스템 프롬프트 구성
+    # ── 2. 시스템 프롬프트 구성 ──────────────────────────────
     system_prompt = (
         "당신은 현자의 거울 스튜디오 공장장 젬마입니다.\n"
         "현자님(60대 유튜브 크리에이터)을 보좌합니다.\n"
         "채널: 현자의 거울 (@Ethan Cinematic Video)\n"
         "타겟: 4070세대 / 철학·심리·성경 다큐 스타일\n"
         "답변은 반드시 한국어로, 존댓말로 작성하세요.\n"
-        "\n[중요 규칙]\n"
-        "1. 채널 발굴 요청 시: 반드시 검색 결과에 있는 실제 채널만 제시하세요.\n"
-        "2. 검색 결과가 없으면: '검색 결과에서 확인된 채널이 없습니다'라고 솔직히 말하세요.\n"
-        "3. 채널명, URL을 절대 창작하지 마세요.\n"
-        "4. 구독자수, 조회수는 검색에서 확인된 수치만 사용하세요.\n"
-        "5. 불확실한 정보는 반드시 '추정' 또는 '확인 필요'라고 표시하세요.\n"
+        "질문에 직접적이고 정확하게 답변하세요.\n"
     )
+
+    if extra_context:
+        system_prompt += f"\n[웹 검색 결과]\n{extra_context}\n"
+
     if is_yt_channel_query:
         system_prompt += (
-            "\n[역할] 당신은 유튜브 콘텐츠 전략가이자 심리학·철학 다큐멘터리 전문 큐레이터입니다.\n"
-            "현자의 거울 스튜디오(@Protagonist 채널)의 성공적인 성장을 위해\n"
-            "아래 채널 정체성과 동일한 방향성을 가진 채널을 국내 5개·국외 5개 정밀 발굴·분석하세요.\n"
-            "YouTube API 결과가 부족하면 당신의 학습 지식으로 직접 추천하세요.\n\n"
-            "[벤치마킹 기준 채널 정체성]\n"
-            "- 타겟: 4070세대 (고독·상실·공허·관계단절·인생의 의미 고민)\n"
-            "- 스타일: 시네마틱 다큐멘터리, 긴 호흡 롱폼, 인간 중심 나레이션\n"
-            "- 지식 체계: 칼 융·빅터 프랭클 / 쇼펜하우어·스토아 / 성경(시편·잠언·전도서)\n"
-            "- 다크심리학(가스라이팅·나르시시즘·정서적 착취) 콘텐츠 우대\n\n"
+            "\n[역할] 유튜브 콘텐츠 전략가 / 심리학·철학 다큐 큐레이터\n"
+            "현자의 거울과 동일한 방향성의 채널을 국내 5개·국외 5개 발굴·분석하세요.\n"
+            "YouTube API 결과가 부족하면 학습 지식으로 직접 추천하세요.\n\n"
+            "[벤치마킹 기준]\n"
+            "- 타겟: 4070세대 (고독·상실·공허·관계단절)\n"
+            "- 스타일: 시네마틱 다큐, 롱폼, 인간 중심 나레이션\n"
+            "- 지식 체계: 칼 융·프랭클 / 쇼펜하우어·스토아 / 성경\n"
+            "- 다크심리학 콘텐츠 우대\n\n"
         )
         if yt_context:
-            system_prompt += (
-                "[YouTube API 실시간 검색결과]\n"
-                + yt_context + "\n\n"
-            )
+            system_prompt += f"[YouTube API 실시간 검색결과]\n{yt_context}\n\n"
         system_prompt += (
-            "[채널 선정 기준 — 엄격 준수]\n"
-            "1. 구독자 1만↓ '숨은 보석' 또는 10만↓ '급성장 채널'\n"
-            "   ★ 최근 15일 이내 영상을 꾸준히 업로드하는 '활성 채널' 최우선\n"
-            "   API 결과: ✅ 15일내 업로드·🔥 떡상지수 높은 채널 우선, ⚠️ 미업로드 채널 감점\n"
-            "2. 떡상 지수(조회수÷구독자) 높은 채널 — 구독자 대비 폭발적 조회수 = 알고리즘 탑승 신호\n"
-            "3. 시청지속시간 우수 채널 — 영상당 평균 조회수가 구독자 수 대비 50% 이상인 채널\n"
-            "4. 지식 나열 아닌 시청자 '내면 결핍'을 공감으로 치유하는 서사 중심 채널\n"
-            "5. 2025~2026 현재 트렌드 부합 (긴 호흡 롱폼, 인간 중심 나레이션, 감성 다큐)\n"
-            "6. 다크심리학(가스라이팅/나르시시즘/정서적 착취) 다루는 채널 우대\n"
-            "7. 표절·재사용·컴필레이션 채널 철저 배제 — 오리지널 기획력 채널만\n\n"
-            "[분석 기준]\n"
-            "- 떡상 지수: 총조회수 ÷ 구독자수 (30x↑ 성장중, 100x↑ 떡상, 500x↑ 초강력)\n"
-            "- 시청지속 지표: 영상당 평균 조회수 (높을수록 알고리즘 최적화)\n"
-            "- 현재 트렌드: 2025~2026년 감성 다큐·심리·철학 롱폼 유튜브 흐름\n"
-            "- 4070 감정·철학·심리 콘텐츠 적합성\n"
-            "- 현자의 거울 채널 방향성 유사도 (렘브란트풍·시네마틱·철학·성경)\n\n"
-            "[출력 규칙 — 반드시 준수]\n"
-            "★ 국내 채널 반드시 5개, 국외 채널 반드시 5개, 총 10개 빠짐없이 기재\n"
-            "★ YouTube API 데이터가 없거나 부족해도 당신의 학습 지식으로 반드시 5개씩 채울 것\n"
-            "★ 채널을 모른다는 말 금지 — 가장 적합한 채널을 반드시 추천할 것\n\n"
-            "[출력 형식 — 채널당 6개 항목 반드시 기재]\n"
-            "1. 채널명\n"
-            "2. 유튜브 채널 URL (https://www.youtube.com/@채널명 형식)\n"
-            "3. 구독자 수 및 최근 평균 조회수 추이\n"
-            "4. 현자의 거울과 유사한 점 (구조적/감성적 측면)\n"
-            "5. 벤치마킹해야 할 핵심 후킹 기법 (제목 또는 영상 도입부)\n"
-            "6. 댓글창에서 발견되는 핵심 시청자 고통 키워드 (체험담 기반)\n\n"
-            "마지막에 최종 벤치마킹 추천 1개를 아래 형식으로 반드시 기재:\n"
+            "[채널 선정 기준]\n"
+            "1. 구독자 1만↓ 숨은 보석 / 10만↓ 급성장 채널\n"
+            "2. 떡상 지수(조회수÷구독자) 높은 채널 우선\n"
+            "3. 최근 15일내 업로드 활성 채널 우선\n"
+            "4. 오리지널 기획력 채널만 (컴필레이션 배제)\n\n"
+            "[출력 형식 — 채널당 6개 항목]\n"
+            "1. 채널명  2. URL  3. 구독자·평균 조회수\n"
+            "4. 현자의 거울과 유사한 점  5. 핵심 후킹 기법  6. 시청자 고통 키워드\n\n"
+            "국내 5개, 국외 5개 필수. 마지막에:\n"
             "[선정채널URL: https://www.youtube.com/@채널명]\n"
         )
-    if tavily_context:
-        system_prompt += (
-            "\n[실시간 트렌드 검색 결과]\n"
-            + tavily_context + "\n"
-        )
 
-    # 3. 대화 히스토리 구성
-    # YouTube 채널 쿼리일 때 user_msg에 국외 강제 지시 주입
+    # ── 3. 대화 히스토리 구성 ────────────────────────────────
     final_user_msg = user_msg
     if is_yt_channel_query:
         final_user_msg = (
             f"{user_msg}\n\n"
-            "━━━ 출력 필수 지시 ━━━\n"
-            "반드시 국내 채널 5개, 국외 채널 5개, 총 10개를 모두 출력하세요.\n"
-            "국외 채널은 영어권(미국·영국·캐나다·호주) 및 비영어권 포함 5개 이상 반드시 포함.\n"
-            "채널 하나당 1~6번 항목을 빠짐없이 작성하세요.\n"
-            "URL이 불확실하면 https://www.youtube.com/@채널명 형식으로 최선 추정치 제공.\n"
-            "국외 채널 생략 절대 금지."
+            "반드시 국내 5개, 국외 5개, 총 10개를 모두 출력하세요. 국외 채널 생략 절대 금지."
         )
 
     messages = [{"role": "system", "content": system_prompt}]
@@ -725,26 +889,22 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         messages.append({"role": h["role"], "content": h["content"]})
     messages.append({"role": "user", "content": final_user_msg})
 
-    # 4. 모델 라우팅 — YouTube 채널 분석 시 Gemini 강제 사용
-    cur_model = st.session_state.get("current_model", DEFAULT_MODEL)
+    # ── 4. 모델 라우팅 ───────────────────────────────────────
+    cur_model  = model_key or st.session_state.get("current_model", DEFAULT_MODEL)
     model_info = MODELS.get(cur_model, {})
     model_type = model_info.get("type", "local")
 
-    if is_yt_channel_query:
-        # YouTube 채널 분석은 데이터 유무와 관계없이 Gemini 강제 라우팅
-        gemini_model = next(
-            (k for k, v in MODELS.items() if v.get("type") == "remote"),
-            "gemini-2.5-flash"
+    if is_yt_channel_query or force_gemini or model_type == "remote":
+        _m = cur_model if model_type == "remote" else next(
+            (k for k, v in MODELS.items() if v.get("type") == "remote"), "gemini-2.5-flash"
         )
-        result = call_gemini_with_messages(messages, gemini_model)
-    elif model_type == "remote":
-        result = call_gemini_with_messages(messages, cur_model)
+        result = call_gemini_with_messages(messages, _m)
     else:
         success, result, _ = call_ollama_sync(user_msg, system_prompt, cur_model)
         if not success:
             result = result or "응답을 생성하지 못했습니다."
 
-    # 5. 선정 채널 URL 자동 추출 → 벤치마킹 탭 푸시
+    # ── 5. 선정 채널 URL 자동 추출 → 벤치마킹 탭 푸시 ────────
     if is_yt_channel_query and result:
         import re
         url_match = re.search(r'\[선정채널URL:\s*(https?://[^\]\s]+)\]', result)
@@ -756,40 +916,22 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
             set_state("p1_nav_pending", 1)
             set_state("p1_bench_auto_selected", selected_url)
 
-    if not result or result.strip() == "":
-        return f"[디버그] model_type={model_type}, yt_context길이={len(yt_context)}, tavily_context길이={len(tavily_context)}"
+    if not result or not result.strip():
+        return "(빈 응답 — 모델을 확인하세요)"
 
-    # ── 옵시디언 자동 저장 (백그라운드) ──────────────
+    # ── 6. 옵시디언 자동 저장 ────────────────────────────────
     try:
         from core.unified_save import save_anything
         part_ctx = st.session_state.get("current_part")
-
-        # 1. Tavily 검색 결과 → Raw/TavilyResearch
-        if tavily_context and len(tavily_context) > 50:
-            save_anything(
-                content=tavily_context,
-                title=f"Tavily_{user_msg[:30]}",
-                content_type="tavily_research",
-                part_num=part_ctx,
-            )
-
-        # 2. YouTube 채널 데이터 → Raw/YouTube
+        if extra_context and len(extra_context) > 50:
+            save_anything(content=extra_context, title=f"Tavily_{user_msg[:30]}",
+                         content_type="tavily_research", part_num=part_ctx)
         if yt_context and len(yt_context) > 50:
-            save_anything(
-                content=yt_context,
-                title=f"YouTube채널_{user_msg[:20]}",
-                content_type="youtube_channel",
-                part_num=part_ctx,
-            )
-
-        # 3. AI 응답 → Raw/GeminiResearch + 10_Wiki + 범용카테고리
+            save_anything(content=yt_context, title=f"YouTube채널_{user_msg[:20]}",
+                         content_type="youtube_channel", part_num=part_ctx)
         if len(result) > 100:
-            save_anything(
-                content=f"## 질문\n{user_msg}\n\n## AI 응답\n{result}",
-                title=user_msg[:40],
-                content_type="gemini_research",
-                part_num=part_ctx,
-            )
+            save_anything(content=f"## 질문\n{user_msg}\n\n## AI 응답\n{result}",
+                         title=user_msg[:40], content_type="gemini_research", part_num=part_ctx)
     except Exception:
         pass
 

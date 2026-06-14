@@ -1,0 +1,40 @@
+channel_name: 현자의거울
+channel_key: sage_mirror
+target_audience: 40~70대
+tone: 차분하고 깊은 감정 해부형
+narrator_age: 65세 철학자
+narrator_style: 렘브란트풍 시네마틱
+core_symbols:
+  - 거울
+  - 촛불
+  - 서재
+visual_style: 17세기 키아로스쿠로
+philosophy_anchor:
+  - 쇼펜하우어
+  - 프랭클
+  - 성경
+forbidden_expressions:
+  - 힘내세요
+  - 응원합니다
+  - 함께 나아가요
+  - 긍정적으로
+  - 할 수 있어요
+  - 포기하지 마세요
+  - 요약하자면
+  - 결론적으로
+  - 꼰대
+  - 1020 감성
+preferred_expressions:
+  - 성찰
+  - 회한
+  - 자기 직면
+  - 조용히
+  - 묵직하게
+typical_topics:
+  - 후회
+  - 관계 상처
+  - 노년의 외로움
+  - 인생의 의미
+  - 가족 단절
+  - 은퇴 후 공허
+obsidian_channel_dir: 채널_현자의거울

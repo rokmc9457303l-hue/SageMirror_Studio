@@ -10,34 +10,44 @@ BASE_PATH         = Path(r"C:\SageMirror_Studio_v18")
 DATA_PATH         = BASE_PATH / "data"
 PROMPTS_PATH      = BASE_PATH / "prompts"
 
-# ── 옵시디언 (기존 데이터 재사용) ────────────────
-OBSIDIAN_PATH     = Path(r"C:\SageMirror_Production\00_Obsidian_Archive")
-OBSIDIAN_CHANNEL  = OBSIDIAN_PATH / "채널_현자의거울"
+# ── 옵시디언 ─────────────────────────────────────
+OBSIDIAN_PATH     = Path(r"C:\SageMirror_Production\00_Obsidian")
+OBSIDIAN_RAW      = OBSIDIAN_PATH / "01_Raw_Data"
+OBSIDIAN_WIKI     = OBSIDIAN_PATH / "01_Wiki"
+OBSIDIAN_SCHEMA   = OBSIDIAN_PATH / "02_Schema"
+OBSIDIAN_ARCHIVE  = OBSIDIAN_RAW  / "99_과거_아카이브_통합"
+OBSIDIAN_CHANNEL  = OBSIDIAN_RAW  / "채널_현자의거울"   # 하드코딩 폴백 (get_channel_path() 우선)
 OBSIDIAN_UNIVERSAL = OBSIDIAN_PATH / "범용카테고리"
-OBSIDIAN_SYSTEM   = OBSIDIAN_PATH / "시스템"
+OBSIDIAN_SYSTEM    = OBSIDIAN_PATH / "시스템"
+OBSIDIAN_LOGS      = OBSIDIAN_PATH / "03_Logs"
+OBSIDIAN_RAW_NEW   = OBSIDIAN_PATH / "00_Raw_Data"
+
+# ── 채널 기본값 (사이드바에서 변경 가능) ──────────
+CHANNEL_NAME = "현자의거울"
 
 # ── 앱 정보 ───────────────────────────────────────
 APP_NAME    = "현자의 거울 스튜디오"
-APP_VERSION       = "v18.0.39"
+APP_VERSION       = "v18.0.42"
 APP_PORT    = 8506
 
 # ── 8파트 한글 이름 ───────────────────────────────
 PART_NAMES = {
     1: "자료수집",
-    2: "총괄기획",
-    3: "대본작성",
+    2: "주제변환",
+    3: "대본설계",
     4: "이미지생성",
-    5: "영상생성",
-    6: "나레이션·배경음악",
-    7: "숏폼생성",
-    8: "최종조립",
+    5: "영상제작",
+    6: "나레이션",
+    7: "편집연결",
+    8: "최종완성",
 }
 
 # ── 모델 설정 ─────────────────────────────────────
 MODELS = {
-    "gemma4:e2b":       {"label": "Gemma 4 e2b", "type": "local",  "desc": "로컬 기본"},
-    "gemma4:e4b":       {"label": "Gemma 4 e4b", "type": "local",  "desc": "로컬 강화"},
-    "gemini-2.5-flash": {"label": "Gemini Flash", "type": "remote", "desc": "자료조사 보조"},
+    "gemma4:e2b":       {"label": "Gemma 4 e2b",   "type": "local",  "desc": "로컬 기본"},
+    "gemma4:e4b":       {"label": "Gemma 4 e4b",   "type": "local",  "desc": "로컬 강화"},
+    "gemini-2.5-flash": {"label": "Gemini Flash",  "type": "remote", "desc": "자료조사 보조"},
+    "gemini-2.5-pro":   {"label": "App Research",  "type": "remote", "desc": "심층 연구용"},
 }
 DEFAULT_MODEL = "gemma4:e2b"
 

@@ -1,0 +1,27 @@
+channel_name: 우리엄마요리
+channel_key: cooking
+target_audience: 30~50대 주부
+tone: 따뜻하고 친근한 부엌 수다
+narrator_age: 50대 어머니
+narrator_style: 일상 부엌 다큐
+core_symbols:
+  - 엄마 손
+  - 도마
+  - 김 오르는 솥
+visual_style: 따뜻한 자연광
+philosophy_anchor:
+  - 가족
+  - 추억
+  - 정성
+forbidden_expressions:
+  - 어렵지 않아요
+  - 실패해도 괜찮아요
+preferred_expressions:
+  - 엄마처럼
+  - 기억에 남는
+  - 손맛
+typical_topics:
+  - 엄마 레시피
+  - 추억의 음식
+  - 가족 식탁
+obsidian_channel_dir: 채널_우리엄마요리

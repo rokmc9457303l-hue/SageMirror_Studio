@@ -18,7 +18,7 @@ st.set_page_config(
 # ── core import ──────────────────────────────────
 from core.config import (
     APP_NAME, APP_VERSION, PART_NAMES,
-    OBSIDIAN_PATH, MODELS, DEFAULT_MODEL, API_KEYS,
+    OBSIDIAN_PATH, MODELS, DEFAULT_MODEL, API_KEYS, CHANNEL_NAME,
 )
 from core.state import init_state, get_state, set_state, save_workspace, load_workspace
 
@@ -42,6 +42,34 @@ def render_sidebar():
         st.caption(f"`{APP_VERSION}`")
         st.markdown("---")
         
+        # 채널 선택 (다채널 지원)
+        st.markdown("#### 📡 채널 설정")
+        _known_channels = get_state("known_channels", [CHANNEL_NAME])
+        _cur_ch = get_state("current_channel_name", CHANNEL_NAME)
+        _ch_options = _known_channels if _known_channels else [CHANNEL_NAME]
+        _sel_ch = st.selectbox(
+            "채널 선택",
+            _ch_options,
+            index=_ch_options.index(_cur_ch) if _cur_ch in _ch_options else 0,
+            key="sb_channel_sel",
+            label_visibility="collapsed",
+        )
+        if _sel_ch != _cur_ch:
+            set_state("current_channel_name", _sel_ch)
+            save_workspace()
+        with st.expander("➕ 새 채널 추가"):
+            _new_ch = st.text_input("채널명 입력", key="sb_new_channel_input",
+                                    placeholder="예: 지혜의숲")
+            if st.button("추가", key="sb_new_channel_add", use_container_width=True):
+                if _new_ch.strip() and _new_ch.strip() not in _known_channels:
+                    _known_channels.append(_new_ch.strip())
+                    set_state("known_channels", _known_channels)
+                    set_state("current_channel_name", _new_ch.strip())
+                    save_workspace()
+                    st.rerun()
+
+        st.markdown("---")
+
         # 에피소드
         st.markdown("#### 🎬 에피소드")
         episode = st.text_input(
