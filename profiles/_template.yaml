@@ -1,13 +1,19 @@
-channel_name: ""
-channel_key: ""
-target_audience: ""
-tone: ""
-narrator_age: ""
-narrator_style: ""
-core_symbols: []
-visual_style: ""
-philosophy_anchor: []
-forbidden_expressions: []
-preferred_expressions: []
-typical_topics: []
-obsidian_channel_dir: ""
+# SAGE Studio — Channel Profile 템플릿
+# 새 채널 생성 시 이 파일을 복사하여 사용
+# 모든 채널 고유 설정은 이 파일에서만 결정 (시스템 코드 하드코딩 금지)
+
+channel_name: ""           # 유튜브 채널명 (표시용)
+channel_key: ""            # 파일명 키 (영문+숫자+언더스코어)
+target_audience: ""        # 타겟 시청자 (예: 40~70대 한국인)
+tone: ""                   # 채널 전반 어조 (예: 차분하고 묵직한)
+narrator_age: ""           # 화자 나이대 (예: 60대 중후반)
+narrator_style: ""         # 화자 스타일 (예: 낮고 조용한 중저음)
+visual_style: ""           # 시각 스타일 (예: 시네마틱 다크톤)
+color_palette: ""          # 색채 방향 (예: 어두운 금빛 + 딥 브라운)
+core_symbols: []           # 핵심 상징 오브젝트 (예: [거울, 촛불, 서재])
+philosophy_anchor: []      # 지식 체계 (예: [쇼펜하우어, 성경, 칼 융])
+typical_categories: []     # 주요 콘텐츠 카테고리 (예: [감정, 철학, 심리학])
+typical_topics: []         # 자주 다루는 주제 (예: [후회, 관계 상처, 노년의 외로움])
+forbidden_expressions: []  # 금지 표현 (예: [힘내세요, 응원합니다])
+preferred_expressions: []  # 선호 표현 (예: [성찰, 조용히, 묵직하게])
+obsidian_channel_dir: ""   # 옵시디언 채널 폴더명 (예: 채널_현자의거울)

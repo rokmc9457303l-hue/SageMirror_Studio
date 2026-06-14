@@ -141,3 +141,22 @@ def save_new_profile(channel_key: str, profile_data: dict):
     path = PROFILES_DIR / f"{channel_key}.yaml"
     save_yaml(path, profile_data)
     return str(path)
+
+
+def get_channel_path(sub: str = "") -> Path:
+    """
+    현재 채널의 옵시디언 Raw 경로를 동적으로 반환.
+    config.OBSIDIAN_CHANNEL 하드코딩 대체.
+
+    사용 예:
+        get_channel_path()                     → .../01_Raw_Data/채널_현자의거울
+        get_channel_path("Part1_자료수집")     → .../01_Raw_Data/채널_현자의거울/Part1_자료수집
+    """
+    from core.config import OBSIDIAN_RAW
+    profile = load_current_profile()
+    ch_dir  = profile.get("obsidian_channel_dir", "")
+    if not ch_dir:
+        ch_name = profile.get("channel_name", "")
+        ch_dir  = f"채널_{ch_name}" if ch_name else "채널_기본"
+    base = OBSIDIAN_RAW / ch_dir
+    return base / sub if sub else base

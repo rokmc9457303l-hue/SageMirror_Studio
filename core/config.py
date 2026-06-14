@@ -16,14 +16,14 @@ OBSIDIAN_RAW      = OBSIDIAN_PATH / "01_Raw_Data"
 OBSIDIAN_WIKI     = OBSIDIAN_PATH / "01_Wiki"
 OBSIDIAN_SCHEMA   = OBSIDIAN_PATH / "02_Schema"
 OBSIDIAN_ARCHIVE  = OBSIDIAN_RAW  / "99_과거_아카이브_통합"
-OBSIDIAN_CHANNEL  = OBSIDIAN_RAW  / "채널_현자의거울"   # 하드코딩 폴백 (get_channel_path() 우선)
+OBSIDIAN_CHANNEL  = OBSIDIAN_RAW               # 채널별 경로는 get_channel_path() 사용
 OBSIDIAN_UNIVERSAL = OBSIDIAN_PATH / "범용카테고리"
 OBSIDIAN_SYSTEM    = OBSIDIAN_PATH / "시스템"
 OBSIDIAN_LOGS      = OBSIDIAN_PATH / "03_Logs"
 OBSIDIAN_RAW_NEW   = OBSIDIAN_PATH / "00_Raw_Data"
 
 # ── 채널 기본값 (사이드바에서 변경 가능) ──────────
-CHANNEL_NAME = "현자의거울"
+CHANNEL_NAME = ""          # 채널명은 Profile에서 동적 로드 (하드코딩 금지)
 
 # ── 앱 정보 ───────────────────────────────────────
 APP_NAME    = "SAGE Studio"
