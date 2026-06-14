@@ -1,0 +1,396 @@
+--- C:\SageMirror_Production\V17_Working_RightChat_005\app_v17_2_3.py
++++ C:\SageMirror_Production\V17_Working_RightChat_006\app_v17_2_3.py
+@@ -3926,43 +3926,6 @@
+     auto_git_push(f"Save Episode {episode} — {datetime.now().strftime('%Y%m%d_%H%M')}")
+     st.toast(f"💾 {episode} 전체 저장 및 백업 완료!", icon="💾")
+ 
+-def sync_global_model_to_parts(model):
+-    try:
+-        model_lower = model.lower()
+-        model_upper = model.upper()
+-        
+-        # 1. 개별 생성 모델 키 업데이트
+-        st.session_state.p1_selected_model = model_lower
+-        st.session_state.p2_selected_model = model_lower
+-        st.session_state.p34_selected_model = model_lower
+-        st.session_state.p5img_selected_model = model_lower
+-        st.session_state.p6vid_selected_model = model_lower
+-        st.session_state.p6_selected_model = model_lower
+-        st.session_state.p7_selected_model = model_lower
+-        st.session_state.p8_selected_model = model_lower
+-        
+-        # 2. RAG 모델 선택자 세션 키 업데이트
+-        st.session_state.p1_rag_model_selector = model_lower
+-        st.session_state.p2_rag_model_selector = model_lower
+-        st.session_state.p3_rag_model_selector = model_lower
+-        st.session_state.p4_rag_model_selector = model_lower
+-        st.session_state.p5_rag_model_selector = model_lower
+-        st.session_state.p6_rag_model_selector = model_lower
+-        st.session_state.p7_rag_model_selector = model_lower
+-        st.session_state.p8_rag_model_selector = model_lower
+-        
+-        # 3. UI 컴포넌트 세션 상태 덮어쓰기 (selectbox의 강제 선택 상태 갱신)
+-        for p_key in ["p1_model_select", "p2_model_select", "p34_model_select", "p5_model_select", "p5img_model_select", "p6_vid_model_select", "p6_model_select", "p7_model_select", "p8_model_select"]:
+-            st.session_state[p_key] = model_upper
+-            
+-        for p_key in ["p1_rag_model_select", "p2_rag_model_select", "p3_rag_model_select", "p4_rag_model_select", "p5_rag_model_select", "p6_rag_model_select", "p7_rag_model_select", "p8_rag_model_select"]:
+-            st.session_state[p_key] = model_lower
+-            
+-        st.session_state.selected_model = model_lower
+-        st.toast(f"🌐 전체 파트 모델이 {model_upper}로 자동 적용되었습니다!", icon="🌐")
+-    except Exception as e:
+-        st.error(f"[모델 스위칭 오류] 동기화 실패: {e}")
+-
+ def init_session_state():
+     global WORKSPACE_STATE_FILE
+     root_state_path = r"C:\SageMirror_Production\workspace_state.json"
+@@ -5023,31 +4986,6 @@
+ 
+     st.markdown(f"### {APP_TITLE} **v15.9.34**")
+ 
+-    # 🌐 글로벌 모델 선택 및 동기화 처리
+-    st.markdown("##### 🤖 글로벌 모델 선택")
+-    global_options = ["gemma4:e2b", "gemma4:e4b"]
+-    current_global = st.session_state.get("global_model_select", "gemma4:e2b")
+-    if current_global not in global_options:
+-        current_global = "gemma4:e2b"
+-    global_model = st.selectbox(
+-        "기본 모델 설정",
+-        global_options,
+-        index=global_options.index(current_global),
+-        key="global_model_select",
+-        label_visibility="collapsed"
+-    )
+-    if global_model != current_global:
+-        st.session_state.global_model_select = global_model
+-        sync_global_model_to_parts(global_model)
+-        save_workspace_state()
+-        st.rerun()
+-
+-    # Ollama 동작 상태 확인 및 출력
+-    status = check_ollama_status(target_model=global_model)
+-    if status["server"] and status["model"]: 
+-        st.success(f"[OK] Ollama | {global_model}")
+-    else: 
+-        st.error(f"[FAIL] Ollama 에러 | {global_model} 확인 필요")
+ 
+     st.divider()
+ 
+@@ -13043,130 +12981,120 @@
+ 
+                         val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+ 
+-                        val += f"## 🎯 핵심 감정 / RAG 태그\n- 연결 개념 링크: {tag_links if tag_links else '[[서사구조]], [[현자의거울]]'}\n- 태그: {tag_hashes if tag_hashes else '#대본설계'}\n\n"
+-
+-                        val += f"## 📐 112씬 구조 설계 본문\n{result}\n\n"
+-
+-
+-
+-                        obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
+-
+-                        if obs_path:
+-
+-                            lock_file_readonly(obs_path)
+-
+-                            st.toast("💾 구조 설계 로컬 자동 저장 완료!", icon="💾")
+-
+-                            success, msg = auto_git_push(f"Auto Save (Locked): {title}")
+-
+-                            if success:
+-
+-                                st.session_state.p34_arch_obsidian_saved = True
+-
+-                                st.toast("🧠 옵시디언 자동 백업 & Git Push 완료!", icon="🧠")
+-
+-                            else:
+-
+-                                st.error(f"옵시디언은 저장되었으나 GitHub Push에 실패했습니다: {msg}")
+-
+-                            save_workspace_state()
+-
+-                            st.rerun()
+-
+-
+-
+-        with c_arch2:
+-
+-            if st.session_state.get("p34_arch_saved", False):
+-
+-                st.button("💾 로컬 자동저장 완료", type="secondary", use_container_width=True, disabled=True, key="p34_arch_local_indicator")
+-
++              def run_right_research_engine(engine_id, query, context=None) -> dict:
++    import time
++    import os
++    res = {
++        "success": False,
++        "engine": engine_id,
++        "text": "",
++        "sources": [],
++        "verification_status": "unverified",
++        "error_code": "",
++        "error_message": "",
++        "elapsed_seconds": 0.0
++    }
++    start_time = time.time()
++    
++    # API 키: st.session_state 우선, 환경변수 fallback
++    def _get_api_key(ss_key, env_key):
++        val = st.session_state.get(ss_key, "").strip()
++        if not val:
++            val = os.getenv(env_key, "").strip()
++        return val
++    
++    try:
++        if engine_id in ["gemma4:e2b", "gemma4:e4b"]:
++            # Local Ollama
++            import requests
++            import json
++            url = "http://localhost:11434/api/generate"
++            # E4B는 CPU에서 토큰당 속도가 느늤서 num_predict를 500으로 제한
++            num_predict = 500 if engine_id == "gemma4:e4b" else 1500
++            payload = {
++                "model": engine_id,
++                "prompt": f"{context}\n\n{query}" if context else query,
++                "stream": False,
++                "keep_alive": "10m",
++                "options": {
++                    "num_predict": num_predict,
++                    "temperature": 0.2
++                }
++            }
++            resp = requests.post(url, json=payload, timeout=(10, 300))
++            resp.raise_for_status()
++            data = resp.json()
++            res["text"] = data.get("response", "").strip()
++            if not res["text"]:
++                res["error_code"] = "empty_response"
++                res["error_message"] = "응답이 비어있습니다."
+             else:
+-
+-                st.button("⏳ 결과 대기 중", use_container_width=True, disabled=True, key="p34_arch_local_waiting")
+-
+-
+-
+-        with c_arch3:
+-
+-            if st.session_state.get("p34_arch_obsidian_saved", False):
+-
+-                st.button("🧠 옵시디언 백업 완료", type="primary", use_container_width=True, disabled=True, key="p34_arch_obs_indicator")
+-
++                res["success"] = True
++                res["verification_status"] = "verified"
++                res["sources"] = [{"title": "Ollama Local", "url": "localhost"}]
++                
++        elif "gemini" in engine_id:
++            api_key = _get_api_key("gemini_api_key", "GEMINI_API_KEY")
++            if not api_key:
++                res["error_code"] = "missing_key"
++                res["error_message"] = "[Gemini API 키 미설정] 사이드바 ⚙️ 설정 변경 → Gemini API Key를 입력하세요."
++                return res
++            
++            import google.generativeai as genai
++            genai.configure(api_key=api_key)
++            model = genai.GenerativeModel(model_name=engine_id)
++            prompt = f"{context}\n\n{query}" if context else query
++            
++            resp = model.generate_content(prompt)
++            res["text"] = resp.text.strip()
++            if not res["text"]:
++                res["error_code"] = "empty_response"
++                res["error_message"] = "응답이 비어있습니다."
+             else:
+-
+-                st.button("⏳ 백업 대기 중", use_container_width=True, disabled=True, key="p34_arch_obs_waiting")
+-
+-
+-
+-        st.info("ℹ️ Part 2 기획안 → 기(001~028) / 승(029~056) / 전(057~084) / 결(085~112) 자동 분배")
+-
+-        render_unified_prompt_editor("📐 112씬 구조 설계 결과", "p34_scene_structure", height=400, is_locked=is_locked)
+-
+-
+-
+-        if st.session_state.p34_scene_structure:
+-
+-            if st.button("💾 (예비용) 구조 설계 수동 옵시디언 백업", use_container_width=True, key="p34_save_struct", disabled=is_locked):
+-
+-                st.session_state.p34_scene_structure = st.session_state.p34_struct_area
+-
+-                ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+-
+-                topic_title = st.session_state.get("p2_topic_selection", "대본구조")
+-
+-                folder_name = "ScriptDrafts"
+-
+-                title = f"112씬 구조 설계 - {topic_title}"
+-
+-                val = f"## 📖 112씬 구조 설계\n{st.session_state.p34_scene_structure}\n"
+-
+-                obs_path = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Part 3-4")
+-
+-                if obs_path:
+-
+-                    lock_file_readonly(obs_path)
+-
+-                    st.toast("✅ 수동 구조 설계 옵시디언 백업 완료!", icon="💾")
+-
+-                    st.session_state.p34_arch_obsidian_saved = True
+-
+-                    save_workspace_state()
+-
+-                    success, msg = auto_git_push(f"Manual Save: {title}")
+-
+-                    if success:
+-
+-                        st.toast("🚀 GitHub 백업 완료!", icon="🚀")
+-
+-                    else:
+-
+-                        st.error(f"GitHub Push 실패: {msg}")
+-
+-                    st.rerun()
+-
+-
+-
+-    st.divider()
+-
+-
+-
+-    # ─── 옵시디언 감정 기반 검색 (대본 참조용) ───────────────
+-    with st.expander("🔍 RAG 보완 검색 설정 (접기/펼치기)", expanded=False):
+-        DEFAULT_P3_TAGS = "고독, 후회, 상실, 관계, 용서, 쇼펜하우어, 성경"
+-        render_obsidian_rag_search(
+-            "part3", 
+-            "Part 3: 나레이션 대본", 
+-            get_default_tags_for_part("part3"), 
+-            "p3_obsidian_search_results", 
+-            "p3_rag_model_selector"
+-        )
+-
+-    st.divider()
+-
+-    st.subheader("[WRITE] Step 3. Writer — 대본 집필 (3단 분리)")
+-
+-    st.caption("확정된 112씬 구조 위에 살을 붙여, 나레이션·이미지·캡컷 3종 대본을 각각 집필합니다.")
++                res["success"] = True
++                res["verification_status"] = "verified"
++                res["sources"] = [{"title": "Gemini API", "url": "google"}]
++                
++        elif engine_id == "Tavily 웹 검색":
++            api_key = _get_api_key("tavily_api_key", "TAVILY_API_KEY")
++            if not api_key:
++                res["error_code"] = "missing_key"
++                res["error_message"] = "[Tavily API 키 미설정] 사이드바 ⚙️ 설정 변경 → Tavily API Key를 입력하세요."
++                return res
++                
++            from research_router import run_tavily_research
++            tavily_res = run_tavily_research(query, api_key, max_results=5)
++            if "error" in tavily_res:
++                res["error_code"] = "tavily_error"
++                res["error_message"] = f"[Tavily 오류] {tavily_res['error']}"
++            else:
++                res["success"] = True
++                res["text"] = tavily_res.get("answer", "Tavily 검색이 완료되었습니다.")
++                if not res["text"] and tavily_res.get("results"):
++                    res["text"] = "\n".join([f"- {r.get('title')}: {r.get('content')}" for r in tavily_res["results"]])
++                if not res["text"]:
++                    res["text"] = "Tavily 검색 결과가 없습니다."
++                for r in tavily_res.get("results", []):
++                    res["sources"].append({"title": r.get("title", "제목 없음"), "url": r.get("url", "")})
++                res["verification_status"] = "verified"
++        else:
++            res["error_code"] = "unknown_engine"
++            res["error_message"] = f"알 수 없는 엔진: {engine_id}"
++            
++    except requests.exceptions.Timeout:
++        res["error_code"] = "timeout"
++        res["error_message"] = "[요청 시간 초과] API 응답이 너무 뒦습니다."
++    except requests.exceptions.ConnectionError:
++        res["error_code"] = "connection_error"
++        res["error_message"] = "[연결 오류] 서버에 연결할 수 없습니다. (Ollama 실행 여부 확인)"
++    except Exception as e:
++        import traceback
++        res["error_code"] = "unknown_error"
++        res["error_message"] = f"[오류 발생] {str(e)}"
++        
++    res["elapsed_seconds"] = round(time.time() - start_time, 2)
++    return res
++�� 집필합니다.")
+ 
+ 
+ 
+@@ -15543,39 +15471,30 @@
+     return res
+ 
+ def render_right_gemma_panel():
++    # === 우측 패널 sticky CSS (순수 CSS, JS 오버라이드 제거) ===
+     st.html('''
+-    <div id="right-gemma-fixed-marker"></div>
++    <div id="rg-marker"></div>
+     <style>
+-    div[data-testid="stHorizontalBlock"]:has(#right-gemma-fixed-marker) {
+-        align-items: flex-start !important;
++    /* 우측 컨테이너 포함한 HorizontalBlock에서 overflow 해제 */
++    section[data-testid="stMain"] > div:first-child {
+         overflow: visible !important;
+     }
+-    div[data-testid="column"]:has(#right-gemma-fixed-marker) {
++    /* 우측 column 고정 */
++    div[data-testid="column"]:has(#rg-marker) {
+         position: sticky !important;
+         top: 60px !important;
+-        align-self: flex-start !important;
+         height: calc(100vh - 80px) !important;
+         overflow-y: auto !important;
+-        padding-right: 10px;
+-        padding-bottom: 20px;
+-        z-index: 999;
++        align-self: flex-start !important;
++        padding-right: 8px !important;
++        padding-bottom: 16px !important;
++        z-index: 100 !important;
++    }
++    /* 전체 HorizontalBlock에서 align 조정 */
++    div[data-testid="stHorizontalBlock"]:has(#rg-marker) {
++        align-items: flex-start !important;
+     }
+     </style>
+-    <script>
+-    setTimeout(function() {
+-        const marker = document.getElementById("right-gemma-fixed-marker");
+-        if(marker) {
+-            let parent = marker.parentElement;
+-            while(parent && parent.tagName !== "BODY") {
+-                const style = window.getComputedStyle(parent);
+-                if(style.overflow === "hidden" || style.overflow === "auto" || style.overflowY === "hidden" || style.overflowY === "auto") {
+-                    parent.style.setProperty("overflow", "visible", "important");
+-                }
+-                parent = parent.parentElement;
+-            }
+-        }
+-    }, 1000);
+-    </script>
+     ''')
+ 
+     if "right_research_history" not in st.session_state:
+@@ -15680,8 +15599,19 @@
+             "웹 검색 (Tavily)": "Tavily 웹 검색"
+         }
+         models_display = list(MODEL_MAP.keys())
+-        selected_mode_display = st.selectbox("모델", models_display, key="right_gemma_model_select", label_visibility="collapsed")
++        # 이전에 선택한 모델 복원 (right_research_engine_id 전용 키)
++        prev_engine = st.session_state.get("right_research_engine_id", "gemma4:e2b")
++        prev_display = next((k for k, v in MODEL_MAP.items() if v == prev_engine), models_display[0])
++        prev_idx = models_display.index(prev_display) if prev_display in models_display else 0
++        selected_mode_display = st.selectbox(
++            "모델", models_display,
++            index=prev_idx,
++            key="right_gemma_model_select",
++            label_visibility="collapsed"
++        )
+         selected_mode = MODEL_MAP[selected_mode_display]
++        # 선택 즉시 전용 키에 저장 (global_model 간섭 없음)
++        st.session_state["right_research_engine_id"] = selected_mode
+ 
+     with ctrl_send:
+         send_clicked = st.button("전송", key="right_gemma_send_button", use_container_width=True, type="primary")

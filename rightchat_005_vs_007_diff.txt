@@ -1,0 +1,71 @@
+--- C:\SageMirror_Production\V17_Working_RightChat_005\app_v17_2_3.py
++++ C:\SageMirror_Production\V17_Working_RightChat_007\app_v17_2_3.py
+@@ -5024,29 +5024,5 @@
+     st.markdown(f"### {APP_TITLE} **v15.9.34**")
+ 
+-    # 🌐 글로벌 모델 선택 및 동기화 처리
+-    st.markdown("##### 🤖 글로벌 모델 선택")
+-    global_options = ["gemma4:e2b", "gemma4:e4b"]
+-    current_global = st.session_state.get("global_model_select", "gemma4:e2b")
+-    if current_global not in global_options:
+-        current_global = "gemma4:e2b"
+-    global_model = st.selectbox(
+-        "기본 모델 설정",
+-        global_options,
+-        index=global_options.index(current_global),
+-        key="global_model_select",
+-        label_visibility="collapsed"
+-    )
+-    if global_model != current_global:
+-        st.session_state.global_model_select = global_model
+-        sync_global_model_to_parts(global_model)
+-        save_workspace_state()
+-        st.rerun()
+-
+-    # Ollama 동작 상태 확인 및 출력
+-    status = check_ollama_status(target_model=global_model)
+-    if status["server"] and status["model"]: 
+-        st.success(f"[OK] Ollama | {global_model}")
+-    else: 
+-        st.error(f"[FAIL] Ollama 에러 | {global_model} 확인 필요")
++    # [v17_007] 글로벌 모델 선택 UI 제거 — 우측 패널이 전용 키(right_research_engine_id)로 독립 관리
+ 
+     st.divider()
+@@ -15673,14 +15649,28 @@
+ 
+     with ctrl_model:
+-        MODEL_MAP = {
+-            "Gemma E2B (로컬)": "gemma4:e2b",
+-            "Gemma E4B (로컬)": "gemma4:e4b",
+-            "Gemini Flash": "gemini-2.5-flash",
+-            "Gemini Pro": "gemini-3-flash",
+-            "웹 검색 (Tavily)": "Tavily 웹 검색"
++        # [v17_007] 우측 전용 키 — global_model 간섭 차단
++        ENGINE_IDS = ["gemma4:e2b", "gemma4:e4b", "gemini-2.5-flash", "gemini-3-flash", "Tavily 웹 검색"]
++        ENGINE_LABELS = {
++            "gemma4:e2b":       "Gemma E2B · 로컬",
++            "gemma4:e4b":       "Gemma E4B · 로컬",
++            "gemini-2.5-flash": "Gemini Flash · 리서치",
++            "gemini-3-flash":   "Gemini Pro · 리서치",
++            "Tavily 웹 검색":   "Tavily · 웹 검색",
+         }
+-        models_display = list(MODEL_MAP.keys())
+-        selected_mode_display = st.selectbox("모델", models_display, key="right_gemma_model_select", label_visibility="collapsed")
+-        selected_mode = MODEL_MAP[selected_mode_display]
++        # 최초 1회만 기본값 설정 — rerun 시 재대입 없음
++        if "right_research_engine_id" not in st.session_state:
++            st.session_state["right_research_engine_id"] = "gemma4:e2b"
++        prev_id = st.session_state["right_research_engine_id"]
++        prev_idx = ENGINE_IDS.index(prev_id) if prev_id in ENGINE_IDS else 0
++        selected_mode = st.selectbox(
++            "모델",
++            ENGINE_IDS,
++            index=prev_idx,
++            format_func=lambda x: ENGINE_LABELS.get(x, x),
++            key="right_gemma_model_select",
++            label_visibility="collapsed"
++        )
++        # 선택 즉시 전용 키에만 저장 — global_model 재대입 없음
++        st.session_state["right_research_engine_id"] = selected_mode
+ 
+     with ctrl_send:

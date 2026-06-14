@@ -1,0 +1,65 @@
+--- _009
++++ _012
+@@ -15525,45 +15525,26 @@
+     return res
+ 
+ def render_right_gemma_panel():
++    # [DOM 진단 확인] CSS 셀렉터: data-testid="stColumn" (≠ "column")
++    # stMain(overflow:auto)이 스크롤 컨테이너 → stColumn에 sticky 적용
+     st.html('''
+-    <div id="right-gemma-fixed-marker"></div>
++    <div id="right-research-marker"></div>
+     <style>
+-    div[data-testid="stHorizontalBlock"]:has(#right-gemma-fixed-marker) {
+-        align-items: flex-start !important;
+-        overflow: visible !important;
+-    }
+-    div[data-testid="column"]:has(#right-gemma-fixed-marker) {
++    div[data-testid="stColumn"]:has(#right-research-marker) {
+         position: sticky !important;
+-        top: 60px !important;
++        top: 8px !important;
+         align-self: flex-start !important;
+-        height: calc(100vh - 80px) !important;
+-        overflow-y: auto !important;
+-        padding-right: 10px;
+-        padding-bottom: 20px;
+-        z-index: 999;
++        max-height: calc(100vh - 16px) !important;
++        overflow: hidden !important;
++        z-index: 10;
+     }
+     </style>
+-    <script>
+-    setTimeout(function() {
+-        const marker = document.getElementById("right-gemma-fixed-marker");
+-        if(marker) {
+-            let parent = marker.parentElement;
+-            while(parent && parent.tagName !== "BODY") {
+-                const style = window.getComputedStyle(parent);
+-                if(style.overflow === "hidden" || style.overflow === "auto" || style.overflowY === "hidden" || style.overflowY === "auto") {
+-                    parent.style.setProperty("overflow", "visible", "important");
+-                }
+-                parent = parent.parentElement;
+-            }
+-        }
+-    }, 1000);
+-    </script>
+     ''')
+ 
+     if "right_research_history" not in st.session_state:
+         st.session_state.right_research_history = []
+ 
+-    chat_container = st.container(height=480, border=True)
++    chat_container = st.container(height=400, border=True)
+     with chat_container:
+         if not st.session_state.right_research_history:
+             pass
+@@ -15579,7 +15560,6 @@
+                             for s in msg["sources"]:
+                                 st.write(f"- [{s.get('title')}]({s.get('url')})")
+ 
+-    st.markdown("<br>", unsafe_allow_html=True)
+ 
+     # === 입력창 초기화 로직 ===
+     if "right_gemma_clear_flag" in st.session_state and st.session_state.right_gemma_clear_flag:

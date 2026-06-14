@@ -1,0 +1,229 @@
+{
+  "initial": {
+    "hBlock": {
+      "testId": "stHorizontalBlock",
+      "tag": "DIV",
+      "position": "static",
+      "top": "auto",
+      "height": "86.7812px",
+      "minHeight": "auto",
+      "maxHeight": "none",
+      "overflow": "visible",
+      "overflowY": "visible",
+      "display": "flex",
+      "flexGrow": "1",
+      "flexShrink": "1",
+      "flexBasis": "0%",
+      "rect_top": 300.140625,
+      "rect_bottom": 386.921875,
+      "rect_height": 86.78125,
+      "scrollHeight": 87,
+      "clientHeight": 87
+    },
+    "rightCol": {
+      "testId": "stColumn",
+      "tag": "DIV",
+      "position": "static",
+      "top": "auto",
+      "height": "86.7812px",
+      "minHeight": "auto",
+      "maxHeight": "none",
+      "overflow": "visible",
+      "overflowY": "visible",
+      "display": "block",
+      "flexGrow": "1",
+      "flexShrink": "1",
+      "flexBasis": "calc(50% - 16px)",
+      "rect_top": 300.140625,
+      "rect_bottom": 386.921875,
+      "rect_height": 86.78125,
+      "scrollHeight": 87,
+      "clientHeight": 87
+    },
+    "rightColInner": {
+      "testId": "stVerticalBlock",
+      "tag": "DIV",
+      "position": "static",
+      "top": "auto",
+      "height": "86.7812px",
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "overflow": "visible",
+      "overflowY": "visible",
+      "display": "flex",
+      "flexGrow": "1",
+      "flexShrink": "1",
+      "flexBasis": "0%",
+      "rect_top": 300.140625,
+      "rect_bottom": 386.921875,
+      "rect_height": 86.78125,
+      "scrollHeight": 87,
+      "clientHeight": 87
+    },
+    "borderWrapper": null,
+    "borderInner": null,
+    "textareaWrapper": null,
+    "sendBtnWrapper": null,
+    "stMain": {
+      "testId": "stMain",
+      "tag": "SECTION",
+      "position": "static",
+      "top": "auto",
+      "height": "788px",
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "overflow": "auto",
+      "overflowY": "auto",
+      "display": "flex",
+      "flexGrow": "0",
+      "flexShrink": "1",
+      "flexBasis": "auto",
+      "rect_top": 0,
+      "rect_bottom": 788,
+      "rect_height": 788,
+      "scrollHeight": 2190,
+      "clientHeight": 788
+    },
+    "parentChain": [
+      {
+        "tag": "DIV",
+        "testId": "stHorizontalBlock",
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "86.7812px",
+        "display": "flex"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stLayoutWrapper",
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "86.7812px",
+        "display": "flex"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stVerticalBlock",
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "294.922px",
+        "display": "flex"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stLayoutWrapper",
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "294.922px",
+        "display": "flex"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stVerticalBlock",
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "1335.25px",
+        "display": "flex"
+      },
+      {
+        "tag": "DIV",
+        "testId": null,
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "1335.25px",
+        "display": "block"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stSidebarUserContent",
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "1431.25px",
+        "display": "block"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stSidebarContent",
+        "overflow": "auto",
+        "overflowY": "auto",
+        "height": "788px",
+        "display": "block"
+      },
+      {
+        "tag": "SECTION",
+        "testId": "stSidebar",
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "788px",
+        "display": "block"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stAppViewContainer",
+        "overflow": "hidden",
+        "overflowY": "hidden",
+        "height": "788px",
+        "display": "flex"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stApp",
+        "overflow": "hidden",
+        "overflowY": "hidden",
+        "height": "788px",
+        "display": "block"
+      },
+      {
+        "tag": "DIV",
+        "testId": "stScreencast",
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "0px",
+        "display": "block"
+      },
+      {
+        "tag": "DIV",
+        "testId": null,
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "0px",
+        "display": "block"
+      },
+      {
+        "tag": "DIV",
+        "testId": null,
+        "overflow": "visible",
+        "overflowY": "visible",
+        "height": "0px",
+        "display": "block"
+      }
+    ]
+  },
+  "after3": {
+    "rightCol": {
+      "testId": "stColumn",
+      "rect_top": 300.140625,
+      "rect_bottom": 386.921875,
+      "rect_height": 86.78125,
+      "scrollHeight": 87,
+      "clientHeight": 87
+    },
+    "borderWrapper": null,
+    "textarea_rect": null,
+    "sendBtn_rect": null,
+    "stMain": {
+      "scrollHeight": 2190,
+      "clientHeight": 788
+    }
+  },
+  "scrolled": {
+    "rightCol_rect": {
+      "top": 300.140625,
+      "bottom": 386.921875,
+      "height": 86.78125
+    },
+    "textarea_rect": null,
+    "sendBtn_rect": null,
+    "stMain_scrollTop": 800
+  }
+}

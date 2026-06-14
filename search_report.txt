@@ -1,0 +1,173 @@
+
+=== [def sync_global_model_to_parts] --- 1
+  L3929: def sync_global_model_to_parts(model):
+
+=== [sync_global_model_to_parts(] --- 2
+  L3929: def sync_global_model_to_parts(model):
+  L5041:         sync_global_model_to_parts(global_model)
+
+=== [global_model] --- 11
+  L3929: def sync_global_model_to_parts(model):
+  L4009:         "global_model_select": "gemma4:e2b",
+  L5029:     current_global = st.session_state.get("global_model_select", "gemma4:e2b")
+  L5032:     global_model = st.selectbox(
+  L5036:         key="global_model_select",
+  L5039:     if global_model != current_global:
+  L5040:         st.session_state.global_model_select = global_model
+  L5041:         sync_global_model_to_parts(global_model)
+  L5046:     status = check_ollama_status(target_model=global_model)
+  L5048:         st.success(f"[OK] Ollama | {global_model}")
+  L5050:         st.error(f"[FAIL] Ollama 에러 | {global_model} 확인 필요")
+
+=== [global_model_select] --- 4
+  L4009:         "global_model_select": "gemma4:e2b",
+  L5029:     current_global = st.session_state.get("global_model_select", "gemma4:e2b")
+  L5036:         key="global_model_select",
+  L5040:         st.session_state.global_model_select = global_model
+
+=== [selected_model] --- 67
+  L156:         model = st.session_state.get("selected_model", OLLAMA_MODEL)
+  L227:                             st.session_state.get("selected_model", OLLAMA_MODEL)
+  L447: def call_selected_model(prompt, system="", model_name=None):
+  L449:         model_name = st.session_state.get("selected_model", "gemma4:e2b")
+  L457: def build_rag_context_from_results(results, part_label, selected_model):
+  L466:         f"사용 모델: {selected_model}",
+  L553:         model_name = model_name or st.session_state.get("selected_model", OLLAMA_MODEL)
+  L638:         selected_model = st.selectbox(
+  L644:         if selected_model != cur_model:
+  L645:             st.session_state[model_state_key] = selected_model
+  L668:                     if gemini_api_key and ("gemini" in selected_model.lower()):
+  L670:                         search_res = gemini_search_grounding(query_val, gemini_api_key, model_name=selected_model.lower())
+  L686:                 if "gemini" not in selected_model.lower():
+  L695:                     gemma_init_res = call_gemma(init_prompt, system=SAGE_PERSONA, model=selected_model)
+  L721:                 final_summary = call_selected_model(final_summary_prompt, system=SAGE_PERSONA, model_name=selected_model)
+  L737:                     model_name=selected_model,
+  L759:                     source=f"Part {part_key[-1]} RAG Search ({selected_model})"
+  L3935:         st.session_state.p1_selected_model = model_lower
+  L3936:         st.session_state.p2_selected_model = model_lower
+  L3937:         st.session_state.p34_selected_model = model_lower
+  L3938:         st.session_state.p5img_selected_model = model_lower
+  L3939:         st.session_state.p6vid_selected_model = model_lower
+  L3940:         st.session_state.p6_selected_model = model_lower
+  L3941:         st.session_state.p7_selected_model = model_lower
+  L3942:         st.session_state.p8_selected_model = model_lower
+  L3961:         st.session_state.selected_model = model_lower
+  L4010:         "p1_selected_model": "gemma4:e2b",
+  L4011:         "p2_selected_model": "gemma4:e2b",
+  L4012:         "p34_selected_model": "gemma4:e2b",
+  L4013:         "p5img_selected_model": "gemma4:e2b",
+  L4014:         "p6vid_selected_model": "gemma4:e2b",
+  L4015:         "p6_selected_model": "gemma4:e2b",
+  L4016:         "p7_selected_model": "gemma4:e2b",
+  L4017:         "p8_selected_model": "gemma4:e2b",
+  L4055:         "popup_selected_model": "gemma4:e2b",
+  L4057:         "selected_model": "gemma4:e2b",
+  L4752:         "p0_selected_model": "gemma4:e2b"
+  L9465:                     _thumb_model = st.session_state.get("selected_model", OLLAMA_MODEL)
+  L14723:         model_name = st.session_state.get("selected_model", "gemma4:e2b")
+  L14755:         res = call_selected_model(prompt, system=SAGE_PERSONA, model_name=model_name)
+  L15006:                     res = call_selected_model(prompt, system=SAGE_PERSONA, model_name=model_sel)
+  L15087:                     model_name=st.session_state.get("selected_model", "gemma4:e2b")
+  L15373:                     res = call_selected_model(prompt, system=SAGE_PERSONA, model_name=model_sel)
+  L15763:             if p1_ui_model_lower != st.session_state.get("p1_selected_model", "gemma4:e2b"):
+  L15764:                 st.session_state.p1_selected_model = p1_ui_model_lower
+  L15766:         st.session_state.selected_model = st.session_state.get("p1_selected_model", "gemma4:e2b")
+  L15773:             if p2_ui_model_lower != st.session_state.get("p2_selected_model", "gemma4:e2b"):
+  L15774:                 st.session_state.p2_selected_model = p2_ui_model_lower
+  L15776:         st.session_state.selected_model = st.session_state.get("p2_selected_model", "gemma4:e2b")
+  L15783:             if p34_ui_model_lower != st.session_state.get("p34_selected_model", "gemma4:e2b"):
+  L15784:                 st.session_state.p34_selected_model = p34_ui_model_lower
+  L15786:         st.session_state.selected_model = st.session_state.get("p34_selected_model", "gemma4:e2b")
+  L15793:             if p5img_ui_model_lower != st.session_state.get("p5img_selected_model", "gemma4:e2b"):
+  L15794:                 st.session_state.p5img_selected_model = p5img_ui_model_lower
+  L15796:         st.session_state.selected_model = st.session_state.get("p5img_selected_model", "gemma4:e2b")
+  L15803:             if p6vid_ui_model_lower != st.session_state.get("p6vid_selected_model", "gemma4:e2b"):
+  L15804:                 st.session_state.p6vid_selected_model = p6vid_ui_model_lower
+  L15806:         st.session_state.selected_model = st.session_state.get("p6vid_selected_model", "gemma4:e2b")
+  L15813:             if p6_ui_model_lower != st.session_state.get("p6_selected_model", "gemma4:e2b"):
+  L15814:                 st.session_state.p6_selected_model = p6_ui_model_lower
+  L15816:         st.session_state.selected_model = st.session_state.get("p6_selected_model", "gemma4:e2b")
+  L15823:             if p7_ui_model_lower != st.session_state.get("p7_selected_model", "gemma4:e2b"):
+  L15824:                 st.session_state.p7_selected_model = p7_ui_model_lower
+  L15826:         st.session_state.selected_model = st.session_state.get("p7_selected_model", "gemma4:e2b")
+  L15833:             if p8_ui_model_lower != st.session_state.get("p8_selected_model", "gemma4:e2b"):
+  L15834:                 st.session_state.p8_selected_model = p8_ui_model_lower
+  L15836:         st.session_state.selected_model = st.session_state.get("p8_selected_model", "gemma4:e2b")
+
+=== [Ollama |] --- 1
+  L5048:         st.success(f"[OK] Ollama | {global_model}")
+
+=== [right_research_engine] --- 2
+  L15440: def run_right_research_engine(engine_id, query, context=None) -> dict:
+  L15707:                 res = run_right_research_engine(selected_mode, user_input, context=sys_prompt)
+
+=== [right_gemma_model_select] --- 1
+  L15683:         selected_mode_display = st.selectbox("모델", models_display, key="right_gemma_model_select", label_visibility="collapsed")
+
+=== [right_research_engine_id] --- 0
+
+=== [gemma4:e2b] --- 57
+  L449:         model_name = st.session_state.get("selected_model", "gemma4:e2b")
+  L636:         model_options = ["gemma4:e2b", "gemma4:e4b", "gemini-2.5-flash", "gemini-3-flash"]
+  L637:         cur_model = st.session_state.get(model_state_key, "gemma4:e2b")
+  L1203:   [SOURCE: 출처 미확인 — gemma4:e2b 생성]
+  L1285: # 적용 모델: gemma4:e2b (Ollama 로컬 실행)
+  L3988:         "p5_rag_model_selector": "gemma4:e2b",
+  L3992:         "p6_rag_model_selector": "gemma4:e2b",
+  L3996:         "p7_rag_model_selector": "gemma4:e2b",
+  L4000:         "p8_rag_model_selector": "gemma4:e2b",
+  L4009:         "global_model_select": "gemma4:e2b",
+  L4010:         "p1_selected_model": "gemma4:e2b",
+  L4011:         "p2_selected_model": "gemma4:e2b",
+  L4012:         "p34_selected_model": "gemma4:e2b",
+  L4013:         "p5img_selected_model": "gemma4:e2b",
+  L4014:         "p6vid_selected_model": "gemma4:e2b",
+  L4015:         "p6_selected_model": "gemma4:e2b",
+  L4016:         "p7_selected_model": "gemma4:e2b",
+  L4017:         "p8_selected_model": "gemma4:e2b",
+  L4055:         "popup_selected_model": "gemma4:e2b",
+  L4057:         "selected_model": "gemma4:e2b",
+  L4748:         "p1_rag_model_selector": "gemma4:e2b", "p2_rag_model_selector": "gemma4:e2b", "p3_rag_model_selector": "gemma4:e2b", "p4_rag_model_selector": "gemma4:e2b",
+  L4750:         "p5_rag_model_selector": "gemma4:e2b", "p6_rag_model_selector": "gemma4:e2b", "p7_rag_model_selector": "gemma4:e2b", "p8_rag_model_selector": "gemma4:e2b",
+  L4752:         "p0_selected_model": "gemma4:e2b"
+  L5028:     global_options = ["gemma4:e2b", "gemma4:e4b"]
+  L5029:     current_global = st.session_state.get("global_model_select", "gemma4:e2b")
+  L5031:         current_global = "gemma4:e2b"
+  L7269: def _stream_gemma_a_mode_p0(prompt: str, system: str = "", model: str = "gemma4:e2b"):
+  L8025:                                     st.session_state.get("p1_rag_model_selector", "gemma4:e2b")
+  L11865:                             st.session_state.get("p4_rag_model_selector", "gemma4:e2b")
+  L12555:                     st.session_state.get("p5_rag_model_selector", "gemma4:e2b")
+  L13233:                                     st.session_state.get("p3_rag_model_selector", "gemma4:e2b")
+  L14471:                                 st.session_state.get("p6_rag_model_selector", "gemma4:e2b")
+  L14723:         model_name = st.session_state.get("selected_model", "gemma4:e2b")
+  L14995:                             st.session_state.get("p7_rag_model_selector", "gemma4:e2b")
+  L15005:                     model_sel = st.session_state.get("p7_rag_model_selector", "gemma4:e2b")
+  L15087:                     model_name=st.session_state.get("selected_model", "gemma4:e2b")
+  L15359:                             st.session_state.get("p8_rag_model_selector", "gemma4:e2b")
+  L15372:                     model_sel = st.session_state.get("p8_rag_model_selector", "gemma4:e2b")
+  L15456:         if engine_id in ["gemma4:e2b", "gemma4:e4b"]:
+  L15676:             "Gemma E2B (로컬)": "gemma4:e2b",
+  L15704:             spinner_msg = "로컬 모델을 준비하고 있습니다. 최초 실행은 최대 2분 정도 걸릴 수 있습니다." if selected_mode in ["gemma4:e2b", "gemma4:e4b"] else "응답 대기 중..."
+  L15763:             if p1_ui_model_lower != st.session_state.get("p1_selected_model", "gemma4:e2b"):
+  L15766:         st.session_state.selected_model = st.session_state.get("p1_selected_model", "gemma4:e2b")
+  L15773:             if p2_ui_model_lower != st.session_state.get("p2_selected_model", "gemma4:e2b"):
+  L15776:         st.session_state.selected_model = st.session_state.get("p2_selected_model", "gemma4:e2b")
+  L15783:             if p34_ui_model_lower != st.session_state.get("p34_selected_model", "gemma4:e2b"):
+  L15786:         st.session_state.selected_model = st.session_state.get("p34_selected_model", "gemma4:e2b")
+  L15793:             if p5img_ui_model_lower != st.session_state.get("p5img_selected_model", "gemma4:e2b"):
+  L15796:         st.session_state.selected_model = st.session_state.get("p5img_selected_model", "gemma4:e2b")
+  L15803:             if p6vid_ui_model_lower != st.session_state.get("p6vid_selected_model", "gemma4:e2b"):
+  L15806:         st.session_state.selected_model = st.session_state.get("p6vid_selected_model", "gemma4:e2b")
+  L15813:             if p6_ui_model_lower != st.session_state.get("p6_selected_model", "gemma4:e2b"):
+  L15816:         st.session_state.selected_model = st.session_state.get("p6_selected_model", "gemma4:e2b")
+  L15823:             if p7_ui_model_lower != st.session_state.get("p7_selected_model", "gemma4:e2b"):
+  L15826:         st.session_state.selected_model = st.session_state.get("p7_selected_model", "gemma4:e2b")
+  L15833:             if p8_ui_model_lower != st.session_state.get("p8_selected_model", "gemma4:e2b"):
+  L15836:         st.session_state.selected_model = st.session_state.get("p8_selected_model", "gemma4:e2b")
+
+=== [gemma4:e4b] --- 5
+  L636:         model_options = ["gemma4:e2b", "gemma4:e4b", "gemini-2.5-flash", "gemini-3-flash"]
+  L5028:     global_options = ["gemma4:e2b", "gemma4:e4b"]
+  L15456:         if engine_id in ["gemma4:e2b", "gemma4:e4b"]:
+  L15677:             "Gemma E4B (로컬)": "gemma4:e4b",
+  L15704:             spinner_msg = "로컬 모델을 준비하고 있습니다. 최초 실행은 최대 2분 정도 걸릴 수 있습니다." if selected_mode in ["gemma4:e2b", "gemma4:e4b"] else "응답 대기 중..."

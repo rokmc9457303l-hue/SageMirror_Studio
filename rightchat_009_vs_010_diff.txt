@@ -1,0 +1,88 @@
+--- C:\SageMirror_Production\V17_Working_RightChat_009\app_v17_2_3.py
++++ C:\SageMirror_Production\V17_Working_RightChat_010\app_v17_2_3.py
+@@ -15528,6 +15528,7 @@
+     st.html('''
+     <div id="right-gemma-fixed-marker"></div>
+     <style>
++    /* 우측 패널의 메인 컬럼 설정: 화면에 고정, 스크롤 숨김, Flexbox 지정 */
+     div[data-testid="stHorizontalBlock"]:has(#right-gemma-fixed-marker) {
+         align-items: flex-start !important;
+         overflow: visible !important;
+@@ -15537,10 +15538,33 @@
+         top: 60px !important;
+         align-self: flex-start !important;
+         height: calc(100vh - 80px) !important;
+-        overflow-y: auto !important;
++        overflow: hidden !important;
++        display: flex !important;
++        flex-direction: column !important;
+         padding-right: 10px;
+         padding-bottom: 20px;
+         z-index: 999;
++    }
++    /* 컬럼 내부 컨텐츠 래퍼도 Flexbox로 설정 */
++    div[data-testid="column"]:has(#right-gemma-fixed-marker) > div[data-testid="stVerticalBlock"] {
++        display: flex !important;
++        flex-direction: column !important;
++        flex: 1 !important;
++        height: 100% !important;
++        overflow: hidden !important;
++    }
++    /* 채팅 영역 (border=True 컨테이너)이 Flex: 1을 차지하도록 설정 */
++    div[data-testid="column"]:has(#right-gemma-fixed-marker) div[data-testid="stVerticalBlockBorderWrapper"]:has(#right-gemma-chat-area) {
++        flex: 1 !important;
++        overflow-y: auto !important;
++        min-height: 0 !important;
++        display: flex !important;
++        flex-direction: column !important;
++        margin-bottom: 15px !important; /* 입력창과의 여백 */
++    }
++    /* 채팅 영역 내부 블록이 늘어나도록 설정 */
++    div[data-testid="column"]:has(#right-gemma-fixed-marker) div[data-testid="stVerticalBlockBorderWrapper"]:has(#right-gemma-chat-area) > div[data-testid="stVerticalBlock"] {
++        flex: 1 !important;
+     }
+     </style>
+     <script>
+@@ -15556,6 +15580,21 @@
+                 parent = parent.parentElement;
+             }
+         }
++        
++        // 채팅 영역 자동 스크롤 로직 (항상 최신 응답을 보이게 함)
++        const chatAreaMarker = document.getElementById("right-gemma-chat-area");
++        if(chatAreaMarker) {
++            const chatWrapper = chatAreaMarker.closest('div[data-testid="stVerticalBlockBorderWrapper"]');
++            if(chatWrapper) {
++                chatWrapper.scrollTop = chatWrapper.scrollHeight;
++                
++                // MutationObserver로 새로운 메시지가 추가될 때마다 스크롤을 맨 아래로 내림
++                const observer = new MutationObserver(() => {
++                    chatWrapper.scrollTop = chatWrapper.scrollHeight;
++                });
++                observer.observe(chatWrapper, { childList: true, subtree: true });
++            }
++        }
+     }, 1000);
+     </script>
+     ''')
+@@ -15563,8 +15602,10 @@
+     if "right_research_history" not in st.session_state:
+         st.session_state.right_research_history = []
+ 
+-    chat_container = st.container(height=480, border=True)
++    # height 파라미터를 제거하여 CSS Flexbox가 크기를 제어하도록 함
++    chat_container = st.container(border=True)
+     with chat_container:
++        st.html('<div id="right-gemma-chat-area"></div>')
+         if not st.session_state.right_research_history:
+             pass
+         else:
+@@ -15578,8 +15619,6 @@
+                         with st.expander("출처 확인"):
+                             for s in msg["sources"]:
+                                 st.write(f"- [{s.get('title')}]({s.get('url')})")
+-
+-    st.markdown("<br>", unsafe_allow_html=True)
+ 
+     # === 입력창 초기화 로직 ===
+     if "right_gemma_clear_flag" in st.session_state and st.session_state.right_gemma_clear_flag:

@@ -1,0 +1,296 @@
+﻿==================================================
+OBSIDIAN STRUCTURE REPORT
+생성 시각: 2026-06-12 23:18:01
+루트 경로: C:\SageMirror_Production\00_Obsidian
+==================================================
+
+[1] 루트 존재 여부
+True
+
+[2] 최상위 폴더
+
+Name                                LastWriteTime         
+----                                -------------         
+.obsidian                           2026-05-15 오후 3:01:49 
+00_Obsidian_Archive                 2026-06-12 오전 11:48:45
+00_Raw                              2026-06-12 오전 10:54:09
+00_Universal_Framework_Master_V3.md 2026-06-12 오전 8:43:53 
+01_Raw_Data                         2026-06-12 오전 8:59:53 
+01_Wiki                             2026-06-12 오전 10:54:10
+02_Schema                           2026-06-12 오전 10:54:10
+Archive_Knowledge                   2026-05-15 오후 5:07:36 
+Bible                               2026-05-15 오후 5:19:55 
+Ep_001_Ep_Title                     2026-05-03 오전 7:59:24 
+Part1_Librarian                     2026-05-31 오후 7:48:43 
+Philosophy                          2026-05-15 오후 5:26:44 
+References                          2026-05-25 오후 8:01:36 
+SageMirror_Vault                    2026-06-12 오후 11:13:57
+sessions                            2026-05-31 오후 3:03:27 
+TagIndex                            2026-05-31 오후 7:48:43 
+Templates                           2026-05-03 오후 2:59:09 
+V17_Reborn                          2026-06-08 오후 10:39:45
+_agents                             2026-05-05 오후 2:19:34 
+_shared                             2026-05-27 오후 8:10:43 
+
+
+
+
+[3] 전체 폴더 구조
+\.obsidian
+\00_Obsidian_Archive
+\00_Raw
+\00_Universal_Framework_Master_V3.md
+\01_Raw_Data
+\01_Wiki
+\02_Schema
+\Archive_Knowledge
+\Bible
+\Ep_001_Ep_Title
+\Part1_Librarian
+\Philosophy
+\References
+\SageMirror_Vault
+\sessions
+\TagIndex
+\Templates
+\V17_Reborn
+\_agents
+\_shared
+\.obsidian\plugins
+\.obsidian\plugins\obsidian-importer
+\.obsidian\plugins\obsidian-local-rest-api
+\00_Obsidian_Archive\00_Raw
+\00_Obsidian_Archive\01_Wiki
+\00_Obsidian_Archive\02_Schema
+\00_Raw\conversations
+\01_Raw_Data\99_과거_아카이브_통합
+\01_Raw_Data\99_과거_아카이브_통합\Studio
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리
+\01_Raw_Data\99_과거_아카이브_통합\시스템
+\01_Raw_Data\99_과거_아카이브_통합\채널_현자의거울
+\01_Raw_Data\99_과거_아카이브_통합\Studio\Final_Locks
+\01_Raw_Data\99_과거_아카이브_통합\Studio\PlanningMemory
+\01_Raw_Data\99_과거_아카이브_통합\Studio\TopicMemory
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\감정
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\경제·비즈니스
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\다크심리학
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\문학·에세이
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\성경·신앙
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\심리학
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\역사·인물
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\유튜브전략
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\채널운영
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\철학
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\한국문학
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki
+\01_Raw_Data\99_과거_아카이브_통합\시스템\20_Schema
+\01_Raw_Data\99_과거_아카이브_통합\시스템\Chat
+\01_Raw_Data\99_과거_아카이브_통합\시스템\Logs
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\GeminiResearch
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\GoogleDocs
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\GoogleDrive
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\PDF
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\TavilyResearch
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\URL_가져오기
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\YouTube
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\YouTube_스크립트
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\영상_전사
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\외부리서치
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\웹페이지
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\이미지_OCR
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\파일_업로드
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\개념
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\문학
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\성경
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\심리학
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\유튜브
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\인물
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\인용
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\작품
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\주제
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\철학
+\01_Raw_Data\99_과거_아카이브_통합\채널_현자의거울\Part1_자료수집
+\01_Raw_Data\99_과거_아카이브_통합\채널_현자의거울\Part2_총괄기획
+\Archive_Knowledge\01_철학_심리_연구노트
+\Archive_Knowledge\고전문헌_아카이브
+\Archive_Knowledge\고전문헌_아카이브\Attachments
+\Ep_001_Ep_Title\01_Scripts
+\Ep_001_Ep_Title\02_Images
+\Ep_001_Ep_Title\03_Videos
+\Ep_001_Ep_Title\04_Narration
+\Ep_001_Ep_Title\05_BGM
+\Ep_001_Ep_Title\06_Final_Master
+\sessions\2026-05-05T05-25
+\sessions\2026-05-05T05-26
+\V17_Reborn\00_Raw
+\V17_Reborn\01_Wiki
+\V17_Reborn\02_Schema
+\V17_Reborn\03_Channels
+\V17_Reborn\04_References
+\V17_Reborn\05_Assets
+\V17_Reborn\99_Logs
+\_agents\business
+\_agents\ceo
+\_agents\designer
+\_agents\developer
+\_agents\editor
+\_agents\instagram
+\_agents\researcher
+\_agents\secretary
+\_agents\writer
+\_agents\youtube
+\_agents\youtube\tools
+\_shared\CrossVaultBridge
+\_shared\CrossVaultBridge\FromArchive
+\_shared\CrossVaultBridge\FromBackup
+\_shared\CrossVaultBridge\Pipeline
+\_shared\CrossVaultBridge\SharedIndex
+
+[4] 확장자별 파일 수
+
+Count Name      
+----- ----      
+ 1663 .jpg      
+  718 .md       
+  334 .png      
+   21 .json     
+    7 .py       
+    6 .log      
+    2 .js       
+    2 .css      
+    1 .gitignore
+    1 .txt      
+    1           
+
+
+
+
+[5] 폴더별 파일 수
+
+Folder                                               Files
+------                                               -----
+\.obsidian                                               6
+\00_Raw                                                  1
+\00_Universal_Framework_Master_V3.md                     1
+\01_Wiki                                                 1
+\02_Schema                                               1
+\Archive_Knowledge                                      19
+\Bible                                                   1
+\Part1_Librarian                                        10
+\Philosophy                                              8
+\References                                              4
+\SageMirror_Vault                                        1
+\sessions                                               99
+\TagIndex                                               36
+\Templates                                               1
+\_shared                                                 3
+\.obsidian\plugins\obsidian-importer                     3
+\.obsidian\plugins\obsidian-local-rest-api               4
+\00_Obsidian_Archive\00_Raw                              1
+\00_Obsidian_Archive\01_Wiki                             1
+\00_Obsidian_Archive\02_Schema                           1
+\00_Raw\conversations                                    1
+\01_Raw_Data\99_과거_아카이브_통합                              34
+\01_Raw_Data\99_과거_아카이브_통합\Studio\Final_Locks           11
+\01_Raw_Data\99_과거_아카이브_통합\Studio\PlanningMemory         9
+\01_Raw_Data\99_과거_아카이브_통합\Studio\TopicMemory            3
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\감정                    11
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\경제·비즈니스                1
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\다크심리학                  6
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\문학·에세이                 1
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\성경·신앙                  5
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\심리학                    7
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\역사·인물                  1
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\유튜브전략                 10
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\채널운영                   9
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\철학                    11
+\01_Raw_Data\99_과거_아카이브_통합\범용카테고리\한국문학                   7
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki                  16
+\01_Raw_Data\99_과거_아카이브_통합\시스템\20_Schema                 6
+\01_Raw_Data\99_과거_아카이브_통합\시스템\Chat                     15
+\01_Raw_Data\99_과거_아카이브_통합\시스템\Logs                      6
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\GeminiResearch     8
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\GoogleDocs         1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\GoogleDrive        6
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\PDF                1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\TavilyResearch     5
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\URL_가져오기           1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\YouTube            5
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\YouTube_스크립트       1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\영상_전사              1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\외부리서치              1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\웹페이지               1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\이미지_OCR            1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\00_Raw\파일_업로드             1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\개념                1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\문학                1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\성경                1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\심리학               1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\유튜브               1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\인물                1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\인용                1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\작품                1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\주제                1
+\01_Raw_Data\99_과거_아카이브_통합\시스템\10_Wiki\철학                1
+\01_Raw_Data\99_과거_아카이브_통합\채널_현자의거울\Part1_자료수집           1
+\01_Raw_Data\99_과거_아카이브_통합\채널_현자의거울\Part2_총괄기획           1
+\Archive_Knowledge\고전문헌_아카이브                           238
+\Archive_Knowledge\고전문헌_아카이브\Attachments              1997
+\sessions\2026-05-05T05-26                               4
+\_agents\business                                        4
+\_agents\ceo                                             3
+\_agents\designer                                        4
+\_agents\developer                                       4
+\_agents\editor                                          4
+\_agents\instagram                                       4
+\_agents\researcher                                      4
+\_agents\secretary                                       4
+\_agents\writer                                          4
+\_agents\youtube                                         4
+\_agents\youtube\tools                                  21
+\_shared\CrossVaultBridge\FromArchive                   32
+\_shared\CrossVaultBridge\FromBackup                     1
+\_shared\CrossVaultBridge\Pipeline                       1
+\_shared\CrossVaultBridge\SharedIndex                    1
+
+
+
+
+[6] 최근 수정 파일 30개
+
+FullName                                                                 
+--------                                                                 
+C:\SageMirror_Production\00_Obsidian\00_Obsidian_Archive\02_Schema\Res...
+C:\SageMirror_Production\00_Obsidian\00_Obsidian_Archive\01_Wiki\Resea...
+C:\SageMirror_Production\00_Obsidian\00_Obsidian_Archive\00_Raw\Resear...
+C:\SageMirror_Production\00_Obsidian\02_Schema\테스트_리서치_결과_20260612_105...
+C:\SageMirror_Production\00_Obsidian\01_Wiki\테스트_리서치_결과_20260612_10540...
+C:\SageMirror_Production\00_Obsidian\00_Raw\테스트_리서치_결과_20260612_105409.md
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\part34_...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\part34_...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\.obsidian\appearance.json           
+C:\SageMirror_Production\00_Obsidian\.obsidian\app.json                  
+C:\SageMirror_Production\00_Obsidian\.obsidian\core-plugins.json         
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+C:\SageMirror_Production\00_Obsidian\01_Raw_Data\99_과거_아카이브_통합\Studio\...
+
+
+

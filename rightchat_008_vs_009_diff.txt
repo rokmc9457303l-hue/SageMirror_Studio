@@ -1,0 +1,22 @@
+--- C:\SageMirror_Production\V17_Working_RightChat_008\app_v17_2_3.py
++++ C:\SageMirror_Production\V17_Working_RightChat_009\app_v17_2_3.py
+@@ -15459,6 +15459,9 @@
+         elif "gemini" in engine_id:
+             api_key = os.getenv("GEMINI_API_KEY", "").strip()
+             if not api_key:
++                import streamlit as st
++                api_key = st.session_state.get("gemini_api_key", "").strip()
++            if not api_key:
+                 res["error_code"] = "missing_key"
+                 res["error_message"] = "[Gemini API 키 미설정] GEMINI_API_KEY가 존재하지 않습니다."
+                 return res
+@@ -15480,6 +15483,9 @@
+                 
+         elif engine_id == "Tavily 웹 검색":
+             api_key = os.getenv("TAVILY_API_KEY", "").strip()
++            if not api_key:
++                import streamlit as st
++                api_key = st.session_state.get("tavily_api_key", "").strip()
+             if not api_key:
+                 res["error_code"] = "missing_key"
+                 res["error_message"] = "[Tavily API 키 미설정] TAVILY_API_KEY가 존재하지 않습니다."

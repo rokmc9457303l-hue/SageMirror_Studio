@@ -1,0 +1,127 @@
+--- C:\SageMirror_Production\V17_Working_RightChat_009\app_v17_2_3.py
++++ C:\SageMirror_Production\V17_Working_RightChat_011\app_v17_2_3.py
+@@ -15526,29 +15526,47 @@
+ 
+ def render_right_gemma_panel():
+     st.html('''
+-    <div id="right-gemma-fixed-marker"></div>
++    <div id="right-research-panel-marker"></div>
+     <style>
+-    div[data-testid="stHorizontalBlock"]:has(#right-gemma-fixed-marker) {
+-        align-items: flex-start !important;
+-        overflow: visible !important;
++    /* 우측 패널 전체 */
++    div[data-testid="stColumn"]:has(#right-research-panel-marker) {
++        position: sticky !important;
++        top: 16px !important;
++        height: calc(100vh - 32px) !important;
++        max-height: calc(100vh - 32px) !important;
++        overflow: hidden !important;
++        display: flex !important;
++        flex-direction: column !important;
++        align-self: flex-start !important;
++        z-index: 999;
+     }
+-    div[data-testid="column"]:has(#right-gemma-fixed-marker) {
+-        position: sticky !important;
+-        top: 60px !important;
+-        align-self: flex-start !important;
+-        height: calc(100vh - 80px) !important;
++    
++    /* 대화 이력 영역 (border=True 컨테이너) */
++    div[data-testid="stVerticalBlockBorderWrapper"]:has(#right-research-chat-history) {
++        flex: 1 1 auto !important;
++        min-height: 0 !important;
+         overflow-y: auto !important;
+-        padding-right: 10px;
+-        padding-bottom: 20px;
+-        z-index: 999;
++        overflow-x: hidden !important;
++    }
++    
++    /* 입력 영역 */
++    div[data-testid="stVerticalBlock"]:has(#right-research-input-area) {
++        flex: 0 0 auto !important;
++        position: relative !important;
++        background: var(--background-color, transparent) !important;
+     }
+     </style>
+     <script>
++    // 부모 overflow: auto, hidden 등이 sticky를 방해하지 않도록 해제 (stMain 제외)
+     setTimeout(function() {
+-        const marker = document.getElementById("right-gemma-fixed-marker");
++        const marker = document.getElementById("right-research-panel-marker");
+         if(marker) {
+             let parent = marker.parentElement;
+             while(parent && parent.tagName !== "BODY") {
++                // stMain은 스크롤 부모이므로 건드리지 않음
++                if (parent.getAttribute("data-testid") === "stMain") {
++                    break;
++                }
+                 const style = window.getComputedStyle(parent);
+                 if(style.overflow === "hidden" || style.overflow === "auto" || style.overflowY === "hidden" || style.overflowY === "auto") {
+                     parent.style.setProperty("overflow", "visible", "important");
+@@ -15556,15 +15574,16 @@
+                 parent = parent.parentElement;
+             }
+         }
+-    }, 1000);
++    }, 500);
+     </script>
+     ''')
+ 
+     if "right_research_history" not in st.session_state:
+         st.session_state.right_research_history = []
+ 
+-    chat_container = st.container(height=480, border=True)
++    chat_container = st.container(border=True)
+     with chat_container:
++        st.html('<div id="right-research-chat-history"></div>')
+         if not st.session_state.right_research_history:
+             pass
+         else:
+@@ -15578,15 +15597,32 @@
+                         with st.expander("출처 확인"):
+                             for s in msg["sources"]:
+                                 st.write(f"- [{s.get('title')}]({s.get('url')})")
+-
+-    st.markdown("<br>", unsafe_allow_html=True)
++        
++        # 최신 메시지 표시용 앵커
++        st.html('<div id="right-research-chat-end"></div>')
++        st.html('''
++        <script>
++        setTimeout(function() {
++            const endMarker = document.getElementById("right-research-chat-end");
++            if (endMarker) {
++                const wrapper = endMarker.closest('div[data-testid="stVerticalBlockBorderWrapper"]');
++                if (wrapper) {
++                    wrapper.scrollTop = wrapper.scrollHeight;
++                }
++            }
++        }, 300);
++        </script>
++        ''')
+ 
+     # === 입력창 초기화 로직 ===
+     if "right_gemma_clear_flag" in st.session_state and st.session_state.right_gemma_clear_flag:
+         st.session_state.right_gemma_input_widget = ""
+         st.session_state.right_gemma_clear_flag = False
+ 
+-    user_input = st.text_area(
++    input_wrapper = st.container()
++    with input_wrapper:
++        st.html('<div id="right-research-input-area"></div>')
++        user_input = st.text_area(
+         "메시지",
+         placeholder="메시지 입력하세요...",
+         height=125,
+@@ -15681,6 +15717,8 @@
+ 
+     with ctrl_send:
+         send_clicked = st.button("전송", key="right_gemma_send_button", use_container_width=True, type="primary")
++
++    # input_wrapper 컨테이너 종료
+ 
+     if send_clicked and user_input.strip():
+         import datetime
