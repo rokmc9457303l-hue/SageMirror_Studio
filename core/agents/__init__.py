@@ -6,7 +6,9 @@ from .conductor import ConductorAgent
 from .curator import CuratorAgent
 from .scout import ScoutAgent
 from .critic import CriticAgent
-from .librarian import LibrarianAgent
+from .librarian import LibrarianAgent, HitChannelFinder
+from .trend_analyzer import TrendAnalyzer
+from .quality_assurance import QualityAssuranceAgent
 from .loop import critic_scout_loop
 
 __all__ = [
@@ -16,5 +18,8 @@ __all__ = [
     "ScoutAgent",
     "CriticAgent",
     "LibrarianAgent",
+    "HitChannelFinder",
+    "TrendAnalyzer",
+    "QualityAssuranceAgent",
     "critic_scout_loop",
 ]

@@ -53,20 +53,32 @@ def _build_profile_header() -> str:
 
 
 def load_prompt(part_num: int) -> str:
-    """파트별 프롬프트 파일 로드 + Profile 헤더 주입"""
+    """파트별 프롬프트 파일 로드 + Profile 헤더 + 시스템 원칙 주입"""
     profile_header = _build_profile_header()
     try:
         master = (PROMPTS_PATH / "_master_protocol.md").read_text(encoding="utf-8")
     except Exception:
         master = ""
+
+    # 채널 정체성 규칙 + 시스템 원칙 주입 (shared/ 폴더)
+    shared_parts = []
+    for fname in ("CHANNEL_IDENTITY.md", "SYSTEM_PRINCIPLES.md"):
+        shared_path = PROMPTS_PATH / "shared" / fname
+        if shared_path.exists():
+            try:
+                shared_parts.append(shared_path.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+    shared_text = "\n\n---\n\n".join(shared_parts) if shared_parts else ""
+
     part_files = list(PROMPTS_PATH.glob(f"part{part_num}_*.md"))
     if part_files:
         try:
             part_prompt = part_files[0].read_text(encoding="utf-8")
         except Exception:
             part_prompt = ""
-        return profile_header + master + "\n\n" + part_prompt
-    return profile_header + master
+        return profile_header + master + "\n\n" + shared_text + "\n\n" + part_prompt
+    return profile_header + master + ("\n\n" + shared_text if shared_text else "")
 
 
 def get_part_context(part_num: int) -> dict:

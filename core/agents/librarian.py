@@ -246,7 +246,7 @@ class LibrarianAgent(BaseAgent):
     def _generate_titles(self, topic: str, emotion: str) -> list:
         prompt = self.build_base_prompt(
             f"주제: {topic}\n핵심 감정: {emotion}\n\n"
-            "4070 시청자를 위한 유튜브 제목 후보 5개를 생성하라.\n"
+            "타겟 시청자를 위한 유튜브 제목 후보 5개를 생성하라.\n"
             "각 제목은 클릭을 유도하되 금지 표현을 사용하지 않는다."
         )
         result = self.call_ai(prompt)
@@ -255,7 +255,11 @@ class LibrarianAgent(BaseAgent):
         return lines[:5] if lines else [f"{topic}에 대한 이야기"]
 
     def _generate_thumbnail(self, topic: str, emotion: str) -> str:
-        return f"[{emotion}] 계열 어두운 배경 + 촛불 + 현자 측면 | 메시지: {topic[:20]}"
+        p = self.profile
+        symbols = " / ".join(p.get("core_symbols", []))
+        style   = p.get("visual_style", "")
+        hint = f"{style} | 상징: {symbols}" if (style or symbols) else ""
+        return f"[{emotion}] {hint} | 메시지: {topic[:20]}"
 
     def _calc_knowledge_score(self, sources: list) -> dict:
         """Curator와 동일한 18점 점수화 (경량 버전)"""
@@ -273,3 +277,203 @@ class LibrarianAgent(BaseAgent):
             "total": min(18, base * 4 + 6),
             "verdict": "충분" if count >= 5 else ("보완 필요" if count >= 2 else "부족"),
         }
+
+
+# ═══════════════════════════════════════════════════════════
+# HitChannelFinder — 떡상 채널 발굴 알고리즘
+# ═══════════════════════════════════════════════════════════
+
+class HitChannelFinder(BaseAgent):
+    """떡상 채널 자동 발굴 (저구독·고조회 필터링)"""
+
+    name = "HitChannelFinder"
+    role = "떡상 채널 발굴 알고리즘"
+
+    # 떡상 기준
+    VIRAL_RATIO_MIN   = 5.0    # 조회수 / 구독자 최소값
+    COMMENT_DENSITY_MIN = 0.005  # 댓글 / 조회수 최소값
+    RETENTION_KEYWORDS = ["끝까지", "여러 번", "또 봤", "정주행", "다시", "반복", "여러번"]
+
+    def specific_instructions(self) -> str:
+        return (
+            "당신은 유튜브 떡상 채널 발굴 전문가입니다.\n"
+            "구독자 1만 이하 + 조회수 10만 이상 채널을 찾아 분석합니다.\n"
+            "바이럴 지수(조회수/구독자 ≥ 5)를 기준으로 필터링합니다.\n"
+            "정주행 신호 댓글('끝까지', '또 봤' 등)이 많은 채널을 우선 추천합니다."
+        )
+
+    def execute(self, context: dict) -> dict:
+        keyword = context.get("keyword", context.get("topic", ""))
+        return {"channels": self.find_explosive_channels(keyword)}
+
+    def find_explosive_channels(self, keyword: str, profile: dict = None) -> list:
+        """
+        떡상 채널 발굴 전체 파이프라인.
+
+        Returns: 점수 내림차순 정렬된 채널 목록 (최대 5개)
+        """
+        if not keyword:
+            return []
+
+        profile = profile or self.profile
+        self.log(f"떡상 채널 탐색 시작: '{keyword}'")
+
+        # 1. YouTube/Tavily 검색
+        candidates = self._search_channels(keyword, profile)
+        if not candidates:
+            self.log("후보 채널 없음")
+            return []
+
+        # 2. 떡상 지수 계산 + 필터링
+        explosive = []
+        for ch in candidates:
+            subs  = max(ch.get("subscribers", 1), 1)
+            views = ch.get("views", 0)
+            ratio = views / subs
+            if ratio >= self.VIRAL_RATIO_MIN:
+                ch["viral_ratio"] = round(ratio, 2)
+                explosive.append(ch)
+
+        if not explosive:
+            self.log(f"떡상 지수 {self.VIRAL_RATIO_MIN} 이상 채널 없음 → 상위 3개 반환")
+            explosive = sorted(candidates,
+                               key=lambda c: c.get("views", 0) / max(c.get("subscribers", 1), 1),
+                               reverse=True)[:3]
+            for ch in explosive:
+                ch["viral_ratio"] = round(ch.get("views", 0) / max(ch.get("subscribers", 1), 1), 2)
+
+        # 3. 댓글 밀도 계산
+        for ch in explosive:
+            views = max(ch.get("views", 1), 1)
+            ch["comment_density"] = round(ch.get("comments", 0) / views, 5)
+
+        # 4. 정주행 신호 댓글 분석
+        for ch in explosive:
+            sample_comments = ch.get("sample_comments", [])
+            ch["retention_signals"] = self._count_retention_signals(sample_comments)
+
+        # 5. 종합 점수 정렬
+        scored = sorted(
+            explosive,
+            key=lambda c: (
+                c.get("viral_ratio", 0),
+                c.get("comment_density", 0),
+                c.get("retention_signals", 0),
+            ),
+            reverse=True,
+        )
+
+        self.log(f"떡상 채널 {len(scored)}개 발굴 완료")
+        return scored[:5]
+
+    def _search_channels(self, keyword: str, profile: dict) -> list:
+        """YouTube API + Tavily로 후보 채널 수집"""
+        candidates = []
+
+        # Tavily 검색
+        try:
+            from core.web_search import tavily_search
+            tavily_result = tavily_search(f"{keyword} 유튜브 채널 구독자 1만 조회수 10만")
+            if tavily_result:
+                parsed = self._parse_tavily_channels(str(tavily_result), keyword)
+                candidates.extend(parsed)
+        except Exception as e:
+            self.log(f"Tavily 채널 검색 오류: {e}")
+
+        # Gemini로 채널 추천 요청 (Tavily 부족 시)
+        if len(candidates) < 3:
+            try:
+                target = profile.get("target_audience", "") if profile else ""
+                prompt = (
+                    f"유튜브에서 '{keyword}' 주제의 떡상 채널을 5개 추천하라.\n"
+                    f"조건: 구독자 1만 이하, 조회수 10만 이상\n"
+                    f"타겟 시청자: {target}\n"
+                    "출력: 채널명 | 구독자수 | 대표 영상 조회수 | 특징\n"
+                    "[ESTIMATE] 태그 붙여서 추정값임을 표시."
+                )
+                result = self.call_ai(prompt, force_gemini=True)
+                parsed = self._parse_ai_channels(result)
+                candidates.extend(parsed)
+            except Exception as e:
+                self.log(f"Gemini 채널 추천 오류: {e}")
+
+        return candidates
+
+    def _parse_tavily_channels(self, text: str, keyword: str) -> list:
+        """Tavily 결과에서 채널 정보 추출"""
+        import re
+        channels = []
+        # 간이 파싱: "채널명 - 구독자 X만" 패턴
+        patterns = re.findall(
+            r"([가-힣\w]+(?:TV|유튜브|채널)?)\s*[-|]\s*구독자?\s*(\d+(?:\.\d+)?)\s*([만천])?",
+            text
+        )
+        for name, num_str, unit in patterns[:5]:
+            try:
+                num = float(num_str)
+                if unit == "만":
+                    num *= 10000
+                elif unit == "천":
+                    num *= 1000
+                channels.append({
+                    "name": name.strip(),
+                    "subscribers": int(num),
+                    "views": int(num * 8),  # [ESTIMATE]
+                    "comments": int(num * 0.04),
+                    "sample_comments": [],
+                    "source": "tavily",
+                })
+            except Exception:
+                continue
+        return channels
+
+    def _parse_ai_channels(self, text: str) -> list:
+        """AI 출력에서 채널 정보 추출"""
+        channels = []
+        for line in text.splitlines():
+            if "|" not in line:
+                continue
+            parts = [p.strip() for p in line.split("|")]
+            if len(parts) >= 3:
+                try:
+                    name = parts[0].lstrip("0123456789.-) ").strip()
+                    subs_text = parts[1].replace(",", "").replace("만", "0000").replace("천", "000")
+                    import re
+                    subs = int(re.sub(r"[^\d]", "", subs_text) or "5000")
+                    views = subs * 8  # [ESTIMATE]
+                    channels.append({
+                        "name": name,
+                        "subscribers": subs,
+                        "views": views,
+                        "comments": int(views * 0.005),
+                        "sample_comments": [],
+                        "source": "ai_estimate",
+                        "estimated": True,
+                    })
+                except Exception:
+                    continue
+        return channels[:5]
+
+    def _count_retention_signals(self, comments: list) -> int:
+        """정주행 신호 댓글 키워드 카운트"""
+        count = 0
+        for c in comments:
+            text = str(c.get("text", c) if isinstance(c, dict) else c)
+            count += sum(1 for kw in self.RETENTION_KEYWORDS if kw in text)
+        return count
+
+    def format_result(self, channels: list) -> str:
+        """UI 표시용 텍스트 생성"""
+        if not channels:
+            return "떡상 채널을 찾지 못했습니다."
+        lines = ["## 🚀 떡상 채널 발굴 결과"]
+        for i, ch in enumerate(channels, 1):
+            est = " [추정]" if ch.get("estimated") else ""
+            lines.append(
+                f"\n### {i}. {ch.get('name', '?')} {est}\n"
+                f"- 구독자: {ch.get('subscribers', '?'):,} | 조회수: {ch.get('views', '?'):,}\n"
+                f"- 바이럴 지수: {ch.get('viral_ratio', 0):.1f} | "
+                f"댓글 밀도: {ch.get('comment_density', 0):.4f} | "
+                f"정주행 신호: {ch.get('retention_signals', 0)}개"
+            )
+        return "\n".join(lines)
