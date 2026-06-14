@@ -153,12 +153,16 @@ class IdentityGuardAgent(BaseAgent):
         if not target:
             return True, ""
 
-        # 시니어 타겟 채널에서 1020 밈/표현 감지
-        if any(t in target for t in ("시니어", "50~70", "40~70", "4070", "중장년")):
+        # Profile의 forbidden_youth_terms 기반 부적합 표현 감지 (채널 타겟 무관 범용)
+        youth_terms = profile.get("forbidden_youth_terms", [])
+        if youth_terms:
+            youth_patterns = [re.escape(t) for t in youth_terms]
+        else:
+            # 기본 범용 감지 패턴 (특정 타겟에 국한하지 않음)
             youth_patterns = [r"ㅋㅋ", r"ㅠㅠ", r"레전드", r"갓벽", r"소름돋", r"미쳤다"]
-            for pat in youth_patterns:
-                if re.search(pat, content):
-                    return False, f"타겟({target}) 부적합 표현 감지"
+        for pat in youth_patterns:
+            if re.search(pat, content):
+                return False, f"타겟({target}) 부적합 표현 감지"
 
         return True, ""
 

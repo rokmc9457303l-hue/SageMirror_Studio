@@ -1089,15 +1089,22 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
         system_prompt += f"\n[웹 검색 결과]\n{extra_context}\n"
 
     if is_yt_channel_query:
+        from core.profile_loader import load_current_profile as _lcp
+        _p = _lcp()
+        _ch_name    = _p.get("channel_name", "현재 채널")
+        _target     = _p.get("target_audience", "타겟 시청자")
+        _visual     = _p.get("visual_style", "시네마틱")
+        _philosophy = ", ".join(_p.get("philosophy_anchor", []))
+        _categories = ", ".join(_p.get("typical_categories", []))
         system_prompt += (
-            "\n[역할] 유튜브 콘텐츠 전략가 / 심리학·철학 다큐 큐레이터\n"
-            "현자의 거울과 동일한 방향성의 채널을 국내 5개·국외 5개 발굴·분석하세요.\n"
+            f"\n[역할] 유튜브 콘텐츠 전략가 / 채널 발굴 전문가\n"
+            f"'{_ch_name}'과 동일한 방향성의 채널을 국내 5개·국외 5개 발굴·분석하세요.\n"
             "YouTube API 결과가 부족하면 학습 지식으로 직접 추천하세요.\n\n"
             "[벤치마킹 기준]\n"
-            "- 타겟: 4070세대 (고독·상실·공허·관계단절)\n"
-            "- 스타일: 시네마틱 다큐, 롱폼, 인간 중심 나레이션\n"
-            "- 지식 체계: 칼 융·프랭클 / 쇼펜하우어·스토아 / 성경\n"
-            "- 다크심리학 콘텐츠 우대\n\n"
+            f"- 타겟: {_target}\n"
+            f"- 스타일: {_visual}, 롱폼, 인간 중심 나레이션\n"
+            f"- 지식·콘텐츠 체계: {_philosophy or _categories}\n"
+            "- 소수 구독 고조회 채널 우대\n\n"
         )
         if yt_context:
             system_prompt += f"[YouTube API 실시간 검색결과]\n{yt_context}\n\n"
@@ -1109,7 +1116,7 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
             "4. 오리지널 기획력 채널만 (컴필레이션 배제)\n\n"
             "[출력 형식 — 채널당 6개 항목]\n"
             "1. 채널명  2. URL  3. 구독자·평균 조회수\n"
-            "4. 현자의 거울과 유사한 점  5. 핵심 후킹 기법  6. 시청자 고통 키워드\n\n"
+            f"4. {_ch_name}과 유사한 점  5. 핵심 후킹 기법  6. 시청자 고통 키워드\n\n"
             "국내 5개, 국외 5개 필수. 마지막에:\n"
             "[선정채널URL: https://www.youtube.com/@채널명]\n"
         )

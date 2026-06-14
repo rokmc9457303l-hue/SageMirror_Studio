@@ -10,6 +10,7 @@ Day 12~15: 각 기능 실제 구현
 """
 
 import streamlit as st
+import time
 from datetime import datetime
 from core.state import get_state, set_state
 from core.config import PART_NAMES
@@ -102,16 +103,10 @@ def render_hub_menu():
     st.markdown("---")
     st.markdown("#### 🛠️ 자료수집 허브")
     
-    # 보완 요청 알림 (좌측 RAG 박스에서 트리거된 경우)
+    # 보완 요청 알림 — Lv.2 자동 보강 UI
     request = get_state("rp_supplement_request")
     if request:
-        with st.container(border=True):
-            st.warning(
-                f"📥 **Part {request['part_num']} ({request['part_name']})** 자료 보완 요청"
-            )
-            if st.button("✕ 알림 닫기", key="close_supplement_req"):
-                set_state("rp_supplement_request", None)
-                st.rerun()
+        _render_supplement_card(request)
     
     # 6개 카테고리 탭으로
     cat_keys = list(HUB_CATEGORIES.keys())
@@ -250,3 +245,108 @@ def render_text_input_panel():
             st.success(f"✅ '{title}' 저장 완료")
             set_state("hub_action", None)
             st.rerun()
+
+
+# ── Lv.2 자동 보강 카드 ──────────────────────────────────────────
+
+def _render_supplement_card(request: dict):
+    """보완 요청 카드 — [🚀 자동 보강 실행] 버튼 포함"""
+    status   = request.get("status", {})
+    part_num = request.get("part_num", "?")
+    part_name= request.get("part_name", "")
+
+    # 부족 항목 추출 (🔴 카테고리만)
+    missing_cats = [
+        c["category"] for c in status.get("universal", [])
+        if c.get("color") == "🔴"
+    ]
+    ch_count = status.get("channel", {}).get("count", 0)
+
+    with st.container(border=True):
+        st.markdown(f"🚨 **자료 보완 요청** — Part {part_num} {part_name}")
+
+        if ch_count == 0:
+            st.caption("• 채널 자료 0건")
+        for cat in missing_cats[:5]:
+            st.caption(f"• {cat} 카테고리 자료 부족")
+
+        b1, b2, b3 = st.columns(3)
+        with b1:
+            if st.button("🚀 자동 보강 실행", key="auto_supplement_run",
+                         use_container_width=True, type="primary"):
+                auto_supplement_flow(request)
+        with b2:
+            if st.button("📋 상세 보기", key="supplement_detail",
+                         use_container_width=True):
+                set_state("show_supplement_detail", not get_state("show_supplement_detail", False))
+                st.rerun()
+        with b3:
+            if st.button("✕ 닫기", key="close_supplement_req",
+                         use_container_width=True):
+                set_state("rp_supplement_request", None)
+                st.rerun()
+
+    if get_state("show_supplement_detail", False):
+        with st.expander("📊 RAG 상세 현황", expanded=True):
+            st.json(status)
+            if st.button("닫기", key="close_supp_detail"):
+                set_state("show_supplement_detail", False)
+                st.rerun()
+
+
+def auto_supplement_flow(request: dict):
+    """자동 보강 흐름 — Scout → Curator 내장 → Critic 검증 → 알림 소멸"""
+    from core.agents.scout import ScoutAgent
+    from core.agents.critic import CriticAgent
+    from core.profile_loader import load_current_profile
+
+    profile  = load_current_profile()
+    status   = request.get("status", {})
+    part_num = request.get("part_num", 1)
+    part_name= request.get("part_name", "")
+
+    missing_cats = [
+        c["category"] for c in status.get("universal", [])
+        if c.get("color") == "🔴"
+    ]
+
+    # 1. Scout — Tavily 검색 + 옵시디언 자동 저장 (Curator 내장)
+    scout = ScoutAgent()
+    with st.spinner(f"🛰️ Scout가 '{part_name}' 자료 검색 중..."):
+        scout_result = scout.execute({
+            "query": part_name,
+            "missing_data": missing_cats,
+        })
+
+    if not scout_result.get("success"):
+        msg = scout_result.get("message", "검색 결과 없음")
+        st.warning(f"⚠️ Scout: {msg}  (Tavily API 키 확인 필요)")
+    else:
+        saved = scout_result.get("saved_count", 0)
+        st.success(f"✅ Scout: {saved}건 수집·저장 완료")
+
+    st.info("📦 Curator: 옵시디언 자동 저장 처리 중 (Scout 내장)")
+
+    # 2. Critic — 결과 검증
+    critic = CriticAgent()
+    with st.spinner("🔍 Critic 검증 중..."):
+        verify = critic.execute({
+            "part": part_num,
+            "topic": part_name,
+            "research_sources": scout_result.get("results", []),
+        })
+
+    score = verify.get("score", 0)
+    if verify.get("passed"):
+        st.success(f"✅ Critic 검증 통과 (점수: {score:.0f}/100)")
+        set_state("rp_supplement_request", None)
+        set_state("show_supplement_detail", False)
+        st.success("🎉 자동 보강 완료. 좌측에서 결과를 확인하세요.")
+        time.sleep(1)
+        st.rerun()
+    else:
+        st.warning(f"⚠️ Critic: 추가 보완 필요 (점수: {score:.0f}/100)")
+        dr = verify.get("data_request", {})
+        issues = dr.get("issues", [])
+        for iss in issues[:3]:
+            st.caption(f"• [{iss.get('layer_name','')}] {iss.get('detail','')}")

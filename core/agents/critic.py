@@ -229,10 +229,10 @@ class CriticAgent(BaseAgent):
                 auto_fixable=False,
             ))
 
-        # 타겟 연령층 부적합 표현
+        # 타겟 연령층 부적합 표현 (Profile의 forbidden_youth_terms 또는 기본값 사용)
         target = profile.get("target_audience", "")
-        if "4070" in target or "40~70" in target:
-            youth_terms = ["MZ", "레전드", "ㄹㅇ", "킹갓", "밈", "짤", "갓생"]
+        youth_terms = profile.get("forbidden_youth_terms", ["MZ", "레전드", "ㄹㅇ", "킹갓", "밈", "짤", "갓생"])
+        if target and youth_terms:
             for term in youth_terms:
                 if term in full_text:
                     dr.add_issue(DataIssue(
@@ -240,8 +240,8 @@ class CriticAgent(BaseAgent):
                         layer_name="일관성검증",
                         issue_type="INCONSISTENT",
                         field_name="본문",
-                        detail=f"4070 타겟 부적합 표현: '{term}'",
-                        suggestion=f"'{term}' 제거 또는 4070 세대 친화적 표현으로 교체",
+                        detail=f"타겟({target}) 부적합 표현: '{term}'",
+                        suggestion=f"'{term}' 제거 또는 타겟 친화적 표현으로 교체",
                         severity="ERROR",
                         auto_fixable=False,
                     ))

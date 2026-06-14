@@ -25,12 +25,35 @@ class ScoutAgent(BaseAgent):
         )
 
     def execute(self, context: dict) -> dict:
-        """DataRequest를 받아 자동 자료 보강 실행"""
+        """DataRequest 또는 직접 query/missing_data를 받아 자동 자료 보강 실행"""
         from core.critic.data_request import DataRequest
+
+        # 직접 query 인터페이스 (hub_menu 자동 보강에서 호출)
+        if "query" in context and "data_request" not in context:
+            topic = context.get("query", "")
+            missing = context.get("missing_data", [])
+            queries = [topic] if topic else []
+            queries += [f"{topic} {cat}" for cat in missing[:3] if cat]
+            if not queries:
+                return {"error": "검색 쿼리 없음", "results": [], "saved_count": 0}
+            results = []
+            for q in queries[:5]:
+                result = self._search_and_save(q, topic)
+                if result:
+                    results.append(result)
+            self.log(f"직접 보강 완료: {len(results)}건 수집")
+            return {
+                "success": len(results) > 0,
+                "topic": topic,
+                "saved_count": len(results),
+                "results": results,
+                "agent": self.name,
+                "message": f"{len(results)}건 수집·저장 완료" if results else "수집 결과 없음",
+            }
 
         data_request = context.get("data_request")
         if not data_request:
-            return {"error": "DataRequest 없음", "results": []}
+            return {"error": "DataRequest 없음", "results": [], "saved_count": 0}
 
         queries = []
         if isinstance(data_request, dict):
@@ -41,7 +64,7 @@ class ScoutAgent(BaseAgent):
             queries = data_request.get_scout_queries()
             topic = data_request.topic
         else:
-            return {"error": "DataRequest 형식 오류", "results": []}
+            return {"error": "DataRequest 형식 오류", "results": [], "saved_count": 0}
 
         if not queries:
             self.log("보강 쿼리 없음")
@@ -55,11 +78,14 @@ class ScoutAgent(BaseAgent):
 
         self.log(f"보강 완료: {len(results)}/{len(queries)} 쿼리 성공")
         return {
+            "success": len(results) > 0,
             "topic": topic,
             "queries_attempted": len(queries[:5]),
             "success_count": len(results),
+            "saved_count": len(results),
             "results": results,
             "agent": self.name,
+            "message": f"{len(results)}건 수집·저장 완료" if results else "수집 결과 없음",
         }
 
     def _search_and_save(self, query: str, topic: str) -> dict:

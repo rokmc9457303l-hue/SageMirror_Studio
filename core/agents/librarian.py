@@ -164,7 +164,7 @@ class LibrarianAgent(BaseAgent):
             f"[댓글 인사이트 상위 10개]\n{comment_text}\n\n"
             f"[옵시디언 RAG]\n{rag[:600]}\n\n"
             f"[추가 지시]\n{extra}\n\n"
-            "위 자료를 바탕으로 4070 시청자 감정 고통 기반 주제를 최소 10개 이상 생성하라.\n"
+            f"위 자료를 바탕으로 {self.profile.get('target_audience', '타겟 시청자')} 감정 고통 기반 주제를 최소 10개 이상 생성하라.\n"
             "형식: NN. [제목] | [핵심주제] | [추천사유] | [감정키워드] | [예상반응]\n"
             "반드시 10개 이상 출력할 것."
         )
