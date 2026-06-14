@@ -17,22 +17,63 @@ from core.state import get_state, set_state
 from core.auto_save import schedule_chat_save
 
 
-BRAIN_SYSTEM_PROMPT = """너는 현자의 거울 스튜디오의 공장장 젬마다.
+def _build_brain_prompt() -> str:
+    """채널 Profile 기반 동적 시스템 프롬프트 생성"""
+    try:
+        from core.profile_loader import load_current_profile
+        p = load_current_profile()
+    except Exception:
+        p = {}
 
-[채널 정체성]
-- 채널명: 현자의 거울 (@Ethan Cinematic Video)
-- 타겟: 4070세대 (고독·상실·공허·관계단절·인생의 의미 고민)
-- 스타일: 17세기 렘브란트풍 시네마틱 다큐멘터리
-- 지식 체계: 칼 융·빅터 프랭클(심리학) / 쇼펜하우어·스토아(철학) / 성경(시편·잠언·전도서)
+    ch_name    = p.get("channel_name", "이 채널")
+    target     = p.get("target_audience", "일반 시청자")
+    tone       = p.get("tone", "")
+    style      = p.get("narrator_style", "")
+    philosophy = " / ".join(p.get("philosophy_anchor", []))
+    forbidden  = ", ".join(p.get("forbidden_expressions", []))
+    preferred  = ", ".join(p.get("preferred_expressions", []))
 
-[CRITICAL]
-- 한국어로만 답변
-- 즉시 본론, 부연 설명 없음
-- "Thinking", "Process" 단어 사용 금지
+    lines = [
+        f"너는 {ch_name} 스튜디오의 AI 공장장이다.",
+        "",
+        "[채널 정체성]",
+        f"- 채널명: {ch_name}",
+        f"- 타겟: {target}",
+    ]
+    if tone:
+        lines.append(f"- 톤: {tone}")
+    if style:
+        lines.append(f"- 스타일: {style}")
+    if philosophy:
+        lines.append(f"- 지식 체계: {philosophy}")
+    lines += [
+        "",
+        "[CRITICAL]",
+        "- 한국어로만 답변",
+        "- 즉시 본론, 부연 설명 없음",
+        '- "Thinking", "Process" 단어 사용 금지',
+        "",
+        f"[역할] {ch_name} 채널 크리에이터의 AI 비서",
+        "[금지] AI 냄새 표현, 추측 인용, 영어 답변",
+    ]
+    if forbidden:
+        lines.append(f"[채널 금지 표현] {forbidden}")
+    if preferred:
+        lines.append(f"[채널 선호 표현] {preferred}")
+    return "\n".join(lines)
 
-[역할] 현자(60대 콘텐츠 크리에이터)의 비서
-[금지] AI 냄새 표현, 추측 인용, 영어 답변
-"""
+
+BRAIN_SYSTEM_PROMPT = ""  # 하위 호환 유지 (동적 빌더 우선)
+
+
+def _get_default_drive_folder() -> str:
+    """Profile의 obsidian_channel_dir 기반 Drive 폴더명"""
+    try:
+        from core.profile_loader import load_current_profile
+        p = load_current_profile()
+        return p.get("obsidian_channel_dir", "채널_자료").replace("채널_", "") + "_자료"
+    except Exception:
+        return "채널_자료"
 
 
 def call_gemini_with_messages(messages: list, model_key: str, _retry: int = 2) -> str:
@@ -348,7 +389,8 @@ def render_right_panel():
         with st.container(border=True):
             st.caption("☁️ Google Drive → Gemma 분석 → 옵시디언 저장")
             _gfolder = st.text_input(
-                "Drive 폴더명", value="현자의거울_자료",
+                "Drive 폴더명",
+                value=_get_default_drive_folder(),
                 key="rp_gdrive_folder", label_visibility="collapsed",
                 placeholder="Google Drive 폴더명 입력",
             )
@@ -360,7 +402,7 @@ def render_right_panel():
                 with st.spinner("Drive 동기화 중..."):
                     try:
                         from core.gdrive_sync import sync_drive_folder
-                        _gres = sync_drive_folder(_gfolder.strip() or "현자의거울_자료")
+                        _gres = sync_drive_folder(_gfolder.strip() or _get_default_drive_folder())
                         if _gres.get("success"):
                             _n = _gres.get("new_files", 0)
                             _gmsg = (
@@ -569,18 +611,34 @@ div[data-testid="stVerticalBlockBorderWrapper"]
                 st.rerun()
 
 
-# 쿼리 3개 × 언어 2 = 6회 API 호출 (기존 5×2=10회에서 축소)
-KO_QUERIES = [
-    "4070 심리 인문학 다큐",
-    "쇼펜하우어 실존주의 유튜브",
-    "관계 심리학 다크심리학 채널",
-]
+def _get_channel_queries():
+    """Profile의 typical_topics 기반 채널 발굴 쿼리 동적 생성"""
+    try:
+        from core.profile_loader import load_current_profile
+        p = load_current_profile()
+        topics = p.get("typical_topics", [])
+        target = p.get("target_audience", "")
+        philosophy = p.get("philosophy_anchor", [])
+    except Exception:
+        topics, target, philosophy = [], "", []
 
-EN_QUERIES = [
-    "Jungian psychology existential documentary",
-    "Stoicism philosophy life meaning channel",
-    "Dark psychology narcissism relationships",
-]
+    ko = []
+    if topics:
+        ko.append(f"{topics[0] if topics else ''} 유튜브 채널")
+    if target:
+        ko.append(f"{target} 콘텐츠 채널")
+    if philosophy:
+        ko.append(f"{philosophy[0] if philosophy else ''} 철학 유튜브")
+    if not ko:
+        ko = ["심리 인문학 다큐", "철학 유튜브 채널", "라이프 콘텐츠"]
+
+    en = ["psychology philosophy documentary", "life meaning channel", "personal growth youtube"]
+    return ko[:3], en[:3]
+
+
+# 하위 호환 (기존 코드가 KO_QUERIES 직접 참조 시)
+KO_QUERIES = ["심리 인문학 다큐", "철학 실존주의 유튜브", "관계 심리학 채널"]
+EN_QUERIES = ["psychology existential documentary", "Stoicism philosophy channel", "life meaning relationships"]
 
 
 def _is_recently_active(channel_id: str, api_key: str, days: int = 15) -> bool:
@@ -695,9 +753,10 @@ def _fetch_channels(queries: tuple, api_key: str, lang: str, max_results: int = 
 def search_youtube_channels(query: str, api_key: str, max_results: int = 5) -> str:
     """국내 5개 + 국외 5개 심리학·철학 채널 검색 (병렬·캐시)"""
     try:
-        # tuple로 변환해야 st.cache_data 캐시 키로 사용 가능
-        domestic = _fetch_channels(tuple(KO_QUERIES), api_key, "ko", max_results)
-        foreign  = _fetch_channels(tuple(EN_QUERIES), api_key, "en", max_results)
+        # Profile 기반 동적 쿼리 생성
+        _ko_q, _en_q = _get_channel_queries()
+        domestic = _fetch_channels(tuple(_ko_q), api_key, "ko", max_results)
+        foreign  = _fetch_channels(tuple(_en_q), api_key, "en", max_results)
 
         lines = ["[YouTube 채널 검색결과 — 구독자 1만↓ + 조회수 10만↑]"]
 
@@ -837,15 +896,8 @@ def generate_response_sync(user_msg: str, history: list, model_key: str) -> str:
             yt_query = next((k for k in domain_keywords if k in user_msg), "심리학 유튜브")
             yt_context = search_youtube_channels(yt_query, yt_key)
 
-    # ── 2. 시스템 프롬프트 구성 ──────────────────────────────
-    system_prompt = (
-        "당신은 현자의 거울 스튜디오 공장장 젬마입니다.\n"
-        "현자님(60대 유튜브 크리에이터)을 보좌합니다.\n"
-        "채널: 현자의 거울 (@Ethan Cinematic Video)\n"
-        "타겟: 4070세대 / 철학·심리·성경 다큐 스타일\n"
-        "답변은 반드시 한국어로, 존댓말로 작성하세요.\n"
-        "질문에 직접적이고 정확하게 답변하세요.\n"
-    )
+    # ── 2. 시스템 프롬프트 구성 (Profile 동적 빌드) ─────────────
+    system_prompt = _build_brain_prompt() + "\n답변은 반드시 한국어로, 존댓말로 작성하세요.\n"
 
     if extra_context:
         system_prompt += f"\n[웹 검색 결과]\n{extra_context}\n"

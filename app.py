@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-현자의 거울 스튜디오 v18.0.4
-Sage Mirror Studio — 메인 진입점 (우측 브레인 패널 통합)
+SAGE Studio v100.0.0
+범용 유튜브 채널 제작 스튜디오 — 다채널/다주제
 """
 
 import streamlit as st
@@ -9,7 +9,7 @@ from pathlib import Path
 
 # ── Streamlit 설정 (반드시 최상단) ───────────────
 st.set_page_config(
-    page_title="현자의 거울 v18",
+    page_title="SAGE Studio v100",
     page_icon="⬡",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -42,31 +42,61 @@ def render_sidebar():
         st.caption(f"`{APP_VERSION}`")
         st.markdown("---")
         
-        # 채널 선택 (다채널 지원)
+        # 채널 선택 (다채널 Profile 시스템)
         st.markdown("#### 📡 채널 설정")
-        _known_channels = get_state("known_channels", [CHANNEL_NAME])
-        _cur_ch = get_state("current_channel_name", CHANNEL_NAME)
-        _ch_options = _known_channels if _known_channels else [CHANNEL_NAME]
-        _sel_ch = st.selectbox(
+        try:
+            from core.profile_loader import list_available_profiles, select_profile
+            _profiles = list_available_profiles()
+            _profile_keys  = [p["key"]  for p in _profiles]
+            _profile_names = [p["name"] for p in _profiles]
+        except Exception:
+            _profile_keys  = ["sage_mirror"]
+            _profile_names = [CHANNEL_NAME]
+
+        _cur_key = get_state("current_channel_profile", "sage_mirror")
+        _cur_idx = _profile_keys.index(_cur_key) if _cur_key in _profile_keys else 0
+
+        _sel_idx = st.selectbox(
             "채널 선택",
-            _ch_options,
-            index=_ch_options.index(_cur_ch) if _cur_ch in _ch_options else 0,
+            range(len(_profile_names)),
+            format_func=lambda i: _profile_names[i],
+            index=_cur_idx,
             key="sb_channel_sel",
             label_visibility="collapsed",
         )
-        if _sel_ch != _cur_ch:
-            set_state("current_channel_name", _sel_ch)
+        _sel_key = _profile_keys[_sel_idx]
+        if _sel_key != _cur_key:
+            try:
+                select_profile(_sel_key)
+            except Exception:
+                set_state("current_channel_profile", _sel_key)
+                set_state("current_channel_name", _profile_names[_sel_idx])
+            if "librarian_agent" in st.session_state:
+                del st.session_state["librarian_agent"]
             save_workspace()
+
+        # 현재 채널 프로필 미니 카드
+        _cur_profile_name = _profile_names[_sel_idx]
+        st.caption(f"📡 `{_cur_profile_name}`")
+
         with st.expander("➕ 새 채널 추가"):
-            _new_ch = st.text_input("채널명 입력", key="sb_new_channel_input",
-                                    placeholder="예: 지혜의숲")
+            _new_ch_name = st.text_input("채널명", key="sb_new_channel_name",
+                                         placeholder="예: 지혜의숲")
+            _new_ch_key  = st.text_input("채널 키 (영문)", key="sb_new_channel_key",
+                                         placeholder="예: wisdom_forest")
             if st.button("추가", key="sb_new_channel_add", use_container_width=True):
-                if _new_ch.strip() and _new_ch.strip() not in _known_channels:
-                    _known_channels.append(_new_ch.strip())
-                    set_state("known_channels", _known_channels)
-                    set_state("current_channel_name", _new_ch.strip())
-                    save_workspace()
-                    st.rerun()
+                if _new_ch_name.strip() and _new_ch_key.strip():
+                    try:
+                        from core.profile_loader import save_new_profile, load_template
+                        tmpl = load_template()
+                        tmpl["channel_name"] = _new_ch_name.strip()
+                        tmpl["channel_key"]  = _new_ch_key.strip()
+                        tmpl["obsidian_channel_dir"] = f"채널_{_new_ch_name.strip()}"
+                        save_new_profile(_new_ch_key.strip(), tmpl)
+                        st.success(f"✅ '{_new_ch_name}' 추가됨")
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"추가 실패: {e}")
 
         st.markdown("---")
 
@@ -228,8 +258,16 @@ def main():
         load_workspace()
         set_state("_workspace_loaded", True)
     
-    # 사이드바 + 메인
+    # 사이드바
     render_sidebar()
+
+    # 첫 실행 마법사
+    from panel.setup_wizard import should_show_wizard, render_setup_wizard
+    if should_show_wizard():
+        render_setup_wizard()
+        return
+
+    # 메인 렌더링
     render_main()
 
 

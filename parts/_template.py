@@ -20,14 +20,53 @@ from safety.citation_validator import validate_citations
 from safety.protagonist_check import check_protagonist_voice
 
 
+def _build_profile_header() -> str:
+    """현재 채널 Profile을 프롬프트 앞에 주입할 헤더 생성"""
+    try:
+        from core.profile_loader import load_current_profile
+        p = load_current_profile()
+        if not p:
+            return ""
+        ch   = p.get("channel_name", "")
+        tgt  = p.get("target_audience", "")
+        tone = p.get("tone", "")
+        narr = p.get("narrator_age", "")
+        phil = " / ".join(p.get("philosophy_anchor", []))
+        sym  = " / ".join(p.get("core_symbols", []))
+        forb = " / ".join(p.get("forbidden_expressions", []))
+        pref = " / ".join(p.get("preferred_expressions", []))
+        lines = [
+            "=== 채널 프로필 (Profile 우선 적용) ===",
+            f"채널명: {ch}" if ch else "",
+            f"타겟 시청자: {tgt}" if tgt else "",
+            f"콘텐츠 톤: {tone}" if tone else "",
+            f"내레이터: {narr}" if narr else "",
+            f"철학·지식 체계: {phil}" if phil else "",
+            f"핵심 상징: {sym}" if sym else "",
+            f"금지 표현: {forb}" if forb else "",
+            f"선호 표현: {pref}" if pref else "",
+            "=====================================\n",
+        ]
+        return "\n".join(l for l in lines if l)
+    except Exception:
+        return ""
+
+
 def load_prompt(part_num: int) -> str:
-    """파트별 프롬프트 파일 로드"""
-    master = (PROMPTS_PATH / "_master_protocol.md").read_text(encoding="utf-8")
+    """파트별 프롬프트 파일 로드 + Profile 헤더 주입"""
+    profile_header = _build_profile_header()
+    try:
+        master = (PROMPTS_PATH / "_master_protocol.md").read_text(encoding="utf-8")
+    except Exception:
+        master = ""
     part_files = list(PROMPTS_PATH.glob(f"part{part_num}_*.md"))
     if part_files:
-        part_prompt = part_files[0].read_text(encoding="utf-8")
-        return master + "\n\n" + part_prompt
-    return master
+        try:
+            part_prompt = part_files[0].read_text(encoding="utf-8")
+        except Exception:
+            part_prompt = ""
+        return profile_header + master + "\n\n" + part_prompt
+    return profile_header + master
 
 
 def get_part_context(part_num: int) -> dict:

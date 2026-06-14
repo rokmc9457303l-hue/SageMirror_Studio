@@ -15,7 +15,7 @@ from core.state import get_state, set_state
 from core.obsidian import get_channel_path
 
 
-PART_RELATED_CATEGORIES = {
+_DEFAULT_PART_CATEGORIES = {
     1: ["감정", "유튜브전략", "채널운영", "출처자료"],
     2: ["철학", "성경·신앙", "심리학", "다크심리학"],
     3: ["문학·에세이", "고전소설", "한국문학", "감정"],
@@ -25,6 +25,25 @@ PART_RELATED_CATEGORIES = {
     7: ["유튜브전략", "제작자료"],
     8: ["채널운영", "유튜브전략"],
 }
+
+
+def get_part_categories(part_num: int) -> list:
+    """Profile YAML의 typical_categories 필드 우선, 없으면 기본값"""
+    try:
+        from core.profile_loader import load_current_profile
+        p = load_current_profile()
+        cats = p.get("typical_categories", {})
+        if isinstance(cats, dict) and part_num in cats:
+            return cats[part_num]
+        if isinstance(cats, dict) and str(part_num) in cats:
+            return cats[str(part_num)]
+    except Exception:
+        pass
+    return _DEFAULT_PART_CATEGORIES.get(part_num, ["제작자료"])
+
+
+# 하위 호환
+PART_RELATED_CATEGORIES = _DEFAULT_PART_CATEGORIES
 
 
 def count_files_in_path(path: Path) -> int:
@@ -63,8 +82,8 @@ def get_rag_status(part_num: int) -> dict:
         raw_count = sum(1 for _ in OBSIDIAN_RAW.rglob("*.md")
                        if not _.name.startswith("_"))
 
-    # 4. 관련 범용 카테고리 (Wiki 하위)
-    related_cats = PART_RELATED_CATEGORIES.get(part_num, [])
+    # 4. 관련 범용 카테고리 (Profile 동적 로드)
+    related_cats = get_part_categories(part_num)
     universal_status = []
     for cat in related_cats:
         cat_folder = OBSIDIAN_WIKI / cat

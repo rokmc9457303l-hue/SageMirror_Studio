@@ -204,7 +204,7 @@ def run_benchmark(channel_url: str, api_key: str) -> str:
         ])
         
         result = call_model(
-            prompt=analysis_input + "\n\n위 채널을 분석하고 4070 시청자 감정 고통 기반 주제 후보를 추출하라.",
+            prompt=analysis_input + "\n\n위 채널을 분석하고 타겟 시청자 감정 고통 기반 주제 후보를 추출하라.",
             system=prompt,
             model=get_state("current_model"),
         )
@@ -272,7 +272,7 @@ def generate_topics(benchmark: str, additional: str = "") -> str:
             f"[벤치마킹 결과]\n{benchmark[:1500]}\n\n"
             f"[옵시디언 RAG 참조]\n{rag[:600]}\n\n"
             f"[추가 지시]\n{additional}\n\n"
-            "위 자료를 바탕으로 4070 시청자 감정 고통에 기반한 주제 20개를 추천하라.\n"
+            "위 자료를 바탕으로 타겟 시청자 감정 고통에 기반한 주제 20개를 추천하라.\n"
             "출력 형식: NN. 주제 | 추천사유 | 예상효과 | 예상반응 [SOURCE: ...]"
         )
         return call_model(prompt=user_query, system=prompt, model=get_state("current_model"))

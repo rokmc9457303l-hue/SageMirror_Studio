@@ -26,8 +26,8 @@ OBSIDIAN_RAW_NEW   = OBSIDIAN_PATH / "00_Raw_Data"
 CHANNEL_NAME = "현자의거울"
 
 # ── 앱 정보 ───────────────────────────────────────
-APP_NAME    = "현자의 거울 스튜디오"
-APP_VERSION       = "v18.0.42"
+APP_NAME    = "SAGE Studio"
+APP_VERSION = "v100.0.0"
 APP_PORT    = 8506
 
 # ── 8파트 한글 이름 ───────────────────────────────

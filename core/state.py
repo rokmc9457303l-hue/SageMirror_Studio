@@ -36,8 +36,10 @@ def init_state():
         **{f"api_{k}": v for k, v in API_KEYS.items()},
         
         # 채널 설정
-        "current_channel_name": CHANNEL_NAME,
-        "known_channels":       [CHANNEL_NAME],
+        "current_channel_name":    CHANNEL_NAME,
+        "current_channel_profile": "sage_mirror",
+        "known_channels":          [CHANNEL_NAME],
+        "setup_completed":         False,  # 첫 실행 마법사 완료 여부
 
         # 우측 패널 (별도 관리)
         "rp_history":       [],
