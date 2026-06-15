@@ -1,20 +1,28 @@
 # -*- coding: utf-8 -*-
 """
-core/md_loader.py — MD 파일 로더 (Task 34)
+core/md_loader.py — MD 파일 로더
 
-- 1분 TTL 캐시: 파일 편집 후 최대 1분 내 자동 반영 (앱 재시작 불필요)
+- mtime 기반 캐시: 파일 저장 즉시 반영 (TTL 대기 없음)
 - 변수 치환: {{CHANNEL_NAME}} 등 템플릿 변수 즉시 렌더링
 """
 
-import streamlit as st
 from pathlib import Path
 
+# mtime 기반 캐시: {str(path): (mtime_float, content_str)}
+_md_cache: dict = {}
 
-@st.cache_data(ttl=60, show_spinner=False)
+
 def load_md(path: str) -> str:
-    """MD 파일 로드 (60초 캐시 — 편집 후 1분 내 자동 반영)"""
+    """MD 파일 로드 (mtime 캐시 — 파일 변경 즉시 반영)"""
     try:
-        return Path(path).read_text(encoding="utf-8")
+        p = Path(path)
+        mtime = p.stat().st_mtime
+        cached = _md_cache.get(path)
+        if cached and cached[0] == mtime:
+            return cached[1]
+        content = p.read_text(encoding="utf-8")
+        _md_cache[path] = (mtime, content)
+        return content
     except FileNotFoundError:
         return ""
     except Exception as e:
@@ -92,9 +100,96 @@ def list_all_prompts() -> dict:
     return tree
 
 
-def save_md(path: str, content: str):
-    """MD 파일 저장 후 캐시 무효화"""
+def compose_system_prompt(part: int, step: str = "", variables: dict = None) -> str:
+    """
+    에이전트 실행용 시스템 프롬프트 조립 (AGENT_ORCHESTRATION.md 5절 순서).
+
+    순서:
+      1. ANTI_HALLUCINATION.md
+      2. SOURCE_CITATION.md
+      3. Part N AGENT_PROTOCOL.md
+      4. Part N MAIN_PROMPT.md  (변수 치환)
+      5. Part N STEP_{step}.md  (step 지정 시)
+    """
+    variables = variables or {}
+    sections = []
+
+    anti  = load_shared_md("ANTI_HALLUCINATION.md")
+    cite  = load_shared_md("SOURCE_CITATION.md")
+    proto = load_part_md(part, "AGENT_PROTOCOL.md")
+    main  = load_part_md(part, "MAIN_PROMPT.md")
+
+    if anti:  sections.append(anti)
+    if cite:  sections.append(cite)
+    if proto: sections.append(proto)
+    if main:  sections.append(main)
+
+    if step:
+        step_md = load_part_md(part, f"STEP_{step}.md")
+        if step_md:
+            sections.append(step_md)
+
+    full = "\n\n---\n\n".join(sections)
+
+    # {{변수}} 치환
+    for key, val in variables.items():
+        full = full.replace("{{" + key + "}}", str(val))
+
+    return full
+
+
+def get_full_context(part: int, profile: dict = None) -> str:
+    """
+    Profile YAML 변수를 자동 주입한 완성된 시스템 컨텍스트 반환.
+    에이전트 execute() 에서 self.call_ai() 호출 전 사용.
+    """
+    if profile is None:
+        try:
+            from core.profile_loader import load_current_profile
+            profile = load_current_profile()
+        except Exception:
+            profile = {}
+
+    variables = {
+        "CHANNEL_NAME":          profile.get("channel_name", ""),
+        "TARGET_AUDIENCE":       profile.get("target_audience", ""),
+        "TONE":                  profile.get("tone", ""),
+        "NARRATOR_STYLE":        profile.get("narrator_style", ""),
+        "VISUAL_STYLE":          profile.get("visual_style", ""),
+        "PHILOSOPHY_ANCHOR":     ", ".join(profile.get("philosophy_anchor", [])),
+        "TYPICAL_CATEGORIES":    ", ".join(profile.get("typical_categories", [])),
+        "TYPICAL_TOPICS":        ", ".join(profile.get("typical_topics", [])),
+        "FORBIDDEN_EXPRESSIONS": ", ".join(profile.get("forbidden_expressions", [])),
+        "PREFERRED_EXPRESSIONS": ", ".join(profile.get("preferred_expressions", [])),
+        "CORE_SYMBOLS":          ", ".join(profile.get("core_symbols", [])),
+        "COLOR_PALETTE":         profile.get("color_palette", ""),
+    }
+
+    return compose_system_prompt(part, variables=variables)
+
+
+def save_md(path: str, content: str, backup: bool = True) -> str:
+    """
+    MD 파일 저장 (mtime 캐시 무효화 + 자동 백업).
+
+    Returns:
+        backup_path (str) if backup=True, else ""
+    """
+    import datetime, shutil
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
+
+    backup_path = ""
+    if backup and p.exists():
+        from core.config import PROMPTS_PATH
+        bk_dir = PROMPTS_PATH / "_backup"
+        bk_dir.mkdir(parents=True, exist_ok=True)
+        ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        bk_name = f"{p.stem}_{ts}{p.suffix}"
+        backup_path = str(bk_dir / bk_name)
+        shutil.copy2(str(p), backup_path)
+
     p.write_text(content, encoding="utf-8")
-    load_md.clear()  # 캐시 즉시 클리어
+    _md_cache.pop(path, None)       # 해당 파일만 캐시 제거
+    _md_cache.pop(str(p), None)     # str 형식도 제거
+    return backup_path

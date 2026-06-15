@@ -329,6 +329,9 @@ def render_right_panel():
                           "timestamp": datetime.now().isoformat()})
             set_state("rp_history", _hist)
             set_state("rp_input_counter", get_state("rp_input_counter", 0) + 1)
+            # Part 1 자동 이동 (p1_nav_pending → 사이드바 라디오도 리셋)
+            set_state("p1_nav_pending", 1)
+            set_state("auto_start_part1", True)
             st.rerun()
     with _edit_col:
         _md_edit_on = get_state("rp_md_editor_open", False)
@@ -898,6 +901,9 @@ def start_channel_workflow() -> str:
         }
         result = agent.execute(context)
         topics = result.get("topics", [])
+        # Part 1 자동 이동 + auto_start 플래그
+        set_state("p1_nav_pending", 1)
+        set_state("auto_start_part1", True)
         if topics:
             lines = [f"## 🚀 {channel_name} — 자동 시작 완료\n"]
             lines.append("### 주제 후보 (댓글 기반)")
@@ -912,7 +918,9 @@ def start_channel_workflow() -> str:
         else:
             return f"## 🚀 {channel_name} — 분석 완료\n\n{str(result)[:800]}"
     except Exception as e:
-        # LibrarianAgent 없거나 오류 시 → 프롬프트 기반 시작 안내
+        # LibrarianAgent 없거나 오류 시 → Part 1 자동 이동 후 안내
+        set_state("p1_nav_pending", 1)
+        set_state("auto_start_part1", True)
         parts = [f"## 🚀 {channel_name} 채널 시작"]
         if identity:
             parts.append(f"\n**채널 정체성 로드 완료**")
@@ -922,7 +930,7 @@ def start_channel_workflow() -> str:
             parts.append(f"\n**이전 자료 RAG 완료** — 기존 자료 참조 중")
         if start_cmd:
             parts.append(f"\n**실행 계획:**\n{start_cmd[:500]}")
-        parts.append(f"\n⚙️ Part 1 탭으로 이동하여 자료수집을 시작하세요.")
+        parts.append(f"\n✅ Part 1 자료수집으로 자동 이동합니다.")
         return "\n".join(parts)
 
 

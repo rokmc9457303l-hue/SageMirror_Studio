@@ -119,6 +119,129 @@ class CuratorAgent(BaseAgent):
 
         return score
 
+    # ── Task L: 풀 기능 메서드 ─────────────────────────────────────────
+
+    def auto_save(self, content: str, source_type: str, channel: str) -> dict:
+        """결과물 자동 저장 + 분류 (3-tier: Raw → Wiki → Schema)"""
+        import datetime
+
+        # 1. 메타데이터 추출 (Gemma)
+        meta = self._extract_metadata(content, source_type)
+
+        # 2. 중복 검사
+        if self._is_duplicate(content, meta):
+            return {"raw": "", "wiki": "", "schema": "", "merged": True}
+
+        # 3. 3-tier 저장
+        raw_path   = self._save_raw(content, channel, meta)
+        wiki_path  = self._save_wiki(content, meta, channel)
+        schema_path = self._save_schema(meta, channel)
+
+        # 4. 진화 추적
+        self.track_evolution(channel, meta)
+
+        self.log(f"auto_save: {source_type} → {channel} 저장 완료")
+        return {"raw": raw_path, "wiki": wiki_path, "schema": schema_path}
+
+    def _extract_metadata(self, content: str, source_type: str) -> dict:
+        """간단 메타데이터 추출 (Gemma 호출)"""
+        prompt = (
+            f"다음 내용의 메타데이터를 JSON으로 추출하세요.\n"
+            f"필드: title, categories(list), tags(list), keywords(list), "
+            f"emotion_intensity(0~1), source_quality(0~1)\n\n"
+            f"내용(첫 500자):\n{content[:500]}"
+        )
+        raw = self.call_ai(prompt)
+        import json, re
+        try:
+            m = re.search(r"\{.*\}", raw, re.DOTALL)
+            if m:
+                return json.loads(m.group())
+        except Exception:
+            pass
+        return {
+            "title": content[:30].strip(),
+            "categories": [],
+            "tags": [],
+            "keywords": [],
+            "emotion_intensity": 0.5,
+            "source_quality": 0.7,
+        }
+
+    def _is_duplicate(self, content: str, meta: dict) -> bool:
+        """간단 중복 검사 (제목 + 길이 기준)"""
+        try:
+            from core.obsidian import content_hash_exists
+            return content_hash_exists(content)
+        except Exception:
+            return False
+
+    def _save_raw(self, content: str, channel: str, meta: dict) -> str:
+        try:
+            from core.obsidian import save_raw
+            return save_raw(content, channel, meta)
+        except Exception as e:
+            self.log(f"raw 저장 오류: {e}")
+            return ""
+
+    def _save_wiki(self, content: str, meta: dict, channel: str) -> str:
+        try:
+            from core.obsidian import save_wiki
+            return save_wiki(content, meta, channel)
+        except Exception as e:
+            self.log(f"wiki 저장 오류: {e}")
+            return ""
+
+    def _save_schema(self, meta: dict, channel: str) -> str:
+        try:
+            from core.obsidian import save_schema
+            return save_schema(meta, channel)
+        except Exception as e:
+            self.log(f"schema 저장 오류: {e}")
+            return ""
+
+    def track_evolution(self, channel: str, meta: dict):
+        """채널 두뇌 성장 추적 로그"""
+        import datetime, json
+        from core.config import OBSIDIAN_LOGS
+        log_path = OBSIDIAN_LOGS / f"{channel}_evolution.jsonl"
+        try:
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+            entry = {
+                "ts": datetime.datetime.now().isoformat(),
+                "added": meta.get("title", ""),
+                "categories": meta.get("categories", []),
+                "tags": meta.get("tags", []),
+            }
+            with log_path.open("a", encoding="utf-8") as f:
+                f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        except Exception as e:
+            self.log(f"evolution 추적 오류: {e}")
+
+    def daily_maintenance(self) -> dict:
+        """매일 실행 — 중복 통합 + 미분류 정리 + 죽은 링크 제거"""
+        report = {"duplicates_merged": 0, "categorized": 0, "broken_links": 0}
+        try:
+            from core.obsidian import (
+                find_duplicates, merge_files,
+                find_uncategorized, auto_categorize,
+                clean_broken_links,
+            )
+            dups = find_duplicates()
+            for group in dups:
+                merge_files(group)
+                report["duplicates_merged"] += 1
+
+            orphans = find_uncategorized()
+            for f in orphans:
+                auto_categorize(f)
+                report["categorized"] += 1
+
+            report["broken_links"] = clean_broken_links()
+        except Exception as e:
+            self.log(f"daily_maintenance 오류: {e}")
+        return report
+
     def curate_to_wiki(self, raw_text: str, title: str, category: str) -> str:
         """원본 텍스트를 Wiki로 정제 후 저장"""
         prompt = self.build_base_prompt(

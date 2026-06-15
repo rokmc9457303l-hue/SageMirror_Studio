@@ -44,7 +44,23 @@ def render_part1():
     """Part 1 메인 화면"""
     st.markdown(f"## 📍 Part 1 — {PART_NAMES[1]} (Librarian)")
     st.caption("벤치마킹 · 댓글분석 · 주제발굴 · 자료조사")
-    
+
+    # SAGE 브레인 "시작" 버튼에서 auto_start 플래그 전달 시 자동 실행
+    if get_state("auto_start_part1", False):
+        set_state("auto_start_part1", False)
+        st.info("🚀 SAGE 브레인에서 자동 시작 — 자료수집 에이전트를 실행합니다.")
+        try:
+            agent = _get_librarian()
+            from core.profile_loader import load_current_profile
+            profile = load_current_profile()
+            result = agent.execute({"auto_start": True, "profile": profile})
+            topics = result.get("topics", [])
+            if topics:
+                set_state(f"p{PART_NUM}_topics", topics)
+                st.success(f"✅ 주제 후보 {len(topics)}개 생성 완료 — '주제 추천' 탭에서 확인")
+        except Exception as e:
+            st.warning(f"에이전트 자동 실행 스킵 (수동으로 탭에서 실행): {e}")
+
     # RAG 자료 상태 박스
     from core.rag_status_box import render_rag_status_box
     render_rag_status_box(1)
