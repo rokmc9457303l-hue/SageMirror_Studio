@@ -1,0 +1,111 @@
+1808:         episode = st.session_state.get("episode_name", "EP001").strip()
+1812:             episode = "EP001"
+3129:   폴더 1: [사용자 지정 경로]/Images/EP001/scene_XXX.png
+3131:   폴더 2: [옵시디언 볼트 경로]/attachments/EP001/scene_XXX.png
+3137:   ![[EP001/scene_001.png]]
+3299:   → 플로우 이름: "현자의거울_EP001_이미지생성"
+3541:   "episode": "EP001",
+3639:   폴더 경로: [저장경로]/Images/EP001/scene_XXX.png
+3641:   옵시디언: [[EP001/scene_XXX.png]]
+3848:     episode = st.session_state.get("episode_name", "EP001").strip()
+3850:         episode = "EP001"
+3970:     active_ep = "EP001"
+3975:                 active_ep = root_data.get("episode_name", "EP001").strip()
+3977:                     active_ep = "EP001"
+4725:         "episode_name": "EP001",
+4961:     ep_name = st.session_state.get("episode_name", "EP001")
+4989:         current_ep = st.session_state.get("episode_name", "EP001")
+5424:     project_name = st.session_state.get("project_name", "Universal Obsidian Studio")
+5426:     current_step = st.session_state.get("current_step", "초기화")
+5443:         <div style="font-size: 0.85em; color: #94a3b8; margin-bottom: 8px;">Project: <b>{project_name}</b> &nbsp;|&nbsp; Profile: <b>{profile_name}</b></div>
+5448:         <div style="font-size: 0.9em; color: #f5e9d3;">현재 단계: <b>{current_step}</b></div>
+5519:             if f"파트 {i}" in st.session_state.get("current_step", ""):
+6347: CHAT_JSON_PATH = Path(r"C:\SageMirror_Outputs\00_Session_States\popup_chat_EP001.json")
+6372: def render_part1():
+6374:     c_title = st.container()
+6378:     with c_title:
+7130:                                     topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection and ". " in st.session_state.p1_topic_selection else "자료조사"
+7132:                                     title = f"자료조사 초안 - {topic_title}"
+7310:                                             topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection and ". " in st.session_state.p1_topic_selection else "자료조사"
+7312:                                             title = f"자료조사 초안 - {topic_title}"
+7428:                                         topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection and ". " in st.session_state.p1_topic_selection else "자료조사"
+7430:                                         title = f"자료조사 초안 - {topic_title}"
+7520:                     topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection and ". " in st.session_state.p1_topic_selection else "자료조사"
+7522:                     title = f"자료조사 초안 - {topic_title}"
+7648:                             topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection and ". " in st.session_state.p1_topic_selection else "기획안"
+7650:                             title = f"최종 기획안 - {topic_title}"
+7756:                    topic_title = st.session_state.p1_topic_selection.split(". ")[1] if st.session_state.p1_topic_selection and ". " in st.session_state.p1_topic_selection else "기획안"
+7758:                    title = f"최종 기획안 - {topic_title}"
+7857:         episode = st.session_state.get("episode_name", "EP001")
+7899:     episode = st.session_state.get("episode_name", "EP001")
+8379:     c_title = st.container()
+8383:     with c_title:
+9069:                                     topic_title = st.session_state.p2_topic_selection.split(". ")[1] if st.session_state.p2_topic_selection and ". " in st.session_state.p2_topic_selection else "자료조사"
+9071:                                     title = f"[Part2] 자료조사 초안 - {topic_title}"
+9251:                                             topic_title = st.session_state.p2_topic_selection.split(". ")[1] if st.session_state.p2_topic_selection and ". " in st.session_state.p2_topic_selection else "자료조사"
+9253:                                             title = f"[Part2] 자료조사 초안 - {topic_title}"
+9369:                                         topic_title = st.session_state.p2_topic_selection.split(". ")[1] if st.session_state.p2_topic_selection and ". " in st.session_state.p2_topic_selection else "자료조사"
+9371:                                         title = f"[Part2] 자료조사 초안 - {topic_title}"
+9455:                     topic_title = st.session_state.p2_topic_selection.split(". ")[1] if st.session_state.get("p2_topic_selection") and ". " in st.session_state.p2_topic_selection else "자료조사"
+9457:                     title = f"[Part2] 자료조사 초안 - {topic_title}"
+9687:                                     topic_title = topic_str.split(". ")[1] if topic_str and ". " in topic_str else "기획안"
+9689:                                     title = f"[Part2] 총괄 기획안 - {topic_title}"
+9872:                                             topic_title = st.session_state.p2_topic_selection.split(". ")[1] if st.session_state.p2_topic_selection and ". " in st.session_state.p2_topic_selection else "기획안"
+9874:                                             title = f"[Part2] 총괄 기획안 - {topic_title}"
+9990:                                         topic_title = st.session_state.p2_topic_selection.split(". ")[1] if st.session_state.p2_topic_selection and ". " in st.session_state.p2_topic_selection else "기획안"
+9992:                                         title = f"[Part2] 총괄 기획안 - {topic_title}"
+10082:                     topic_title = st.session_state.get("p2_topic_selection","").split(". ")[1] if st.session_state.get("p2_topic_selection") and ". " in st.session_state.get("p2_topic_selection","") else "기획안"
+10084:                     title = f"[Part2] 총괄 기획안 - {topic_title}"
+10160:     c_title = st.container()
+10164:     with c_title:
+11121:     c_title = st.container()
+11123:     with c_title:
+11234:           **PREP-01**: 구글 플로우 접속 -> 새 플로우 생성 "현자의거울_EP001_이미지생성"
+11391:     c_title = st.container()
+11393:     with c_title:
+11508:         ep_name = st.text_input("🎬 작업 회차명", value=st.session_state.get("episode_name", "EP001"), key="p6_episode_name_input")
+11510:         if ep_name != st.session_state.get("episode_name", "EP001"):
+11826:                 save_video_production_all(st.session_state.get("episode_name", "EP001").strip())
+11840: **PREP-01**: Google Opal 접속 -> 새 워크플로우 생성 "현자의거울_EP001_영상생성"
+11901:     c_title = st.container()
+11905:     with c_title:
+12061:                         topic_title = st.session_state.get("p2_topic_selection", "대본구조")
+12065:                         title = f"112씬 구조 설계 - {topic_title}"
+12069:                         val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+12141:                 topic_title = st.session_state.get("p2_topic_selection", "대본구조")
+12145:                 title = f"112씬 구조 설계 - {topic_title}"
+12316:                                     topic_title = st.session_state.get("p2_topic_selection", "나레이션")
+12320:                                     title = f"[Part3] 나레이션 대본 - {topic_title}"
+12324:                                     val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+12496:                                             topic_title = st.session_state.get("p2_topic_selection", "나레이션")
+12498:                                             title = f"[Part3] 나레이션 대본 - {topic_title}"
+12502:                                             val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+12616:                                         topic_title = st.session_state.get("p2_topic_selection", "나레이션")
+12618:                                         title = f"[Part3] 나레이션 대본 - {topic_title}"
+12622:                                         val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+12674:                     topic_title = st.session_state.get("p2_topic_selection", "나레이션")
+12676:                     title = f"[Part3] 나레이션 대본 - {topic_title}"
+12806:                                     topic_title = st.session_state.get("p2_topic_selection", "이미지대본")
+12810:                                     title = f"[Part3] 이미지 프롬프트 대본 - {topic_title}"
+12814:                                     val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+12986:                                             topic_title = st.session_state.get("p2_topic_selection", "이미지대본")
+12988:                                             title = f"[Part3] 이미지 프롬프트 대본 - {topic_title}"
+12992:                                             val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+13106:                                         topic_title = st.session_state.get("p2_topic_selection", "이미지대본")
+13108:                                         title = f"[Part3] 이미지 프롬프트 대본 - {topic_title}"
+13112:                                         val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+13164:                     topic_title = st.session_state.get("p2_topic_selection", "이미지대본")
+13166:                     title = f"[Part3] 이미지 프롬프트 대본 - {topic_title}"
+13260:                             topic_title = st.session_state.get("p2_topic_selection", "캡컷에셋")
+13264:                             title = f"[Part3] 캡컷 에셋 JSON - {topic_title}"
+13268:                             val = f"## 📌 핵심 요약\n- 주제: {topic_title}\n\n"
+13376:                     topic_title = st.session_state.get("p2_topic_selection", "캡컷에셋")
+13378:                     title = f"[Part3] 캡컷 에셋 JSON - {topic_title}"
+13441:     c_title = st.container()
+13443:     with c_title:
+13826:     c_title = st.container()
+13828:     with c_title:
+14159:     c_title = st.container()
+14161:     with c_title:
+14423:         ep = st.session_state.get("episode_name", "EP001").strip()
+14721:         render_part1()

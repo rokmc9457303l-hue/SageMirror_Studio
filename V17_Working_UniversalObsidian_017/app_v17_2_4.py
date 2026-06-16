@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 """
 
@@ -5418,1085 +5418,135 @@ def popup_edit_benchmarking():
 # =====================================================================
 
 def render_top_panel():
+    db_ok = os.path.exists(WORKSPACE_STATE_FILE)
+    sync_req = st.session_state.get("sync_required", False)
     
-
-    # ──────────────────────────────────────────────────────────────
-
-    # 상태 데이터 수집 (로직은 그대로, 디자인만 변경)
-
-    # ──────────────────────────────────────────────────────────────
-
-    db_ok  = os.path.exists(WORKSPACE_STATE_FILE)
-
-    obs_path = st.session_state.get("path_obsidian", "")
-
-    obs_ok = os.path.exists(obs_path) if obs_path else False
-
-    git_repo = st.session_state.get("github_repo_url", "")
-
-    git_ok   = len(git_repo) > 0 and GIT_AVAILABLE
-
-    repo_name = git_repo.split('/')[-1].replace('.git', '') if git_ok else "미연동"
-
-    obs_name  = os.path.basename(obs_path) if obs_ok else "경로 미설정"
-
-
-
-    # ──────────────────────────────────────────────────────────────
-
-    # [ROW 1] 상태 카드 4개 — 글래스모피즘 스타일 가로 배치
-
-    # ──────────────────────────────────────────────────────────────
-
-    st.markdown("""
-
-    <style>
-
-    /* 우측 컨트롤 박스 테두리 및 배경색 상황판과 통일 */
-
-    #header-control-box-anchor + div {
-
-        background: linear-gradient(135deg, #131b2e 0%, #0c1220 100%) !important;
-
-        border: 1.5px solid #d4af6a44 !important;
-
-        border-radius: 12px !important;
-
-        padding: 6px 12px 6px 12px !important;
-
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-
-    }
-
+    project_name = st.session_state.get("project_name", "Universal Obsidian Studio")
+    profile_name = st.session_state.get("profile_name", "Gemma-2-9b-it")
+    current_step = st.session_state.get("current_step", "초기화")
     
+    # 우측 패널 상태 수집
+    right_auto_save = st.session_state.get("right_auto_save_status", "대기")
+    right_rag_queue = len(st.session_state.get("right_research_inbox", []))
 
-    /* 내부 위젯 정렬 강제 및 Streamlit 여백 리셋 */
-
-    .header-pin-wrapper div[data-testid="stMarkdownContainer"] {
-
-        margin: 0 !important;
-
-    }
-
-    .header-pin-wrapper input {
-
-        height: 38px !important;
-
-        border: 1px solid rgba(212, 175, 106, 0.3) !important;
-
-        background-color: rgba(30, 41, 59, 0.45) !important;
-
-        color: #f5e9d3 !important;
-
-        margin: 0 !important;
-
-    }
-
-    .header-pin-wrapper input:focus {
-
-        border-color: #d4af6a !important;
-
-    }
-
+    # 시스템 오류 상태 점검 (간단한 예시)
+    errors = []
+    if not db_ok: errors.append("DB 없음")
+    if sync_req: errors.append("동기화 필요")
     
-
-
-    /* ═══ 시스템 연동 팝오버 버튼 스타일 ═══ */
-    [data-testid="stPopover"] > div > button {
-        background: rgba(212,175,106,0.12) !important;
-        border: 1px solid rgba(212,175,106,0.35) !important;
-        border-radius: 6px !important;
-        color: #d4af6a !important;
-        font-size: 0.75em !important;
-        font-weight: 600 !important;
-        padding: 3px 10px !important;
-        margin-top: -2px !important;
-        letter-spacing: 0.03em !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-    }
-    [data-testid="stPopover"] > div > button:hover {
-        background: rgba(212,175,106,0.25) !important;
-        border-color: rgba(212,175,106,0.7) !important;
-        box-shadow: 0 2px 8px rgba(212,175,106,0.2) !important;
-    }
-
-    /* ═══ 글래스모피즘 컨트롤 박스 — 파트 헤더 우측 통합 박스 ═══ */
-    .glass-control-box {
-        background: linear-gradient(135deg, rgba(30, 15, 5, 0.92) 0%, rgba(50, 25, 10, 0.88) 100%);
-        border: 1.5px solid rgba(212,175,106,0.40);
-        border-radius: 14px;
-        padding: 5px 10px;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        box-shadow: 0 6px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(212,175,106,0.25);
-        margin-top: 3px;
-    }
-
-    /* 모델 셀렉트박스 스타일링 */
-
-    .header-model-wrapper div[data-baseweb="select"] {
-
-        height: 38px !important;
-
-        background-color: rgba(30, 41, 59, 0.45) !important;
-
-        border: 1px solid rgba(212, 175, 106, 0.3) !important;
-
-        border-radius: 4px !important;
-
-        color: #f5e9d3 !important;
-
-    }
-
-    .header-model-wrapper div[data-baseweb="select"]:hover {
-
-        border-color: #d4af6a !important;
-
-    }
-
-    .header-model-wrapper div[data-testid="stSelectbox"] > div {
-
-        border: none !important;
-
-        background-color: transparent !important;
-
-        height: 38px !important;
-
-        min-height: 38px !important;
-
-    }
-
-    .header-model-wrapper div[role="button"] {
-
-        padding-top: 0 !important;
-
-        padding-bottom: 0 !important;
-
-        line-height: 36px !important;
-
-        height: 36px !important;
-
-        background-color: transparent !important;
-
-        color: #f5e9d3 !important;
-
-    }
-
-    
-
-    .header-pop-wrapper button {
-
-        height: 38px !important;
-
-        margin: 0 !important;
-
-        background-color: rgba(30, 41, 59, 0.45) !important;
-
-        border: 1px solid rgba(212, 175, 106, 0.3) !important;
-
-        color: #f5e9d3 !important;
-
-    }
-
-    .header-pop-wrapper button:hover {
-
-        border-color: #d4af6a !important;
-
-        background-color: rgba(212, 175, 106, 0.15) !important;
-
-    }
-
-
-
-    /* 상단 동기화 패널 통일화 디자인 (하단 상황판과 동일한 배경 및 테두리 지정) */
-
-    .sage-sync-title {
-
-        font-size: 0.92em;
-
-        font-weight: 700;
-
-        color: #d4af6a;
-
-        margin-bottom: 12px;
-
-        letter-spacing: 0.03em;
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 8px;
-
-    }
-
-    #top-sync-panel-anchor + div[data-testid="stHorizontalBlock"] {
-
-        background: linear-gradient(135deg, #131b2e 0%, #0c1220 100%) !important;
-
-        border: 1.5px solid #d4af6a44 !important;
-
-        border-radius: 14px !important;
-
-        padding: 20px 20px 18px 20px !important;
-
-        margin-bottom: 14px !important;
-
-        box-shadow: 0 4px 16px rgba(0,0,0,0.45) !important;
-
-    }
-
-    /* 클릭 가능한 카드의 래퍼 스타일 및 투명 absolute overlay 매직 (로컬 DB연결 형태를 100% 모방) */
-
-    div[data-testid="column"]:has(.clickable-card-bg) {
-
-        position: relative !important;
-
-    }
-
-    div[data-testid="column"]:has(.clickable-card-bg) div[data-testid="stButton"] {
-
-        position: absolute !important;
-
-        inset: 0 !important;
-
-        z-index: 99 !important;
-
-        margin: 0 !important;
-
-        padding: 0 !important;
-
-    }
-
-    div[data-testid="column"]:has(.clickable-card-bg) div[data-testid="stButton"] button {
-
-        background-color: transparent !important;
-
-        border: none !important;
-
-        color: transparent !important; /* 내부 텍스트 완전 투명화 */
-
-        width: 100% !important;
-
-        height: 100% !important;
-
-        position: absolute !important;
-
-        inset: 0 !important;
-
-        padding: 0 !important;
-
-        margin: 0 !important;
-
-        border-radius: 8px !important;
-
-        cursor: pointer;
-
-    }
-
-    div[data-testid="column"]:has(.clickable-card-bg) div[data-testid="stButton"] button:hover {
-
-        background-color: rgba(212, 175, 106, 0.08) !important;
-
-    }
-
-    div[data-testid="column"]:has(.clickable-card-bg) div[data-testid="stButton"] button p {
-
-        display: none !important; /* 텍스트 숨김 */
-
-    }
-
-    .sage-stat-card.sync::before {
-
-        background: linear-gradient(135deg, #d4af6a, #9a7b44) !important;
-
-    }
-
-    .sage-stat-card.sync .stat-label {
-
-        color: #d4af6a !important;
-
-    }
-
-
-
-    .sage-status-row {
-
-        display: flex;
-
-        gap: 12px;
-
-        align-items: stretch;
-
-        margin-bottom: 14px;
-
-        flex-wrap: nowrap;
-
-    }
-
-    .sage-stat-card {
-
-        flex: 1;
-
-        background: rgba(30, 41, 59, 0.45);
-
-        border-radius: 8px;
-
-        padding: 12px 16px;
-
-        min-height: 60px;
-
-        display: flex;
-
-        flex-direction: column;
-
-        justify-content: center;
-
-        gap: 3px;
-
-        position: relative;
-
-        overflow: hidden;
-
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-
-    }
-
-    .sage-stat-card::before {
-
-        content: '';
-
-        position: absolute;
-
-        inset: 0;
-
-        border-radius: 8px;
-
-        padding: 1px;
-
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-
-        -webkit-mask-composite: xor;
-
-        mask-composite: exclude;
-
-        pointer-events: none;
-
-    }
-
-    .sage-stat-card.ok::before  { background: linear-gradient(135deg, #10B981, #06b6d4); }
-
-    .sage-stat-card.warn::before{ background: linear-gradient(135deg, #F59E0B, #f97316); }
-
-    .sage-stat-card.err::before { background: linear-gradient(135deg, #EF4444, #be185d); }
-
-    
-
-    .sage-stat-card .stat-label {
-
-        font-size: 0.78em;
-
-        font-weight: 700;
-
-        letter-spacing: 0.02em;
-
-        white-space: nowrap;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-
-    }
-
-    .sage-stat-card .stat-sub {
-
-        font-size: 0.68em;
-
-        color: #94a3b8;
-
-        white-space: nowrap;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-
-    }
-
-    .sage-stat-card.ok  .stat-label { color: #34d399; }
-
-    .sage-stat-card.warn .stat-label{ color: #fbbf24; }
-
-    .sage-stat-card.err  .stat-label{ color: #f87171; }
-
-    
-
-    /* 파이프라인 카드 */
-
-    .sage-pipeline-card {
-
-        background: linear-gradient(135deg, #131b2e 0%, #0c1220 100%);
-
-        border: 1.5px solid #d4af6a44;
-
-        border-radius: 14px;
-
-        padding: 16px 20px 14px 20px;
-
-        margin-bottom: 14px;
-
-        position: relative;
-
-        overflow: hidden;
-
-    }
-
-    .sage-pipeline-card::after {
-
-        content: '';
-
-        position: absolute;
-
-        top: -40px; right: -40px;
-
-        width: 120px; height: 120px;
-
-        background: radial-gradient(circle, #d4af6a18 0%, transparent 70%);
-
-        pointer-events: none;
-
-    }
-
-    .sage-pipe-title {
-
-        font-size: 0.92em;
-
-        font-weight: 700;
-
-        color: #d4af6a;
-
-        margin-bottom: 14px;
-
-        letter-spacing: 0.03em;
-
-    }
-
-    .sage-pipe-row {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 0px;
-
-        flex-wrap: nowrap;
-
-        overflow-x: auto;
-
-        padding-bottom: 4px;
-
-    }
-
-    .sage-pipe-node {
-
-        display: flex;
-
-        flex-direction: column;
-
-        align-items: center;
-
-        gap: 6px;
-
-        min-width: 72px;
-
-        flex: 1;
-
-    }
-
-    .sage-pipe-dot {
-
-        width: 38px;
-
-        height: 38px;
-
-        border-radius: 50%;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        font-size: 1.05em;
-
-        font-weight: 700;
-
-        box-shadow: 0 4px 16px rgba(0,0,0,0.45);
-
-        transition: transform 0.2s;
-
-        position: relative;
-
-    }
-
-    .sage-pipe-dot.done {
-
-        background: radial-gradient(circle at 35% 35%, #f87171, #c0392b);
-
-        box-shadow: 0 4px 18px #c0392b55, 0 0 0 3px #f8717122;
-
-    }
-
-    .sage-pipe-dot.ready {
-
-        background: radial-gradient(circle at 35% 35%, #f87171, #c0392b);
-
-        box-shadow: 0 4px 18px #c0392b55, 0 0 0 3px #f8717122;
-
-    }
-
-    .sage-pipe-dot.empty {
-
-        background: radial-gradient(circle at 35% 35%, #64748b, #334155);
-
-        box-shadow: 0 2px 8px #0008;
-
-    }
-
-    .sage-pipe-label {
-        font-size: 0.82em;
-        color: #e2e8f0;
-        text-align: center;
-        white-space: nowrap;
-        line-height: 1.4;
-        font-weight: 600;
-        letter-spacing: 0.01em;
-    }
-
-    </style>
-
+    auto_status = "자동화 정상" if not errors else "자동화 경고"
+    save_status = "저장 정상" if right_auto_save in ["대기", "저장 완료", "저장 완료(중복)"] else "저장 오류"
+    error_text = "오류 없음" if not errors else " | ".join(errors)
+
+    st.markdown(f"""
+    <div style="background: rgba(30,41,59,0.45); border: 1.5px solid rgba(212,175,106,0.3); border-radius: 12px; padding: 14px 20px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        <div style="font-size: 0.85em; color: #94a3b8; margin-bottom: 8px;">Project: <b>{{project_name}}</b> &nbsp;|&nbsp; Profile: <b>{{profile_name}}</b></div>
+        <div style="font-size: 0.9em; color: #f5e9d3; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            {'<span style="color:#10B981;">🟢</span>' if not errors else '<span style="color:#F59E0B;">🟠</span>'}
+            <span>{auto_status} | {save_status} | RAG 대기 {right_rag_queue}건 | {error_text}</span>
+        </div>
+        <div style="font-size: 0.9em; color: #f5e9d3;">현재 단계: <b>{{current_step}}</b></div>
+    </div>
     """, unsafe_allow_html=True)
 
-
-
-    # ── 타이틀 및 HTML 앵커 추가 (인접 형제 stHorizontalBlock 스타일링)
-
-    st.markdown('<div class="sage-sync-title">🔄 시스템 연동 및 동기화 상태</div><div id="top-sync-panel-anchor"></div>', unsafe_allow_html=True)
-
-    c_db, c_obs, c_git, c_sync, c_auto = st.columns([1, 1, 1, 1, 1])
-
-
-
-    with c_db:
-
-        card_cls = "ok" if db_ok else "err"
-
-        label    = "로컬 DB 연결" if db_ok else "로컬 DB 없음"
-
-        sub      = "workspace_state.json" if db_ok else "저장 필요"
-
-        icon_col = "#34d399" if db_ok else "#f87171"
-
-        st.markdown(
-
-            f'<div class="sage-stat-card {card_cls}">'
-
-            f'<span class="stat-label"><span style="color:{icon_col};">⬤</span>  {label}</span>'
-
-            f'<span class="stat-sub">{sub}</span>'
-
-            f'</div>',
-
-            unsafe_allow_html=True
-
-        )
-
-
-
-    with c_obs:
-
-        if obs_ok:
-
-            st.markdown(
-
-                f'<div class="sage-stat-card ok clickable-card-bg">'
-
-                f'<span class="stat-label"><span style="color:#34d399;">⬤</span>  옵시디언 RAG</span>'
-
-                f'<span class="stat-sub">Vault: {obs_name}</span>'
-
-                f'</div>',
-
-                unsafe_allow_html=True
-
-            )
-
-            with st.popover("🔗 연동 내역", use_container_width=True):
-                st.caption("📂 옵시디언 RAG 최근 연동 파일")
-                try:
-                    import os as _os
-                    obs_path = st.session_state.get("obsidian_path", "")
-                    if obs_path and _os.path.exists(obs_path):
-                        _files = []
-                        for _root, _dirs, _fnames in _os.walk(obs_path):
-                            for _fn in _fnames:
-                                if _fn.endswith(".md"):
-                                    _fp = _os.path.join(_root, _fn)
-                                    _files.append((_os.path.getmtime(_fp), _fn, _fp))
-                        _files.sort(reverse=True)
-                        for _mtime, _fname, _fpath in _files[:10]:
-                            from datetime import datetime as _dt
-                            _ts = _dt.fromtimestamp(_mtime).strftime("%m/%d %H:%M")
-                            st.markdown(f"- `{_ts}` **{_fname}**")
-                    else:
-                        st.info("옵시디언 경로를 사이드바에서 설정해 주세요.")
-                except Exception as _e:
-                    st.error(f"목록 오류: {_e}")
-
-        else:
-
-            st.markdown(
-
-                '<div class="sage-stat-card warn">'
-
-                '<span class="stat-label"><span style="color:#fbbf24;">⬤</span>  옵시디언 확인필요 <span style="color:#ef4444;font-size:0.8em;">🔴 미연결</span></span>'
-
-                '<span class="stat-sub">경로 미설정</span>'
-
-                '</div>',
-
-                unsafe_allow_html=True
-
-            )
-
-
-
-    with c_git:
-
-        if git_ok:
-
-            st.markdown(
-
-                f'<div class="sage-stat-card ok clickable-card-bg">'
-
-                f'<span class="stat-label"><span style="color:#34d399;">⬤</span>  GitHub 연동</span>'
-
-                f'<span class="stat-sub">Repo: {repo_name}</span>'
-
-                f'</div>',
-
-                unsafe_allow_html=True
-
-            )
-
-            with st.popover("🔗 연동 내역", use_container_width=True):
-                st.caption("🐙 GitHub 최근 커밋 내역")
-                try:
-                    from git import Repo as _Repo, InvalidGitRepositoryError
-                    import os as _os
-                    git_path = st.session_state.get("github_local_path", "")
-                    if git_path and _os.path.exists(git_path):
-                        _repo = _Repo(git_path)
-                        _commits = list(_repo.iter_commits(max_count=10))
-                        for _c in _commits:
-                            from datetime import datetime as _dt
-                            _ts = _dt.fromtimestamp(_c.committed_date).strftime("%m/%d %H:%M")
-                            _msg = _c.message.strip()[:40]
-                            st.markdown(f"- `{_ts}` {_msg}")
-                    else:
-                        st.info("GitHub 로컬 경로를 사이드바에서 설정해 주세요.")
-                except Exception as _e:
-                    st.error(f"히스토리 오류: {_e}")
-
-        else:
-
-            st.markdown(
-
-                '<div class="sage-stat-card err">'
-
-                '<span class="stat-label"><span style="color:#f87171;">⬤</span>  Git 미연동 <span style="color:#ef4444;font-size:0.8em;">🔴 미연결</span></span>'
-
-                '<span class="stat-sub">설정 변경 필요</span>'
-
-                '</div>',
-
-                unsafe_allow_html=True
-
-            )
-
-
-
-    with c_sync:
-
-        st.markdown(
-
-            f'<div class="sage-stat-card sync clickable-card-bg">'
-
-            f'<span class="stat-label"><span style="color:#d4af6a;">⬤</span>  전체 즉시 동기화</span>'
-
-            f'<span class="stat-sub">Git Push & RAG</span>'
-
-            f'</div>',
-
-            unsafe_allow_html=True
-
-        )
-
-        if st.button(
-
-            "⚡ 전체 즉시 동기화", 
-
-            type="primary", 
-
-            use_container_width=True, 
-
-            key="top_force_sync_btn",
-
-            help="클릭 시 로컬 DB, 옵시디언 RAG, GitHub를 즉시 동기화 및 Push합니다."
-
-        ):
-
-            with st.spinner("로컬 DB + 옵시디언 + GitHub 강제 동기화 중..."):
-
-                save_workspace_state()
-
-                ts       = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-                today_str = datetime.now().strftime("%Y-%m-%d")
-
-                folder_name = "PlanningMemory"
-
-                title = f"[Part2] 전체 작업 백업 - {ts}"
-
-                val   = f"# Part 2 Alchemist 전체 작업 백업 (동기화 트리거)\n\n"
-
-                val  += f"## 📌 선택 주제\n{st.session_state.get('p2_topic_selection','')}\n\n"
-
-                val  += f"## 📚 자료조사 결과\n{st.session_state.get('p2_research_result','')}\n\n"
-
-                val  += f"## 📖 총괄 기획안\n{st.session_state.get('p2_planning_result','')}\n\n"
-
-                val  += f"---\n*Last updated: {today_str} {ts}*\n"
-
-                obs_path_file = save_obsidian_memory(folder_name, title, val, source="Sage Mirror Studio Full Sync")
-
-                if obs_path_file:
-
-                    lock_file_readonly(obs_path_file)
-
-                success, msg = auto_git_push(f"Force Full Sync: {ts}")
-
-                if success:
-
-                    st.toast("🔄 전체 즉시 동기화 & Git Push 성공!", icon="✅")
-
-                else:
-
-                    st.toast("🔄 로컬/옵시디언 동기화 완료 (Git 실패)", icon="⚠️")
-
-                    st.error(f"GitHub Push 실패: {msg}")
-
-                st.rerun()
-
-
-
-    with c_auto:
-
-        auto_save_active = st.session_state.get("research_auto_save", True)
-
-        card_cls = "ok" if auto_save_active else "warn"
-
-        label    = "리서치 자동저장"
-
-        sub      = "활성화 (ON)" if auto_save_active else "비활성화 (OFF)"
-
-        icon_col = "#34d399" if auto_save_active else "#fbbf24"
-
-        
-
-        st.markdown(
-
-            f'<div class="sage-stat-card {card_cls} clickable-card-bg">'
-
-            f'<span class="stat-label"><span style="color:{icon_col};">⬤</span>  {label}</span>'
-
-            f'<span class="stat-sub">{sub}</span>'
-
-            f'</div>',
-
-            unsafe_allow_html=True
-
-        )
-
-        
-
-        with st.popover("⚙️ 설정 및 확인", use_container_width=True):
-
-            st.caption("💾 리서치 자동저장 설정")
-
-            new_val = st.toggle(
-
-                "리서치 내용 즉시 저장", 
-
-                value=auto_save_active, 
-
-                key="top_research_auto_save_toggle"
-
-            )
-
-            if new_val != auto_save_active:
-
-                st.session_state.research_auto_save = new_val
-
-                save_workspace_state()
-
-                st.rerun()
-
-                
-
-            st.divider()
-
-            st.caption("📂 최근 저장된 리서치 목록")
-
-            try:
-
-                obs_path_chk = st.session_state.get("path_obsidian", "")
-
-                research_dir_chk = os.path.join(obs_path_chk, "Studio", "ResearchMemory")
-
-                if obs_path_chk and os.path.exists(research_dir_chk):
-
-                    import os as _os
-
+    with st.popover("연동 내역 및 고급 동기화", use_container_width=True):
+        st.markdown("**고급 동기화 제어**")
+        if st.button("전체 세션 강제 동기화", key="top_force_sync_btn", use_container_width=True):
+            save_workspace_state()
+            st.session_state.sync_required = False
+            st.success("전체 동기화 완료!")
+            st.rerun()
+            
+        st.divider()
+        st.markdown("**리서치 내역**")
+        base_dir = _get_obsidian_studio_dir()
+        research_dir = os.path.join(base_dir, "01_Research_Data")
+        try:
+            if os.path.exists(research_dir):
+                files = os.listdir(research_dir)
+                md_files = [f for f in files if f.endswith(".md")]
+                if md_files:
                     r_files = []
-
-                    for fn in _os.listdir(research_dir_chk):
-
-                        if fn.endswith(".md"):
-
-                            fp = _os.path.join(research_dir_chk, fn)
-
-                            r_files.append((_os.path.getmtime(fp), fn))
-
-                    r_files.sort(reverse=True)
-
-                    if r_files:
-
-                        for mtime, fname in r_files[:5]:
-
-                            ts = datetime.fromtimestamp(mtime).strftime("%m/%d %H:%M")
-
-                            st.markdown(f"- `{ts}` {fname.replace('.md', '')}")
-
-                    else:
-
-                        st.info("저장된 리서치 내역이 없습니다.")
-
+                    for f in md_files:
+                        p = os.path.join(research_dir, f)
+                        r_files.append((os.path.getmtime(p), f))
+                    r_files.sort(key=lambda x: x[0], reverse=True)
+                    for mtime, fname in r_files[:5]:
+                        ts = datetime.datetime.fromtimestamp(mtime).strftime("%m/%d %H:%M")
+                        st.markdown(f"- `{ts}` {fname.replace('.md', '')}")
                 else:
-
-                    st.info("리서치 폴더가 아직 생성되지 않았습니다.")
-
-            except Exception as e:
-
-                st.error(f"목록 오류: {e}")
-
-
-
-    # ──────────────────────────────────────────────────────────────
-
-    # [ROW 2] 실시간 데이터 연동 상황판 — 3번째 캡쳐 스타일
-
-    # ──────────────────────────────────────────────────────────────
-
-    def _is_df_valid(df):
-
-        import pandas as _pd
-
-        return df is not None and isinstance(df, _pd.DataFrame) and not df.empty
-
-
-
-    # 각 파트 완료 여부
-
-    f1 = bool(st.session_state.get("p1_topic_selection"))
-
-    f2 = bool(st.session_state.get("p2_planning_result"))
-
-    f3 = bool(st.session_state.get("p34_narration_script"))
-
-    f4 = bool(st.session_state.get("p34_image_script"))
-
-    f5 = bool(st.session_state.get("p5_valid_rows") or st.session_state.get("p5_c_results"))
-
-    f6 = _is_df_valid(st.session_state.get("p6_opal_df"))
-
-    f7 = _is_df_valid(st.session_state.get("p7_capcut_df"))
-
-    f8 = bool(st.session_state.get("p8_dashboard_saved"))
-
-
-
-    def _dot_cls(flag):
-
-        return "done" if flag else "empty"
-
-
-
-    nodes = [
-
-        (f1, "1. 주제 선정"),
-
-        (f2, "2. 기획안"),
-
-        (f3, "3. 나레이션"),
-
-        (f4, "4. 이미지대본"),
-
-        (f5, "5. 씬검증"),
-
-        (f6, "6. 오팔배분"),
-
-        (f7, "7. 캡컷조립"),
-
-        (f8, "8. 최종완료"),
-
-    ]
-
-
-
-    nodes_html = ""
-
-    for i, (flag, label) in enumerate(nodes):
-
-        dot_cls = _dot_cls(flag)
-
-        nodes_html += f'<div class="sage-pipe-node"><div class="sage-pipe-dot {dot_cls}"></div><span class="sage-pipe-label">{label}</span></div>'
-
-
-
-    st.markdown(
-
-        f'<div class="sage-pipeline-card">'
-
-        f'<div class="sage-pipe-title">🔗 실시간 데이터 연동 상황판</div>'
-
-        f'<div class="sage-pipe-row">{nodes_html}</div>'
-
-        f'</div>',
-
-        unsafe_allow_html=True
-
-    )
-
-
-
-    # ──────────────────────────────────────────────────────────────
-
-    # [ROW 3] 상단 공통 패널 — 옵시디언 규칙서 + 마스터 프롬프트
-
-    # ──────────────────────────────────────────────────────────────
-
-    sidebar_part = st.session_state.get("sidebar_part", "part1")
-
-
-    if sidebar_part.startswith("파트 1"):   sidebar_part_key = "part1"
-
-    elif sidebar_part.startswith("파트 2"): sidebar_part_key = "part2"
-
-    elif sidebar_part.startswith("파트 3"): sidebar_part_key = "part3"
-
-    elif sidebar_part.startswith("파트 4"): sidebar_part_key = "part4"
-
-    elif sidebar_part.startswith("파트 5"): sidebar_part_key = "part5"
-
-    elif sidebar_part.startswith("파트 6"): sidebar_part_key = "part6"
-
-    elif sidebar_part.startswith("파트 7"): sidebar_part_key = "part7"
-
-    elif sidebar_part.startswith("파트 8"): sidebar_part_key = "part8"
-
-    else: sidebar_part_key = sidebar_part
-
-
-
-    part_mapping = {
-
-
-        "part1": ("base_prompt_rules",       "📚 파트 1 Librarian 전역 마스터 프롬프트"),
-
-        "part2": ("p2_master_prompt",         "🎨 파트 2 Alchemist 전역 마스터 프롬프트"),
-
-        "part3": ("p34_master_prompt",        "✍️ 파트 3 대본 작성 마스터 프롬프트"),
-
-        "part4": ("p5_image_master_prompt",   "🖼️ 파트 4 이미지 생성 마스터 프롬프트"),
-
-        "part5": ("p6_veo3_master_prompt",    "🎥 파트 5 영상 생성 마스터 프롬프트"),
-
-        "part6": ("p6_master_prompt",         "🎵 파트 6 나레이션 & 배경음악 마스터 프롬프트"),
-
-        "part7": ("p7_master_prompt",         "🎬 파트 7 숏폼 생성 마스터 프롬프트"),
-
-        "part8": ("p8_master_prompt",         "📊 파트 8 캡컷 최종 조립 마스터 프롬프트"),
-
-    }
-
-    prompt_key, prompt_title = part_mapping.get(sidebar_part_key, ("p1_master_prompt", "[Part 1] 벤치마킹 & 자료조사 마스터 프롬프트"))
-
-
-
-    with st.expander("📋 상단 공통: 옵시디언 규칙서 및 마스터 프롬프트", expanded=False):
-
-        L, R = st.columns(2, gap="medium")
-
-        with L:
-
-            st.markdown('<div class="top-panel-card"><div class="top-panel-title">📚 옵시디언 규칙서</div>', unsafe_allow_html=True)
-
-            # 상단 공통 규칙서 위젯 동기화
-            # - 일반 입력 중에는 사용자가 입력한 값을 유지
-            # - 팝업 저장 직후에는 실제 저장값(obsidian_rules)을 위젯에 1회 반영
-            if st.session_state.get("_sync_top_ob_view_widget_next_run", False):
-                st.session_state["top_ob_view_widget"] = st.session_state.get("obsidian_rules", "")
-                st.session_state["_sync_top_ob_view_widget_next_run"] = False
-            elif "top_ob_view_widget" not in st.session_state:
-                st.session_state["top_ob_view_widget"] = st.session_state.get("obsidian_rules", "")
-
-            st.text_area("옵시디언 규칙서", height=180, key="top_ob_view_widget", label_visibility="collapsed")
-
-            if st.button("💾 옵시디언 규칙서 저장", key="top_ob_save_btn", use_container_width=True):
-                st.session_state["obsidian_rules"] = clean_prompt_contamination(st.session_state.get("top_ob_view_widget", ""))
-                save_workspace_state()
-                st.toast("✅ 옵시디언 규칙서 저장 완료", icon="💾")
-                st.rerun()
-
-            # v15.9.34.5: 상단 공통 패널의 중복 즉석 리서치 UI 제거
-            # - 시스템 연동 상태판과 역할이 중복되어 화면에서만 제거함
-            # - 리서치/RAG/자동저장/옵시디언 저장 로직은 삭제하지 않고 그대로 보존함
-
-            st.markdown('</div>', unsafe_allow_html=True)
-
-        with R:
-
-            st.markdown(f'<div class="top-panel-card"><div class="top-panel-title">{prompt_title}</div>', unsafe_allow_html=True)
-
-            prompt_widget_key = f"top_pr_view_{prompt_key}_widget"
-            sync_flag_key = f"_sync_{prompt_widget_key}_next_run"
-
-            # 상단 공통 마스터 프롬프트 위젯 동기화
-            # - 일반 입력 중에는 사용자가 입력한 값을 유지
-            # - 팝업 저장 직후에는 실제 저장값(prompt_key)을 위젯에 1회 반영
-            if st.session_state.get(sync_flag_key, False):
-                st.session_state[prompt_widget_key] = st.session_state.get(prompt_key, "")
-                st.session_state[sync_flag_key] = False
-            elif prompt_widget_key not in st.session_state:
-                st.session_state[prompt_widget_key] = st.session_state.get(prompt_key, "")
-
+                    st.info("저장된 리서치 내역이 없습니다.")
+            else:
+                st.info("리서치 폴더가 생성되지 않았습니다.")
+        except Exception as e:
+            st.error(f"내역 확인 오류: {e}")
+
+    with st.expander("파트별 진행 상황", expanded=False):
+        def _dot_cls(flag):
+            return "🟢" if flag else "⚪"
+            
+        nodes = [
+            (st.session_state.get("p1_topic_selection", ""), "주제"),
+            (st.session_state.get("p2_planning_result", ""), "기획안"),
+            (st.session_state.get("p34_image_script", ""), "대본"),
+            (st.session_state.get("p5_c_rows", []), "C-1 분할"),
+            (st.session_state.get("p6_opal_df", None) is not None, "Opal 배분"),
+            (st.session_state.get("p7_capcut_df", None) is not None, "CapCut 조립")
+        ]
+        
+        pipe_str = []
+        for flag, label in nodes:
+            pipe_str.append(f"{'🟢' if flag else '⚪'} {label}")
+        st.markdown(" > ".join(pipe_str))
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    with st.expander("📋 상단 공통: 옵시디언 규칙서 및 파트별 마스터 프롬프트", expanded=False):
+        import traceback
+        
+        part_mapping = {
+            "part1": ("base_prompt_rules",       "📚 파트 1 Librarian 전역 마스터 프롬프트"),
+            "part2": ("part2_master_prompt",     "📚 파트 2 Director 전역 마스터 프롬프트"),
+            "part3": ("part3_master_prompt",     "📚 파트 3/4 Producer 전역 마스터 프롬프트"),
+            "part4": ("image_part_master_prompt","📚 파트 5 Image 전역 마스터 프롬프트"),
+            "part5": ("video_part_master_prompt","📚 파트 6 Video 전역 마스터 프롬프트"),
+            "part6": ("opal_master_prompt",      "📚 파트 6 Opal 전역 마스터 프롬프트"),
+            "part7": ("capcut_master_prompt",    "📚 파트 7 CapCut 전역 마스터 프롬프트"),
+            "part8": ("dashboard_master_prompt", "📚 파트 8 Dashboard 전역 마스터 프롬프트"),
+        }
+        
+        current_part = "part1"
+        for i in range(1, 9):
+            if f"파트 {i}" in st.session_state.get("current_step", ""):
+                current_part = f"part{i}"
+                break
+                
+        prompt_key, prompt_title = part_mapping.get(current_part, part_mapping["part1"])
+        prompt_widget_key = f"{prompt_key}_widget_top"
+        
+        c1, c2 = st.columns(2, gap="large")
+        with c1:
+            st.markdown('<div class="sage-subtitle">옵시디언 전역 규칙 (Obsidian Rules)</div>', unsafe_allow_html=True)
+            obsidian_val = st.session_state.get("obsidian_rules", "")
+            if prompt_widget_key + "_obs" not in st.session_state:
+                st.session_state[prompt_widget_key + "_obs"] = obsidian_val
+            st.text_area("옵시디언 규칙서", height=180, key=prompt_widget_key + "_obs", label_visibility="collapsed")
+            
+            obs_btn_cols = st.columns(2)
+            with obs_btn_cols[0]:
+                if st.button("📝 편집", key="obs_edit_btn", use_container_width=True):
+                    popup_edit_text_value("obsidian_rules", "옵시디언 전역 규칙서")
+            with obs_btn_cols[1]:
+                if st.button("💾 규칙서 저장", key="obs_save_btn", use_container_width=True):
+                    st.session_state.obsidian_rules = st.session_state.get(prompt_widget_key + "_obs", "")
+                    save_workspace_state()
+                    st.toast("✅ 규칙서 저장 완료", icon="💾")
+                    st.rerun()
+                    
+        with c2:
+            st.markdown(f'<div class="sage-subtitle">{prompt_title}</div>', unsafe_allow_html=True)
+            prompt_val = st.session_state.get(prompt_key, "")
+            if prompt_widget_key not in st.session_state:
+                st.session_state[prompt_widget_key] = prompt_val
             st.text_area("파트 마스터 프롬프트", height=180, key=prompt_widget_key, label_visibility="collapsed")
 
             pr_btn_cols = st.columns(2)
@@ -6505,12 +5555,10 @@ def render_top_panel():
                     popup_edit_text_value(prompt_key, prompt_title)
             with pr_btn_cols[1]:
                 if st.button("💾 마스터 프롬프트 저장", key=f"pr_save_btn_{prompt_key}", use_container_width=True):
-                    st.session_state[prompt_key] = clean_prompt_contamination(st.session_state.get(prompt_widget_key, ""))
+                    st.session_state[prompt_key] = st.session_state.get(prompt_widget_key, "")
                     save_workspace_state()
                     st.toast("✅ 마스터 프롬프트 저장 완료", icon="💾")
                     st.rerun()
-
-            st.markdown('</div>', unsafe_allow_html=True)
 
 
 
@@ -15563,38 +14611,7 @@ def render_right_gemma_panel():
     if "right_research_history" not in st.session_state:
         st.session_state.right_research_history = []
 
-    with st.container(border=True):
-        st.caption("⚙️ 백그라운드 작업 상태")
-        c1, c2 = st.columns(2)
-        with c1:
-            save_stat = "ON" if st.session_state.right_auto_save_enabled else "OFF"
-            st.write(f"자동저장: **{save_stat}**")
-            st.write(f"저장 상태: {st.session_state.right_auto_save_status}")
-            if st.session_state.right_auto_save_last_time:
-                st.caption(f"최근 저장: {st.session_state.right_auto_save_last_time}")
-        with c2:
-            inbox_count = len(st.session_state.right_research_inbox)
-            st.write(f"RAG 보완 요청: **대기 {inbox_count}건**")
-            if st.session_state.right_research_last_request_id:
-                st.caption(f"최근 요청: {st.session_state.right_research_last_request_id}")
-            if st.button("내부 시뮬레이션 요청 넣기", key="sim_req_add_btn"):
-                import datetime
-                now_str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-                req_packet = {
-                    "request_id": f"REQ-{now_str}",
-                    "source_part": "RAG_SUPPLEMENT",
-                    "target_panel": "RIGHT_ASSISTANT",
-                    "query": "임시 시뮬레이션 요청입니다.",
-                    "required_outputs": ["summary", "source_notes", "keywords", "obsidian_save"],
-                    "status": "QUEUED",
-                    "retry_count": 0,
-                    "created_at": now_str,
-                    "last_error": "",
-                    "obsidian_paths": {"raw": "", "wiki": "", "schema": ""}
-                }
-                st.session_state.right_research_inbox.append(req_packet)
-                st.session_state.right_research_last_request_id = req_packet["request_id"]
-                st.rerun()
+    # 백그라운드 작업 상태표시는 중앙 상단으로 이동됨
 
     chat_container = st.container(height=400, border=True)
     with chat_container:
@@ -15631,49 +14648,7 @@ def render_right_gemma_panel():
 
     with ctrl_plus:
         with st.popover("＋ 기능", use_container_width=True):
-            if st.button("지금 저장 (수동)", use_container_width=True):
-                last_success_msg = None
-                user_query = ""
-                idx_found = -1
-                for i, msg in reversed(list(enumerate(st.session_state.right_research_history))):
-                    if msg.get("role") == "assistant" and msg.get("status") != "error":
-                        last_success_msg = msg
-                        idx_found = i
-                        break
-                
-                if last_success_msg:
-                    if idx_found > 0 and st.session_state.right_research_history[idx_found-1].get("role") == "user":
-                        user_query = st.session_state.right_research_history[idx_found-1].get("content", "")
-                        
-                    from sage_popups_v17_2_4 import _save_raw_wiki
-                    import datetime
-                    ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-                    title = f"Research_{ts}"
-                    if user_query:
-                        safe_q = "".join(c for c in user_query if c.isalnum() or c in " _-")[:30].strip()
-                        title = f"{safe_q}_{ts}" if safe_q else f"Research_{ts}"
-                        
-                    res = _save_raw_wiki(user_query, last_success_msg["content"], title=title, source_type="RightResearch", part_key="part0", model_name=last_success_msg["engine"])
-                    
-                    if type(res) is dict:
-                        if res.get("status") == "success":
-                            st.session_state.right_auto_save_status = "저장 완료"
-                            st.session_state.right_auto_save_last_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-                            st.success(f"수동 저장 성공!\n- Raw: {res.get('raw')}\n- Wiki: {res.get('wiki')}\n- Schema: {res.get('schema')}")
-                        elif res.get("status") == "duplicate":
-                            st.session_state.right_auto_save_status = "저장 완료(중복)"
-                            st.session_state.right_auto_save_last_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-                            st.warning(res.get("message"))
-                        else:
-                            st.session_state.right_auto_save_status = "실패 후 재시도 중"
-                            st.session_state.right_auto_save_last_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-                            st.error(res.get("message", "저장 실패"))
-                    else:
-                        st.write(res)
-                else:
-                    st.warning("저장할 정상 응답이 없습니다.")
-                    
-            st.divider()
+
             
             if st.button("📁 로컬 자료 가져오기", use_container_width=True):
                 st.info("로컬 자료 가져오기는 다음 단계에서 파일 탐색기와 연결합니다.")

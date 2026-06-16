@@ -2259,3 +2259,86 @@ FlowRun 크롬 확장은 `[인물1]`, `[배경]` 태그로 레퍼런스 이미�
 - app_v17_2_4.py
 - sage_popups_v17_2_4.py
 
+
+## v17.2.4 — 2026-06-14 15:50
+### 변경 내용
+- 중앙 상단 UI (render_top_panel) 디자인 정리
+- 우측 패널 내 백그라운드 작업 상태 표시 및 수동 저장 기능 제거 (상단으로 통합)
+### 영향 파트
+- Top Panel, Right Panel
+### 수정 파일
+- app_v17_2_4.py
+﻿
+## V17 CenterRightUI 021 검증 후보 백업
+
+* 기준 작업본: V17_Working_UniversalObsidian_021
+* 완료 범위:
+  * 중앙 상단 UI 간소화
+  * [EP001] 상단 표기 제거
+  * Project/Profile/현재 단계 플레이스홀더 표시 오류 수정
+  * 상단 빈 공간 축소
+  * 우측 백그라운드 상태 카드 제거
+  * 우측 수동 저장 버튼 전면 노출 제거
+  * 우측 대화창 높이 조정
+  * 하단 + 기능 / 모델 선택 / 전송 표시 확인
+* 공식 실행 주소: http://localhost:8518
+* GitHub Push: 하지 않음
+* 다음 예정 작업: 좌측바 + 설정창 범용화 사전 진단
+﻿
+## V17 End Of Day 022
+
+* 기준 작업본: V17_Working_UniversalObsidian_022
+* 오늘 상태:
+  * _021 검증 완료본 백업 완료
+  * _022 생성 완료
+  * 좌측바 + 설정창 범용화 사전 진단 완료
+  * 좌측바 실제 수정은 아직 시작하지 않음
+* 오늘 종료 백업:
+  * V17_Backup_EndOfDay_022_20260614_200154
+* 앱 파일 버전업 저장:
+  * app_v17_2_4_endofday_022_20260614_200154.py
+* 공식 실행 주소: http://localhost:8518
+* GitHub Push: 하지 않음
+* 다음 작업:
+  * _022 기준으로 _023 생성
+  * 좌측바 1차 작성 및 정리
+  * 이후 검증 후 _023 백업 및 앱 파일 버전업 저장
+﻿
+## V17 End Of Day 022
+
+* 기준 작업본: V17_Working_UniversalObsidian_022
+* 오늘 상태:
+  * _021 검증 완료본 백업 완료
+  * _022 생성 완료
+  * 좌측바 + 설정창 범용화 사전 진단 완료
+  * 좌측바 실제 수정은 아직 시작하지 않음
+* 오늘 종료 백업:
+  * V17_Backup_EndOfDay_022_20260616_082512
+* 앱 파일 버전업 저장:
+  * app_v17_2_4_endofday_022_20260616_082512.py
+* 공식 실행 주소: http://localhost:8518
+* GitHub Push: 하지 않음
+* 다음 작업:
+  * _022 기준으로 _023 생성
+  * 좌측바 1차 작성 및 정리
+  * 이후 검증 후 _023 백업 및 앱 파일 버전업 저장
+﻿
+## V17 Agent School + Left Sidebar 023
+
+* 기준 작업본: V17_Working_UniversalObsidian_022
+* 새 작업본: V17_Working_UniversalObsidian_023
+* 작업 범위:
+  * Agent Campus / School Registry 기초 생성
+  * Part 1~8 Agent 자리 등록
+  * Prompt MD 경로 구조 준비
+  * Packet Queue / Command Router 기초 생성
+  * 좌측바 학교 상태 연결
+  * 좌측바 기본 노출 정리
+* 공식 실행 주소: http://localhost:8518
+* GitHub Push: 하지 않음
+* 다음 예정 작업:
+  * 설정창 범용화
+  * 채널명 직접 수정 기능 강화
+  * Part 1~8 프롬프트 MD 본문 작성
+  * Gemma 공장장 프로토콜 본문 작성
+  * 우측 대화창 “시작해” 명령 실제 연결

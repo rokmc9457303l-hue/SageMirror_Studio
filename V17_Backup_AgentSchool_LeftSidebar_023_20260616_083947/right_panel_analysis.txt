@@ -1,0 +1,5 @@
+14590: max-height: calc(100vh - 16px) !important;
+14600: chat_container = st.container(height=520, border=True)
+14622: user_input = st.text_area(
+14625: height=125,
+14798: with st.container(border=True):

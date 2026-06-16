@@ -1,0 +1,6 @@
+5: 🪞 현자의 거울 스튜디오 — Master App v17.2.4
+7: [v17.2.4 업데이트 사항: 2026-06-12]
+1429: page_title="Sage's Mirror Studio v17.2.4",
+3911: filepath = os.path.join(session_dir, f"session_{ts}_v17.2.4.md")
+3914: - **앱 버전**: v17.2.4
+3928: hist_filepath = os.path.join(hist_dir, f"session_{ts}_{episode}_v17.2.4.md")
