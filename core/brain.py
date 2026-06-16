@@ -40,7 +40,7 @@ def stream_gemma(prompt: str, system: str = "", model: str = None):
     payload = {
         "model": model, "prompt": full, "stream": True, "keep_alive": "10m",
         "think": False,
-        "options": {"num_predict": 512, "temperature": 0.3, "top_p": 0.9},
+        "options": {"num_predict": 2000, "temperature": 0.3, "top_p": 0.9},
     }
     try:
         with requests.post(

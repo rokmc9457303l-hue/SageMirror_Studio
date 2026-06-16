@@ -18,6 +18,14 @@ class LibrarianAgent(BaseAgent):
     role = "자료수집 사서"
 
     def specific_instructions(self) -> str:
+        """AGENT_PROTOCOL.md 우선 로드, 없으면 기본값"""
+        try:
+            from core.md_loader import load_part_md
+            md = load_part_md(1, "AGENT_PROTOCOL.md")
+            if md:
+                return md
+        except Exception:
+            pass
         p = self.profile
         topics = ", ".join(p.get("typical_topics", []))
         philosophy = ", ".join(p.get("philosophy_anchor", []))
@@ -151,7 +159,7 @@ class LibrarianAgent(BaseAgent):
     # ── 주제 생성 (10개 보장) ────────────────────────────────────────
 
     def generate_topics(self, bench_raw: str = "", comments: list = None, extra: str = "") -> list:
-        """주제 10개 이상 보장"""
+        """주제 10개 이상 보장 (STEP_주제발굴.md 기반)"""
         comments = comments or []
         rag = self._load_rag()
         comment_insights = self._classify_comments(comments)[:10]
@@ -159,15 +167,21 @@ class LibrarianAgent(BaseAgent):
             f"[{c['star']}] {c['text'][:100]}" for c in comment_insights
         )
 
-        prompt = self.build_base_prompt(
+        # STEP_주제발굴.md 로드 (없으면 기본 지시)
+        step_guide = self._load_step_md("주제발굴")
+        target = self.profile.get("target_audience", "타겟 시청자")
+
+        task_text = (
+            f"{step_guide}\n\n" if step_guide else ""
             f"[벤치마킹 자료]\n{bench_raw[:1500]}\n\n"
             f"[댓글 인사이트 상위 10개]\n{comment_text}\n\n"
             f"[옵시디언 RAG]\n{rag[:600]}\n\n"
             f"[추가 지시]\n{extra}\n\n"
-            f"위 자료를 바탕으로 {self.profile.get('target_audience', '타겟 시청자')} 감정 고통 기반 주제를 최소 10개 이상 생성하라.\n"
+            f"위 자료를 바탕으로 {target} 감정 고통 기반 주제를 최소 10개 이상 생성하라.\n"
             "형식: NN. [제목] | [핵심주제] | [추천사유] | [감정키워드] | [예상반응]\n"
             "반드시 10개 이상 출력할 것."
         )
+        prompt = self.build_base_prompt(task_text)
 
         result = self.call_ai(prompt)
         topics = self._parse_topics(result)
@@ -181,6 +195,14 @@ class LibrarianAgent(BaseAgent):
             topics += self._parse_topics(result2)
 
         return topics[:20]
+
+    def _load_step_md(self, step_name: str) -> str:
+        """STEP_{step_name}.md 로드 (없으면 빈 문자열)"""
+        try:
+            from core.md_loader import load_part_md
+            return load_part_md(1, f"STEP_{step_name}.md")
+        except Exception:
+            return ""
 
     def _parse_topics(self, text: str) -> list:
         """텍스트에서 주제 목록 파싱"""

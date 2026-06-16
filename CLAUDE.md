@@ -1,5 +1,7 @@
-# 현자의 거울 스튜디오 v18 — CLAUDE.md
+# SageMirror Studio v18 — CLAUDE.md
 
+> **앱 목표: 범용 유튜브 채널 제작 스튜디오 (다채널/다주제)**
+> 채널명·타겟은 설정(사이드바)에서 입력받는 변수로 처리한다.
 > Claude Code 새 세션 시 이 파일을 자동 참조한다.
 > 모든 작업 전 이 문서를 우선 확인한다.
 
@@ -23,12 +25,12 @@
 ## 2. 현재 상태
 
 ```
-버전: v18.0.24
+버전: v18.0.40
 GitHub: v18-studio 브랜치
 경로: C:\SageMirror_Studio_v18\
 포트: 8506
 Python: 3.14
-모델: Gemma 4 e2b (로컬), Gemini 2.0 Flash (원격)
+모델: Gemma 4 e2b (로컬), Gemini 2.5 Flash (원격)
 ```
 
 ### 핵심 수정 이력
@@ -43,9 +45,11 @@ Python: 3.14
 
 ## 3. 콘텐츠 정체성
 
+> 채널명·타겟은 사이드바 설정에서 입력받는 변수. 아래는 기본 채널(현자의 거울) 기준.
+
 ```
-채널명: 현자의 거울 (@Ethan Cinematic Video)
-타겟: 한국 40~70대 (4070)
+채널명: 현자의 거울 (@Ethan Cinematic Video)  ← 설정 변수
+타겟: 한국 40~70대 (4070)                     ← 설정 변수
 영상 분량: 약 15분 (112씬 × 8초)
 숏폼: 60초
 ```
@@ -84,6 +88,11 @@ Python: 3.14
 ---
 
 ## 4. 전체 8파트 구조
+
+```
+Part1=자료수집  Part2=주제변환  Part3=대본설계  Part4=이미지생성
+Part5=영상제작  Part6=나레이션  Part7=편집연결  Part8=최종완성
+```
 
 ### Part 1 — 자료수집 (Librarian)
 
@@ -174,7 +183,7 @@ Gemini Flash 웹검색 → YouTube API 검증 → TOP 5
 
 ---
 
-### Part 2 — 총괄기획 (Alchemist)
+### Part 2 — 주제변환 (Alchemist)
 
 **입력:** p1_packet
 
@@ -194,7 +203,7 @@ Gemini Flash 웹검색 → YouTube API 검증 → TOP 5
 
 ---
 
-### Part 3 — 대본작성 (Script)
+### Part 3 — 대본설계 (Script)
 
 **입력:** p2_packet
 
@@ -257,7 +266,7 @@ retry_image_list.md
 
 ---
 
-### Part 5 — 영상생성 (Video)
+### Part 5 — 영상제작 (Video)
 
 **입력:** p3_packet + p4_packet
 
@@ -288,7 +297,7 @@ Day 2: Account 5~8 (scene 057~112) + Day 1 실패분
 
 ---
 
-### Part 6 — 나레이션·배경음악 (Audio)
+### Part 6 — 나레이션 (Audio)
 
 **입력:** p3_packet + p5_packet
 
@@ -311,7 +320,7 @@ Day 2: Account 5~8 (scene 057~112) + Day 1 실패분
 
 ---
 
-### Part 7 — 숏폼 (Shorts)
+### Part 7 — 편집연결 (Shorts)
 
 **입력:** p3_packet + p6_packet
 
@@ -326,7 +335,7 @@ Day 2: Account 5~8 (scene 057~112) + Day 1 실패분
 
 ---
 
-### Part 8 — 최종조립 (Final)
+### Part 8 — 최종완성 (Final)
 
 **입력:** p1~p7 모든 packet
 
@@ -361,14 +370,14 @@ CapCut JSON
 ## 5. 데이터 흐름 — packet 시스템
 
 ```
-Part 1 → p1_packet → Part 2
-Part 2 → p2_packet → Part 3
-Part 3 → p3_packet → Part 4
-Part 4 → p4_packet → Part 5
-Part 5 → p5_packet → Part 6
-Part 6 → p6_packet → Part 7
-Part 7 → p7_packet → Part 8
-Part 8 → final_packet (완료)
+Part1 자료수집  → p1_packet → Part2 주제변환
+Part2 주제변환  → p2_packet → Part3 대본설계
+Part3 대본설계  → p3_packet → Part4 이미지생성
+Part4 이미지생성 → p4_packet → Part5 영상제작
+Part5 영상제작  → p5_packet → Part6 나레이션
+Part6 나레이션  → p6_packet → Part7 편집연결
+Part7 편집연결  → p7_packet → Part8 최종완성
+Part8 최종완성  → final_packet (완료)
 ```
 
 **원칙:**
@@ -380,39 +389,39 @@ Part 8 → final_packet (완료)
 
 ## 6. 옵시디언 다채널 저장 구조
 
+경로: `C:\SageMirror_Production\00_Obsidian\`
+
+```python
+# config.py 확정 경로
+OBSIDIAN_PATH    = Path(r"C:\SageMirror_Production\00_Obsidian")
+OBSIDIAN_RAW     = OBSIDIAN_PATH / "01_Raw_Data"         # 원본 저장
+OBSIDIAN_WIKI    = OBSIDIAN_PATH / "01_Wiki"             # 정리된 지식
+OBSIDIAN_SCHEMA  = OBSIDIAN_PATH / "02_Schema"           # 구조화 JSON
+OBSIDIAN_ARCHIVE = OBSIDIAN_PATH / "01_Raw_Data" / "99_과거_아카이브_통합"
+OBSIDIAN_CHANNEL = OBSIDIAN_RAW  / "채널_현자의거울"     # 채널별 제작물 (변수)
 ```
-00_Obsidian_Archive/
-├── 00_Raw/              (원본 그대로)
-│   ├── _Inbox
-│   ├── YouTube
-│   ├── WebResearch
-│   ├── GeminiResearch
-│   ├── TavilyResearch
-│   ├── UserUploads
-│   └── GoogleDrive
+
+```
+00_Obsidian/
+├── 00_Raw/                      (구 원본)
+├── 01_Raw_Data/                 (OBSIDIAN_RAW — 신규 저장)
+│   ├── 채널_현자의거울/          (OBSIDIAN_CHANNEL — 채널 설정 변수)
+│   │   ├── Part1_자료수집/
+│   │   ├── Part2_주제변환/
+│   │   └── ...
+│   └── 99_과거_아카이브_통합/   (OBSIDIAN_ARCHIVE — 이주 완료 214개)
 │
-├── 01_Wiki/             (정리된 지식)
-│   ├── Bible
-│   ├── Philosophy
-│   ├── Psychology
-│   ├── Emotion
-│   ├── YouTubeStrategy
-│   └── Production
+├── 01_Wiki/                     (OBSIDIAN_WIKI — 정리된 지식)
+│   ├── 감정 / 철학 / 심리학
+│   ├── 성경·신앙 / 역사·인물
+│   └── 유튜브전략 / 채널운영
 │
-├── 02_Schema/           (구조화 JSON)
-│   ├── Packets
-│   ├── ScenePlans
-│   ├── AssetMaps
-│   └── CapCutJson
+├── 02_Schema/                   (OBSIDIAN_SCHEMA — 구조화 JSON)
+│   ├── Packets/
+│   ├── ScenePlans/
+│   └── AssetMaps/
 │
-├── 03_Channels/         (채널별 제작물)
-│   ├── SageMirror       (현자의 거울)
-│   ├── Channel_002      (향후 확장)
-│   └── Channel_003
-│
-├── 04_References/       (참고 자료)
-├── 05_Assets/           (이미지/영상/오디오)
-└── 99_Logs/             (로그)
+└── (기타 기존 폴더 유지)
 ```
 
 ### 저장 시 필수 메타데이터
