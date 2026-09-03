@@ -125,7 +125,9 @@ def test_source_checks():
         issues = check_source(analyze(clipped))
         check("클리핑을 잡아낸다", any("클리핑" in i.message for i in issues))
         check("되돌릴 수 없다고 알려준다",
-              any("다시 뽑는" in i.hint for i in issues))
+              any("못 고칩니다" in i.hint for i in issues))
+        check("32비트 float 로 받으라고 안내한다",
+              any("32비트 float" in i.hint for i in issues))
 
         # 짧은 곡
         short = make_track(os.path.join(tmp, "short.wav"), seconds=10)
@@ -278,6 +280,77 @@ def test_batch():
               sum("건너뜀" in ln for ln in lines2) == 3)
 
 
+def test_float32_source():
+    print("\n[10] 32비트 float 원본 — 수노가 내보내는 포맷")
+    with tempfile.TemporaryDirectory() as tmp:
+        # 0 dBFS 를 넘는 32비트 float. float 에서는 클리핑이 아니다.
+        n = SR * 40
+        t = np.arange(n) / SR
+        rng = np.random.default_rng(3)
+        sig = (np.sin(2 * np.pi * 110 * t) + 0.5 * np.sin(2 * np.pi * 220 * t)
+               + 0.05 * rng.standard_normal(n))
+        sig = sig / np.max(np.abs(sig)) * 1.4          # 1.0 을 넘긴다
+        src = os.path.join(tmp, "hot_float.wav")
+        sf.write(src, np.column_stack([sig, sig * 0.98]), SR, subtype="FLOAT")
+
+        s = analyze(src)
+        check("32비트 float 으로 인식", s.is_float and s.subtype == "FLOAT",
+              f"(실제 {s.subtype})")
+        check("0 dBFS 초과를 센다", s.over_full_scale > 0,
+              f"(실제 {s.over_full_scale})")
+        check("float 은 클리핑으로 세지 않는다", s.clipped_samples == 0,
+              f"(실제 {s.clipped_samples})")
+
+        issues = check_source(s)
+        check("float 초과를 막지 않는다",
+              not [i for i in issues if i.severity == "block"],
+              f"({[i.message for i in issues if i.severity == 'block']})")
+        check("잘린 게 아니라고 설명한다",
+              any("잘린 것이 아닙니다" in i.hint for i in issues))
+
+        dst = os.path.join(tmp, "out.wav")
+        r = master(src, dst)
+        check("처리된다", r.ok)
+        check("출력도 32비트 float", r.after.subtype == "FLOAT",
+              f"(실제 {r.after.subtype})")
+        check("1.0 초과가 사라진다", r.after.over_full_scale == 0,
+              f"(실제 {r.after.over_full_scale})")
+        check("트루 피크가 목표 아래",
+              r.after.true_peak_db <= TARGET_TRUE_PEAK_DB + 0.1,
+              f"(실제 {r.after.true_peak_db:.2f})")
+        check("라우드니스가 목표에 닿는다",
+              abs(r.after.lufs - TARGET_LUFS) < 0.6, f"(실제 {r.after.lufs:.2f})")
+
+        lossless, residual = verify_lossless(src, dst)
+        check("32비트 float 왕복이 완전 무손실", lossless,
+              f"(잔차 {residual:.1f} dB)")
+        check("잔차가 24비트보다 훨씬 낮다", residual < -140,
+              f"(실제 {residual:.1f} dB)")
+
+
+def test_bitdepth_preserved():
+    print("\n[11] 비트뎁스 — 원본보다 깎지 않는다")
+    with tempfile.TemporaryDirectory() as tmp:
+        for st in ("FLOAT", "PCM_24", "PCM_16"):
+            src = os.path.join(tmp, f"src_{st}.wav")
+            make_track(src, seconds=35, peak=0.8)
+            audio, sr = sf.read(src, dtype="float64", always_2d=True)
+            sf.write(src, audio, sr, subtype=st)
+
+            dst = os.path.join(tmp, f"out_{st}.wav")
+            r = master(src, dst)
+            check(f"{st} 원본은 {st} 로 나간다",
+                  r.after.subtype == st, f"(실제 {r.after.subtype})")
+
+        # 명시적으로 낮추면 경고한다
+        src = os.path.join(tmp, "src_FLOAT.wav")
+        dst = os.path.join(tmp, "down.wav")
+        r = master(src, dst, subtype="PCM_16")
+        check("낮은 비트뎁스로 내보내면 경고한다",
+              any("무손실이 아닙니다" in i.hint for i in r.issues))
+        check("그래도 요청한 포맷으로 나간다", r.after.subtype == "PCM_16")
+
+
 def test_report():
     print("\n[10] 보고서")
     with tempfile.TemporaryDirectory() as tmp:
@@ -306,6 +379,8 @@ if __name__ == "__main__":
     test_peak_constraint_wins()
     test_lossy_source_blocked()
     test_batch()
+    test_float32_source()
+    test_bitdepth_preserved()
     test_report()
 
     print("\n" + "=" * 60)

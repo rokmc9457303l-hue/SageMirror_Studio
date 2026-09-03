@@ -72,6 +72,11 @@ TARGET_TRUE_PEAK_DB = -1.0
 _LOSSY_EXT = {".mp3", ".m4a", ".aac", ".ogg", ".opus", ".wma"}
 _EPS = 1e-12
 
+# 32비트 float WAV 는 0 dBFS 를 넘는 값을 그대로 담는다.
+# 정수 포맷과 달리 그건 클리핑이 아니라 그냥 큰 값이고, 게인을 내리면
+# 온전히 돌아온다. 수노가 이 포맷으로 내보내므로 반드시 구분해야 한다.
+_FLOAT_SUBTYPES = {"FLOAT", "DOUBLE"}
+
 
 # ══════════════════════════════════════════════════════════════
 # SECTION 1 — 측정
@@ -97,21 +102,31 @@ class AudioStats:
     duration_sec: float
     subtype: str                 # PCM_16, PCM_24, FLOAT, MPEG_LAYER_III ...
     is_lossy: bool
+    is_float: bool               # 32비트 float 인가 (0 dBFS 초과가 허용됨)
     lufs: float                  # 통합 라우드니스
     true_peak_db: float          # dBTP — 4배 오버샘플링으로 잰 진짜 피크
     sample_peak_db: float        # dBFS — 샘플만 본 피크
-    clipped_samples: int         # 0 dBFS 에 닿은 샘플 수
+    clipped_samples: int         # 되돌릴 수 없는 클리핑 (정수 포맷만)
+    over_full_scale: int         # 0 dBFS 를 넘은 샘플 수 (float 은 정상)
 
     def summary(self) -> str:
-        return (
-            f"{os.path.basename(self.path)}\n"
-            f"  {self.sample_rate} Hz · {self.channels}ch · {self.subtype} · "
-            f"{self.duration_sec:.1f}초\n"
-            f"  라우드니스 {self.lufs:.2f} LUFS\n"
+        depth = f"{self.subtype}{' (32비트 float)' if self.is_float else ''}"
+        lines = [
+            f"{os.path.basename(self.path)}",
+            f"  {self.sample_rate} Hz · {self.channels}ch · {depth} · "
+            f"{self.duration_sec:.1f}초",
+            f"  라우드니스 {self.lufs:.2f} LUFS",
             f"  트루 피크 {self.true_peak_db:.2f} dBTP "
-            f"(샘플 피크 {self.sample_peak_db:.2f} dBFS)\n"
-            f"  클리핑 샘플 {self.clipped_samples}개"
-        )
+            f"(샘플 피크 {self.sample_peak_db:.2f} dBFS)",
+        ]
+        if self.is_float:
+            lines.append(
+                f"  0 dBFS 초과 샘플 {self.over_full_scale}개 "
+                f"— float 이므로 게인만 내리면 그대로 복구됩니다"
+            )
+        else:
+            lines.append(f"  클리핑 샘플 {self.clipped_samples}개")
+        return "\n".join(lines)
 
 
 def _to_db(amplitude: float) -> float:
@@ -163,6 +178,10 @@ def analyze(path: str) -> AudioStats:
 
     sample_peak = float(np.max(np.abs(audio))) if frames else 0.0
     ext = os.path.splitext(path)[1].lower()
+    is_float = subtype in _FLOAT_SUBTYPES
+
+    over = int(np.sum(np.abs(audio) > 1.0))
+    at_full = int(np.sum(np.abs(audio) >= 0.999999))
 
     return AudioStats(
         path=path,
@@ -172,10 +191,13 @@ def analyze(path: str) -> AudioStats:
         duration_sec=frames / sr if sr else 0.0,
         subtype=subtype,
         is_lossy=ext in _LOSSY_EXT,
+        is_float=is_float,
         lufs=float(loudness),
         true_peak_db=_true_peak_db(audio),
         sample_peak_db=_to_db(sample_peak),
-        clipped_samples=int(np.sum(np.abs(audio) >= 0.999999)),
+        # float 은 1.0 을 넘어도 정보가 안 잘린다. 정수 포맷에서만 클리핑이다.
+        clipped_samples=0 if is_float else at_full,
+        over_full_scale=over,
     )
 
 
@@ -194,21 +216,32 @@ def check_source(stats: AudioStats) -> List[Issue]:
             "수노에서 WAV 로 다시 받으십시오. 음질에 가장 큰 차이를 만드는 한 가지입니다.",
         ))
 
-    if stats.clipped_samples > 0:
-        pct = 100.0 * stats.clipped_samples / max(stats.frames * stats.channels, 1)
-        issues.append(Issue(
-            "warn" if pct < 0.01 else "block",
-            f"이미 클리핑된 샘플이 {stats.clipped_samples}개 있습니다 ({pct:.4f}%).",
-            "원본에서 이미 찌그러진 것이라 마스터링으로 못 고칩니다. "
-            "수노에서 다시 뽑는 편이 낫습니다.",
-        ))
+    if stats.is_float:
+        # 32비트 float 은 0 dBFS 를 넘어도 정보가 잘리지 않는다.
+        # 게인만 내리면 온전히 돌아오므로 막을 이유가 없다.
+        if stats.over_full_scale > 0:
+            issues.append(Issue(
+                "info",
+                f"0 dBFS 를 넘는 샘플이 {stats.over_full_scale}개 있습니다.",
+                "32비트 float 이라 잘린 것이 아닙니다. 게인을 내리면 그대로 살아납니다. "
+                "오히려 여유가 있는 좋은 원본입니다.",
+            ))
+    else:
+        if stats.clipped_samples > 0:
+            pct = 100.0 * stats.clipped_samples / max(stats.frames * stats.channels, 1)
+            issues.append(Issue(
+                "warn" if pct < 0.01 else "block",
+                f"이미 클리핑된 샘플이 {stats.clipped_samples}개 있습니다 ({pct:.4f}%).",
+                "정수 포맷에서 잘린 것이라 마스터링으로 못 고칩니다. "
+                "수노에서 32비트 float WAV 로 다시 받으십시오.",
+            ))
 
-    if stats.true_peak_db > 0.0:
-        issues.append(Issue(
-            "warn",
-            f"트루 피크가 이미 0 dBFS 를 넘습니다 ({stats.true_peak_db:.2f} dBTP).",
-            "게인을 내리면 해결되지만, 원본에서 이미 리미터가 물렸을 수 있습니다.",
-        ))
+        if stats.true_peak_db > 0.0:
+            issues.append(Issue(
+                "warn",
+                f"트루 피크가 0 dBFS 를 넘습니다 ({stats.true_peak_db:.2f} dBTP).",
+                "게인을 내리면 해결되지만, 원본에 이미 리미터가 물렸을 수 있습니다.",
+            ))
 
     if stats.duration_sec < 30:
         issues.append(Issue(
@@ -265,6 +298,17 @@ def _indent(text: str, pad: str = "  ") -> str:
     return "\n".join(pad + line for line in text.splitlines())
 
 
+_BIT_DEPTH = {
+    "PCM_S8": 8, "PCM_U8": 8, "PCM_16": 16, "PCM_24": 24, "PCM_32": 32,
+    "FLOAT": 32, "DOUBLE": 64,
+}
+
+
+def _bit_depth(subtype: str) -> int:
+    """포맷의 비트뎁스. 모르는 포맷은 비교하지 않도록 큰 값을 준다."""
+    return _BIT_DEPTH.get(subtype, 999)
+
+
 def master(
     src_path: str,
     dst_path: str,
@@ -272,7 +316,7 @@ def master(
     reference: Optional[str] = None,
     target_lufs: float = TARGET_LUFS,
     target_true_peak_db: float = TARGET_TRUE_PEAK_DB,
-    subtype: str = "PCM_24",
+    subtype: Optional[str] = None,
     allow_lossy_source: bool = False,
 ) -> MasterResult:
     """
@@ -281,12 +325,15 @@ def master(
     reference           : 레퍼런스 음원 경로. 주면 matchering 으로 음색을 맞춘다
     target_lufs         : 목표 라우드니스. 유튜브 기준 -14
     target_true_peak_db : 트루 피크 상한. 유튜브 재인코딩 대비 -1.0
-    subtype             : 출력 포맷. PCM_24 권장 (PCM_16 은 dither 없이 쓰지 말 것)
-    allow_lossy_source  : MP3 원본을 허용할지. 기본은 막는다
+    subtype             : 출력 포맷. None 이면 **원본 그대로 유지한다.**
+                          32비트 float 원본을 24비트로 깎으면 그만큼 잃는다.
+                          유튜브 업로드용으로 따로 뽑을 때만 "PCM_24" 를 준다
+    allow_lossy_source  : 손실 압축 원본을 허용할지. 기본은 막는다
 
     무손실 보장:
       reference 없이 돌리면 출력은 입력에 상수 하나를 곱한 것이다.
       압축도 리미팅도 EQ 도 걸지 않는다. verify_lossless() 로 확인 가능.
+      단 출력 비트뎁스가 원본보다 낮으면 그 차이만큼은 양자화 손실이다.
     """
     before = analyze(src_path)
     issues = check_source(before)
@@ -340,8 +387,26 @@ def master(
     audio = audio * (10.0 ** (gain_db / 20.0))
 
     # ── 4. 내보내기 ───────────────────────────────────────────
+    # 비트뎁스를 안 정하면 원본 그대로 유지한다. 32비트 float 원본을
+    # 24비트로 깎으면 무손실이 아니게 된다.
+    out_subtype = subtype or before.subtype
+    if not sf.check_format("WAV", out_subtype):
+        issues.append(Issue(
+            "warn",
+            f"'{out_subtype}' 로는 WAV 를 쓸 수 없어 FLOAT 으로 내보냅니다.",
+        ))
+        out_subtype = "FLOAT"
+
+    if subtype and _bit_depth(subtype) < _bit_depth(before.subtype):
+        issues.append(Issue(
+            "warn",
+            f"원본보다 낮은 비트뎁스로 내보냅니다 "
+            f"({before.subtype} → {subtype}).",
+            "이만큼은 무손실이 아닙니다. 보관본은 원본 포맷으로 따로 두십시오.",
+        ))
+
     os.makedirs(os.path.dirname(os.path.abspath(dst_path)) or ".", exist_ok=True)
-    sf.write(dst_path, audio, sr, subtype=subtype)
+    sf.write(dst_path, audio, sr, subtype=out_subtype)
 
     after = analyze(dst_path)
 
